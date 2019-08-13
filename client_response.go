@@ -1,0 +1,107 @@
+package recurly
+
+import (
+	"fmt"
+	"net/http"
+	"net/url"
+	"strconv"
+	"time"
+)
+
+// ResponseMetadata is the response from Recurly's API
+type ResponseMetadata struct {
+	// DeprecatedEndpoint is true if the endpoint is now deprecated and should not be used.
+	DeprecatedEndpoint bool
+	// DeprecationDate indicates the endpoint will sunset and should not be used after this date.
+	DeprecationDate string
+	// RateLimit indicates the remaining API requests before the rate limit is exceeded.
+	RateLimit *RateLimit
+	// StatusCode contains the response's HTTP status code
+	StatusCode int
+	// RequestID uniquely identifies the Recurly API request for debugging
+	RequestID string
+	// Version indicates the response version
+	Version string
+}
+
+func (c *Client) parseResponseMetadata(requestURL *url.URL, res *http.Response) ResponseMetadata {
+	isDeprecated := false
+	if deprecated := res.Header.Get("Recurly-Deprecated"); deprecated == "TRUE" {
+		isDeprecated = true
+		c.Log.Errorf("Endpoint %s is deprecated. Use at your own risk!", requestURL.Path)
+	}
+
+	sunsetDate := res.Header.Get("Recurly-Sunset-Date")
+	if sunsetDate != "" && !isDeprecated {
+		c.Log.Warnf("Endpoint %s will no longer be available after %s.", requestURL.Path, sunsetDate)
+	}
+
+	// TODO: How do we want to expose the rate limit info?
+	// Maybe use a chan(RateLimit) for something to get the data?
+	// rateLimit := parseRateLimit(response)
+
+	return ResponseMetadata{
+		DeprecatedEndpoint: isDeprecated,
+		DeprecationDate:    sunsetDate,
+		RateLimit:          parseRateLimit(res),
+		StatusCode:         res.StatusCode,
+		RequestID:          res.Header.Get("X-Request-Id"),
+		Version:            res.Header.Get("Recurly-Version"),
+	}
+}
+
+func (meta ResponseMetadata) String() string {
+	line := fmt.Sprintf("status code: %d, request ID: %s, version: %s, limit: %d remaining of %d",
+		meta.StatusCode,
+		meta.RequestID,
+		meta.Version,
+		meta.RateLimit.Remaining,
+		meta.RateLimit.Limit,
+	)
+	if meta.DeprecatedEndpoint {
+		line = "DEPRECATED! " + line
+	}
+	if meta.DeprecationDate != "" {
+		line = fmt.Sprintf("%s sunset date: %s", line, meta.DeprecationDate)
+	}
+	return line
+}
+
+// RateLimit contains information about the number of API requests available within the rate limit
+type RateLimit struct {
+	Limit          int
+	Remaining      int
+	resetTimestamp int64
+}
+
+// String formats the rate limit
+func (limit RateLimit) String() string {
+	return fmt.Sprintf("%d remaining of %d", limit.Remaining, limit.Limit)
+}
+
+// ResetDate return the date when the API rate limit fully resets
+// See https://dev.recurly.com/docs/rate-limits for more information.
+func (limit RateLimit) ResetDate() *time.Time {
+	if limit.resetTimestamp == 0 {
+		return nil
+	}
+
+	reset := time.Unix(limit.resetTimestamp, 0)
+	return &reset
+}
+
+func parseRateLimit(res *http.Response) *RateLimit {
+	limitStr := res.Header.Get("X-RateLimit-Limit")
+	if limitStr == "" {
+		return nil
+	}
+	limit, _ := strconv.Atoi(limitStr)
+	remaining, _ := strconv.Atoi(res.Header.Get("X-RateLimit-Remaining"))
+	reset, _ := strconv.ParseInt(res.Header.Get("X-RateLimit-Reset"), 10, 64)
+
+	return &RateLimit{
+		Limit:          limit,
+		Remaining:      remaining,
+		resetTimestamp: reset,
+	}
+}
