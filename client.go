@@ -1,11 +1,13 @@
 package recurly
 
 import (
+	"bytes"
 	"encoding/json"
 	"fmt"
 	"io/ioutil"
 	"net/http"
 	"net/url"
+	"reflect"
 	"strconv"
 	"strings"
 	"time"
@@ -27,9 +29,18 @@ var (
 	// whe ncreating the client.
 	APIKey string
 
-	// Site is the default site identifier to use globally if not specified
+	// SiteID is the default site identifier to use globally if not specified
 	// when creating a new client.
-	Site SiteIdentifier
+	SiteID SiteIdentifier
+
+	// DefaultHTTPClient provides a default HTTP client for making HTTPS requests to Recurly
+	DefaultHTTPClient = &http.Client{
+		CheckRedirect: func(req *http.Request, via []*http.Request) error {
+			return http.ErrUseLastResponse // disable redirects
+		},
+		Jar:     nil,
+		Timeout: 30 * time.Second,
+	}
 )
 
 // Client submits API requests to Recurly
@@ -59,17 +70,11 @@ func (id *SiteIdentifier) URLEncode() string {
 // DefaultClient returns the default API Client using the globally set Site and APIKey
 func DefaultClient() *Client {
 	return &Client{
-		apiKey:  APIKey,
-		baseURL: APIHost,
-		siteID:  Site,
-		Log:     NewLogger(LevelDebug),
-		HTTPClient: &http.Client{
-			CheckRedirect: func(req *http.Request, via []*http.Request) error {
-				return http.ErrUseLastResponse // disable redirects
-			},
-			Jar:     nil,
-			Timeout: 30 * time.Second,
-		},
+		apiKey:     APIKey,
+		baseURL:    APIHost,
+		siteID:     SiteID,
+		Log:        NewLogger(LevelDebug),
+		HTTPClient: DefaultHTTPClient,
 	}
 }
 
@@ -91,11 +96,20 @@ func NewClient(apiKey string, siteID SiteIdentifier, httpClient *http.Client) *C
 }
 
 // Call sends a request to Recurly and parses the JSON response for the expected response type
-func (c *Client) Call(method string, path string, params Params, v interface{}) error {
+func (c *Client) Call(method string, path string, genericParams GenericParams, v interface{}) error {
 	if !strings.HasPrefix(path, "/") {
 		path = "/" + path
 	}
-	path = fmt.Sprintf("%s/sites/%s%s", c.baseURL, c.siteID.URLEncode(), path)
+	if strings.HasPrefix(path, sitesRoot) {
+		path = fmt.Sprintf("%s%s", c.baseURL, path)
+	} else {
+		path = fmt.Sprintf("%s/sites/%s%s", c.baseURL, c.siteID.URLEncode(), path)
+	}
+
+	var params *Params
+	if genericParams != nil && !reflect.ValueOf(genericParams).IsNil() { // test if the interface is nil
+		params = genericParams.toParams()
+	}
 
 	req, err := c.NewRequest(http.MethodGet, path, params)
 	if err != nil {
@@ -106,8 +120,24 @@ func (c *Client) Call(method string, path string, params Params, v interface{}) 
 }
 
 // NewRequest generates an http.Request for the API client to submit to Recurly.
-func (c *Client) NewRequest(method string, url string, params Params) (*http.Request, error) {
-	req, err := http.NewRequest(method, url, nil)
+func (c *Client) NewRequest(method string, requestURL string, params *Params) (*http.Request, error) {
+	if params != nil {
+		// Append URL parameters
+		if keyValues := params.URLParams(); len(keyValues) > 0 {
+			var buf bytes.Buffer
+			for i, kv := range keyValues {
+				if i > 0 {
+					buf.WriteByte('&')
+				}
+				buf.WriteString(kv.Key)
+				buf.WriteByte('=')
+				buf.WriteString(url.QueryEscape(kv.Value))
+			}
+			requestURL = fmt.Sprintf("%s?%s", requestURL, buf.String())
+		}
+	}
+
+	req, err := http.NewRequest(method, requestURL, nil)
 	if err != nil {
 		return nil, err
 	}
@@ -120,16 +150,19 @@ func (c *Client) NewRequest(method string, url string, params Params) (*http.Req
 
 	if params != nil {
 		// TODO: generate an idempotency key if missing?
-		if key := params.IdempotencyKey(); key != "" {
-			req.Header.Add("Idempotency-Key", key)
+		if params.IdempotencyKey != "" {
+			req.Header.Add("Idempotency-Key", params.IdempotencyKey)
 		}
-		for key, v := range params.Headers() {
+		for key, v := range params.Header {
 			for _, value := range v {
 				req.Header.Set(key, value)
 			}
 		}
-		// TODO: Add URL parameters
 		// TODO: encode any body parameters
+
+		if params.Context != nil {
+			req = req.WithContext(params.Context)
+		}
 	}
 
 	return req, nil
