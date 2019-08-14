@@ -2,9 +2,12 @@ package recurly
 
 import (
 	"bytes"
+	"compress/gzip"
+	"crypto/tls"
 	"encoding/json"
 	"fmt"
 	"io/ioutil"
+	"net"
 	"net/http"
 	"net/url"
 	"reflect"
@@ -21,6 +24,8 @@ const (
 	APIHost = "https://partner-api.recurly.com"
 
 	userAgent = "recurly-go/0.0.1" // TODO: dynamically insert version
+
+	defaultTimeout = 60 * time.Second
 )
 
 var (
@@ -33,13 +38,27 @@ var (
 	// when creating a new client.
 	SiteID SiteIdentifier
 
-	// DefaultHTTPClient provides a default HTTP client for making HTTPS requests to Recurly
-	DefaultHTTPClient = &http.Client{
+	defaultTransport = &http.Transport{
+		DialContext: (&net.Dialer{
+			Timeout:   30 * time.Second,
+			KeepAlive: time.Minute,
+			DualStack: true,
+		}).DialContext,
+		IdleConnTimeout:     2 * time.Minute,
+		TLSHandshakeTimeout: 10 * time.Second,
+		TLSClientConfig: &tls.Config{
+			MinVersion: tls.VersionTLS12,
+		},
+	}
+
+	// defaultClient provides a default HTTP client for making HTTPS requests to Recurly
+	defaultClient = &http.Client{
 		CheckRedirect: func(req *http.Request, via []*http.Request) error {
 			return http.ErrUseLastResponse // disable redirects
 		},
-		Jar:     nil,
-		Timeout: 30 * time.Second,
+		Jar:       nil,
+		Timeout:   defaultTimeout,
+		Transport: defaultTransport,
 	}
 )
 
@@ -74,7 +93,7 @@ func DefaultClient() *Client {
 		baseURL:    APIHost,
 		siteID:     SiteID,
 		Log:        NewLogger(LevelDebug),
-		HTTPClient: DefaultHTTPClient,
+		HTTPClient: defaultClient,
 	}
 }
 
@@ -143,6 +162,7 @@ func (c *Client) NewRequest(method string, requestURL string, params *Params) (*
 	}
 
 	req.Header.Add("Accept", fmt.Sprintf("Accept: application/vnd.recurly.%s", APIVersion))
+	req.Header.Set("Accept-Encoding", "gzip")
 	req.Header.Add("Content-Type", "application/json; charset=utf-8")
 	req.Header.Add("Recurly-Version", fmt.Sprintf("recurly.%s", APIVersion))
 	req.Header.Add("User-Agent", userAgent)
@@ -191,7 +211,18 @@ func (c *Client) Do(req *http.Request, v interface{}) error {
 	c.Log.Debugf("Response: %d, %0.3f sec", res.StatusCode, requestTime.Seconds())
 	defer res.Body.Close()
 
-	body, err := ioutil.ReadAll(res.Body)
+	// Gzip decode
+	bodyReader := res.Body
+	contentEncoding := strings.ToLower(res.Header.Get("Content-Encoding"))
+	if contentEncoding == "gzip" {
+		gzipReader, err := gzip.NewReader(bodyReader)
+		if err != nil {
+			return err
+		}
+		bodyReader = gzipReader
+	}
+
+	body, err := ioutil.ReadAll(bodyReader)
 	if err != nil {
 		c.Log.Errorf("Cannot read response: %s", err)
 		return err
