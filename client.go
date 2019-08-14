@@ -111,7 +111,7 @@ func (c *Client) Call(method string, path string, genericParams GenericParams, v
 		params = genericParams.toParams()
 	}
 
-	req, err := c.NewRequest(http.MethodGet, path, params)
+	req, err := c.NewRequest(method, path, params)
 	if err != nil {
 		return err
 	}
@@ -158,7 +158,15 @@ func (c *Client) NewRequest(method string, requestURL string, params *Params) (*
 				req.Header.Set(key, value)
 			}
 		}
-		// TODO: encode any body parameters
+
+		if params.Data != nil && method != http.MethodGet {
+			data, err := json.Marshal(params.Data)
+			if err != nil {
+				c.Log.Errorf("Failed to marshal data to JSON payload: %v", err)
+				return nil, err
+			}
+			req.Body = ioutil.NopCloser(bytes.NewBuffer(data))
+		}
 
 		if params.Context != nil {
 			req = req.WithContext(params.Context)
@@ -170,7 +178,7 @@ func (c *Client) NewRequest(method string, requestURL string, params *Params) (*
 
 // Do submits the http.Request to Recurly's API and parses the JSON response
 func (c *Client) Do(req *http.Request, v interface{}) error {
-	c.Log.Debugf("Requesting %s", req.URL.String())
+	c.Log.Debugf("Requesting %s %s", req.Method, req.URL.String())
 
 	startTime := time.Now()
 	res, err := c.HTTPClient.Do(req)
@@ -201,6 +209,11 @@ func (c *Client) Do(req *http.Request, v interface{}) error {
 		// TODO: inspect the status code to determine if a 5xx error is why we can't parse
 		return err
 	}
+
+	// TODO: On non-2xx response, return an error
+	// 404 -- object not found
+	// 422 -- invalid request
+	// 429 -- rate limited
 
 	return nil
 }

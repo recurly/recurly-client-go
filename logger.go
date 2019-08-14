@@ -33,7 +33,7 @@ func NewLogger(logLevel Level) *Logger {
 
 // IsLevel returns true if the logger would print with the given level
 func (log *Logger) IsLevel(level Level) bool {
-	return log.Level >= level
+	return log.Level <= level
 }
 
 func (log *Logger) Debug(v ...interface{}) {

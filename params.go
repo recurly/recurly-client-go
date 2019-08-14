@@ -20,13 +20,16 @@ type RequestParams interface {
 // Params contains additional request parameters for the API client
 type Params struct {
 	// IdempotencyKey used to prevent duplicate requests
-	IdempotencyKey string
+	IdempotencyKey string `json:"-"`
 	// Header contains additional request headers for unique requests
-	Header http.Header
+	Header http.Header `json:"-"`
 	// Context passed to the HTTP request for cancelling requests
-	Context context.Context
+	Context context.Context `json:"-"`
 
-	RequestParams
+	RequestParams `json:"-"`
+
+	// Data contains an object to be JSON encoded and sent in the body of the request
+	Data interface{} `json:"-"`
 }
 
 // URLParams contains additional URL parameters for querying generic lists

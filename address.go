@@ -1,14 +1,14 @@
 package recurly
 
 type Address struct {
-	FirstName  *string `json:"first_name,omitifempty"`
-	LastName   *string `json:"last_name,omitifempty"`
-	Phone      *string `json:"phone,omitifempty"`
-	Street1    *string `json:"street1,omitifempty"`
-	Street2    *string `json:"street2,omitifempty"`
-	City       *string `json:"city,omitifempty"`
-	State      *string `json:"state,omitifempty"`
-	Region     *string `json:"region,omitifempty"`
-	PostalCode *string `json:"postal_code,omitifempty"`
-	Country    *string `json:"country,omitifempty"`
+	FirstName  *string `json:"first_name,omitempty"`
+	LastName   *string `json:"last_name,omitempty"`
+	Phone      *string `json:"phone,omitempty"`
+	Street1    *string `json:"street1,omitempty"`
+	Street2    *string `json:"street2,omitempty"`
+	City       *string `json:"city,omitempty"`
+	State      *string `json:"state,omitempty"`
+	Region     *string `json:"region,omitempty"`
+	PostalCode *string `json:"postal_code,omitempty"`
+	Country    *string `json:"country,omitempty"`
 }

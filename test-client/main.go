@@ -57,10 +57,39 @@ func main() {
 		}
 	}
 
-	account, err := client.GetAccountByAccountCode("robot-overlord")
+	account, err := client.GetAccountByAccountCode("robot-overlord", nil)
 	if err != nil {
 		errLog.Printf("Failed to retrieve account: %v", err)
 	} else {
 		log.Printf("Received account: %v", account)
+	}
+
+	// --------------
+	// Create account
+
+	accountParams := &recurly.CreateAccountAttributes{
+		Code:  "woody-123456",
+		Email: "test@example.com",
+	}
+	newAccount, err := client.CreateAccount(accountParams)
+	if err != nil {
+		errLog.Printf("Failed to retrieve account: %v", err)
+	} else {
+		log.Printf("Received account: %v", newAccount)
+	}
+
+	// --------------
+	// Update account
+
+	accountUpdateParams := &recurly.UpdateAccountAttributes{
+		Email:     "test-1234@example.com",
+		FirstName: "Woody",
+		LastName:  "Bird",
+	}
+	updatedAccount, err := client.UpdateAccount(newAccount.ID, accountUpdateParams)
+	if err != nil {
+		errLog.Printf("Failed to update account: %v", err)
+	} else {
+		log.Printf("Received updated account: %v", updatedAccount)
 	}
 }

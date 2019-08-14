@@ -28,24 +28,89 @@ type Account struct {
 	State                AccountState `json:"state"`
 	HostedLoginToken     string       `json:"hosted_login_token"`
 	ShippingAddresses    []Address    `json:"shipping_addresses"`
-	Username             *string      `json:"username,omitifempty"`
-	Email                *string      `json:"email,omitifempty"`
-	PreferredLocal       *string      `json:"preferred_locale,omitifempty"`
-	CCEmails             *string      `json:"cc_emails,omitifempty"`
-	FirstName            *string      `json:"first_name,omitifempty"`
-	LastName             *string      `json:"last_name,omitifempty"`
+	Username             *string      `json:"username,omitempty"`
+	Email                *string      `json:"email,omitempty"`
+	PreferredLocal       *string      `json:"preferred_locale,omitempty"`
+	CCEmails             *string      `json:"cc_emails,omitempty"`
+	FirstName            *string      `json:"first_name,omitempty"`
+	LastName             *string      `json:"last_name,omitempty"`
 	Company              *string      `json:"company"`
 	VATNumber            *string      `json:"vat_number"`
 	TaxExempt            *bool        `json:"tax_exempt"`
 	ExceptionCertificate *string      `json:"exception_certificate"`
-	ParentAccountII      *string      `json:"parent_account_id"`
+	ParentAccountID      *string      `json:"parent_account_id"`
 	BillTo               *string      `json:"bill_to"`
-	Address              *Address     `json:"address,omitifemtpy"`
+	Address              *Address     `json:"address,omitempty"`
 	BillingInfo          *BillingInfo `json:"billing_info"`
 	CreatedAt            time.Time    `json:"created_at"`
 	UpdatedAt            time.Time    `json:"updated_at"`
 	DeletedAt            *time.Time   `json:"deleted_at"`
 	CustomFields         CustomFields `json:"custom_fields"`
+}
+
+// CreateAccountAttributes for creating a new account
+type CreateAccountAttributes struct {
+	Params `json:"-"`
+	// Acquisition
+	Code                 AccountCode            `json:"code"`
+	ShippingAddresses    []Address              `json:"shipping_addresses,omitempty"`
+	Username             string                 `json:"username,omitempty"`
+	Email                string                 `json:"email,omitempty"`
+	PreferredLocal       string                 `json:"preferred_locale,omitempty"`
+	CCEmails             string                 `json:"cc_emails,omitempty"`
+	FirstName            string                 `json:"first_name,omitempty"`
+	LastName             string                 `json:"last_name,omitempty"`
+	Company              string                 `json:"company,omitempty"`
+	VATNumber            string                 `json:"vat_number,omitempty"`
+	TaxExempt            *bool                  `json:"tax_exempt,omitempty"`
+	ExceptionCertificate string                 `json:"exception_certificate,omitempty"`
+	ParentAccountID      string                 `json:"parent_account_id,omitempty"`
+	ParentAccountCode    string                 `json:"parent_account_code,omitempty"`
+	BillTo               string                 `json:"bill_to,omitempty"`
+	Address              *Address               `json:"address,omitempty"`
+	BillingInfo          *BillingInfoAttributes `json:"billing_info,omitempty"`
+	CustomFields         CustomFields           `json:"custom_fields,omitempty"`
+}
+
+func (attr *CreateAccountAttributes) toParams() *Params {
+	return &Params{
+		IdempotencyKey: attr.IdempotencyKey,
+		Header:         attr.Header,
+		Context:        attr.Context,
+		Data:           attr,
+	}
+}
+
+//UpdateAccountAttributes for creating a new account (omits Code)
+type UpdateAccountAttributes struct {
+	Params `json:"-"`
+	// Acquisition
+	ShippingAddresses    []Address              `json:"shipping_addresses,omitempty"`
+	Username             string                 `json:"username,omitempty"`
+	Email                string                 `json:"email,omitempty"`
+	PreferredLocal       string                 `json:"preferred_locale,omitempty"`
+	CCEmails             string                 `json:"cc_emails,omitempty"`
+	FirstName            string                 `json:"first_name,omitempty"`
+	LastName             string                 `json:"last_name,omitempty"`
+	Company              string                 `json:"company,omitempty"`
+	VATNumber            string                 `json:"vat_number,omitempty"`
+	TaxExempt            *bool                  `json:"tax_exempt,omitempty"`
+	ExceptionCertificate string                 `json:"exception_certificate,omitempty"`
+	ParentAccountID      string                 `json:"parent_account_id,omitempty"`
+	ParentAccountCode    string                 `json:"parent_account_code,omitempty"`
+	BillTo               string                 `json:"bill_to,omitempty"`
+	Address              *Address               `json:"address,omitempty"`
+	BillingInfo          *BillingInfoAttributes `json:"billing_info,omitempty"`
+	CustomFields         CustomFields           `json:"custom_fields,omitempty"`
+}
+
+func (attr *UpdateAccountAttributes) toParams() *Params {
+	return &Params{
+		IdempotencyKey: attr.IdempotencyKey,
+		Header:         attr.Header,
+		Context:        attr.Context,
+		Data:           attr,
+	}
 }
 
 type AccountList struct {
@@ -112,6 +177,11 @@ func (id ObjectID) ToInt64() int64 {
 	return intID
 }
 
+// ToObjectID converts an int64 to an ObjectID
+func ToObjectID(id int64) ObjectID {
+	return ObjectID(strconv.FormatInt(id, 36))
+}
+
 func (account *Account) String() string {
 	data, err := json.Marshal(&account)
 	if err != nil {
@@ -120,17 +190,17 @@ func (account *Account) String() string {
 	return string(data)
 }
 
-// GetAccountByID returns an account with the given account ID
-func (c *Client) GetAccountByID(accountID int64) (*Account, error) {
+// GetAccount returns an account with the given account ID
+func (c *Client) GetAccount(accountID ObjectID, params GenericParams) (*Account, error) {
 	account := &Account{}
-	err := c.Call(http.MethodGet, fmt.Sprintf("%s/%d", accountsRoot, accountID), nil, account)
+	err := c.Call(http.MethodGet, fmt.Sprintf("%s/%s", accountsRoot, accountID), params, account)
 	return account, err
 }
 
 // GetAccountByAccountCode returns an account with the given account code
-func (c *Client) GetAccountByAccountCode(accountCode AccountCode) (*Account, error) {
+func (c *Client) GetAccountByAccountCode(accountCode AccountCode, params GenericParams) (*Account, error) {
 	account := &Account{}
-	err := c.Call(http.MethodGet, fmt.Sprintf("%s/%s", accountsRoot, urlEncode(accountCode)), nil, account)
+	err := c.Call(http.MethodGet, fmt.Sprintf("%s/%s", accountsRoot, urlEncode(accountCode)), params, account)
 	return account, err
 }
 
@@ -139,4 +209,39 @@ func (c *Client) ListAccounts(params *AccountListParams) (*AccountList, error) {
 	accounts := &AccountList{}
 	err := c.Call(http.MethodGet, accountsRoot, params, accounts)
 	return accounts, err
+}
+
+// CreateAccount creates a new account
+func (c *Client) CreateAccount(attributes *CreateAccountAttributes) (*Account, error) {
+	account := &Account{}
+	err := c.Call(http.MethodPost, accountsRoot, attributes, account)
+	return account, err
+}
+
+// UpdateAccount updates an account
+func (c *Client) UpdateAccount(accountID ObjectID, attributes *UpdateAccountAttributes) (*Account, error) {
+	account := &Account{}
+	err := c.Call(http.MethodPut, fmt.Sprintf("%s/%s", accountsRoot, accountID), attributes, account)
+	return account, err
+}
+
+// UpdateAccountByAccountCode updates an account
+func (c *Client) UpdateAccountByAccountCode(accountCode AccountCode, attributes *UpdateAccountAttributes) (*Account, error) {
+	account := &Account{}
+	err := c.Call(http.MethodPut, fmt.Sprintf("%s/%s", accountsRoot, urlEncode(accountCode)), attributes, account)
+	return account, err
+}
+
+// DeactivateAccount closes an account
+func (c *Client) DeactivateAccount(accountID ObjectID, params GenericParams) (*Account, error) {
+	account := &Account{}
+	err := c.Call(http.MethodDelete, fmt.Sprintf("%s/%s", accountsRoot, accountID), params, account)
+	return account, err
+}
+
+// DeactivateAccountByAccountCode closes an account
+func (c *Client) DeactivateAccountByAccountCode(accountCode AccountCode, params GenericParams) (*Account, error) {
+	account := &Account{}
+	err := c.Call(http.MethodDelete, fmt.Sprintf("%s/%s", accountsRoot, urlEncode(accountCode)), params, account)
+	return account, err
 }

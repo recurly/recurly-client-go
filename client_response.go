@@ -51,12 +51,11 @@ func (c *Client) parseResponseMetadata(requestURL *url.URL, res *http.Response) 
 }
 
 func (meta ResponseMetadata) String() string {
-	line := fmt.Sprintf("status code: %d, request ID: %s, version: %s, limit: %d remaining of %d",
+	line := fmt.Sprintf("status code: %d, request ID: %s, version: %s, limit: %s",
 		meta.StatusCode,
 		meta.RequestID,
 		meta.Version,
-		meta.RateLimit.Remaining,
-		meta.RateLimit.Limit,
+		meta.RateLimit,
 	)
 	if meta.DeprecatedEndpoint {
 		line = "DEPRECATED! " + line

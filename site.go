@@ -12,11 +12,11 @@ const (
 type Site struct {
 	BaseObject
 	Subdomain    string       `json:"subdomain"`
-	PublicAPIKey *string      `json:"public_api_key,omitifempty"`
+	PublicAPIKey *string      `json:"public_api_key,omitempty"`
 	Mode         SiteMode     `json:"site_mode"`
-	Address      *Address     `json:"address,omitifempty"`
+	Address      *Address     `json:"address,omitempty"`
 	SiteSettings SiteSettings `json:"site_settings"`
-	Features     []string     `json:"features,omitifempty"`
+	Features     []string     `json:"features,omitempty"`
 	CreatedAt    time.Time    `json:"created_at"`
 	UpdatedAt    time.Time    `json:"updated_at"`
 	DeletedAt    *time.Time   `json:"deleted_at"`
