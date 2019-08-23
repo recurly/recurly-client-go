@@ -11,15 +11,13 @@ import (
 	"net/http"
 	"net/url"
 	"reflect"
+	"regexp"
 	"runtime"
 	"strings"
 	"time"
 )
 
 const (
-	// APIVersion is the current Recurly API Version
-	APIVersion = "v2018-08-09"
-
 	defaultTimeout = 60 * time.Second
 )
 
@@ -30,7 +28,7 @@ var (
 	APIKey string
 
 	// APIHost is the base URL for Recurly API v3
-	APIHost = "https://partner-api.recurly.com"
+	APIHost = "https://v3.recurly.com"
 
 	defaultTransport = &http.Transport{
 		DialContext: (&net.Dialer{
@@ -95,6 +93,21 @@ func NewClient(apiKey string, httpClient *http.Client) *Client {
 	}
 }
 
+var PathPattern = regexp.MustCompile(`{[^}]+}`)
+
+// Takes an OpenAPI-style path such as "/accounts/{account_id}/shipping_addresses/{shipping_address_id}"
+// and a list of string arguments to fill the template, and it returns the interpolated path
+func (c *Client) InterpolatePath(path string, params ...interface{}) string {
+	template := PathPattern.ReplaceAllString(path, "%s")
+	encodedParams := make([]interface{}, len(params))
+	for i, v := range params {
+		str, _ := v.(string)
+		var encoded interface{} = url.PathEscape(str)
+		encodedParams[i] = encoded
+	}
+	return fmt.Sprintf(template, encodedParams...)
+}
+
 // Call sends a request to Recurly and parses the JSON response for the expected response type
 func (c *Client) Call(method string, path string, genericParams GenericParams, v interface{}) error {
 	if !strings.HasPrefix(path, "/") {
@@ -102,6 +115,8 @@ func (c *Client) Call(method string, path string, genericParams GenericParams, v
 	} else {
 		path = fmt.Sprintf("%s%s", c.baseURL, path)
 	}
+
+	path = BuildUrl(path, genericParams)
 
 	var params *Params
 	if genericParams != nil && !reflect.ValueOf(genericParams).IsNil() { // test if the interface is nil
@@ -116,11 +131,19 @@ func (c *Client) Call(method string, path string, genericParams GenericParams, v
 	return c.Do(req, v)
 }
 
-// NewRequest generates an http.Request for the API client to submit to Recurly.
-func (c *Client) NewRequest(method string, requestURL string, params *Params) (*http.Request, error) {
+// Append URL parameters
+func BuildUrl(requestURL string, genericParams GenericParams) string {
+	var params *Params
+	if genericParams != nil && !reflect.ValueOf(genericParams).IsNil() { // test if the interface is nil
+		params = genericParams.toParams()
+	}
+
 	if params != nil {
-		// Append URL parameters
+		fmt.Println("not nil")
+		fmt.Println(params.URLParams())
 		if keyValues := params.URLParams(); len(keyValues) > 0 {
+			fmt.Println("not nil")
+			fmt.Println(keyValues)
 			var buf bytes.Buffer
 			buf.WriteString(requestURL)
 			buf.WriteByte('?')
@@ -135,8 +158,14 @@ func (c *Client) NewRequest(method string, requestURL string, params *Params) (*
 			}
 			requestURL = buf.String()
 		}
+	} else {
+		fmt.Println("nil")
 	}
+	return requestURL
+}
 
+// NewRequest generates an http.Request for the API client to submit to Recurly.
+func (c *Client) NewRequest(method string, requestURL string, params *Params) (*http.Request, error) {
 	req, err := http.NewRequest(method, requestURL, nil)
 	if err != nil {
 		return nil, err
