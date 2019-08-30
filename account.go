@@ -28,18 +28,18 @@ type Account struct {
 	State                AccountState `json:"state"`
 	HostedLoginToken     string       `json:"hosted_login_token"`
 	ShippingAddresses    []Address    `json:"shipping_addresses"`
-	Username             *string      `json:"username,omitempty"`
-	Email                *string      `json:"email,omitempty"`
-	PreferredLocal       *string      `json:"preferred_locale,omitempty"`
-	CCEmails             *string      `json:"cc_emails,omitempty"`
-	FirstName            *string      `json:"first_name,omitempty"`
-	LastName             *string      `json:"last_name,omitempty"`
-	Company              *string      `json:"company"`
-	VATNumber            *string      `json:"vat_number"`
-	TaxExempt            *bool        `json:"tax_exempt"`
-	ExceptionCertificate *string      `json:"exception_certificate"`
-	ParentAccountID      *string      `json:"parent_account_id"`
-	BillTo               *string      `json:"bill_to"`
+	Username             string       `json:"username,omitempty"`
+	Email                string       `json:"email,omitempty"`
+	PreferredLocal       string       `json:"preferred_locale,omitempty"`
+	CCEmails             string       `json:"cc_emails,omitempty"`
+	FirstName            string       `json:"first_name,omitempty"`
+	LastName             string       `json:"last_name,omitempty"`
+	Company              string       `json:"company"`
+	VATNumber            string       `json:"vat_number"`
+	TaxExempt            bool         `json:"tax_exempt"`
+	ExceptionCertificate string       `json:"exception_certificate"`
+	ParentAccountID      string       `json:"parent_account_id"`
+	BillTo               string       `json:"bill_to"`
 	Address              *Address     `json:"address,omitempty"`
 	BillingInfo          *BillingInfo `json:"billing_info"`
 	CreatedAt            time.Time    `json:"created_at"`
@@ -52,7 +52,7 @@ type Account struct {
 type CreateAccountAttributes struct {
 	Params `json:"-"`
 	// Acquisition
-	Code                 AccountCode            `json:"code"`
+	Code                 string                 `json:"code"`
 	ShippingAddresses    []Address              `json:"shipping_addresses,omitempty"`
 	Username             string                 `json:"username,omitempty"`
 	Email                string                 `json:"email,omitempty"`
@@ -113,15 +113,48 @@ func (attr *UpdateAccountAttributes) toParams() *Params {
 	}
 }
 
+// AccountList allows pagination across a list of accounts
 type AccountList struct {
+	client       *Client
+	nextPagePath string
+
+	HasMore bool
+	Data    []Account
+}
+
+// internal struct for deserializing accounts
+type accountList struct {
 	ListMetadata
-	Data []*Account `json:"data"`
+	Data []Account `json:"data"`
 }
 
 type ListMetadata struct {
 	ObjectName string `json:"object"`
 	HasMore    bool   `json:"has_more"`
 	Next       string `json:"next"`
+}
+
+func newAccountsList(client *Client, list *accountList) *AccountList {
+	return &AccountList{
+		client:       client,
+		nextPagePath: list.Next,
+		HasMore:      list.HasMore,
+		Data:         list.Data,
+	}
+}
+
+// NextPage returns the next page of accounts
+func (list AccountList) NextPage() (*AccountList, error) {
+	if !list.HasMore {
+		return nil, nil
+	}
+
+	accounts := &accountList{}
+	err := list.client.Call(http.MethodGet, list.nextPagePath, nil, accounts)
+	if err != nil {
+		return nil, err
+	}
+	return newAccountsList(list.client, accounts), nil
 }
 
 type AccountState string
@@ -206,9 +239,12 @@ func (c *Client) GetAccountByAccountCode(accountCode AccountCode, params Generic
 
 // ListAccounts returns an array of accounts
 func (c *Client) ListAccounts(params *AccountListParams) (*AccountList, error) {
-	accounts := &AccountList{}
+	accounts := &accountList{}
 	err := c.Call(http.MethodGet, accountsRoot, params, accounts)
-	return accounts, err
+	if err != nil {
+		return nil, err
+	}
+	return newAccountsList(c, accounts), nil
 }
 
 // CreateAccount creates a new account
