@@ -15,7 +15,7 @@ type ResponseMetadata struct {
 	// DeprecationDate indicates the endpoint will sunset and should not be used after this date.
 	DeprecationDate string
 	// RateLimit indicates the remaining API requests before the rate limit is exceeded.
-	RateLimit *RateLimit
+	RateLimit RateLimit
 	// StatusCode contains the response's HTTP status code
 	StatusCode int
 	// RequestID uniquely identifies the Recurly API request for debugging
@@ -35,10 +35,6 @@ func (c *Client) parseResponseMetadata(requestURL *url.URL, res *http.Response) 
 	if sunsetDate != "" && !isDeprecated {
 		c.Log.Warnf("Endpoint %s will no longer be available after %s.", requestURL.Path, sunsetDate)
 	}
-
-	// TODO: How do we want to expose the rate limit info?
-	// Maybe use a chan(RateLimit) for something to get the data?
-	// rateLimit := parseRateLimit(response)
 
 	return ResponseMetadata{
 		DeprecatedEndpoint: isDeprecated,
@@ -89,18 +85,21 @@ func (limit RateLimit) ResetDate() *time.Time {
 	return &reset
 }
 
-func parseRateLimit(res *http.Response) *RateLimit {
+func parseRateLimit(res *http.Response) RateLimit {
 	limitStr := res.Header.Get("X-RateLimit-Limit")
 	if limitStr == "" {
-		return nil
+		return RateLimit{}
 	}
-	limit, _ := strconv.Atoi(limitStr)
-	remaining, _ := strconv.Atoi(res.Header.Get("X-RateLimit-Remaining"))
+	limit, err := strconv.ParseInt(limitStr, 10, 64)
+	if err != nil {
+		return RateLimit{}
+	}
+	remaining, _ := strconv.ParseInt(res.Header.Get("X-RateLimit-Remaining"), 10, 64)
 	reset, _ := strconv.ParseInt(res.Header.Get("X-RateLimit-Reset"), 10, 64)
 
-	return &RateLimit{
-		Limit:          limit,
-		Remaining:      remaining,
+	return RateLimit{
+		Limit:          int(limit),
+		Remaining:      int(remaining),
 		resetTimestamp: reset,
 	}
 }

@@ -18,3 +18,41 @@ Body:
 {"id":"lcdysuuhicby","object":"account","code":"robot-overlord","parent_account_id":null,"bill_to":"self","state":"active","username":"","email":"robots-rule@gmail.com","cc_emails":"","preferred_locale":"","first_name":"Robot","last_name":"Overloard","company":"","vat_number":"","tax_exempt":false,"exemption_certificate":null,"address":{"phone":"","street1":"","street2":"","city":"","region":"","postal_code":"","country":""},"billing_info":null,"shipping_addresses":[],"custom_fields":[],"created_at":"2019-08-13T03:53:15Z","updated_at":"2019-08-13T03:53:15Z","deleted_at":null}
 2019/08/12 21:35:40.619584 Received account: {"code":"robot-overlord","username":"","email":"robots-rule@gmail.com","preferred_locale":"","cc_emails":"","first_name":"Robot","last_name":"Overloard","created_at":"2019-08-13T03:53:15Z","updated_at":"2019-08-13T03:53:15Z","deleted_at":null}
 ```
+
+### Pagination
+
+Pagination is explicit. Here's an example:
+
+```go
+listParams := &recurly.AccountListParams{
+    ListParams: recurly.ListParams{
+        Sort:  recurly.SortCreatedAt,
+        Order: recurly.ListAscending,
+    },
+}
+accounts, err := client.ListAccounts(listParams)
+if err != nil {
+    log.Printf("Failed to retrieve accounts: %v", err)
+} else {
+    for j := 0; j < 5; j++ { // stop after 5 pages
+        for i, account := range accounts.Data {
+            log.Printf("Account %3d: %d, %s, %s",
+                i,
+                account.ID.ToInt64(),
+                account.Code,
+                account.Email,
+            )
+        }
+
+        if !accounts.HasMore {
+            break
+        }
+        log.Print("Getting next page...")
+
+        accounts, err = accounts.NextPage()
+        if err != nil {
+            log.Printf("Failed to retrieve next page: %v", err)
+        }
+    }
+}
+```

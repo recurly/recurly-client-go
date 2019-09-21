@@ -12,8 +12,8 @@ const (
 type Site struct {
 	BaseObject
 	Subdomain    string       `json:"subdomain"`
-	PublicAPIKey *string      `json:"public_api_key,omitempty"`
-	Mode         SiteMode     `json:"site_mode"`
+	PublicAPIKey string       `json:"public_api_key,omitempty"`
+	Mode         SiteMode     `json:"mode"`
 	Address      *Address     `json:"address,omitempty"`
 	SiteSettings SiteSettings `json:"site_settings"`
 	Features     []string     `json:"features,omitempty"`

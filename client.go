@@ -11,7 +11,7 @@ import (
 	"net/http"
 	"net/url"
 	"reflect"
-	"strconv"
+	"runtime"
 	"strings"
 	"time"
 )
@@ -19,11 +19,6 @@ import (
 const (
 	// APIVersion is the current Recurly API Version
 	APIVersion = "v2018-08-09"
-
-	// APIHost is the base URL for Recurly API v3
-	APIHost = "https://partner-api.recurly.com"
-
-	userAgent = "recurly-go/0.0.1" // TODO: dynamically insert version
 
 	defaultTimeout = 60 * time.Second
 )
@@ -34,9 +29,8 @@ var (
 	// whe ncreating the client.
 	APIKey string
 
-	// SiteID is the default site identifier to use globally if not specified
-	// when creating a new client.
-	SiteID SiteIdentifier
+	// APIHost is the base URL for Recurly API v3
+	APIHost = "https://partner-api.recurly.com"
 
 	defaultTransport = &http.Transport{
 		DialContext: (&net.Dialer{
@@ -60,30 +54,19 @@ var (
 		Timeout:   defaultTimeout,
 		Transport: defaultTransport,
 	}
+
+	acceptVersion  = fmt.Sprintf("Accept: application/vnd.recurly.%s", APIVersion)
+	recurlyVersion = fmt.Sprintf("recurly.%s", APIVersion)
+	userAgent      = fmt.Sprintf("Recurly/%s; go %s", clientVersion, runtime.Version())
 )
 
 // Client submits API requests to Recurly
 type Client struct {
 	apiKey  string
 	baseURL string
-	siteID  SiteIdentifier
 
 	Log        *Logger
 	HTTPClient *http.Client
-}
-
-// SiteIdentifier uniquely identifies a site making the request
-type SiteIdentifier struct {
-	ID        int64
-	Subdomain string
-}
-
-// URLEncode returns a URL encoded string to be used in API request paths
-func (id *SiteIdentifier) URLEncode() string {
-	if id.ID > 0 {
-		return strconv.FormatInt(id.ID, 10)
-	}
-	return fmt.Sprintf("subdomain-%s", url.PathEscape(id.Subdomain))
 }
 
 // DefaultClient returns the default API Client using the globally set Site and APIKey
@@ -91,14 +74,13 @@ func DefaultClient() *Client {
 	return &Client{
 		apiKey:     APIKey,
 		baseURL:    APIHost,
-		siteID:     SiteID,
 		Log:        NewLogger(LevelDebug),
 		HTTPClient: defaultClient,
 	}
 }
 
 // NewClient creates a new Recurly API Client
-func NewClient(apiKey string, siteID SiteIdentifier, httpClient *http.Client) *Client {
+func NewClient(apiKey string, httpClient *http.Client) *Client {
 	if apiKey == "" {
 		apiKey = APIKey
 	}
@@ -108,7 +90,6 @@ func NewClient(apiKey string, siteID SiteIdentifier, httpClient *http.Client) *C
 	return &Client{
 		apiKey:     apiKey,
 		baseURL:    APIHost,
-		siteID:     siteID,
 		Log:        NewLogger(LevelDebug),
 		HTTPClient: httpClient,
 	}
@@ -117,12 +98,9 @@ func NewClient(apiKey string, siteID SiteIdentifier, httpClient *http.Client) *C
 // Call sends a request to Recurly and parses the JSON response for the expected response type
 func (c *Client) Call(method string, path string, genericParams GenericParams, v interface{}) error {
 	if !strings.HasPrefix(path, "/") {
-		path = "/" + path
-	}
-	if strings.HasPrefix(path, sitesRoot) {
-		path = fmt.Sprintf("%s%s", c.baseURL, path)
+		path = fmt.Sprintf("%s/%s", c.baseURL, path)
 	} else {
-		path = fmt.Sprintf("%s/sites/%s%s", c.baseURL, c.siteID.URLEncode(), path)
+		path = fmt.Sprintf("%s%s", c.baseURL, path)
 	}
 
 	var params *Params
@@ -144,6 +122,9 @@ func (c *Client) NewRequest(method string, requestURL string, params *Params) (*
 		// Append URL parameters
 		if keyValues := params.URLParams(); len(keyValues) > 0 {
 			var buf bytes.Buffer
+			buf.WriteString(requestURL)
+			buf.WriteByte('?')
+
 			for i, kv := range keyValues {
 				if i > 0 {
 					buf.WriteByte('&')
@@ -152,7 +133,7 @@ func (c *Client) NewRequest(method string, requestURL string, params *Params) (*
 				buf.WriteByte('=')
 				buf.WriteString(url.QueryEscape(kv.Value))
 			}
-			requestURL = fmt.Sprintf("%s?%s", requestURL, buf.String())
+			requestURL = buf.String()
 		}
 	}
 
@@ -161,10 +142,10 @@ func (c *Client) NewRequest(method string, requestURL string, params *Params) (*
 		return nil, err
 	}
 
-	req.Header.Add("Accept", fmt.Sprintf("Accept: application/vnd.recurly.%s", APIVersion))
+	req.Header.Add("Accept", acceptVersion)
 	req.Header.Set("Accept-Encoding", "gzip")
 	req.Header.Add("Content-Type", "application/json; charset=utf-8")
-	req.Header.Add("Recurly-Version", fmt.Sprintf("recurly.%s", APIVersion))
+	req.Header.Add("Recurly-Version", recurlyVersion)
 	req.Header.Add("User-Agent", userAgent)
 	req.SetBasicAuth(c.apiKey, "")
 
@@ -208,7 +189,7 @@ func (c *Client) Do(req *http.Request, v interface{}) error {
 		c.Log.Errorf("Request failed: %v", err)
 		return err
 	}
-	c.Log.Debugf("Response: %d, %0.3f sec", res.StatusCode, requestTime.Seconds())
+	c.Log.Debugf("Response: %d, %5.3f sec", res.StatusCode, requestTime.Seconds())
 	defer res.Body.Close()
 
 	// Gzip decode
@@ -233,26 +214,25 @@ func (c *Client) Do(req *http.Request, v interface{}) error {
 		// Maybe use a chan(RateLimit) for something to get the data?
 		meta := c.parseResponseMetadata(req.URL, res)
 
-		c.Log.Debugf("Headers: %s\nBody:\n%s\n", meta.String(), body)
+		bodyContentType := res.Header.Get("Content-type")
+		if strings.HasPrefix(bodyContentType, "application/json") {
+			c.Log.Debugf("Headers: %s\nBody:\n%s\n", meta.String(), body)
+		} else {
+			c.Log.Debugf("Headers: %s\nBody content type: %s", meta.String(), bodyContentType)
+		}
 	}
 
-	if err = c.unmarshalJSON(body, v); err != nil {
-		// TODO: inspect the status code to determine if a 5xx error is why we can't parse
-		return err
+	if successfulStatus(res.StatusCode) {
+		if err = json.Unmarshal(body, v); err != nil {
+			c.Log.Errorf("Failed to deserialize JSON:\n%s", body)
+			return err
+		}
+		return nil
 	}
 
-	// TODO: On non-2xx response, return an error
-	// 404 -- object not found
-	// 422 -- invalid request
-	// 429 -- rate limited
-
-	return nil
+	return parseResponseToError(res, body)
 }
 
-func (c *Client) unmarshalJSON(data []byte, v interface{}) error {
-	err := json.Unmarshal(data, v)
-	if err != nil {
-		c.Log.Errorf("Failed to deserialize JSON:\n%s", data)
-	}
-	return err
+func successfulStatus(statusCode int) bool {
+	return statusCode == http.StatusOK || statusCode == http.StatusCreated
 }

@@ -15,11 +15,10 @@ func main() {
 	log.SetOutput(os.Stdout)
 	log.SetFlags(log.LstdFlags | log.Lmicroseconds)
 
-	// INSERT YOUR API KEY AND SITE ID OR SUBDOMAIN HERE
-	recurly.APIKey = ""
-	// recurly.Site = recurly.SiteIdentifier{ID: 12345678}
-	// or
-	recurly.SiteID = recurly.SiteIdentifier{Subdomain: "SUBDOMAIN"}
+	// INSERT YOUR API KEY HERE
+	recurly.APIKey = "APIKEY"
+
+	// recurly.APIHost = "https://partner-api.staging2.recurlyqa.com"
 
 	client := recurly.DefaultClient()
 
