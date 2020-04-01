@@ -35,6 +35,11 @@ accounts := client.ListAccounts(listParams)
 
 var err error = nil
 for accounts.HasMore {
+    accounts, err = accounts.NextPage()
+    if err != nil {
+        fmt.Printf("Failed to retrieve next page: %v", err)
+        break
+    }
     for i, account := range accounts.Data {
         fmt.Printf("Account %3d: %s, %s\n",
             i,
@@ -42,16 +47,6 @@ for accounts.HasMore {
             account.Code,
         )
     }
-
-    if !accounts.HasMore {
-        break
-    }
-    fmt.Print("Getting next page...")
-
-    accounts, err = accounts.NextPage()
-    if err != nil {
-        fmt.Printf("Failed to retrieve next page: %v", err)
-        break
-    }
 }
 ```
+
