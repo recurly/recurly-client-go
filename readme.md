@@ -30,29 +30,28 @@ listParams := &recurly.AccountListParams{
         Order: recurly.ListAscending,
     },
 }
-accounts, err := client.ListAccounts(listParams)
-if err != nil {
-    log.Printf("Failed to retrieve accounts: %v", err)
-} else {
-    for j := 0; j < 5; j++ { // stop after 5 pages
-        for i, account := range accounts.Data {
-            log.Printf("Account %3d: %d, %s, %s",
-                i,
-                account.ID.ToInt64(),
-                account.Code,
-                account.Email,
-            )
-        }
 
-        if !accounts.HasMore {
-            break
-        }
-        log.Print("Getting next page...")
+accounts := client.ListAccounts(listParams)
 
-        accounts, err = accounts.NextPage()
-        if err != nil {
-            log.Printf("Failed to retrieve next page: %v", err)
-        }
+var err error = nil
+for accounts.HasMore {
+    for i, account := range accounts.Data {
+        fmt.Printf("Account %3d: %s, %s\n",
+            i,
+            account.Id,
+            account.Code,
+        )
+    }
+
+    if !accounts.HasMore {
+        break
+    }
+    fmt.Print("Getting next page...")
+
+    accounts, err = accounts.NextPage()
+    if err != nil {
+        fmt.Printf("Failed to retrieve next page: %v", err)
+        break
     }
 }
 ```
