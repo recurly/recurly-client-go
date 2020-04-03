@@ -53,7 +53,7 @@ var (
 		Transport: defaultTransport,
 	}
 
-	acceptVersion  = fmt.Sprintf("Accept: application/vnd.recurly.%s", APIVersion)
+	acceptVersion  = fmt.Sprintf("application/vnd.recurly.%s", APIVersion)
 	recurlyVersion = fmt.Sprintf("recurly.%s", APIVersion)
 	userAgent      = fmt.Sprintf("Recurly/%s; go %s", clientVersion, runtime.Version())
 )
@@ -173,7 +173,6 @@ func (c *Client) NewRequest(method string, requestURL string, params *Params) (*
 	req.Header.Add("Accept", acceptVersion)
 	req.Header.Set("Accept-Encoding", "gzip")
 	req.Header.Add("Content-Type", "application/json; charset=utf-8")
-	req.Header.Add("Recurly-Version", recurlyVersion)
 	req.Header.Add("User-Agent", userAgent)
 	req.SetBasicAuth(c.apiKey, "")
 

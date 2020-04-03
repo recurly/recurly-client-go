@@ -436,11 +436,9 @@ paths:
       - lang: Go
         source: "listParams := &recurly.ListAccountsParams{\n\tSort:  recurly.String(\"created_at\"),\n\tOrder:
           recurly.String(\"desc\"),\n\tLimit: recurly.Int(200),\n}\naccounts := client.ListAccounts(listParams)\n\nvar
-          err error = nil\nfor accounts.HasMore {\n\tfor i, account := range accounts.Data
-          {\n\t\tfmt.Printf(\"Account %3d: %s, %s\\n\",\n\t\t\ti,\n\t\t\taccount.Id,\n\t\t\taccount.Code,\n\t\t)\n\t}\n\n\tif
-          !accounts.HasMore {\n\t\tbreak\n\t}\n\tfmt.Print(\"Getting next page...\")\n\n\taccounts,
-          err = accounts.NextPage()\n\tif err != nil {\n\t\tfmt.Printf(\"Failed to
-          retrieve next page: %v\", err)\n\t\tbreak\n\t}\n}"
+          err error = nil\nfor accounts.HasMore {\n\taccounts, err = accounts.NextPage()\n\tif
+          err != nil {\n\t\tfmt.Printf(\"Failed to retrieve next page: %v\", err)\n\t\tbreak\n\t}\n\tfor
+          i, account := range accounts.Data {\n\t\tfmt.Printf(\"Account %3d: %s, %s\\n\",\n\t\t\ti,\n\t\t\taccount.Id,\n\t\t\taccount.Code,\n\t\t)\n\t}\n}\n"
       - lang: ".NET"
         source: |
           var accounts = client.ListAccounts(limit: 200);
