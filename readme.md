@@ -1,27 +1,65 @@
 # Recurly Golang Client
 
-[APIv3 Documentation](https://partner-docs.recurly.com)
+[APIv3 Documentation](https://developers.recurly.com/api)
 
-Do not add any external dependencies! Use standard golang libraries only.
+## Examples
 
-### Example
+### Fetching
 
-Super early prototype
+```go
+account, err := client.GetAccount(accountId)
+if err != nil {
+    fmt.Printf("Failed to retrieve account: %v", err)
+} else {
+    fmt.Printf("Fetched Account: %s", account.Id)
+}
+ ```
 
+### Creating
+
+```go
+accountReq := &recurly.AccountCreate{
+    Code:      accountCode,
+    FirstName: "Isaac",
+    LastName:  "Du Monde",
+    Email:     "isaac@example.com",
+    BillingInfo: recurly.BillingInfoCreate{
+      FirstName: "Isaac",
+      LastName:  "Du Monde",
+      Address: recurly.Address{
+        Phone:      "415-555-5555",
+        Street1:    "400 Alabama St.",
+        City:       "San Francisco",
+        PostalCode: "94110",
+        Country:    "US",
+        Region:     "CA",
+      },
+      Number: "4111111111111111",
+      Month:  "12",
+      Year:   "22",
+      Cvv:    "123",
+    },
+  }
+
+account, err := client.CreateAccount(accountReq)
+if err != nil {
+    fmt.Printf("Failed to create an account: %v", err)
+}
+fmt.Printf("Created Account: %s", account.Id)
 ```
-$ make test
 
-Recurly 2019/08/12 21:35:40.094087 Requesting https://partner-api.recurly.com/sites/12345678/accounts/code-robot-overlord
-Recurly 2019/08/12 21:35:40.619377 Response: 200, 0.525 sec
-Recurly 2019/08/12 21:35:40.619452 Headers: status code: 200, request ID: 5057fbd20933cce2-EWR, version: recurly.v2018-08-09, limit: 1996 remaining of 2000
-Body:
-{"id":"lcdysuuhicby","object":"account","code":"robot-overlord","parent_account_id":null,"bill_to":"self","state":"active","username":"","email":"robots-rule@gmail.com","cc_emails":"","preferred_locale":"","first_name":"Robot","last_name":"Overloard","company":"","vat_number":"","tax_exempt":false,"exemption_certificate":null,"address":{"phone":"","street1":"","street2":"","city":"","region":"","postal_code":"","country":""},"billing_info":null,"shipping_addresses":[],"custom_fields":[],"created_at":"2019-08-13T03:53:15Z","updated_at":"2019-08-13T03:53:15Z","deleted_at":null}
-2019/08/12 21:35:40.619584 Received account: {"code":"robot-overlord","username":"","email":"robots-rule@gmail.com","preferred_locale":"","cc_emails":"","first_name":"Robot","last_name":"Overloard","created_at":"2019-08-13T03:53:15Z","updated_at":"2019-08-13T03:53:15Z","deleted_at":null}
+### Deleting
+
+```go
+account, err := client.DeactivateAccount(accountId)
+if err != nil {
+    fmt.Printf("Failed to retrieve account: %v", err)
+} else {
+    fmt.Printf("Deactivated Account: %s", account.Id)
+}
 ```
 
 ### Pagination
-
-Pagination is explicit. Here's an example:
 
 ```go
 listParams := &recurly.AccountListParams{
