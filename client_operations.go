@@ -29,7 +29,7 @@ func (list *ListSitesParams) toParams() *Params {
 	}
 }
 
-// List sites
+// ListSites List sites
 // Returns: A list of sites.
 func (c *Client) ListSites(params *ListSitesParams) *SiteList {
 	path := "/sites"
@@ -41,7 +41,7 @@ func (c *Client) ListSites(params *ListSitesParams) *SiteList {
 	}
 }
 
-// Fetch a site
+// GetSite Fetch a site
 // Returns: A site.
 func (c *Client) GetSite(siteId string) (*Site, error) {
 	path := c.InterpolatePath("/sites/{site_id}", siteId)
@@ -76,7 +76,7 @@ func (list *ListAccountsParams) toParams() *Params {
 	}
 }
 
-// List a site's accounts
+// ListAccounts List a site's accounts
 // Returns: A list of the site's accounts.
 func (c *Client) ListAccounts(params *ListAccountsParams) *AccountList {
 	path := "/accounts"
@@ -88,7 +88,7 @@ func (c *Client) ListAccounts(params *ListAccountsParams) *AccountList {
 	}
 }
 
-// Create an account
+// CreateAccount Create an account
 // Returns: An account.
 func (c *Client) CreateAccount(body *AccountCreate) (*Account, error) {
 	path := c.InterpolatePath("/accounts")
@@ -100,7 +100,7 @@ func (c *Client) CreateAccount(body *AccountCreate) (*Account, error) {
 	return result, err
 }
 
-// Fetch an account
+// GetAccount Fetch an account
 // Returns: An account.
 func (c *Client) GetAccount(accountId string) (*Account, error) {
 	path := c.InterpolatePath("/accounts/{account_id}", accountId)
@@ -112,7 +112,7 @@ func (c *Client) GetAccount(accountId string) (*Account, error) {
 	return result, err
 }
 
-// Modify an account
+// UpdateAccount Modify an account
 // Returns: An account.
 func (c *Client) UpdateAccount(accountId string, body *AccountUpdate) (*Account, error) {
 	path := c.InterpolatePath("/accounts/{account_id}", accountId)
@@ -124,7 +124,7 @@ func (c *Client) UpdateAccount(accountId string, body *AccountUpdate) (*Account,
 	return result, err
 }
 
-// Deactivate an account
+// DeactivateAccount Deactivate an account
 // Returns: An account.
 func (c *Client) DeactivateAccount(accountId string) (*Account, error) {
 	path := c.InterpolatePath("/accounts/{account_id}", accountId)
@@ -136,7 +136,7 @@ func (c *Client) DeactivateAccount(accountId string) (*Account, error) {
 	return result, err
 }
 
-// Fetch an account's acquisition data
+// GetAccountAcquisition Fetch an account's acquisition data
 // Returns: An account's acquisition data.
 func (c *Client) GetAccountAcquisition(accountId string) (*AccountAcquisition, error) {
 	path := c.InterpolatePath("/accounts/{account_id}/acquisition", accountId)
@@ -148,7 +148,7 @@ func (c *Client) GetAccountAcquisition(accountId string) (*AccountAcquisition, e
 	return result, err
 }
 
-// Update an account's acquisition data
+// UpdateAccountAcquisition Update an account's acquisition data
 // Returns: An account's updated acquisition data.
 func (c *Client) UpdateAccountAcquisition(accountId string, body *AccountAcquisitionUpdatable) (*AccountAcquisition, error) {
 	path := c.InterpolatePath("/accounts/{account_id}/acquisition", accountId)
@@ -160,7 +160,7 @@ func (c *Client) UpdateAccountAcquisition(accountId string, body *AccountAcquisi
 	return result, err
 }
 
-// Remove an account's acquisition data
+// RemoveAccountAcquisition Remove an account's acquisition data
 // Returns: Acquisition data was succesfully deleted.
 func (c *Client) RemoveAccountAcquisition(accountId string) (*Empty, error) {
 	path := c.InterpolatePath("/accounts/{account_id}/acquisition", accountId)
@@ -172,7 +172,7 @@ func (c *Client) RemoveAccountAcquisition(accountId string) (*Empty, error) {
 	return result, err
 }
 
-// Reactivate an inactive account
+// ReactivateAccount Reactivate an inactive account
 // Returns: An account.
 func (c *Client) ReactivateAccount(accountId string) (*Account, error) {
 	path := c.InterpolatePath("/accounts/{account_id}/reactivate", accountId)
@@ -184,7 +184,7 @@ func (c *Client) ReactivateAccount(accountId string) (*Account, error) {
 	return result, err
 }
 
-// Fetch an account's balance and past due status
+// GetAccountBalance Fetch an account's balance and past due status
 // Returns: An account's balance.
 func (c *Client) GetAccountBalance(accountId string) (*AccountBalance, error) {
 	path := c.InterpolatePath("/accounts/{account_id}/balance", accountId)
@@ -196,7 +196,7 @@ func (c *Client) GetAccountBalance(accountId string) (*AccountBalance, error) {
 	return result, err
 }
 
-// Fetch an account's billing information
+// GetBillingInfo Fetch an account's billing information
 // Returns: An account's billing information.
 func (c *Client) GetBillingInfo(accountId string) (*BillingInfo, error) {
 	path := c.InterpolatePath("/accounts/{account_id}/billing_info", accountId)
@@ -208,7 +208,7 @@ func (c *Client) GetBillingInfo(accountId string) (*BillingInfo, error) {
 	return result, err
 }
 
-// Set an account's billing information
+// UpdateBillingInfo Set an account's billing information
 // Returns: Updated billing information.
 func (c *Client) UpdateBillingInfo(accountId string, body *BillingInfoCreate) (*BillingInfo, error) {
 	path := c.InterpolatePath("/accounts/{account_id}/billing_info", accountId)
@@ -220,7 +220,7 @@ func (c *Client) UpdateBillingInfo(accountId string, body *BillingInfoCreate) (*
 	return result, err
 }
 
-// Remove an account's billing information
+// RemoveBillingInfo Remove an account's billing information
 // Returns: Billing information deleted
 func (c *Client) RemoveBillingInfo(accountId string) (*Empty, error) {
 	path := c.InterpolatePath("/accounts/{account_id}/billing_info", accountId)
@@ -250,7 +250,7 @@ func (list *ListAccountCouponRedemptionsParams) toParams() *Params {
 	}
 }
 
-// Show the coupon redemptions for an account
+// ListAccountCouponRedemptions Show the coupon redemptions for an account
 // Returns: A list of the the coupon redemptions on an account.
 func (c *Client) ListAccountCouponRedemptions(accountId string, params *ListAccountCouponRedemptionsParams) *CouponRedemptionList {
 	path := c.InterpolatePath("/accounts/{account_id}/coupon_redemptions", accountId)
@@ -262,7 +262,7 @@ func (c *Client) ListAccountCouponRedemptions(accountId string, params *ListAcco
 	}
 }
 
-// Show the coupon redemption that is active on an account
+// GetActiveCouponRedemption Show the coupon redemption that is active on an account
 // Returns: An active coupon redemption on an account.
 func (c *Client) GetActiveCouponRedemption(accountId string) (*CouponRedemption, error) {
 	path := c.InterpolatePath("/accounts/{account_id}/coupon_redemptions/active", accountId)
@@ -274,7 +274,7 @@ func (c *Client) GetActiveCouponRedemption(accountId string) (*CouponRedemption,
 	return result, err
 }
 
-// Generate an active coupon redemption on an account
+// CreateCouponRedemption Generate an active coupon redemption on an account
 // Returns: Returns the new coupon redemption.
 func (c *Client) CreateCouponRedemption(accountId string, body *CouponRedemptionCreate) (*CouponRedemption, error) {
 	path := c.InterpolatePath("/accounts/{account_id}/coupon_redemptions/active", accountId)
@@ -286,7 +286,7 @@ func (c *Client) CreateCouponRedemption(accountId string, body *CouponRedemption
 	return result, err
 }
 
-// Delete the active coupon redemption from an account
+// RemoveCouponRedemption Delete the active coupon redemption from an account
 // Returns: Coupon redemption deleted.
 func (c *Client) RemoveCouponRedemption(accountId string) (*CouponRedemption, error) {
 	path := c.InterpolatePath("/accounts/{account_id}/coupon_redemptions/active", accountId)
@@ -317,7 +317,7 @@ func (list *ListAccountCreditPaymentsParams) toParams() *Params {
 	}
 }
 
-// List an account's credit payments
+// ListAccountCreditPayments List an account's credit payments
 // Returns: A list of the account's credit payments.
 func (c *Client) ListAccountCreditPayments(accountId string, params *ListAccountCreditPaymentsParams) *CreditPaymentList {
 	path := c.InterpolatePath("/accounts/{account_id}/credit_payments", accountId)
@@ -350,7 +350,7 @@ func (list *ListAccountInvoicesParams) toParams() *Params {
 	}
 }
 
-// List an account's invoices
+// ListAccountInvoices List an account's invoices
 // Returns: A list of the account's invoices.
 func (c *Client) ListAccountInvoices(accountId string, params *ListAccountInvoicesParams) *InvoiceList {
 	path := c.InterpolatePath("/accounts/{account_id}/invoices", accountId)
@@ -362,7 +362,7 @@ func (c *Client) ListAccountInvoices(accountId string, params *ListAccountInvoic
 	}
 }
 
-// Create an invoice for pending line items
+// CreateInvoice Create an invoice for pending line items
 // Returns: Returns the new invoices.
 func (c *Client) CreateInvoice(accountId string, body *InvoiceCreate) (*InvoiceCollection, error) {
 	path := c.InterpolatePath("/accounts/{account_id}/invoices", accountId)
@@ -374,7 +374,7 @@ func (c *Client) CreateInvoice(accountId string, body *InvoiceCreate) (*InvoiceC
 	return result, err
 }
 
-// Preview new invoice for pending line items
+// PreviewInvoice Preview new invoice for pending line items
 // Returns: Returns the invoice previews.
 func (c *Client) PreviewInvoice(accountId string, body *InvoiceCreate) (*InvoiceCollection, error) {
 	path := c.InterpolatePath("/accounts/{account_id}/invoices/preview", accountId)
@@ -409,7 +409,7 @@ func (list *ListAccountLineItemsParams) toParams() *Params {
 	}
 }
 
-// List an account's line items
+// ListAccountLineItems List an account's line items
 // Returns: A list of the account's line items.
 func (c *Client) ListAccountLineItems(accountId string, params *ListAccountLineItemsParams) *LineItemList {
 	path := c.InterpolatePath("/accounts/{account_id}/line_items", accountId)
@@ -421,7 +421,7 @@ func (c *Client) ListAccountLineItems(accountId string, params *ListAccountLineI
 	}
 }
 
-// Create a new line item for the account
+// CreateLineItem Create a new line item for the account
 // Returns: Returns the new line item.
 func (c *Client) CreateLineItem(accountId string, body *LineItemCreate) (*LineItem, error) {
 	path := c.InterpolatePath("/accounts/{account_id}/line_items", accountId)
@@ -448,7 +448,7 @@ func (list *ListAccountNotesParams) toParams() *Params {
 	}
 }
 
-// Fetch a list of an account's notes
+// ListAccountNotes Fetch a list of an account's notes
 // Returns: A list of an account's notes.
 func (c *Client) ListAccountNotes(accountId string, params *ListAccountNotesParams) *AccountNoteList {
 	path := c.InterpolatePath("/accounts/{account_id}/notes", accountId)
@@ -460,7 +460,7 @@ func (c *Client) ListAccountNotes(accountId string, params *ListAccountNotesPara
 	}
 }
 
-// Fetch an account note
+// GetAccountNote Fetch an account note
 // Returns: An account note.
 func (c *Client) GetAccountNote(accountId string, accountNoteId string) (*AccountNote, error) {
 	path := c.InterpolatePath("/accounts/{account_id}/notes/{account_note_id}", accountId, accountNoteId)
@@ -492,7 +492,7 @@ func (list *ListShippingAddressesParams) toParams() *Params {
 	}
 }
 
-// Fetch a list of an account's shipping addresses
+// ListShippingAddresses Fetch a list of an account's shipping addresses
 // Returns: A list of an account's shipping addresses.
 func (c *Client) ListShippingAddresses(accountId string, params *ListShippingAddressesParams) *ShippingAddressList {
 	path := c.InterpolatePath("/accounts/{account_id}/shipping_addresses", accountId)
@@ -504,7 +504,7 @@ func (c *Client) ListShippingAddresses(accountId string, params *ListShippingAdd
 	}
 }
 
-// Create a new shipping address for the account
+// CreateShippingAddress Create a new shipping address for the account
 // Returns: Returns the new shipping address.
 func (c *Client) CreateShippingAddress(accountId string, body *ShippingAddressCreate) (*ShippingAddress, error) {
 	path := c.InterpolatePath("/accounts/{account_id}/shipping_addresses", accountId)
@@ -516,7 +516,7 @@ func (c *Client) CreateShippingAddress(accountId string, body *ShippingAddressCr
 	return result, err
 }
 
-// Fetch an account's shipping address
+// GetShippingAddress Fetch an account's shipping address
 // Returns: A shipping address.
 func (c *Client) GetShippingAddress(accountId string, shippingAddressId string) (*ShippingAddress, error) {
 	path := c.InterpolatePath("/accounts/{account_id}/shipping_addresses/{shipping_address_id}", accountId, shippingAddressId)
@@ -528,7 +528,7 @@ func (c *Client) GetShippingAddress(accountId string, shippingAddressId string) 
 	return result, err
 }
 
-// Update an account's shipping address
+// UpdateShippingAddress Update an account's shipping address
 // Returns: The updated shipping address.
 func (c *Client) UpdateShippingAddress(accountId string, shippingAddressId string, body *ShippingAddressUpdate) (*ShippingAddress, error) {
 	path := c.InterpolatePath("/accounts/{account_id}/shipping_addresses/{shipping_address_id}", accountId, shippingAddressId)
@@ -540,7 +540,7 @@ func (c *Client) UpdateShippingAddress(accountId string, shippingAddressId strin
 	return result, err
 }
 
-// Remove an account's shipping address
+// RemoveShippingAddress Remove an account's shipping address
 // Returns: Shipping address deleted.
 func (c *Client) RemoveShippingAddress(accountId string, shippingAddressId string) (*Empty, error) {
 	path := c.InterpolatePath("/accounts/{account_id}/shipping_addresses/{shipping_address_id}", accountId, shippingAddressId)
@@ -573,7 +573,7 @@ func (list *ListAccountSubscriptionsParams) toParams() *Params {
 	}
 }
 
-// List an account's subscriptions
+// ListAccountSubscriptions List an account's subscriptions
 // Returns: A list of the account's subscriptions.
 func (c *Client) ListAccountSubscriptions(accountId string, params *ListAccountSubscriptionsParams) *SubscriptionList {
 	path := c.InterpolatePath("/accounts/{account_id}/subscriptions", accountId)
@@ -607,7 +607,7 @@ func (list *ListAccountTransactionsParams) toParams() *Params {
 	}
 }
 
-// List an account's transactions
+// ListAccountTransactions List an account's transactions
 // Returns: A list of the account's transactions.
 func (c *Client) ListAccountTransactions(accountId string, params *ListAccountTransactionsParams) *TransactionList {
 	path := c.InterpolatePath("/accounts/{account_id}/transactions", accountId)
@@ -642,7 +642,7 @@ func (list *ListChildAccountsParams) toParams() *Params {
 	}
 }
 
-// List an account's child accounts
+// ListChildAccounts List an account's child accounts
 // Returns: A list of an account's child accounts.
 func (c *Client) ListChildAccounts(accountId string, params *ListChildAccountsParams) *AccountList {
 	path := c.InterpolatePath("/accounts/{account_id}/accounts", accountId)
@@ -674,7 +674,7 @@ func (list *ListAccountAcquisitionParams) toParams() *Params {
 	}
 }
 
-// List a site's account acquisition data
+// ListAccountAcquisition List a site's account acquisition data
 // Returns: A list of the site's account acquisition data.
 func (c *Client) ListAccountAcquisition(params *ListAccountAcquisitionParams) *AccountAcquisitionList {
 	path := "/acquisitions"
@@ -706,7 +706,7 @@ func (list *ListCouponsParams) toParams() *Params {
 	}
 }
 
-// List a site's coupons
+// ListCoupons List a site's coupons
 // Returns: A list of the site's coupons.
 func (c *Client) ListCoupons(params *ListCouponsParams) *CouponList {
 	path := "/coupons"
@@ -718,7 +718,7 @@ func (c *Client) ListCoupons(params *ListCouponsParams) *CouponList {
 	}
 }
 
-// Create a new coupon
+// CreateCoupon Create a new coupon
 // Returns: A new coupon.
 func (c *Client) CreateCoupon(body *CouponCreate) (*Coupon, error) {
 	path := c.InterpolatePath("/coupons")
@@ -730,7 +730,7 @@ func (c *Client) CreateCoupon(body *CouponCreate) (*Coupon, error) {
 	return result, err
 }
 
-// Fetch a coupon
+// GetCoupon Fetch a coupon
 // Returns: A coupon.
 func (c *Client) GetCoupon(couponId string) (*Coupon, error) {
 	path := c.InterpolatePath("/coupons/{coupon_id}", couponId)
@@ -742,7 +742,7 @@ func (c *Client) GetCoupon(couponId string) (*Coupon, error) {
 	return result, err
 }
 
-// Update an active coupon
+// UpdateCoupon Update an active coupon
 // Returns: The updated coupon.
 func (c *Client) UpdateCoupon(couponId string, body *CouponUpdate) (*Coupon, error) {
 	path := c.InterpolatePath("/coupons/{coupon_id}", couponId)
@@ -754,7 +754,7 @@ func (c *Client) UpdateCoupon(couponId string, body *CouponUpdate) (*Coupon, err
 	return result, err
 }
 
-// Expire a coupon
+// DeactivateCoupon Expire a coupon
 // Returns: The expired Coupon
 func (c *Client) DeactivateCoupon(couponId string) (*Coupon, error) {
 	path := c.InterpolatePath("/coupons/{coupon_id}", couponId)
@@ -786,7 +786,7 @@ func (list *ListUniqueCouponCodesParams) toParams() *Params {
 	}
 }
 
-// List unique coupon codes associated with a bulk coupon
+// ListUniqueCouponCodes List unique coupon codes associated with a bulk coupon
 // Returns: A list of unique coupon codes that were generated
 func (c *Client) ListUniqueCouponCodes(couponId string, params *ListUniqueCouponCodesParams) *UniqueCouponCodeList {
 	path := c.InterpolatePath("/coupons/{coupon_id}/unique_coupon_codes", couponId)
@@ -817,7 +817,7 @@ func (list *ListCreditPaymentsParams) toParams() *Params {
 	}
 }
 
-// List a site's credit payments
+// ListCreditPayments List a site's credit payments
 // Returns: A list of the site's credit payments.
 func (c *Client) ListCreditPayments(params *ListCreditPaymentsParams) *CreditPaymentList {
 	path := "/credit_payments"
@@ -829,7 +829,7 @@ func (c *Client) ListCreditPayments(params *ListCreditPaymentsParams) *CreditPay
 	}
 }
 
-// Fetch a credit payment
+// GetCreditPayment Fetch a credit payment
 // Returns: A credit payment.
 func (c *Client) GetCreditPayment(creditPaymentId string) (*CreditPayment, error) {
 	path := c.InterpolatePath("/credit_payments/{credit_payment_id}", creditPaymentId)
@@ -862,7 +862,7 @@ func (list *ListCustomFieldDefinitionsParams) toParams() *Params {
 	}
 }
 
-// List a site's custom field definitions
+// ListCustomFieldDefinitions List a site's custom field definitions
 // Returns: A list of the site's custom field definitions.
 func (c *Client) ListCustomFieldDefinitions(params *ListCustomFieldDefinitionsParams) *CustomFieldDefinitionList {
 	path := "/custom_field_definitions"
@@ -874,7 +874,7 @@ func (c *Client) ListCustomFieldDefinitions(params *ListCustomFieldDefinitionsPa
 	}
 }
 
-// Fetch an custom field definition
+// GetCustomFieldDefinition Fetch an custom field definition
 // Returns: An custom field definition.
 func (c *Client) GetCustomFieldDefinition(customFieldDefinitionId string) (*CustomFieldDefinition, error) {
 	path := c.InterpolatePath("/custom_field_definitions/{custom_field_definition_id}", customFieldDefinitionId)
@@ -907,7 +907,7 @@ func (list *ListItemsParams) toParams() *Params {
 	}
 }
 
-// List a site's items
+// ListItems List a site's items
 // Returns: A list of the site's items.
 func (c *Client) ListItems(params *ListItemsParams) *ItemList {
 	path := "/items"
@@ -919,7 +919,7 @@ func (c *Client) ListItems(params *ListItemsParams) *ItemList {
 	}
 }
 
-// Create a new item
+// CreateItem Create a new item
 // Returns: A new item.
 func (c *Client) CreateItem(body *ItemCreate) (*Item, error) {
 	path := c.InterpolatePath("/items")
@@ -931,7 +931,7 @@ func (c *Client) CreateItem(body *ItemCreate) (*Item, error) {
 	return result, err
 }
 
-// Fetch an item
+// GetItem Fetch an item
 // Returns: An item.
 func (c *Client) GetItem(itemId string) (*Item, error) {
 	path := c.InterpolatePath("/items/{item_id}", itemId)
@@ -943,7 +943,7 @@ func (c *Client) GetItem(itemId string) (*Item, error) {
 	return result, err
 }
 
-// Update an active item
+// UpdateItem Update an active item
 // Returns: The updated item.
 func (c *Client) UpdateItem(itemId string, body *ItemUpdate) (*Item, error) {
 	path := c.InterpolatePath("/items/{item_id}", itemId)
@@ -955,7 +955,7 @@ func (c *Client) UpdateItem(itemId string, body *ItemUpdate) (*Item, error) {
 	return result, err
 }
 
-// Deactivate an item
+// DeactivateItem Deactivate an item
 // Returns: An item.
 func (c *Client) DeactivateItem(itemId string) (*Item, error) {
 	path := c.InterpolatePath("/items/{item_id}", itemId)
@@ -967,7 +967,7 @@ func (c *Client) DeactivateItem(itemId string) (*Item, error) {
 	return result, err
 }
 
-// Reactivate an inactive item
+// ReactivateItem Reactivate an inactive item
 // Returns: An item.
 func (c *Client) ReactivateItem(itemId string) (*Item, error) {
 	path := c.InterpolatePath("/items/{item_id}/reactivate", itemId)
@@ -1000,7 +1000,7 @@ func (list *ListInvoicesParams) toParams() *Params {
 	}
 }
 
-// List a site's invoices
+// ListInvoices List a site's invoices
 // Returns: A list of the site's invoices.
 func (c *Client) ListInvoices(params *ListInvoicesParams) *InvoiceList {
 	path := "/invoices"
@@ -1012,7 +1012,7 @@ func (c *Client) ListInvoices(params *ListInvoicesParams) *InvoiceList {
 	}
 }
 
-// Fetch an invoice
+// GetInvoice Fetch an invoice
 // Returns: An invoice.
 func (c *Client) GetInvoice(invoiceId string) (*Invoice, error) {
 	path := c.InterpolatePath("/invoices/{invoice_id}", invoiceId)
@@ -1024,7 +1024,7 @@ func (c *Client) GetInvoice(invoiceId string) (*Invoice, error) {
 	return result, err
 }
 
-// Update an invoice
+// PutInvoice Update an invoice
 // Returns: An invoice.
 func (c *Client) PutInvoice(invoiceId string, body *InvoiceUpdatable) (*Invoice, error) {
 	path := c.InterpolatePath("/invoices/{invoice_id}", invoiceId)
@@ -1036,7 +1036,7 @@ func (c *Client) PutInvoice(invoiceId string, body *InvoiceUpdatable) (*Invoice,
 	return result, err
 }
 
-// Fetch an invoice as a PDF
+// GetInvoicePdf Fetch an invoice as a PDF
 // Returns: An invoice as a PDF.
 func (c *Client) GetInvoicePdf(invoiceId string) (*BinaryFile, error) {
 	path := c.InterpolatePath("/invoices/{invoice_id}.pdf", invoiceId)
@@ -1063,7 +1063,7 @@ func (list *CollectInvoiceParams) toParams() *Params {
 	}
 }
 
-// Collect a pending or past due, automatic invoice
+// CollectInvoice Collect a pending or past due, automatic invoice
 // Returns: The updated invoice.
 func (c *Client) CollectInvoice(invoiceId string, params *CollectInvoiceParams) (*Invoice, error) {
 	path := c.InterpolatePath("/invoices/{invoice_id}/collect", invoiceId)
@@ -1075,7 +1075,7 @@ func (c *Client) CollectInvoice(invoiceId string, params *CollectInvoiceParams) 
 	return result, err
 }
 
-// Mark an open invoice as failed
+// FailInvoice Mark an open invoice as failed
 // Returns: The updated invoice.
 func (c *Client) FailInvoice(invoiceId string) (*Invoice, error) {
 	path := c.InterpolatePath("/invoices/{invoice_id}/mark_failed", invoiceId)
@@ -1087,7 +1087,7 @@ func (c *Client) FailInvoice(invoiceId string) (*Invoice, error) {
 	return result, err
 }
 
-// Mark an open invoice as successful
+// MarkInvoiceSuccessful Mark an open invoice as successful
 // Returns: The updated invoice.
 func (c *Client) MarkInvoiceSuccessful(invoiceId string) (*Invoice, error) {
 	path := c.InterpolatePath("/invoices/{invoice_id}/mark_successful", invoiceId)
@@ -1099,7 +1099,7 @@ func (c *Client) MarkInvoiceSuccessful(invoiceId string) (*Invoice, error) {
 	return result, err
 }
 
-// Reopen a closed, manual invoice
+// ReopenInvoice Reopen a closed, manual invoice
 // Returns: The updated invoice.
 func (c *Client) ReopenInvoice(invoiceId string) (*Invoice, error) {
 	path := c.InterpolatePath("/invoices/{invoice_id}/reopen", invoiceId)
@@ -1111,7 +1111,7 @@ func (c *Client) ReopenInvoice(invoiceId string) (*Invoice, error) {
 	return result, err
 }
 
-// Void a credit invoice.
+// VoidInvoice Void a credit invoice.
 // Returns: The updated invoice.
 func (c *Client) VoidInvoice(invoiceId string) (*Invoice, error) {
 	path := c.InterpolatePath("/invoices/{invoice_id}/void", invoiceId)
@@ -1146,7 +1146,7 @@ func (list *ListInvoiceLineItemsParams) toParams() *Params {
 	}
 }
 
-// List an invoice's line items
+// ListInvoiceLineItems List an invoice's line items
 // Returns: A list of the invoice's line items.
 func (c *Client) ListInvoiceLineItems(invoiceId string, params *ListInvoiceLineItemsParams) *LineItemList {
 	path := c.InterpolatePath("/invoices/{invoice_id}/line_items", invoiceId)
@@ -1176,7 +1176,7 @@ func (list *ListInvoiceCouponRedemptionsParams) toParams() *Params {
 	}
 }
 
-// Show the coupon redemptions applied to an invoice
+// ListInvoiceCouponRedemptions Show the coupon redemptions applied to an invoice
 // Returns: A list of the the coupon redemptions associated with the invoice.
 func (c *Client) ListInvoiceCouponRedemptions(invoiceId string, params *ListInvoiceCouponRedemptionsParams) *CouponRedemptionList {
 	path := c.InterpolatePath("/invoices/{invoice_id}/coupon_redemptions", invoiceId)
@@ -1188,7 +1188,7 @@ func (c *Client) ListInvoiceCouponRedemptions(invoiceId string, params *ListInvo
 	}
 }
 
-// List an invoice's related credit or charge invoices
+// ListRelatedInvoices List an invoice's related credit or charge invoices
 // Returns: A list of the credit or charge invoices associated with the invoice.
 func (c *Client) ListRelatedInvoices(invoiceId string) *InvoiceList {
 	path := c.InterpolatePath("/invoices/{invoice_id}/related_invoices", invoiceId)
@@ -1199,7 +1199,7 @@ func (c *Client) ListRelatedInvoices(invoiceId string) *InvoiceList {
 	}
 }
 
-// Refund an invoice
+// RefundInvoice Refund an invoice
 // Returns: Returns the new credit invoice.
 func (c *Client) RefundInvoice(invoiceId string, body *InvoiceRefund) (*Invoice, error) {
 	path := c.InterpolatePath("/invoices/{invoice_id}/refund", invoiceId)
@@ -1234,7 +1234,7 @@ func (list *ListLineItemsParams) toParams() *Params {
 	}
 }
 
-// List a site's line items
+// ListLineItems List a site's line items
 // Returns: A list of the site's line items.
 func (c *Client) ListLineItems(params *ListLineItemsParams) *LineItemList {
 	path := "/line_items"
@@ -1246,7 +1246,7 @@ func (c *Client) ListLineItems(params *ListLineItemsParams) *LineItemList {
 	}
 }
 
-// Fetch a line item
+// GetLineItem Fetch a line item
 // Returns: A line item.
 func (c *Client) GetLineItem(lineItemId string) (*LineItem, error) {
 	path := c.InterpolatePath("/line_items/{line_item_id}", lineItemId)
@@ -1258,7 +1258,7 @@ func (c *Client) GetLineItem(lineItemId string) (*LineItem, error) {
 	return result, err
 }
 
-// Delete an uninvoiced line item
+// RemoveLineItem Delete an uninvoiced line item
 // Returns: Line item deleted.
 func (c *Client) RemoveLineItem(lineItemId string) (*Empty, error) {
 	path := c.InterpolatePath("/line_items/{line_item_id}", lineItemId)
@@ -1291,7 +1291,7 @@ func (list *ListPlansParams) toParams() *Params {
 	}
 }
 
-// List a site's plans
+// ListPlans List a site's plans
 // Returns: A list of plans.
 func (c *Client) ListPlans(params *ListPlansParams) *PlanList {
 	path := "/plans"
@@ -1303,7 +1303,7 @@ func (c *Client) ListPlans(params *ListPlansParams) *PlanList {
 	}
 }
 
-// Create a plan
+// CreatePlan Create a plan
 // Returns: A plan.
 func (c *Client) CreatePlan(body *PlanCreate) (*Plan, error) {
 	path := c.InterpolatePath("/plans")
@@ -1315,7 +1315,7 @@ func (c *Client) CreatePlan(body *PlanCreate) (*Plan, error) {
 	return result, err
 }
 
-// Fetch a plan
+// GetPlan Fetch a plan
 // Returns: A plan.
 func (c *Client) GetPlan(planId string) (*Plan, error) {
 	path := c.InterpolatePath("/plans/{plan_id}", planId)
@@ -1327,7 +1327,7 @@ func (c *Client) GetPlan(planId string) (*Plan, error) {
 	return result, err
 }
 
-// Update a plan
+// UpdatePlan Update a plan
 // Returns: A plan.
 func (c *Client) UpdatePlan(planId string, body *PlanUpdate) (*Plan, error) {
 	path := c.InterpolatePath("/plans/{plan_id}", planId)
@@ -1339,7 +1339,7 @@ func (c *Client) UpdatePlan(planId string, body *PlanUpdate) (*Plan, error) {
 	return result, err
 }
 
-// Remove a plan
+// RemovePlan Remove a plan
 // Returns: Plan deleted
 func (c *Client) RemovePlan(planId string) (*Plan, error) {
 	path := c.InterpolatePath("/plans/{plan_id}", planId)
@@ -1372,7 +1372,7 @@ func (list *ListPlanAddOnsParams) toParams() *Params {
 	}
 }
 
-// List a plan's add-ons
+// ListPlanAddOns List a plan's add-ons
 // Returns: A list of add-ons.
 func (c *Client) ListPlanAddOns(planId string, params *ListPlanAddOnsParams) *AddOnList {
 	path := c.InterpolatePath("/plans/{plan_id}/add_ons", planId)
@@ -1384,7 +1384,7 @@ func (c *Client) ListPlanAddOns(planId string, params *ListPlanAddOnsParams) *Ad
 	}
 }
 
-// Create an add-on
+// CreatePlanAddOn Create an add-on
 // Returns: An add-on.
 func (c *Client) CreatePlanAddOn(planId string, body *AddOnCreate) (*AddOn, error) {
 	path := c.InterpolatePath("/plans/{plan_id}/add_ons", planId)
@@ -1396,7 +1396,7 @@ func (c *Client) CreatePlanAddOn(planId string, body *AddOnCreate) (*AddOn, erro
 	return result, err
 }
 
-// Fetch a plan's add-on
+// GetPlanAddOn Fetch a plan's add-on
 // Returns: An add-on.
 func (c *Client) GetPlanAddOn(planId string, addOnId string) (*AddOn, error) {
 	path := c.InterpolatePath("/plans/{plan_id}/add_ons/{add_on_id}", planId, addOnId)
@@ -1408,7 +1408,7 @@ func (c *Client) GetPlanAddOn(planId string, addOnId string) (*AddOn, error) {
 	return result, err
 }
 
-// Update an add-on
+// UpdatePlanAddOn Update an add-on
 // Returns: An add-on.
 func (c *Client) UpdatePlanAddOn(planId string, addOnId string, body *AddOnUpdate) (*AddOn, error) {
 	path := c.InterpolatePath("/plans/{plan_id}/add_ons/{add_on_id}", planId, addOnId)
@@ -1420,7 +1420,7 @@ func (c *Client) UpdatePlanAddOn(planId string, addOnId string, body *AddOnUpdat
 	return result, err
 }
 
-// Remove an add-on
+// RemovePlanAddOn Remove an add-on
 // Returns: Add-on deleted
 func (c *Client) RemovePlanAddOn(planId string, addOnId string) (*AddOn, error) {
 	path := c.InterpolatePath("/plans/{plan_id}/add_ons/{add_on_id}", planId, addOnId)
@@ -1453,7 +1453,7 @@ func (list *ListAddOnsParams) toParams() *Params {
 	}
 }
 
-// List a site's add-ons
+// ListAddOns List a site's add-ons
 // Returns: A list of add-ons.
 func (c *Client) ListAddOns(params *ListAddOnsParams) *AddOnList {
 	path := "/add_ons"
@@ -1465,7 +1465,7 @@ func (c *Client) ListAddOns(params *ListAddOnsParams) *AddOnList {
 	}
 }
 
-// Fetch an add-on
+// GetAddOn Fetch an add-on
 // Returns: An add-on.
 func (c *Client) GetAddOn(addOnId string) (*AddOn, error) {
 	path := c.InterpolatePath("/add_ons/{add_on_id}", addOnId)
@@ -1497,7 +1497,7 @@ func (list *ListShippingMethodsParams) toParams() *Params {
 	}
 }
 
-// List a site's shipping methods
+// ListShippingMethods List a site's shipping methods
 // Returns: A list of the site's shipping methods.
 func (c *Client) ListShippingMethods(params *ListShippingMethodsParams) *ShippingMethodList {
 	path := "/shipping_methods"
@@ -1509,7 +1509,7 @@ func (c *Client) ListShippingMethods(params *ListShippingMethodsParams) *Shippin
 	}
 }
 
-// Fetch a shipping method
+// GetShippingMethod Fetch a shipping method
 // Returns: A shipping_method.
 func (c *Client) GetShippingMethod(id string) (*ShippingMethod, error) {
 	path := c.InterpolatePath("/shipping_methods/{id}", id)
@@ -1542,7 +1542,7 @@ func (list *ListSubscriptionsParams) toParams() *Params {
 	}
 }
 
-// List a site's subscriptions
+// ListSubscriptions List a site's subscriptions
 // Returns: A list of the site's subscriptions.
 func (c *Client) ListSubscriptions(params *ListSubscriptionsParams) *SubscriptionList {
 	path := "/subscriptions"
@@ -1554,7 +1554,7 @@ func (c *Client) ListSubscriptions(params *ListSubscriptionsParams) *Subscriptio
 	}
 }
 
-// Create a new subscription
+// CreateSubscription Create a new subscription
 // Returns: A subscription.
 func (c *Client) CreateSubscription(body *SubscriptionCreate) (*Subscription, error) {
 	path := c.InterpolatePath("/subscriptions")
@@ -1566,7 +1566,7 @@ func (c *Client) CreateSubscription(body *SubscriptionCreate) (*Subscription, er
 	return result, err
 }
 
-// Fetch a subscription
+// GetSubscription Fetch a subscription
 // Returns: A subscription.
 func (c *Client) GetSubscription(subscriptionId string) (*Subscription, error) {
 	path := c.InterpolatePath("/subscriptions/{subscription_id}", subscriptionId)
@@ -1578,7 +1578,7 @@ func (c *Client) GetSubscription(subscriptionId string) (*Subscription, error) {
 	return result, err
 }
 
-// Modify a subscription
+// ModifySubscription Modify a subscription
 // Returns: A subscription.
 func (c *Client) ModifySubscription(subscriptionId string, body *SubscriptionUpdate) (*Subscription, error) {
 	path := c.InterpolatePath("/subscriptions/{subscription_id}", subscriptionId)
@@ -1605,7 +1605,7 @@ func (list *TerminateSubscriptionParams) toParams() *Params {
 	}
 }
 
-// Terminate a subscription
+// TerminateSubscription Terminate a subscription
 // Returns: An expired subscription.
 func (c *Client) TerminateSubscription(subscriptionId string, params *TerminateSubscriptionParams) (*Subscription, error) {
 	path := c.InterpolatePath("/subscriptions/{subscription_id}", subscriptionId)
@@ -1632,7 +1632,7 @@ func (list *CancelSubscriptionParams) toParams() *Params {
 	}
 }
 
-// Cancel a subscription
+// CancelSubscription Cancel a subscription
 // Returns: A canceled or failed subscription.
 func (c *Client) CancelSubscription(subscriptionId string, params *CancelSubscriptionParams) (*Subscription, error) {
 	path := c.InterpolatePath("/subscriptions/{subscription_id}/cancel", subscriptionId)
@@ -1644,7 +1644,7 @@ func (c *Client) CancelSubscription(subscriptionId string, params *CancelSubscri
 	return result, err
 }
 
-// Reactivate a canceled subscription
+// ReactivateSubscription Reactivate a canceled subscription
 // Returns: An active subscription.
 func (c *Client) ReactivateSubscription(subscriptionId string) (*Subscription, error) {
 	path := c.InterpolatePath("/subscriptions/{subscription_id}/reactivate", subscriptionId)
@@ -1656,7 +1656,7 @@ func (c *Client) ReactivateSubscription(subscriptionId string) (*Subscription, e
 	return result, err
 }
 
-// Pause subscription
+// PauseSubscription Pause subscription
 // Returns: A subscription.
 func (c *Client) PauseSubscription(subscriptionId string, body *SubscriptionPause) (*Subscription, error) {
 	path := c.InterpolatePath("/subscriptions/{subscription_id}/pause", subscriptionId)
@@ -1668,7 +1668,7 @@ func (c *Client) PauseSubscription(subscriptionId string, body *SubscriptionPaus
 	return result, err
 }
 
-// Resume subscription
+// ResumeSubscription Resume subscription
 // Returns: A subscription.
 func (c *Client) ResumeSubscription(subscriptionId string) (*Subscription, error) {
 	path := c.InterpolatePath("/subscriptions/{subscription_id}/resume", subscriptionId)
@@ -1680,7 +1680,7 @@ func (c *Client) ResumeSubscription(subscriptionId string) (*Subscription, error
 	return result, err
 }
 
-// Convert trial subscription
+// ConvertTrial Convert trial subscription
 // Returns: A subscription.
 func (c *Client) ConvertTrial(subscriptionId string) (*Subscription, error) {
 	path := c.InterpolatePath("/subscriptions/{subscription_id}/convert_trial", subscriptionId)
@@ -1692,7 +1692,7 @@ func (c *Client) ConvertTrial(subscriptionId string) (*Subscription, error) {
 	return result, err
 }
 
-// Fetch a subscription's pending change
+// GetSubscriptionChange Fetch a subscription's pending change
 // Returns: A subscription's pending change.
 func (c *Client) GetSubscriptionChange(subscriptionId string) (*SubscriptionChange, error) {
 	path := c.InterpolatePath("/subscriptions/{subscription_id}/change", subscriptionId)
@@ -1704,7 +1704,7 @@ func (c *Client) GetSubscriptionChange(subscriptionId string) (*SubscriptionChan
 	return result, err
 }
 
-// Create a new subscription change
+// CreateSubscriptionChange Create a new subscription change
 // Returns: A subscription change.
 func (c *Client) CreateSubscriptionChange(subscriptionId string, body *SubscriptionChangeCreate) (*SubscriptionChange, error) {
 	path := c.InterpolatePath("/subscriptions/{subscription_id}/change", subscriptionId)
@@ -1716,7 +1716,7 @@ func (c *Client) CreateSubscriptionChange(subscriptionId string, body *Subscript
 	return result, err
 }
 
-// Delete the pending subscription change
+// RemoveSubscriptionChange Delete the pending subscription change
 // Returns: Subscription change was deleted.
 func (c *Client) RemoveSubscriptionChange(subscriptionId string) (*Empty, error) {
 	path := c.InterpolatePath("/subscriptions/{subscription_id}/change", subscriptionId)
@@ -1749,7 +1749,7 @@ func (list *ListSubscriptionInvoicesParams) toParams() *Params {
 	}
 }
 
-// List a subscription's invoices
+// ListSubscriptionInvoices List a subscription's invoices
 // Returns: A list of the subscription's invoices.
 func (c *Client) ListSubscriptionInvoices(subscriptionId string, params *ListSubscriptionInvoicesParams) *InvoiceList {
 	path := c.InterpolatePath("/subscriptions/{subscription_id}/invoices", subscriptionId)
@@ -1784,7 +1784,7 @@ func (list *ListSubscriptionLineItemsParams) toParams() *Params {
 	}
 }
 
-// List a subscription's line items
+// ListSubscriptionLineItems List a subscription's line items
 // Returns: A list of the subscription's line items.
 func (c *Client) ListSubscriptionLineItems(subscriptionId string, params *ListSubscriptionLineItemsParams) *LineItemList {
 	path := c.InterpolatePath("/subscriptions/{subscription_id}/line_items", subscriptionId)
@@ -1814,7 +1814,7 @@ func (list *ListSubscriptionCouponRedemptionsParams) toParams() *Params {
 	}
 }
 
-// Show the coupon redemptions for a subscription
+// ListSubscriptionCouponRedemptions Show the coupon redemptions for a subscription
 // Returns: A list of the the coupon redemptions on a subscription.
 func (c *Client) ListSubscriptionCouponRedemptions(subscriptionId string, params *ListSubscriptionCouponRedemptionsParams) *CouponRedemptionList {
 	path := c.InterpolatePath("/subscriptions/{subscription_id}/coupon_redemptions", subscriptionId)
@@ -1848,7 +1848,7 @@ func (list *ListTransactionsParams) toParams() *Params {
 	}
 }
 
-// List a site's transactions
+// ListTransactions List a site's transactions
 // Returns: A list of the site's transactions.
 func (c *Client) ListTransactions(params *ListTransactionsParams) *TransactionList {
 	path := "/transactions"
@@ -1860,7 +1860,7 @@ func (c *Client) ListTransactions(params *ListTransactionsParams) *TransactionLi
 	}
 }
 
-// Fetch a transaction
+// GetTransaction Fetch a transaction
 // Returns: A transaction.
 func (c *Client) GetTransaction(transactionId string) (*Transaction, error) {
 	path := c.InterpolatePath("/transactions/{transaction_id}", transactionId)
@@ -1872,7 +1872,7 @@ func (c *Client) GetTransaction(transactionId string) (*Transaction, error) {
 	return result, err
 }
 
-// Fetch a unique coupon code
+// GetUniqueCouponCode Fetch a unique coupon code
 // Returns: A unique coupon code.
 func (c *Client) GetUniqueCouponCode(uniqueCouponCodeId string) (*UniqueCouponCode, error) {
 	path := c.InterpolatePath("/unique_coupon_codes/{unique_coupon_code_id}", uniqueCouponCodeId)
@@ -1884,7 +1884,7 @@ func (c *Client) GetUniqueCouponCode(uniqueCouponCodeId string) (*UniqueCouponCo
 	return result, err
 }
 
-// Deactivate a unique coupon code
+// DeactivateUniqueCouponCode Deactivate a unique coupon code
 // Returns: A unique coupon code.
 func (c *Client) DeactivateUniqueCouponCode(uniqueCouponCodeId string) (*UniqueCouponCode, error) {
 	path := c.InterpolatePath("/unique_coupon_codes/{unique_coupon_code_id}", uniqueCouponCodeId)
@@ -1896,7 +1896,7 @@ func (c *Client) DeactivateUniqueCouponCode(uniqueCouponCodeId string) (*UniqueC
 	return result, err
 }
 
-// Restore a unique coupon code
+// ReactivateUniqueCouponCode Restore a unique coupon code
 // Returns: A unique coupon code.
 func (c *Client) ReactivateUniqueCouponCode(uniqueCouponCodeId string) (*UniqueCouponCode, error) {
 	path := c.InterpolatePath("/unique_coupon_codes/{unique_coupon_code_id}/restore", uniqueCouponCodeId)
@@ -1908,7 +1908,7 @@ func (c *Client) ReactivateUniqueCouponCode(uniqueCouponCodeId string) (*UniqueC
 	return result, err
 }
 
-// Create a new purchase
+// CreatePurchase Create a new purchase
 // Returns: Returns the new invoices
 func (c *Client) CreatePurchase(body *PurchaseCreate) (*InvoiceCollection, error) {
 	path := c.InterpolatePath("/purchases")
@@ -1920,7 +1920,7 @@ func (c *Client) CreatePurchase(body *PurchaseCreate) (*InvoiceCollection, error
 	return result, err
 }
 
-// Preview a new purchase
+// PreviewPurchase Preview a new purchase
 // Returns: Returns preview of the new invoices
 func (c *Client) PreviewPurchase(body *PurchaseCreate) (*InvoiceCollection, error) {
 	path := c.InterpolatePath("/purchases/preview")
