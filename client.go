@@ -97,12 +97,11 @@ var PathPattern = regexp.MustCompile(`{[^}]+}`)
 
 // Takes an OpenAPI-style path such as "/accounts/{account_id}/shipping_addresses/{shipping_address_id}"
 // and a list of string arguments to fill the template, and it returns the interpolated path
-func (c *Client) InterpolatePath(path string, params ...interface{}) string {
+func (c *Client) InterpolatePath(path string, params ...string) string {
 	template := PathPattern.ReplaceAllString(path, "%s")
 	encodedParams := make([]interface{}, len(params))
-	for i, v := range params {
-		str, _ := v.(string)
-		var encoded interface{} = url.PathEscape(str)
+	for i, param := range params {
+		encoded := url.PathEscape(param)
 		encodedParams[i] = encoded
 	}
 	return fmt.Sprintf(template, encodedParams...)
