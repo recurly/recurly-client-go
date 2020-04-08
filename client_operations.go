@@ -47,6 +47,9 @@ func (c *Client) GetSite(siteId string) (*Site, error) {
 	path := c.InterpolatePath("/sites/{site_id}", siteId)
 	result := &Site{}
 	err := c.Call(http.MethodGet, path, nil, result)
+	if err != nil {
+		return nil, err
+	}
 	return result, err
 }
 
@@ -91,6 +94,9 @@ func (c *Client) CreateAccount(body *AccountCreate) (*Account, error) {
 	path := c.InterpolatePath("/accounts")
 	result := &Account{}
 	err := c.Call(http.MethodPost, path, body, result)
+	if err != nil {
+		return nil, err
+	}
 	return result, err
 }
 
@@ -100,6 +106,9 @@ func (c *Client) GetAccount(accountId string) (*Account, error) {
 	path := c.InterpolatePath("/accounts/{account_id}", accountId)
 	result := &Account{}
 	err := c.Call(http.MethodGet, path, nil, result)
+	if err != nil {
+		return nil, err
+	}
 	return result, err
 }
 
@@ -109,6 +118,9 @@ func (c *Client) UpdateAccount(accountId string, body *AccountUpdate) (*Account,
 	path := c.InterpolatePath("/accounts/{account_id}", accountId)
 	result := &Account{}
 	err := c.Call(http.MethodPut, path, body, result)
+	if err != nil {
+		return nil, err
+	}
 	return result, err
 }
 
@@ -118,6 +130,9 @@ func (c *Client) DeactivateAccount(accountId string) (*Account, error) {
 	path := c.InterpolatePath("/accounts/{account_id}", accountId)
 	result := &Account{}
 	err := c.Call(http.MethodDelete, path, nil, result)
+	if err != nil {
+		return nil, err
+	}
 	return result, err
 }
 
@@ -127,6 +142,9 @@ func (c *Client) GetAccountAcquisition(accountId string) (*AccountAcquisition, e
 	path := c.InterpolatePath("/accounts/{account_id}/acquisition", accountId)
 	result := &AccountAcquisition{}
 	err := c.Call(http.MethodGet, path, nil, result)
+	if err != nil {
+		return nil, err
+	}
 	return result, err
 }
 
@@ -136,6 +154,9 @@ func (c *Client) UpdateAccountAcquisition(accountId string, body *AccountAcquisi
 	path := c.InterpolatePath("/accounts/{account_id}/acquisition", accountId)
 	result := &AccountAcquisition{}
 	err := c.Call(http.MethodPut, path, body, result)
+	if err != nil {
+		return nil, err
+	}
 	return result, err
 }
 
@@ -145,6 +166,9 @@ func (c *Client) RemoveAccountAcquisition(accountId string) (*Empty, error) {
 	path := c.InterpolatePath("/accounts/{account_id}/acquisition", accountId)
 	result := &Empty{}
 	err := c.Call(http.MethodDelete, path, nil, result)
+	if err != nil {
+		return nil, err
+	}
 	return result, err
 }
 
@@ -154,6 +178,9 @@ func (c *Client) ReactivateAccount(accountId string) (*Account, error) {
 	path := c.InterpolatePath("/accounts/{account_id}/reactivate", accountId)
 	result := &Account{}
 	err := c.Call(http.MethodPut, path, nil, result)
+	if err != nil {
+		return nil, err
+	}
 	return result, err
 }
 
@@ -163,6 +190,9 @@ func (c *Client) GetAccountBalance(accountId string) (*AccountBalance, error) {
 	path := c.InterpolatePath("/accounts/{account_id}/balance", accountId)
 	result := &AccountBalance{}
 	err := c.Call(http.MethodGet, path, nil, result)
+	if err != nil {
+		return nil, err
+	}
 	return result, err
 }
 
@@ -172,6 +202,9 @@ func (c *Client) GetBillingInfo(accountId string) (*BillingInfo, error) {
 	path := c.InterpolatePath("/accounts/{account_id}/billing_info", accountId)
 	result := &BillingInfo{}
 	err := c.Call(http.MethodGet, path, nil, result)
+	if err != nil {
+		return nil, err
+	}
 	return result, err
 }
 
@@ -181,6 +214,9 @@ func (c *Client) UpdateBillingInfo(accountId string, body *BillingInfoCreate) (*
 	path := c.InterpolatePath("/accounts/{account_id}/billing_info", accountId)
 	result := &BillingInfo{}
 	err := c.Call(http.MethodPut, path, body, result)
+	if err != nil {
+		return nil, err
+	}
 	return result, err
 }
 
@@ -190,6 +226,9 @@ func (c *Client) RemoveBillingInfo(accountId string) (*Empty, error) {
 	path := c.InterpolatePath("/accounts/{account_id}/billing_info", accountId)
 	result := &Empty{}
 	err := c.Call(http.MethodDelete, path, nil, result)
+	if err != nil {
+		return nil, err
+	}
 	return result, err
 }
 
@@ -229,6 +268,9 @@ func (c *Client) GetActiveCouponRedemption(accountId string) (*CouponRedemption,
 	path := c.InterpolatePath("/accounts/{account_id}/coupon_redemptions/active", accountId)
 	result := &CouponRedemption{}
 	err := c.Call(http.MethodGet, path, nil, result)
+	if err != nil {
+		return nil, err
+	}
 	return result, err
 }
 
@@ -238,6 +280,9 @@ func (c *Client) CreateCouponRedemption(accountId string, body *CouponRedemption
 	path := c.InterpolatePath("/accounts/{account_id}/coupon_redemptions/active", accountId)
 	result := &CouponRedemption{}
 	err := c.Call(http.MethodPost, path, body, result)
+	if err != nil {
+		return nil, err
+	}
 	return result, err
 }
 
@@ -247,6 +292,9 @@ func (c *Client) RemoveCouponRedemption(accountId string) (*CouponRedemption, er
 	path := c.InterpolatePath("/accounts/{account_id}/coupon_redemptions/active", accountId)
 	result := &CouponRedemption{}
 	err := c.Call(http.MethodDelete, path, nil, result)
+	if err != nil {
+		return nil, err
+	}
 	return result, err
 }
 
@@ -320,6 +368,9 @@ func (c *Client) CreateInvoice(accountId string, body *InvoiceCreate) (*InvoiceC
 	path := c.InterpolatePath("/accounts/{account_id}/invoices", accountId)
 	result := &InvoiceCollection{}
 	err := c.Call(http.MethodPost, path, body, result)
+	if err != nil {
+		return nil, err
+	}
 	return result, err
 }
 
@@ -329,6 +380,9 @@ func (c *Client) PreviewInvoice(accountId string, body *InvoiceCreate) (*Invoice
 	path := c.InterpolatePath("/accounts/{account_id}/invoices/preview", accountId)
 	result := &InvoiceCollection{}
 	err := c.Call(http.MethodPost, path, body, result)
+	if err != nil {
+		return nil, err
+	}
 	return result, err
 }
 
@@ -373,6 +427,9 @@ func (c *Client) CreateLineItem(accountId string, body *LineItemCreate) (*LineIt
 	path := c.InterpolatePath("/accounts/{account_id}/line_items", accountId)
 	result := &LineItem{}
 	err := c.Call(http.MethodPost, path, body, result)
+	if err != nil {
+		return nil, err
+	}
 	return result, err
 }
 
@@ -409,6 +466,9 @@ func (c *Client) GetAccountNote(accountId string, accountNoteId string) (*Accoun
 	path := c.InterpolatePath("/accounts/{account_id}/notes/{account_note_id}", accountId, accountNoteId)
 	result := &AccountNote{}
 	err := c.Call(http.MethodGet, path, nil, result)
+	if err != nil {
+		return nil, err
+	}
 	return result, err
 }
 
@@ -450,6 +510,9 @@ func (c *Client) CreateShippingAddress(accountId string, body *ShippingAddressCr
 	path := c.InterpolatePath("/accounts/{account_id}/shipping_addresses", accountId)
 	result := &ShippingAddress{}
 	err := c.Call(http.MethodPost, path, body, result)
+	if err != nil {
+		return nil, err
+	}
 	return result, err
 }
 
@@ -459,6 +522,9 @@ func (c *Client) GetShippingAddress(accountId string, shippingAddressId string) 
 	path := c.InterpolatePath("/accounts/{account_id}/shipping_addresses/{shipping_address_id}", accountId, shippingAddressId)
 	result := &ShippingAddress{}
 	err := c.Call(http.MethodGet, path, nil, result)
+	if err != nil {
+		return nil, err
+	}
 	return result, err
 }
 
@@ -468,6 +534,9 @@ func (c *Client) UpdateShippingAddress(accountId string, shippingAddressId strin
 	path := c.InterpolatePath("/accounts/{account_id}/shipping_addresses/{shipping_address_id}", accountId, shippingAddressId)
 	result := &ShippingAddress{}
 	err := c.Call(http.MethodPut, path, body, result)
+	if err != nil {
+		return nil, err
+	}
 	return result, err
 }
 
@@ -477,6 +546,9 @@ func (c *Client) RemoveShippingAddress(accountId string, shippingAddressId strin
 	path := c.InterpolatePath("/accounts/{account_id}/shipping_addresses/{shipping_address_id}", accountId, shippingAddressId)
 	result := &Empty{}
 	err := c.Call(http.MethodDelete, path, nil, result)
+	if err != nil {
+		return nil, err
+	}
 	return result, err
 }
 
@@ -652,6 +724,9 @@ func (c *Client) CreateCoupon(body *CouponCreate) (*Coupon, error) {
 	path := c.InterpolatePath("/coupons")
 	result := &Coupon{}
 	err := c.Call(http.MethodPost, path, body, result)
+	if err != nil {
+		return nil, err
+	}
 	return result, err
 }
 
@@ -661,6 +736,9 @@ func (c *Client) GetCoupon(couponId string) (*Coupon, error) {
 	path := c.InterpolatePath("/coupons/{coupon_id}", couponId)
 	result := &Coupon{}
 	err := c.Call(http.MethodGet, path, nil, result)
+	if err != nil {
+		return nil, err
+	}
 	return result, err
 }
 
@@ -670,6 +748,9 @@ func (c *Client) UpdateCoupon(couponId string, body *CouponUpdate) (*Coupon, err
 	path := c.InterpolatePath("/coupons/{coupon_id}", couponId)
 	result := &Coupon{}
 	err := c.Call(http.MethodPut, path, body, result)
+	if err != nil {
+		return nil, err
+	}
 	return result, err
 }
 
@@ -679,6 +760,9 @@ func (c *Client) DeactivateCoupon(couponId string) (*Coupon, error) {
 	path := c.InterpolatePath("/coupons/{coupon_id}", couponId)
 	result := &Coupon{}
 	err := c.Call(http.MethodDelete, path, nil, result)
+	if err != nil {
+		return nil, err
+	}
 	return result, err
 }
 
@@ -751,6 +835,9 @@ func (c *Client) GetCreditPayment(creditPaymentId string) (*CreditPayment, error
 	path := c.InterpolatePath("/credit_payments/{credit_payment_id}", creditPaymentId)
 	result := &CreditPayment{}
 	err := c.Call(http.MethodGet, path, nil, result)
+	if err != nil {
+		return nil, err
+	}
 	return result, err
 }
 
@@ -793,6 +880,9 @@ func (c *Client) GetCustomFieldDefinition(customFieldDefinitionId string) (*Cust
 	path := c.InterpolatePath("/custom_field_definitions/{custom_field_definition_id}", customFieldDefinitionId)
 	result := &CustomFieldDefinition{}
 	err := c.Call(http.MethodGet, path, nil, result)
+	if err != nil {
+		return nil, err
+	}
 	return result, err
 }
 
@@ -835,6 +925,9 @@ func (c *Client) CreateItem(body *ItemCreate) (*Item, error) {
 	path := c.InterpolatePath("/items")
 	result := &Item{}
 	err := c.Call(http.MethodPost, path, body, result)
+	if err != nil {
+		return nil, err
+	}
 	return result, err
 }
 
@@ -844,6 +937,9 @@ func (c *Client) GetItem(itemId string) (*Item, error) {
 	path := c.InterpolatePath("/items/{item_id}", itemId)
 	result := &Item{}
 	err := c.Call(http.MethodGet, path, nil, result)
+	if err != nil {
+		return nil, err
+	}
 	return result, err
 }
 
@@ -853,6 +949,9 @@ func (c *Client) UpdateItem(itemId string, body *ItemUpdate) (*Item, error) {
 	path := c.InterpolatePath("/items/{item_id}", itemId)
 	result := &Item{}
 	err := c.Call(http.MethodPut, path, body, result)
+	if err != nil {
+		return nil, err
+	}
 	return result, err
 }
 
@@ -862,6 +961,9 @@ func (c *Client) DeactivateItem(itemId string) (*Item, error) {
 	path := c.InterpolatePath("/items/{item_id}", itemId)
 	result := &Item{}
 	err := c.Call(http.MethodDelete, path, nil, result)
+	if err != nil {
+		return nil, err
+	}
 	return result, err
 }
 
@@ -871,6 +973,9 @@ func (c *Client) ReactivateItem(itemId string) (*Item, error) {
 	path := c.InterpolatePath("/items/{item_id}/reactivate", itemId)
 	result := &Item{}
 	err := c.Call(http.MethodPut, path, nil, result)
+	if err != nil {
+		return nil, err
+	}
 	return result, err
 }
 
@@ -913,6 +1018,9 @@ func (c *Client) GetInvoice(invoiceId string) (*Invoice, error) {
 	path := c.InterpolatePath("/invoices/{invoice_id}", invoiceId)
 	result := &Invoice{}
 	err := c.Call(http.MethodGet, path, nil, result)
+	if err != nil {
+		return nil, err
+	}
 	return result, err
 }
 
@@ -922,6 +1030,9 @@ func (c *Client) PutInvoice(invoiceId string, body *InvoiceUpdatable) (*Invoice,
 	path := c.InterpolatePath("/invoices/{invoice_id}", invoiceId)
 	result := &Invoice{}
 	err := c.Call(http.MethodPut, path, body, result)
+	if err != nil {
+		return nil, err
+	}
 	return result, err
 }
 
@@ -931,6 +1042,9 @@ func (c *Client) GetInvoicePdf(invoiceId string) (*BinaryFile, error) {
 	path := c.InterpolatePath("/invoices/{invoice_id}.pdf", invoiceId)
 	result := &BinaryFile{}
 	err := c.Call(http.MethodGet, path, nil, result)
+	if err != nil {
+		return nil, err
+	}
 	return result, err
 }
 
@@ -955,6 +1069,9 @@ func (c *Client) CollectInvoice(invoiceId string, params *CollectInvoiceParams) 
 	path := c.InterpolatePath("/invoices/{invoice_id}/collect", invoiceId)
 	result := &Invoice{}
 	err := c.Call(http.MethodPut, path, params, result)
+	if err != nil {
+		return nil, err
+	}
 	return result, err
 }
 
@@ -964,6 +1081,9 @@ func (c *Client) FailInvoice(invoiceId string) (*Invoice, error) {
 	path := c.InterpolatePath("/invoices/{invoice_id}/mark_failed", invoiceId)
 	result := &Invoice{}
 	err := c.Call(http.MethodPut, path, nil, result)
+	if err != nil {
+		return nil, err
+	}
 	return result, err
 }
 
@@ -973,6 +1093,9 @@ func (c *Client) MarkInvoiceSuccessful(invoiceId string) (*Invoice, error) {
 	path := c.InterpolatePath("/invoices/{invoice_id}/mark_successful", invoiceId)
 	result := &Invoice{}
 	err := c.Call(http.MethodPut, path, nil, result)
+	if err != nil {
+		return nil, err
+	}
 	return result, err
 }
 
@@ -982,6 +1105,9 @@ func (c *Client) ReopenInvoice(invoiceId string) (*Invoice, error) {
 	path := c.InterpolatePath("/invoices/{invoice_id}/reopen", invoiceId)
 	result := &Invoice{}
 	err := c.Call(http.MethodPut, path, nil, result)
+	if err != nil {
+		return nil, err
+	}
 	return result, err
 }
 
@@ -991,6 +1117,9 @@ func (c *Client) VoidInvoice(invoiceId string) (*Invoice, error) {
 	path := c.InterpolatePath("/invoices/{invoice_id}/void", invoiceId)
 	result := &Invoice{}
 	err := c.Call(http.MethodPut, path, nil, result)
+	if err != nil {
+		return nil, err
+	}
 	return result, err
 }
 
@@ -1076,6 +1205,9 @@ func (c *Client) RefundInvoice(invoiceId string, body *InvoiceRefund) (*Invoice,
 	path := c.InterpolatePath("/invoices/{invoice_id}/refund", invoiceId)
 	result := &Invoice{}
 	err := c.Call(http.MethodPost, path, body, result)
+	if err != nil {
+		return nil, err
+	}
 	return result, err
 }
 
@@ -1120,6 +1252,9 @@ func (c *Client) GetLineItem(lineItemId string) (*LineItem, error) {
 	path := c.InterpolatePath("/line_items/{line_item_id}", lineItemId)
 	result := &LineItem{}
 	err := c.Call(http.MethodGet, path, nil, result)
+	if err != nil {
+		return nil, err
+	}
 	return result, err
 }
 
@@ -1129,6 +1264,9 @@ func (c *Client) RemoveLineItem(lineItemId string) (*Empty, error) {
 	path := c.InterpolatePath("/line_items/{line_item_id}", lineItemId)
 	result := &Empty{}
 	err := c.Call(http.MethodDelete, path, nil, result)
+	if err != nil {
+		return nil, err
+	}
 	return result, err
 }
 
@@ -1171,6 +1309,9 @@ func (c *Client) CreatePlan(body *PlanCreate) (*Plan, error) {
 	path := c.InterpolatePath("/plans")
 	result := &Plan{}
 	err := c.Call(http.MethodPost, path, body, result)
+	if err != nil {
+		return nil, err
+	}
 	return result, err
 }
 
@@ -1180,6 +1321,9 @@ func (c *Client) GetPlan(planId string) (*Plan, error) {
 	path := c.InterpolatePath("/plans/{plan_id}", planId)
 	result := &Plan{}
 	err := c.Call(http.MethodGet, path, nil, result)
+	if err != nil {
+		return nil, err
+	}
 	return result, err
 }
 
@@ -1189,6 +1333,9 @@ func (c *Client) UpdatePlan(planId string, body *PlanUpdate) (*Plan, error) {
 	path := c.InterpolatePath("/plans/{plan_id}", planId)
 	result := &Plan{}
 	err := c.Call(http.MethodPut, path, body, result)
+	if err != nil {
+		return nil, err
+	}
 	return result, err
 }
 
@@ -1198,6 +1345,9 @@ func (c *Client) RemovePlan(planId string) (*Plan, error) {
 	path := c.InterpolatePath("/plans/{plan_id}", planId)
 	result := &Plan{}
 	err := c.Call(http.MethodDelete, path, nil, result)
+	if err != nil {
+		return nil, err
+	}
 	return result, err
 }
 
@@ -1240,6 +1390,9 @@ func (c *Client) CreatePlanAddOn(planId string, body *AddOnCreate) (*AddOn, erro
 	path := c.InterpolatePath("/plans/{plan_id}/add_ons", planId)
 	result := &AddOn{}
 	err := c.Call(http.MethodPost, path, body, result)
+	if err != nil {
+		return nil, err
+	}
 	return result, err
 }
 
@@ -1249,6 +1402,9 @@ func (c *Client) GetPlanAddOn(planId string, addOnId string) (*AddOn, error) {
 	path := c.InterpolatePath("/plans/{plan_id}/add_ons/{add_on_id}", planId, addOnId)
 	result := &AddOn{}
 	err := c.Call(http.MethodGet, path, nil, result)
+	if err != nil {
+		return nil, err
+	}
 	return result, err
 }
 
@@ -1258,6 +1414,9 @@ func (c *Client) UpdatePlanAddOn(planId string, addOnId string, body *AddOnUpdat
 	path := c.InterpolatePath("/plans/{plan_id}/add_ons/{add_on_id}", planId, addOnId)
 	result := &AddOn{}
 	err := c.Call(http.MethodPut, path, body, result)
+	if err != nil {
+		return nil, err
+	}
 	return result, err
 }
 
@@ -1267,6 +1426,9 @@ func (c *Client) RemovePlanAddOn(planId string, addOnId string) (*AddOn, error) 
 	path := c.InterpolatePath("/plans/{plan_id}/add_ons/{add_on_id}", planId, addOnId)
 	result := &AddOn{}
 	err := c.Call(http.MethodDelete, path, nil, result)
+	if err != nil {
+		return nil, err
+	}
 	return result, err
 }
 
@@ -1309,6 +1471,9 @@ func (c *Client) GetAddOn(addOnId string) (*AddOn, error) {
 	path := c.InterpolatePath("/add_ons/{add_on_id}", addOnId)
 	result := &AddOn{}
 	err := c.Call(http.MethodGet, path, nil, result)
+	if err != nil {
+		return nil, err
+	}
 	return result, err
 }
 
@@ -1350,6 +1515,9 @@ func (c *Client) GetShippingMethod(id string) (*ShippingMethod, error) {
 	path := c.InterpolatePath("/shipping_methods/{id}", id)
 	result := &ShippingMethod{}
 	err := c.Call(http.MethodGet, path, nil, result)
+	if err != nil {
+		return nil, err
+	}
 	return result, err
 }
 
@@ -1392,6 +1560,9 @@ func (c *Client) CreateSubscription(body *SubscriptionCreate) (*Subscription, er
 	path := c.InterpolatePath("/subscriptions")
 	result := &Subscription{}
 	err := c.Call(http.MethodPost, path, body, result)
+	if err != nil {
+		return nil, err
+	}
 	return result, err
 }
 
@@ -1401,6 +1572,9 @@ func (c *Client) GetSubscription(subscriptionId string) (*Subscription, error) {
 	path := c.InterpolatePath("/subscriptions/{subscription_id}", subscriptionId)
 	result := &Subscription{}
 	err := c.Call(http.MethodGet, path, nil, result)
+	if err != nil {
+		return nil, err
+	}
 	return result, err
 }
 
@@ -1410,6 +1584,9 @@ func (c *Client) ModifySubscription(subscriptionId string, body *SubscriptionUpd
 	path := c.InterpolatePath("/subscriptions/{subscription_id}", subscriptionId)
 	result := &Subscription{}
 	err := c.Call(http.MethodPut, path, body, result)
+	if err != nil {
+		return nil, err
+	}
 	return result, err
 }
 
@@ -1434,6 +1611,9 @@ func (c *Client) TerminateSubscription(subscriptionId string, params *TerminateS
 	path := c.InterpolatePath("/subscriptions/{subscription_id}", subscriptionId)
 	result := &Subscription{}
 	err := c.Call(http.MethodDelete, path, params, result)
+	if err != nil {
+		return nil, err
+	}
 	return result, err
 }
 
@@ -1458,6 +1638,9 @@ func (c *Client) CancelSubscription(subscriptionId string, params *CancelSubscri
 	path := c.InterpolatePath("/subscriptions/{subscription_id}/cancel", subscriptionId)
 	result := &Subscription{}
 	err := c.Call(http.MethodPut, path, params, result)
+	if err != nil {
+		return nil, err
+	}
 	return result, err
 }
 
@@ -1467,6 +1650,9 @@ func (c *Client) ReactivateSubscription(subscriptionId string) (*Subscription, e
 	path := c.InterpolatePath("/subscriptions/{subscription_id}/reactivate", subscriptionId)
 	result := &Subscription{}
 	err := c.Call(http.MethodPut, path, nil, result)
+	if err != nil {
+		return nil, err
+	}
 	return result, err
 }
 
@@ -1476,6 +1662,9 @@ func (c *Client) PauseSubscription(subscriptionId string, body *SubscriptionPaus
 	path := c.InterpolatePath("/subscriptions/{subscription_id}/pause", subscriptionId)
 	result := &Subscription{}
 	err := c.Call(http.MethodPut, path, body, result)
+	if err != nil {
+		return nil, err
+	}
 	return result, err
 }
 
@@ -1485,6 +1674,9 @@ func (c *Client) ResumeSubscription(subscriptionId string) (*Subscription, error
 	path := c.InterpolatePath("/subscriptions/{subscription_id}/resume", subscriptionId)
 	result := &Subscription{}
 	err := c.Call(http.MethodPut, path, nil, result)
+	if err != nil {
+		return nil, err
+	}
 	return result, err
 }
 
@@ -1494,6 +1686,9 @@ func (c *Client) ConvertTrial(subscriptionId string) (*Subscription, error) {
 	path := c.InterpolatePath("/subscriptions/{subscription_id}/convert_trial", subscriptionId)
 	result := &Subscription{}
 	err := c.Call(http.MethodPut, path, nil, result)
+	if err != nil {
+		return nil, err
+	}
 	return result, err
 }
 
@@ -1503,6 +1698,9 @@ func (c *Client) GetSubscriptionChange(subscriptionId string) (*SubscriptionChan
 	path := c.InterpolatePath("/subscriptions/{subscription_id}/change", subscriptionId)
 	result := &SubscriptionChange{}
 	err := c.Call(http.MethodGet, path, nil, result)
+	if err != nil {
+		return nil, err
+	}
 	return result, err
 }
 
@@ -1512,6 +1710,9 @@ func (c *Client) CreateSubscriptionChange(subscriptionId string, body *Subscript
 	path := c.InterpolatePath("/subscriptions/{subscription_id}/change", subscriptionId)
 	result := &SubscriptionChange{}
 	err := c.Call(http.MethodPost, path, body, result)
+	if err != nil {
+		return nil, err
+	}
 	return result, err
 }
 
@@ -1521,6 +1722,9 @@ func (c *Client) RemoveSubscriptionChange(subscriptionId string) (*Empty, error)
 	path := c.InterpolatePath("/subscriptions/{subscription_id}/change", subscriptionId)
 	result := &Empty{}
 	err := c.Call(http.MethodDelete, path, nil, result)
+	if err != nil {
+		return nil, err
+	}
 	return result, err
 }
 
@@ -1662,6 +1866,9 @@ func (c *Client) GetTransaction(transactionId string) (*Transaction, error) {
 	path := c.InterpolatePath("/transactions/{transaction_id}", transactionId)
 	result := &Transaction{}
 	err := c.Call(http.MethodGet, path, nil, result)
+	if err != nil {
+		return nil, err
+	}
 	return result, err
 }
 
@@ -1671,6 +1878,9 @@ func (c *Client) GetUniqueCouponCode(uniqueCouponCodeId string) (*UniqueCouponCo
 	path := c.InterpolatePath("/unique_coupon_codes/{unique_coupon_code_id}", uniqueCouponCodeId)
 	result := &UniqueCouponCode{}
 	err := c.Call(http.MethodGet, path, nil, result)
+	if err != nil {
+		return nil, err
+	}
 	return result, err
 }
 
@@ -1680,6 +1890,9 @@ func (c *Client) DeactivateUniqueCouponCode(uniqueCouponCodeId string) (*UniqueC
 	path := c.InterpolatePath("/unique_coupon_codes/{unique_coupon_code_id}", uniqueCouponCodeId)
 	result := &UniqueCouponCode{}
 	err := c.Call(http.MethodDelete, path, nil, result)
+	if err != nil {
+		return nil, err
+	}
 	return result, err
 }
 
@@ -1689,6 +1902,9 @@ func (c *Client) ReactivateUniqueCouponCode(uniqueCouponCodeId string) (*UniqueC
 	path := c.InterpolatePath("/unique_coupon_codes/{unique_coupon_code_id}/restore", uniqueCouponCodeId)
 	result := &UniqueCouponCode{}
 	err := c.Call(http.MethodPut, path, nil, result)
+	if err != nil {
+		return nil, err
+	}
 	return result, err
 }
 
@@ -1698,6 +1914,9 @@ func (c *Client) CreatePurchase(body *PurchaseCreate) (*InvoiceCollection, error
 	path := c.InterpolatePath("/purchases")
 	result := &InvoiceCollection{}
 	err := c.Call(http.MethodPost, path, body, result)
+	if err != nil {
+		return nil, err
+	}
 	return result, err
 }
 
@@ -1707,5 +1926,8 @@ func (c *Client) PreviewPurchase(body *PurchaseCreate) (*InvoiceCollection, erro
 	path := c.InterpolatePath("/purchases/preview")
 	result := &InvoiceCollection{}
 	err := c.Call(http.MethodPost, path, body, result)
+	if err != nil {
+		return nil, err
+	}
 	return result, err
 }

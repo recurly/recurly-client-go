@@ -1,6 +1,5 @@
 package recurly
 
 const (
-	// Recurly clientVersion (independent of the API version)
-	clientVersion = "0.0.1"
+	clientVersion = "3.0.0-beta.1"
 )
