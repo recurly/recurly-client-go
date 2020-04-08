@@ -1,7 +1,10 @@
 package recurly
 
 import (
+	"fmt"
 	"net/http"
+	"strconv"
+	"strings"
 	"time"
 	//  "net/url"
 )
@@ -68,12 +71,44 @@ type ListAccountsParams struct {
 }
 
 func (list *ListAccountsParams) toParams() *Params {
+	fmt.Println(list)
+
 	return &Params{
 		IdempotencyKey: list.IdempotencyKey,
 		Header:         list.Header,
 		Context:        list.Context,
 		RequestParams:  list,
 	}
+}
+
+func (list *ListAccountsParams) URLParams() []KeyValue {
+	var options []KeyValue
+
+	if list.Ids != nil && len(*list.Ids) > 0 {
+		options = append(options, KeyValue{Key: "ids", Value: strings.Join(*list.Ids, ",")})
+	}
+	if list.Limit != nil {
+		options = append(options, KeyValue{Key: "limit", Value: strconv.Itoa(*list.Limit)})
+	}
+	options = append(options, KeyValue{Key: "order", Value: string(*list.Order)})
+	options = append(options, KeyValue{Key: "sort", Value: string(*list.Sort)})
+	if list.BeginTime != nil {
+		options = append(options, KeyValue{Key: "begin_time", Value: formatTime(*list.BeginTime)})
+	}
+	if list.EndTime != nil {
+		options = append(options, KeyValue{Key: "end_time", Value: formatTime(*list.EndTime)})
+	}
+	if list.Email != nil {
+		options = append(options, KeyValue{Key: "email", Value: string(*list.Email)})
+	}
+	if list.Subscriber != nil {
+		options = append(options, KeyValue{Key: "subscriber", Value: formatBool(*list.Subscriber)})
+	}
+	if list.PastDue != nil {
+		options = append(options, KeyValue{Key: "past_due", Value: string(*list.PastDue)})
+	}
+
+	return options
 }
 
 // ListAccounts List a site's accounts

@@ -3,8 +3,6 @@ package recurly
 import (
 	"context"
 	"net/http"
-	"strconv"
-	"strings"
 	"time"
 )
 
@@ -41,47 +39,47 @@ func (params *Params) URLParams() []KeyValue {
 }
 
 // ListParams inform a list query
-type ListParams struct {
-	Params
+// type ListParams struct {
+// 	Params
 
-	IDs       []string
-	Limit     int
-	Order     ListOrder
-	Sort      SortField
-	BeginTime *time.Time
-	EndTime   *time.Time
-}
+// 	IDs       []string
+// 	Limit     int
+// 	Order     ListOrder
+// 	Sort      SortField
+// 	BeginTime *time.Time
+// 	EndTime   *time.Time
+// }
 
 // URLParams contains additional URL parameters for querying generic lists
-func (list *ListParams) URLParams() []KeyValue {
-	var options []KeyValue
+// func (list *ListParams) URLParams() []KeyValue {
+// 	var options []KeyValue
 
-	if list.IDs != nil && len(list.IDs) > 0 {
-		options = append(options, KeyValue{Key: "ids", Value: strings.Join(list.IDs, ",")})
-	}
-	if list.Limit > 0 {
-		options = append(options, KeyValue{Key: "limit", Value: strconv.Itoa(list.Limit)})
-	}
-	options = append(options, KeyValue{Key: "order", Value: string(list.Order)})
-	options = append(options, KeyValue{Key: "sort", Value: string(list.Sort)})
-	if list.BeginTime != nil {
-		options = append(options, KeyValue{Key: "begin_time", Value: formatTime(*list.BeginTime)})
-	}
-	if list.EndTime != nil {
-		options = append(options, KeyValue{Key: "end_time", Value: formatTime(*list.EndTime)})
-	}
+// 	if list.IDs != nil && len(list.IDs) > 0 {
+// 		options = append(options, KeyValue{Key: "ids", Value: strings.Join(list.IDs, ",")})
+// 	}
+// 	if list.Limit > 0 {
+// 		options = append(options, KeyValue{Key: "limit", Value: strconv.Itoa(list.Limit)})
+// 	}
+// 	options = append(options, KeyValue{Key: "order", Value: string(list.Order)})
+// 	options = append(options, KeyValue{Key: "sort", Value: string(list.Sort)})
+// 	if list.BeginTime != nil {
+// 		options = append(options, KeyValue{Key: "begin_time", Value: formatTime(*list.BeginTime)})
+// 	}
+// 	if list.EndTime != nil {
+// 		options = append(options, KeyValue{Key: "end_time", Value: formatTime(*list.EndTime)})
+// 	}
 
-	return options
-}
+// 	return options
+// }
 
-func (list *ListParams) toParams() *Params {
-	return &Params{
-		IdempotencyKey: list.IdempotencyKey,
-		Header:         list.Header,
-		Context:        list.Context,
-		RequestParams:  list,
-	}
-}
+// func (list *ListParams) toParams() *Params {
+// 	return &Params{
+// 		IdempotencyKey: list.IdempotencyKey,
+// 		Header:         list.Header,
+// 		Context:        list.Context,
+// 		RequestParams:  list,
+// 	}
+// }
 
 type KeyValue struct {
 	Key   string
