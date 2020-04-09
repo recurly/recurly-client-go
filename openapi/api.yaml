@@ -304,6 +304,13 @@ paths:
               schema:
                 "$ref": "#/components/schemas/Error"
       x-code-samples:
+      - lang: Go
+        source: "listParams := &recurly.ListSitesParams{\n\tSort:  recurly.String(\"created_at\"),\n\tOrder:
+          recurly.String(\"subdomain\"),\n\tLimit: recurly.Int(200),\n}\n\nsites :=
+          client.ListSites(listParams)\n\nvar err error = nil\nfor sites.HasMore {\n\tsites,
+          err = sites.NextPage()\n\tif err != nil {\n\t\tfmt.Printf(\"Failed to retrieve
+          next page: %v\", err)\n\t\tbreak\n\t}\n\tfor i, site := range sites.Data
+          {\n\t\tfmt.Printf(\"Site %3d: %s, %s\\n\",\n\t\t\ti,\n\t\t\tsite.Id,\n\t\t\tsite.Subdomain,\n\t\t)\n\t}\n}\n"
       - lang: ".NET"
         source: |
           var sites = client.ListSites(limit: 200);
