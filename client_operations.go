@@ -2,6 +2,8 @@ package recurly
 
 import (
 	"net/http"
+	"strconv"
+	"strings"
 	"time"
 	//  "net/url"
 )
@@ -27,6 +29,28 @@ func (list *ListSitesParams) toParams() *Params {
 		Context:        list.Context,
 		RequestParams:  list,
 	}
+}
+
+func (list *ListSitesParams) URLParams() []KeyValue {
+	var options []KeyValue
+
+	if list.Ids != nil {
+		options = append(options, KeyValue{Key: "ids", Value: strings.Join(*list.Ids, ",")})
+	}
+
+	if list.Limit != nil {
+		options = append(options, KeyValue{Key: "limit", Value: strconv.Itoa(*list.Limit)})
+	}
+
+	if list.Order != nil {
+		options = append(options, KeyValue{Key: "order", Value: *list.Order})
+	}
+
+	if list.Sort != nil {
+		options = append(options, KeyValue{Key: "sort", Value: *list.Sort})
+	}
+
+	return options
 }
 
 // ListSites List sites
@@ -74,6 +98,48 @@ func (list *ListAccountsParams) toParams() *Params {
 		Context:        list.Context,
 		RequestParams:  list,
 	}
+}
+
+func (list *ListAccountsParams) URLParams() []KeyValue {
+	var options []KeyValue
+
+	if list.Ids != nil {
+		options = append(options, KeyValue{Key: "ids", Value: strings.Join(*list.Ids, ",")})
+	}
+
+	if list.Limit != nil {
+		options = append(options, KeyValue{Key: "limit", Value: strconv.Itoa(*list.Limit)})
+	}
+
+	if list.Order != nil {
+		options = append(options, KeyValue{Key: "order", Value: *list.Order})
+	}
+
+	if list.Sort != nil {
+		options = append(options, KeyValue{Key: "sort", Value: *list.Sort})
+	}
+
+	if list.BeginTime != nil {
+		options = append(options, KeyValue{Key: "begin_time", Value: formatTime(*list.BeginTime)})
+	}
+
+	if list.EndTime != nil {
+		options = append(options, KeyValue{Key: "end_time", Value: formatTime(*list.EndTime)})
+	}
+
+	if list.Email != nil {
+		options = append(options, KeyValue{Key: "email", Value: *list.Email})
+	}
+
+	if list.Subscriber != nil {
+		options = append(options, KeyValue{Key: "subscriber", Value: strconv.FormatBool(*list.Subscriber)})
+	}
+
+	if list.PastDue != nil {
+		options = append(options, KeyValue{Key: "past_due", Value: *list.PastDue})
+	}
+
+	return options
 }
 
 // ListAccounts List a site's accounts
@@ -250,6 +316,28 @@ func (list *ListAccountCouponRedemptionsParams) toParams() *Params {
 	}
 }
 
+func (list *ListAccountCouponRedemptionsParams) URLParams() []KeyValue {
+	var options []KeyValue
+
+	if list.Ids != nil {
+		options = append(options, KeyValue{Key: "ids", Value: strings.Join(*list.Ids, ",")})
+	}
+
+	if list.Sort != nil {
+		options = append(options, KeyValue{Key: "sort", Value: *list.Sort})
+	}
+
+	if list.BeginTime != nil {
+		options = append(options, KeyValue{Key: "begin_time", Value: formatTime(*list.BeginTime)})
+	}
+
+	if list.EndTime != nil {
+		options = append(options, KeyValue{Key: "end_time", Value: formatTime(*list.EndTime)})
+	}
+
+	return options
+}
+
 // ListAccountCouponRedemptions Show the coupon redemptions for an account
 // Returns: A list of the the coupon redemptions on an account.
 func (c *Client) ListAccountCouponRedemptions(accountId string, params *ListAccountCouponRedemptionsParams) *CouponRedemptionList {
@@ -317,6 +405,32 @@ func (list *ListAccountCreditPaymentsParams) toParams() *Params {
 	}
 }
 
+func (list *ListAccountCreditPaymentsParams) URLParams() []KeyValue {
+	var options []KeyValue
+
+	if list.Limit != nil {
+		options = append(options, KeyValue{Key: "limit", Value: strconv.Itoa(*list.Limit)})
+	}
+
+	if list.Order != nil {
+		options = append(options, KeyValue{Key: "order", Value: *list.Order})
+	}
+
+	if list.Sort != nil {
+		options = append(options, KeyValue{Key: "sort", Value: *list.Sort})
+	}
+
+	if list.BeginTime != nil {
+		options = append(options, KeyValue{Key: "begin_time", Value: formatTime(*list.BeginTime)})
+	}
+
+	if list.EndTime != nil {
+		options = append(options, KeyValue{Key: "end_time", Value: formatTime(*list.EndTime)})
+	}
+
+	return options
+}
+
 // ListAccountCreditPayments List an account's credit payments
 // Returns: A list of the account's credit payments.
 func (c *Client) ListAccountCreditPayments(accountId string, params *ListAccountCreditPaymentsParams) *CreditPaymentList {
@@ -348,6 +462,40 @@ func (list *ListAccountInvoicesParams) toParams() *Params {
 		Context:        list.Context,
 		RequestParams:  list,
 	}
+}
+
+func (list *ListAccountInvoicesParams) URLParams() []KeyValue {
+	var options []KeyValue
+
+	if list.Ids != nil {
+		options = append(options, KeyValue{Key: "ids", Value: strings.Join(*list.Ids, ",")})
+	}
+
+	if list.Limit != nil {
+		options = append(options, KeyValue{Key: "limit", Value: strconv.Itoa(*list.Limit)})
+	}
+
+	if list.Order != nil {
+		options = append(options, KeyValue{Key: "order", Value: *list.Order})
+	}
+
+	if list.Sort != nil {
+		options = append(options, KeyValue{Key: "sort", Value: *list.Sort})
+	}
+
+	if list.BeginTime != nil {
+		options = append(options, KeyValue{Key: "begin_time", Value: formatTime(*list.BeginTime)})
+	}
+
+	if list.EndTime != nil {
+		options = append(options, KeyValue{Key: "end_time", Value: formatTime(*list.EndTime)})
+	}
+
+	if list.Type != nil {
+		options = append(options, KeyValue{Key: "type", Value: *list.Type})
+	}
+
+	return options
 }
 
 // ListAccountInvoices List an account's invoices
@@ -409,6 +557,48 @@ func (list *ListAccountLineItemsParams) toParams() *Params {
 	}
 }
 
+func (list *ListAccountLineItemsParams) URLParams() []KeyValue {
+	var options []KeyValue
+
+	if list.Ids != nil {
+		options = append(options, KeyValue{Key: "ids", Value: strings.Join(*list.Ids, ",")})
+	}
+
+	if list.Limit != nil {
+		options = append(options, KeyValue{Key: "limit", Value: strconv.Itoa(*list.Limit)})
+	}
+
+	if list.Order != nil {
+		options = append(options, KeyValue{Key: "order", Value: *list.Order})
+	}
+
+	if list.Sort != nil {
+		options = append(options, KeyValue{Key: "sort", Value: *list.Sort})
+	}
+
+	if list.BeginTime != nil {
+		options = append(options, KeyValue{Key: "begin_time", Value: formatTime(*list.BeginTime)})
+	}
+
+	if list.EndTime != nil {
+		options = append(options, KeyValue{Key: "end_time", Value: formatTime(*list.EndTime)})
+	}
+
+	if list.Original != nil {
+		options = append(options, KeyValue{Key: "original", Value: *list.Original})
+	}
+
+	if list.State != nil {
+		options = append(options, KeyValue{Key: "state", Value: *list.State})
+	}
+
+	if list.Type != nil {
+		options = append(options, KeyValue{Key: "type", Value: *list.Type})
+	}
+
+	return options
+}
+
 // ListAccountLineItems List an account's line items
 // Returns: A list of the account's line items.
 func (c *Client) ListAccountLineItems(accountId string, params *ListAccountLineItemsParams) *LineItemList {
@@ -446,6 +636,16 @@ func (list *ListAccountNotesParams) toParams() *Params {
 		Context:        list.Context,
 		RequestParams:  list,
 	}
+}
+
+func (list *ListAccountNotesParams) URLParams() []KeyValue {
+	var options []KeyValue
+
+	if list.Ids != nil {
+		options = append(options, KeyValue{Key: "ids", Value: strings.Join(*list.Ids, ",")})
+	}
+
+	return options
 }
 
 // ListAccountNotes Fetch a list of an account's notes
@@ -490,6 +690,36 @@ func (list *ListShippingAddressesParams) toParams() *Params {
 		Context:        list.Context,
 		RequestParams:  list,
 	}
+}
+
+func (list *ListShippingAddressesParams) URLParams() []KeyValue {
+	var options []KeyValue
+
+	if list.Ids != nil {
+		options = append(options, KeyValue{Key: "ids", Value: strings.Join(*list.Ids, ",")})
+	}
+
+	if list.Limit != nil {
+		options = append(options, KeyValue{Key: "limit", Value: strconv.Itoa(*list.Limit)})
+	}
+
+	if list.Order != nil {
+		options = append(options, KeyValue{Key: "order", Value: *list.Order})
+	}
+
+	if list.Sort != nil {
+		options = append(options, KeyValue{Key: "sort", Value: *list.Sort})
+	}
+
+	if list.BeginTime != nil {
+		options = append(options, KeyValue{Key: "begin_time", Value: formatTime(*list.BeginTime)})
+	}
+
+	if list.EndTime != nil {
+		options = append(options, KeyValue{Key: "end_time", Value: formatTime(*list.EndTime)})
+	}
+
+	return options
 }
 
 // ListShippingAddresses Fetch a list of an account's shipping addresses
@@ -573,6 +803,40 @@ func (list *ListAccountSubscriptionsParams) toParams() *Params {
 	}
 }
 
+func (list *ListAccountSubscriptionsParams) URLParams() []KeyValue {
+	var options []KeyValue
+
+	if list.Ids != nil {
+		options = append(options, KeyValue{Key: "ids", Value: strings.Join(*list.Ids, ",")})
+	}
+
+	if list.Limit != nil {
+		options = append(options, KeyValue{Key: "limit", Value: strconv.Itoa(*list.Limit)})
+	}
+
+	if list.Order != nil {
+		options = append(options, KeyValue{Key: "order", Value: *list.Order})
+	}
+
+	if list.Sort != nil {
+		options = append(options, KeyValue{Key: "sort", Value: *list.Sort})
+	}
+
+	if list.BeginTime != nil {
+		options = append(options, KeyValue{Key: "begin_time", Value: formatTime(*list.BeginTime)})
+	}
+
+	if list.EndTime != nil {
+		options = append(options, KeyValue{Key: "end_time", Value: formatTime(*list.EndTime)})
+	}
+
+	if list.State != nil {
+		options = append(options, KeyValue{Key: "state", Value: *list.State})
+	}
+
+	return options
+}
+
 // ListAccountSubscriptions List an account's subscriptions
 // Returns: A list of the account's subscriptions.
 func (c *Client) ListAccountSubscriptions(accountId string, params *ListAccountSubscriptionsParams) *SubscriptionList {
@@ -605,6 +869,44 @@ func (list *ListAccountTransactionsParams) toParams() *Params {
 		Context:        list.Context,
 		RequestParams:  list,
 	}
+}
+
+func (list *ListAccountTransactionsParams) URLParams() []KeyValue {
+	var options []KeyValue
+
+	if list.Ids != nil {
+		options = append(options, KeyValue{Key: "ids", Value: strings.Join(*list.Ids, ",")})
+	}
+
+	if list.Limit != nil {
+		options = append(options, KeyValue{Key: "limit", Value: strconv.Itoa(*list.Limit)})
+	}
+
+	if list.Order != nil {
+		options = append(options, KeyValue{Key: "order", Value: *list.Order})
+	}
+
+	if list.Sort != nil {
+		options = append(options, KeyValue{Key: "sort", Value: *list.Sort})
+	}
+
+	if list.BeginTime != nil {
+		options = append(options, KeyValue{Key: "begin_time", Value: formatTime(*list.BeginTime)})
+	}
+
+	if list.EndTime != nil {
+		options = append(options, KeyValue{Key: "end_time", Value: formatTime(*list.EndTime)})
+	}
+
+	if list.Type != nil {
+		options = append(options, KeyValue{Key: "type", Value: *list.Type})
+	}
+
+	if list.Success != nil {
+		options = append(options, KeyValue{Key: "success", Value: *list.Success})
+	}
+
+	return options
 }
 
 // ListAccountTransactions List an account's transactions
@@ -642,6 +944,48 @@ func (list *ListChildAccountsParams) toParams() *Params {
 	}
 }
 
+func (list *ListChildAccountsParams) URLParams() []KeyValue {
+	var options []KeyValue
+
+	if list.Ids != nil {
+		options = append(options, KeyValue{Key: "ids", Value: strings.Join(*list.Ids, ",")})
+	}
+
+	if list.Limit != nil {
+		options = append(options, KeyValue{Key: "limit", Value: strconv.Itoa(*list.Limit)})
+	}
+
+	if list.Order != nil {
+		options = append(options, KeyValue{Key: "order", Value: *list.Order})
+	}
+
+	if list.Sort != nil {
+		options = append(options, KeyValue{Key: "sort", Value: *list.Sort})
+	}
+
+	if list.BeginTime != nil {
+		options = append(options, KeyValue{Key: "begin_time", Value: formatTime(*list.BeginTime)})
+	}
+
+	if list.EndTime != nil {
+		options = append(options, KeyValue{Key: "end_time", Value: formatTime(*list.EndTime)})
+	}
+
+	if list.Email != nil {
+		options = append(options, KeyValue{Key: "email", Value: *list.Email})
+	}
+
+	if list.Subscriber != nil {
+		options = append(options, KeyValue{Key: "subscriber", Value: strconv.FormatBool(*list.Subscriber)})
+	}
+
+	if list.PastDue != nil {
+		options = append(options, KeyValue{Key: "past_due", Value: *list.PastDue})
+	}
+
+	return options
+}
+
 // ListChildAccounts List an account's child accounts
 // Returns: A list of an account's child accounts.
 func (c *Client) ListChildAccounts(accountId string, params *ListChildAccountsParams) *AccountList {
@@ -674,6 +1018,36 @@ func (list *ListAccountAcquisitionParams) toParams() *Params {
 	}
 }
 
+func (list *ListAccountAcquisitionParams) URLParams() []KeyValue {
+	var options []KeyValue
+
+	if list.Ids != nil {
+		options = append(options, KeyValue{Key: "ids", Value: strings.Join(*list.Ids, ",")})
+	}
+
+	if list.Limit != nil {
+		options = append(options, KeyValue{Key: "limit", Value: strconv.Itoa(*list.Limit)})
+	}
+
+	if list.Order != nil {
+		options = append(options, KeyValue{Key: "order", Value: *list.Order})
+	}
+
+	if list.Sort != nil {
+		options = append(options, KeyValue{Key: "sort", Value: *list.Sort})
+	}
+
+	if list.BeginTime != nil {
+		options = append(options, KeyValue{Key: "begin_time", Value: formatTime(*list.BeginTime)})
+	}
+
+	if list.EndTime != nil {
+		options = append(options, KeyValue{Key: "end_time", Value: formatTime(*list.EndTime)})
+	}
+
+	return options
+}
+
 // ListAccountAcquisition List a site's account acquisition data
 // Returns: A list of the site's account acquisition data.
 func (c *Client) ListAccountAcquisition(params *ListAccountAcquisitionParams) *AccountAcquisitionList {
@@ -704,6 +1078,36 @@ func (list *ListCouponsParams) toParams() *Params {
 		Context:        list.Context,
 		RequestParams:  list,
 	}
+}
+
+func (list *ListCouponsParams) URLParams() []KeyValue {
+	var options []KeyValue
+
+	if list.Ids != nil {
+		options = append(options, KeyValue{Key: "ids", Value: strings.Join(*list.Ids, ",")})
+	}
+
+	if list.Limit != nil {
+		options = append(options, KeyValue{Key: "limit", Value: strconv.Itoa(*list.Limit)})
+	}
+
+	if list.Order != nil {
+		options = append(options, KeyValue{Key: "order", Value: *list.Order})
+	}
+
+	if list.Sort != nil {
+		options = append(options, KeyValue{Key: "sort", Value: *list.Sort})
+	}
+
+	if list.BeginTime != nil {
+		options = append(options, KeyValue{Key: "begin_time", Value: formatTime(*list.BeginTime)})
+	}
+
+	if list.EndTime != nil {
+		options = append(options, KeyValue{Key: "end_time", Value: formatTime(*list.EndTime)})
+	}
+
+	return options
 }
 
 // ListCoupons List a site's coupons
@@ -786,6 +1190,36 @@ func (list *ListUniqueCouponCodesParams) toParams() *Params {
 	}
 }
 
+func (list *ListUniqueCouponCodesParams) URLParams() []KeyValue {
+	var options []KeyValue
+
+	if list.Ids != nil {
+		options = append(options, KeyValue{Key: "ids", Value: strings.Join(*list.Ids, ",")})
+	}
+
+	if list.Limit != nil {
+		options = append(options, KeyValue{Key: "limit", Value: strconv.Itoa(*list.Limit)})
+	}
+
+	if list.Order != nil {
+		options = append(options, KeyValue{Key: "order", Value: *list.Order})
+	}
+
+	if list.Sort != nil {
+		options = append(options, KeyValue{Key: "sort", Value: *list.Sort})
+	}
+
+	if list.BeginTime != nil {
+		options = append(options, KeyValue{Key: "begin_time", Value: formatTime(*list.BeginTime)})
+	}
+
+	if list.EndTime != nil {
+		options = append(options, KeyValue{Key: "end_time", Value: formatTime(*list.EndTime)})
+	}
+
+	return options
+}
+
 // ListUniqueCouponCodes List unique coupon codes associated with a bulk coupon
 // Returns: A list of unique coupon codes that were generated
 func (c *Client) ListUniqueCouponCodes(couponId string, params *ListUniqueCouponCodesParams) *UniqueCouponCodeList {
@@ -815,6 +1249,32 @@ func (list *ListCreditPaymentsParams) toParams() *Params {
 		Context:        list.Context,
 		RequestParams:  list,
 	}
+}
+
+func (list *ListCreditPaymentsParams) URLParams() []KeyValue {
+	var options []KeyValue
+
+	if list.Limit != nil {
+		options = append(options, KeyValue{Key: "limit", Value: strconv.Itoa(*list.Limit)})
+	}
+
+	if list.Order != nil {
+		options = append(options, KeyValue{Key: "order", Value: *list.Order})
+	}
+
+	if list.Sort != nil {
+		options = append(options, KeyValue{Key: "sort", Value: *list.Sort})
+	}
+
+	if list.BeginTime != nil {
+		options = append(options, KeyValue{Key: "begin_time", Value: formatTime(*list.BeginTime)})
+	}
+
+	if list.EndTime != nil {
+		options = append(options, KeyValue{Key: "end_time", Value: formatTime(*list.EndTime)})
+	}
+
+	return options
 }
 
 // ListCreditPayments List a site's credit payments
@@ -862,6 +1322,40 @@ func (list *ListCustomFieldDefinitionsParams) toParams() *Params {
 	}
 }
 
+func (list *ListCustomFieldDefinitionsParams) URLParams() []KeyValue {
+	var options []KeyValue
+
+	if list.Ids != nil {
+		options = append(options, KeyValue{Key: "ids", Value: strings.Join(*list.Ids, ",")})
+	}
+
+	if list.Limit != nil {
+		options = append(options, KeyValue{Key: "limit", Value: strconv.Itoa(*list.Limit)})
+	}
+
+	if list.Order != nil {
+		options = append(options, KeyValue{Key: "order", Value: *list.Order})
+	}
+
+	if list.Sort != nil {
+		options = append(options, KeyValue{Key: "sort", Value: *list.Sort})
+	}
+
+	if list.BeginTime != nil {
+		options = append(options, KeyValue{Key: "begin_time", Value: formatTime(*list.BeginTime)})
+	}
+
+	if list.EndTime != nil {
+		options = append(options, KeyValue{Key: "end_time", Value: formatTime(*list.EndTime)})
+	}
+
+	if list.RelatedType != nil {
+		options = append(options, KeyValue{Key: "related_type", Value: *list.RelatedType})
+	}
+
+	return options
+}
+
 // ListCustomFieldDefinitions List a site's custom field definitions
 // Returns: A list of the site's custom field definitions.
 func (c *Client) ListCustomFieldDefinitions(params *ListCustomFieldDefinitionsParams) *CustomFieldDefinitionList {
@@ -905,6 +1399,40 @@ func (list *ListItemsParams) toParams() *Params {
 		Context:        list.Context,
 		RequestParams:  list,
 	}
+}
+
+func (list *ListItemsParams) URLParams() []KeyValue {
+	var options []KeyValue
+
+	if list.Ids != nil {
+		options = append(options, KeyValue{Key: "ids", Value: strings.Join(*list.Ids, ",")})
+	}
+
+	if list.Limit != nil {
+		options = append(options, KeyValue{Key: "limit", Value: strconv.Itoa(*list.Limit)})
+	}
+
+	if list.Order != nil {
+		options = append(options, KeyValue{Key: "order", Value: *list.Order})
+	}
+
+	if list.Sort != nil {
+		options = append(options, KeyValue{Key: "sort", Value: *list.Sort})
+	}
+
+	if list.BeginTime != nil {
+		options = append(options, KeyValue{Key: "begin_time", Value: formatTime(*list.BeginTime)})
+	}
+
+	if list.EndTime != nil {
+		options = append(options, KeyValue{Key: "end_time", Value: formatTime(*list.EndTime)})
+	}
+
+	if list.State != nil {
+		options = append(options, KeyValue{Key: "state", Value: *list.State})
+	}
+
+	return options
 }
 
 // ListItems List a site's items
@@ -998,6 +1526,40 @@ func (list *ListInvoicesParams) toParams() *Params {
 		Context:        list.Context,
 		RequestParams:  list,
 	}
+}
+
+func (list *ListInvoicesParams) URLParams() []KeyValue {
+	var options []KeyValue
+
+	if list.Ids != nil {
+		options = append(options, KeyValue{Key: "ids", Value: strings.Join(*list.Ids, ",")})
+	}
+
+	if list.Limit != nil {
+		options = append(options, KeyValue{Key: "limit", Value: strconv.Itoa(*list.Limit)})
+	}
+
+	if list.Order != nil {
+		options = append(options, KeyValue{Key: "order", Value: *list.Order})
+	}
+
+	if list.Sort != nil {
+		options = append(options, KeyValue{Key: "sort", Value: *list.Sort})
+	}
+
+	if list.BeginTime != nil {
+		options = append(options, KeyValue{Key: "begin_time", Value: formatTime(*list.BeginTime)})
+	}
+
+	if list.EndTime != nil {
+		options = append(options, KeyValue{Key: "end_time", Value: formatTime(*list.EndTime)})
+	}
+
+	if list.Type != nil {
+		options = append(options, KeyValue{Key: "type", Value: *list.Type})
+	}
+
+	return options
 }
 
 // ListInvoices List a site's invoices
@@ -1146,6 +1708,48 @@ func (list *ListInvoiceLineItemsParams) toParams() *Params {
 	}
 }
 
+func (list *ListInvoiceLineItemsParams) URLParams() []KeyValue {
+	var options []KeyValue
+
+	if list.Ids != nil {
+		options = append(options, KeyValue{Key: "ids", Value: strings.Join(*list.Ids, ",")})
+	}
+
+	if list.Limit != nil {
+		options = append(options, KeyValue{Key: "limit", Value: strconv.Itoa(*list.Limit)})
+	}
+
+	if list.Order != nil {
+		options = append(options, KeyValue{Key: "order", Value: *list.Order})
+	}
+
+	if list.Sort != nil {
+		options = append(options, KeyValue{Key: "sort", Value: *list.Sort})
+	}
+
+	if list.BeginTime != nil {
+		options = append(options, KeyValue{Key: "begin_time", Value: formatTime(*list.BeginTime)})
+	}
+
+	if list.EndTime != nil {
+		options = append(options, KeyValue{Key: "end_time", Value: formatTime(*list.EndTime)})
+	}
+
+	if list.Original != nil {
+		options = append(options, KeyValue{Key: "original", Value: *list.Original})
+	}
+
+	if list.State != nil {
+		options = append(options, KeyValue{Key: "state", Value: *list.State})
+	}
+
+	if list.Type != nil {
+		options = append(options, KeyValue{Key: "type", Value: *list.Type})
+	}
+
+	return options
+}
+
 // ListInvoiceLineItems List an invoice's line items
 // Returns: A list of the invoice's line items.
 func (c *Client) ListInvoiceLineItems(invoiceId string, params *ListInvoiceLineItemsParams) *LineItemList {
@@ -1174,6 +1778,28 @@ func (list *ListInvoiceCouponRedemptionsParams) toParams() *Params {
 		Context:        list.Context,
 		RequestParams:  list,
 	}
+}
+
+func (list *ListInvoiceCouponRedemptionsParams) URLParams() []KeyValue {
+	var options []KeyValue
+
+	if list.Ids != nil {
+		options = append(options, KeyValue{Key: "ids", Value: strings.Join(*list.Ids, ",")})
+	}
+
+	if list.Sort != nil {
+		options = append(options, KeyValue{Key: "sort", Value: *list.Sort})
+	}
+
+	if list.BeginTime != nil {
+		options = append(options, KeyValue{Key: "begin_time", Value: formatTime(*list.BeginTime)})
+	}
+
+	if list.EndTime != nil {
+		options = append(options, KeyValue{Key: "end_time", Value: formatTime(*list.EndTime)})
+	}
+
+	return options
 }
 
 // ListInvoiceCouponRedemptions Show the coupon redemptions applied to an invoice
@@ -1234,6 +1860,48 @@ func (list *ListLineItemsParams) toParams() *Params {
 	}
 }
 
+func (list *ListLineItemsParams) URLParams() []KeyValue {
+	var options []KeyValue
+
+	if list.Ids != nil {
+		options = append(options, KeyValue{Key: "ids", Value: strings.Join(*list.Ids, ",")})
+	}
+
+	if list.Limit != nil {
+		options = append(options, KeyValue{Key: "limit", Value: strconv.Itoa(*list.Limit)})
+	}
+
+	if list.Order != nil {
+		options = append(options, KeyValue{Key: "order", Value: *list.Order})
+	}
+
+	if list.Sort != nil {
+		options = append(options, KeyValue{Key: "sort", Value: *list.Sort})
+	}
+
+	if list.BeginTime != nil {
+		options = append(options, KeyValue{Key: "begin_time", Value: formatTime(*list.BeginTime)})
+	}
+
+	if list.EndTime != nil {
+		options = append(options, KeyValue{Key: "end_time", Value: formatTime(*list.EndTime)})
+	}
+
+	if list.Original != nil {
+		options = append(options, KeyValue{Key: "original", Value: *list.Original})
+	}
+
+	if list.State != nil {
+		options = append(options, KeyValue{Key: "state", Value: *list.State})
+	}
+
+	if list.Type != nil {
+		options = append(options, KeyValue{Key: "type", Value: *list.Type})
+	}
+
+	return options
+}
+
 // ListLineItems List a site's line items
 // Returns: A list of the site's line items.
 func (c *Client) ListLineItems(params *ListLineItemsParams) *LineItemList {
@@ -1289,6 +1957,40 @@ func (list *ListPlansParams) toParams() *Params {
 		Context:        list.Context,
 		RequestParams:  list,
 	}
+}
+
+func (list *ListPlansParams) URLParams() []KeyValue {
+	var options []KeyValue
+
+	if list.Ids != nil {
+		options = append(options, KeyValue{Key: "ids", Value: strings.Join(*list.Ids, ",")})
+	}
+
+	if list.Limit != nil {
+		options = append(options, KeyValue{Key: "limit", Value: strconv.Itoa(*list.Limit)})
+	}
+
+	if list.Order != nil {
+		options = append(options, KeyValue{Key: "order", Value: *list.Order})
+	}
+
+	if list.Sort != nil {
+		options = append(options, KeyValue{Key: "sort", Value: *list.Sort})
+	}
+
+	if list.BeginTime != nil {
+		options = append(options, KeyValue{Key: "begin_time", Value: formatTime(*list.BeginTime)})
+	}
+
+	if list.EndTime != nil {
+		options = append(options, KeyValue{Key: "end_time", Value: formatTime(*list.EndTime)})
+	}
+
+	if list.State != nil {
+		options = append(options, KeyValue{Key: "state", Value: *list.State})
+	}
+
+	return options
 }
 
 // ListPlans List a site's plans
@@ -1372,6 +2074,40 @@ func (list *ListPlanAddOnsParams) toParams() *Params {
 	}
 }
 
+func (list *ListPlanAddOnsParams) URLParams() []KeyValue {
+	var options []KeyValue
+
+	if list.Ids != nil {
+		options = append(options, KeyValue{Key: "ids", Value: strings.Join(*list.Ids, ",")})
+	}
+
+	if list.Limit != nil {
+		options = append(options, KeyValue{Key: "limit", Value: strconv.Itoa(*list.Limit)})
+	}
+
+	if list.Order != nil {
+		options = append(options, KeyValue{Key: "order", Value: *list.Order})
+	}
+
+	if list.Sort != nil {
+		options = append(options, KeyValue{Key: "sort", Value: *list.Sort})
+	}
+
+	if list.BeginTime != nil {
+		options = append(options, KeyValue{Key: "begin_time", Value: formatTime(*list.BeginTime)})
+	}
+
+	if list.EndTime != nil {
+		options = append(options, KeyValue{Key: "end_time", Value: formatTime(*list.EndTime)})
+	}
+
+	if list.State != nil {
+		options = append(options, KeyValue{Key: "state", Value: *list.State})
+	}
+
+	return options
+}
+
 // ListPlanAddOns List a plan's add-ons
 // Returns: A list of add-ons.
 func (c *Client) ListPlanAddOns(planId string, params *ListPlanAddOnsParams) *AddOnList {
@@ -1453,6 +2189,40 @@ func (list *ListAddOnsParams) toParams() *Params {
 	}
 }
 
+func (list *ListAddOnsParams) URLParams() []KeyValue {
+	var options []KeyValue
+
+	if list.Ids != nil {
+		options = append(options, KeyValue{Key: "ids", Value: strings.Join(*list.Ids, ",")})
+	}
+
+	if list.Limit != nil {
+		options = append(options, KeyValue{Key: "limit", Value: strconv.Itoa(*list.Limit)})
+	}
+
+	if list.Order != nil {
+		options = append(options, KeyValue{Key: "order", Value: *list.Order})
+	}
+
+	if list.Sort != nil {
+		options = append(options, KeyValue{Key: "sort", Value: *list.Sort})
+	}
+
+	if list.BeginTime != nil {
+		options = append(options, KeyValue{Key: "begin_time", Value: formatTime(*list.BeginTime)})
+	}
+
+	if list.EndTime != nil {
+		options = append(options, KeyValue{Key: "end_time", Value: formatTime(*list.EndTime)})
+	}
+
+	if list.State != nil {
+		options = append(options, KeyValue{Key: "state", Value: *list.State})
+	}
+
+	return options
+}
+
 // ListAddOns List a site's add-ons
 // Returns: A list of add-ons.
 func (c *Client) ListAddOns(params *ListAddOnsParams) *AddOnList {
@@ -1495,6 +2265,36 @@ func (list *ListShippingMethodsParams) toParams() *Params {
 		Context:        list.Context,
 		RequestParams:  list,
 	}
+}
+
+func (list *ListShippingMethodsParams) URLParams() []KeyValue {
+	var options []KeyValue
+
+	if list.Ids != nil {
+		options = append(options, KeyValue{Key: "ids", Value: strings.Join(*list.Ids, ",")})
+	}
+
+	if list.Limit != nil {
+		options = append(options, KeyValue{Key: "limit", Value: strconv.Itoa(*list.Limit)})
+	}
+
+	if list.Order != nil {
+		options = append(options, KeyValue{Key: "order", Value: *list.Order})
+	}
+
+	if list.Sort != nil {
+		options = append(options, KeyValue{Key: "sort", Value: *list.Sort})
+	}
+
+	if list.BeginTime != nil {
+		options = append(options, KeyValue{Key: "begin_time", Value: formatTime(*list.BeginTime)})
+	}
+
+	if list.EndTime != nil {
+		options = append(options, KeyValue{Key: "end_time", Value: formatTime(*list.EndTime)})
+	}
+
+	return options
 }
 
 // ListShippingMethods List a site's shipping methods
@@ -1540,6 +2340,40 @@ func (list *ListSubscriptionsParams) toParams() *Params {
 		Context:        list.Context,
 		RequestParams:  list,
 	}
+}
+
+func (list *ListSubscriptionsParams) URLParams() []KeyValue {
+	var options []KeyValue
+
+	if list.Ids != nil {
+		options = append(options, KeyValue{Key: "ids", Value: strings.Join(*list.Ids, ",")})
+	}
+
+	if list.Limit != nil {
+		options = append(options, KeyValue{Key: "limit", Value: strconv.Itoa(*list.Limit)})
+	}
+
+	if list.Order != nil {
+		options = append(options, KeyValue{Key: "order", Value: *list.Order})
+	}
+
+	if list.Sort != nil {
+		options = append(options, KeyValue{Key: "sort", Value: *list.Sort})
+	}
+
+	if list.BeginTime != nil {
+		options = append(options, KeyValue{Key: "begin_time", Value: formatTime(*list.BeginTime)})
+	}
+
+	if list.EndTime != nil {
+		options = append(options, KeyValue{Key: "end_time", Value: formatTime(*list.EndTime)})
+	}
+
+	if list.State != nil {
+		options = append(options, KeyValue{Key: "state", Value: *list.State})
+	}
+
+	return options
 }
 
 // ListSubscriptions List a site's subscriptions
@@ -1603,6 +2437,16 @@ func (list *TerminateSubscriptionParams) toParams() *Params {
 		Context:        list.Context,
 		RequestParams:  list,
 	}
+}
+
+func (list *TerminateSubscriptionParams) URLParams() []KeyValue {
+	var options []KeyValue
+
+	if list.Refund != nil {
+		options = append(options, KeyValue{Key: "refund", Value: *list.Refund})
+	}
+
+	return options
 }
 
 // TerminateSubscription Terminate a subscription
@@ -1749,6 +2593,40 @@ func (list *ListSubscriptionInvoicesParams) toParams() *Params {
 	}
 }
 
+func (list *ListSubscriptionInvoicesParams) URLParams() []KeyValue {
+	var options []KeyValue
+
+	if list.Ids != nil {
+		options = append(options, KeyValue{Key: "ids", Value: strings.Join(*list.Ids, ",")})
+	}
+
+	if list.Limit != nil {
+		options = append(options, KeyValue{Key: "limit", Value: strconv.Itoa(*list.Limit)})
+	}
+
+	if list.Order != nil {
+		options = append(options, KeyValue{Key: "order", Value: *list.Order})
+	}
+
+	if list.Sort != nil {
+		options = append(options, KeyValue{Key: "sort", Value: *list.Sort})
+	}
+
+	if list.BeginTime != nil {
+		options = append(options, KeyValue{Key: "begin_time", Value: formatTime(*list.BeginTime)})
+	}
+
+	if list.EndTime != nil {
+		options = append(options, KeyValue{Key: "end_time", Value: formatTime(*list.EndTime)})
+	}
+
+	if list.Type != nil {
+		options = append(options, KeyValue{Key: "type", Value: *list.Type})
+	}
+
+	return options
+}
+
 // ListSubscriptionInvoices List a subscription's invoices
 // Returns: A list of the subscription's invoices.
 func (c *Client) ListSubscriptionInvoices(subscriptionId string, params *ListSubscriptionInvoicesParams) *InvoiceList {
@@ -1784,6 +2662,48 @@ func (list *ListSubscriptionLineItemsParams) toParams() *Params {
 	}
 }
 
+func (list *ListSubscriptionLineItemsParams) URLParams() []KeyValue {
+	var options []KeyValue
+
+	if list.Ids != nil {
+		options = append(options, KeyValue{Key: "ids", Value: strings.Join(*list.Ids, ",")})
+	}
+
+	if list.Limit != nil {
+		options = append(options, KeyValue{Key: "limit", Value: strconv.Itoa(*list.Limit)})
+	}
+
+	if list.Order != nil {
+		options = append(options, KeyValue{Key: "order", Value: *list.Order})
+	}
+
+	if list.Sort != nil {
+		options = append(options, KeyValue{Key: "sort", Value: *list.Sort})
+	}
+
+	if list.BeginTime != nil {
+		options = append(options, KeyValue{Key: "begin_time", Value: formatTime(*list.BeginTime)})
+	}
+
+	if list.EndTime != nil {
+		options = append(options, KeyValue{Key: "end_time", Value: formatTime(*list.EndTime)})
+	}
+
+	if list.Original != nil {
+		options = append(options, KeyValue{Key: "original", Value: *list.Original})
+	}
+
+	if list.State != nil {
+		options = append(options, KeyValue{Key: "state", Value: *list.State})
+	}
+
+	if list.Type != nil {
+		options = append(options, KeyValue{Key: "type", Value: *list.Type})
+	}
+
+	return options
+}
+
 // ListSubscriptionLineItems List a subscription's line items
 // Returns: A list of the subscription's line items.
 func (c *Client) ListSubscriptionLineItems(subscriptionId string, params *ListSubscriptionLineItemsParams) *LineItemList {
@@ -1812,6 +2732,28 @@ func (list *ListSubscriptionCouponRedemptionsParams) toParams() *Params {
 		Context:        list.Context,
 		RequestParams:  list,
 	}
+}
+
+func (list *ListSubscriptionCouponRedemptionsParams) URLParams() []KeyValue {
+	var options []KeyValue
+
+	if list.Ids != nil {
+		options = append(options, KeyValue{Key: "ids", Value: strings.Join(*list.Ids, ",")})
+	}
+
+	if list.Sort != nil {
+		options = append(options, KeyValue{Key: "sort", Value: *list.Sort})
+	}
+
+	if list.BeginTime != nil {
+		options = append(options, KeyValue{Key: "begin_time", Value: formatTime(*list.BeginTime)})
+	}
+
+	if list.EndTime != nil {
+		options = append(options, KeyValue{Key: "end_time", Value: formatTime(*list.EndTime)})
+	}
+
+	return options
 }
 
 // ListSubscriptionCouponRedemptions Show the coupon redemptions for a subscription
@@ -1846,6 +2788,44 @@ func (list *ListTransactionsParams) toParams() *Params {
 		Context:        list.Context,
 		RequestParams:  list,
 	}
+}
+
+func (list *ListTransactionsParams) URLParams() []KeyValue {
+	var options []KeyValue
+
+	if list.Ids != nil {
+		options = append(options, KeyValue{Key: "ids", Value: strings.Join(*list.Ids, ",")})
+	}
+
+	if list.Limit != nil {
+		options = append(options, KeyValue{Key: "limit", Value: strconv.Itoa(*list.Limit)})
+	}
+
+	if list.Order != nil {
+		options = append(options, KeyValue{Key: "order", Value: *list.Order})
+	}
+
+	if list.Sort != nil {
+		options = append(options, KeyValue{Key: "sort", Value: *list.Sort})
+	}
+
+	if list.BeginTime != nil {
+		options = append(options, KeyValue{Key: "begin_time", Value: formatTime(*list.BeginTime)})
+	}
+
+	if list.EndTime != nil {
+		options = append(options, KeyValue{Key: "end_time", Value: formatTime(*list.EndTime)})
+	}
+
+	if list.Type != nil {
+		options = append(options, KeyValue{Key: "type", Value: *list.Type})
+	}
+
+	if list.Success != nil {
+		options = append(options, KeyValue{Key: "success", Value: *list.Success})
+	}
+
+	return options
 }
 
 // ListTransactions List a site's transactions
