@@ -3,16 +3,15 @@ package recurly
 import (
 	"fmt"
 	"net/http"
-	"net/url"
 	"strconv"
 	"time"
 )
 
 // ResponseMetadata is the response from Recurly's API
 type ResponseMetadata struct {
-	// DeprecatedEndpoint is true if the endpoint is now deprecated and should not be used.
-	DeprecatedEndpoint bool
-	// DeprecationDate indicates the endpoint will sunset and should not be used after this date.
+	// Deprecated is true if the version or endpoint is now deprecated and should not be used.
+	Deprecated bool
+	// DeprecationDate indicates the version or endpoint will sunset and should not be used after this date.
 	DeprecationDate string
 	// RateLimit indicates the remaining API requests before the rate limit is exceeded.
 	RateLimit RateLimit
@@ -24,25 +23,16 @@ type ResponseMetadata struct {
 	Version string
 }
 
-func (c *Client) parseResponseMetadata(requestURL *url.URL, res *http.Response) ResponseMetadata {
-	isDeprecated := false
-	if deprecated := res.Header.Get("Recurly-Deprecated"); deprecated == "TRUE" {
-		isDeprecated = true
-		c.Log.Errorf("Endpoint %s is deprecated. Use at your own risk!", requestURL.Path)
-	}
-
-	sunsetDate := res.Header.Get("Recurly-Sunset-Date")
-	if sunsetDate != "" && !isDeprecated {
-		c.Log.Warnf("Endpoint %s will no longer be available after %s.", requestURL.Path, sunsetDate)
-	}
+func parseResponseMetadata(res *http.Response) ResponseMetadata {
+	deprecated := res.Header.Get("Recurly-Deprecated") == "TRUE"
 
 	return ResponseMetadata{
-		DeprecatedEndpoint: isDeprecated,
-		DeprecationDate:    sunsetDate,
-		RateLimit:          parseRateLimit(res),
-		StatusCode:         res.StatusCode,
-		RequestID:          res.Header.Get("X-Request-Id"),
-		Version:            res.Header.Get("Recurly-Version"),
+		Deprecated:      deprecated,
+		DeprecationDate: res.Header.Get("Recurly-Sunset-Date"),
+		RateLimit:       parseRateLimit(res),
+		StatusCode:      res.StatusCode,
+		RequestID:       res.Header.Get("X-Request-Id"),
+		Version:         res.Header.Get("Recurly-Version"),
 	}
 }
 

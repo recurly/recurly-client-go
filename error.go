@@ -8,13 +8,11 @@ import (
 
 // Error contains basic information about the error
 type Error struct {
-	HTTPStatusCode   int
 	Message          string
 	Type             ErrorType
 	Params           ErrorParams
-	RateLimit        RateLimit
-	RequestID        string
 	TransactionError *TransactionError
+	Response         ResponseMetadata
 }
 
 func (e *Error) Error() string {
@@ -68,13 +66,11 @@ func parseResponseToError(res *http.Response, body []byte) error {
 		var errResp errorResponse
 		if err := json.Unmarshal(body, &errResp); err == nil {
 			return &Error{
-				HTTPStatusCode:   res.StatusCode,
-				RateLimit:        parseRateLimit(res),
-				RequestID:        res.Header.Get("X-Request-Id"),
 				Message:          errResp.Error.Message,
 				Type:             ErrorType(errResp.Error.Type),
 				Params:           errResp.Error.Params,
 				TransactionError: errResp.Error.TransactionError,
+				Response:         parseResponseMetadata(res),
 			}
 		}
 	}
@@ -110,10 +106,8 @@ func parseResponseToError(res *http.Response, body []byte) error {
 	}
 
 	return &Error{
-		HTTPStatusCode: res.StatusCode,
-		RateLimit:      parseRateLimit(res),
-		RequestID:      res.Header.Get("X-Request-Id"),
-		Message:        errMessage,
-		Type:           errType,
+		Message:  errMessage,
+		Type:     errType,
+		Response: parseResponseMetadata(res),
 	}
 }
