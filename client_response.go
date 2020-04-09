@@ -43,7 +43,7 @@ func (meta ResponseMetadata) String() string {
 		meta.Version,
 		meta.RateLimit,
 	)
-	if meta.DeprecatedEndpoint {
+	if meta.Deprecated {
 		line = "DEPRECATED! " + line
 	}
 	if meta.DeprecationDate != "" {
