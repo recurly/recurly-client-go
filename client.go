@@ -138,11 +138,7 @@ func BuildUrl(requestURL string, genericParams GenericParams) string {
 	}
 
 	if params != nil {
-		fmt.Println("not nil")
-		fmt.Println(params.URLParams())
 		if keyValues := params.URLParams(); len(keyValues) > 0 {
-			fmt.Println("not nil")
-			fmt.Println(keyValues)
 			var buf bytes.Buffer
 			buf.WriteString(requestURL)
 			buf.WriteByte('?')

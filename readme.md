@@ -62,11 +62,10 @@ if err != nil {
 ### Pagination
 
 ```go
-listParams := &recurly.AccountListParams{
-    ListParams: recurly.ListParams{
-        Sort:  recurly.SortCreatedAt,
-        Order: recurly.ListAscending,
-    },
+listParams := &recurly.ListAccountsParams{
+    Sort:  recurly.String("created_at"),
+    Order: recurly.String("desc"),
+    Limit: recurly.Int(200),
 }
 
 accounts := client.ListAccounts(listParams)
