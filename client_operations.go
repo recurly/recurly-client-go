@@ -16,10 +16,27 @@ const (
 type ListSitesParams struct {
 	Params
 
-	Ids   *[]string
+	// Ids - Filter results by their IDs. Up to 200 IDs can be passed at once using
+	// commas as separators, e.g. `ids=h1at4d57xlmy,gyqgg0d3v9n1,jrsm5b4yefg6`.
+	// **Important notes:**
+	// * The `ids` parameter cannot be used with any other ordering or filtering
+	//   parameters (`limit`, `order`, `sort`, `begin_time`, `end_time`, etc)
+	// * Invalid or unknown IDs will be ignored, so you should check that the
+	//   results correspond to your request.
+	// * Records are returned in an arbitrary order. Since results are all
+	//   returned at once you can sort the records yourself.
+	Ids *[]string
+
+	// Limit - Limit number of records 1-200.
 	Limit *int
+
+	// Order - Sort order.
 	Order *string
-	Sort  *string
+
+	// Sort - Sort field. You *really* only want to sort by `updated_at` in ascending
+	// order. In descending order updated records will move behind the cursor and could
+	// prevent some records from being returned.
+	Sort *string
 }
 
 func (list *ListSitesParams) toParams() *Params {
@@ -80,15 +97,45 @@ func (c *Client) GetSite(siteId string) (*Site, error) {
 type ListAccountsParams struct {
 	Params
 
-	Ids        *[]string
-	Limit      *int
-	Order      *string
-	Sort       *string
-	BeginTime  *time.Time
-	EndTime    *time.Time
-	Email      *string
+	// Ids - Filter results by their IDs. Up to 200 IDs can be passed at once using
+	// commas as separators, e.g. `ids=h1at4d57xlmy,gyqgg0d3v9n1,jrsm5b4yefg6`.
+	// **Important notes:**
+	// * The `ids` parameter cannot be used with any other ordering or filtering
+	//   parameters (`limit`, `order`, `sort`, `begin_time`, `end_time`, etc)
+	// * Invalid or unknown IDs will be ignored, so you should check that the
+	//   results correspond to your request.
+	// * Records are returned in an arbitrary order. Since results are all
+	//   returned at once you can sort the records yourself.
+	Ids *[]string
+
+	// Limit - Limit number of records 1-200.
+	Limit *int
+
+	// Order - Sort order.
+	Order *string
+
+	// Sort - Sort field. You *really* only want to sort by `updated_at` in ascending
+	// order. In descending order updated records will move behind the cursor and could
+	// prevent some records from being returned.
+	Sort *string
+
+	// BeginTime - Filter by begin_time when `sort=created_at` or `sort=updated_at`.
+	// **Note:** this value is an ISO8601 timestamp. A partial timestamp that does not include a time zone will default to UTC.
+	BeginTime *time.Time
+
+	// EndTime - Filter by end_time when `sort=created_at` or `sort=updated_at`.
+	// **Note:** this value is an ISO8601 timestamp. A partial timestamp that does not include a time zone will default to UTC.
+	EndTime *time.Time
+
+	// Email - Filter for accounts with this exact email address. A blank value will return accounts with both `null` and `""` email addresses. Note that multiple accounts can share one email address.
+	Email *string
+
+	// Subscriber - Filter for accounts with or without a subscription in the `active`,
+	// `canceled`, or `future` state.
 	Subscriber *bool
-	PastDue    *string
+
+	// PastDue - Filter for accounts with an invoice in the `past_due` state.
+	PastDue *string
 }
 
 func (list *ListAccountsParams) toParams() *Params {
@@ -301,10 +348,29 @@ func (c *Client) RemoveBillingInfo(accountId string) (*Empty, error) {
 type ListAccountCouponRedemptionsParams struct {
 	Params
 
-	Ids       *[]string
-	Sort      *string
+	// Ids - Filter results by their IDs. Up to 200 IDs can be passed at once using
+	// commas as separators, e.g. `ids=h1at4d57xlmy,gyqgg0d3v9n1,jrsm5b4yefg6`.
+	// **Important notes:**
+	// * The `ids` parameter cannot be used with any other ordering or filtering
+	//   parameters (`limit`, `order`, `sort`, `begin_time`, `end_time`, etc)
+	// * Invalid or unknown IDs will be ignored, so you should check that the
+	//   results correspond to your request.
+	// * Records are returned in an arbitrary order. Since results are all
+	//   returned at once you can sort the records yourself.
+	Ids *[]string
+
+	// Sort - Sort field. You *really* only want to sort by `updated_at` in ascending
+	// order. In descending order updated records will move behind the cursor and could
+	// prevent some records from being returned.
+	Sort *string
+
+	// BeginTime - Filter by begin_time when `sort=created_at` or `sort=updated_at`.
+	// **Note:** this value is an ISO8601 timestamp. A partial timestamp that does not include a time zone will default to UTC.
 	BeginTime *time.Time
-	EndTime   *time.Time
+
+	// EndTime - Filter by end_time when `sort=created_at` or `sort=updated_at`.
+	// **Note:** this value is an ISO8601 timestamp. A partial timestamp that does not include a time zone will default to UTC.
+	EndTime *time.Time
 }
 
 func (list *ListAccountCouponRedemptionsParams) toParams() *Params {
@@ -389,11 +455,24 @@ func (c *Client) RemoveCouponRedemption(accountId string) (*CouponRedemption, er
 type ListAccountCreditPaymentsParams struct {
 	Params
 
-	Limit     *int
-	Order     *string
-	Sort      *string
+	// Limit - Limit number of records 1-200.
+	Limit *int
+
+	// Order - Sort order.
+	Order *string
+
+	// Sort - Sort field. You *really* only want to sort by `updated_at` in ascending
+	// order. In descending order updated records will move behind the cursor and could
+	// prevent some records from being returned.
+	Sort *string
+
+	// BeginTime - Filter by begin_time when `sort=created_at` or `sort=updated_at`.
+	// **Note:** this value is an ISO8601 timestamp. A partial timestamp that does not include a time zone will default to UTC.
 	BeginTime *time.Time
-	EndTime   *time.Time
+
+	// EndTime - Filter by end_time when `sort=created_at` or `sort=updated_at`.
+	// **Note:** this value is an ISO8601 timestamp. A partial timestamp that does not include a time zone will default to UTC.
+	EndTime *time.Time
 }
 
 func (list *ListAccountCreditPaymentsParams) toParams() *Params {
@@ -446,13 +525,42 @@ func (c *Client) ListAccountCreditPayments(accountId string, params *ListAccount
 type ListAccountInvoicesParams struct {
 	Params
 
-	Ids       *[]string
-	Limit     *int
-	Order     *string
-	Sort      *string
+	// Ids - Filter results by their IDs. Up to 200 IDs can be passed at once using
+	// commas as separators, e.g. `ids=h1at4d57xlmy,gyqgg0d3v9n1,jrsm5b4yefg6`.
+	// **Important notes:**
+	// * The `ids` parameter cannot be used with any other ordering or filtering
+	//   parameters (`limit`, `order`, `sort`, `begin_time`, `end_time`, etc)
+	// * Invalid or unknown IDs will be ignored, so you should check that the
+	//   results correspond to your request.
+	// * Records are returned in an arbitrary order. Since results are all
+	//   returned at once you can sort the records yourself.
+	Ids *[]string
+
+	// Limit - Limit number of records 1-200.
+	Limit *int
+
+	// Order - Sort order.
+	Order *string
+
+	// Sort - Sort field. You *really* only want to sort by `updated_at` in ascending
+	// order. In descending order updated records will move behind the cursor and could
+	// prevent some records from being returned.
+	Sort *string
+
+	// BeginTime - Filter by begin_time when `sort=created_at` or `sort=updated_at`.
+	// **Note:** this value is an ISO8601 timestamp. A partial timestamp that does not include a time zone will default to UTC.
 	BeginTime *time.Time
-	EndTime   *time.Time
-	Type      *string
+
+	// EndTime - Filter by end_time when `sort=created_at` or `sort=updated_at`.
+	// **Note:** this value is an ISO8601 timestamp. A partial timestamp that does not include a time zone will default to UTC.
+	EndTime *time.Time
+
+	// Type - Filter by type when:
+	// - `type=charge`, only charge invoices will be returned.
+	// - `type=credit`, only credit invoices will be returned.
+	// - `type=non-legacy`, only charge and credit invoices will be returned.
+	// - `type=legacy`, only legacy invoices will be returned.
+	Type *string
 }
 
 func (list *ListAccountInvoicesParams) toParams() *Params {
@@ -537,15 +645,44 @@ func (c *Client) PreviewInvoice(accountId string, body *InvoiceCreate) (*Invoice
 type ListAccountLineItemsParams struct {
 	Params
 
-	Ids       *[]string
-	Limit     *int
-	Order     *string
-	Sort      *string
+	// Ids - Filter results by their IDs. Up to 200 IDs can be passed at once using
+	// commas as separators, e.g. `ids=h1at4d57xlmy,gyqgg0d3v9n1,jrsm5b4yefg6`.
+	// **Important notes:**
+	// * The `ids` parameter cannot be used with any other ordering or filtering
+	//   parameters (`limit`, `order`, `sort`, `begin_time`, `end_time`, etc)
+	// * Invalid or unknown IDs will be ignored, so you should check that the
+	//   results correspond to your request.
+	// * Records are returned in an arbitrary order. Since results are all
+	//   returned at once you can sort the records yourself.
+	Ids *[]string
+
+	// Limit - Limit number of records 1-200.
+	Limit *int
+
+	// Order - Sort order.
+	Order *string
+
+	// Sort - Sort field. You *really* only want to sort by `updated_at` in ascending
+	// order. In descending order updated records will move behind the cursor and could
+	// prevent some records from being returned.
+	Sort *string
+
+	// BeginTime - Filter by begin_time when `sort=created_at` or `sort=updated_at`.
+	// **Note:** this value is an ISO8601 timestamp. A partial timestamp that does not include a time zone will default to UTC.
 	BeginTime *time.Time
-	EndTime   *time.Time
-	Original  *string
-	State     *string
-	Type      *string
+
+	// EndTime - Filter by end_time when `sort=created_at` or `sort=updated_at`.
+	// **Note:** this value is an ISO8601 timestamp. A partial timestamp that does not include a time zone will default to UTC.
+	EndTime *time.Time
+
+	// Original - Filter by original field.
+	Original *string
+
+	// State - Filter by state field.
+	State *string
+
+	// Type - Filter by type field.
+	Type *string
 }
 
 func (list *ListAccountLineItemsParams) toParams() *Params {
@@ -626,6 +763,15 @@ func (c *Client) CreateLineItem(accountId string, body *LineItemCreate) (*LineIt
 type ListAccountNotesParams struct {
 	Params
 
+	// Ids - Filter results by their IDs. Up to 200 IDs can be passed at once using
+	// commas as separators, e.g. `ids=h1at4d57xlmy,gyqgg0d3v9n1,jrsm5b4yefg6`.
+	// **Important notes:**
+	// * The `ids` parameter cannot be used with any other ordering or filtering
+	//   parameters (`limit`, `order`, `sort`, `begin_time`, `end_time`, etc)
+	// * Invalid or unknown IDs will be ignored, so you should check that the
+	//   results correspond to your request.
+	// * Records are returned in an arbitrary order. Since results are all
+	//   returned at once you can sort the records yourself.
 	Ids *[]string
 }
 
@@ -675,12 +821,35 @@ func (c *Client) GetAccountNote(accountId string, accountNoteId string) (*Accoun
 type ListShippingAddressesParams struct {
 	Params
 
-	Ids       *[]string
-	Limit     *int
-	Order     *string
-	Sort      *string
+	// Ids - Filter results by their IDs. Up to 200 IDs can be passed at once using
+	// commas as separators, e.g. `ids=h1at4d57xlmy,gyqgg0d3v9n1,jrsm5b4yefg6`.
+	// **Important notes:**
+	// * The `ids` parameter cannot be used with any other ordering or filtering
+	//   parameters (`limit`, `order`, `sort`, `begin_time`, `end_time`, etc)
+	// * Invalid or unknown IDs will be ignored, so you should check that the
+	//   results correspond to your request.
+	// * Records are returned in an arbitrary order. Since results are all
+	//   returned at once you can sort the records yourself.
+	Ids *[]string
+
+	// Limit - Limit number of records 1-200.
+	Limit *int
+
+	// Order - Sort order.
+	Order *string
+
+	// Sort - Sort field. You *really* only want to sort by `updated_at` in ascending
+	// order. In descending order updated records will move behind the cursor and could
+	// prevent some records from being returned.
+	Sort *string
+
+	// BeginTime - Filter by begin_time when `sort=created_at` or `sort=updated_at`.
+	// **Note:** this value is an ISO8601 timestamp. A partial timestamp that does not include a time zone will default to UTC.
 	BeginTime *time.Time
-	EndTime   *time.Time
+
+	// EndTime - Filter by end_time when `sort=created_at` or `sort=updated_at`.
+	// **Note:** this value is an ISO8601 timestamp. A partial timestamp that does not include a time zone will default to UTC.
+	EndTime *time.Time
 }
 
 func (list *ListShippingAddressesParams) toParams() *Params {
@@ -785,13 +954,41 @@ func (c *Client) RemoveShippingAddress(accountId string, shippingAddressId strin
 type ListAccountSubscriptionsParams struct {
 	Params
 
-	Ids       *[]string
-	Limit     *int
-	Order     *string
-	Sort      *string
+	// Ids - Filter results by their IDs. Up to 200 IDs can be passed at once using
+	// commas as separators, e.g. `ids=h1at4d57xlmy,gyqgg0d3v9n1,jrsm5b4yefg6`.
+	// **Important notes:**
+	// * The `ids` parameter cannot be used with any other ordering or filtering
+	//   parameters (`limit`, `order`, `sort`, `begin_time`, `end_time`, etc)
+	// * Invalid or unknown IDs will be ignored, so you should check that the
+	//   results correspond to your request.
+	// * Records are returned in an arbitrary order. Since results are all
+	//   returned at once you can sort the records yourself.
+	Ids *[]string
+
+	// Limit - Limit number of records 1-200.
+	Limit *int
+
+	// Order - Sort order.
+	Order *string
+
+	// Sort - Sort field. You *really* only want to sort by `updated_at` in ascending
+	// order. In descending order updated records will move behind the cursor and could
+	// prevent some records from being returned.
+	Sort *string
+
+	// BeginTime - Filter by begin_time when `sort=created_at` or `sort=updated_at`.
+	// **Note:** this value is an ISO8601 timestamp. A partial timestamp that does not include a time zone will default to UTC.
 	BeginTime *time.Time
-	EndTime   *time.Time
-	State     *string
+
+	// EndTime - Filter by end_time when `sort=created_at` or `sort=updated_at`.
+	// **Note:** this value is an ISO8601 timestamp. A partial timestamp that does not include a time zone will default to UTC.
+	EndTime *time.Time
+
+	// State - Filter by state.
+	// - When `state=active`, `state=canceled`, `state=expired`, or `state=future`, subscriptions with states that match the query and only those subscriptions will be returned.
+	// - When `state=in_trial`, only subscriptions that have a trial_started_at date earlier than now and a trial_ends_at date later than now will be returned.
+	// - When `state=live`, only subscriptions that are in an active, canceled, or future state or are in trial will be returned.
+	State *string
 }
 
 func (list *ListAccountSubscriptionsParams) toParams() *Params {
@@ -852,14 +1049,41 @@ func (c *Client) ListAccountSubscriptions(accountId string, params *ListAccountS
 type ListAccountTransactionsParams struct {
 	Params
 
-	Ids       *[]string
-	Limit     *int
-	Order     *string
-	Sort      *string
+	// Ids - Filter results by their IDs. Up to 200 IDs can be passed at once using
+	// commas as separators, e.g. `ids=h1at4d57xlmy,gyqgg0d3v9n1,jrsm5b4yefg6`.
+	// **Important notes:**
+	// * The `ids` parameter cannot be used with any other ordering or filtering
+	//   parameters (`limit`, `order`, `sort`, `begin_time`, `end_time`, etc)
+	// * Invalid or unknown IDs will be ignored, so you should check that the
+	//   results correspond to your request.
+	// * Records are returned in an arbitrary order. Since results are all
+	//   returned at once you can sort the records yourself.
+	Ids *[]string
+
+	// Limit - Limit number of records 1-200.
+	Limit *int
+
+	// Order - Sort order.
+	Order *string
+
+	// Sort - Sort field. You *really* only want to sort by `updated_at` in ascending
+	// order. In descending order updated records will move behind the cursor and could
+	// prevent some records from being returned.
+	Sort *string
+
+	// BeginTime - Filter by begin_time when `sort=created_at` or `sort=updated_at`.
+	// **Note:** this value is an ISO8601 timestamp. A partial timestamp that does not include a time zone will default to UTC.
 	BeginTime *time.Time
-	EndTime   *time.Time
-	Type      *string
-	Success   *string
+
+	// EndTime - Filter by end_time when `sort=created_at` or `sort=updated_at`.
+	// **Note:** this value is an ISO8601 timestamp. A partial timestamp that does not include a time zone will default to UTC.
+	EndTime *time.Time
+
+	// Type - Filter by type field. The value `payment` will return both `purchase` and `capture` transactions.
+	Type *string
+
+	// Success - Filter by success field.
+	Success *string
 }
 
 func (list *ListAccountTransactionsParams) toParams() *Params {
@@ -924,15 +1148,45 @@ func (c *Client) ListAccountTransactions(accountId string, params *ListAccountTr
 type ListChildAccountsParams struct {
 	Params
 
-	Ids        *[]string
-	Limit      *int
-	Order      *string
-	Sort       *string
-	BeginTime  *time.Time
-	EndTime    *time.Time
-	Email      *string
+	// Ids - Filter results by their IDs. Up to 200 IDs can be passed at once using
+	// commas as separators, e.g. `ids=h1at4d57xlmy,gyqgg0d3v9n1,jrsm5b4yefg6`.
+	// **Important notes:**
+	// * The `ids` parameter cannot be used with any other ordering or filtering
+	//   parameters (`limit`, `order`, `sort`, `begin_time`, `end_time`, etc)
+	// * Invalid or unknown IDs will be ignored, so you should check that the
+	//   results correspond to your request.
+	// * Records are returned in an arbitrary order. Since results are all
+	//   returned at once you can sort the records yourself.
+	Ids *[]string
+
+	// Limit - Limit number of records 1-200.
+	Limit *int
+
+	// Order - Sort order.
+	Order *string
+
+	// Sort - Sort field. You *really* only want to sort by `updated_at` in ascending
+	// order. In descending order updated records will move behind the cursor and could
+	// prevent some records from being returned.
+	Sort *string
+
+	// BeginTime - Filter by begin_time when `sort=created_at` or `sort=updated_at`.
+	// **Note:** this value is an ISO8601 timestamp. A partial timestamp that does not include a time zone will default to UTC.
+	BeginTime *time.Time
+
+	// EndTime - Filter by end_time when `sort=created_at` or `sort=updated_at`.
+	// **Note:** this value is an ISO8601 timestamp. A partial timestamp that does not include a time zone will default to UTC.
+	EndTime *time.Time
+
+	// Email - Filter for accounts with this exact email address. A blank value will return accounts with both `null` and `""` email addresses. Note that multiple accounts can share one email address.
+	Email *string
+
+	// Subscriber - Filter for accounts with or without a subscription in the `active`,
+	// `canceled`, or `future` state.
 	Subscriber *bool
-	PastDue    *string
+
+	// PastDue - Filter for accounts with an invoice in the `past_due` state.
+	PastDue *string
 }
 
 func (list *ListChildAccountsParams) toParams() *Params {
@@ -1001,12 +1255,35 @@ func (c *Client) ListChildAccounts(accountId string, params *ListChildAccountsPa
 type ListAccountAcquisitionParams struct {
 	Params
 
-	Ids       *[]string
-	Limit     *int
-	Order     *string
-	Sort      *string
+	// Ids - Filter results by their IDs. Up to 200 IDs can be passed at once using
+	// commas as separators, e.g. `ids=h1at4d57xlmy,gyqgg0d3v9n1,jrsm5b4yefg6`.
+	// **Important notes:**
+	// * The `ids` parameter cannot be used with any other ordering or filtering
+	//   parameters (`limit`, `order`, `sort`, `begin_time`, `end_time`, etc)
+	// * Invalid or unknown IDs will be ignored, so you should check that the
+	//   results correspond to your request.
+	// * Records are returned in an arbitrary order. Since results are all
+	//   returned at once you can sort the records yourself.
+	Ids *[]string
+
+	// Limit - Limit number of records 1-200.
+	Limit *int
+
+	// Order - Sort order.
+	Order *string
+
+	// Sort - Sort field. You *really* only want to sort by `updated_at` in ascending
+	// order. In descending order updated records will move behind the cursor and could
+	// prevent some records from being returned.
+	Sort *string
+
+	// BeginTime - Filter by begin_time when `sort=created_at` or `sort=updated_at`.
+	// **Note:** this value is an ISO8601 timestamp. A partial timestamp that does not include a time zone will default to UTC.
 	BeginTime *time.Time
-	EndTime   *time.Time
+
+	// EndTime - Filter by end_time when `sort=created_at` or `sort=updated_at`.
+	// **Note:** this value is an ISO8601 timestamp. A partial timestamp that does not include a time zone will default to UTC.
+	EndTime *time.Time
 }
 
 func (list *ListAccountAcquisitionParams) toParams() *Params {
@@ -1063,12 +1340,35 @@ func (c *Client) ListAccountAcquisition(params *ListAccountAcquisitionParams) *A
 type ListCouponsParams struct {
 	Params
 
-	Ids       *[]string
-	Limit     *int
-	Order     *string
-	Sort      *string
+	// Ids - Filter results by their IDs. Up to 200 IDs can be passed at once using
+	// commas as separators, e.g. `ids=h1at4d57xlmy,gyqgg0d3v9n1,jrsm5b4yefg6`.
+	// **Important notes:**
+	// * The `ids` parameter cannot be used with any other ordering or filtering
+	//   parameters (`limit`, `order`, `sort`, `begin_time`, `end_time`, etc)
+	// * Invalid or unknown IDs will be ignored, so you should check that the
+	//   results correspond to your request.
+	// * Records are returned in an arbitrary order. Since results are all
+	//   returned at once you can sort the records yourself.
+	Ids *[]string
+
+	// Limit - Limit number of records 1-200.
+	Limit *int
+
+	// Order - Sort order.
+	Order *string
+
+	// Sort - Sort field. You *really* only want to sort by `updated_at` in ascending
+	// order. In descending order updated records will move behind the cursor and could
+	// prevent some records from being returned.
+	Sort *string
+
+	// BeginTime - Filter by begin_time when `sort=created_at` or `sort=updated_at`.
+	// **Note:** this value is an ISO8601 timestamp. A partial timestamp that does not include a time zone will default to UTC.
 	BeginTime *time.Time
-	EndTime   *time.Time
+
+	// EndTime - Filter by end_time when `sort=created_at` or `sort=updated_at`.
+	// **Note:** this value is an ISO8601 timestamp. A partial timestamp that does not include a time zone will default to UTC.
+	EndTime *time.Time
 }
 
 func (list *ListCouponsParams) toParams() *Params {
@@ -1173,12 +1473,35 @@ func (c *Client) DeactivateCoupon(couponId string) (*Coupon, error) {
 type ListUniqueCouponCodesParams struct {
 	Params
 
-	Ids       *[]string
-	Limit     *int
-	Order     *string
-	Sort      *string
+	// Ids - Filter results by their IDs. Up to 200 IDs can be passed at once using
+	// commas as separators, e.g. `ids=h1at4d57xlmy,gyqgg0d3v9n1,jrsm5b4yefg6`.
+	// **Important notes:**
+	// * The `ids` parameter cannot be used with any other ordering or filtering
+	//   parameters (`limit`, `order`, `sort`, `begin_time`, `end_time`, etc)
+	// * Invalid or unknown IDs will be ignored, so you should check that the
+	//   results correspond to your request.
+	// * Records are returned in an arbitrary order. Since results are all
+	//   returned at once you can sort the records yourself.
+	Ids *[]string
+
+	// Limit - Limit number of records 1-200.
+	Limit *int
+
+	// Order - Sort order.
+	Order *string
+
+	// Sort - Sort field. You *really* only want to sort by `updated_at` in ascending
+	// order. In descending order updated records will move behind the cursor and could
+	// prevent some records from being returned.
+	Sort *string
+
+	// BeginTime - Filter by begin_time when `sort=created_at` or `sort=updated_at`.
+	// **Note:** this value is an ISO8601 timestamp. A partial timestamp that does not include a time zone will default to UTC.
 	BeginTime *time.Time
-	EndTime   *time.Time
+
+	// EndTime - Filter by end_time when `sort=created_at` or `sort=updated_at`.
+	// **Note:** this value is an ISO8601 timestamp. A partial timestamp that does not include a time zone will default to UTC.
+	EndTime *time.Time
 }
 
 func (list *ListUniqueCouponCodesParams) toParams() *Params {
@@ -1235,11 +1558,24 @@ func (c *Client) ListUniqueCouponCodes(couponId string, params *ListUniqueCoupon
 type ListCreditPaymentsParams struct {
 	Params
 
-	Limit     *int
-	Order     *string
-	Sort      *string
+	// Limit - Limit number of records 1-200.
+	Limit *int
+
+	// Order - Sort order.
+	Order *string
+
+	// Sort - Sort field. You *really* only want to sort by `updated_at` in ascending
+	// order. In descending order updated records will move behind the cursor and could
+	// prevent some records from being returned.
+	Sort *string
+
+	// BeginTime - Filter by begin_time when `sort=created_at` or `sort=updated_at`.
+	// **Note:** this value is an ISO8601 timestamp. A partial timestamp that does not include a time zone will default to UTC.
 	BeginTime *time.Time
-	EndTime   *time.Time
+
+	// EndTime - Filter by end_time when `sort=created_at` or `sort=updated_at`.
+	// **Note:** this value is an ISO8601 timestamp. A partial timestamp that does not include a time zone will default to UTC.
+	EndTime *time.Time
 }
 
 func (list *ListCreditPaymentsParams) toParams() *Params {
@@ -1304,12 +1640,37 @@ func (c *Client) GetCreditPayment(creditPaymentId string) (*CreditPayment, error
 type ListCustomFieldDefinitionsParams struct {
 	Params
 
-	Ids         *[]string
-	Limit       *int
-	Order       *string
-	Sort        *string
-	BeginTime   *time.Time
-	EndTime     *time.Time
+	// Ids - Filter results by their IDs. Up to 200 IDs can be passed at once using
+	// commas as separators, e.g. `ids=h1at4d57xlmy,gyqgg0d3v9n1,jrsm5b4yefg6`.
+	// **Important notes:**
+	// * The `ids` parameter cannot be used with any other ordering or filtering
+	//   parameters (`limit`, `order`, `sort`, `begin_time`, `end_time`, etc)
+	// * Invalid or unknown IDs will be ignored, so you should check that the
+	//   results correspond to your request.
+	// * Records are returned in an arbitrary order. Since results are all
+	//   returned at once you can sort the records yourself.
+	Ids *[]string
+
+	// Limit - Limit number of records 1-200.
+	Limit *int
+
+	// Order - Sort order.
+	Order *string
+
+	// Sort - Sort field. You *really* only want to sort by `updated_at` in ascending
+	// order. In descending order updated records will move behind the cursor and could
+	// prevent some records from being returned.
+	Sort *string
+
+	// BeginTime - Filter by begin_time when `sort=created_at` or `sort=updated_at`.
+	// **Note:** this value is an ISO8601 timestamp. A partial timestamp that does not include a time zone will default to UTC.
+	BeginTime *time.Time
+
+	// EndTime - Filter by end_time when `sort=created_at` or `sort=updated_at`.
+	// **Note:** this value is an ISO8601 timestamp. A partial timestamp that does not include a time zone will default to UTC.
+	EndTime *time.Time
+
+	// RelatedType - Filter by related type.
 	RelatedType *string
 }
 
@@ -1383,13 +1744,38 @@ func (c *Client) GetCustomFieldDefinition(customFieldDefinitionId string) (*Cust
 type ListItemsParams struct {
 	Params
 
-	Ids       *[]string
-	Limit     *int
-	Order     *string
-	Sort      *string
+	// Ids - Filter results by their IDs. Up to 200 IDs can be passed at once using
+	// commas as separators, e.g. `ids=h1at4d57xlmy,gyqgg0d3v9n1,jrsm5b4yefg6`.
+	// **Important notes:**
+	// * The `ids` parameter cannot be used with any other ordering or filtering
+	//   parameters (`limit`, `order`, `sort`, `begin_time`, `end_time`, etc)
+	// * Invalid or unknown IDs will be ignored, so you should check that the
+	//   results correspond to your request.
+	// * Records are returned in an arbitrary order. Since results are all
+	//   returned at once you can sort the records yourself.
+	Ids *[]string
+
+	// Limit - Limit number of records 1-200.
+	Limit *int
+
+	// Order - Sort order.
+	Order *string
+
+	// Sort - Sort field. You *really* only want to sort by `updated_at` in ascending
+	// order. In descending order updated records will move behind the cursor and could
+	// prevent some records from being returned.
+	Sort *string
+
+	// BeginTime - Filter by begin_time when `sort=created_at` or `sort=updated_at`.
+	// **Note:** this value is an ISO8601 timestamp. A partial timestamp that does not include a time zone will default to UTC.
 	BeginTime *time.Time
-	EndTime   *time.Time
-	State     *string
+
+	// EndTime - Filter by end_time when `sort=created_at` or `sort=updated_at`.
+	// **Note:** this value is an ISO8601 timestamp. A partial timestamp that does not include a time zone will default to UTC.
+	EndTime *time.Time
+
+	// State - Filter by state.
+	State *string
 }
 
 func (list *ListItemsParams) toParams() *Params {
@@ -1510,13 +1896,42 @@ func (c *Client) ReactivateItem(itemId string) (*Item, error) {
 type ListInvoicesParams struct {
 	Params
 
-	Ids       *[]string
-	Limit     *int
-	Order     *string
-	Sort      *string
+	// Ids - Filter results by their IDs. Up to 200 IDs can be passed at once using
+	// commas as separators, e.g. `ids=h1at4d57xlmy,gyqgg0d3v9n1,jrsm5b4yefg6`.
+	// **Important notes:**
+	// * The `ids` parameter cannot be used with any other ordering or filtering
+	//   parameters (`limit`, `order`, `sort`, `begin_time`, `end_time`, etc)
+	// * Invalid or unknown IDs will be ignored, so you should check that the
+	//   results correspond to your request.
+	// * Records are returned in an arbitrary order. Since results are all
+	//   returned at once you can sort the records yourself.
+	Ids *[]string
+
+	// Limit - Limit number of records 1-200.
+	Limit *int
+
+	// Order - Sort order.
+	Order *string
+
+	// Sort - Sort field. You *really* only want to sort by `updated_at` in ascending
+	// order. In descending order updated records will move behind the cursor and could
+	// prevent some records from being returned.
+	Sort *string
+
+	// BeginTime - Filter by begin_time when `sort=created_at` or `sort=updated_at`.
+	// **Note:** this value is an ISO8601 timestamp. A partial timestamp that does not include a time zone will default to UTC.
 	BeginTime *time.Time
-	EndTime   *time.Time
-	Type      *string
+
+	// EndTime - Filter by end_time when `sort=created_at` or `sort=updated_at`.
+	// **Note:** this value is an ISO8601 timestamp. A partial timestamp that does not include a time zone will default to UTC.
+	EndTime *time.Time
+
+	// Type - Filter by type when:
+	// - `type=charge`, only charge invoices will be returned.
+	// - `type=credit`, only credit invoices will be returned.
+	// - `type=non-legacy`, only charge and credit invoices will be returned.
+	// - `type=legacy`, only legacy invoices will be returned.
+	Type *string
 }
 
 func (list *ListInvoicesParams) toParams() *Params {
@@ -1613,6 +2028,7 @@ func (c *Client) GetInvoicePdf(invoiceId string) (*BinaryFile, error) {
 type CollectInvoiceParams struct {
 	Params
 
+	// Body - The body of the request.
 	Body *InvoiceCollect
 }
 
@@ -1688,15 +2104,44 @@ func (c *Client) VoidInvoice(invoiceId string) (*Invoice, error) {
 type ListInvoiceLineItemsParams struct {
 	Params
 
-	Ids       *[]string
-	Limit     *int
-	Order     *string
-	Sort      *string
+	// Ids - Filter results by their IDs. Up to 200 IDs can be passed at once using
+	// commas as separators, e.g. `ids=h1at4d57xlmy,gyqgg0d3v9n1,jrsm5b4yefg6`.
+	// **Important notes:**
+	// * The `ids` parameter cannot be used with any other ordering or filtering
+	//   parameters (`limit`, `order`, `sort`, `begin_time`, `end_time`, etc)
+	// * Invalid or unknown IDs will be ignored, so you should check that the
+	//   results correspond to your request.
+	// * Records are returned in an arbitrary order. Since results are all
+	//   returned at once you can sort the records yourself.
+	Ids *[]string
+
+	// Limit - Limit number of records 1-200.
+	Limit *int
+
+	// Order - Sort order.
+	Order *string
+
+	// Sort - Sort field. You *really* only want to sort by `updated_at` in ascending
+	// order. In descending order updated records will move behind the cursor and could
+	// prevent some records from being returned.
+	Sort *string
+
+	// BeginTime - Filter by begin_time when `sort=created_at` or `sort=updated_at`.
+	// **Note:** this value is an ISO8601 timestamp. A partial timestamp that does not include a time zone will default to UTC.
 	BeginTime *time.Time
-	EndTime   *time.Time
-	Original  *string
-	State     *string
-	Type      *string
+
+	// EndTime - Filter by end_time when `sort=created_at` or `sort=updated_at`.
+	// **Note:** this value is an ISO8601 timestamp. A partial timestamp that does not include a time zone will default to UTC.
+	EndTime *time.Time
+
+	// Original - Filter by original field.
+	Original *string
+
+	// State - Filter by state field.
+	State *string
+
+	// Type - Filter by type field.
+	Type *string
 }
 
 func (list *ListInvoiceLineItemsParams) toParams() *Params {
@@ -1765,10 +2210,29 @@ func (c *Client) ListInvoiceLineItems(invoiceId string, params *ListInvoiceLineI
 type ListInvoiceCouponRedemptionsParams struct {
 	Params
 
-	Ids       *[]string
-	Sort      *string
+	// Ids - Filter results by their IDs. Up to 200 IDs can be passed at once using
+	// commas as separators, e.g. `ids=h1at4d57xlmy,gyqgg0d3v9n1,jrsm5b4yefg6`.
+	// **Important notes:**
+	// * The `ids` parameter cannot be used with any other ordering or filtering
+	//   parameters (`limit`, `order`, `sort`, `begin_time`, `end_time`, etc)
+	// * Invalid or unknown IDs will be ignored, so you should check that the
+	//   results correspond to your request.
+	// * Records are returned in an arbitrary order. Since results are all
+	//   returned at once you can sort the records yourself.
+	Ids *[]string
+
+	// Sort - Sort field. You *really* only want to sort by `updated_at` in ascending
+	// order. In descending order updated records will move behind the cursor and could
+	// prevent some records from being returned.
+	Sort *string
+
+	// BeginTime - Filter by begin_time when `sort=created_at` or `sort=updated_at`.
+	// **Note:** this value is an ISO8601 timestamp. A partial timestamp that does not include a time zone will default to UTC.
 	BeginTime *time.Time
-	EndTime   *time.Time
+
+	// EndTime - Filter by end_time when `sort=created_at` or `sort=updated_at`.
+	// **Note:** this value is an ISO8601 timestamp. A partial timestamp that does not include a time zone will default to UTC.
+	EndTime *time.Time
 }
 
 func (list *ListInvoiceCouponRedemptionsParams) toParams() *Params {
@@ -1840,15 +2304,44 @@ func (c *Client) RefundInvoice(invoiceId string, body *InvoiceRefund) (*Invoice,
 type ListLineItemsParams struct {
 	Params
 
-	Ids       *[]string
-	Limit     *int
-	Order     *string
-	Sort      *string
+	// Ids - Filter results by their IDs. Up to 200 IDs can be passed at once using
+	// commas as separators, e.g. `ids=h1at4d57xlmy,gyqgg0d3v9n1,jrsm5b4yefg6`.
+	// **Important notes:**
+	// * The `ids` parameter cannot be used with any other ordering or filtering
+	//   parameters (`limit`, `order`, `sort`, `begin_time`, `end_time`, etc)
+	// * Invalid or unknown IDs will be ignored, so you should check that the
+	//   results correspond to your request.
+	// * Records are returned in an arbitrary order. Since results are all
+	//   returned at once you can sort the records yourself.
+	Ids *[]string
+
+	// Limit - Limit number of records 1-200.
+	Limit *int
+
+	// Order - Sort order.
+	Order *string
+
+	// Sort - Sort field. You *really* only want to sort by `updated_at` in ascending
+	// order. In descending order updated records will move behind the cursor and could
+	// prevent some records from being returned.
+	Sort *string
+
+	// BeginTime - Filter by begin_time when `sort=created_at` or `sort=updated_at`.
+	// **Note:** this value is an ISO8601 timestamp. A partial timestamp that does not include a time zone will default to UTC.
 	BeginTime *time.Time
-	EndTime   *time.Time
-	Original  *string
-	State     *string
-	Type      *string
+
+	// EndTime - Filter by end_time when `sort=created_at` or `sort=updated_at`.
+	// **Note:** this value is an ISO8601 timestamp. A partial timestamp that does not include a time zone will default to UTC.
+	EndTime *time.Time
+
+	// Original - Filter by original field.
+	Original *string
+
+	// State - Filter by state field.
+	State *string
+
+	// Type - Filter by type field.
+	Type *string
 }
 
 func (list *ListLineItemsParams) toParams() *Params {
@@ -1941,13 +2434,38 @@ func (c *Client) RemoveLineItem(lineItemId string) (*Empty, error) {
 type ListPlansParams struct {
 	Params
 
-	Ids       *[]string
-	Limit     *int
-	Order     *string
-	Sort      *string
+	// Ids - Filter results by their IDs. Up to 200 IDs can be passed at once using
+	// commas as separators, e.g. `ids=h1at4d57xlmy,gyqgg0d3v9n1,jrsm5b4yefg6`.
+	// **Important notes:**
+	// * The `ids` parameter cannot be used with any other ordering or filtering
+	//   parameters (`limit`, `order`, `sort`, `begin_time`, `end_time`, etc)
+	// * Invalid or unknown IDs will be ignored, so you should check that the
+	//   results correspond to your request.
+	// * Records are returned in an arbitrary order. Since results are all
+	//   returned at once you can sort the records yourself.
+	Ids *[]string
+
+	// Limit - Limit number of records 1-200.
+	Limit *int
+
+	// Order - Sort order.
+	Order *string
+
+	// Sort - Sort field. You *really* only want to sort by `updated_at` in ascending
+	// order. In descending order updated records will move behind the cursor and could
+	// prevent some records from being returned.
+	Sort *string
+
+	// BeginTime - Filter by begin_time when `sort=created_at` or `sort=updated_at`.
+	// **Note:** this value is an ISO8601 timestamp. A partial timestamp that does not include a time zone will default to UTC.
 	BeginTime *time.Time
-	EndTime   *time.Time
-	State     *string
+
+	// EndTime - Filter by end_time when `sort=created_at` or `sort=updated_at`.
+	// **Note:** this value is an ISO8601 timestamp. A partial timestamp that does not include a time zone will default to UTC.
+	EndTime *time.Time
+
+	// State - Filter by state.
+	State *string
 }
 
 func (list *ListPlansParams) toParams() *Params {
@@ -2056,13 +2574,38 @@ func (c *Client) RemovePlan(planId string) (*Plan, error) {
 type ListPlanAddOnsParams struct {
 	Params
 
-	Ids       *[]string
-	Limit     *int
-	Order     *string
-	Sort      *string
+	// Ids - Filter results by their IDs. Up to 200 IDs can be passed at once using
+	// commas as separators, e.g. `ids=h1at4d57xlmy,gyqgg0d3v9n1,jrsm5b4yefg6`.
+	// **Important notes:**
+	// * The `ids` parameter cannot be used with any other ordering or filtering
+	//   parameters (`limit`, `order`, `sort`, `begin_time`, `end_time`, etc)
+	// * Invalid or unknown IDs will be ignored, so you should check that the
+	//   results correspond to your request.
+	// * Records are returned in an arbitrary order. Since results are all
+	//   returned at once you can sort the records yourself.
+	Ids *[]string
+
+	// Limit - Limit number of records 1-200.
+	Limit *int
+
+	// Order - Sort order.
+	Order *string
+
+	// Sort - Sort field. You *really* only want to sort by `updated_at` in ascending
+	// order. In descending order updated records will move behind the cursor and could
+	// prevent some records from being returned.
+	Sort *string
+
+	// BeginTime - Filter by begin_time when `sort=created_at` or `sort=updated_at`.
+	// **Note:** this value is an ISO8601 timestamp. A partial timestamp that does not include a time zone will default to UTC.
 	BeginTime *time.Time
-	EndTime   *time.Time
-	State     *string
+
+	// EndTime - Filter by end_time when `sort=created_at` or `sort=updated_at`.
+	// **Note:** this value is an ISO8601 timestamp. A partial timestamp that does not include a time zone will default to UTC.
+	EndTime *time.Time
+
+	// State - Filter by state.
+	State *string
 }
 
 func (list *ListPlanAddOnsParams) toParams() *Params {
@@ -2171,13 +2714,38 @@ func (c *Client) RemovePlanAddOn(planId string, addOnId string) (*AddOn, error) 
 type ListAddOnsParams struct {
 	Params
 
-	Ids       *[]string
-	Limit     *int
-	Order     *string
-	Sort      *string
+	// Ids - Filter results by their IDs. Up to 200 IDs can be passed at once using
+	// commas as separators, e.g. `ids=h1at4d57xlmy,gyqgg0d3v9n1,jrsm5b4yefg6`.
+	// **Important notes:**
+	// * The `ids` parameter cannot be used with any other ordering or filtering
+	//   parameters (`limit`, `order`, `sort`, `begin_time`, `end_time`, etc)
+	// * Invalid or unknown IDs will be ignored, so you should check that the
+	//   results correspond to your request.
+	// * Records are returned in an arbitrary order. Since results are all
+	//   returned at once you can sort the records yourself.
+	Ids *[]string
+
+	// Limit - Limit number of records 1-200.
+	Limit *int
+
+	// Order - Sort order.
+	Order *string
+
+	// Sort - Sort field. You *really* only want to sort by `updated_at` in ascending
+	// order. In descending order updated records will move behind the cursor and could
+	// prevent some records from being returned.
+	Sort *string
+
+	// BeginTime - Filter by begin_time when `sort=created_at` or `sort=updated_at`.
+	// **Note:** this value is an ISO8601 timestamp. A partial timestamp that does not include a time zone will default to UTC.
 	BeginTime *time.Time
-	EndTime   *time.Time
-	State     *string
+
+	// EndTime - Filter by end_time when `sort=created_at` or `sort=updated_at`.
+	// **Note:** this value is an ISO8601 timestamp. A partial timestamp that does not include a time zone will default to UTC.
+	EndTime *time.Time
+
+	// State - Filter by state.
+	State *string
 }
 
 func (list *ListAddOnsParams) toParams() *Params {
@@ -2250,12 +2818,35 @@ func (c *Client) GetAddOn(addOnId string) (*AddOn, error) {
 type ListShippingMethodsParams struct {
 	Params
 
-	Ids       *[]string
-	Limit     *int
-	Order     *string
-	Sort      *string
+	// Ids - Filter results by their IDs. Up to 200 IDs can be passed at once using
+	// commas as separators, e.g. `ids=h1at4d57xlmy,gyqgg0d3v9n1,jrsm5b4yefg6`.
+	// **Important notes:**
+	// * The `ids` parameter cannot be used with any other ordering or filtering
+	//   parameters (`limit`, `order`, `sort`, `begin_time`, `end_time`, etc)
+	// * Invalid or unknown IDs will be ignored, so you should check that the
+	//   results correspond to your request.
+	// * Records are returned in an arbitrary order. Since results are all
+	//   returned at once you can sort the records yourself.
+	Ids *[]string
+
+	// Limit - Limit number of records 1-200.
+	Limit *int
+
+	// Order - Sort order.
+	Order *string
+
+	// Sort - Sort field. You *really* only want to sort by `updated_at` in ascending
+	// order. In descending order updated records will move behind the cursor and could
+	// prevent some records from being returned.
+	Sort *string
+
+	// BeginTime - Filter by begin_time when `sort=created_at` or `sort=updated_at`.
+	// **Note:** this value is an ISO8601 timestamp. A partial timestamp that does not include a time zone will default to UTC.
 	BeginTime *time.Time
-	EndTime   *time.Time
+
+	// EndTime - Filter by end_time when `sort=created_at` or `sort=updated_at`.
+	// **Note:** this value is an ISO8601 timestamp. A partial timestamp that does not include a time zone will default to UTC.
+	EndTime *time.Time
 }
 
 func (list *ListShippingMethodsParams) toParams() *Params {
@@ -2324,13 +2915,41 @@ func (c *Client) GetShippingMethod(id string) (*ShippingMethod, error) {
 type ListSubscriptionsParams struct {
 	Params
 
-	Ids       *[]string
-	Limit     *int
-	Order     *string
-	Sort      *string
+	// Ids - Filter results by their IDs. Up to 200 IDs can be passed at once using
+	// commas as separators, e.g. `ids=h1at4d57xlmy,gyqgg0d3v9n1,jrsm5b4yefg6`.
+	// **Important notes:**
+	// * The `ids` parameter cannot be used with any other ordering or filtering
+	//   parameters (`limit`, `order`, `sort`, `begin_time`, `end_time`, etc)
+	// * Invalid or unknown IDs will be ignored, so you should check that the
+	//   results correspond to your request.
+	// * Records are returned in an arbitrary order. Since results are all
+	//   returned at once you can sort the records yourself.
+	Ids *[]string
+
+	// Limit - Limit number of records 1-200.
+	Limit *int
+
+	// Order - Sort order.
+	Order *string
+
+	// Sort - Sort field. You *really* only want to sort by `updated_at` in ascending
+	// order. In descending order updated records will move behind the cursor and could
+	// prevent some records from being returned.
+	Sort *string
+
+	// BeginTime - Filter by begin_time when `sort=created_at` or `sort=updated_at`.
+	// **Note:** this value is an ISO8601 timestamp. A partial timestamp that does not include a time zone will default to UTC.
 	BeginTime *time.Time
-	EndTime   *time.Time
-	State     *string
+
+	// EndTime - Filter by end_time when `sort=created_at` or `sort=updated_at`.
+	// **Note:** this value is an ISO8601 timestamp. A partial timestamp that does not include a time zone will default to UTC.
+	EndTime *time.Time
+
+	// State - Filter by state.
+	// - When `state=active`, `state=canceled`, `state=expired`, or `state=future`, subscriptions with states that match the query and only those subscriptions will be returned.
+	// - When `state=in_trial`, only subscriptions that have a trial_started_at date earlier than now and a trial_ends_at date later than now will be returned.
+	// - When `state=live`, only subscriptions that are in an active, canceled, or future state or are in trial will be returned.
+	State *string
 }
 
 func (list *ListSubscriptionsParams) toParams() *Params {
@@ -2427,6 +3046,12 @@ func (c *Client) ModifySubscription(subscriptionId string, body *SubscriptionUpd
 type TerminateSubscriptionParams struct {
 	Params
 
+	// Refund - The type of refund to perform:
+	// * `full` - Performs a full refund of the last invoice for the current subscription term.
+	// * `partial` - Prorates a refund based on the amount of time remaining in the current bill cycle.
+	// * `none` - Terminates the subscription without a refund.
+	// In the event that the most recent invoice is a $0 invoice paid entirely by credit, Recurly will apply the credit back to the customer’s account.
+	// You may also terminate a subscription with no refund and then manually refund specific invoices.
 	Refund *string
 }
 
@@ -2464,6 +3089,7 @@ func (c *Client) TerminateSubscription(subscriptionId string, params *TerminateS
 type CancelSubscriptionParams struct {
 	Params
 
+	// Body - The body of the request.
 	Body *SubscriptionCancel
 }
 
@@ -2575,13 +3201,42 @@ func (c *Client) RemoveSubscriptionChange(subscriptionId string) (*Empty, error)
 type ListSubscriptionInvoicesParams struct {
 	Params
 
-	Ids       *[]string
-	Limit     *int
-	Order     *string
-	Sort      *string
+	// Ids - Filter results by their IDs. Up to 200 IDs can be passed at once using
+	// commas as separators, e.g. `ids=h1at4d57xlmy,gyqgg0d3v9n1,jrsm5b4yefg6`.
+	// **Important notes:**
+	// * The `ids` parameter cannot be used with any other ordering or filtering
+	//   parameters (`limit`, `order`, `sort`, `begin_time`, `end_time`, etc)
+	// * Invalid or unknown IDs will be ignored, so you should check that the
+	//   results correspond to your request.
+	// * Records are returned in an arbitrary order. Since results are all
+	//   returned at once you can sort the records yourself.
+	Ids *[]string
+
+	// Limit - Limit number of records 1-200.
+	Limit *int
+
+	// Order - Sort order.
+	Order *string
+
+	// Sort - Sort field. You *really* only want to sort by `updated_at` in ascending
+	// order. In descending order updated records will move behind the cursor and could
+	// prevent some records from being returned.
+	Sort *string
+
+	// BeginTime - Filter by begin_time when `sort=created_at` or `sort=updated_at`.
+	// **Note:** this value is an ISO8601 timestamp. A partial timestamp that does not include a time zone will default to UTC.
 	BeginTime *time.Time
-	EndTime   *time.Time
-	Type      *string
+
+	// EndTime - Filter by end_time when `sort=created_at` or `sort=updated_at`.
+	// **Note:** this value is an ISO8601 timestamp. A partial timestamp that does not include a time zone will default to UTC.
+	EndTime *time.Time
+
+	// Type - Filter by type when:
+	// - `type=charge`, only charge invoices will be returned.
+	// - `type=credit`, only credit invoices will be returned.
+	// - `type=non-legacy`, only charge and credit invoices will be returned.
+	// - `type=legacy`, only legacy invoices will be returned.
+	Type *string
 }
 
 func (list *ListSubscriptionInvoicesParams) toParams() *Params {
@@ -2642,15 +3297,44 @@ func (c *Client) ListSubscriptionInvoices(subscriptionId string, params *ListSub
 type ListSubscriptionLineItemsParams struct {
 	Params
 
-	Ids       *[]string
-	Limit     *int
-	Order     *string
-	Sort      *string
+	// Ids - Filter results by their IDs. Up to 200 IDs can be passed at once using
+	// commas as separators, e.g. `ids=h1at4d57xlmy,gyqgg0d3v9n1,jrsm5b4yefg6`.
+	// **Important notes:**
+	// * The `ids` parameter cannot be used with any other ordering or filtering
+	//   parameters (`limit`, `order`, `sort`, `begin_time`, `end_time`, etc)
+	// * Invalid or unknown IDs will be ignored, so you should check that the
+	//   results correspond to your request.
+	// * Records are returned in an arbitrary order. Since results are all
+	//   returned at once you can sort the records yourself.
+	Ids *[]string
+
+	// Limit - Limit number of records 1-200.
+	Limit *int
+
+	// Order - Sort order.
+	Order *string
+
+	// Sort - Sort field. You *really* only want to sort by `updated_at` in ascending
+	// order. In descending order updated records will move behind the cursor and could
+	// prevent some records from being returned.
+	Sort *string
+
+	// BeginTime - Filter by begin_time when `sort=created_at` or `sort=updated_at`.
+	// **Note:** this value is an ISO8601 timestamp. A partial timestamp that does not include a time zone will default to UTC.
 	BeginTime *time.Time
-	EndTime   *time.Time
-	Original  *string
-	State     *string
-	Type      *string
+
+	// EndTime - Filter by end_time when `sort=created_at` or `sort=updated_at`.
+	// **Note:** this value is an ISO8601 timestamp. A partial timestamp that does not include a time zone will default to UTC.
+	EndTime *time.Time
+
+	// Original - Filter by original field.
+	Original *string
+
+	// State - Filter by state field.
+	State *string
+
+	// Type - Filter by type field.
+	Type *string
 }
 
 func (list *ListSubscriptionLineItemsParams) toParams() *Params {
@@ -2719,10 +3403,29 @@ func (c *Client) ListSubscriptionLineItems(subscriptionId string, params *ListSu
 type ListSubscriptionCouponRedemptionsParams struct {
 	Params
 
-	Ids       *[]string
-	Sort      *string
+	// Ids - Filter results by their IDs. Up to 200 IDs can be passed at once using
+	// commas as separators, e.g. `ids=h1at4d57xlmy,gyqgg0d3v9n1,jrsm5b4yefg6`.
+	// **Important notes:**
+	// * The `ids` parameter cannot be used with any other ordering or filtering
+	//   parameters (`limit`, `order`, `sort`, `begin_time`, `end_time`, etc)
+	// * Invalid or unknown IDs will be ignored, so you should check that the
+	//   results correspond to your request.
+	// * Records are returned in an arbitrary order. Since results are all
+	//   returned at once you can sort the records yourself.
+	Ids *[]string
+
+	// Sort - Sort field. You *really* only want to sort by `updated_at` in ascending
+	// order. In descending order updated records will move behind the cursor and could
+	// prevent some records from being returned.
+	Sort *string
+
+	// BeginTime - Filter by begin_time when `sort=created_at` or `sort=updated_at`.
+	// **Note:** this value is an ISO8601 timestamp. A partial timestamp that does not include a time zone will default to UTC.
 	BeginTime *time.Time
-	EndTime   *time.Time
+
+	// EndTime - Filter by end_time when `sort=created_at` or `sort=updated_at`.
+	// **Note:** this value is an ISO8601 timestamp. A partial timestamp that does not include a time zone will default to UTC.
+	EndTime *time.Time
 }
 
 func (list *ListSubscriptionCouponRedemptionsParams) toParams() *Params {
@@ -2771,14 +3474,41 @@ func (c *Client) ListSubscriptionCouponRedemptions(subscriptionId string, params
 type ListTransactionsParams struct {
 	Params
 
-	Ids       *[]string
-	Limit     *int
-	Order     *string
-	Sort      *string
+	// Ids - Filter results by their IDs. Up to 200 IDs can be passed at once using
+	// commas as separators, e.g. `ids=h1at4d57xlmy,gyqgg0d3v9n1,jrsm5b4yefg6`.
+	// **Important notes:**
+	// * The `ids` parameter cannot be used with any other ordering or filtering
+	//   parameters (`limit`, `order`, `sort`, `begin_time`, `end_time`, etc)
+	// * Invalid or unknown IDs will be ignored, so you should check that the
+	//   results correspond to your request.
+	// * Records are returned in an arbitrary order. Since results are all
+	//   returned at once you can sort the records yourself.
+	Ids *[]string
+
+	// Limit - Limit number of records 1-200.
+	Limit *int
+
+	// Order - Sort order.
+	Order *string
+
+	// Sort - Sort field. You *really* only want to sort by `updated_at` in ascending
+	// order. In descending order updated records will move behind the cursor and could
+	// prevent some records from being returned.
+	Sort *string
+
+	// BeginTime - Filter by begin_time when `sort=created_at` or `sort=updated_at`.
+	// **Note:** this value is an ISO8601 timestamp. A partial timestamp that does not include a time zone will default to UTC.
 	BeginTime *time.Time
-	EndTime   *time.Time
-	Type      *string
-	Success   *string
+
+	// EndTime - Filter by end_time when `sort=created_at` or `sort=updated_at`.
+	// **Note:** this value is an ISO8601 timestamp. A partial timestamp that does not include a time zone will default to UTC.
+	EndTime *time.Time
+
+	// Type - Filter by type field. The value `payment` will return both `purchase` and `capture` transactions.
+	Type *string
+
+	// Success - Filter by success field.
+	Success *string
 }
 
 func (list *ListTransactionsParams) toParams() *Params {

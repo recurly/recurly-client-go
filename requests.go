@@ -337,7 +337,10 @@ type LineItemCreate struct {
 	// 3-letter ISO 4217 currency code. If `item_code`/`item_id` is part of the request then `currency` is optional, if the site has a single default currency. `currency` is required if `item_code`/`item_id` is present, and there are multiple currencies defined on the site. If `item_code`/`item_id` is not present `currency` is required.
 	Currency string `json:"currency,omitempty"`
 
-	// A positive or negative amount with `type=charge` will result in a positive `unit_amount`. A positive or negative amount with `type=credit` will result in a negative `unit_amount`. If `item_code`/`item_id` is present, `unit_amount` can be passed in, to override the `Item`'s `unit_amount`. If `item_code`/`item_id` is not present then `unit_amount` is required.
+	// A positive or negative amount with `type=charge` will result in a positive `unit_amount`.
+	// A positive or negative amount with `type=credit` will result in a negative `unit_amount`.
+	// If `item_code`/`item_id` is present, `unit_amount` can be passed in, to override the `Item`'s
+	// `unit_amount`. If `item_code`/`item_id` is not present then `unit_amount` is required.
 	UnitAmount float64 `json:"unit_amount,omitempty"`
 
 	// This number will be multiplied by the unit amount to compute the subtotal before any discounts or taxes.
@@ -485,7 +488,10 @@ type CouponCreate struct {
 	// List of plan codes to which this coupon applies. See `applies_to_all_plans`
 	PlanCodes []string `json:"plan_codes,omitempty"`
 
-	// This field does not apply when the discount_type is `free_trial`. - "single_use" coupons applies to the first invoice only. - "temporal" coupons will apply to invoices for the duration determined by the `temporal_unit` and `temporal_amount` attributes. - "forever" coupons will apply to invoices forever.
+	// This field does not apply when the discount_type is `free_trial`.
+	// - "single_use" coupons applies to the first invoice only.
+	// - "temporal" coupons will apply to invoices for the duration determined by the `temporal_unit` and `temporal_amount` attributes.
+	// - "forever" coupons will apply to invoices forever.
 	Duration string `json:"duration,omitempty"`
 
 	// If `duration` is "temporal" than `temporal_amount` is an integer which is multiplied by `temporal_unit` to define the duration that the coupon will be applied to invoices for.
@@ -497,7 +503,13 @@ type CouponCreate struct {
 	// Whether the coupon is "single_code" or "bulk". Bulk coupons will require a `unique_code_template` and will generate unique codes through the `/generate` endpoint.
 	CouponType string `json:"coupon_type,omitempty"`
 
-	// On a bulk coupon, the template from which unique coupon codes are generated. - You must start the template with your coupon_code wrapped in single quotes. - Outside of single quotes, use a 9 for a character that you want to be a random number. - Outside of single quotes, use an "x" for a character that you want to be a random letter. - Outside of single quotes, use an * for a character that you want to be a random number or letter. - Use single quotes ' ' for characters that you want to remain static. These strings can be alphanumeric and may contain a - _ or +. For example: "'abc-'****'-def'"
+	// On a bulk coupon, the template from which unique coupon codes are generated.
+	// - You must start the template with your coupon_code wrapped in single quotes.
+	// - Outside of single quotes, use a 9 for a character that you want to be a random number.
+	// - Outside of single quotes, use an "x" for a character that you want to be a random letter.
+	// - Outside of single quotes, use an * for a character that you want to be a random number or letter.
+	// - Use single quotes ' ' for characters that you want to remain static. These strings can be alphanumeric and may contain a - _ or +.
+	// For example: "'abc-'****'-def'"
 	UniqueCodeTemplate string `json:"unique_code_template,omitempty"`
 
 	// Whether the discount is for all eligible charges on the account, or only a specific subscription.
@@ -720,19 +732,30 @@ type InvoiceRefund struct {
 	// The type of refund. Amount and line items cannot both be specified in the request.
 	Type string `json:"type,omitempty"`
 
-	// The amount to be refunded. The amount will be split between the line items. If no amount is specified, it will default to refunding the total refundable amount on the invoice.
+	// The amount to be refunded. The amount will be split between the line items.
+	// If no amount is specified, it will default to refunding the total refundable amount on the invoice.
 	Amount float64 `json:"amount,omitempty"`
 
 	// The line items to be refunded. This is required when `type=line_items`.
 	LineItems []LineItemRefund `json:"line_items,omitempty"`
 
-	// Indicates how the invoice should be refunded when both a credit and transaction are present on the invoice: - `transaction_first` – Refunds the transaction first, then any amount is issued as credit back to the account. Default value when Credit Invoices feature is enabled. - `credit_first` – Issues credit back to the account first, then refunds any remaining amount back to the transaction. Default value when Credit Invoices feature is not enabled. - `all_credit` – Issues credit to the account for the entire amount of the refund. Only available when the Credit Invoices feature is enabled. - `all_transaction` – Refunds the entire amount back to transactions, using transactions from previous invoices if necessary. Only available when the Credit Invoices feature is enabled.
+	// Indicates how the invoice should be refunded when both a credit and transaction are present on the invoice:
+	// - `transaction_first` – Refunds the transaction first, then any amount is issued as credit back to the account. Default value when Credit Invoices feature is enabled.
+	// - `credit_first` – Issues credit back to the account first, then refunds any remaining amount back to the transaction. Default value when Credit Invoices feature is not enabled.
+	// - `all_credit` – Issues credit to the account for the entire amount of the refund. Only available when the Credit Invoices feature is enabled.
+	// - `all_transaction` – Refunds the entire amount back to transactions, using transactions from previous invoices if necessary. Only available when the Credit Invoices feature is enabled.
 	RefundMethod string `json:"refund_method,omitempty"`
 
-	// Used as the Customer Notes on the credit invoice.  This field can only be include when the Credit Invoices feature is enabled.
+	// Used as the Customer Notes on the credit invoice.
+	// This field can only be include when the Credit Invoices feature is enabled.
 	CreditCustomerNotes string `json:"credit_customer_notes,omitempty"`
 
-	// Indicates that the refund was settled outside of Recurly, and a manual transaction should be created to track it in Recurly.  Required when: - refunding a manually collected charge invoice, and `refund_method` is not `all_credit` - refunding a credit invoice that refunded manually collecting invoices - refunding a credit invoice for a partial amount  This field can only be included when the Credit Invoices feature is enabled.
+	// Indicates that the refund was settled outside of Recurly, and a manual transaction should be created to track it in Recurly.
+	// Required when:
+	// - refunding a manually collected charge invoice, and `refund_method` is not `all_credit`
+	// - refunding a credit invoice that refunded manually collecting invoices
+	// - refunding a credit invoice for a partial amount
+	// This field can only be included when the Credit Invoices feature is enabled.
 	ExternalRefund ExternalRefund `json:"external_refund,omitempty"`
 }
 
@@ -754,7 +777,8 @@ type LineItemRefund struct {
 	// Line item quantity to be refunded.
 	Quantity int `json:"quantity,omitempty"`
 
-	// Set to `true` if the line item should be prorated; set to `false` if not. This can only be used on line items that have a start and end date.
+	// Set to `true` if the line item should be prorated; set to `false` if not.
+	// This can only be used on line items that have a start and end date.
 	Prorate bool `json:"prorate,omitempty"`
 }
 
