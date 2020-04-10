@@ -4,6 +4,13 @@
 
 ## Examples
 
+### Creating a client
+
+```go
+recurly.APIKey = "<apikey>"
+client := recurly.DefaultClient()
+```
+
 ### Fetching
 
 ```go
