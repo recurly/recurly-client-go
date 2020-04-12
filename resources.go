@@ -44,6 +44,7 @@ type siteList struct {
 	Data []Site `json:"data"`
 }
 
+// SiteList allows you to paginate Site objects
 type SiteList struct {
 	client       *Client
 	nextPagePath string
@@ -111,6 +112,7 @@ type addressList struct {
 	Data []Address `json:"data"`
 }
 
+// AddressList allows you to paginate Address objects
 type AddressList struct {
 	client       *Client
 	nextPagePath string
@@ -144,7 +146,10 @@ func (list AddressList) NextPage() (*AddressList, error) {
 
 type Settings struct {
 
-	// - full:      Full Address (Street, City, State, Postal Code and Country) - streetzip: Street and Postal Code only - zip:       Postal Code only - none:      No Address
+	// - full:      Full Address (Street, City, State, Postal Code and Country)
+	// - streetzip: Street and Postal Code only
+	// - zip:       Postal Code only
+	// - none:      No Address
 	BillingAddressRequirement string `json:"billing_address_requirement,omitempty"`
 
 	AcceptedCurrencies []string `json:"accepted_currencies,omitempty"`
@@ -159,6 +164,7 @@ type settingsList struct {
 	Data []Settings `json:"data"`
 }
 
+// SettingsList allows you to paginate Settings objects
 type SettingsList struct {
 	client       *Client
 	nextPagePath string
@@ -282,6 +288,7 @@ type accountList struct {
 	Data []Account `json:"data"`
 }
 
+// AccountList allows you to paginate Account objects
 type AccountList struct {
 	client       *Client
 	nextPagePath string
@@ -366,6 +373,7 @@ type shippingAddressList struct {
 	Data []ShippingAddress `json:"data"`
 }
 
+// ShippingAddressList allows you to paginate ShippingAddress objects
 type ShippingAddressList struct {
 	client       *Client
 	nextPagePath string
@@ -438,6 +446,7 @@ type billingInfoList struct {
 	Data []BillingInfo `json:"data"`
 }
 
+// BillingInfoList allows you to paginate BillingInfo objects
 type BillingInfoList struct {
 	client       *Client
 	nextPagePath string
@@ -515,6 +524,7 @@ type paymentMethodList struct {
 	Data []PaymentMethod `json:"data"`
 }
 
+// PaymentMethodList allows you to paginate PaymentMethod objects
 type PaymentMethodList struct {
 	client       *Client
 	nextPagePath string
@@ -564,6 +574,7 @@ type fraudInfoList struct {
 	Data []FraudInfo `json:"data"`
 }
 
+// FraudInfoList allows you to paginate FraudInfo objects
 type FraudInfoList struct {
 	client       *Client
 	nextPagePath string
@@ -610,6 +621,7 @@ type billingInfoUpdatedByList struct {
 	Data []BillingInfoUpdatedBy `json:"data"`
 }
 
+// BillingInfoUpdatedByList allows you to paginate BillingInfoUpdatedBy objects
 type BillingInfoUpdatedByList struct {
 	client       *Client
 	nextPagePath string
@@ -656,6 +668,7 @@ type customFieldList struct {
 	Data []CustomField `json:"data"`
 }
 
+// CustomFieldList allows you to paginate CustomField objects
 type CustomFieldList struct {
 	client       *Client
 	nextPagePath string
@@ -708,6 +721,7 @@ type errorMayHaveTransactionList struct {
 	Data []ErrorMayHaveTransaction `json:"data"`
 }
 
+// ErrorMayHaveTransactionList allows you to paginate ErrorMayHaveTransaction objects
 type ErrorMayHaveTransactionList struct {
 	client       *Client
 	nextPagePath string
@@ -774,6 +788,7 @@ type accountAcquisitionList struct {
 	Data []AccountAcquisition `json:"data"`
 }
 
+// AccountAcquisitionList allows you to paginate AccountAcquisition objects
 type AccountAcquisitionList struct {
 	client       *Client
 	nextPagePath string
@@ -820,6 +835,7 @@ type accountAcquisitionCostList struct {
 	Data []AccountAcquisitionCost `json:"data"`
 }
 
+// AccountAcquisitionCostList allows you to paginate AccountAcquisitionCost objects
 type AccountAcquisitionCostList struct {
 	client       *Client
 	nextPagePath string
@@ -880,6 +896,7 @@ type accountMiniList struct {
 	Data []AccountMini `json:"data"`
 }
 
+// AccountMiniList allows you to paginate AccountMini objects
 type AccountMiniList struct {
 	client       *Client
 	nextPagePath string
@@ -930,6 +947,7 @@ type accountBalanceList struct {
 	Data []AccountBalance `json:"data"`
 }
 
+// AccountBalanceList allows you to paginate AccountBalance objects
 type AccountBalanceList struct {
 	client       *Client
 	nextPagePath string
@@ -976,6 +994,7 @@ type accountBalanceAmountList struct {
 	Data []AccountBalanceAmount `json:"data"`
 }
 
+// AccountBalanceAmountList allows you to paginate AccountBalanceAmount objects
 type AccountBalanceAmountList struct {
 	client       *Client
 	nextPagePath string
@@ -1045,6 +1064,7 @@ type couponRedemptionList struct {
 	Data []CouponRedemption `json:"data"`
 }
 
+// CouponRedemptionList allows you to paginate CouponRedemption objects
 type CouponRedemptionList struct {
 	client       *Client
 	nextPagePath string
@@ -1105,7 +1125,8 @@ type Coupon struct {
 	// On a bulk coupon, the template from which unique coupon codes are generated.
 	UniqueCodeTemplate string `json:"unique_code_template,omitempty"`
 
-	// - "single_use" coupons applies to the first invoice only. - "temporal" coupons will apply to invoices for the duration determined by the `temporal_unit` and `temporal_amount` attributes.
+	// - "single_use" coupons applies to the first invoice only.
+	// - "temporal" coupons will apply to invoices for the duration determined by the `temporal_unit` and `temporal_amount` attributes.
 	Duration string `json:"duration,omitempty"`
 
 	// If `duration` is "temporal" than `temporal_amount` is an integer which is multiplied by `temporal_unit` to define the duration that the coupon will be applied to invoices for.
@@ -1135,7 +1156,8 @@ type Coupon struct {
 	// Whether the discount is for all eligible charges on the account, or only a specific subscription.
 	RedemptionResource string `json:"redemption_resource,omitempty"`
 
-	// Details of the discount a coupon applies. Will contain a `type` property and one of the following properties: `percent`, `fixed`, `trial`.
+	// Details of the discount a coupon applies. Will contain a `type`
+	// property and one of the following properties: `percent`, `fixed`, `trial`.
 	Discount CouponDiscount `json:"discount,omitempty"`
 
 	// Whether the coupon is "single_code" or "bulk". Bulk coupons will require a `unique_code_template` and will generate unique codes through the `/generate` endpoint.
@@ -1169,6 +1191,7 @@ type couponList struct {
 	Data []Coupon `json:"data"`
 }
 
+// CouponList allows you to paginate Coupon objects
 type CouponList struct {
 	client       *Client
 	nextPagePath string
@@ -1221,6 +1244,7 @@ type planMiniList struct {
 	Data []PlanMini `json:"data"`
 }
 
+// PlanMiniList allows you to paginate PlanMini objects
 type PlanMiniList struct {
 	client       *Client
 	nextPagePath string
@@ -1271,6 +1295,7 @@ type couponDiscountList struct {
 	Data []CouponDiscount `json:"data"`
 }
 
+// CouponDiscountList allows you to paginate CouponDiscount objects
 type CouponDiscountList struct {
 	client       *Client
 	nextPagePath string
@@ -1317,6 +1342,7 @@ type couponDiscountPricingList struct {
 	Data []CouponDiscountPricing `json:"data"`
 }
 
+// CouponDiscountPricingList allows you to paginate CouponDiscountPricing objects
 type CouponDiscountPricingList struct {
 	client       *Client
 	nextPagePath string
@@ -1363,6 +1389,7 @@ type couponDiscountTrialList struct {
 	Data []CouponDiscountTrial `json:"data"`
 }
 
+// CouponDiscountTrialList allows you to paginate CouponDiscountTrial objects
 type CouponDiscountTrialList struct {
 	client       *Client
 	nextPagePath string
@@ -1444,6 +1471,7 @@ type creditPaymentList struct {
 	Data []CreditPayment `json:"data"`
 }
 
+// CreditPaymentList allows you to paginate CreditPayment objects
 type CreditPaymentList struct {
 	client       *Client
 	nextPagePath string
@@ -1499,6 +1527,7 @@ type invoiceMiniList struct {
 	Data []InvoiceMini `json:"data"`
 }
 
+// InvoiceMiniList allows you to paginate InvoiceMini objects
 type InvoiceMiniList struct {
 	client       *Client
 	nextPagePath string
@@ -1556,7 +1585,11 @@ type Transaction struct {
 	// If the transaction is charging or refunding for one or more subscriptions, these are their IDs.
 	SubscriptionIds []string `json:"subscription_ids,omitempty"`
 
-	// - `authorization` – verifies billing information and places a hold on money in the customer's account. - `capture` – captures funds held by an authorization and completes a purchase. - `purchase` – combines the authorization and capture in one transaction. - `refund` – returns all or a portion of the money collected in a previous transaction to the customer. - `verify` – a $0 or $1 transaction used to verify billing information which is immediately voided.
+	// - `authorization` – verifies billing information and places a hold on money in the customer's account.
+	// - `capture` – captures funds held by an authorization and completes a purchase.
+	// - `purchase` – combines the authorization and capture in one transaction.
+	// - `refund` – returns all or a portion of the money collected in a previous transaction to the customer.
+	// - `verify` – a $0 or $1 transaction used to verify billing information which is immediately voided.
 	Type string `json:"type,omitempty"`
 
 	// Describes how the transaction was triggered.
@@ -1584,7 +1617,10 @@ type Transaction struct {
 
 	PaymentMethod PaymentMethod `json:"payment_method,omitempty"`
 
-	// IP address provided when the billing information was collected:  - When the customer enters billing information into the Recurly.js or Hosted Payment Pages, Recurly records the IP address. - When the merchant enters billing information using the API, the merchant may provide an IP address. - When the merchant enters billing information using the UI, no IP address is recorded.
+	// IP address provided when the billing information was collected:
+	// - When the customer enters billing information into the Recurly.js or Hosted Payment Pages, Recurly records the IP address.
+	// - When the merchant enters billing information using the API, the merchant may provide an IP address.
+	// - When the merchant enters billing information using the UI, no IP address is recorded.
 	IpAddressV4 string `json:"ip_address_v4,omitempty"`
 
 	// IP address's country
@@ -1644,6 +1680,7 @@ type transactionList struct {
 	Data []Transaction `json:"data"`
 }
 
+// TransactionList allows you to paginate Transaction objects
 type TransactionList struct {
 	client       *Client
 	nextPagePath string
@@ -1692,6 +1729,7 @@ type transactionPaymentGatewayList struct {
 	Data []TransactionPaymentGateway `json:"data"`
 }
 
+// TransactionPaymentGatewayList allows you to paginate TransactionPaymentGateway objects
 type TransactionPaymentGatewayList struct {
 	client       *Client
 	nextPagePath string
@@ -1831,6 +1869,7 @@ type invoiceList struct {
 	Data []Invoice `json:"data"`
 }
 
+// InvoiceList allows you to paginate Invoice objects
 type InvoiceList struct {
 	client       *Client
 	nextPagePath string
@@ -1904,6 +1943,7 @@ type invoiceAddressList struct {
 	Data []InvoiceAddress `json:"data"`
 }
 
+// InvoiceAddressList allows you to paginate InvoiceAddress objects
 type InvoiceAddressList struct {
 	client       *Client
 	nextPagePath string
@@ -1953,6 +1993,7 @@ type taxInfoList struct {
 	Data []TaxInfo `json:"data"`
 }
 
+// TaxInfoList allows you to paginate TaxInfo objects
 type TaxInfoList struct {
 	client       *Client
 	nextPagePath string
@@ -2013,7 +2054,11 @@ type LineItem struct {
 	// Pending line items are charges or credits on an account that have not been applied to an invoice yet. Invoiced line items will always have an `invoice_id` value.
 	State string `json:"state,omitempty"`
 
-	// Category to describe the role of a line item on a legacy invoice: - "charges" refers to charges being billed for on this invoice. - "credits" refers to refund or proration credits. This portion of the invoice can be considered a credit memo. - "applied_credits" refers to previous credits applied to this invoice. See their original_line_item_id to determine where the credit first originated. - "carryforwards" can be ignored. They exist to consume any remaining credit balance. A new credit with the same amount will be created and placed back on the account.
+	// Category to describe the role of a line item on a legacy invoice:
+	// - "charges" refers to charges being billed for on this invoice.
+	// - "credits" refers to refund or proration credits. This portion of the invoice can be considered a credit memo.
+	// - "applied_credits" refers to previous credits applied to this invoice. See their original_line_item_id to determine where the credit first originated.
+	// - "carryforwards" can be ignored. They exist to consume any remaining credit balance. A new credit with the same amount will be created and placed back on the account.
 	LegacyCategory string `json:"legacy_category,omitempty"`
 
 	// Account mini details
@@ -2127,6 +2172,7 @@ type lineItemList struct {
 	Data []LineItem `json:"data"`
 }
 
+// LineItemList allows you to paginate LineItem objects
 type LineItemList struct {
 	client       *Client
 	nextPagePath string
@@ -2175,6 +2221,7 @@ type invoiceCollectionList struct {
 	Data []InvoiceCollection `json:"data"`
 }
 
+// InvoiceCollectionList allows you to paginate InvoiceCollection objects
 type InvoiceCollectionList struct {
 	client       *Client
 	nextPagePath string
@@ -2227,6 +2274,7 @@ type accountNoteList struct {
 	Data []AccountNote `json:"data"`
 }
 
+// AccountNoteList allows you to paginate AccountNote objects
 type AccountNoteList struct {
 	client       *Client
 	nextPagePath string
@@ -2283,6 +2331,7 @@ type userList struct {
 	Data []User `json:"data"`
 }
 
+// UserList allows you to paginate User objects
 type UserList struct {
 	client       *Client
 	nextPagePath string
@@ -2446,6 +2495,7 @@ type subscriptionList struct {
 	Data []Subscription `json:"data"`
 }
 
+// SubscriptionList allows you to paginate Subscription objects
 type SubscriptionList struct {
 	client       *Client
 	nextPagePath string
@@ -2496,6 +2546,7 @@ type subscriptionShippingList struct {
 	Data []SubscriptionShipping `json:"data"`
 }
 
+// SubscriptionShippingList allows you to paginate SubscriptionShipping objects
 type SubscriptionShippingList struct {
 	client       *Client
 	nextPagePath string
@@ -2548,6 +2599,7 @@ type shippingMethodMiniList struct {
 	Data []ShippingMethodMini `json:"data"`
 }
 
+// ShippingMethodMiniList allows you to paginate ShippingMethodMini objects
 type ShippingMethodMiniList struct {
 	client       *Client
 	nextPagePath string
@@ -2605,6 +2657,7 @@ type couponRedemptionMiniList struct {
 	Data []CouponRedemptionMini `json:"data"`
 }
 
+// CouponRedemptionMiniList allows you to paginate CouponRedemptionMini objects
 type CouponRedemptionMiniList struct {
 	client       *Client
 	nextPagePath string
@@ -2653,7 +2706,8 @@ type CouponMini struct {
 	// Indicates if the coupon is redeemable, and if it is not, why.
 	State string `json:"state,omitempty"`
 
-	// Details of the discount a coupon applies. Will contain a `type` property and one of the following properties: `percent`, `fixed`, `trial`.
+	// Details of the discount a coupon applies. Will contain a `type`
+	// property and one of the following properties: `percent`, `fixed`, `trial`.
 	Discount CouponDiscount `json:"discount,omitempty"`
 
 	// Whether the coupon is "single_code" or "bulk". Bulk coupons will require a `unique_code_template` and will generate unique codes through the `/generate` endpoint.
@@ -2669,6 +2723,7 @@ type couponMiniList struct {
 	Data []CouponMini `json:"data"`
 }
 
+// CouponMiniList allows you to paginate CouponMini objects
 type CouponMiniList struct {
 	client       *Client
 	nextPagePath string
@@ -2754,6 +2809,7 @@ type subscriptionChangeList struct {
 	Data []SubscriptionChange `json:"data"`
 }
 
+// SubscriptionChangeList allows you to paginate SubscriptionChange objects
 type SubscriptionChangeList struct {
 	client       *Client
 	nextPagePath string
@@ -2821,6 +2877,7 @@ type subscriptionAddOnList struct {
 	Data []SubscriptionAddOn `json:"data"`
 }
 
+// SubscriptionAddOnList allows you to paginate SubscriptionAddOn objects
 type SubscriptionAddOnList struct {
 	client       *Client
 	nextPagePath string
@@ -2882,6 +2939,7 @@ type addOnMiniList struct {
 	Data []AddOnMini `json:"data"`
 }
 
+// AddOnMiniList allows you to paginate AddOnMini objects
 type AddOnMiniList struct {
 	client       *Client
 	nextPagePath string
@@ -2946,6 +3004,7 @@ type uniqueCouponCodeList struct {
 	Data []UniqueCouponCode `json:"data"`
 }
 
+// UniqueCouponCodeList allows you to paginate UniqueCouponCode objects
 type UniqueCouponCodeList struct {
 	client       *Client
 	nextPagePath string
@@ -2991,7 +3050,11 @@ type CustomFieldDefinition struct {
 	// Used by the API to identify the field or reading and writing. The name can only be used once per Recurly object type.
 	Name string `json:"name,omitempty"`
 
-	// The access control applied inside Recurly's admin UI: - `api_only` - No one will be able to view or edit this field's data via the admin UI. - `read_only` - Users with the Customers role will be able to view this field's data via the admin UI, but   editing will only be available via the API. - `write` - Users with the Customers role will be able to view and edit this field's data via the admin UI.
+	// The access control applied inside Recurly's admin UI:
+	// - `api_only` - No one will be able to view or edit this field's data via the admin UI.
+	// - `read_only` - Users with the Customers role will be able to view this field's data via the admin UI, but
+	//   editing will only be available via the API.
+	// - `write` - Users with the Customers role will be able to view and edit this field's data via the admin UI.
 	UserAccess string `json:"user_access,omitempty"`
 
 	// Used to label the field when viewing and editing the field in Recurly's admin UI.
@@ -3016,6 +3079,7 @@ type customFieldDefinitionList struct {
 	Data []CustomFieldDefinition `json:"data"`
 }
 
+// CustomFieldDefinitionList allows you to paginate CustomFieldDefinition objects
 type CustomFieldDefinitionList struct {
 	client       *Client
 	nextPagePath string
@@ -3104,6 +3168,7 @@ type itemList struct {
 	Data []Item `json:"data"`
 }
 
+// ItemList allows you to paginate Item objects
 type ItemList struct {
 	client       *Client
 	nextPagePath string
@@ -3150,6 +3215,7 @@ type pricingList struct {
 	Data []Pricing `json:"data"`
 }
 
+// PricingList allows you to paginate Pricing objects
 type PricingList struct {
 	client       *Client
 	nextPagePath string
@@ -3191,6 +3257,7 @@ type binaryFileList struct {
 	Data []BinaryFile `json:"data"`
 }
 
+// BinaryFileList allows you to paginate BinaryFile objects
 type BinaryFileList struct {
 	client       *Client
 	nextPagePath string
@@ -3300,6 +3367,7 @@ type planList struct {
 	Data []Plan `json:"data"`
 }
 
+// PlanList allows you to paginate Plan objects
 type PlanList struct {
 	client       *Client
 	nextPagePath string
@@ -3349,6 +3417,7 @@ type planPricingList struct {
 	Data []PlanPricing `json:"data"`
 }
 
+// PlanPricingList allows you to paginate PlanPricing objects
 type PlanPricingList struct {
 	client       *Client
 	nextPagePath string
@@ -3401,6 +3470,7 @@ type planHostedPagesList struct {
 	Data []PlanHostedPages `json:"data"`
 }
 
+// PlanHostedPagesList allows you to paginate PlanHostedPages objects
 type PlanHostedPagesList struct {
 	client       *Client
 	nextPagePath string
@@ -3495,6 +3565,7 @@ type addOnList struct {
 	Data []AddOn `json:"data"`
 }
 
+// AddOnList allows you to paginate AddOn objects
 type AddOnList struct {
 	client       *Client
 	nextPagePath string
@@ -3541,6 +3612,7 @@ type addOnPricingList struct {
 	Data []AddOnPricing `json:"data"`
 }
 
+// AddOnPricingList allows you to paginate AddOnPricing objects
 type AddOnPricingList struct {
 	client       *Client
 	nextPagePath string
@@ -3599,6 +3671,7 @@ type itemMiniList struct {
 	Data []ItemMini `json:"data"`
 }
 
+// ItemMiniList allows you to paginate ItemMini objects
 type ItemMiniList struct {
 	client       *Client
 	nextPagePath string
@@ -3644,7 +3717,16 @@ type ShippingMethod struct {
 	// The name of the shipping method displayed to customers.
 	Name string `json:"name,omitempty"`
 
-	// Used by Avalara, Vertex, and Recurly’s built-in tax feature. The tax code values are specific to each tax system. If you are using Recurly’s built-in taxes the values are:  - `FR` – Common Carrier FOB Destination - `FR022000` – Common Carrier FOB Origin - `FR020400` – Non Common Carrier FOB Destination - `FR020500` – Non Common Carrier FOB Origin - `FR010100` – Delivery by Company Vehicle Before Passage of Title - `FR010200` – Delivery by Company Vehicle After Passage of Title - `NT` – Non-Taxable
+	// Used by Avalara, Vertex, and Recurly’s built-in tax feature. The tax
+	// code values are specific to each tax system. If you are using Recurly’s
+	// built-in taxes the values are:
+	// - `FR` – Common Carrier FOB Destination
+	// - `FR022000` – Common Carrier FOB Origin
+	// - `FR020400` – Non Common Carrier FOB Destination
+	// - `FR020500` – Non Common Carrier FOB Origin
+	// - `FR010100` – Delivery by Company Vehicle Before Passage of Title
+	// - `FR010200` – Delivery by Company Vehicle After Passage of Title
+	// - `NT` – Non-Taxable
 	TaxCode string `json:"tax_code,omitempty"`
 
 	// Created at
@@ -3663,6 +3745,7 @@ type shippingMethodList struct {
 	Data []ShippingMethod `json:"data"`
 }
 
+// ShippingMethodList allows you to paginate ShippingMethod objects
 type ShippingMethodList struct {
 	client       *Client
 	nextPagePath string
