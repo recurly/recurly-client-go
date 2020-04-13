@@ -106,7 +106,7 @@ type ListAccountsParams struct {
 	//   results correspond to your request.
 	// * Records are returned in an arbitrary order. Since results are all
 	//   returned at once you can sort the records yourself.
-	Ids *[]string
+	Ids []string
 
 	// Limit - Limit number of records 1-200.
 	Limit *int
@@ -151,7 +151,7 @@ func (list *ListAccountsParams) URLParams() []KeyValue {
 	var options []KeyValue
 
 	if list.Ids != nil {
-		options = append(options, KeyValue{Key: "ids", Value: strings.Join(*list.Ids, ",")})
+		options = append(options, KeyValue{Key: "ids", Value: strings.Join(list.Ids, ",")})
 	}
 
 	if list.Limit != nil {
@@ -357,7 +357,7 @@ type ListAccountCouponRedemptionsParams struct {
 	//   results correspond to your request.
 	// * Records are returned in an arbitrary order. Since results are all
 	//   returned at once you can sort the records yourself.
-	Ids *[]string
+	Ids []string
 
 	// Sort - Sort field. You *really* only want to sort by `updated_at` in ascending
 	// order. In descending order updated records will move behind the cursor and could
@@ -386,7 +386,7 @@ func (list *ListAccountCouponRedemptionsParams) URLParams() []KeyValue {
 	var options []KeyValue
 
 	if list.Ids != nil {
-		options = append(options, KeyValue{Key: "ids", Value: strings.Join(*list.Ids, ",")})
+		options = append(options, KeyValue{Key: "ids", Value: strings.Join(list.Ids, ",")})
 	}
 
 	if list.Sort != nil {
@@ -534,7 +534,7 @@ type ListAccountInvoicesParams struct {
 	//   results correspond to your request.
 	// * Records are returned in an arbitrary order. Since results are all
 	//   returned at once you can sort the records yourself.
-	Ids *[]string
+	Ids []string
 
 	// Limit - Limit number of records 1-200.
 	Limit *int
@@ -576,7 +576,7 @@ func (list *ListAccountInvoicesParams) URLParams() []KeyValue {
 	var options []KeyValue
 
 	if list.Ids != nil {
-		options = append(options, KeyValue{Key: "ids", Value: strings.Join(*list.Ids, ",")})
+		options = append(options, KeyValue{Key: "ids", Value: strings.Join(list.Ids, ",")})
 	}
 
 	if list.Limit != nil {
@@ -654,7 +654,7 @@ type ListAccountLineItemsParams struct {
 	//   results correspond to your request.
 	// * Records are returned in an arbitrary order. Since results are all
 	//   returned at once you can sort the records yourself.
-	Ids *[]string
+	Ids []string
 
 	// Limit - Limit number of records 1-200.
 	Limit *int
@@ -698,7 +698,7 @@ func (list *ListAccountLineItemsParams) URLParams() []KeyValue {
 	var options []KeyValue
 
 	if list.Ids != nil {
-		options = append(options, KeyValue{Key: "ids", Value: strings.Join(*list.Ids, ",")})
+		options = append(options, KeyValue{Key: "ids", Value: strings.Join(list.Ids, ",")})
 	}
 
 	if list.Limit != nil {
@@ -772,7 +772,7 @@ type ListAccountNotesParams struct {
 	//   results correspond to your request.
 	// * Records are returned in an arbitrary order. Since results are all
 	//   returned at once you can sort the records yourself.
-	Ids *[]string
+	Ids []string
 }
 
 func (list *ListAccountNotesParams) toParams() *Params {
@@ -788,7 +788,7 @@ func (list *ListAccountNotesParams) URLParams() []KeyValue {
 	var options []KeyValue
 
 	if list.Ids != nil {
-		options = append(options, KeyValue{Key: "ids", Value: strings.Join(*list.Ids, ",")})
+		options = append(options, KeyValue{Key: "ids", Value: strings.Join(list.Ids, ",")})
 	}
 
 	return options
@@ -830,7 +830,7 @@ type ListShippingAddressesParams struct {
 	//   results correspond to your request.
 	// * Records are returned in an arbitrary order. Since results are all
 	//   returned at once you can sort the records yourself.
-	Ids *[]string
+	Ids []string
 
 	// Limit - Limit number of records 1-200.
 	Limit *int
@@ -865,7 +865,7 @@ func (list *ListShippingAddressesParams) URLParams() []KeyValue {
 	var options []KeyValue
 
 	if list.Ids != nil {
-		options = append(options, KeyValue{Key: "ids", Value: strings.Join(*list.Ids, ",")})
+		options = append(options, KeyValue{Key: "ids", Value: strings.Join(list.Ids, ",")})
 	}
 
 	if list.Limit != nil {
@@ -963,7 +963,7 @@ type ListAccountSubscriptionsParams struct {
 	//   results correspond to your request.
 	// * Records are returned in an arbitrary order. Since results are all
 	//   returned at once you can sort the records yourself.
-	Ids *[]string
+	Ids []string
 
 	// Limit - Limit number of records 1-200.
 	Limit *int
@@ -1004,7 +1004,7 @@ func (list *ListAccountSubscriptionsParams) URLParams() []KeyValue {
 	var options []KeyValue
 
 	if list.Ids != nil {
-		options = append(options, KeyValue{Key: "ids", Value: strings.Join(*list.Ids, ",")})
+		options = append(options, KeyValue{Key: "ids", Value: strings.Join(list.Ids, ",")})
 	}
 
 	if list.Limit != nil {
@@ -1058,7 +1058,7 @@ type ListAccountTransactionsParams struct {
 	//   results correspond to your request.
 	// * Records are returned in an arbitrary order. Since results are all
 	//   returned at once you can sort the records yourself.
-	Ids *[]string
+	Ids []string
 
 	// Limit - Limit number of records 1-200.
 	Limit *int
@@ -1099,7 +1099,7 @@ func (list *ListAccountTransactionsParams) URLParams() []KeyValue {
 	var options []KeyValue
 
 	if list.Ids != nil {
-		options = append(options, KeyValue{Key: "ids", Value: strings.Join(*list.Ids, ",")})
+		options = append(options, KeyValue{Key: "ids", Value: strings.Join(list.Ids, ",")})
 	}
 
 	if list.Limit != nil {
@@ -1157,7 +1157,7 @@ type ListChildAccountsParams struct {
 	//   results correspond to your request.
 	// * Records are returned in an arbitrary order. Since results are all
 	//   returned at once you can sort the records yourself.
-	Ids *[]string
+	Ids []string
 
 	// Limit - Limit number of records 1-200.
 	Limit *int
@@ -1202,7 +1202,7 @@ func (list *ListChildAccountsParams) URLParams() []KeyValue {
 	var options []KeyValue
 
 	if list.Ids != nil {
-		options = append(options, KeyValue{Key: "ids", Value: strings.Join(*list.Ids, ",")})
+		options = append(options, KeyValue{Key: "ids", Value: strings.Join(list.Ids, ",")})
 	}
 
 	if list.Limit != nil {
@@ -1264,7 +1264,7 @@ type ListAccountAcquisitionParams struct {
 	//   results correspond to your request.
 	// * Records are returned in an arbitrary order. Since results are all
 	//   returned at once you can sort the records yourself.
-	Ids *[]string
+	Ids []string
 
 	// Limit - Limit number of records 1-200.
 	Limit *int
@@ -1299,7 +1299,7 @@ func (list *ListAccountAcquisitionParams) URLParams() []KeyValue {
 	var options []KeyValue
 
 	if list.Ids != nil {
-		options = append(options, KeyValue{Key: "ids", Value: strings.Join(*list.Ids, ",")})
+		options = append(options, KeyValue{Key: "ids", Value: strings.Join(list.Ids, ",")})
 	}
 
 	if list.Limit != nil {
@@ -1349,7 +1349,7 @@ type ListCouponsParams struct {
 	//   results correspond to your request.
 	// * Records are returned in an arbitrary order. Since results are all
 	//   returned at once you can sort the records yourself.
-	Ids *[]string
+	Ids []string
 
 	// Limit - Limit number of records 1-200.
 	Limit *int
@@ -1384,7 +1384,7 @@ func (list *ListCouponsParams) URLParams() []KeyValue {
 	var options []KeyValue
 
 	if list.Ids != nil {
-		options = append(options, KeyValue{Key: "ids", Value: strings.Join(*list.Ids, ",")})
+		options = append(options, KeyValue{Key: "ids", Value: strings.Join(list.Ids, ",")})
 	}
 
 	if list.Limit != nil {
@@ -1482,7 +1482,7 @@ type ListUniqueCouponCodesParams struct {
 	//   results correspond to your request.
 	// * Records are returned in an arbitrary order. Since results are all
 	//   returned at once you can sort the records yourself.
-	Ids *[]string
+	Ids []string
 
 	// Limit - Limit number of records 1-200.
 	Limit *int
@@ -1517,7 +1517,7 @@ func (list *ListUniqueCouponCodesParams) URLParams() []KeyValue {
 	var options []KeyValue
 
 	if list.Ids != nil {
-		options = append(options, KeyValue{Key: "ids", Value: strings.Join(*list.Ids, ",")})
+		options = append(options, KeyValue{Key: "ids", Value: strings.Join(list.Ids, ",")})
 	}
 
 	if list.Limit != nil {
@@ -1649,7 +1649,7 @@ type ListCustomFieldDefinitionsParams struct {
 	//   results correspond to your request.
 	// * Records are returned in an arbitrary order. Since results are all
 	//   returned at once you can sort the records yourself.
-	Ids *[]string
+	Ids []string
 
 	// Limit - Limit number of records 1-200.
 	Limit *int
@@ -1687,7 +1687,7 @@ func (list *ListCustomFieldDefinitionsParams) URLParams() []KeyValue {
 	var options []KeyValue
 
 	if list.Ids != nil {
-		options = append(options, KeyValue{Key: "ids", Value: strings.Join(*list.Ids, ",")})
+		options = append(options, KeyValue{Key: "ids", Value: strings.Join(list.Ids, ",")})
 	}
 
 	if list.Limit != nil {
@@ -1753,7 +1753,7 @@ type ListItemsParams struct {
 	//   results correspond to your request.
 	// * Records are returned in an arbitrary order. Since results are all
 	//   returned at once you can sort the records yourself.
-	Ids *[]string
+	Ids []string
 
 	// Limit - Limit number of records 1-200.
 	Limit *int
@@ -1791,7 +1791,7 @@ func (list *ListItemsParams) URLParams() []KeyValue {
 	var options []KeyValue
 
 	if list.Ids != nil {
-		options = append(options, KeyValue{Key: "ids", Value: strings.Join(*list.Ids, ",")})
+		options = append(options, KeyValue{Key: "ids", Value: strings.Join(list.Ids, ",")})
 	}
 
 	if list.Limit != nil {
@@ -1905,7 +1905,7 @@ type ListInvoicesParams struct {
 	//   results correspond to your request.
 	// * Records are returned in an arbitrary order. Since results are all
 	//   returned at once you can sort the records yourself.
-	Ids *[]string
+	Ids []string
 
 	// Limit - Limit number of records 1-200.
 	Limit *int
@@ -1947,7 +1947,7 @@ func (list *ListInvoicesParams) URLParams() []KeyValue {
 	var options []KeyValue
 
 	if list.Ids != nil {
-		options = append(options, KeyValue{Key: "ids", Value: strings.Join(*list.Ids, ",")})
+		options = append(options, KeyValue{Key: "ids", Value: strings.Join(list.Ids, ",")})
 	}
 
 	if list.Limit != nil {
@@ -2113,7 +2113,7 @@ type ListInvoiceLineItemsParams struct {
 	//   results correspond to your request.
 	// * Records are returned in an arbitrary order. Since results are all
 	//   returned at once you can sort the records yourself.
-	Ids *[]string
+	Ids []string
 
 	// Limit - Limit number of records 1-200.
 	Limit *int
@@ -2157,7 +2157,7 @@ func (list *ListInvoiceLineItemsParams) URLParams() []KeyValue {
 	var options []KeyValue
 
 	if list.Ids != nil {
-		options = append(options, KeyValue{Key: "ids", Value: strings.Join(*list.Ids, ",")})
+		options = append(options, KeyValue{Key: "ids", Value: strings.Join(list.Ids, ",")})
 	}
 
 	if list.Limit != nil {
@@ -2219,7 +2219,7 @@ type ListInvoiceCouponRedemptionsParams struct {
 	//   results correspond to your request.
 	// * Records are returned in an arbitrary order. Since results are all
 	//   returned at once you can sort the records yourself.
-	Ids *[]string
+	Ids []string
 
 	// Sort - Sort field. You *really* only want to sort by `updated_at` in ascending
 	// order. In descending order updated records will move behind the cursor and could
@@ -2248,7 +2248,7 @@ func (list *ListInvoiceCouponRedemptionsParams) URLParams() []KeyValue {
 	var options []KeyValue
 
 	if list.Ids != nil {
-		options = append(options, KeyValue{Key: "ids", Value: strings.Join(*list.Ids, ",")})
+		options = append(options, KeyValue{Key: "ids", Value: strings.Join(list.Ids, ",")})
 	}
 
 	if list.Sort != nil {
@@ -2313,7 +2313,7 @@ type ListLineItemsParams struct {
 	//   results correspond to your request.
 	// * Records are returned in an arbitrary order. Since results are all
 	//   returned at once you can sort the records yourself.
-	Ids *[]string
+	Ids []string
 
 	// Limit - Limit number of records 1-200.
 	Limit *int
@@ -2357,7 +2357,7 @@ func (list *ListLineItemsParams) URLParams() []KeyValue {
 	var options []KeyValue
 
 	if list.Ids != nil {
-		options = append(options, KeyValue{Key: "ids", Value: strings.Join(*list.Ids, ",")})
+		options = append(options, KeyValue{Key: "ids", Value: strings.Join(list.Ids, ",")})
 	}
 
 	if list.Limit != nil {
@@ -2443,7 +2443,7 @@ type ListPlansParams struct {
 	//   results correspond to your request.
 	// * Records are returned in an arbitrary order. Since results are all
 	//   returned at once you can sort the records yourself.
-	Ids *[]string
+	Ids []string
 
 	// Limit - Limit number of records 1-200.
 	Limit *int
@@ -2481,7 +2481,7 @@ func (list *ListPlansParams) URLParams() []KeyValue {
 	var options []KeyValue
 
 	if list.Ids != nil {
-		options = append(options, KeyValue{Key: "ids", Value: strings.Join(*list.Ids, ",")})
+		options = append(options, KeyValue{Key: "ids", Value: strings.Join(list.Ids, ",")})
 	}
 
 	if list.Limit != nil {
@@ -2583,7 +2583,7 @@ type ListPlanAddOnsParams struct {
 	//   results correspond to your request.
 	// * Records are returned in an arbitrary order. Since results are all
 	//   returned at once you can sort the records yourself.
-	Ids *[]string
+	Ids []string
 
 	// Limit - Limit number of records 1-200.
 	Limit *int
@@ -2621,7 +2621,7 @@ func (list *ListPlanAddOnsParams) URLParams() []KeyValue {
 	var options []KeyValue
 
 	if list.Ids != nil {
-		options = append(options, KeyValue{Key: "ids", Value: strings.Join(*list.Ids, ",")})
+		options = append(options, KeyValue{Key: "ids", Value: strings.Join(list.Ids, ",")})
 	}
 
 	if list.Limit != nil {
@@ -2723,7 +2723,7 @@ type ListAddOnsParams struct {
 	//   results correspond to your request.
 	// * Records are returned in an arbitrary order. Since results are all
 	//   returned at once you can sort the records yourself.
-	Ids *[]string
+	Ids []string
 
 	// Limit - Limit number of records 1-200.
 	Limit *int
@@ -2761,7 +2761,7 @@ func (list *ListAddOnsParams) URLParams() []KeyValue {
 	var options []KeyValue
 
 	if list.Ids != nil {
-		options = append(options, KeyValue{Key: "ids", Value: strings.Join(*list.Ids, ",")})
+		options = append(options, KeyValue{Key: "ids", Value: strings.Join(list.Ids, ",")})
 	}
 
 	if list.Limit != nil {
@@ -2827,7 +2827,7 @@ type ListShippingMethodsParams struct {
 	//   results correspond to your request.
 	// * Records are returned in an arbitrary order. Since results are all
 	//   returned at once you can sort the records yourself.
-	Ids *[]string
+	Ids []string
 
 	// Limit - Limit number of records 1-200.
 	Limit *int
@@ -2862,7 +2862,7 @@ func (list *ListShippingMethodsParams) URLParams() []KeyValue {
 	var options []KeyValue
 
 	if list.Ids != nil {
-		options = append(options, KeyValue{Key: "ids", Value: strings.Join(*list.Ids, ",")})
+		options = append(options, KeyValue{Key: "ids", Value: strings.Join(list.Ids, ",")})
 	}
 
 	if list.Limit != nil {
@@ -2924,7 +2924,7 @@ type ListSubscriptionsParams struct {
 	//   results correspond to your request.
 	// * Records are returned in an arbitrary order. Since results are all
 	//   returned at once you can sort the records yourself.
-	Ids *[]string
+	Ids []string
 
 	// Limit - Limit number of records 1-200.
 	Limit *int
@@ -2965,7 +2965,7 @@ func (list *ListSubscriptionsParams) URLParams() []KeyValue {
 	var options []KeyValue
 
 	if list.Ids != nil {
-		options = append(options, KeyValue{Key: "ids", Value: strings.Join(*list.Ids, ",")})
+		options = append(options, KeyValue{Key: "ids", Value: strings.Join(list.Ids, ",")})
 	}
 
 	if list.Limit != nil {
@@ -3210,7 +3210,7 @@ type ListSubscriptionInvoicesParams struct {
 	//   results correspond to your request.
 	// * Records are returned in an arbitrary order. Since results are all
 	//   returned at once you can sort the records yourself.
-	Ids *[]string
+	Ids []string
 
 	// Limit - Limit number of records 1-200.
 	Limit *int
@@ -3252,7 +3252,7 @@ func (list *ListSubscriptionInvoicesParams) URLParams() []KeyValue {
 	var options []KeyValue
 
 	if list.Ids != nil {
-		options = append(options, KeyValue{Key: "ids", Value: strings.Join(*list.Ids, ",")})
+		options = append(options, KeyValue{Key: "ids", Value: strings.Join(list.Ids, ",")})
 	}
 
 	if list.Limit != nil {
@@ -3306,7 +3306,7 @@ type ListSubscriptionLineItemsParams struct {
 	//   results correspond to your request.
 	// * Records are returned in an arbitrary order. Since results are all
 	//   returned at once you can sort the records yourself.
-	Ids *[]string
+	Ids []string
 
 	// Limit - Limit number of records 1-200.
 	Limit *int
@@ -3350,7 +3350,7 @@ func (list *ListSubscriptionLineItemsParams) URLParams() []KeyValue {
 	var options []KeyValue
 
 	if list.Ids != nil {
-		options = append(options, KeyValue{Key: "ids", Value: strings.Join(*list.Ids, ",")})
+		options = append(options, KeyValue{Key: "ids", Value: strings.Join(list.Ids, ",")})
 	}
 
 	if list.Limit != nil {
@@ -3412,7 +3412,7 @@ type ListSubscriptionCouponRedemptionsParams struct {
 	//   results correspond to your request.
 	// * Records are returned in an arbitrary order. Since results are all
 	//   returned at once you can sort the records yourself.
-	Ids *[]string
+	Ids []string
 
 	// Sort - Sort field. You *really* only want to sort by `updated_at` in ascending
 	// order. In descending order updated records will move behind the cursor and could
@@ -3441,7 +3441,7 @@ func (list *ListSubscriptionCouponRedemptionsParams) URLParams() []KeyValue {
 	var options []KeyValue
 
 	if list.Ids != nil {
-		options = append(options, KeyValue{Key: "ids", Value: strings.Join(*list.Ids, ",")})
+		options = append(options, KeyValue{Key: "ids", Value: strings.Join(list.Ids, ",")})
 	}
 
 	if list.Sort != nil {
@@ -3483,7 +3483,7 @@ type ListTransactionsParams struct {
 	//   results correspond to your request.
 	// * Records are returned in an arbitrary order. Since results are all
 	//   returned at once you can sort the records yourself.
-	Ids *[]string
+	Ids []string
 
 	// Limit - Limit number of records 1-200.
 	Limit *int
@@ -3524,7 +3524,7 @@ func (list *ListTransactionsParams) URLParams() []KeyValue {
 	var options []KeyValue
 
 	if list.Ids != nil {
-		options = append(options, KeyValue{Key: "ids", Value: strings.Join(*list.Ids, ",")})
+		options = append(options, KeyValue{Key: "ids", Value: strings.Join(list.Ids, ",")})
 	}
 
 	if list.Limit != nil {
