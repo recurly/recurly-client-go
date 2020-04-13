@@ -25,7 +25,7 @@ type ListSitesParams struct {
 	//   results correspond to your request.
 	// * Records are returned in an arbitrary order. Since results are all
 	//   returned at once you can sort the records yourself.
-	Ids *[]string
+	Ids []string
 
 	// Limit - Limit number of records 1-200.
 	Limit *int
@@ -52,7 +52,7 @@ func (list *ListSitesParams) URLParams() []KeyValue {
 	var options []KeyValue
 
 	if list.Ids != nil {
-		options = append(options, KeyValue{Key: "ids", Value: strings.Join(*list.Ids, ",")})
+		options = append(options, KeyValue{Key: "ids", Value: strings.Join(list.Ids, ",")})
 	}
 
 	if list.Limit != nil {
