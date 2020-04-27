@@ -153,9 +153,12 @@ func (attr *ResourceCreate) toParams() *Params {
 // We also implement fake CRUD operations for these fake resources
 // We want to use the Client from the consuming code's perspective
 func (c *Client) GetResource(resourceId string) (*RecurlyResource, error) {
-	path := c.InterpolatePath("/resources/{resource_id}", resourceId)
+	path, err := c.InterpolatePath("/resources/{resource_id}", resourceId)
+	if err != nil {
+		return nil, err
+	}
 	result := &RecurlyResource{}
-	err := c.Call(http.MethodGet, path, nil, result)
+	err = c.Call(http.MethodGet, path, nil, result)
 	if err != nil {
 		return nil, err
 	}
@@ -163,9 +166,12 @@ func (c *Client) GetResource(resourceId string) (*RecurlyResource, error) {
 }
 
 func (c *Client) CreateResource(body *ResourceCreate) (*RecurlyResource, error) {
-	path := c.InterpolatePath("/resources")
+	path, err := c.InterpolatePath("/resources")
+	if err != nil {
+		return nil, err
+	}
 	result := &RecurlyResource{}
-	err := c.Call(http.MethodPost, path, body, result)
+	err = c.Call(http.MethodPost, path, body, result)
 	if err != nil {
 		return nil, err
 	}
@@ -173,9 +179,12 @@ func (c *Client) CreateResource(body *ResourceCreate) (*RecurlyResource, error) 
 }
 
 func (c *Client) DeleteResource(resourceId string) (*Empty, error) {
-	path := c.InterpolatePath("/resources")
+	path, err := c.InterpolatePath("/resources")
+	if err != nil {
+		return nil, err
+	}
 	result := &Empty{}
-	err := c.Call(http.MethodDelete, path, nil, result)
+	err = c.Call(http.MethodDelete, path, nil, result)
 	if err != nil {
 		return nil, err
 	}
