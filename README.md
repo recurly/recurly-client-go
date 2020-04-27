@@ -23,12 +23,16 @@ client := recurly.DefaultClient()
 Every operation that can be performed against the API has a corresponding method in the Client struct. The [client_operations.go](client_operations.go) file implements these operations. This file also provides descriptions for each method and their returns. For example, to use the [get_account](https://developers.recurly.com/api/v2019-10-10/index.html#operation/get_account) endpoint, the `GetAccount` method can be called, as seen below. `GetAccount()` is used to fetch an account; it returns a pointer to the Account struct.
 
 ```go
-account, err := client.GetAccount(accountId)
-if err != nil {
-    fmt.Printf("Failed to retrieve account: %v", err)
-} else {
-    fmt.Printf("Fetched Account: %s", account.Id)
+account, err := client.GetAccount(accountID)
+if e, ok := err.(*recurly.Error); ok {
+  if e.Type == recurly.ErrorTypeNotFound {
+    fmt.Printf("Resource not found: %v", e)
+    return nil, err
+  }
+  fmt.Printf("Unexpected Recurly error: %v", e)
+  return nil, err
 }
+fmt.Printf("Fetched Account: %s", account.Id)
  ```
 
 ### Creating Resources
@@ -60,8 +64,13 @@ accountReq := &recurly.AccountCreate{
   }
 
 account, err := client.CreateAccount(accountReq)
-if err != nil {
-    fmt.Printf("Failed to create an account: %v", err)
+if e, ok := err.(*recurly.Error); ok {
+  if e.Type == recurly.ErrorTypeValidation {
+    fmt.Printf("Failed validation: %v", e)
+    return nil, err
+  }
+  fmt.Printf("Unexpected Recurly error: %v", e)
+  return nil, err
 }
 fmt.Printf("Created Account: %s", account.Id)
 ```
@@ -88,7 +97,7 @@ accounts := client.ListAccounts(listParams)
 var err error
 for accounts.HasMore {
     accounts, err = accounts.NextPage()
-    if err != nil {
+    if e, ok := err.(*recurly.Error); ok {
         fmt.Printf("Failed to retrieve next page: %v", err)
         break
     }
@@ -104,23 +113,45 @@ for accounts.HasMore {
 
 ### Error Handling
 
-Errors are configured in [error.go](error.go). 
+Errors are configured in [error.go](error.go), including a comprehensive list of error types. Common scenarios in which errors occur may involve "not found" and "validation" errors, which are shown in the examples below.
+
+```go
+account, err := client.CreateAccount(accountReq)
+if e, ok := err.(*recurly.Error); ok {
+  if e.Type == recurly.ErrorTypeValidation {
+    // Here we have a validation error
+    fmt.Printf("Failed validation: %v", e)
+    return nil, err
+  }
+  // If an error occurs that is not a validation error,
+  // we can alert the user to a generic error from the API
+  fmt.Printf("Unexpected Recurly error: %v", e)
+  return nil, err
+}
+fmt.Printf("Created Account: %s", account.Id)
+```
 
 ```go
 account, err := client.GetAccount(accountID)
-if err != nil {
-  fmt.Printf("Failed to retrieve account: %v", err)
-  os.Exit(1)
-} else {
-  fmt.Printf("Fetched Account: %s", accountID)
+if e, ok := err.(*recurly.Error); ok {
+  if e.Type == recurly.ErrorTypeNotFound {
+    // Here we have a not-found error
+    fmt.Printf("Resource not found: %v", e)
+    return nil, err
+  }
+  fmt.Printf("Unexpected Recurly error: %v", e)
+  // If an error occurs that is not a not-found error,
+  // we can alert the user to a generic error from the API
+  return nil, err
 }
+fmt.Printf("Fetched Account: %s", account.Id)
 ```
 
-When calling a method triggers an error, a pointer to the Error struct will be output detailing the error type, complete with an error message. The `err` variable will print out the error message. For example, if `GetAccount()` is called with an invalid `accountID`, the resulting output is as follows:
+When calling a method triggers an error, a pointer to the Error struct will be output detailing the error type, complete with an error message. The `e` variable will print out the error message. For example, if `GetAccount("invalid_id")` is called, where `invalid_id` is an invalid account ID, the resulting output is as follows:
 ```
 Body:
 {"error":{"type":"not_found","message":"Couldn't find Account with id = invalid_id","params":[{"param":"account_id"}]}}
-Failed to retrieve account: Couldn't find Account with id = invalid_id
+Resource not found: Couldn't find Account with id = invalid_id
 ```
 
 ## Contributing
