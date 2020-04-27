@@ -311,13 +311,6 @@ paths:
           {
               Console.WriteLine(site.Subdomain);
           }
-      - lang: Node.js
-        source: |
-          const sites = client.listSites({ limit: 200 })
-
-          for await (const site of sites.each()) {
-            console.log(site.subdomain)
-          }
       - lang: Java
         source: |
           QueryParams params = new QueryParams();
@@ -340,6 +333,13 @@ paths:
 
           foreach($sites as $site) {
             echo 'Site: ' . $site->getSubdomain() . PHP_EOL;
+          }
+      - lang: Node.js
+        source: |
+          const sites = client.listSites({ limit: 200 })
+
+          for await (const site of sites.each()) {
+            console.log(site.subdomain)
           }
       - lang: Python
         source: |
@@ -446,13 +446,6 @@ paths:
           {
               Console.WriteLine(account.Code);
           }
-      - lang: Node.js
-        source: |
-          const accounts = client.listAccounts({ limit: 200 })
-
-          for await (const account of accounts.each()) {
-            console.log(account.code)
-          }
       - lang: Java
         source: |
           QueryParams params = new QueryParams();
@@ -477,6 +470,13 @@ paths:
 
           foreach($accounts as $account) {
               echo 'Account code: ' . $account->getCode() . PHP_EOL;
+          }
+      - lang: Node.js
+        source: |
+          const accounts = client.listAccounts({ limit: 200 })
+
+          for await (const account of accounts.each()) {
+            console.log(account.code)
           }
       - lang: Python
         source: |
@@ -592,34 +592,6 @@ paths:
               // Use ApiError to catch a generic error from the API
               Console.WriteLine($"Unexpected Recurly Error: {ex.Error.Message}");
           }
-      - lang: Node.js
-        source: |
-          try {
-            const accountCreate = {
-              code: accountCode,
-              firstName: 'Benjamin',
-              lastName: 'Du Monde',
-              address: {
-                street1: '900 Camp St',
-                city: 'New Orleans',
-                region: 'LA',
-                postalCode: '70115',
-                country: 'US'
-              }
-            }
-            const account = await client.createAccount(accountCreate)
-            console.log('Created Account: ', account.code)
-          } catch (err) {
-            if (err instanceof recurly.errors.ValidationError) {
-              // If the request was not valid, you may want to tell your user
-              // why. You can find the invalid params and reasons in err.params
-              console.log('Failed validation', err.params)
-            } else {
-              // If we don't know what to do with the err, we should
-              // probably re-raise and let our web framework and logger handle it
-              console.log('Unknown Error: ', err)
-            }
-          }
       - lang: Java
         source: |
           try {
@@ -717,6 +689,34 @@ paths:
               // probably re-raise and let our web framework and logger handle it
               var_dump($e);
           }
+      - lang: Node.js
+        source: |
+          try {
+            const accountCreate = {
+              code: accountCode,
+              firstName: 'Benjamin',
+              lastName: 'Du Monde',
+              address: {
+                street1: '900 Camp St',
+                city: 'New Orleans',
+                region: 'LA',
+                postalCode: '70115',
+                country: 'US'
+              }
+            }
+            const account = await client.createAccount(accountCreate)
+            console.log('Created Account: ', account.code)
+          } catch (err) {
+            if (err instanceof recurly.errors.ValidationError) {
+              // If the request was not valid, you may want to tell your user
+              // why. You can find the invalid params and reasons in err.params
+              console.log('Failed validation', err.params)
+            } else {
+              // If we don't know what to do with the err, we should
+              // probably re-raise and let our web framework and logger handle it
+              console.log('Unknown Error: ', err)
+            }
+          }
       - lang: Python
         source: |
           try:
@@ -795,22 +795,6 @@ paths:
               // Use ApiError to catch a generic error from the API
               Console.WriteLine($"Unexpected Recurly Error: {ex.Error.Message}");
           }
-      - lang: Node.js
-        source: |
-          try {
-            const account = await client.getAccount(accountId)
-            console.log('Fetched account: ', account.code)
-          } catch (err) {
-            if (err instanceof recurly.errors.NotFoundError) {
-              // If the request was not found, you may want to alert the user or
-              // just return null
-              console.log('Resource Not Found')
-            } else {
-              // If we don't know what to do with the err, we should
-              // probably re-raise and let our web framework and logger handle it
-              console.log('Unknown Error: ', err)
-            }
-          }
       - lang: Java
         source: |
           try {
@@ -849,6 +833,22 @@ paths:
           } catch (\Recurly\RecurlyError $e) {
               // Something bad happened... tell the user so that they can fix it?
               echo 'Some unexpected Recurly error happened. Try again later.' . PHP_EOL;
+          }
+      - lang: Node.js
+        source: |
+          try {
+            const account = await client.getAccount(accountId)
+            console.log('Fetched account: ', account.code)
+          } catch (err) {
+            if (err instanceof recurly.errors.NotFoundError) {
+              // If the request was not found, you may want to alert the user or
+              // just return null
+              console.log('Resource Not Found')
+            } else {
+              // If we don't know what to do with the err, we should
+              // probably re-raise and let our web framework and logger handle it
+              console.log('Unknown Error: ', err)
+            }
           }
       - lang: Python
         source: |
@@ -926,26 +926,6 @@ paths:
               // Use ApiError to catch a generic error from the API
               Console.WriteLine($"Unexpected Recurly Error: {ex.Error.Message}");
           }
-      - lang: Node.js
-        source: |
-          try {
-            const accountUpdate = {
-              firstName: 'Aaron',
-              lastName: 'Du Monde'
-            }
-            const account = await client.updateAccount(accountId, accountUpdate)
-            console.log('Updated account: ', account)
-          } catch (err) {
-            if (err instanceof recurly.errors.ValidationError) {
-              // If the request was not valid, you may want to tell your user
-              // why. You can find the invalid params and reasons in err.params
-              console.log('Failed validation', err.params)
-            } else {
-              // If we don't know what to do with the err, we should
-              // probably re-raise and let our web framework and logger handle it
-              console.log('Unknown Error: ', err)
-            }
-          }
       - lang: Java
         source: |
           try {
@@ -1002,6 +982,26 @@ paths:
               // If we don't know what to do with the err, we should
               // probably re-raise and let our web framework and logger handle it
               var_dump($e);
+          }
+      - lang: Node.js
+        source: |
+          try {
+            const accountUpdate = {
+              firstName: 'Aaron',
+              lastName: 'Du Monde'
+            }
+            const account = await client.updateAccount(accountId, accountUpdate)
+            console.log('Updated account: ', account)
+          } catch (err) {
+            if (err instanceof recurly.errors.ValidationError) {
+              // If the request was not valid, you may want to tell your user
+              // why. You can find the invalid params and reasons in err.params
+              console.log('Failed validation', err.params)
+            } else {
+              // If we don't know what to do with the err, we should
+              // probably re-raise and let our web framework and logger handle it
+              console.log('Unknown Error: ', err)
+            }
           }
       - lang: Python
         source: |
@@ -1065,21 +1065,6 @@ paths:
               // Use ApiError to catch a generic error from the API
               Console.WriteLine($"Unexpected Recurly Error: {ex.Error.Message}");
           }
-      - lang: Node.js
-        source: |
-          try {
-            const account = await client.deactivateAccount(accountId)
-            console.log('Deleted account: ', account.code)
-          } catch (err) {
-            if (err && err.type === 'not-found') {
-              // If the request was not found, you may want to alert the user or
-              // just return null
-              console.log('Resource Not Found')
-            }
-            // If we don't know what to do with the err, we should
-            // probably re-raise and let our web framework and logger handle it
-            throw err
-          }
       - lang: Java
         source: |
           try {
@@ -1118,6 +1103,21 @@ paths:
           } catch (\Recurly\RecurlyError $e) {
               // Something bad happened... tell the user so that they can fix it?
               echo 'Some unexpected Recurly error happened. Try again later.' . PHP_EOL;
+          }
+      - lang: Node.js
+        source: |
+          try {
+            const account = await client.deactivateAccount(accountId)
+            console.log('Deleted account: ', account.code)
+          } catch (err) {
+            if (err && err.type === 'not-found') {
+              // If the request was not found, you may want to alert the user or
+              // just return null
+              console.log('Resource Not Found')
+            }
+            // If we don't know what to do with the err, we should
+            // probably re-raise and let our web framework and logger handle it
+            throw err
           }
       - lang: Python
         source: |
@@ -1171,22 +1171,6 @@ paths:
               // Use ApiError to catch a generic error from the API
               Console.WriteLine($"Unexpected Recurly Error: {ex.Error.Message}");
           }
-      - lang: Node.js
-        source: |
-          try {
-            const acquisition = await client.getAccountAcquisition(accountId)
-            console.log('Fetched account acquisition: ', acquisition.id)
-          } catch (err) {
-            if (err instanceof recurly.errors.NotFoundError) {
-              // If the request was not found, you may want to alert the user or
-              // just return null
-              console.log('Resource Not Found')
-            } else {
-              // If we don't know what to do with the err, we should
-              // probably re-raise and let our web framework and logger handle it
-              console.log('Unknown Error: ', err)
-            }
-          }
       - lang: Java
         source: |
           try {
@@ -1225,6 +1209,22 @@ paths:
           } catch (\Recurly\RecurlyError $e) {
               // Something bad happened... tell the user so that they can fix it?
               echo 'Some unexpected Recurly error happened. Try again later.' . PHP_EOL;
+          }
+      - lang: Node.js
+        source: |
+          try {
+            const acquisition = await client.getAccountAcquisition(accountId)
+            console.log('Fetched account acquisition: ', acquisition.id)
+          } catch (err) {
+            if (err instanceof recurly.errors.NotFoundError) {
+              // If the request was not found, you may want to alert the user or
+              // just return null
+              console.log('Resource Not Found')
+            } else {
+              // If we don't know what to do with the err, we should
+              // probably re-raise and let our web framework and logger handle it
+              console.log('Unknown Error: ', err)
+            }
           }
       - lang: Python
         source: |
@@ -1297,27 +1297,6 @@ paths:
               // Use ApiError to catch a generic error from the API
               Console.WriteLine($"Unexpected Recurly Error: {ex.Error.Message}");
           }
-      - lang: Node.js
-        source: |
-          try {
-            const acquisitionUpdate = {
-              campaign: "big-event-campaign",
-              channel: "social_media",
-              subchannel: "twitter"
-            }
-            const accountAcquisition = await client.updateAccountAcquisition(accountId, acquisitionUpdate)
-            console.log('Edited Account Acquisition: ', accountAcquisition)
-          } catch (err) {
-            if (err instanceof recurly.errors.ValidationError) {
-              // If the request was not valid, you may want to tell your user
-              // why. You can find the invalid params and reasons in err.params
-              console.log('Failed validation', err.params)
-            } else {
-              // If we don't know what to do with the err, we should
-              // probably re-raise and let our web framework and logger handle it
-              console.log('Unknown Error: ', err)
-            }
-          }
       - lang: Java
         source: |
           try {
@@ -1356,6 +1335,27 @@ paths:
               // If we don't know what to do with the err, we should
               // probably re-raise and let our web framework and logger handle it
               var_dump($e);
+          }
+      - lang: Node.js
+        source: |
+          try {
+            const acquisitionUpdate = {
+              campaign: "big-event-campaign",
+              channel: "social_media",
+              subchannel: "twitter"
+            }
+            const accountAcquisition = await client.updateAccountAcquisition(accountId, acquisitionUpdate)
+            console.log('Edited Account Acquisition: ', accountAcquisition)
+          } catch (err) {
+            if (err instanceof recurly.errors.ValidationError) {
+              // If the request was not valid, you may want to tell your user
+              // why. You can find the invalid params and reasons in err.params
+              console.log('Failed validation', err.params)
+            } else {
+              // If we don't know what to do with the err, we should
+              // probably re-raise and let our web framework and logger handle it
+              console.log('Unknown Error: ', err)
+            }
           }
       - lang: Python
         source: |
@@ -1407,22 +1407,6 @@ paths:
               // Use ApiError to catch a generic error from the API
               Console.WriteLine($"Unexpected Recurly Error: {ex.Error.Message}");
           }
-      - lang: Node.js
-        source: |
-          try {
-            await client.removeAccountAcquisition(accountId)
-            console.log('Removed account acquisition from account: ', accountId)
-          } catch (err) {
-            if (err instanceof recurly.errors.NotFoundError) {
-              // If the request was not found, you may want to alert the user or
-              // just return null
-              console.log('Resource Not Found')
-            } else {
-              // If we don't know what to do with the err, we should
-              // probably re-raise and let our web framework and logger handle it
-              console.log('Unknown Error: ', err)
-            }
-          }
       - lang: Java
         source: |
           try {
@@ -1459,6 +1443,22 @@ paths:
               // If we don't know what to do with the err, we should
               // probably re-raise and let our web framework and logger handle it
               var_dump($e);
+          }
+      - lang: Node.js
+        source: |
+          try {
+            await client.removeAccountAcquisition(accountId)
+            console.log('Removed account acquisition from account: ', accountId)
+          } catch (err) {
+            if (err instanceof recurly.errors.NotFoundError) {
+              // If the request was not found, you may want to alert the user or
+              // just return null
+              console.log('Resource Not Found')
+            } else {
+              // If we don't know what to do with the err, we should
+              // probably re-raise and let our web framework and logger handle it
+              console.log('Unknown Error: ', err)
+            }
           }
       - lang: Python
         source: |
@@ -1524,21 +1524,6 @@ paths:
               // Use ApiError to catch a generic error from the API
               Console.WriteLine($"Unexpected Recurly Error: {ex.Error.Message}");
           }
-      - lang: Node.js
-        source: |
-          try {
-            const account = await client.reactivateAccount(accountId)
-            console.log('Reactivated account: ', account.code)
-          } catch (err) {
-            if (err && err.type === 'not_found') {
-              // If the request was not found, you may want to alert the user or
-              // just return null
-              console.log('Resource Not Found')
-            }
-            // If we don't know what to do with the err, we should
-            // probably re-raise and let our web framework and logger handle it
-            throw err
-          }
       - lang: Java
         source: |
           try {
@@ -1577,6 +1562,21 @@ paths:
           } catch (\Recurly\RecurlyError $e) {
               // Something bad happened... tell the user so that they can fix it?
               echo 'Some unexpected Recurly error happened. Try again later.' . PHP_EOL;
+          }
+      - lang: Node.js
+        source: |
+          try {
+            const account = await client.reactivateAccount(accountId)
+            console.log('Reactivated account: ', account.code)
+          } catch (err) {
+            if (err && err.type === 'not_found') {
+              // If the request was not found, you may want to alert the user or
+              // just return null
+              console.log('Resource Not Found')
+            }
+            // If we don't know what to do with the err, we should
+            // probably re-raise and let our web framework and logger handle it
+            throw err
           }
       - lang: Python
         source: |
@@ -1634,22 +1634,6 @@ paths:
               // Use ApiError to catch a generic error from the API
               Console.WriteLine($"Unexpected Recurly Error: {ex.Error.Message}");
           }
-      - lang: Node.js
-        source: |
-          try {
-            const balance = await client.getAccountBalance(accountId)
-            console.log('Fetched account balance: ', balance.balances)
-          } catch (err) {
-            if (err instanceof recurly.errors.NotFoundError) {
-              // If the request was not found, you may want to alert the user or
-              // just return null
-              console.log('Resource Not Found')
-            } else {
-              // If we don't know what to do with the err, we should
-              // probably re-raise and let our web framework and logger handle it
-              console.log('Unknown Error: ', err)
-            }
-          }
       - lang: Java
         source: |
           try {
@@ -1688,6 +1672,22 @@ paths:
           } catch (\Recurly\RecurlyError $e) {
               // Something bad happened... tell the user so that they can fix it?
               echo 'Some unexpected Recurly error happened. Try again later.' . PHP_EOL;
+          }
+      - lang: Node.js
+        source: |
+          try {
+            const balance = await client.getAccountBalance(accountId)
+            console.log('Fetched account balance: ', balance.balances)
+          } catch (err) {
+            if (err instanceof recurly.errors.NotFoundError) {
+              // If the request was not found, you may want to alert the user or
+              // just return null
+              console.log('Resource Not Found')
+            } else {
+              // If we don't know what to do with the err, we should
+              // probably re-raise and let our web framework and logger handle it
+              console.log('Unknown Error: ', err)
+            }
           }
       - lang: Python
         source: |
@@ -1747,22 +1747,6 @@ paths:
               // Use ApiError to catch a generic error from the API
               Console.WriteLine($"Unexpected Recurly Error: {ex.Error.Message}");
           }
-      - lang: Node.js
-        source: |
-          try {
-            const billingInfo = await client.getBillingInfo(accountId)
-            console.log('Fetched Billing Info: ', billingInfo.id)
-          } catch (err) {
-            if (err instanceof recurly.errors.NotFoundError) {
-              // If the request was not found, you may want to alert the user or
-              // just return null
-              console.log('Resource Not Found')
-            } else {
-              // If we don't know what to do with the err, we should
-              // probably re-raise and let our web framework and logger handle it
-              console.log('Unknown Error: ', err)
-            }
-          }
       - lang: Java
         source: |
           try {
@@ -1801,6 +1785,22 @@ paths:
           } catch (\Recurly\RecurlyError $e) {
               // Something bad happened... tell the user so that they can fix it?
               echo 'Some unexpected Recurly error happened. Try again later.' . PHP_EOL;
+          }
+      - lang: Node.js
+        source: |
+          try {
+            const billingInfo = await client.getBillingInfo(accountId)
+            console.log('Fetched Billing Info: ', billingInfo.id)
+          } catch (err) {
+            if (err instanceof recurly.errors.NotFoundError) {
+              // If the request was not found, you may want to alert the user or
+              // just return null
+              console.log('Resource Not Found')
+            } else {
+              // If we don't know what to do with the err, we should
+              // probably re-raise and let our web framework and logger handle it
+              console.log('Unknown Error: ', err)
+            }
           }
       - lang: Python
         source: |
@@ -1894,26 +1894,6 @@ paths:
               // Use ApiError to catch a generic error from the API
               Console.WriteLine($"Unexpected Recurly Error: {ex.Error.Message}");
           }
-      - lang: Node.js
-        source: |
-          try {
-            const billingInfoUpdate = {
-              firstName: 'Aaron',
-              lastName: 'Du Monde',
-            }
-            const billingInfo = await client.updateBillingInfo(accountId, billingInfoUpdate)
-            console.log('Updated billing info: ', billingInfo.id)
-          } catch (err) {
-            if (err instanceof recurly.errors.ValidationError) {
-              // If the request was not valid, you may want to tell your user
-              // why. You can find the invalid params and reasons in err.params
-              console.log('Failed validation', err.params)
-            } else {
-              // If we don't know what to do with the err, we should
-              // probably re-raise and let our web framework and logger handle it
-              console.log('Unknown Error: ', err)
-            }
-          }
       - lang: Java
         source: |
           try {
@@ -1968,6 +1948,26 @@ paths:
               // probably re-raise and let our web framework and logger handle it
               var_dump($e);
           }
+      - lang: Node.js
+        source: |
+          try {
+            const billingInfoUpdate = {
+              firstName: 'Aaron',
+              lastName: 'Du Monde',
+            }
+            const billingInfo = await client.updateBillingInfo(accountId, billingInfoUpdate)
+            console.log('Updated billing info: ', billingInfo.id)
+          } catch (err) {
+            if (err instanceof recurly.errors.ValidationError) {
+              // If the request was not valid, you may want to tell your user
+              // why. You can find the invalid params and reasons in err.params
+              console.log('Failed validation', err.params)
+            } else {
+              // If we don't know what to do with the err, we should
+              // probably re-raise and let our web framework and logger handle it
+              console.log('Unknown Error: ', err)
+            }
+          }
       - lang: Python
         source: |
           try:
@@ -2020,22 +2020,6 @@ paths:
               // Use ApiError to catch a generic error from the API
               Console.WriteLine($"Unexpected Recurly Error: {ex.Error.Message}");
           }
-      - lang: Node.js
-        source: |
-          try {
-            client.removeBillingInfo(accountId)
-            console.log('Removed billing info from account: ', accountId)
-          } catch (err) {
-            if (err instanceof recurly.errors.NotFoundError) {
-              // If the request was not found, you may want to alert the user or
-              // just return null
-              console.log('Resource Not Found')
-            } else {
-              // If we don't know what to do with the err, we should
-              // probably re-raise and let our web framework and logger handle it
-              console.log('Unknown Error: ', err)
-            }
-          }
       - lang: Java
         source: |
           try {
@@ -2072,6 +2056,22 @@ paths:
               // If we don't know what to do with the err, we should
               // probably re-raise and let our web framework and logger handle it
               var_dump($e);
+          }
+      - lang: Node.js
+        source: |
+          try {
+            client.removeBillingInfo(accountId)
+            console.log('Removed billing info from account: ', accountId)
+          } catch (err) {
+            if (err instanceof recurly.errors.NotFoundError) {
+              // If the request was not found, you may want to alert the user or
+              // just return null
+              console.log('Resource Not Found')
+            } else {
+              // If we don't know what to do with the err, we should
+              // probably re-raise and let our web framework and logger handle it
+              console.log('Unknown Error: ', err)
+            }
           }
       - lang: Python
         source: |
@@ -2195,22 +2195,6 @@ paths:
               // Use ApiError to catch a generic error from the API
               Console.WriteLine($"Unexpected Recurly Error: {ex.Error.Message}");
           }
-      - lang: Node.js
-        source: |
-          try {
-            const redemption = await client.getActiveCouponRedemption(accountId)
-            console.log('Fetched coupon redemption: ', redemption.id)
-          } catch (err) {
-            if (err instanceof recurly.errors.NotFoundError) {
-              // If the request was not found, you may want to alert the user or
-              // just return null
-              console.log('Resource Not Found')
-            } else {
-              // If we don't know what to do with the err, we should
-              // probably re-raise and let our web framework and logger handle it
-              console.log('Unknown Error: ', err)
-            }
-          }
       - lang: Java
         source: |
           try {
@@ -2249,6 +2233,22 @@ paths:
           } catch (\Recurly\RecurlyError $e) {
               // Something bad happened... tell the user so that they can fix it?
               echo 'Some unexpected Recurly error happened. Try again later.' . PHP_EOL;
+          }
+      - lang: Node.js
+        source: |
+          try {
+            const redemption = await client.getActiveCouponRedemption(accountId)
+            console.log('Fetched coupon redemption: ', redemption.id)
+          } catch (err) {
+            if (err instanceof recurly.errors.NotFoundError) {
+              // If the request was not found, you may want to alert the user or
+              // just return null
+              console.log('Resource Not Found')
+            } else {
+              // If we don't know what to do with the err, we should
+              // probably re-raise and let our web framework and logger handle it
+              console.log('Unknown Error: ', err)
+            }
           }
       - lang: Python
         source: |
@@ -2487,13 +2487,6 @@ paths:
           {
               Console.WriteLine(payment.Uuid);
           }
-      - lang: Node.js
-        source: |
-          const payments = client.listAccountCreditPayments(accountId, { limit: 200 })
-
-          for await (const payment of payments.each()) {
-            console.log(payment.uuid)
-          }
       - lang: Java
         source: |
           QueryParams params = new QueryParams();
@@ -2519,6 +2512,13 @@ paths:
 
           foreach($credit_payments as $payment) {
             echo 'Credit Payment: ' . $payment->getId() . PHP_EOL;
+          }
+      - lang: Node.js
+        source: |
+          const payments = client.listAccountCreditPayments(accountId, { limit: 200 })
+
+          for await (const payment of payments.each()) {
+            console.log(payment.uuid)
           }
       - lang: Python
         source: |
@@ -2671,28 +2671,6 @@ paths:
               // Use ApiError to catch a generic error from the API
               Console.WriteLine($"Unexpected Recurly Error: {ex.Error.Message}");
           }
-      - lang: Node.js
-        source: |
-          try {
-            let invoiceCreate = {
-              currency: 'USD',
-              collectionMethod: 'automatic'
-            }
-            let invoiceCollection = await client.createInvoice(accountId, invoiceCreate)
-            console.log('Created Invoice')
-            console.log('Charge Invoice: ', invoiceCollection.chargeInvoice)
-            console.log('Credit Invoices: ', invoiceCollection.creditInvoices)
-          } catch (err) {
-            if (err instanceof recurly.errors.ValidationError) {
-              // If the request was not valid, you may want to tell your user
-              // why. You can find the invalid params and reasons in err.params
-              console.log('Failed validation', err.params)
-            } else {
-              // If we don't know what to do with the err, we should
-              // probably re-raise and let our web framework and logger handle it
-              console.log('Unknown Error: ', err)
-            }
-          }
       - lang: Java
         source: |
           try {
@@ -2750,6 +2728,28 @@ paths:
               // If we don't know what to do with the err, we should
               // probably re-raise and let our web framework and logger handle it
               var_dump($e);
+          }
+      - lang: Node.js
+        source: |
+          try {
+            let invoiceCreate = {
+              currency: 'USD',
+              collectionMethod: 'automatic'
+            }
+            let invoiceCollection = await client.createInvoice(accountId, invoiceCreate)
+            console.log('Created Invoice')
+            console.log('Charge Invoice: ', invoiceCollection.chargeInvoice)
+            console.log('Credit Invoices: ', invoiceCollection.creditInvoices)
+          } catch (err) {
+            if (err instanceof recurly.errors.ValidationError) {
+              // If the request was not valid, you may want to tell your user
+              // why. You can find the invalid params and reasons in err.params
+              console.log('Failed validation', err.params)
+            } else {
+              // If we don't know what to do with the err, we should
+              // probably re-raise and let our web framework and logger handle it
+              console.log('Unknown Error: ', err)
+            }
           }
       - lang: Python
         source: |
@@ -2835,28 +2835,6 @@ paths:
               // Use ApiError to catch a generic error from the API
               Console.WriteLine($"Unexpected Recurly Error: {ex.Error.Message}");
           }
-      - lang: Node.js
-        source: |
-          try {
-            const collection = await client.previewInvoice(accountId, {
-              currency: "USD",
-              collectionMethod: "automatic"
-            })
-            console.log(`Previewed invoice due at ${collection.chargeInvoice.dueAt}`)
-            console.log(collection.chargeInvoice)
-            console.log(collection.creditInvoices)
-          } catch(err) {
-
-            if (err instanceof recurly.errors.ValidationError) {
-              // If the request was not valid, you may want to tell your user
-              // why. You can find the invalid params and reasons in err.params
-              console.log('Failed validation', err.params)
-            } else {
-              // If we don't know what to do with the err, we should
-              // probably re-raise and let our web framework and logger handle it
-              console.log('Unknown Error: ', err)
-            }
-          }
       - lang: Java
         source: |
           try {
@@ -2914,6 +2892,28 @@ paths:
               // If we don't know what to do with the err, we should
               // probably re-raise and let our web framework and logger handle it
               var_dump($e);
+          }
+      - lang: Node.js
+        source: |
+          try {
+            const collection = await client.previewInvoice(accountId, {
+              currency: "USD",
+              collectionMethod: "automatic"
+            })
+            console.log(`Previewed invoice due at ${collection.chargeInvoice.dueAt}`)
+            console.log(collection.chargeInvoice)
+            console.log(collection.creditInvoices)
+          } catch(err) {
+
+            if (err instanceof recurly.errors.ValidationError) {
+              // If the request was not valid, you may want to tell your user
+              // why. You can find the invalid params and reasons in err.params
+              console.log('Failed validation', err.params)
+            } else {
+              // If we don't know what to do with the err, we should
+              // probably re-raise and let our web framework and logger handle it
+              console.log('Unknown Error: ', err)
+            }
           }
       - lang: Python
         source: |
@@ -3068,27 +3068,6 @@ paths:
               // Use ApiError to catch a generic error from the API
               Console.WriteLine($"Unexpected Recurly Error: {ex.Error.Message}");
           }
-      - lang: Node.js
-        source: |
-          try {
-            let lineItemReq = {
-              currency: 'USD',
-              unitAmount: 1000,
-              type: 'charge' // choose "credit" for a credit
-            }
-            let lineItem = await client.createLineItem(accountId, lineItemReq)
-            console.log('Created Line Item: ', lineItem.uuid)
-          } catch (err) {
-            if (err instanceof recurly.errors.ValidationError) {
-              // If the request was not valid, you may want to tell your user
-              // why. You can find the invalid params and reasons in err.params
-              console.log('Failed validation', err.params)
-            } else {
-              // If we don't know what to do with the err, we should
-              // probably re-raise and let our web framework and logger handle it
-              console.log('Unknown Error: ', err)
-            }
-          }
       - lang: Java
         source: |
           try {
@@ -3148,6 +3127,27 @@ paths:
               // probably re-raise and let our web framework and logger handle it
               var_dump($e);
           }
+      - lang: Node.js
+        source: |
+          try {
+            let lineItemReq = {
+              currency: 'USD',
+              unitAmount: 1000,
+              type: 'charge' // choose "credit" for a credit
+            }
+            let lineItem = await client.createLineItem(accountId, lineItemReq)
+            console.log('Created Line Item: ', lineItem.uuid)
+          } catch (err) {
+            if (err instanceof recurly.errors.ValidationError) {
+              // If the request was not valid, you may want to tell your user
+              // why. You can find the invalid params and reasons in err.params
+              console.log('Failed validation', err.params)
+            } else {
+              // If we don't know what to do with the err, we should
+              // probably re-raise and let our web framework and logger handle it
+              console.log('Unknown Error: ', err)
+            }
+          }
       - lang: Python
         source: |
           try:
@@ -3201,13 +3201,6 @@ paths:
           {
               Console.WriteLine(note.Message);
           }
-      - lang: Node.js
-        source: |
-          const notes = client.listAccountNotes(accountId, { limit: 200 })
-
-          for await (const note of notes.each()) {
-            console.log(note.message)
-          }
       - lang: Java
         source: |
           QueryParams params = new QueryParams();
@@ -3230,6 +3223,13 @@ paths:
 
           foreach($account_notes as $note) {
             echo 'Account note: ' . $note->getMessage() . PHP_EOL;
+          }
+      - lang: Node.js
+        source: |
+          const notes = client.listAccountNotes(accountId, { limit: 200 })
+
+          for await (const note of notes.each()) {
+            console.log(note.message)
           }
       - lang: Python
         source: |
@@ -3290,23 +3290,6 @@ paths:
               // Use ApiError to catch a generic error from the API
               Console.WriteLine($"Unexpected Recurly Error: {ex.Error.Message}");
           }
-      - lang: Node.js
-        source: |
-          try {
-            console.log(accountId)
-            const note = await client.getAccountNote(accountId, accountNoteId)
-            console.log('Fetched account note: ', note.message)
-          } catch (err) {
-            if (err instanceof recurly.errors.NotFoundError) {
-              // If the request was not found, you may want to alert the user or
-              // just return null
-              console.log('Resource Not Found')
-            } else {
-              // If we don't know what to do with the err, we should
-              // probably re-raise and let our web framework and logger handle it
-              console.log('Unknown Error: ', err)
-            }
-          }
       - lang: Java
         source: |
           try {
@@ -3348,6 +3331,23 @@ paths:
           } catch (\Recurly\RecurlyError $e) {
               // Something bad happened... tell the user so that they can fix it?
               echo 'Some unexpected Recurly error happened. Try again later.' . PHP_EOL;
+          }
+      - lang: Node.js
+        source: |
+          try {
+            console.log(accountId)
+            const note = await client.getAccountNote(accountId, accountNoteId)
+            console.log('Fetched account note: ', note.message)
+          } catch (err) {
+            if (err instanceof recurly.errors.NotFoundError) {
+              // If the request was not found, you may want to alert the user or
+              // just return null
+              console.log('Resource Not Found')
+            } else {
+              // If we don't know what to do with the err, we should
+              // probably re-raise and let our web framework and logger handle it
+              console.log('Unknown Error: ', err)
+            }
           }
       - lang: Python
         source: |
@@ -3401,13 +3401,6 @@ paths:
           {
               Console.WriteLine(address.Street1);
           }
-      - lang: Node.js
-        source: |
-          const addresses = client.listShippingAddresses(accountId, { limit: 200 })
-
-          for await (const address of addresses.each()) {
-            console.log(address.street1)
-          }
       - lang: Java
         source: |
           QueryParams params = new QueryParams();
@@ -3426,6 +3419,13 @@ paths:
           shipping_addresses.each do |addr|
             puts "ShippingAddress: #{addr.nickname} - #{addr.street1}"
           end
+      - lang: Node.js
+        source: |
+          const addresses = client.listShippingAddresses(accountId, { limit: 200 })
+
+          for await (const address of addresses.each()) {
+            console.log(address.street1)
+          }
       - lang: Python
         source: |
           shipping_addresses = client.list_shipping_addresses(account_id).items()
@@ -3500,31 +3500,6 @@ paths:
               // Use ApiError to catch a generic error from the API
               Console.WriteLine($"Unexpected Recurly Error: {ex.Error.Message}");
           }
-      - lang: Node.js
-        source: |
-          try {
-            const shippingAddressCreate = {
-              firstName: 'Aaron',
-              lastName: 'Du Monde',
-              street1: '900 Camp St.',
-              city: 'New Orleans',
-              region: 'LA',
-              postalCode: '70115',
-              country: 'US'
-            }
-            const address = await client.createShippingAddress(accountId, shippingAddressCreate)
-            console.log('Created shipping address: ', address.street1)
-          } catch (err) {
-            if (err instanceof recurly.errors.ValidationError) {
-              // If the request was not valid, you may want to tell your user
-              // why. You can find the invalid params and reasons in err.params
-              console.log('Failed validation', err.params)
-            } else {
-              // If we don't know what to do with the err, we should
-              // probably re-raise and let our web framework and logger handle it
-              console.log('Unknown Error: ', err)
-            }
-          }
       - lang: Java
         source: |
           try {
@@ -3572,6 +3547,31 @@ paths:
               // If we don"t know what to do with the err, we should
               // probably re-raise and let our web framework and logger handle it
               var_dump($e);
+          }
+      - lang: Node.js
+        source: |
+          try {
+            const shippingAddressCreate = {
+              firstName: 'Aaron',
+              lastName: 'Du Monde',
+              street1: '900 Camp St.',
+              city: 'New Orleans',
+              region: 'LA',
+              postalCode: '70115',
+              country: 'US'
+            }
+            const address = await client.createShippingAddress(accountId, shippingAddressCreate)
+            console.log('Created shipping address: ', address.street1)
+          } catch (err) {
+            if (err instanceof recurly.errors.ValidationError) {
+              // If the request was not valid, you may want to tell your user
+              // why. You can find the invalid params and reasons in err.params
+              console.log('Failed validation', err.params)
+            } else {
+              // If we don't know what to do with the err, we should
+              // probably re-raise and let our web framework and logger handle it
+              console.log('Unknown Error: ', err)
+            }
           }
       - lang: Python
         source: |
@@ -3640,22 +3640,6 @@ paths:
               // Use ApiError to catch a generic error from the API
               Console.WriteLine($"Unexpected Recurly Error: {ex.Error.Message}");
           }
-      - lang: Node.js
-        source: |
-          try {
-            const address = await client.getShippingAddress(accountId, shippingAddressId)
-            console.log('Fetched shipping address: ', address.street1)
-          } catch (err) {
-            if (err instanceof recurly.errors.NotFoundError) {
-              // If the request was not found, you may want to alert the user or
-              // just return null
-              console.log('Resource Not Found')
-            } else {
-              // If we don't know what to do with the err, we should
-              // probably re-raise and let our web framework and logger handle it
-              console.log('Unknown Error: ', err)
-            }
-          }
       - lang: Java
         source: |
           try {
@@ -3697,6 +3681,22 @@ paths:
           } catch (\Recurly\RecurlyError $e) {
               // Something bad happened... tell the user so that they can fix it?
               echo 'Some unexpected Recurly error happened. Try again later.' . PHP_EOL;
+          }
+      - lang: Node.js
+        source: |
+          try {
+            const address = await client.getShippingAddress(accountId, shippingAddressId)
+            console.log('Fetched shipping address: ', address.street1)
+          } catch (err) {
+            if (err instanceof recurly.errors.NotFoundError) {
+              // If the request was not found, you may want to alert the user or
+              // just return null
+              console.log('Resource Not Found')
+            } else {
+              // If we don't know what to do with the err, we should
+              // probably re-raise and let our web framework and logger handle it
+              console.log('Unknown Error: ', err)
+            }
           }
       - lang: Python
         source: |
@@ -3778,26 +3778,6 @@ paths:
               // Use ApiError to catch a generic error from the API
               Console.WriteLine($"Unexpected Recurly Error: {ex.Error.Message}");
           }
-      - lang: Node.js
-        source: |
-          try {
-            const shadUpdate = {
-              firstName: "Benjamin",
-              lastName: "Du Monde"
-            }
-            const address = await client.updateShippingAddress(accountId, shippingAddressId, shadUpdate)
-            console.log('Updated shipping address: ', address.street1)
-          } catch (err) {
-            if (err instanceof recurly.errors.ValidationError) {
-              // If the request was not valid, you may want to tell your user
-              // why. You can find the invalid params and reasons in err.params
-              console.log('Failed validation', err.params)
-            } else {
-              // If we don't know what to do with the err, we should
-              // probably re-raise and let our web framework and logger handle it
-              console.log('Unknown Error: ', err)
-            }
-          }
       - lang: Java
         source: |
           try {
@@ -3854,6 +3834,26 @@ paths:
               // probably re-raise and let our web framework and logger handle it
               var_dump($e);
           }
+      - lang: Node.js
+        source: |
+          try {
+            const shadUpdate = {
+              firstName: "Benjamin",
+              lastName: "Du Monde"
+            }
+            const address = await client.updateShippingAddress(accountId, shippingAddressId, shadUpdate)
+            console.log('Updated shipping address: ', address.street1)
+          } catch (err) {
+            if (err instanceof recurly.errors.ValidationError) {
+              // If the request was not valid, you may want to tell your user
+              // why. You can find the invalid params and reasons in err.params
+              console.log('Failed validation', err.params)
+            } else {
+              // If we don't know what to do with the err, we should
+              // probably re-raise and let our web framework and logger handle it
+              console.log('Unknown Error: ', err)
+            }
+          }
       - lang: Python
         source: |
           try:
@@ -3909,22 +3909,6 @@ paths:
               // Use ApiError to catch a generic error from the API
               Console.WriteLine($"Unexpected Recurly Error: {ex.Error.Message}");
           }
-      - lang: Node.js
-        source: |
-          try {
-            await client.removeShippingAddress(accountId, shippingAddress.id)
-            console.log('Removed shipping address: ', shippingAddress.street1)
-          } catch (err) {
-            if (err instanceof recurly.errors.NotFoundError) {
-              // If the request was not found, you may want to alert the user or
-              // just return null
-              console.log('Resource Not Found')
-            } else {
-              // If we don't know what to do with the err, we should
-              // probably re-raise and let our web framework and logger handle it
-              console.log('Unknown Error: ', err)
-            }
-          }
       - lang: Java
         source: |
           try {
@@ -3964,6 +3948,22 @@ paths:
               // If we don't know what to do with the err, we should
               // probably re-raise and let our web framework and logger handle it
               var_dump($e);
+          }
+      - lang: Node.js
+        source: |
+          try {
+            await client.removeShippingAddress(accountId, shippingAddress.id)
+            console.log('Removed shipping address: ', shippingAddress.street1)
+          } catch (err) {
+            if (err instanceof recurly.errors.NotFoundError) {
+              // If the request was not found, you may want to alert the user or
+              // just return null
+              console.log('Resource Not Found')
+            } else {
+              // If we don't know what to do with the err, we should
+              // probably re-raise and let our web framework and logger handle it
+              console.log('Unknown Error: ', err)
+            }
           }
       - lang: Python
         source: |
@@ -4043,6 +4043,11 @@ paths:
           foreach($account_subscriptions as $sub) {
               echo 'Account subscription: ' . $sub->getUuid() . PHP_EOL;
           }
+      - lang: Python
+        source: |
+          subscriptions = client.list_account_subscriptions(account.id, limit=200).items()
+          for subscription in subscriptions:
+              print(subscription.uuid)
   "/sites/{site_id}/accounts/{account_id}/transactions":
     get:
       tags:
@@ -4280,13 +4285,6 @@ paths:
           {
               Console.WriteLine(coupon.Code);
           }
-      - lang: Node.js
-        source: |
-          const coupons = client.listCoupons({ limit: 200 })
-
-          for await (const coupon of coupons.each()) {
-            console.log(coupon.code)
-          }
       - lang: Java
         source: |
           QueryParams params = new QueryParams();
@@ -4309,6 +4307,13 @@ paths:
 
           foreach($coupons as $coupon) {
             echo 'Coupon: ' . $coupon->getCode() . PHP_EOL;
+          }
+      - lang: Node.js
+        source: |
+          const coupons = client.listCoupons({ limit: 200 })
+
+          for await (const coupon of coupons.each()) {
+            console.log(coupon.code)
           }
       - lang: Python
         source: |
@@ -4498,22 +4503,6 @@ paths:
               // Use ApiError to catch a generic error from the API
               Console.WriteLine($"Unexpected Recurly Error: {ex.Error.Message}");
           }
-      - lang: Node.js
-        source: |
-          try {
-            const coupon = await client.getCoupon(couponId)
-            console.log('Fetched coupon: ', coupon.code)
-          } catch (err) {
-            if (err instanceof recurly.errors.NotFoundError) {
-              // If the request was not found, you may want to alert the user or
-              // just return null
-              console.log('Resource Not Found')
-            } else {
-              // If we don't know what to do with the err, we should
-              // probably re-raise and let our web framework and logger handle it
-              console.log('Unknown Error: ', err)
-            }
-          }
       - lang: Java
         source: |
           try {
@@ -4552,6 +4541,22 @@ paths:
           } catch (\Recurly\RecurlyError $e) {
               // Something bad happened... tell the user so that they can fix it?
               echo 'Some unexpected Recurly error happened. Try again later.' . PHP_EOL;
+          }
+      - lang: Node.js
+        source: |
+          try {
+            const coupon = await client.getCoupon(couponId)
+            console.log('Fetched coupon: ', coupon.code)
+          } catch (err) {
+            if (err instanceof recurly.errors.NotFoundError) {
+              // If the request was not found, you may want to alert the user or
+              // just return null
+              console.log('Resource Not Found')
+            } else {
+              // If we don't know what to do with the err, we should
+              // probably re-raise and let our web framework and logger handle it
+              console.log('Unknown Error: ', err)
+            }
           }
       - lang: Python
         source: |
@@ -4782,13 +4787,6 @@ paths:
           {
               Console.WriteLine(payment.Uuid);
           }
-      - lang: Node.js
-        source: |
-          const payments = client.listCreditPayments({ limit: 200 })
-
-          for await (const payment of payments.each()) {
-            console.log(payment.uuid)
-          }
       - lang: Java
         source: |
           QueryParams params = new QueryParams();
@@ -4811,6 +4809,13 @@ paths:
 
           foreach($credit_payments as $payment) {
             echo 'Credit Payment: ' . $payment->getId() . PHP_EOL;
+          }
+      - lang: Node.js
+        source: |
+          const payments = client.listCreditPayments({ limit: 200 })
+
+          for await (const payment of payments.each()) {
+            console.log(payment.uuid)
           }
   "/sites/{site_id}/credit_payments/{credit_payment_id}":
     get:
@@ -4897,13 +4902,6 @@ paths:
           {
               Console.WriteLine(def.DisplayName);
           }
-      - lang: Node.js
-        source: |
-          const definitions = client.listCustomFieldDefinitions({ limit: 200 })
-
-          for await (const definition of definitions.each()) {
-            console.log(definition.displayName)
-          }
       - lang: Java
         source: |
           QueryParams params = new QueryParams();
@@ -4926,6 +4924,13 @@ paths:
 
           foreach($custom_field_definitions as $definition) {
             echo 'Custom Field Definition: ' . $definition->getName() . PHP_EOL;
+          }
+      - lang: Node.js
+        source: |
+          const definitions = client.listCustomFieldDefinitions({ limit: 200 })
+
+          for await (const definition of definitions.each()) {
+            console.log(definition.displayName)
           }
       - lang: Python
         source: |
@@ -4979,22 +4984,6 @@ paths:
               // Use ApiError to catch a generic error from the API
               Console.WriteLine($"Unexpected Recurly Error: {ex.Error.Message}");
           }
-      - lang: Node.js
-        source: |
-          try {
-            const definition = await client.getCustomFieldDefinition(definitionId)
-            console.log('Fetched custom field definition: ', definition.displayName)
-          } catch (err) {
-            if (err instanceof recurly.errors.NotFoundError) {
-              // If the request was not found, you may want to alert the user or
-              // just return null
-              console.log('Resource Not Found')
-            } else {
-              // If we don't know what to do with the err, we should
-              // probably re-raise and let our web framework and logger handle it
-              console.log('Unknown Error: ', err)
-            }
-          }
       - lang: Java
         source: |
           try {
@@ -5023,6 +5012,22 @@ paths:
           } catch (\Recurly\RecurlyError $e) {
               // Something bad happened... tell the user so that they can fix it?
               echo 'Some unexpected Recurly error happened. Try again later.' . PHP_EOL;
+          }
+      - lang: Node.js
+        source: |
+          try {
+            const definition = await client.getCustomFieldDefinition(definitionId)
+            console.log('Fetched custom field definition: ', definition.displayName)
+          } catch (err) {
+            if (err instanceof recurly.errors.NotFoundError) {
+              // If the request was not found, you may want to alert the user or
+              // just return null
+              console.log('Resource Not Found')
+            } else {
+              // If we don't know what to do with the err, we should
+              // probably re-raise and let our web framework and logger handle it
+              console.log('Unknown Error: ', err)
+            }
           }
   "/sites/{site_id}/items":
     get:
@@ -5072,13 +5077,6 @@ paths:
           {
               Console.WriteLine(item.Code);
           }
-      - lang: Node.js
-        source: |
-          const items = client.listItems({ limit: 200 })
-
-          for await (const item of items.each()) {
-            console.log(item.code)
-          }
       - lang: Java
         source: |
           QueryParams params = new QueryParams();
@@ -5101,6 +5099,13 @@ paths:
 
           foreach($items as $item) {
             echo 'Item: ' . $item->getCode() . PHP_EOL;
+          }
+      - lang: Node.js
+        source: |
+          const items = client.listItems({ limit: 200 })
+
+          for await (const item of items.each()) {
+            console.log(item.code)
           }
       - lang: Python
         source: |
@@ -5185,34 +5190,6 @@ paths:
               // Use ApiError to catch a generic error from the API
               Console.WriteLine($"Unexpected Recurly Error: {ex.Error.Message}");
           }
-      - lang: Node.js
-        source: |
-          try {
-            const itemCreate = {
-              code: itemCode,
-              name: "Item Name",
-              description: "Item Description",
-              external_sku: "a35JE-44",
-              accounting_code: "item-code-127",
-              revenue_schedule_type: "at_range_end",
-              custom_fields: [{
-                name: "custom-field-1",
-                value: "Custom Field 1 value"
-              }]
-            }
-            const item = await client.createItem(itemCreate)
-            console.log('Created Item: ', item.code)
-          } catch (err) {
-            if (err instanceof recurly.errors.ValidationError) {
-              // If the request was not valid, you may want to tell your user
-              // why. You can find the invalid params and reasons in err.params
-              console.log('Failed validation', err.params)
-            } else {
-              // If we don't know what to do with the err, we should
-              // probably re-raise and let our web framework and logger handle it
-              console.log('Unknown Error: ', err)
-            }
-          }
       - lang: Java
         source: |
           try {
@@ -5287,6 +5264,34 @@ paths:
               // probably re-raise and let our web framework and logger handle it
               var_dump($e);
           }
+      - lang: Node.js
+        source: |
+          try {
+            const itemCreate = {
+              code: itemCode,
+              name: "Item Name",
+              description: "Item Description",
+              external_sku: "a35JE-44",
+              accounting_code: "item-code-127",
+              revenue_schedule_type: "at_range_end",
+              custom_fields: [{
+                name: "custom-field-1",
+                value: "Custom Field 1 value"
+              }]
+            }
+            const item = await client.createItem(itemCreate)
+            console.log('Created Item: ', item.code)
+          } catch (err) {
+            if (err instanceof recurly.errors.ValidationError) {
+              // If the request was not valid, you may want to tell your user
+              // why. You can find the invalid params and reasons in err.params
+              console.log('Failed validation', err.params)
+            } else {
+              // If we don't know what to do with the err, we should
+              // probably re-raise and let our web framework and logger handle it
+              console.log('Unknown Error: ', err)
+            }
+          }
       - lang: Python
         source: |
           try:
@@ -5356,22 +5361,6 @@ paths:
               // Use ApiError to catch a generic error from the API
               Console.WriteLine($"Unexpected Recurly Error: {ex.Error.Message}");
           }
-      - lang: Node.js
-        source: |
-          try {
-            const item = await client.getItem(itemId)
-            console.log('Fetched item: ', item.code)
-          } catch (err) {
-            if (err instanceof recurly.errors.NotFoundError) {
-              // If the request was not found, you may want to alert the user or
-              // just return null
-              console.log('Resource Not Found')
-            } else {
-              // If we don't know what to do with the err, we should
-              // probably re-raise and let our web framework and logger handle it
-              console.log('Unknown Error: ', err)
-            }
-          }
       - lang: Java
         source: |
           try {
@@ -5410,6 +5399,22 @@ paths:
           } catch (\Recurly\RecurlyError $e) {
               // Something bad happened... tell the user so that they can fix it?
               echo 'Some unexpected Recurly error happened. Try again later.' . PHP_EOL;
+          }
+      - lang: Node.js
+        source: |
+          try {
+            const item = await client.getItem(itemId)
+            console.log('Fetched item: ', item.code)
+          } catch (err) {
+            if (err instanceof recurly.errors.NotFoundError) {
+              // If the request was not found, you may want to alert the user or
+              // just return null
+              console.log('Resource Not Found')
+            } else {
+              // If we don't know what to do with the err, we should
+              // probably re-raise and let our web framework and logger handle it
+              console.log('Unknown Error: ', err)
+            }
           }
       - lang: Python
         source: |
@@ -5489,26 +5494,6 @@ paths:
               // Use ApiError to catch a generic error from the API
               Console.WriteLine($"Unexpected Recurly Error: {ex.Error.Message}");
           }
-      - lang: Node.js
-        source: |
-          try {
-            const itemUpdate = {
-              name: 'New Item Name',
-              description: 'New Item Description'
-            }
-            const item = await client.updateItem(itemId, itemUpdate)
-            console.log('Updated item: ', item)
-          } catch (err) {
-            if (err instanceof recurly.errors.ValidationError) {
-              // If the request was not valid, you may want to tell your user
-              // why. You can find the invalid params and reasons in err.params
-              console.log('Failed validation', err.params)
-            } else {
-              // If we don't know what to do with the err, we should
-              // probably re-raise and let our web framework and logger handle it
-              console.log('Unknown Error: ', err)
-            }
-          }
       - lang: Java
         source: |
           try {
@@ -5564,6 +5549,26 @@ paths:
               // If we don't know what to do with the err, we should
               // probably re-raise and let our web framework and logger handle it
               var_dump($e);
+          }
+      - lang: Node.js
+        source: |
+          try {
+            const itemUpdate = {
+              name: 'New Item Name',
+              description: 'New Item Description'
+            }
+            const item = await client.updateItem(itemId, itemUpdate)
+            console.log('Updated item: ', item)
+          } catch (err) {
+            if (err instanceof recurly.errors.ValidationError) {
+              // If the request was not valid, you may want to tell your user
+              // why. You can find the invalid params and reasons in err.params
+              console.log('Failed validation', err.params)
+            } else {
+              // If we don't know what to do with the err, we should
+              // probably re-raise and let our web framework and logger handle it
+              console.log('Unknown Error: ', err)
+            }
           }
       - lang: Python
         source: |
@@ -5627,21 +5632,6 @@ paths:
               // Use ApiError to catch a generic error from the API
               Console.WriteLine($"Unexpected Recurly Error: {ex.Error.Message}");
           }
-      - lang: Node.js
-        source: |
-          try {
-            const item = await client.deactivateItem(itemId)
-            console.log('Deleted item: ', item.code)
-          } catch (err) {
-            if (err && err.type === 'not-found') {
-              // If the request was not found, you may want to alert the user or
-              // just return null
-              console.log('Resource Not Found')
-            }
-            // If we don't know what to do with the err, we should
-            // probably re-raise and let our web framework and logger handle it
-            throw err
-          }
       - lang: Java
         source: |
           try {
@@ -5680,6 +5670,21 @@ paths:
           } catch (\Recurly\RecurlyError $e) {
               // Something bad happened... tell the user so that they can fix it?
               echo 'Some unexpected Recurly error happened. Try again later.' . PHP_EOL;
+          }
+      - lang: Node.js
+        source: |
+          try {
+            const item = await client.deactivateItem(itemId)
+            console.log('Deleted item: ', item.code)
+          } catch (err) {
+            if (err && err.type === 'not-found') {
+              // If the request was not found, you may want to alert the user or
+              // just return null
+              console.log('Resource Not Found')
+            }
+            // If we don't know what to do with the err, we should
+            // probably re-raise and let our web framework and logger handle it
+            throw err
           }
       - lang: Python
         source: |
@@ -5745,21 +5750,6 @@ paths:
               // Use ApiError to catch a generic error from the API
               Console.WriteLine($"Unexpected Recurly Error: {ex.Error.Message}");
           }
-      - lang: Node.js
-        source: |
-          try {
-            const item = await client.reactivateItem(itemId)
-            console.log('Reactivated item: ', item.code)
-          } catch (err) {
-            if (err && err.type === 'not_found') {
-              // If the request was not found, you may want to alert the user or
-              // just return null
-              console.log('Resource Not Found')
-            }
-            // If we don't know what to do with the err, we should
-            // probably re-raise and let our web framework and logger handle it
-            throw err
-          }
       - lang: Java
         source: |
           try {
@@ -5798,6 +5788,21 @@ paths:
           } catch (\Recurly\RecurlyError $e) {
               // Something bad happened... tell the user so that they can fix it?
               echo 'Some unexpected Recurly error happened. Try again later.' . PHP_EOL;
+          }
+      - lang: Node.js
+        source: |
+          try {
+            const item = await client.reactivateItem(itemId)
+            console.log('Reactivated item: ', item.code)
+          } catch (err) {
+            if (err && err.type === 'not_found') {
+              // If the request was not found, you may want to alert the user or
+              // just return null
+              console.log('Resource Not Found')
+            }
+            // If we don't know what to do with the err, we should
+            // probably re-raise and let our web framework and logger handle it
+            throw err
           }
       - lang: Python
         source: |
@@ -5856,13 +5861,6 @@ paths:
           {
               Console.WriteLine(invoice.Number);
           }
-      - lang: Node.js
-        source: |
-          const invoices = client.listInvoices({ limit: 200 })
-
-          for await (const invoice of invoices.each()) {
-            console.log(invoice.number)
-          }
       - lang: Java
         source: |
           QueryParams params = new QueryParams();
@@ -5885,6 +5883,13 @@ paths:
 
           foreach($invoices as $invoice) {
             echo 'Invoice: ' . $invoice->getNumber() . PHP_EOL;
+          }
+      - lang: Node.js
+        source: |
+          const invoices = client.listInvoices({ limit: 200 })
+
+          for await (const invoice of invoices.each()) {
+            console.log(invoice.number)
           }
       - lang: Python
         source: |
@@ -5938,22 +5943,6 @@ paths:
               // Use ApiError to catch a generic error from the API
               Console.WriteLine($"Unexpected Recurly Error: {ex.Error.Message}");
           }
-      - lang: Node.js
-        source: |
-          try {
-            const invoice = await client.getInvoice(invoiceId)
-            console.log('Fetched Invoice: ', invoice.number)
-          } catch (err) {
-            if (err instanceof recurly.errors.NotFoundError) {
-              // If the request was not found, you may want to alert the user or
-              // just return null
-              console.log('Resource Not Found')
-            } else {
-              // If we don't know what to do with the err, we should
-              // probably re-raise and let our web framework and logger handle it
-              console.log('Unknown Error: ', err)
-            }
-          }
       - lang: Java
         source: |
           try {
@@ -5992,6 +5981,22 @@ paths:
           } catch (\Recurly\RecurlyError $e) {
               // Something bad happened... tell the user so that they can fix it?
               echo 'Some unexpected Recurly error happened. Try again later.' . PHP_EOL;
+          }
+      - lang: Node.js
+        source: |
+          try {
+            const invoice = await client.getInvoice(invoiceId)
+            console.log('Fetched Invoice: ', invoice.number)
+          } catch (err) {
+            if (err instanceof recurly.errors.NotFoundError) {
+              // If the request was not found, you may want to alert the user or
+              // just return null
+              console.log('Resource Not Found')
+            } else {
+              // If we don't know what to do with the err, we should
+              // probably re-raise and let our web framework and logger handle it
+              console.log('Unknown Error: ', err)
+            }
           }
       - lang: Python
         source: |
@@ -6059,6 +6064,23 @@ paths:
               // Use ApiError to catch a generic error from the API
               Console.WriteLine($"Unexpected Recurly Error: {ex.Error.Message}");
           }
+      - lang: Java
+        source: |
+          try {
+              final InvoiceUpdatable invoiceUpdate = new InvoiceUpdatable();
+              invoiceUpdate.setCustomerNotes("New notes");
+              invoiceUpdate.setTermsAndConditions("New terms and conditions");
+
+              final Invoice invoice = client.putInvoice(invoiceId, invoiceUpdate);
+              System.out.println("Edited invoice " + invoice.getNumber());
+          } catch (ValidationException e) {
+              // If the request was not valid, you may want to tell your user
+              // why. You can find the invalid params and reasons in e.getError().getParams()
+              System.out.println("Failed validation: " + e.getError().getMessage());
+          } catch (ApiException e) {
+              // Use ApiException to catch a generic error from the API
+              System.out.println("Unexpected Recurly Error: " + e.getError().getMessage());
+          }
       - lang: Node.js
         source: |
           try {
@@ -6080,23 +6102,6 @@ paths:
               // probably re-raise and let our web framework and logger handle it
               console.log('Unknown Error: ', err)
             }
-          }
-      - lang: Java
-        source: |
-          try {
-              final InvoiceUpdatable invoiceUpdate = new InvoiceUpdatable();
-              invoiceUpdate.setCustomerNotes("New notes");
-              invoiceUpdate.setTermsAndConditions("New terms and conditions");
-
-              final Invoice invoice = client.putInvoice(invoiceId, invoiceUpdate);
-              System.out.println("Edited invoice " + invoice.getNumber());
-          } catch (ValidationException e) {
-              // If the request was not valid, you may want to tell your user
-              // why. You can find the invalid params and reasons in e.getError().getParams()
-              System.out.println("Failed validation: " + e.getError().getMessage());
-          } catch (ApiException e) {
-              // Use ApiException to catch a generic error from the API
-              System.out.println("Unexpected Recurly Error: " + e.getError().getMessage());
           }
   "/sites/{site_id}/invoices/{invoice_id}.pdf":
     get:
@@ -6146,30 +6151,6 @@ paths:
           {
               // Use ApiError to catch a generic error from the API
               Console.WriteLine($"Unexpected Recurly Error: {ex.Error.Message}");
-          }
-      - lang: Node.js
-        source: |
-          try {
-            const invoice = await client.getInvoicePdf(invoiceId)
-            console.log('Fetched Invoice: ', invoice)
-            const filename = `${downloadDirectory}/nodeinvoice-${invoiceId}.pdf`
-            await fs.writeFile(filename, invoice.data, 'binary', (err) => {
-              // throws an error, you could also catch it here
-              if (err) throw err;
-
-              // success case, the file was saved
-              console.log('Saved Invoice PDF to', filename)
-            })
-          } catch (err) {
-            if (err instanceof recurly.errors.NotFoundError) {
-              // If the request was not found, you may want to alert the user or
-              // just return null
-              console.log('Resource Not Found')
-            } else {
-              // If we don't know what to do with the err, we should
-              // probably re-raise and let our web framework and logger handle it
-              console.log('Unknown Error: ', err)
-            }
           }
       - lang: Java
         source: |
@@ -6222,6 +6203,30 @@ paths:
           } catch (\Recurly\RecurlyError $e) {
               // Something bad happened... tell the user so that they can fix it?
               echo 'Some unexpected Recurly error happened. Try again later.' . PHP_EOL;
+          }
+      - lang: Node.js
+        source: |
+          try {
+            const invoice = await client.getInvoicePdf(invoiceId)
+            console.log('Fetched Invoice: ', invoice)
+            const filename = `${downloadDirectory}/nodeinvoice-${invoiceId}.pdf`
+            await fs.writeFile(filename, invoice.data, 'binary', (err) => {
+              // throws an error, you could also catch it here
+              if (err) throw err;
+
+              // success case, the file was saved
+              console.log('Saved Invoice PDF to', filename)
+            })
+          } catch (err) {
+            if (err instanceof recurly.errors.NotFoundError) {
+              // If the request was not found, you may want to alert the user or
+              // just return null
+              console.log('Resource Not Found')
+            } else {
+              // If we don't know what to do with the err, we should
+              // probably re-raise and let our web framework and logger handle it
+              console.log('Unknown Error: ', err)
+            }
           }
       - lang: Python
         source: |
@@ -6298,22 +6303,6 @@ paths:
               // Use ApiError to catch a generic error from the API
               Console.WriteLine($"Unexpected Recurly Error: {ex.Error.Message}");
           }
-      - lang: Node.js
-        source: |
-          try {
-            const invoice = await client.collectInvoice(invoiceId)
-            console.log('Collected invoice: ', invoice.number)
-          } catch (err) {
-            if (err instanceof recurly.errors.ValidationError) {
-              // If the request was not valid, you may want to tell your user
-              // why. You can find the invalid params and reasons in err.params
-              console.log('Failed validation', err.params)
-            } else {
-              // If we don't know what to do with the err, we should
-              // probably re-raise and let our web framework and logger handle it
-              console.log('Unknown Error: ', err)
-            }
-          }
       - lang: Java
         source: |
           try {
@@ -6352,6 +6341,22 @@ paths:
               // If we don't know what to do with the err, we should
               // probably re-raise and let our web framework and logger handle it
               var_dump($e);
+          }
+      - lang: Node.js
+        source: |
+          try {
+            const invoice = await client.collectInvoice(invoiceId)
+            console.log('Collected invoice: ', invoice.number)
+          } catch (err) {
+            if (err instanceof recurly.errors.ValidationError) {
+              // If the request was not valid, you may want to tell your user
+              // why. You can find the invalid params and reasons in err.params
+              console.log('Failed validation', err.params)
+            } else {
+              // If we don't know what to do with the err, we should
+              // probably re-raise and let our web framework and logger handle it
+              console.log('Unknown Error: ', err)
+            }
           }
       - lang: Python
         source: |
@@ -6417,22 +6422,6 @@ paths:
               // Use ApiError to catch a generic error from the API
               Console.WriteLine($"Unexpected Recurly Error: {ex.Error.Message}");
           }
-      - lang: Node.js
-        source: |
-          try {
-            const invoice = await client.failInvoice(invoiceId)
-            console.log('Failed invoice: ', invoice.number)
-          } catch (err) {
-            if (err instanceof recurly.errors.ValidationError) {
-              // If the request was not valid, you may want to tell your user
-              // why. You can find the invalid params and reasons in err.params
-              console.log('Failed validation', err.params)
-            } else {
-              // If we don't know what to do with the err, we should
-              // probably re-raise and let our web framework and logger handle it
-              console.log('Unknown Error: ', err)
-            }
-          }
       - lang: Java
         source: |
           try {
@@ -6471,6 +6460,22 @@ paths:
           } catch (\Recurly\RecurlyError $e) {
               // Something bad happened... tell the user so that they can fix it?
               echo 'Some unexpected Recurly error happened. Try again later.' . PHP_EOL;
+          }
+      - lang: Node.js
+        source: |
+          try {
+            const invoice = await client.failInvoice(invoiceId)
+            console.log('Failed invoice: ', invoice.number)
+          } catch (err) {
+            if (err instanceof recurly.errors.ValidationError) {
+              // If the request was not valid, you may want to tell your user
+              // why. You can find the invalid params and reasons in err.params
+              console.log('Failed validation', err.params)
+            } else {
+              // If we don't know what to do with the err, we should
+              // probably re-raise and let our web framework and logger handle it
+              console.log('Unknown Error: ', err)
+            }
           }
   "/sites/{site_id}/invoices/{invoice_id}/mark_successful":
     put:
@@ -6529,23 +6534,6 @@ paths:
               // Use ApiError to catch a generic error from the API
               Console.WriteLine($"Unexpected Recurly Error: {ex.Error.Message}");
           }
-      - lang: Node.js
-        source: |
-          try {
-            const invoice = await client.markInvoiceSuccessful(invoiceId)
-            console.log(`Marked invoice #${invoice.number} successful`)
-          } catch(err) {
-
-            if (err instanceof recurly.errors.ValidationError) {
-              // If the request was not valid, you may want to tell your user
-              // why. You can find the invalid params and reasons in err.params
-              console.log('Failed validation', err.params)
-            } else {
-              // If we don't know what to do with the err, we should
-              // probably re-raise and let our web framework and logger handle it
-              console.log('Unknown Error: ', err)
-            }
-          }
       - lang: Java
         source: |
           try {
@@ -6584,6 +6572,23 @@ paths:
           } catch (\Recurly\RecurlyError $e) {
               // Something bad happened... tell the user so that they can fix it?
               echo 'Some unexpected Recurly error happened. Try again later.' . PHP_EOL;
+          }
+      - lang: Node.js
+        source: |
+          try {
+            const invoice = await client.markInvoiceSuccessful(invoiceId)
+            console.log(`Marked invoice #${invoice.number} successful`)
+          } catch(err) {
+
+            if (err instanceof recurly.errors.ValidationError) {
+              // If the request was not valid, you may want to tell your user
+              // why. You can find the invalid params and reasons in err.params
+              console.log('Failed validation', err.params)
+            } else {
+              // If we don't know what to do with the err, we should
+              // probably re-raise and let our web framework and logger handle it
+              console.log('Unknown Error: ', err)
+            }
           }
       - lang: Python
         source: |
@@ -6649,22 +6654,6 @@ paths:
               // Use ApiError to catch a generic error from the API
               Console.WriteLine($"Unexpected Recurly Error: {ex.Error.Message}");
           }
-      - lang: Node.js
-        source: |
-          try {
-            const invoice = await client.reopenInvoice(invoiceId)
-            console.log('Reopened invoice: ', invoice.number)
-          } catch (err) {
-            if (err instanceof recurly.errors.NotFoundError) {
-              // If the request was not found, you may want to alert the user or
-              // just return null
-              console.log('Resource Not Found')
-            } else {
-              // If we don't know what to do with the err, we should
-              // probably re-raise and let our web framework and logger handle it
-              console.log('Unknown Error: ', err)
-            }
-          }
       - lang: Java
         source: |
           try {
@@ -6703,6 +6692,22 @@ paths:
               // If we don't know what to do with the err, we should
               // probably re-raise and let our web framework and logger handle it
               var_dump($e);
+          }
+      - lang: Node.js
+        source: |
+          try {
+            const invoice = await client.reopenInvoice(invoiceId)
+            console.log('Reopened invoice: ', invoice.number)
+          } catch (err) {
+            if (err instanceof recurly.errors.NotFoundError) {
+              // If the request was not found, you may want to alert the user or
+              // just return null
+              console.log('Resource Not Found')
+            } else {
+              // If we don't know what to do with the err, we should
+              // probably re-raise and let our web framework and logger handle it
+              console.log('Unknown Error: ', err)
+            }
           }
   "/sites/{site_id}/invoices/{invoice_id}/void":
     put:
@@ -6911,13 +6916,6 @@ paths:
           {
               Console.WriteLine(invoice.Number);
           }
-      - lang: Node.js
-        source: |
-          const invoices = client.listRelatedInvoices(invoiceId, { limit: 200 })
-
-          for await (const invoice of invoices.each()) {
-            console.log(invoice.number)
-          }
       - lang: Java
         source: |
           final Pager<Invoice> invoices = client.listRelatedInvoices(invoiceId);
@@ -6931,6 +6929,13 @@ paths:
 
           foreach($related_invoices as $invoice) {
             echo 'Related Invoice: ' . $invoice->getId() . PHP_EOL;
+          }
+      - lang: Node.js
+        source: |
+          const invoices = client.listRelatedInvoices(invoiceId, { limit: 200 })
+
+          for await (const invoice of invoices.each()) {
+            console.log(invoice.number)
           }
   "/sites/{site_id}/invoices/{invoice_id}/refund":
     post:
@@ -7002,29 +7007,6 @@ paths:
               // Use ApiError to catch a generic error from the API
               Console.WriteLine($"Unexpected Recurly Error: {ex.Error.Message}");
           }
-      - lang: Node.js
-        source: |
-          try {
-            const invoiceRefund = {
-              creditCustomerNotes: "Notes on credits",
-              type: "amount", // could also be "line_items"
-              amount: 100
-            }
-
-            const invoice = await client.refundInvoice(invoiceId, invoiceRefund)
-            console.log('Refunded invoice: ', invoice.number)
-          } catch(err) {
-
-            if (err instanceof recurly.errors.ValidationError) {
-              // If the request was not valid, you may want to tell your user
-              // why. You can find the invalid params and reasons in err.params
-              console.log('Failed validation', err.params)
-            } else {
-              // If we don't know what to do with the err, we should
-              // probably re-raise and let our web framework and logger handle it
-              console.log('Unknown Error: ', err)
-            }
-          }
       - lang: Java
         source: |
           try {
@@ -7079,6 +7061,29 @@ paths:
           } catch (\Recurly\RecurlyError $e) {
               // Something bad happened... tell the user so that they can fix it?
               echo 'Some unexpected Recurly error happened. Try again later.' . PHP_EOL;
+          }
+      - lang: Node.js
+        source: |
+          try {
+            const invoiceRefund = {
+              creditCustomerNotes: "Notes on credits",
+              type: "amount", // could also be "line_items"
+              amount: 100
+            }
+
+            const invoice = await client.refundInvoice(invoiceId, invoiceRefund)
+            console.log('Refunded invoice: ', invoice.number)
+          } catch(err) {
+
+            if (err instanceof recurly.errors.ValidationError) {
+              // If the request was not valid, you may want to tell your user
+              // why. You can find the invalid params and reasons in err.params
+              console.log('Failed validation', err.params)
+            } else {
+              // If we don't know what to do with the err, we should
+              // probably re-raise and let our web framework and logger handle it
+              console.log('Unknown Error: ', err)
+            }
           }
       - lang: Python
         source: |
@@ -7141,13 +7146,6 @@ paths:
           {
               Console.WriteLine($"Item {item.Uuid} for {item.Amount}");
           }
-      - lang: Node.js
-        source: |
-          const lineItems = client.listLineItems({ limit: 200 })
-
-          for await (const item of lineItems.each()) {
-            console.log(`Item ${item.id} for ${item.amount}`)
-          }
       - lang: Java
         source: |
           QueryParams params = new QueryParams();
@@ -7164,6 +7162,13 @@ paths:
 
           foreach($line_items as $line_item) {
             echo 'Line item: ' . $line_item->getId() . PHP_EOL;
+          }
+      - lang: Node.js
+        source: |
+          const lineItems = client.listLineItems({ limit: 200 })
+
+          for await (const item of lineItems.each()) {
+            console.log(`Item ${item.id} for ${item.amount}`)
           }
       - lang: Python
         source: |
@@ -7217,22 +7222,6 @@ paths:
               // Use ApiError to catch a generic error from the API
               Console.WriteLine($"Unexpected Recurly Error: {ex.Error.Message}");
           }
-      - lang: Node.js
-        source: |
-          try {
-            const lineItem = await client.getLineItem(lineItemId)
-            console.log('Fetched line item: ', lineItem.uuid)
-          } catch (err) {
-            if (err instanceof recurly.errors.NotFoundError) {
-              // If the request was not found, you may want to alert the user or
-              // just return null
-              console.log('Resource Not Found')
-            } else {
-              // If we don't know what to do with the err, we should
-              // probably re-raise and let our web framework and logger handle it
-              console.log('Unknown Error: ', err)
-            }
-          }
       - lang: Java
         source: |
           try {
@@ -7271,6 +7260,22 @@ paths:
           } catch (\Recurly\RecurlyError $e) {
               // Something bad happened... tell the user so that they can fix it?
               echo 'Some unexpected Recurly error happened. Try again later.' . PHP_EOL;
+          }
+      - lang: Node.js
+        source: |
+          try {
+            const lineItem = await client.getLineItem(lineItemId)
+            console.log('Fetched line item: ', lineItem.uuid)
+          } catch (err) {
+            if (err instanceof recurly.errors.NotFoundError) {
+              // If the request was not found, you may want to alert the user or
+              // just return null
+              console.log('Resource Not Found')
+            } else {
+              // If we don't know what to do with the err, we should
+              // probably re-raise and let our web framework and logger handle it
+              console.log('Unknown Error: ', err)
+            }
           }
       - lang: Python
         source: |
@@ -7329,22 +7334,6 @@ paths:
               // Use ApiError to catch a generic error from the API
               Console.WriteLine($"Unexpected Recurly Error: {ex.Error.Message}");
           }
-      - lang: Node.js
-        source: |
-          try {
-            await client.removeLineItem(lineItemId)
-            console.log('Removed line item: ', lineItemId)
-          } catch (err) {
-            if (err instanceof recurly.errors.NotFoundError) {
-              // If the request was not found, you may want to alert the user or
-              // just return null
-              console.log('Resource Not Found')
-            } else {
-              // If we don't know what to do with the err, we should
-              // probably re-raise and let our web framework and logger handle it
-              console.log('Unknown Error: ', err)
-            }
-          }
       - lang: Java
         source: |
           try {
@@ -7383,6 +7372,22 @@ paths:
               // If we don't know what to do with the err, we should
               // probably re-raise and let our web framework and logger handle it
               var_dump($e);
+          }
+      - lang: Node.js
+        source: |
+          try {
+            await client.removeLineItem(lineItemId)
+            console.log('Removed line item: ', lineItemId)
+          } catch (err) {
+            if (err instanceof recurly.errors.NotFoundError) {
+              // If the request was not found, you may want to alert the user or
+              // just return null
+              console.log('Resource Not Found')
+            } else {
+              // If we don't know what to do with the err, we should
+              // probably re-raise and let our web framework and logger handle it
+              console.log('Unknown Error: ', err)
+            }
           }
       - lang: Python
         source: |
@@ -7441,13 +7446,6 @@ paths:
           {
               Console.WriteLine(plan.Code);
           }
-      - lang: Node.js
-        source: |
-          const plans = client.listPlans({ limit: 200 })
-
-          for await (const plan of plans.each()) {
-            console.log(plan.code)
-          }
       - lang: Java
         source: |
           QueryParams params = new QueryParams();
@@ -7470,6 +7468,13 @@ paths:
 
           foreach($plans as $plan) {
             echo 'Plan: ' . $plan->getCode() . PHP_EOL;
+          }
+      - lang: Node.js
+        source: |
+          const plans = client.listPlans({ limit: 200 })
+
+          for await (const plan of plans.each()) {
+            console.log(plan.code)
           }
       - lang: Python
         source: |
@@ -7543,32 +7548,6 @@ paths:
           {
               // Use ApiError to catch a generic error from the API
               Console.WriteLine($"Unexpected Recurly Error: {ex.Error.Message}");
-          }
-      - lang: Node.js
-        source: |
-          try {
-            const planCreate = {
-              name: 'Monthly Coffee Subscription',
-              code: planCode,
-              currencies: [
-                {
-                  currency: 'USD',
-                  unitAmount: 10000
-                }
-              ]
-            }
-            const plan = await client.createPlan(planCreate)
-            console.log('Created Plan: ', plan.code)
-          } catch (err) {
-            if (err instanceof recurly.errors.ValidationError) {
-              // If the request was not valid, you may want to tell your user
-              // why. You can find the invalid params and reasons in err.params
-              console.log('Failed validation', err.params)
-            } else {
-              // If we don't know what to do with the err, we should
-              // probably re-raise and let our web framework and logger handle it
-              console.log('Unknown Error: ', err)
-            }
           }
       - lang: Java
         source: |
@@ -7650,6 +7629,32 @@ paths:
               // probably re-raise and let our web framework and logger handle it
               var_dump($e);
           }
+      - lang: Node.js
+        source: |
+          try {
+            const planCreate = {
+              name: 'Monthly Coffee Subscription',
+              code: planCode,
+              currencies: [
+                {
+                  currency: 'USD',
+                  unitAmount: 10000
+                }
+              ]
+            }
+            const plan = await client.createPlan(planCreate)
+            console.log('Created Plan: ', plan.code)
+          } catch (err) {
+            if (err instanceof recurly.errors.ValidationError) {
+              // If the request was not valid, you may want to tell your user
+              // why. You can find the invalid params and reasons in err.params
+              console.log('Failed validation', err.params)
+            } else {
+              // If we don't know what to do with the err, we should
+              // probably re-raise and let our web framework and logger handle it
+              console.log('Unknown Error: ', err)
+            }
+          }
       - lang: Python
         source: |
           try:
@@ -7712,22 +7717,6 @@ paths:
               // Use ApiError to catch a generic error from the API
               Console.WriteLine($"Unexpected Recurly Error: {ex.Error.Message}");
           }
-      - lang: Node.js
-        source: |
-          try {
-            const plan = await client.getPlan(planId)
-            console.log('Fetched plan: ', plan.code)
-          } catch (err) {
-            if (err instanceof recurly.errors.NotFoundError) {
-              // If the request was not found, you may want to alert the user or
-              // just return null
-              console.log('Resource Not Found')
-            } else {
-              // If we don't know what to do with the err, we should
-              // probably re-raise and let our web framework and logger handle it
-              console.log('Unknown Error: ', err)
-            }
-          }
       - lang: Java
         source: |
           try {
@@ -7766,6 +7755,22 @@ paths:
           } catch (\Recurly\RecurlyError $e) {
               // Something bad happened... tell the user so that they can fix it?
               echo 'Some unexpected Recurly error happened. Try again later.' . PHP_EOL;
+          }
+      - lang: Node.js
+        source: |
+          try {
+            const plan = await client.getPlan(planId)
+            console.log('Fetched plan: ', plan.code)
+          } catch (err) {
+            if (err instanceof recurly.errors.NotFoundError) {
+              // If the request was not found, you may want to alert the user or
+              // just return null
+              console.log('Resource Not Found')
+            } else {
+              // If we don't know what to do with the err, we should
+              // probably re-raise and let our web framework and logger handle it
+              console.log('Unknown Error: ', err)
+            }
           }
       - lang: Python
         source: |
@@ -7837,25 +7842,6 @@ paths:
               // Use ApiError to catch a generic error from the API
               Console.WriteLine($"Unexpected Recurly Error: {ex.Error.Message}");
           }
-      - lang: Node.js
-        source: |
-          try {
-            const planUpdate = {
-              name: 'New monthly coffee subscription'
-            }
-            const plan = await client.updatePlan(planId, planUpdate)
-            console.log('Updated plan: ', plan.code)
-          } catch (err) {
-            if (err instanceof recurly.errors.ValidationError) {
-              // If the request was not valid, you may want to tell your user
-              // why. You can find the invalid params and reasons in err.params
-              console.log('Failed validation', err.params)
-            } else {
-              // If we don't know what to do with the err, we should
-              // probably re-raise and let our web framework and logger handle it
-              console.log('Unknown Error: ', err)
-            }
-          }
       - lang: Java
         source: |
           try {
@@ -7890,6 +7876,25 @@ paths:
               // If we don't know what to do with the err, we should
               // probably re-raise and let our web framework and logger handle it
               var_dump($e);
+          }
+      - lang: Node.js
+        source: |
+          try {
+            const planUpdate = {
+              name: 'New monthly coffee subscription'
+            }
+            const plan = await client.updatePlan(planId, planUpdate)
+            console.log('Updated plan: ', plan.code)
+          } catch (err) {
+            if (err instanceof recurly.errors.ValidationError) {
+              // If the request was not valid, you may want to tell your user
+              // why. You can find the invalid params and reasons in err.params
+              console.log('Failed validation', err.params)
+            } else {
+              // If we don't know what to do with the err, we should
+              // probably re-raise and let our web framework and logger handle it
+              console.log('Unknown Error: ', err)
+            }
           }
     delete:
       tags:
@@ -7931,22 +7936,6 @@ paths:
               // Use ApiError to catch a generic error from the API
               Console.WriteLine($"Unexpected Recurly Error: {ex.Error.Message}");
           }
-      - lang: Node.js
-        source: |
-          try {
-            const plan = await client.removePlan(planId)
-            console.log('Removed plan: ', plan.code)
-          } catch (err) {
-            if (err instanceof recurly.errors.NotFoundError) {
-              // If the request was not found, you may want to alert the user or
-              // just return null
-              console.log('Resource Not Found')
-            } else {
-              // If we don't know what to do with the err, we should
-              // probably re-raise and let our web framework and logger handle it
-              console.log('Unknown Error: ', err)
-            }
-          }
       - lang: Java
         source: |
           try {
@@ -7973,6 +7962,22 @@ paths:
               // If we don't know what to do with the err, we should
               // probably re-raise and let our web framework and logger handle it
               var_dump($e);
+          }
+      - lang: Node.js
+        source: |
+          try {
+            const plan = await client.removePlan(planId)
+            console.log('Removed plan: ', plan.code)
+          } catch (err) {
+            if (err instanceof recurly.errors.NotFoundError) {
+              // If the request was not found, you may want to alert the user or
+              // just return null
+              console.log('Resource Not Found')
+            } else {
+              // If we don't know what to do with the err, we should
+              // probably re-raise and let our web framework and logger handle it
+              console.log('Unknown Error: ', err)
+            }
           }
   "/sites/{site_id}/plans/{plan_id}/add_ons":
     get:
@@ -8629,13 +8634,6 @@ paths:
           {
               Console.WriteLine(subscription.Uuid);
           }
-      - lang: Node.js
-        source: |
-          const subscriptions = client.listSubscriptions({ limit: 200 })
-
-          for await (const subscription of subscriptions.each()) {
-            console.log(subscription.uuid)
-          }
       - lang: Java
         source: |
           QueryParams params = new QueryParams();
@@ -8658,6 +8656,13 @@ paths:
 
           foreach($subscriptions as $sub) {
             echo 'Subscription: ' . $sub->getUuid() . PHP_EOL;
+          }
+      - lang: Node.js
+        source: |
+          const subscriptions = client.listSubscriptions({ limit: 200 })
+
+          for await (const subscription of subscriptions.each()) {
+            console.log(subscription.uuid)
           }
       - lang: Python
         source: |
@@ -8731,29 +8736,6 @@ paths:
               // Use ApiError to catch a generic error from the API
               Console.WriteLine($"Unexpected Recurly Error: {ex.Error.Message}");
           }
-      - lang: Node.js
-        source: |
-          try {
-            let subscriptionReq = {
-              planCode: planCode,
-              currency: `USD`,
-              account: {
-                code: accountCode
-              }
-            }
-            let sub = await client.createSubscription(subscriptionReq)
-            console.log('Created subscription: ', sub.uuid)
-          } catch (err) {
-            if (err instanceof recurly.errors.ValidationError) {
-              // If the request was not valid, you may want to tell your user
-              // why. You can find the invalid params and reasons in err.params
-              console.log('Failed validation', err.params)
-            } else {
-              // If we don't know what to do with the err, we should
-              // probably re-raise and let our web framework and logger handle it
-              console.log('Unknown Error: ', err)
-            }
-          }
       - lang: Java
         source: |
           try {
@@ -8820,6 +8802,29 @@ paths:
               // probably re-raise and let our web framework and logger handle it
               var_dump($e);
           }
+      - lang: Node.js
+        source: |
+          try {
+            let subscriptionReq = {
+              planCode: planCode,
+              currency: `USD`,
+              account: {
+                code: accountCode
+              }
+            }
+            let sub = await client.createSubscription(subscriptionReq)
+            console.log('Created subscription: ', sub.uuid)
+          } catch (err) {
+            if (err instanceof recurly.errors.ValidationError) {
+              // If the request was not valid, you may want to tell your user
+              // why. You can find the invalid params and reasons in err.params
+              console.log('Failed validation', err.params)
+            } else {
+              // If we don't know what to do with the err, we should
+              // probably re-raise and let our web framework and logger handle it
+              console.log('Unknown Error: ', err)
+            }
+          }
       - lang: Python
         source: |
           try:
@@ -8882,22 +8887,6 @@ paths:
               // Use ApiError to catch a generic error from the API
               Console.WriteLine($"Unexpected Recurly Error: {ex.Error.Message}");
           }
-      - lang: Node.js
-        source: |
-          try {
-            const subscription = await client.getSubscription(subscriptionId)
-            console.log('Fetched subscription: ', subscription.uuid)
-          } catch (err) {
-            if (err instanceof recurly.errors.NotFoundError) {
-              // If the request was not found, you may want to alert the user or
-              // just return null
-              console.log('Resource Not Found')
-            } else {
-              // If we don't know what to do with the err, we should
-              // probably re-raise and let our web framework and logger handle it
-              console.log('Unknown Error: ', err)
-            }
-          }
       - lang: Java
         source: |
           try {
@@ -8938,6 +8927,22 @@ paths:
           } catch (\Recurly\RecurlyError $e) {
               // Something bad happened... tell the user so that they can fix it?
               echo 'Some unexpected Recurly error happened. Try again later.' . PHP_EOL;
+          }
+      - lang: Node.js
+        source: |
+          try {
+            const subscription = await client.getSubscription(subscriptionId)
+            console.log('Fetched subscription: ', subscription.uuid)
+          } catch (err) {
+            if (err instanceof recurly.errors.NotFoundError) {
+              // If the request was not found, you may want to alert the user or
+              // just return null
+              console.log('Resource Not Found')
+            } else {
+              // If we don't know what to do with the err, we should
+              // probably re-raise and let our web framework and logger handle it
+              console.log('Unknown Error: ', err)
+            }
           }
       - lang: Python
         source: |
@@ -9002,27 +9007,6 @@ paths:
               // Use ApiError to catch a generic error from the API
               Console.WriteLine($"Unexpected Recurly Error: {ex.Error.Message}");
           }
-      - lang: Node.js
-        source: |
-          try {
-            const update = {
-              termsAndConditions: "Some new terms and conditions",
-              customerNotes: "Some new customer notes"
-            }
-            const subscription = await client.modifySubscription(subscriptionId, update)
-            console.log('Modified subscription: ', subscription.uuid)
-          } catch(err) {
-
-            if (err instanceof recurly.errors.ValidationError) {
-              // If the request was not valid, you may want to tell your user
-              // why. You can find the invalid params and reasons in err.params
-              console.log('Failed validation', err.params)
-            } else {
-              // If we don't know what to do with the err, we should
-              // probably re-raise and let our web framework and logger handle it
-              console.log('Unknown Error: ', err)
-            }
-          }
       - lang: Java
         source: |
           try {
@@ -9076,6 +9060,27 @@ paths:
               // If we don't know what to do with the err, we should
               // probably re-raise and let our web framework and logger handle it
               var_dump($e);
+          }
+      - lang: Node.js
+        source: |
+          try {
+            const update = {
+              termsAndConditions: "Some new terms and conditions",
+              customerNotes: "Some new customer notes"
+            }
+            const subscription = await client.modifySubscription(subscriptionId, update)
+            console.log('Modified subscription: ', subscription.uuid)
+          } catch(err) {
+
+            if (err instanceof recurly.errors.ValidationError) {
+              // If the request was not valid, you may want to tell your user
+              // why. You can find the invalid params and reasons in err.params
+              console.log('Failed validation', err.params)
+            } else {
+              // If we don't know what to do with the err, we should
+              // probably re-raise and let our web framework and logger handle it
+              console.log('Unknown Error: ', err)
+            }
           }
       - lang: Python
         source: |
@@ -9164,22 +9169,6 @@ paths:
               // Use ApiError to catch a generic error from the API
               Console.WriteLine($"Unexpected Recurly Error: {ex.Error.Message}");
           }
-      - lang: Node.js
-        source: |
-          try {
-            const subscription = await client.terminateSubscription(subscriptionId)
-            console.log('Terminated subscription: ', subscription.uuid)
-          } catch (err) {
-            if (err instanceof recurly.errors.ValidationError) {
-              // If the request was not valid, you may want to tell your user
-              // why. You can find the invalid params and reasons in err.params
-              console.log('Failed validation', err.params)
-            } else {
-              // If we don't know what to do with the err, we should
-              // probably re-raise and let our web framework and logger handle it
-              console.log('Unknown Error: ', err)
-            }
-          }
       - lang: Java
         source: |
           try {
@@ -9222,6 +9211,22 @@ paths:
               // If we don't know what to do with the err, we should
               // probably re-raise and let our web framework and logger handle it
               var_dump($e);
+          }
+      - lang: Node.js
+        source: |
+          try {
+            const subscription = await client.terminateSubscription(subscriptionId)
+            console.log('Terminated subscription: ', subscription.uuid)
+          } catch (err) {
+            if (err instanceof recurly.errors.ValidationError) {
+              // If the request was not valid, you may want to tell your user
+              // why. You can find the invalid params and reasons in err.params
+              console.log('Failed validation', err.params)
+            } else {
+              // If we don't know what to do with the err, we should
+              // probably re-raise and let our web framework and logger handle it
+              console.log('Unknown Error: ', err)
+            }
           }
       - lang: Python
         source: |
@@ -9297,22 +9302,6 @@ paths:
               // Use ApiError to catch a generic error from the API
               Console.WriteLine($"Unexpected Recurly Error: {ex.Error.Message}");
           }
-      - lang: Node.js
-        source: |
-          try {
-            let expiredSub = await client.cancelSubscription(subscriptionId)
-            console.log('Canceled Subscription: ', expiredSub.uuid)
-          } catch (err) {
-            if (err instanceof recurly.errors.ValidationError) {
-              // If the request was not valid, you may want to tell your user
-              // why. You can find the invalid params and reasons in err.params
-              console.log('Failed validation', err.params)
-            } else {
-              // If we don't know what to do with the err, we should
-              // probably re-raise and let our web framework and logger handle it
-              console.log('Unknown Error: ', err)
-            }
-          }
       - lang: Java
         source: |
           try {
@@ -9353,6 +9342,22 @@ paths:
               // If we don't know what to do with the err, we should
               // probably re-raise and let our web framework and logger handle it
               var_dump($e);
+          }
+      - lang: Node.js
+        source: |
+          try {
+            let expiredSub = await client.cancelSubscription(subscriptionId)
+            console.log('Canceled Subscription: ', expiredSub.uuid)
+          } catch (err) {
+            if (err instanceof recurly.errors.ValidationError) {
+              // If the request was not valid, you may want to tell your user
+              // why. You can find the invalid params and reasons in err.params
+              console.log('Failed validation', err.params)
+            } else {
+              // If we don't know what to do with the err, we should
+              // probably re-raise and let our web framework and logger handle it
+              console.log('Unknown Error: ', err)
+            }
           }
       - lang: Python
         source: |
@@ -9421,23 +9426,6 @@ paths:
               // Use ApiError to catch a generic error from the API
               Console.WriteLine($"Unexpected Recurly Error: {ex.Error.Message}");
           }
-      - lang: Node.js
-        source: |
-          try {
-            const subscription = await client.reactivateSubscription(subscriptionId)
-            console.log('Reactivated subscription: ', subscription.uuid)
-          } catch(err) {
-
-            if (err instanceof recurly.errors.ValidationError) {
-              // If the request was not valid, you may want to tell your user
-              // why. You can find the invalid params and reasons in err.params
-              console.log('Failed validation', err.params)
-            } else {
-              // If we don't know what to do with the err, we should
-              // probably re-raise and let our web framework and logger handle it
-              console.log('Unknown Error: ', err)
-            }
-          }
       - lang: Java
         source: |
           try {
@@ -9478,6 +9466,23 @@ paths:
               // If we don't know what to do with the err, we should
               // probably re-raise and let our web framework and logger handle it
               var_dump($e);
+          }
+      - lang: Node.js
+        source: |
+          try {
+            const subscription = await client.reactivateSubscription(subscriptionId)
+            console.log('Reactivated subscription: ', subscription.uuid)
+          } catch(err) {
+
+            if (err instanceof recurly.errors.ValidationError) {
+              // If the request was not valid, you may want to tell your user
+              // why. You can find the invalid params and reasons in err.params
+              console.log('Failed validation', err.params)
+            } else {
+              // If we don't know what to do with the err, we should
+              // probably re-raise and let our web framework and logger handle it
+              console.log('Unknown Error: ', err)
+            }
           }
   "/sites/{site_id}/subscriptions/{subscription_id}/pause":
     put:
@@ -9768,22 +9773,6 @@ paths:
               // Use ApiError to catch a generic error from the API
               Console.WriteLine($"Unexpected Recurly Error: {ex.Error.Message}");
           }
-      - lang: Node.js
-        source: |
-          try {
-            const change = await client.getSubscriptionChange(subscriptionId)
-            console.log('Fetched subscription change: ', change.id)
-          } catch (err) {
-            if (err instanceof recurly.errors.NotFoundError) {
-              // If the request was not found, you may want to alert the user or
-              // just return null
-              console.log('Resource Not Found')
-            } else {
-              // If we don't know what to do with the err, we should
-              // probably re-raise and let our web framework and logger handle it
-              console.log('Unknown Error: ', err)
-            }
-          }
       - lang: Java
         source: |
           try {
@@ -9824,6 +9813,22 @@ paths:
           } catch (\Recurly\RecurlyError $e) {
               // Something bad happened... tell the user so that they can fix it?
               echo 'Some unexpected Recurly error happened. Try again later.' . PHP_EOL;
+          }
+      - lang: Node.js
+        source: |
+          try {
+            const change = await client.getSubscriptionChange(subscriptionId)
+            console.log('Fetched subscription change: ', change.id)
+          } catch (err) {
+            if (err instanceof recurly.errors.NotFoundError) {
+              // If the request was not found, you may want to alert the user or
+              // just return null
+              console.log('Resource Not Found')
+            } else {
+              // If we don't know what to do with the err, we should
+              // probably re-raise and let our web framework and logger handle it
+              console.log('Unknown Error: ', err)
+            }
           }
       - lang: Python
         source: |
@@ -9900,27 +9905,6 @@ paths:
               // Use ApiError to catch a generic error from the API
               Console.WriteLine($"Unexpected Recurly Error: {ex.Error.Message}");
           }
-      - lang: Node.js
-        source: |
-          try {
-            const subscriptionChangeCreate = {
-              planCode: newPlanCode,
-              timeframe: 'now'
-            }
-
-            const change = await client.createSubscriptionChange(subscriptionId, subscriptionChangeCreate)
-            console.log('Created subscription change: ', change.id)
-          } catch (err) {
-            if (err instanceof recurly.errors.ValidationError) {
-              // If the request was not valid, you may want to tell your user
-              // why. You can find the invalid params and reasons in err.params
-              console.log('Failed validation', err.params)
-            } else {
-              // If we don't know what to do with the err, we should
-              // probably re-raise and let our web framework and logger handle it
-              console.log('Unknown Error: ', err)
-            }
-          }
       - lang: Java
         source: |
           try {
@@ -9975,6 +9959,27 @@ paths:
               // If we don't know what to do with the err, we should
               // probably re-raise and let our web framework and logger handle it
               var_dump($e);
+          }
+      - lang: Node.js
+        source: |
+          try {
+            const subscriptionChangeCreate = {
+              planCode: newPlanCode,
+              timeframe: 'now'
+            }
+
+            const change = await client.createSubscriptionChange(subscriptionId, subscriptionChangeCreate)
+            console.log('Created subscription change: ', change.id)
+          } catch (err) {
+            if (err instanceof recurly.errors.ValidationError) {
+              // If the request was not valid, you may want to tell your user
+              // why. You can find the invalid params and reasons in err.params
+              console.log('Failed validation', err.params)
+            } else {
+              // If we don't know what to do with the err, we should
+              // probably re-raise and let our web framework and logger handle it
+              console.log('Unknown Error: ', err)
+            }
           }
       - lang: Python
         source: |
@@ -10032,22 +10037,6 @@ paths:
               // Use ApiError to catch a generic error from the API
               Console.WriteLine($"Unexpected Recurly Error: {ex.Error.Message}");
           }
-      - lang: Node.js
-        source: |
-          try {
-            await client.removeSubscriptionChange(subscriptionId)
-            console.log('Removed subscription change: ', subscriptionId)
-          } catch (err) {
-            if (err instanceof recurly.errors.NotFoundError) {
-              // If the request was not found, you may want to alert the user or
-              // just return null
-              console.log('Resource Not Found')
-            } else {
-              // If we don't know what to do with the err, we should
-              // probably re-raise and let our web framework and logger handle it
-              console.log('Unknown Error: ', err)
-            }
-          }
       - lang: Java
         source: |
           try {
@@ -10086,6 +10075,22 @@ paths:
               // If we don't know what to do with the err, we should
               // probably re-raise and let our web framework and logger handle it
               var_dump($e);
+          }
+      - lang: Node.js
+        source: |
+          try {
+            await client.removeSubscriptionChange(subscriptionId)
+            console.log('Removed subscription change: ', subscriptionId)
+          } catch (err) {
+            if (err instanceof recurly.errors.NotFoundError) {
+              // If the request was not found, you may want to alert the user or
+              // just return null
+              console.log('Resource Not Found')
+            } else {
+              // If we don't know what to do with the err, we should
+              // probably re-raise and let our web framework and logger handle it
+              console.log('Unknown Error: ', err)
+            }
           }
       - lang: Python
         source: |
@@ -10359,13 +10364,6 @@ paths:
           {
               Console.WriteLine(transaction.Uuid);
           }
-      - lang: Node.js
-        source: |
-          const transactions = client.listTransactions({ limit: 200 })
-
-          for await (const transaction of transactions.each()) {
-            console.log(transaction.uuid)
-          }
       - lang: Java
         source: |
           QueryParams params = new QueryParams();
@@ -10388,6 +10386,13 @@ paths:
 
           foreach($transactions as $transaction) {
             echo 'Transaction: ' . $transaction->getUuid() . PHP_EOL;
+          }
+      - lang: Node.js
+        source: |
+          const transactions = client.listTransactions({ limit: 200 })
+
+          for await (const transaction of transactions.each()) {
+            console.log(transaction.uuid)
           }
       - lang: Python
         source: |
@@ -10441,22 +10446,6 @@ paths:
               // Use ApiError to catch a generic error from the API
               Console.WriteLine($"Unexpected Recurly Error: {ex.Error.Message}");
           }
-      - lang: Node.js
-        source: |
-          try {
-            const transaction = await client.getTransaction(transactionId)
-            console.log('Fetched transaction: ', transaction.uuid)
-          } catch (err) {
-            if (err instanceof recurly.errors.NotFoundError) {
-              // If the request was not found, you may want to alert the user or
-              // just return null
-              console.log('Resource Not Found')
-            } else {
-              // If we don't know what to do with the err, we should
-              // probably re-raise and let our web framework and logger handle it
-              console.log('Unknown Error: ', err)
-            }
-          }
       - lang: Java
         source: |
           try {
@@ -10495,6 +10484,22 @@ paths:
           } catch (\Recurly\RecurlyError $e) {
               // Something bad happened... tell the user so that they can fix it?
               echo 'Some unexpected Recurly error happened. Try again later.' . PHP_EOL;
+          }
+      - lang: Node.js
+        source: |
+          try {
+            const transaction = await client.getTransaction(transactionId)
+            console.log('Fetched transaction: ', transaction.uuid)
+          } catch (err) {
+            if (err instanceof recurly.errors.NotFoundError) {
+              // If the request was not found, you may want to alert the user or
+              // just return null
+              console.log('Resource Not Found')
+            } else {
+              // If we don't know what to do with the err, we should
+              // probably re-raise and let our web framework and logger handle it
+              console.log('Unknown Error: ', err)
+            }
           }
   "/sites/{site_id}/unique_coupon_codes/{unique_coupon_code_id}":
     parameters:
@@ -10672,37 +10677,6 @@ paths:
               // Use ApiError to catch a generic error from the API
               Console.WriteLine($"Unexpected Recurly Error: {ex.Error.Message}");
           }
-      - lang: Node.js
-        source: |
-          try {
-            let purchaseReq = {
-              currency: 'USD',
-              account: {
-                code: accountCode,
-                firstName: 'Benjamin',
-                lastName: 'Du Monde',
-                billingInfo: {
-                  tokenId: rjsTokenId
-                }
-              },
-              subscriptions: [
-                { planCode: planCode },
-              ]
-            }
-            let invoiceCollection = await client.createPurchase(purchaseReq)
-            console.log('Created Charge Invoice: ', invoiceCollection.chargeInvoice)
-            console.log('Created Credit Invoices: ', invoiceCollection.creditInvoices)
-          } catch (err) {
-            if (err instanceof recurly.errors.ValidationError) {
-              // If the request was not valid, you may want to tell your user
-              // why. You can find the invalid params and reasons in err.params
-              console.log('Failed validation', err.params)
-            } else {
-              // If we don't know what to do with the err, we should
-              // probably re-raise and let our web framework and logger handle it
-              console.log('Unknown Error: ', err)
-            }
-          }
       - lang: Java
         source: |
           try {
@@ -10794,6 +10768,37 @@ paths:
               // If we don't know what to do with the err, we should
               // probably re-raise and let our web framework and logger handle it
               var_dump($e);
+          }
+      - lang: Node.js
+        source: |
+          try {
+            let purchaseReq = {
+              currency: 'USD',
+              account: {
+                code: accountCode,
+                firstName: 'Benjamin',
+                lastName: 'Du Monde',
+                billingInfo: {
+                  tokenId: rjsTokenId
+                }
+              },
+              subscriptions: [
+                { planCode: planCode },
+              ]
+            }
+            let invoiceCollection = await client.createPurchase(purchaseReq)
+            console.log('Created Charge Invoice: ', invoiceCollection.chargeInvoice)
+            console.log('Created Credit Invoices: ', invoiceCollection.creditInvoices)
+          } catch (err) {
+            if (err instanceof recurly.errors.ValidationError) {
+              // If the request was not valid, you may want to tell your user
+              // why. You can find the invalid params and reasons in err.params
+              console.log('Failed validation', err.params)
+            } else {
+              // If we don't know what to do with the err, we should
+              // probably re-raise and let our web framework and logger handle it
+              console.log('Unknown Error: ', err)
+            }
           }
       - lang: Python
         source: |
@@ -10895,37 +10900,6 @@ paths:
               // Use ApiError to catch a generic error from the API
               Console.WriteLine($"Unexpected Recurly Error: {ex.Error.Message}");
           }
-      - lang: Node.js
-        source: |
-          try {
-            let purchaseReq = {
-              currency: 'USD',
-              account: {
-                firstName: 'Benjamin',
-                lastName: 'Du Monde',
-                code: accountCode,
-                billingInfo: {
-                  tokenId: rjsTokenId
-                }
-              },
-              subscriptions: [
-                { planCode: planCode },
-              ]
-            }
-            let invoiceCollection = await client.previewPurchase(purchaseReq)
-            console.log('Preview Charge Invoice: ', invoiceCollection.chargeInvoice)
-            console.log('Preview Credit Invoices: ', invoiceCollection.creditInvoices)
-          } catch (err) {
-            if (err instanceof recurly.errors.ValidationError) {
-              // If the request was not valid, you may want to tell your user
-              // why. You can find the invalid params and reasons in err.params
-              console.log('Failed validation', err.params)
-            } else {
-              // If we don't know what to do with the err, we should
-              // probably re-raise and let our web framework and logger handle it
-              console.log('Unknown Error: ', err)
-            }
-          }
       - lang: Ruby
         source: |
           begin
@@ -10983,6 +10957,37 @@ paths:
               // If we don't know what to do with the err, we should
               // probably re-raise and let our web framework and logger handle it
               var_dump($e);
+          }
+      - lang: Node.js
+        source: |
+          try {
+            let purchaseReq = {
+              currency: 'USD',
+              account: {
+                firstName: 'Benjamin',
+                lastName: 'Du Monde',
+                code: accountCode,
+                billingInfo: {
+                  tokenId: rjsTokenId
+                }
+              },
+              subscriptions: [
+                { planCode: planCode },
+              ]
+            }
+            let invoiceCollection = await client.previewPurchase(purchaseReq)
+            console.log('Preview Charge Invoice: ', invoiceCollection.chargeInvoice)
+            console.log('Preview Credit Invoices: ', invoiceCollection.creditInvoices)
+          } catch (err) {
+            if (err instanceof recurly.errors.ValidationError) {
+              // If the request was not valid, you may want to tell your user
+              // why. You can find the invalid params and reasons in err.params
+              console.log('Failed validation', err.params)
+            } else {
+              // If we don't know what to do with the err, we should
+              // probably re-raise and let our web framework and logger handle it
+              console.log('Unknown Error: ', err)
+            }
           }
       - lang: Python
         source: |

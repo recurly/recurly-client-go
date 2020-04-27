@@ -1,6 +1,8 @@
 package recurly
 
-import "time"
+import (
+	"time"
+)
 
 func String(v string) *string {
 	return &v
@@ -37,4 +39,9 @@ type ListMetadata struct {
 	ObjectName string `json:"object"`
 	HasMore    bool   `json:"has_more"`
 	Next       string `json:"next"`
+}
+
+type Resource interface {
+	GetResponse() *ResponseMetadata
+	setResponse(*ResponseMetadata)
 }

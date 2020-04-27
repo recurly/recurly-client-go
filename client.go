@@ -230,10 +230,10 @@ func (c *Client) Do(req *http.Request, v interface{}) error {
 		return err
 	}
 
-	if c.Log.IsLevel(LevelDebug) { // do not waste cpu unless we're at debug level
-		// TODO: How do we want to expose the rate limit info?
-		// Maybe use a chan(RateLimit) for something to get the data?
-		meta := parseResponseMetadata(res)
+	meta := parseResponseMetadata(res)
+	v.(Resource).setResponse(meta)
+
+	if c.Log.IsLevel(LevelDebug) {
 		if meta.Deprecated {
 			c.Log.Errorf("Endpoint %s is deprecated. Use at your own risk!", req.URL.Path)
 		}

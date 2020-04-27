@@ -67,19 +67,19 @@ func (s *Scenario) MockHTTPClient() *Client {
 
 // A helpful utility method for creating default
 // http.Responses with Recurly metadata
-func mockResponse(statusCode int, body string) *http.Response {
+func mockResponse(req *http.Request, statusCode int, body string) *http.Response {
 	headers := make(http.Header)
 	headers.Add("Content-Type", "application/json; charset=utf-8")
-	headers.Add("Recurly-Version", "recurly"+APIVersion)
+	headers.Add("Recurly-Version", "recurly."+APIVersion)
 	headers.Add("X-RateLimit-Limit", "2000")
 	headers.Add("X-RateLimit-Remaining", "1999")
-	headers.Add("X-RateLimit-Reset", "1586203320")
 	headers.Add("X-RateLimit-Reset", "1586203320")
 	headers.Add("X-Request-Id", "msy-1234")
 	return &http.Response{
 		StatusCode: statusCode,
 		Body:       ioutil.NopCloser(bytes.NewBufferString(body)),
 		Header:     headers,
+		Request:    req,
 	}
 }
 
@@ -90,11 +90,13 @@ func bodyToString(io io.ReadCloser) string {
 	return buf.String()
 }
 
-// Resource and SubResource are used as placeholders for
+// RecurlyResource and SubResource are used as placeholders for
 // Recurly's resources. This accomplishes 2 goals:
 //   1. Keep the test code from coupling to generated code
 //	 2. Easily setup specific type scenarios which may or may not exist in Recurly now
-type Resource struct {
+type RecurlyResource struct {
+	recurlyResponse *ResponseMetadata
+
 	Id          string        `json:"id,omitempty"`
 	Integer     int           `json:"int,omitempty"`
 	Float       float64       `json:"float,omitempty"`
@@ -104,8 +106,26 @@ type Resource struct {
 	SubArray    []SubResource `json:"sub_array,omitempty"`
 }
 
+func (resource *RecurlyResource) GetResponse() *ResponseMetadata {
+	return resource.recurlyResponse
+}
+
+func (resource *RecurlyResource) setResponse(res *ResponseMetadata) {
+	resource.recurlyResponse = res
+}
+
 type SubResource struct {
+	recurlyResponse *ResponseMetadata
+
 	Id string `json:"id,omitempty"`
+}
+
+func (resource *SubResource) GetResponse() *ResponseMetadata {
+	return resource.recurlyResponse
+}
+
+func (resource *SubResource) setResponse(res *ResponseMetadata) {
+	resource.recurlyResponse = res
 }
 
 type ResourceCreate struct {
@@ -124,9 +144,9 @@ func (attr *ResourceCreate) toParams() *Params {
 
 // We also implement fake CRUD operations for these fake resources
 // We want to use the Client from the consuming code's perspective
-func (c *Client) GetResource(resourceId string) (*Resource, error) {
+func (c *Client) GetResource(resourceId string) (*RecurlyResource, error) {
 	path := c.InterpolatePath("/resources/{resource_id}", resourceId)
-	result := &Resource{}
+	result := &RecurlyResource{}
 	err := c.Call(http.MethodGet, path, nil, result)
 	if err != nil {
 		return nil, err
@@ -134,9 +154,9 @@ func (c *Client) GetResource(resourceId string) (*Resource, error) {
 	return result, err
 }
 
-func (c *Client) CreateResource(body *ResourceCreate) (*Resource, error) {
+func (c *Client) CreateResource(body *ResourceCreate) (*RecurlyResource, error) {
 	path := c.InterpolatePath("/resources")
-	result := &Resource{}
+	result := &RecurlyResource{}
 	err := c.Call(http.MethodPost, path, body, result)
 	if err != nil {
 		return nil, err

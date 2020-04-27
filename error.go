@@ -8,12 +8,23 @@ import (
 
 // Error contains basic information about the error
 type Error struct {
+	recurlyResponse *ResponseMetadata
+
 	Message          string
 	Class            ErrorClass
 	Type             ErrorType
 	Params           []ErrorParam
 	TransactionError *TransactionError
-	Response         ResponseMetadata
+}
+
+// GetResponse returns the ResponseMetadata that generated this error
+func (resource *Error) GetResponse() *ResponseMetadata {
+	return resource.recurlyResponse
+}
+
+// setResponse sets the response metadata
+func (resource *Error) setResponse(res *ResponseMetadata) {
+	resource.recurlyResponse = res
 }
 
 func (e *Error) Error() string {
@@ -99,14 +110,15 @@ func parseResponseToError(res *http.Response, body []byte) error {
 
 		var errResp errorResponse
 		if err := json.Unmarshal(body, &errResp); err == nil {
-			return &Error{
+			e := &Error{
 				Message:          errResp.Error.Message,
 				Class:            errorClass,
 				Type:             ErrorType(errResp.Error.Type),
 				Params:           errResp.Error.Params,
 				TransactionError: errResp.Error.TransactionError,
-				Response:         parseResponseMetadata(res),
 			}
+			e.setResponse(parseResponseMetadata(res))
+			return e
 		}
 	}
 
@@ -146,10 +158,11 @@ func parseResponseToError(res *http.Response, body []byte) error {
 		errType = ErrorTypeTimeout
 	}
 
-	return &Error{
-		Message:  errMessage,
-		Class:    errorClass,
-		Type:     errType,
-		Response: parseResponseMetadata(res),
+	e := &Error{
+		Message: errMessage,
+		Class:   errorClass,
+		Type:    errType,
 	}
+	e.setResponse(parseResponseMetadata(res))
+	return e
 }

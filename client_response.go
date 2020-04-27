@@ -3,9 +3,19 @@ package recurly
 import (
 	"fmt"
 	"net/http"
+	"net/url"
 	"strconv"
 	"time"
 )
+
+type RequestMetadata struct {
+	// ID is the request id assigned by Recurly to this request. Save this for support and debugging purposes.
+	ID string
+	// URL is the URL created for the request
+	URL *url.URL
+	// Method is the HTTP method used for the request. Ex (GET, POST, etc)
+	Method string
+}
 
 // ResponseMetadata is the response from Recurly's API
 type ResponseMetadata struct {
@@ -17,29 +27,32 @@ type ResponseMetadata struct {
 	RateLimit RateLimit
 	// StatusCode contains the response's HTTP status code
 	StatusCode int
-	// RequestID uniquely identifies the Recurly API request for debugging
-	RequestID string
 	// Version indicates the response version
 	Version string
+	// Request is the metadata describing the request for this response
+	Request RequestMetadata
 }
 
-func parseResponseMetadata(res *http.Response) ResponseMetadata {
+func parseResponseMetadata(res *http.Response) *ResponseMetadata {
 	deprecated := res.Header.Get("Recurly-Deprecated") == "TRUE"
-
-	return ResponseMetadata{
+	return &ResponseMetadata{
 		Deprecated:      deprecated,
 		DeprecationDate: res.Header.Get("Recurly-Sunset-Date"),
 		RateLimit:       parseRateLimit(res),
 		StatusCode:      res.StatusCode,
-		RequestID:       res.Header.Get("X-Request-Id"),
 		Version:         res.Header.Get("Recurly-Version"),
+		Request: RequestMetadata{
+			ID:     res.Header.Get("X-Request-Id"),
+			Method: res.Request.Method,
+			URL:    res.Request.URL,
+		},
 	}
 }
 
-func (meta ResponseMetadata) String() string {
+func (meta *ResponseMetadata) String() string {
 	line := fmt.Sprintf("status code: %d, request ID: %s, version: %s, limit: %s",
 		meta.StatusCode,
-		meta.RequestID,
+		meta.Request.ID,
 		meta.Version,
 		meta.RateLimit,
 	)
