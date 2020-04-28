@@ -114,38 +114,35 @@ for accounts.HasMore {
 
 ### Error Handling
 
-Errors are configured in [error.go](error.go), including a comprehensive list of error types. Common scenarios in which errors occur may involve "not found" and "validation" errors, which are shown in the examples below.
+Errors are configured in [error.go](error.go). Common scenarios in which errors occur may involve "not found" or "validation" errors, which are included among the examples below. A complete list of error types can be found in [error.go](error.go). You can use the list to customize your case statements.
 
 ```go
 account, err := client.CreateAccount(accountReq)
 if e, ok := err.(*recurly.Error); ok {
-  if e.Type == recurly.ErrorTypeValidation {
-    // Here we have a validation error
+  switch e.Type {
+  case recurly.ErrorTypeValidation:
     fmt.Printf("Failed validation: %v", e)
     return nil, err
-  }
-  // If an error occurs that is not a validation error,
-  // we can alert the user to a generic error from the API
-  fmt.Printf("Unexpected Recurly error: %v", e)
-  return nil, err
-}
-fmt.Printf("Created Account: %s", account.Id)
-```
-
-```go
-account, err := client.GetAccount(accountID)
-if e, ok := err.(*recurly.Error); ok {
-  if e.Type == recurly.ErrorTypeNotFound {
-    // Here we have a not-found error
+  case recurly.ErrorTypeNotFound:
     fmt.Printf("Resource not found: %v", e)
     return nil, err
-  }
-  fmt.Printf("Unexpected Recurly error: %v", e)
-  // If an error occurs that is not a not-found error,
+  case recurly.ErrorTypeTransaction:
+    fmt.Printf("Transaction Error: %v", e)
+    return nil, err
+  case recurly.ErrorTypeTimeout:
+    fmt.Printf("Timeout: %v", e)
+    return nil, err
+  case recurly.ErrorTypeBadRequest:
+    fmt.Printf("Bad Request: %v", e)
+    return nil, err
+  // If an error occurs that is not covered by a case statement,
   // we can alert the user to a generic error from the API
-  return nil, err
+  default:
+    fmt.Printf("Unexpected Recurly error: %v", e)
+    return nil, err
+  }
 }
-fmt.Printf("Fetched Account: %s", account.Id)
+fmt.Printf("Created Account: %s", account.Id)
 ```
 
 When calling a method triggers an error, a pointer to the Error struct will be output detailing the error type, complete with an error message. The `e` variable will print out the error message. For example, if `GetAccount("invalid_id")` is called, where `invalid_id` is an invalid account ID, the resulting output is as follows:
