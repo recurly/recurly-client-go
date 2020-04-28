@@ -163,3 +163,13 @@ func (c *Client) CreateResource(body *ResourceCreate) (*RecurlyResource, error) 
 	}
 	return result, err
 }
+
+func (c *Client) DeleteResource(resourceId string) (*Empty, error) {
+	path := c.InterpolatePath("/resources")
+	result := &Empty{}
+	err := c.Call(http.MethodDelete, path, nil, result)
+	if err != nil {
+		return nil, err
+	}
+	return result, err
+}

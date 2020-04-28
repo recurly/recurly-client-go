@@ -250,9 +250,11 @@ func (c *Client) Do(req *http.Request, v interface{}) error {
 	}
 
 	if successfulStatus(res.StatusCode) {
-		if err = json.Unmarshal(body, v); err != nil {
-			c.Log.Errorf("Failed to deserialize JSON:\n%s", body)
-			return err
+		if len(body) > 0 {
+			if err = json.Unmarshal(body, v); err != nil {
+				c.Log.Errorf("Failed to deserialize JSON:\n%s", body)
+				return err
+			}
 		}
 		return nil
 	}
@@ -261,5 +263,5 @@ func (c *Client) Do(req *http.Request, v interface{}) error {
 }
 
 func successfulStatus(statusCode int) bool {
-	return statusCode == http.StatusOK || statusCode == http.StatusCreated
+	return statusCode == http.StatusOK || statusCode == http.StatusCreated || statusCode == http.StatusNoContent
 }

@@ -33,6 +33,17 @@ func StringSlice(v []string) []*string {
 }
 
 type Empty struct {
+	recurlyResponse *ResponseMetadata
+}
+
+// GetResponse returns the ResponseMetadata that generated this resource
+func (resource *Empty) GetResponse() *ResponseMetadata {
+	return resource.recurlyResponse
+}
+
+// setResponse sets the ResponseMetadata that generated this resource
+func (resource *Empty) setResponse(res *ResponseMetadata) {
+	resource.recurlyResponse = res
 }
 
 type ListMetadata struct {

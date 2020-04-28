@@ -110,14 +110,9 @@ func TestClientInjectsResponseMetadataIntoResource(test *testing.T) {
 	t := &T{test}
 
 	scenario := &Scenario{
-		T: t,
-		AssertRequest: func(req *http.Request) {
-			t.Assert(req.Method, http.MethodGet, "HTTP Method")
-			t.Assert(req.URL.String(), "https://v3.recurly.com/resources/abcd1234", "Request URL")
-			// assert headers and other request properties
-		},
+		T:             t,
+		AssertRequest: func(req *http.Request) {},
 		MakeResponse: func(req *http.Request) *http.Response {
-			// default headers set, we may want to customize though
 			return mockResponse(req, 200, `{"id": "abcd1234"}`)
 		},
 	}
@@ -133,4 +128,19 @@ func TestClientInjectsResponseMetadataIntoResource(test *testing.T) {
 	t.Assert(resp.RateLimit.Limit, 2000, "resp.RateLimit.Limit")
 	t.Assert(resp.RateLimit.Remaining, 1999, "resp.RateLimit.Remaining")
 	t.Assert(resp.Version, "recurly."+APIVersion, "resp.Version")
+
+	// check that the we inject the metadata into the Empty resource as well
+	scenario = &Scenario{
+		T:             t,
+		AssertRequest: func(req *http.Request) {},
+		MakeResponse: func(req *http.Request) *http.Response {
+			return mockResponse(req, 204, ``)
+		},
+	}
+	client = scenario.MockHTTPClient()
+
+	empty, err := client.DeleteResource("abcd1234")
+
+	resp = empty.GetResponse()
+	t.Assert(resp.Request.ID, "msy-1234", "resp.Request.ID")
 }
