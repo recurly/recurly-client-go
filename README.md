@@ -7,6 +7,7 @@ Documentation for the HTTP API and example code can be found [on our Developer H
 ## Getting Started
 
 ### Installing
+
 TODO
 
 ### Creating a client
@@ -152,6 +153,65 @@ When calling a method triggers an error, a pointer to the Error struct will be o
 Body:
 {"error":{"type":"not_found","message":"Couldn't find Account with id = invalid_id","params":[{"param":"account_id"}]}}
 Resource not found: Couldn't find Account with id = invalid_id
+```
+
+### HTTP Metadata
+
+Sometimes you might want additional information about the underlying HTTP request and response. Instead of returning this information directly and forcing the programmer to handle it, we inject this metadata into the top level resource that was returned. You can access the response by calling `GetResponse()` on anything that implements the `Resource` interface. This includes the resource objects that are returned from operations, as well as Recurly errors.
+
+> *Warning*: Be careful logging or rendering ResponseMetadata objects as they may contain PII or sensitive data.
+
+#### On a Resource
+
+```go
+account, err := client.GetAccount(accountID)
+if err != nil {
+  return nil, err
+}
+
+// GetResponse() returns a *ResponseMetadata object
+resp := account.GetResponse()
+fmt.Println(resp.Request.ID)          // "58ac04b9d9218319-ATL"
+fmt.Println(resp.StatusCode)          // 201
+fmt.Println(resp.Request.Method)      // "POST"
+fmt.Println(resp.Request.URL)         // "https://v3.recurly.com/accounts"
+fmt.Println(resp.RateLimit.Limit)     // 2000
+fmt.Println(resp.RateLimit.Remaining) // 1999
+```
+
+#### On an Error
+
+It can be helpful to inspect the metadata on errors for logging purposes. Having the Request-Id on hand
+will help our support staff diagnose potential problems quickly.
+
+```go
+account, err := client.CreateAccount(accountReq)
+if e, ok := err.(*recurly.Error); ok {
+  resp := e.GetResponse()
+  fmt.Println("Unexpected Error. Request Id: {}", resp.Request.ID)
+  return nil, err
+}
+```
+
+#### On any Resource
+
+Both resources and errors implement the `Resource` interface. This allows you to extract
+metadata from either in a generic way:
+
+```go
+func LogRateLimit(resource *recurly.Resource) {
+  fmt.Println("Requests Remaining: {}", resource.GetResponse().RateLimit.Remaining)
+}
+```
+
+```go
+account, err := client.CreateAccount(accountReq)
+if e, ok := err.(*recurly.Error); ok {
+  LogRateLimit(e)
+  return nil, err
+}
+
+LogRateLimit(account)
 ```
 
 ## Contributing

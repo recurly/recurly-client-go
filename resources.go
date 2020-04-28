@@ -6,6 +6,7 @@ import (
 )
 
 type Site struct {
+	recurlyResponse *ResponseMetadata
 
 	// Site ID
 	Id string `json:"id,omitempty"`
@@ -36,6 +37,16 @@ type Site struct {
 
 	// Deleted at
 	DeletedAt time.Time `json:"deleted_at,omitempty"`
+}
+
+// GetResponse returns the ResponseMetadata that generated this resource
+func (resource *Site) GetResponse() *ResponseMetadata {
+	return resource.recurlyResponse
+}
+
+// setResponse sets the ResponseMetadata that generated this resource
+func (resource *Site) setResponse(res *ResponseMetadata) {
+	resource.recurlyResponse = res
 }
 
 // internal struct for deserializing accounts
@@ -77,6 +88,7 @@ func (list SiteList) NextPage() (*SiteList, error) {
 }
 
 type Address struct {
+	recurlyResponse *ResponseMetadata
 
 	// First name
 	FirstName string `json:"first_name,omitempty"`
@@ -104,6 +116,16 @@ type Address struct {
 
 	// Country, 2-letter ISO code.
 	Country string `json:"country,omitempty"`
+}
+
+// GetResponse returns the ResponseMetadata that generated this resource
+func (resource *Address) GetResponse() *ResponseMetadata {
+	return resource.recurlyResponse
+}
+
+// setResponse sets the ResponseMetadata that generated this resource
+func (resource *Address) setResponse(res *ResponseMetadata) {
+	resource.recurlyResponse = res
 }
 
 // internal struct for deserializing accounts
@@ -145,6 +167,7 @@ func (list AddressList) NextPage() (*AddressList, error) {
 }
 
 type Settings struct {
+	recurlyResponse *ResponseMetadata
 
 	// - full:      Full Address (Street, City, State, Postal Code and Country)
 	// - streetzip: Street and Postal Code only
@@ -156,6 +179,16 @@ type Settings struct {
 
 	// The default 3-letter ISO 4217 currency code.
 	DefaultCurrency string `json:"default_currency,omitempty"`
+}
+
+// GetResponse returns the ResponseMetadata that generated this resource
+func (resource *Settings) GetResponse() *ResponseMetadata {
+	return resource.recurlyResponse
+}
+
+// setResponse sets the ResponseMetadata that generated this resource
+func (resource *Settings) setResponse(res *ResponseMetadata) {
+	resource.recurlyResponse = res
 }
 
 // internal struct for deserializing accounts
@@ -197,6 +230,8 @@ func (list SettingsList) NextPage() (*SettingsList, error) {
 }
 
 type Account struct {
+	recurlyResponse *ResponseMetadata
+
 	Id string `json:"id,omitempty"`
 
 	// Object type
@@ -282,6 +317,16 @@ type Account struct {
 	CustomFields []CustomField `json:"custom_fields,omitempty"`
 }
 
+// GetResponse returns the ResponseMetadata that generated this resource
+func (resource *Account) GetResponse() *ResponseMetadata {
+	return resource.recurlyResponse
+}
+
+// setResponse sets the ResponseMetadata that generated this resource
+func (resource *Account) setResponse(res *ResponseMetadata) {
+	resource.recurlyResponse = res
+}
+
 // internal struct for deserializing accounts
 type accountList struct {
 	ListMetadata
@@ -321,6 +366,7 @@ func (list AccountList) NextPage() (*AccountList, error) {
 }
 
 type ShippingAddress struct {
+	recurlyResponse *ResponseMetadata
 
 	// Shipping Address ID
 	Id string `json:"id,omitempty"`
@@ -367,6 +413,16 @@ type ShippingAddress struct {
 	UpdatedAt time.Time `json:"updated_at,omitempty"`
 }
 
+// GetResponse returns the ResponseMetadata that generated this resource
+func (resource *ShippingAddress) GetResponse() *ResponseMetadata {
+	return resource.recurlyResponse
+}
+
+// setResponse sets the ResponseMetadata that generated this resource
+func (resource *ShippingAddress) setResponse(res *ResponseMetadata) {
+	resource.recurlyResponse = res
+}
+
 // internal struct for deserializing accounts
 type shippingAddressList struct {
 	ListMetadata
@@ -406,6 +462,8 @@ func (list ShippingAddressList) NextPage() (*ShippingAddressList, error) {
 }
 
 type BillingInfo struct {
+	recurlyResponse *ResponseMetadata
+
 	Id string `json:"id,omitempty"`
 
 	// Object type
@@ -438,6 +496,16 @@ type BillingInfo struct {
 	UpdatedAt time.Time `json:"updated_at,omitempty"`
 
 	UpdatedBy BillingInfoUpdatedBy `json:"updated_by,omitempty"`
+}
+
+// GetResponse returns the ResponseMetadata that generated this resource
+func (resource *BillingInfo) GetResponse() *ResponseMetadata {
+	return resource.recurlyResponse
+}
+
+// setResponse sets the ResponseMetadata that generated this resource
+func (resource *BillingInfo) setResponse(res *ResponseMetadata) {
+	resource.recurlyResponse = res
 }
 
 // internal struct for deserializing accounts
@@ -479,6 +547,8 @@ func (list BillingInfoList) NextPage() (*BillingInfoList, error) {
 }
 
 type PaymentMethod struct {
+	recurlyResponse *ResponseMetadata
+
 	Object string `json:"object,omitempty"`
 
 	// Visa, MasterCard, American Express, Discover, JCB, etc.
@@ -516,6 +586,16 @@ type PaymentMethod struct {
 
 	// The bank name of this routing number.
 	RoutingNumberBank string `json:"routing_number_bank,omitempty"`
+}
+
+// GetResponse returns the ResponseMetadata that generated this resource
+func (resource *PaymentMethod) GetResponse() *ResponseMetadata {
+	return resource.recurlyResponse
+}
+
+// setResponse sets the ResponseMetadata that generated this resource
+func (resource *PaymentMethod) setResponse(res *ResponseMetadata) {
+	resource.recurlyResponse = res
 }
 
 // internal struct for deserializing accounts
@@ -557,6 +637,7 @@ func (list PaymentMethodList) NextPage() (*PaymentMethodList, error) {
 }
 
 type FraudInfo struct {
+	recurlyResponse *ResponseMetadata
 
 	// Kount score
 	Score int `json:"score,omitempty"`
@@ -566,6 +647,16 @@ type FraudInfo struct {
 
 	// Kount rules
 	RiskRulesTriggered map[string]interface{} `json:"risk_rules_triggered,omitempty"`
+}
+
+// GetResponse returns the ResponseMetadata that generated this resource
+func (resource *FraudInfo) GetResponse() *ResponseMetadata {
+	return resource.recurlyResponse
+}
+
+// setResponse sets the ResponseMetadata that generated this resource
+func (resource *FraudInfo) setResponse(res *ResponseMetadata) {
+	resource.recurlyResponse = res
 }
 
 // internal struct for deserializing accounts
@@ -607,12 +698,23 @@ func (list FraudInfoList) NextPage() (*FraudInfoList, error) {
 }
 
 type BillingInfoUpdatedBy struct {
+	recurlyResponse *ResponseMetadata
 
 	// Customer's IP address when updating their billing information.
 	Ip string `json:"ip,omitempty"`
 
 	// Country of IP address, if known by Recurly.
 	Country string `json:"country,omitempty"`
+}
+
+// GetResponse returns the ResponseMetadata that generated this resource
+func (resource *BillingInfoUpdatedBy) GetResponse() *ResponseMetadata {
+	return resource.recurlyResponse
+}
+
+// setResponse sets the ResponseMetadata that generated this resource
+func (resource *BillingInfoUpdatedBy) setResponse(res *ResponseMetadata) {
+	resource.recurlyResponse = res
 }
 
 // internal struct for deserializing accounts
@@ -654,12 +756,23 @@ func (list BillingInfoUpdatedByList) NextPage() (*BillingInfoUpdatedByList, erro
 }
 
 type CustomField struct {
+	recurlyResponse *ResponseMetadata
 
 	// Fields must be created in the UI before values can be assigned to them.
 	Name string `json:"name,omitempty"`
 
 	// Any values that resemble a credit card number or security code (CVV/CVC) will be rejected.
 	Value string `json:"value,omitempty"`
+}
+
+// GetResponse returns the ResponseMetadata that generated this resource
+func (resource *CustomField) GetResponse() *ResponseMetadata {
+	return resource.recurlyResponse
+}
+
+// setResponse sets the ResponseMetadata that generated this resource
+func (resource *CustomField) setResponse(res *ResponseMetadata) {
+	resource.recurlyResponse = res
 }
 
 // internal struct for deserializing accounts
@@ -701,6 +814,7 @@ func (list CustomFieldList) NextPage() (*CustomFieldList, error) {
 }
 
 type ErrorMayHaveTransaction struct {
+	recurlyResponse *ResponseMetadata
 
 	// Type
 	Type string `json:"type,omitempty"`
@@ -713,6 +827,16 @@ type ErrorMayHaveTransaction struct {
 
 	// This is only included on errors with `type=transaction`.
 	TransactionError TransactionError `json:"transaction_error,omitempty"`
+}
+
+// GetResponse returns the ResponseMetadata that generated this resource
+func (resource *ErrorMayHaveTransaction) GetResponse() *ResponseMetadata {
+	return resource.recurlyResponse
+}
+
+// setResponse sets the ResponseMetadata that generated this resource
+func (resource *ErrorMayHaveTransaction) setResponse(res *ResponseMetadata) {
+	resource.recurlyResponse = res
 }
 
 // internal struct for deserializing accounts
@@ -754,6 +878,7 @@ func (list ErrorMayHaveTransactionList) NextPage() (*ErrorMayHaveTransactionList
 }
 
 type AccountAcquisition struct {
+	recurlyResponse *ResponseMetadata
 
 	// Account balance
 	Cost AccountAcquisitionCost `json:"cost,omitempty"`
@@ -780,6 +905,16 @@ type AccountAcquisition struct {
 
 	// When the account acquisition data was last changed.
 	UpdatedAt time.Time `json:"updated_at,omitempty"`
+}
+
+// GetResponse returns the ResponseMetadata that generated this resource
+func (resource *AccountAcquisition) GetResponse() *ResponseMetadata {
+	return resource.recurlyResponse
+}
+
+// setResponse sets the ResponseMetadata that generated this resource
+func (resource *AccountAcquisition) setResponse(res *ResponseMetadata) {
+	resource.recurlyResponse = res
 }
 
 // internal struct for deserializing accounts
@@ -821,12 +956,23 @@ func (list AccountAcquisitionList) NextPage() (*AccountAcquisitionList, error) {
 }
 
 type AccountAcquisitionCost struct {
+	recurlyResponse *ResponseMetadata
 
 	// 3-letter ISO 4217 currency code.
 	Currency string `json:"currency,omitempty"`
 
 	// The amount of the corresponding currency used to acquire the account.
 	Amount float64 `json:"amount,omitempty"`
+}
+
+// GetResponse returns the ResponseMetadata that generated this resource
+func (resource *AccountAcquisitionCost) GetResponse() *ResponseMetadata {
+	return resource.recurlyResponse
+}
+
+// setResponse sets the ResponseMetadata that generated this resource
+func (resource *AccountAcquisitionCost) setResponse(res *ResponseMetadata) {
+	resource.recurlyResponse = res
 }
 
 // internal struct for deserializing accounts
@@ -868,6 +1014,8 @@ func (list AccountAcquisitionCostList) NextPage() (*AccountAcquisitionCostList, 
 }
 
 type AccountMini struct {
+	recurlyResponse *ResponseMetadata
+
 	Id string `json:"id,omitempty"`
 
 	// Object type
@@ -888,6 +1036,16 @@ type AccountMini struct {
 	ParentAccountId string `json:"parent_account_id,omitempty"`
 
 	BillTo string `json:"bill_to,omitempty"`
+}
+
+// GetResponse returns the ResponseMetadata that generated this resource
+func (resource *AccountMini) GetResponse() *ResponseMetadata {
+	return resource.recurlyResponse
+}
+
+// setResponse sets the ResponseMetadata that generated this resource
+func (resource *AccountMini) setResponse(res *ResponseMetadata) {
+	resource.recurlyResponse = res
 }
 
 // internal struct for deserializing accounts
@@ -929,6 +1087,7 @@ func (list AccountMiniList) NextPage() (*AccountMiniList, error) {
 }
 
 type AccountBalance struct {
+	recurlyResponse *ResponseMetadata
 
 	// Object type
 	Object string `json:"object,omitempty"`
@@ -939,6 +1098,16 @@ type AccountBalance struct {
 	PastDue bool `json:"past_due,omitempty"`
 
 	Balances []AccountBalanceAmount `json:"balances,omitempty"`
+}
+
+// GetResponse returns the ResponseMetadata that generated this resource
+func (resource *AccountBalance) GetResponse() *ResponseMetadata {
+	return resource.recurlyResponse
+}
+
+// setResponse sets the ResponseMetadata that generated this resource
+func (resource *AccountBalance) setResponse(res *ResponseMetadata) {
+	resource.recurlyResponse = res
 }
 
 // internal struct for deserializing accounts
@@ -980,12 +1149,23 @@ func (list AccountBalanceList) NextPage() (*AccountBalanceList, error) {
 }
 
 type AccountBalanceAmount struct {
+	recurlyResponse *ResponseMetadata
 
 	// 3-letter ISO 4217 currency code.
 	Currency string `json:"currency,omitempty"`
 
 	// Total amount the account is past due.
 	Amount float64 `json:"amount,omitempty"`
+}
+
+// GetResponse returns the ResponseMetadata that generated this resource
+func (resource *AccountBalanceAmount) GetResponse() *ResponseMetadata {
+	return resource.recurlyResponse
+}
+
+// setResponse sets the ResponseMetadata that generated this resource
+func (resource *AccountBalanceAmount) setResponse(res *ResponseMetadata) {
+	resource.recurlyResponse = res
 }
 
 // internal struct for deserializing accounts
@@ -1027,6 +1207,7 @@ func (list AccountBalanceAmountList) NextPage() (*AccountBalanceAmountList, erro
 }
 
 type CouponRedemption struct {
+	recurlyResponse *ResponseMetadata
 
 	// Coupon Redemption ID
 	Id string `json:"id,omitempty"`
@@ -1056,6 +1237,16 @@ type CouponRedemption struct {
 
 	// The date and time the redemption was removed from the account (un-redeemed).
 	RemovedAt time.Time `json:"removed_at,omitempty"`
+}
+
+// GetResponse returns the ResponseMetadata that generated this resource
+func (resource *CouponRedemption) GetResponse() *ResponseMetadata {
+	return resource.recurlyResponse
+}
+
+// setResponse sets the ResponseMetadata that generated this resource
+func (resource *CouponRedemption) setResponse(res *ResponseMetadata) {
+	resource.recurlyResponse = res
 }
 
 // internal struct for deserializing accounts
@@ -1097,6 +1288,7 @@ func (list CouponRedemptionList) NextPage() (*CouponRedemptionList, error) {
 }
 
 type Coupon struct {
+	recurlyResponse *ResponseMetadata
 
 	// Coupon ID
 	Id string `json:"id,omitempty"`
@@ -1185,6 +1377,16 @@ type Coupon struct {
 	ExpiredAt time.Time `json:"expired_at,omitempty"`
 }
 
+// GetResponse returns the ResponseMetadata that generated this resource
+func (resource *Coupon) GetResponse() *ResponseMetadata {
+	return resource.recurlyResponse
+}
+
+// setResponse sets the ResponseMetadata that generated this resource
+func (resource *Coupon) setResponse(res *ResponseMetadata) {
+	resource.recurlyResponse = res
+}
+
 // internal struct for deserializing accounts
 type couponList struct {
 	ListMetadata
@@ -1224,6 +1426,7 @@ func (list CouponList) NextPage() (*CouponList, error) {
 }
 
 type PlanMini struct {
+	recurlyResponse *ResponseMetadata
 
 	// Plan ID
 	Id string `json:"id,omitempty"`
@@ -1236,6 +1439,16 @@ type PlanMini struct {
 
 	// This name describes your plan and will appear on the Hosted Payment Page and the subscriber's invoice.
 	Name string `json:"name,omitempty"`
+}
+
+// GetResponse returns the ResponseMetadata that generated this resource
+func (resource *PlanMini) GetResponse() *ResponseMetadata {
+	return resource.recurlyResponse
+}
+
+// setResponse sets the ResponseMetadata that generated this resource
+func (resource *PlanMini) setResponse(res *ResponseMetadata) {
+	resource.recurlyResponse = res
 }
 
 // internal struct for deserializing accounts
@@ -1277,6 +1490,8 @@ func (list PlanMiniList) NextPage() (*PlanMiniList, error) {
 }
 
 type CouponDiscount struct {
+	recurlyResponse *ResponseMetadata
+
 	Type string `json:"type,omitempty"`
 
 	// This is only present when `type=percent`.
@@ -1287,6 +1502,16 @@ type CouponDiscount struct {
 
 	// This is only present when `type=free_trial`.
 	Trial CouponDiscountTrial `json:"trial,omitempty"`
+}
+
+// GetResponse returns the ResponseMetadata that generated this resource
+func (resource *CouponDiscount) GetResponse() *ResponseMetadata {
+	return resource.recurlyResponse
+}
+
+// setResponse sets the ResponseMetadata that generated this resource
+func (resource *CouponDiscount) setResponse(res *ResponseMetadata) {
+	resource.recurlyResponse = res
 }
 
 // internal struct for deserializing accounts
@@ -1328,12 +1553,23 @@ func (list CouponDiscountList) NextPage() (*CouponDiscountList, error) {
 }
 
 type CouponDiscountPricing struct {
+	recurlyResponse *ResponseMetadata
 
 	// 3-letter ISO 4217 currency code.
 	Currency string `json:"currency,omitempty"`
 
 	// Value of the fixed discount that this coupon applies.
 	Amount float64 `json:"amount,omitempty"`
+}
+
+// GetResponse returns the ResponseMetadata that generated this resource
+func (resource *CouponDiscountPricing) GetResponse() *ResponseMetadata {
+	return resource.recurlyResponse
+}
+
+// setResponse sets the ResponseMetadata that generated this resource
+func (resource *CouponDiscountPricing) setResponse(res *ResponseMetadata) {
+	resource.recurlyResponse = res
 }
 
 // internal struct for deserializing accounts
@@ -1375,12 +1611,23 @@ func (list CouponDiscountPricingList) NextPage() (*CouponDiscountPricingList, er
 }
 
 type CouponDiscountTrial struct {
+	recurlyResponse *ResponseMetadata
 
 	// Temporal unit of the free trial
 	Unit string `json:"unit,omitempty"`
 
 	// Trial length measured in the units specified by the sibling `unit` property
 	Length int `json:"length,omitempty"`
+}
+
+// GetResponse returns the ResponseMetadata that generated this resource
+func (resource *CouponDiscountTrial) GetResponse() *ResponseMetadata {
+	return resource.recurlyResponse
+}
+
+// setResponse sets the ResponseMetadata that generated this resource
+func (resource *CouponDiscountTrial) setResponse(res *ResponseMetadata) {
+	resource.recurlyResponse = res
 }
 
 // internal struct for deserializing accounts
@@ -1422,6 +1669,7 @@ func (list CouponDiscountTrialList) NextPage() (*CouponDiscountTrialList, error)
 }
 
 type CreditPayment struct {
+	recurlyResponse *ResponseMetadata
 
 	// Credit Payment ID
 	Id string `json:"id,omitempty"`
@@ -1465,6 +1713,16 @@ type CreditPayment struct {
 	VoidedAt time.Time `json:"voided_at,omitempty"`
 }
 
+// GetResponse returns the ResponseMetadata that generated this resource
+func (resource *CreditPayment) GetResponse() *ResponseMetadata {
+	return resource.recurlyResponse
+}
+
+// setResponse sets the ResponseMetadata that generated this resource
+func (resource *CreditPayment) setResponse(res *ResponseMetadata) {
+	resource.recurlyResponse = res
+}
+
 // internal struct for deserializing accounts
 type creditPaymentList struct {
 	ListMetadata
@@ -1504,6 +1762,7 @@ func (list CreditPaymentList) NextPage() (*CreditPaymentList, error) {
 }
 
 type InvoiceMini struct {
+	recurlyResponse *ResponseMetadata
 
 	// Invoice ID
 	Id string `json:"id,omitempty"`
@@ -1519,6 +1778,16 @@ type InvoiceMini struct {
 
 	// Invoice state
 	State string `json:"state,omitempty"`
+}
+
+// GetResponse returns the ResponseMetadata that generated this resource
+func (resource *InvoiceMini) GetResponse() *ResponseMetadata {
+	return resource.recurlyResponse
+}
+
+// setResponse sets the ResponseMetadata that generated this resource
+func (resource *InvoiceMini) setResponse(res *ResponseMetadata) {
+	resource.recurlyResponse = res
 }
 
 // internal struct for deserializing accounts
@@ -1560,6 +1829,7 @@ func (list InvoiceMiniList) NextPage() (*InvoiceMiniList, error) {
 }
 
 type Transaction struct {
+	recurlyResponse *ResponseMetadata
 
 	// Transaction ID
 	Id string `json:"id,omitempty"`
@@ -1674,6 +1944,16 @@ type Transaction struct {
 	CollectedAt time.Time `json:"collected_at,omitempty"`
 }
 
+// GetResponse returns the ResponseMetadata that generated this resource
+func (resource *Transaction) GetResponse() *ResponseMetadata {
+	return resource.recurlyResponse
+}
+
+// setResponse sets the ResponseMetadata that generated this resource
+func (resource *Transaction) setResponse(res *ResponseMetadata) {
+	resource.recurlyResponse = res
+}
+
 // internal struct for deserializing accounts
 type transactionList struct {
 	ListMetadata
@@ -1713,6 +1993,8 @@ func (list TransactionList) NextPage() (*TransactionList, error) {
 }
 
 type TransactionPaymentGateway struct {
+	recurlyResponse *ResponseMetadata
+
 	Id string `json:"id,omitempty"`
 
 	// Object type
@@ -1721,6 +2003,16 @@ type TransactionPaymentGateway struct {
 	Type string `json:"type,omitempty"`
 
 	Name string `json:"name,omitempty"`
+}
+
+// GetResponse returns the ResponseMetadata that generated this resource
+func (resource *TransactionPaymentGateway) GetResponse() *ResponseMetadata {
+	return resource.recurlyResponse
+}
+
+// setResponse sets the ResponseMetadata that generated this resource
+func (resource *TransactionPaymentGateway) setResponse(res *ResponseMetadata) {
+	resource.recurlyResponse = res
 }
 
 // internal struct for deserializing accounts
@@ -1762,6 +2054,7 @@ func (list TransactionPaymentGatewayList) NextPage() (*TransactionPaymentGateway
 }
 
 type Invoice struct {
+	recurlyResponse *ResponseMetadata
 
 	// Invoice ID
 	Id string `json:"id,omitempty"`
@@ -1863,6 +2156,16 @@ type Invoice struct {
 	ClosedAt time.Time `json:"closed_at,omitempty"`
 }
 
+// GetResponse returns the ResponseMetadata that generated this resource
+func (resource *Invoice) GetResponse() *ResponseMetadata {
+	return resource.recurlyResponse
+}
+
+// setResponse sets the ResponseMetadata that generated this resource
+func (resource *Invoice) setResponse(res *ResponseMetadata) {
+	resource.recurlyResponse = res
+}
+
 // internal struct for deserializing accounts
 type invoiceList struct {
 	ListMetadata
@@ -1902,6 +2205,7 @@ func (list InvoiceList) NextPage() (*InvoiceList, error) {
 }
 
 type InvoiceAddress struct {
+	recurlyResponse *ResponseMetadata
 
 	// Name on account
 	NameOnAccount string `json:"name_on_account,omitempty"`
@@ -1935,6 +2239,16 @@ type InvoiceAddress struct {
 
 	// Country, 2-letter ISO code.
 	Country string `json:"country,omitempty"`
+}
+
+// GetResponse returns the ResponseMetadata that generated this resource
+func (resource *InvoiceAddress) GetResponse() *ResponseMetadata {
+	return resource.recurlyResponse
+}
+
+// setResponse sets the ResponseMetadata that generated this resource
+func (resource *InvoiceAddress) setResponse(res *ResponseMetadata) {
+	resource.recurlyResponse = res
 }
 
 // internal struct for deserializing accounts
@@ -1976,6 +2290,7 @@ func (list InvoiceAddressList) NextPage() (*InvoiceAddressList, error) {
 }
 
 type TaxInfo struct {
+	recurlyResponse *ResponseMetadata
 
 	// Provides the tax type as "vat" for EU VAT, "usst" for U.S. Sales Tax, or the 2 letter country code for country level tax types like Canada, Australia, New Zealand, Israel, and all non-EU European countries.
 	Type string `json:"type,omitempty"`
@@ -1985,6 +2300,16 @@ type TaxInfo struct {
 
 	// Rate
 	Rate float64 `json:"rate,omitempty"`
+}
+
+// GetResponse returns the ResponseMetadata that generated this resource
+func (resource *TaxInfo) GetResponse() *ResponseMetadata {
+	return resource.recurlyResponse
+}
+
+// setResponse sets the ResponseMetadata that generated this resource
+func (resource *TaxInfo) setResponse(res *ResponseMetadata) {
+	resource.recurlyResponse = res
 }
 
 // internal struct for deserializing accounts
@@ -2026,6 +2351,7 @@ func (list TaxInfoList) NextPage() (*TaxInfoList, error) {
 }
 
 type LineItem struct {
+	recurlyResponse *ResponseMetadata
 
 	// Line item ID
 	Id string `json:"id,omitempty"`
@@ -2166,6 +2492,16 @@ type LineItem struct {
 	UpdatedAt time.Time `json:"updated_at,omitempty"`
 }
 
+// GetResponse returns the ResponseMetadata that generated this resource
+func (resource *LineItem) GetResponse() *ResponseMetadata {
+	return resource.recurlyResponse
+}
+
+// setResponse sets the ResponseMetadata that generated this resource
+func (resource *LineItem) setResponse(res *ResponseMetadata) {
+	resource.recurlyResponse = res
+}
+
 // internal struct for deserializing accounts
 type lineItemList struct {
 	ListMetadata
@@ -2205,6 +2541,7 @@ func (list LineItemList) NextPage() (*LineItemList, error) {
 }
 
 type InvoiceCollection struct {
+	recurlyResponse *ResponseMetadata
 
 	// Object type
 	Object string `json:"object,omitempty"`
@@ -2213,6 +2550,16 @@ type InvoiceCollection struct {
 
 	// Credit invoices
 	CreditInvoices []Invoice `json:"credit_invoices,omitempty"`
+}
+
+// GetResponse returns the ResponseMetadata that generated this resource
+func (resource *InvoiceCollection) GetResponse() *ResponseMetadata {
+	return resource.recurlyResponse
+}
+
+// setResponse sets the ResponseMetadata that generated this resource
+func (resource *InvoiceCollection) setResponse(res *ResponseMetadata) {
+	resource.recurlyResponse = res
 }
 
 // internal struct for deserializing accounts
@@ -2254,6 +2601,8 @@ func (list InvoiceCollectionList) NextPage() (*InvoiceCollectionList, error) {
 }
 
 type AccountNote struct {
+	recurlyResponse *ResponseMetadata
+
 	Id string `json:"id,omitempty"`
 
 	// Object type
@@ -2266,6 +2615,16 @@ type AccountNote struct {
 	Message string `json:"message,omitempty"`
 
 	CreatedAt time.Time `json:"created_at,omitempty"`
+}
+
+// GetResponse returns the ResponseMetadata that generated this resource
+func (resource *AccountNote) GetResponse() *ResponseMetadata {
+	return resource.recurlyResponse
+}
+
+// setResponse sets the ResponseMetadata that generated this resource
+func (resource *AccountNote) setResponse(res *ResponseMetadata) {
+	resource.recurlyResponse = res
 }
 
 // internal struct for deserializing accounts
@@ -2307,6 +2666,8 @@ func (list AccountNoteList) NextPage() (*AccountNoteList, error) {
 }
 
 type User struct {
+	recurlyResponse *ResponseMetadata
+
 	Id string `json:"id,omitempty"`
 
 	// Object type
@@ -2323,6 +2684,16 @@ type User struct {
 	CreatedAt time.Time `json:"created_at,omitempty"`
 
 	DeletedAt time.Time `json:"deleted_at,omitempty"`
+}
+
+// GetResponse returns the ResponseMetadata that generated this resource
+func (resource *User) GetResponse() *ResponseMetadata {
+	return resource.recurlyResponse
+}
+
+// setResponse sets the ResponseMetadata that generated this resource
+func (resource *User) setResponse(res *ResponseMetadata) {
+	resource.recurlyResponse = res
 }
 
 // internal struct for deserializing accounts
@@ -2364,6 +2735,7 @@ func (list UserList) NextPage() (*UserList, error) {
 }
 
 type Subscription struct {
+	recurlyResponse *ResponseMetadata
 
 	// Subscription ID
 	Id string `json:"id,omitempty"`
@@ -2489,6 +2861,16 @@ type Subscription struct {
 	BankAccountAuthorizedAt time.Time `json:"bank_account_authorized_at,omitempty"`
 }
 
+// GetResponse returns the ResponseMetadata that generated this resource
+func (resource *Subscription) GetResponse() *ResponseMetadata {
+	return resource.recurlyResponse
+}
+
+// setResponse sets the ResponseMetadata that generated this resource
+func (resource *Subscription) setResponse(res *ResponseMetadata) {
+	resource.recurlyResponse = res
+}
+
 // internal struct for deserializing accounts
 type subscriptionList struct {
 	ListMetadata
@@ -2528,6 +2910,7 @@ func (list SubscriptionList) NextPage() (*SubscriptionList, error) {
 }
 
 type SubscriptionShipping struct {
+	recurlyResponse *ResponseMetadata
 
 	// Object type
 	Object string `json:"object,omitempty"`
@@ -2538,6 +2921,16 @@ type SubscriptionShipping struct {
 
 	// Subscription's shipping cost
 	Amount float64 `json:"amount,omitempty"`
+}
+
+// GetResponse returns the ResponseMetadata that generated this resource
+func (resource *SubscriptionShipping) GetResponse() *ResponseMetadata {
+	return resource.recurlyResponse
+}
+
+// setResponse sets the ResponseMetadata that generated this resource
+func (resource *SubscriptionShipping) setResponse(res *ResponseMetadata) {
+	resource.recurlyResponse = res
 }
 
 // internal struct for deserializing accounts
@@ -2579,6 +2972,7 @@ func (list SubscriptionShippingList) NextPage() (*SubscriptionShippingList, erro
 }
 
 type ShippingMethodMini struct {
+	recurlyResponse *ResponseMetadata
 
 	// Shipping Method ID
 	Id string `json:"id,omitempty"`
@@ -2591,6 +2985,16 @@ type ShippingMethodMini struct {
 
 	// The name of the shipping method displayed to customers.
 	Name string `json:"name,omitempty"`
+}
+
+// GetResponse returns the ResponseMetadata that generated this resource
+func (resource *ShippingMethodMini) GetResponse() *ResponseMetadata {
+	return resource.recurlyResponse
+}
+
+// setResponse sets the ResponseMetadata that generated this resource
+func (resource *ShippingMethodMini) setResponse(res *ResponseMetadata) {
+	resource.recurlyResponse = res
 }
 
 // internal struct for deserializing accounts
@@ -2632,6 +3036,7 @@ func (list ShippingMethodMiniList) NextPage() (*ShippingMethodMiniList, error) {
 }
 
 type CouponRedemptionMini struct {
+	recurlyResponse *ResponseMetadata
 
 	// Coupon Redemption ID
 	Id string `json:"id,omitempty"`
@@ -2649,6 +3054,16 @@ type CouponRedemptionMini struct {
 
 	// Created at
 	CreatedAt time.Time `json:"created_at,omitempty"`
+}
+
+// GetResponse returns the ResponseMetadata that generated this resource
+func (resource *CouponRedemptionMini) GetResponse() *ResponseMetadata {
+	return resource.recurlyResponse
+}
+
+// setResponse sets the ResponseMetadata that generated this resource
+func (resource *CouponRedemptionMini) setResponse(res *ResponseMetadata) {
+	resource.recurlyResponse = res
 }
 
 // internal struct for deserializing accounts
@@ -2690,6 +3105,7 @@ func (list CouponRedemptionMiniList) NextPage() (*CouponRedemptionMiniList, erro
 }
 
 type CouponMini struct {
+	recurlyResponse *ResponseMetadata
 
 	// Coupon ID
 	Id string `json:"id,omitempty"`
@@ -2715,6 +3131,16 @@ type CouponMini struct {
 
 	// The date and time the coupon was expired early or reached its `max_redemptions`.
 	ExpiredAt time.Time `json:"expired_at,omitempty"`
+}
+
+// GetResponse returns the ResponseMetadata that generated this resource
+func (resource *CouponMini) GetResponse() *ResponseMetadata {
+	return resource.recurlyResponse
+}
+
+// setResponse sets the ResponseMetadata that generated this resource
+func (resource *CouponMini) setResponse(res *ResponseMetadata) {
+	resource.recurlyResponse = res
 }
 
 // internal struct for deserializing accounts
@@ -2756,6 +3182,7 @@ func (list CouponMiniList) NextPage() (*CouponMiniList, error) {
 }
 
 type SubscriptionChange struct {
+	recurlyResponse *ResponseMetadata
 
 	// The ID of the Subscription Change.
 	Id string `json:"id,omitempty"`
@@ -2803,6 +3230,16 @@ type SubscriptionChange struct {
 	DeletedAt time.Time `json:"deleted_at,omitempty"`
 }
 
+// GetResponse returns the ResponseMetadata that generated this resource
+func (resource *SubscriptionChange) GetResponse() *ResponseMetadata {
+	return resource.recurlyResponse
+}
+
+// setResponse sets the ResponseMetadata that generated this resource
+func (resource *SubscriptionChange) setResponse(res *ResponseMetadata) {
+	resource.recurlyResponse = res
+}
+
 // internal struct for deserializing accounts
 type subscriptionChangeList struct {
 	ListMetadata
@@ -2842,6 +3279,7 @@ func (list SubscriptionChangeList) NextPage() (*SubscriptionChangeList, error) {
 }
 
 type SubscriptionAddOn struct {
+	recurlyResponse *ResponseMetadata
 
 	// Subscription Add-on ID
 	Id string `json:"id,omitempty"`
@@ -2869,6 +3307,16 @@ type SubscriptionAddOn struct {
 
 	// Expired at
 	ExpiredAt time.Time `json:"expired_at,omitempty"`
+}
+
+// GetResponse returns the ResponseMetadata that generated this resource
+func (resource *SubscriptionAddOn) GetResponse() *ResponseMetadata {
+	return resource.recurlyResponse
+}
+
+// setResponse sets the ResponseMetadata that generated this resource
+func (resource *SubscriptionAddOn) setResponse(res *ResponseMetadata) {
+	resource.recurlyResponse = res
 }
 
 // internal struct for deserializing accounts
@@ -2910,6 +3358,7 @@ func (list SubscriptionAddOnList) NextPage() (*SubscriptionAddOnList, error) {
 }
 
 type AddOnMini struct {
+	recurlyResponse *ResponseMetadata
 
 	// Add-on ID
 	Id string `json:"id,omitempty"`
@@ -2931,6 +3380,16 @@ type AddOnMini struct {
 
 	// Accounting code for invoice line items for this add-on. If no value is provided, it defaults to add-on's code.
 	AccountingCode string `json:"accounting_code,omitempty"`
+}
+
+// GetResponse returns the ResponseMetadata that generated this resource
+func (resource *AddOnMini) GetResponse() *ResponseMetadata {
+	return resource.recurlyResponse
+}
+
+// setResponse sets the ResponseMetadata that generated this resource
+func (resource *AddOnMini) setResponse(res *ResponseMetadata) {
+	resource.recurlyResponse = res
 }
 
 // internal struct for deserializing accounts
@@ -2972,6 +3431,7 @@ func (list AddOnMiniList) NextPage() (*AddOnMiniList, error) {
 }
 
 type UniqueCouponCode struct {
+	recurlyResponse *ResponseMetadata
 
 	// Unique Coupon Code ID
 	Id string `json:"id,omitempty"`
@@ -2996,6 +3456,16 @@ type UniqueCouponCode struct {
 
 	// The date and time the coupon was expired early or reached its `max_redemptions`.
 	ExpiredAt time.Time `json:"expired_at,omitempty"`
+}
+
+// GetResponse returns the ResponseMetadata that generated this resource
+func (resource *UniqueCouponCode) GetResponse() *ResponseMetadata {
+	return resource.recurlyResponse
+}
+
+// setResponse sets the ResponseMetadata that generated this resource
+func (resource *UniqueCouponCode) setResponse(res *ResponseMetadata) {
+	resource.recurlyResponse = res
 }
 
 // internal struct for deserializing accounts
@@ -3037,6 +3507,7 @@ func (list UniqueCouponCodeList) NextPage() (*UniqueCouponCodeList, error) {
 }
 
 type CustomFieldDefinition struct {
+	recurlyResponse *ResponseMetadata
 
 	// Custom field definition ID
 	Id string `json:"id,omitempty"`
@@ -3071,6 +3542,16 @@ type CustomFieldDefinition struct {
 
 	// Definitions are initially soft deleted, and once all the values are removed from the accouts or subscriptions, will be hard deleted an no longer visible.
 	DeletedAt time.Time `json:"deleted_at,omitempty"`
+}
+
+// GetResponse returns the ResponseMetadata that generated this resource
+func (resource *CustomFieldDefinition) GetResponse() *ResponseMetadata {
+	return resource.recurlyResponse
+}
+
+// setResponse sets the ResponseMetadata that generated this resource
+func (resource *CustomFieldDefinition) setResponse(res *ResponseMetadata) {
+	resource.recurlyResponse = res
 }
 
 // internal struct for deserializing accounts
@@ -3112,6 +3593,7 @@ func (list CustomFieldDefinitionList) NextPage() (*CustomFieldDefinitionList, er
 }
 
 type Item struct {
+	recurlyResponse *ResponseMetadata
 
 	// Item ID
 	Id string `json:"id,omitempty"`
@@ -3162,6 +3644,16 @@ type Item struct {
 	DeletedAt time.Time `json:"deleted_at,omitempty"`
 }
 
+// GetResponse returns the ResponseMetadata that generated this resource
+func (resource *Item) GetResponse() *ResponseMetadata {
+	return resource.recurlyResponse
+}
+
+// setResponse sets the ResponseMetadata that generated this resource
+func (resource *Item) setResponse(res *ResponseMetadata) {
+	resource.recurlyResponse = res
+}
+
 // internal struct for deserializing accounts
 type itemList struct {
 	ListMetadata
@@ -3201,12 +3693,23 @@ func (list ItemList) NextPage() (*ItemList, error) {
 }
 
 type Pricing struct {
+	recurlyResponse *ResponseMetadata
 
 	// 3-letter ISO 4217 currency code.
 	Currency string `json:"currency,omitempty"`
 
 	// Unit price
 	UnitAmount float64 `json:"unit_amount,omitempty"`
+}
+
+// GetResponse returns the ResponseMetadata that generated this resource
+func (resource *Pricing) GetResponse() *ResponseMetadata {
+	return resource.recurlyResponse
+}
+
+// setResponse sets the ResponseMetadata that generated this resource
+func (resource *Pricing) setResponse(res *ResponseMetadata) {
+	resource.recurlyResponse = res
 }
 
 // internal struct for deserializing accounts
@@ -3248,7 +3751,19 @@ func (list PricingList) NextPage() (*PricingList, error) {
 }
 
 type BinaryFile struct {
+	recurlyResponse *ResponseMetadata
+
 	Data string `json:"data,omitempty"`
+}
+
+// GetResponse returns the ResponseMetadata that generated this resource
+func (resource *BinaryFile) GetResponse() *ResponseMetadata {
+	return resource.recurlyResponse
+}
+
+// setResponse sets the ResponseMetadata that generated this resource
+func (resource *BinaryFile) setResponse(res *ResponseMetadata) {
+	resource.recurlyResponse = res
 }
 
 // internal struct for deserializing accounts
@@ -3290,6 +3805,7 @@ func (list BinaryFileList) NextPage() (*BinaryFileList, error) {
 }
 
 type Plan struct {
+	recurlyResponse *ResponseMetadata
 
 	// Plan ID
 	Id string `json:"id,omitempty"`
@@ -3361,6 +3877,16 @@ type Plan struct {
 	DeletedAt time.Time `json:"deleted_at,omitempty"`
 }
 
+// GetResponse returns the ResponseMetadata that generated this resource
+func (resource *Plan) GetResponse() *ResponseMetadata {
+	return resource.recurlyResponse
+}
+
+// setResponse sets the ResponseMetadata that generated this resource
+func (resource *Plan) setResponse(res *ResponseMetadata) {
+	resource.recurlyResponse = res
+}
+
 // internal struct for deserializing accounts
 type planList struct {
 	ListMetadata
@@ -3400,6 +3926,7 @@ func (list PlanList) NextPage() (*PlanList, error) {
 }
 
 type PlanPricing struct {
+	recurlyResponse *ResponseMetadata
 
 	// 3-letter ISO 4217 currency code.
 	Currency string `json:"currency,omitempty"`
@@ -3409,6 +3936,16 @@ type PlanPricing struct {
 
 	// Unit price
 	UnitAmount float64 `json:"unit_amount,omitempty"`
+}
+
+// GetResponse returns the ResponseMetadata that generated this resource
+func (resource *PlanPricing) GetResponse() *ResponseMetadata {
+	return resource.recurlyResponse
+}
+
+// setResponse sets the ResponseMetadata that generated this resource
+func (resource *PlanPricing) setResponse(res *ResponseMetadata) {
+	resource.recurlyResponse = res
 }
 
 // internal struct for deserializing accounts
@@ -3450,6 +3987,7 @@ func (list PlanPricingList) NextPage() (*PlanPricingList, error) {
 }
 
 type PlanHostedPages struct {
+	recurlyResponse *ResponseMetadata
 
 	// URL to redirect to after signup on the hosted payment pages.
 	SuccessUrl string `json:"success_url,omitempty"`
@@ -3462,6 +4000,16 @@ type PlanHostedPages struct {
 
 	// Determines if the quantity field is displayed on the hosted pages for the plan.
 	DisplayQuantity bool `json:"display_quantity,omitempty"`
+}
+
+// GetResponse returns the ResponseMetadata that generated this resource
+func (resource *PlanHostedPages) GetResponse() *ResponseMetadata {
+	return resource.recurlyResponse
+}
+
+// setResponse sets the ResponseMetadata that generated this resource
+func (resource *PlanHostedPages) setResponse(res *ResponseMetadata) {
+	resource.recurlyResponse = res
 }
 
 // internal struct for deserializing accounts
@@ -3503,6 +4051,7 @@ func (list PlanHostedPagesList) NextPage() (*PlanHostedPagesList, error) {
 }
 
 type AddOn struct {
+	recurlyResponse *ResponseMetadata
 
 	// Add-on ID
 	Id string `json:"id,omitempty"`
@@ -3559,6 +4108,16 @@ type AddOn struct {
 	DeletedAt time.Time `json:"deleted_at,omitempty"`
 }
 
+// GetResponse returns the ResponseMetadata that generated this resource
+func (resource *AddOn) GetResponse() *ResponseMetadata {
+	return resource.recurlyResponse
+}
+
+// setResponse sets the ResponseMetadata that generated this resource
+func (resource *AddOn) setResponse(res *ResponseMetadata) {
+	resource.recurlyResponse = res
+}
+
 // internal struct for deserializing accounts
 type addOnList struct {
 	ListMetadata
@@ -3598,12 +4157,23 @@ func (list AddOnList) NextPage() (*AddOnList, error) {
 }
 
 type AddOnPricing struct {
+	recurlyResponse *ResponseMetadata
 
 	// 3-letter ISO 4217 currency code.
 	Currency string `json:"currency,omitempty"`
 
 	// Unit price
 	UnitAmount float64 `json:"unit_amount,omitempty"`
+}
+
+// GetResponse returns the ResponseMetadata that generated this resource
+func (resource *AddOnPricing) GetResponse() *ResponseMetadata {
+	return resource.recurlyResponse
+}
+
+// setResponse sets the ResponseMetadata that generated this resource
+func (resource *AddOnPricing) setResponse(res *ResponseMetadata) {
+	resource.recurlyResponse = res
 }
 
 // internal struct for deserializing accounts
@@ -3645,6 +4215,7 @@ func (list AddOnPricingList) NextPage() (*AddOnPricingList, error) {
 }
 
 type ItemMini struct {
+	recurlyResponse *ResponseMetadata
 
 	// Item ID
 	Id string `json:"id,omitempty"`
@@ -3663,6 +4234,16 @@ type ItemMini struct {
 
 	// Optional, description.
 	Description string `json:"description,omitempty"`
+}
+
+// GetResponse returns the ResponseMetadata that generated this resource
+func (resource *ItemMini) GetResponse() *ResponseMetadata {
+	return resource.recurlyResponse
+}
+
+// setResponse sets the ResponseMetadata that generated this resource
+func (resource *ItemMini) setResponse(res *ResponseMetadata) {
+	resource.recurlyResponse = res
 }
 
 // internal struct for deserializing accounts
@@ -3704,6 +4285,7 @@ func (list ItemMiniList) NextPage() (*ItemMiniList, error) {
 }
 
 type ShippingMethod struct {
+	recurlyResponse *ResponseMetadata
 
 	// Shipping Method ID
 	Id string `json:"id,omitempty"`
@@ -3737,6 +4319,16 @@ type ShippingMethod struct {
 
 	// Deleted at
 	DeletedAt time.Time `json:"deleted_at,omitempty"`
+}
+
+// GetResponse returns the ResponseMetadata that generated this resource
+func (resource *ShippingMethod) GetResponse() *ResponseMetadata {
+	return resource.recurlyResponse
+}
+
+// setResponse sets the ResponseMetadata that generated this resource
+func (resource *ShippingMethod) setResponse(res *ResponseMetadata) {
+	resource.recurlyResponse = res
 }
 
 // internal struct for deserializing accounts

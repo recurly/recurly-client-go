@@ -8,12 +8,23 @@ import (
 
 // Error contains basic information about the error
 type Error struct {
+	recurlyResponse *ResponseMetadata
+
 	Message          string
 	Class            ErrorClass
 	Type             ErrorType
 	Params           []ErrorParam
 	TransactionError *TransactionError
-	Response         ResponseMetadata
+}
+
+// GetResponse returns the ResponseMetadata that generated this error
+func (resource *Error) GetResponse() *ResponseMetadata {
+	return resource.recurlyResponse
+}
+
+// setResponse sets the response metadata
+func (resource *Error) setResponse(res *ResponseMetadata) {
+	resource.recurlyResponse = res
 }
 
 func (e *Error) Error() string {
@@ -105,7 +116,7 @@ func parseResponseToError(res *http.Response, body []byte) error {
 				Type:             ErrorType(errResp.Error.Type),
 				Params:           errResp.Error.Params,
 				TransactionError: errResp.Error.TransactionError,
-				Response:         parseResponseMetadata(res),
+				recurlyResponse:  parseResponseMetadata(res),
 			}
 		}
 	}
@@ -147,9 +158,9 @@ func parseResponseToError(res *http.Response, body []byte) error {
 	}
 
 	return &Error{
-		Message:  errMessage,
-		Class:    errorClass,
-		Type:     errType,
-		Response: parseResponseMetadata(res),
+		Message:         errMessage,
+		Class:           errorClass,
+		Type:            errType,
+		recurlyResponse: parseResponseMetadata(res),
 	}
 }

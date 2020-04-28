@@ -13,8 +13,14 @@ func bodyToBytes(io io.ReadCloser) []byte {
 	return buf.Bytes()
 }
 
+func mockResponseWithBody(statusCode int, body string) *http.Response {
+	req := &http.Request{Method: "GET"}
+	resp := mockResponse(req, statusCode, body)
+	return resp
+}
 func mockResponseWithoutBody(statusCode int) *http.Response {
-	resp := mockResponse(statusCode, "")
+	req := &http.Request{Method: "GET"}
+	resp := mockResponse(req, statusCode, "")
 	resp.Header.Del("Content-Type")
 	return resp
 }
@@ -26,7 +32,7 @@ func parseError(resp *http.Response) error {
 func Test401UnauthorizedError(test *testing.T) {
 	t := &T{test}
 
-	resp := mockResponse(401, `
+	resp := mockResponseWithBody(401, `
 		{
 			 "error": {
 				"type": "unauthorized",
@@ -52,8 +58,7 @@ func Test401UnauthorizedError(test *testing.T) {
 
 func Test403ForbiddenError(test *testing.T) {
 	t := &T{test}
-
-	resp := mockResponse(403, `
+	resp := mockResponseWithBody(403, `
 		{
 			 "error": {
 				"type": "forbidden",
@@ -80,7 +85,7 @@ func Test403ForbiddenError(test *testing.T) {
 func Test404NotFoundError(test *testing.T) {
 	t := &T{test}
 
-	resp := mockResponse(404, `
+	resp := mockResponseWithBody(404, `
 		{
 			 "error": {
 				"type": "not_found",
@@ -106,7 +111,7 @@ func Test404NotFoundError(test *testing.T) {
 func Test422ValidationError(test *testing.T) {
 	t := &T{test}
 
-	resp := mockResponse(422, `
+	resp := mockResponseWithBody(422, `
 		{
 			 "error": {
 				"type": "validation",
@@ -137,7 +142,7 @@ func Test422ValidationError(test *testing.T) {
 func Test429RateLimitedError(test *testing.T) {
 	t := &T{test}
 
-	resp := mockResponse(429, `
+	resp := mockResponseWithBody(429, `
 		{
 			 "error": {
 				"type": "rate_limited",
@@ -164,7 +169,7 @@ func Test429RateLimitedError(test *testing.T) {
 func Test500InternalServerError(test *testing.T) {
 	t := &T{test}
 
-	resp := mockResponse(500, `
+	resp := mockResponseWithBody(500, `
 		{
 			 "error": {
 				"type": "internal_server_error",
@@ -191,7 +196,7 @@ func Test500InternalServerError(test *testing.T) {
 func Test502BadGatewatError(test *testing.T) {
 	t := &T{test}
 
-	resp := mockResponse(502, `
+	resp := mockResponseWithBody(502, `
 		{
 			 "error": {
 				"type": "bad_gateway",
@@ -218,7 +223,7 @@ func Test502BadGatewatError(test *testing.T) {
 func Test503ServiceUnavailableError(test *testing.T) {
 	t := &T{test}
 
-	resp := mockResponse(503, `
+	resp := mockResponseWithBody(503, `
 		{
 			 "error": {
 				"type": "service_unavailable",
@@ -245,7 +250,7 @@ func Test503ServiceUnavailableError(test *testing.T) {
 func Test504GatewayTimeoutError(test *testing.T) {
 	t := &T{test}
 
-	resp := mockResponse(504, `
+	resp := mockResponseWithBody(504, `
 		{
 			 "error": {
 				"type": "timeout",
