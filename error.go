@@ -110,15 +110,14 @@ func parseResponseToError(res *http.Response, body []byte) error {
 
 		var errResp errorResponse
 		if err := json.Unmarshal(body, &errResp); err == nil {
-			e := &Error{
+			return &Error{
 				Message:          errResp.Error.Message,
 				Class:            errorClass,
 				Type:             ErrorType(errResp.Error.Type),
 				Params:           errResp.Error.Params,
 				TransactionError: errResp.Error.TransactionError,
+				recurlyResponse:  parseResponseMetadata(res),
 			}
-			e.setResponse(parseResponseMetadata(res))
-			return e
 		}
 	}
 
@@ -158,11 +157,10 @@ func parseResponseToError(res *http.Response, body []byte) error {
 		errType = ErrorTypeTimeout
 	}
 
-	e := &Error{
-		Message: errMessage,
-		Class:   errorClass,
-		Type:    errType,
+	return &Error{
+		Message:         errMessage,
+		Class:           errorClass,
+		Type:            errType,
+		recurlyResponse: parseResponseMetadata(res),
 	}
-	e.setResponse(parseResponseMetadata(res))
-	return e
 }
