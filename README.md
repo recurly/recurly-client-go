@@ -129,11 +129,11 @@ if e, ok := err.(*recurly.Error); ok {
   case recurly.ErrorTypeTransaction:
     fmt.Printf("Transaction Error: %v", e)
     return nil, err
+  case recurly.ErrorTypeInvalidToken:
+    fmt.Printf("Invalid Token: %v", e)
+    return nil, err
   case recurly.ErrorTypeTimeout:
     fmt.Printf("Timeout: %v", e)
-    return nil, err
-  case recurly.ErrorTypeBadRequest:
-    fmt.Printf("Bad Request: %v", e)
     return nil, err
   // If an error occurs that is not covered by a case statement,
   // we can alert the user to a generic error from the API
