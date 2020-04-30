@@ -1,3 +1,3 @@
-module recurly.com/recurly-client-go
+module github.com/recurly/recurly-client-go
 
 go 1.12
