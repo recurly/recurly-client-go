@@ -52,7 +52,18 @@ func (resource *Site) setResponse(res *ResponseMetadata) {
 // internal struct for deserializing accounts
 type siteList struct {
 	ListMetadata
-	Data []Site `json:"data"`
+	Data            []Site `json:"data"`
+	recurlyResponse *ResponseMetadata
+}
+
+// GetResponse returns the ResponseMetadata that generated this resource
+func (resource *siteList) GetResponse() *ResponseMetadata {
+	return resource.recurlyResponse
+}
+
+// setResponse sets the ResponseMetadata that generated this resource
+func (resource *siteList) setResponse(res *ResponseMetadata) {
+	resource.recurlyResponse = res
 }
 
 // SiteList allows you to paginate Site objects
@@ -131,7 +142,18 @@ func (resource *Address) setResponse(res *ResponseMetadata) {
 // internal struct for deserializing accounts
 type addressList struct {
 	ListMetadata
-	Data []Address `json:"data"`
+	Data            []Address `json:"data"`
+	recurlyResponse *ResponseMetadata
+}
+
+// GetResponse returns the ResponseMetadata that generated this resource
+func (resource *addressList) GetResponse() *ResponseMetadata {
+	return resource.recurlyResponse
+}
+
+// setResponse sets the ResponseMetadata that generated this resource
+func (resource *addressList) setResponse(res *ResponseMetadata) {
+	resource.recurlyResponse = res
 }
 
 // AddressList allows you to paginate Address objects
@@ -194,7 +216,18 @@ func (resource *Settings) setResponse(res *ResponseMetadata) {
 // internal struct for deserializing accounts
 type settingsList struct {
 	ListMetadata
-	Data []Settings `json:"data"`
+	Data            []Settings `json:"data"`
+	recurlyResponse *ResponseMetadata
+}
+
+// GetResponse returns the ResponseMetadata that generated this resource
+func (resource *settingsList) GetResponse() *ResponseMetadata {
+	return resource.recurlyResponse
+}
+
+// setResponse sets the ResponseMetadata that generated this resource
+func (resource *settingsList) setResponse(res *ResponseMetadata) {
+	resource.recurlyResponse = res
 }
 
 // SettingsList allows you to paginate Settings objects
@@ -330,7 +363,18 @@ func (resource *Account) setResponse(res *ResponseMetadata) {
 // internal struct for deserializing accounts
 type accountList struct {
 	ListMetadata
-	Data []Account `json:"data"`
+	Data            []Account `json:"data"`
+	recurlyResponse *ResponseMetadata
+}
+
+// GetResponse returns the ResponseMetadata that generated this resource
+func (resource *accountList) GetResponse() *ResponseMetadata {
+	return resource.recurlyResponse
+}
+
+// setResponse sets the ResponseMetadata that generated this resource
+func (resource *accountList) setResponse(res *ResponseMetadata) {
+	resource.recurlyResponse = res
 }
 
 // AccountList allows you to paginate Account objects
@@ -426,7 +470,18 @@ func (resource *ShippingAddress) setResponse(res *ResponseMetadata) {
 // internal struct for deserializing accounts
 type shippingAddressList struct {
 	ListMetadata
-	Data []ShippingAddress `json:"data"`
+	Data            []ShippingAddress `json:"data"`
+	recurlyResponse *ResponseMetadata
+}
+
+// GetResponse returns the ResponseMetadata that generated this resource
+func (resource *shippingAddressList) GetResponse() *ResponseMetadata {
+	return resource.recurlyResponse
+}
+
+// setResponse sets the ResponseMetadata that generated this resource
+func (resource *shippingAddressList) setResponse(res *ResponseMetadata) {
+	resource.recurlyResponse = res
 }
 
 // ShippingAddressList allows you to paginate ShippingAddress objects
@@ -511,7 +566,18 @@ func (resource *BillingInfo) setResponse(res *ResponseMetadata) {
 // internal struct for deserializing accounts
 type billingInfoList struct {
 	ListMetadata
-	Data []BillingInfo `json:"data"`
+	Data            []BillingInfo `json:"data"`
+	recurlyResponse *ResponseMetadata
+}
+
+// GetResponse returns the ResponseMetadata that generated this resource
+func (resource *billingInfoList) GetResponse() *ResponseMetadata {
+	return resource.recurlyResponse
+}
+
+// setResponse sets the ResponseMetadata that generated this resource
+func (resource *billingInfoList) setResponse(res *ResponseMetadata) {
+	resource.recurlyResponse = res
 }
 
 // BillingInfoList allows you to paginate BillingInfo objects
@@ -601,7 +667,18 @@ func (resource *PaymentMethod) setResponse(res *ResponseMetadata) {
 // internal struct for deserializing accounts
 type paymentMethodList struct {
 	ListMetadata
-	Data []PaymentMethod `json:"data"`
+	Data            []PaymentMethod `json:"data"`
+	recurlyResponse *ResponseMetadata
+}
+
+// GetResponse returns the ResponseMetadata that generated this resource
+func (resource *paymentMethodList) GetResponse() *ResponseMetadata {
+	return resource.recurlyResponse
+}
+
+// setResponse sets the ResponseMetadata that generated this resource
+func (resource *paymentMethodList) setResponse(res *ResponseMetadata) {
+	resource.recurlyResponse = res
 }
 
 // PaymentMethodList allows you to paginate PaymentMethod objects
@@ -662,7 +739,18 @@ func (resource *FraudInfo) setResponse(res *ResponseMetadata) {
 // internal struct for deserializing accounts
 type fraudInfoList struct {
 	ListMetadata
-	Data []FraudInfo `json:"data"`
+	Data            []FraudInfo `json:"data"`
+	recurlyResponse *ResponseMetadata
+}
+
+// GetResponse returns the ResponseMetadata that generated this resource
+func (resource *fraudInfoList) GetResponse() *ResponseMetadata {
+	return resource.recurlyResponse
+}
+
+// setResponse sets the ResponseMetadata that generated this resource
+func (resource *fraudInfoList) setResponse(res *ResponseMetadata) {
+	resource.recurlyResponse = res
 }
 
 // FraudInfoList allows you to paginate FraudInfo objects
@@ -720,7 +808,18 @@ func (resource *BillingInfoUpdatedBy) setResponse(res *ResponseMetadata) {
 // internal struct for deserializing accounts
 type billingInfoUpdatedByList struct {
 	ListMetadata
-	Data []BillingInfoUpdatedBy `json:"data"`
+	Data            []BillingInfoUpdatedBy `json:"data"`
+	recurlyResponse *ResponseMetadata
+}
+
+// GetResponse returns the ResponseMetadata that generated this resource
+func (resource *billingInfoUpdatedByList) GetResponse() *ResponseMetadata {
+	return resource.recurlyResponse
+}
+
+// setResponse sets the ResponseMetadata that generated this resource
+func (resource *billingInfoUpdatedByList) setResponse(res *ResponseMetadata) {
+	resource.recurlyResponse = res
 }
 
 // BillingInfoUpdatedByList allows you to paginate BillingInfoUpdatedBy objects
@@ -778,7 +877,18 @@ func (resource *CustomField) setResponse(res *ResponseMetadata) {
 // internal struct for deserializing accounts
 type customFieldList struct {
 	ListMetadata
-	Data []CustomField `json:"data"`
+	Data            []CustomField `json:"data"`
+	recurlyResponse *ResponseMetadata
+}
+
+// GetResponse returns the ResponseMetadata that generated this resource
+func (resource *customFieldList) GetResponse() *ResponseMetadata {
+	return resource.recurlyResponse
+}
+
+// setResponse sets the ResponseMetadata that generated this resource
+func (resource *customFieldList) setResponse(res *ResponseMetadata) {
+	resource.recurlyResponse = res
 }
 
 // CustomFieldList allows you to paginate CustomField objects
@@ -842,7 +952,18 @@ func (resource *ErrorMayHaveTransaction) setResponse(res *ResponseMetadata) {
 // internal struct for deserializing accounts
 type errorMayHaveTransactionList struct {
 	ListMetadata
-	Data []ErrorMayHaveTransaction `json:"data"`
+	Data            []ErrorMayHaveTransaction `json:"data"`
+	recurlyResponse *ResponseMetadata
+}
+
+// GetResponse returns the ResponseMetadata that generated this resource
+func (resource *errorMayHaveTransactionList) GetResponse() *ResponseMetadata {
+	return resource.recurlyResponse
+}
+
+// setResponse sets the ResponseMetadata that generated this resource
+func (resource *errorMayHaveTransactionList) setResponse(res *ResponseMetadata) {
+	resource.recurlyResponse = res
 }
 
 // ErrorMayHaveTransactionList allows you to paginate ErrorMayHaveTransaction objects
@@ -920,7 +1041,18 @@ func (resource *AccountAcquisition) setResponse(res *ResponseMetadata) {
 // internal struct for deserializing accounts
 type accountAcquisitionList struct {
 	ListMetadata
-	Data []AccountAcquisition `json:"data"`
+	Data            []AccountAcquisition `json:"data"`
+	recurlyResponse *ResponseMetadata
+}
+
+// GetResponse returns the ResponseMetadata that generated this resource
+func (resource *accountAcquisitionList) GetResponse() *ResponseMetadata {
+	return resource.recurlyResponse
+}
+
+// setResponse sets the ResponseMetadata that generated this resource
+func (resource *accountAcquisitionList) setResponse(res *ResponseMetadata) {
+	resource.recurlyResponse = res
 }
 
 // AccountAcquisitionList allows you to paginate AccountAcquisition objects
@@ -978,7 +1110,18 @@ func (resource *AccountAcquisitionCost) setResponse(res *ResponseMetadata) {
 // internal struct for deserializing accounts
 type accountAcquisitionCostList struct {
 	ListMetadata
-	Data []AccountAcquisitionCost `json:"data"`
+	Data            []AccountAcquisitionCost `json:"data"`
+	recurlyResponse *ResponseMetadata
+}
+
+// GetResponse returns the ResponseMetadata that generated this resource
+func (resource *accountAcquisitionCostList) GetResponse() *ResponseMetadata {
+	return resource.recurlyResponse
+}
+
+// setResponse sets the ResponseMetadata that generated this resource
+func (resource *accountAcquisitionCostList) setResponse(res *ResponseMetadata) {
+	resource.recurlyResponse = res
 }
 
 // AccountAcquisitionCostList allows you to paginate AccountAcquisitionCost objects
@@ -1051,7 +1194,18 @@ func (resource *AccountMini) setResponse(res *ResponseMetadata) {
 // internal struct for deserializing accounts
 type accountMiniList struct {
 	ListMetadata
-	Data []AccountMini `json:"data"`
+	Data            []AccountMini `json:"data"`
+	recurlyResponse *ResponseMetadata
+}
+
+// GetResponse returns the ResponseMetadata that generated this resource
+func (resource *accountMiniList) GetResponse() *ResponseMetadata {
+	return resource.recurlyResponse
+}
+
+// setResponse sets the ResponseMetadata that generated this resource
+func (resource *accountMiniList) setResponse(res *ResponseMetadata) {
+	resource.recurlyResponse = res
 }
 
 // AccountMiniList allows you to paginate AccountMini objects
@@ -1113,7 +1267,18 @@ func (resource *AccountBalance) setResponse(res *ResponseMetadata) {
 // internal struct for deserializing accounts
 type accountBalanceList struct {
 	ListMetadata
-	Data []AccountBalance `json:"data"`
+	Data            []AccountBalance `json:"data"`
+	recurlyResponse *ResponseMetadata
+}
+
+// GetResponse returns the ResponseMetadata that generated this resource
+func (resource *accountBalanceList) GetResponse() *ResponseMetadata {
+	return resource.recurlyResponse
+}
+
+// setResponse sets the ResponseMetadata that generated this resource
+func (resource *accountBalanceList) setResponse(res *ResponseMetadata) {
+	resource.recurlyResponse = res
 }
 
 // AccountBalanceList allows you to paginate AccountBalance objects
@@ -1171,7 +1336,18 @@ func (resource *AccountBalanceAmount) setResponse(res *ResponseMetadata) {
 // internal struct for deserializing accounts
 type accountBalanceAmountList struct {
 	ListMetadata
-	Data []AccountBalanceAmount `json:"data"`
+	Data            []AccountBalanceAmount `json:"data"`
+	recurlyResponse *ResponseMetadata
+}
+
+// GetResponse returns the ResponseMetadata that generated this resource
+func (resource *accountBalanceAmountList) GetResponse() *ResponseMetadata {
+	return resource.recurlyResponse
+}
+
+// setResponse sets the ResponseMetadata that generated this resource
+func (resource *accountBalanceAmountList) setResponse(res *ResponseMetadata) {
+	resource.recurlyResponse = res
 }
 
 // AccountBalanceAmountList allows you to paginate AccountBalanceAmount objects
@@ -1252,7 +1428,18 @@ func (resource *CouponRedemption) setResponse(res *ResponseMetadata) {
 // internal struct for deserializing accounts
 type couponRedemptionList struct {
 	ListMetadata
-	Data []CouponRedemption `json:"data"`
+	Data            []CouponRedemption `json:"data"`
+	recurlyResponse *ResponseMetadata
+}
+
+// GetResponse returns the ResponseMetadata that generated this resource
+func (resource *couponRedemptionList) GetResponse() *ResponseMetadata {
+	return resource.recurlyResponse
+}
+
+// setResponse sets the ResponseMetadata that generated this resource
+func (resource *couponRedemptionList) setResponse(res *ResponseMetadata) {
+	resource.recurlyResponse = res
 }
 
 // CouponRedemptionList allows you to paginate CouponRedemption objects
@@ -1390,7 +1577,18 @@ func (resource *Coupon) setResponse(res *ResponseMetadata) {
 // internal struct for deserializing accounts
 type couponList struct {
 	ListMetadata
-	Data []Coupon `json:"data"`
+	Data            []Coupon `json:"data"`
+	recurlyResponse *ResponseMetadata
+}
+
+// GetResponse returns the ResponseMetadata that generated this resource
+func (resource *couponList) GetResponse() *ResponseMetadata {
+	return resource.recurlyResponse
+}
+
+// setResponse sets the ResponseMetadata that generated this resource
+func (resource *couponList) setResponse(res *ResponseMetadata) {
+	resource.recurlyResponse = res
 }
 
 // CouponList allows you to paginate Coupon objects
@@ -1454,7 +1652,18 @@ func (resource *PlanMini) setResponse(res *ResponseMetadata) {
 // internal struct for deserializing accounts
 type planMiniList struct {
 	ListMetadata
-	Data []PlanMini `json:"data"`
+	Data            []PlanMini `json:"data"`
+	recurlyResponse *ResponseMetadata
+}
+
+// GetResponse returns the ResponseMetadata that generated this resource
+func (resource *planMiniList) GetResponse() *ResponseMetadata {
+	return resource.recurlyResponse
+}
+
+// setResponse sets the ResponseMetadata that generated this resource
+func (resource *planMiniList) setResponse(res *ResponseMetadata) {
+	resource.recurlyResponse = res
 }
 
 // PlanMiniList allows you to paginate PlanMini objects
@@ -1517,7 +1726,18 @@ func (resource *CouponDiscount) setResponse(res *ResponseMetadata) {
 // internal struct for deserializing accounts
 type couponDiscountList struct {
 	ListMetadata
-	Data []CouponDiscount `json:"data"`
+	Data            []CouponDiscount `json:"data"`
+	recurlyResponse *ResponseMetadata
+}
+
+// GetResponse returns the ResponseMetadata that generated this resource
+func (resource *couponDiscountList) GetResponse() *ResponseMetadata {
+	return resource.recurlyResponse
+}
+
+// setResponse sets the ResponseMetadata that generated this resource
+func (resource *couponDiscountList) setResponse(res *ResponseMetadata) {
+	resource.recurlyResponse = res
 }
 
 // CouponDiscountList allows you to paginate CouponDiscount objects
@@ -1575,7 +1795,18 @@ func (resource *CouponDiscountPricing) setResponse(res *ResponseMetadata) {
 // internal struct for deserializing accounts
 type couponDiscountPricingList struct {
 	ListMetadata
-	Data []CouponDiscountPricing `json:"data"`
+	Data            []CouponDiscountPricing `json:"data"`
+	recurlyResponse *ResponseMetadata
+}
+
+// GetResponse returns the ResponseMetadata that generated this resource
+func (resource *couponDiscountPricingList) GetResponse() *ResponseMetadata {
+	return resource.recurlyResponse
+}
+
+// setResponse sets the ResponseMetadata that generated this resource
+func (resource *couponDiscountPricingList) setResponse(res *ResponseMetadata) {
+	resource.recurlyResponse = res
 }
 
 // CouponDiscountPricingList allows you to paginate CouponDiscountPricing objects
@@ -1633,7 +1864,18 @@ func (resource *CouponDiscountTrial) setResponse(res *ResponseMetadata) {
 // internal struct for deserializing accounts
 type couponDiscountTrialList struct {
 	ListMetadata
-	Data []CouponDiscountTrial `json:"data"`
+	Data            []CouponDiscountTrial `json:"data"`
+	recurlyResponse *ResponseMetadata
+}
+
+// GetResponse returns the ResponseMetadata that generated this resource
+func (resource *couponDiscountTrialList) GetResponse() *ResponseMetadata {
+	return resource.recurlyResponse
+}
+
+// setResponse sets the ResponseMetadata that generated this resource
+func (resource *couponDiscountTrialList) setResponse(res *ResponseMetadata) {
+	resource.recurlyResponse = res
 }
 
 // CouponDiscountTrialList allows you to paginate CouponDiscountTrial objects
@@ -1726,7 +1968,18 @@ func (resource *CreditPayment) setResponse(res *ResponseMetadata) {
 // internal struct for deserializing accounts
 type creditPaymentList struct {
 	ListMetadata
-	Data []CreditPayment `json:"data"`
+	Data            []CreditPayment `json:"data"`
+	recurlyResponse *ResponseMetadata
+}
+
+// GetResponse returns the ResponseMetadata that generated this resource
+func (resource *creditPaymentList) GetResponse() *ResponseMetadata {
+	return resource.recurlyResponse
+}
+
+// setResponse sets the ResponseMetadata that generated this resource
+func (resource *creditPaymentList) setResponse(res *ResponseMetadata) {
+	resource.recurlyResponse = res
 }
 
 // CreditPaymentList allows you to paginate CreditPayment objects
@@ -1793,7 +2046,18 @@ func (resource *InvoiceMini) setResponse(res *ResponseMetadata) {
 // internal struct for deserializing accounts
 type invoiceMiniList struct {
 	ListMetadata
-	Data []InvoiceMini `json:"data"`
+	Data            []InvoiceMini `json:"data"`
+	recurlyResponse *ResponseMetadata
+}
+
+// GetResponse returns the ResponseMetadata that generated this resource
+func (resource *invoiceMiniList) GetResponse() *ResponseMetadata {
+	return resource.recurlyResponse
+}
+
+// setResponse sets the ResponseMetadata that generated this resource
+func (resource *invoiceMiniList) setResponse(res *ResponseMetadata) {
+	resource.recurlyResponse = res
 }
 
 // InvoiceMiniList allows you to paginate InvoiceMini objects
@@ -1957,7 +2221,18 @@ func (resource *Transaction) setResponse(res *ResponseMetadata) {
 // internal struct for deserializing accounts
 type transactionList struct {
 	ListMetadata
-	Data []Transaction `json:"data"`
+	Data            []Transaction `json:"data"`
+	recurlyResponse *ResponseMetadata
+}
+
+// GetResponse returns the ResponseMetadata that generated this resource
+func (resource *transactionList) GetResponse() *ResponseMetadata {
+	return resource.recurlyResponse
+}
+
+// setResponse sets the ResponseMetadata that generated this resource
+func (resource *transactionList) setResponse(res *ResponseMetadata) {
+	resource.recurlyResponse = res
 }
 
 // TransactionList allows you to paginate Transaction objects
@@ -2018,7 +2293,18 @@ func (resource *TransactionPaymentGateway) setResponse(res *ResponseMetadata) {
 // internal struct for deserializing accounts
 type transactionPaymentGatewayList struct {
 	ListMetadata
-	Data []TransactionPaymentGateway `json:"data"`
+	Data            []TransactionPaymentGateway `json:"data"`
+	recurlyResponse *ResponseMetadata
+}
+
+// GetResponse returns the ResponseMetadata that generated this resource
+func (resource *transactionPaymentGatewayList) GetResponse() *ResponseMetadata {
+	return resource.recurlyResponse
+}
+
+// setResponse sets the ResponseMetadata that generated this resource
+func (resource *transactionPaymentGatewayList) setResponse(res *ResponseMetadata) {
+	resource.recurlyResponse = res
 }
 
 // TransactionPaymentGatewayList allows you to paginate TransactionPaymentGateway objects
@@ -2169,7 +2455,18 @@ func (resource *Invoice) setResponse(res *ResponseMetadata) {
 // internal struct for deserializing accounts
 type invoiceList struct {
 	ListMetadata
-	Data []Invoice `json:"data"`
+	Data            []Invoice `json:"data"`
+	recurlyResponse *ResponseMetadata
+}
+
+// GetResponse returns the ResponseMetadata that generated this resource
+func (resource *invoiceList) GetResponse() *ResponseMetadata {
+	return resource.recurlyResponse
+}
+
+// setResponse sets the ResponseMetadata that generated this resource
+func (resource *invoiceList) setResponse(res *ResponseMetadata) {
+	resource.recurlyResponse = res
 }
 
 // InvoiceList allows you to paginate Invoice objects
@@ -2254,7 +2551,18 @@ func (resource *InvoiceAddress) setResponse(res *ResponseMetadata) {
 // internal struct for deserializing accounts
 type invoiceAddressList struct {
 	ListMetadata
-	Data []InvoiceAddress `json:"data"`
+	Data            []InvoiceAddress `json:"data"`
+	recurlyResponse *ResponseMetadata
+}
+
+// GetResponse returns the ResponseMetadata that generated this resource
+func (resource *invoiceAddressList) GetResponse() *ResponseMetadata {
+	return resource.recurlyResponse
+}
+
+// setResponse sets the ResponseMetadata that generated this resource
+func (resource *invoiceAddressList) setResponse(res *ResponseMetadata) {
+	resource.recurlyResponse = res
 }
 
 // InvoiceAddressList allows you to paginate InvoiceAddress objects
@@ -2315,7 +2623,18 @@ func (resource *TaxInfo) setResponse(res *ResponseMetadata) {
 // internal struct for deserializing accounts
 type taxInfoList struct {
 	ListMetadata
-	Data []TaxInfo `json:"data"`
+	Data            []TaxInfo `json:"data"`
+	recurlyResponse *ResponseMetadata
+}
+
+// GetResponse returns the ResponseMetadata that generated this resource
+func (resource *taxInfoList) GetResponse() *ResponseMetadata {
+	return resource.recurlyResponse
+}
+
+// setResponse sets the ResponseMetadata that generated this resource
+func (resource *taxInfoList) setResponse(res *ResponseMetadata) {
+	resource.recurlyResponse = res
 }
 
 // TaxInfoList allows you to paginate TaxInfo objects
@@ -2505,7 +2824,18 @@ func (resource *LineItem) setResponse(res *ResponseMetadata) {
 // internal struct for deserializing accounts
 type lineItemList struct {
 	ListMetadata
-	Data []LineItem `json:"data"`
+	Data            []LineItem `json:"data"`
+	recurlyResponse *ResponseMetadata
+}
+
+// GetResponse returns the ResponseMetadata that generated this resource
+func (resource *lineItemList) GetResponse() *ResponseMetadata {
+	return resource.recurlyResponse
+}
+
+// setResponse sets the ResponseMetadata that generated this resource
+func (resource *lineItemList) setResponse(res *ResponseMetadata) {
+	resource.recurlyResponse = res
 }
 
 // LineItemList allows you to paginate LineItem objects
@@ -2565,7 +2895,18 @@ func (resource *InvoiceCollection) setResponse(res *ResponseMetadata) {
 // internal struct for deserializing accounts
 type invoiceCollectionList struct {
 	ListMetadata
-	Data []InvoiceCollection `json:"data"`
+	Data            []InvoiceCollection `json:"data"`
+	recurlyResponse *ResponseMetadata
+}
+
+// GetResponse returns the ResponseMetadata that generated this resource
+func (resource *invoiceCollectionList) GetResponse() *ResponseMetadata {
+	return resource.recurlyResponse
+}
+
+// setResponse sets the ResponseMetadata that generated this resource
+func (resource *invoiceCollectionList) setResponse(res *ResponseMetadata) {
+	resource.recurlyResponse = res
 }
 
 // InvoiceCollectionList allows you to paginate InvoiceCollection objects
@@ -2630,7 +2971,18 @@ func (resource *AccountNote) setResponse(res *ResponseMetadata) {
 // internal struct for deserializing accounts
 type accountNoteList struct {
 	ListMetadata
-	Data []AccountNote `json:"data"`
+	Data            []AccountNote `json:"data"`
+	recurlyResponse *ResponseMetadata
+}
+
+// GetResponse returns the ResponseMetadata that generated this resource
+func (resource *accountNoteList) GetResponse() *ResponseMetadata {
+	return resource.recurlyResponse
+}
+
+// setResponse sets the ResponseMetadata that generated this resource
+func (resource *accountNoteList) setResponse(res *ResponseMetadata) {
+	resource.recurlyResponse = res
 }
 
 // AccountNoteList allows you to paginate AccountNote objects
@@ -2699,7 +3051,18 @@ func (resource *User) setResponse(res *ResponseMetadata) {
 // internal struct for deserializing accounts
 type userList struct {
 	ListMetadata
-	Data []User `json:"data"`
+	Data            []User `json:"data"`
+	recurlyResponse *ResponseMetadata
+}
+
+// GetResponse returns the ResponseMetadata that generated this resource
+func (resource *userList) GetResponse() *ResponseMetadata {
+	return resource.recurlyResponse
+}
+
+// setResponse sets the ResponseMetadata that generated this resource
+func (resource *userList) setResponse(res *ResponseMetadata) {
+	resource.recurlyResponse = res
 }
 
 // UserList allows you to paginate User objects
@@ -2874,7 +3237,18 @@ func (resource *Subscription) setResponse(res *ResponseMetadata) {
 // internal struct for deserializing accounts
 type subscriptionList struct {
 	ListMetadata
-	Data []Subscription `json:"data"`
+	Data            []Subscription `json:"data"`
+	recurlyResponse *ResponseMetadata
+}
+
+// GetResponse returns the ResponseMetadata that generated this resource
+func (resource *subscriptionList) GetResponse() *ResponseMetadata {
+	return resource.recurlyResponse
+}
+
+// setResponse sets the ResponseMetadata that generated this resource
+func (resource *subscriptionList) setResponse(res *ResponseMetadata) {
+	resource.recurlyResponse = res
 }
 
 // SubscriptionList allows you to paginate Subscription objects
@@ -2936,7 +3310,18 @@ func (resource *SubscriptionShipping) setResponse(res *ResponseMetadata) {
 // internal struct for deserializing accounts
 type subscriptionShippingList struct {
 	ListMetadata
-	Data []SubscriptionShipping `json:"data"`
+	Data            []SubscriptionShipping `json:"data"`
+	recurlyResponse *ResponseMetadata
+}
+
+// GetResponse returns the ResponseMetadata that generated this resource
+func (resource *subscriptionShippingList) GetResponse() *ResponseMetadata {
+	return resource.recurlyResponse
+}
+
+// setResponse sets the ResponseMetadata that generated this resource
+func (resource *subscriptionShippingList) setResponse(res *ResponseMetadata) {
+	resource.recurlyResponse = res
 }
 
 // SubscriptionShippingList allows you to paginate SubscriptionShipping objects
@@ -3000,7 +3385,18 @@ func (resource *ShippingMethodMini) setResponse(res *ResponseMetadata) {
 // internal struct for deserializing accounts
 type shippingMethodMiniList struct {
 	ListMetadata
-	Data []ShippingMethodMini `json:"data"`
+	Data            []ShippingMethodMini `json:"data"`
+	recurlyResponse *ResponseMetadata
+}
+
+// GetResponse returns the ResponseMetadata that generated this resource
+func (resource *shippingMethodMiniList) GetResponse() *ResponseMetadata {
+	return resource.recurlyResponse
+}
+
+// setResponse sets the ResponseMetadata that generated this resource
+func (resource *shippingMethodMiniList) setResponse(res *ResponseMetadata) {
+	resource.recurlyResponse = res
 }
 
 // ShippingMethodMiniList allows you to paginate ShippingMethodMini objects
@@ -3069,7 +3465,18 @@ func (resource *CouponRedemptionMini) setResponse(res *ResponseMetadata) {
 // internal struct for deserializing accounts
 type couponRedemptionMiniList struct {
 	ListMetadata
-	Data []CouponRedemptionMini `json:"data"`
+	Data            []CouponRedemptionMini `json:"data"`
+	recurlyResponse *ResponseMetadata
+}
+
+// GetResponse returns the ResponseMetadata that generated this resource
+func (resource *couponRedemptionMiniList) GetResponse() *ResponseMetadata {
+	return resource.recurlyResponse
+}
+
+// setResponse sets the ResponseMetadata that generated this resource
+func (resource *couponRedemptionMiniList) setResponse(res *ResponseMetadata) {
+	resource.recurlyResponse = res
 }
 
 // CouponRedemptionMiniList allows you to paginate CouponRedemptionMini objects
@@ -3146,7 +3553,18 @@ func (resource *CouponMini) setResponse(res *ResponseMetadata) {
 // internal struct for deserializing accounts
 type couponMiniList struct {
 	ListMetadata
-	Data []CouponMini `json:"data"`
+	Data            []CouponMini `json:"data"`
+	recurlyResponse *ResponseMetadata
+}
+
+// GetResponse returns the ResponseMetadata that generated this resource
+func (resource *couponMiniList) GetResponse() *ResponseMetadata {
+	return resource.recurlyResponse
+}
+
+// setResponse sets the ResponseMetadata that generated this resource
+func (resource *couponMiniList) setResponse(res *ResponseMetadata) {
+	resource.recurlyResponse = res
 }
 
 // CouponMiniList allows you to paginate CouponMini objects
@@ -3243,7 +3661,18 @@ func (resource *SubscriptionChange) setResponse(res *ResponseMetadata) {
 // internal struct for deserializing accounts
 type subscriptionChangeList struct {
 	ListMetadata
-	Data []SubscriptionChange `json:"data"`
+	Data            []SubscriptionChange `json:"data"`
+	recurlyResponse *ResponseMetadata
+}
+
+// GetResponse returns the ResponseMetadata that generated this resource
+func (resource *subscriptionChangeList) GetResponse() *ResponseMetadata {
+	return resource.recurlyResponse
+}
+
+// setResponse sets the ResponseMetadata that generated this resource
+func (resource *subscriptionChangeList) setResponse(res *ResponseMetadata) {
+	resource.recurlyResponse = res
 }
 
 // SubscriptionChangeList allows you to paginate SubscriptionChange objects
@@ -3322,7 +3751,18 @@ func (resource *SubscriptionAddOn) setResponse(res *ResponseMetadata) {
 // internal struct for deserializing accounts
 type subscriptionAddOnList struct {
 	ListMetadata
-	Data []SubscriptionAddOn `json:"data"`
+	Data            []SubscriptionAddOn `json:"data"`
+	recurlyResponse *ResponseMetadata
+}
+
+// GetResponse returns the ResponseMetadata that generated this resource
+func (resource *subscriptionAddOnList) GetResponse() *ResponseMetadata {
+	return resource.recurlyResponse
+}
+
+// setResponse sets the ResponseMetadata that generated this resource
+func (resource *subscriptionAddOnList) setResponse(res *ResponseMetadata) {
+	resource.recurlyResponse = res
 }
 
 // SubscriptionAddOnList allows you to paginate SubscriptionAddOn objects
@@ -3395,7 +3835,18 @@ func (resource *AddOnMini) setResponse(res *ResponseMetadata) {
 // internal struct for deserializing accounts
 type addOnMiniList struct {
 	ListMetadata
-	Data []AddOnMini `json:"data"`
+	Data            []AddOnMini `json:"data"`
+	recurlyResponse *ResponseMetadata
+}
+
+// GetResponse returns the ResponseMetadata that generated this resource
+func (resource *addOnMiniList) GetResponse() *ResponseMetadata {
+	return resource.recurlyResponse
+}
+
+// setResponse sets the ResponseMetadata that generated this resource
+func (resource *addOnMiniList) setResponse(res *ResponseMetadata) {
+	resource.recurlyResponse = res
 }
 
 // AddOnMiniList allows you to paginate AddOnMini objects
@@ -3471,7 +3922,18 @@ func (resource *UniqueCouponCode) setResponse(res *ResponseMetadata) {
 // internal struct for deserializing accounts
 type uniqueCouponCodeList struct {
 	ListMetadata
-	Data []UniqueCouponCode `json:"data"`
+	Data            []UniqueCouponCode `json:"data"`
+	recurlyResponse *ResponseMetadata
+}
+
+// GetResponse returns the ResponseMetadata that generated this resource
+func (resource *uniqueCouponCodeList) GetResponse() *ResponseMetadata {
+	return resource.recurlyResponse
+}
+
+// setResponse sets the ResponseMetadata that generated this resource
+func (resource *uniqueCouponCodeList) setResponse(res *ResponseMetadata) {
+	resource.recurlyResponse = res
 }
 
 // UniqueCouponCodeList allows you to paginate UniqueCouponCode objects
@@ -3557,7 +4019,18 @@ func (resource *CustomFieldDefinition) setResponse(res *ResponseMetadata) {
 // internal struct for deserializing accounts
 type customFieldDefinitionList struct {
 	ListMetadata
-	Data []CustomFieldDefinition `json:"data"`
+	Data            []CustomFieldDefinition `json:"data"`
+	recurlyResponse *ResponseMetadata
+}
+
+// GetResponse returns the ResponseMetadata that generated this resource
+func (resource *customFieldDefinitionList) GetResponse() *ResponseMetadata {
+	return resource.recurlyResponse
+}
+
+// setResponse sets the ResponseMetadata that generated this resource
+func (resource *customFieldDefinitionList) setResponse(res *ResponseMetadata) {
+	resource.recurlyResponse = res
 }
 
 // CustomFieldDefinitionList allows you to paginate CustomFieldDefinition objects
@@ -3657,7 +4130,18 @@ func (resource *Item) setResponse(res *ResponseMetadata) {
 // internal struct for deserializing accounts
 type itemList struct {
 	ListMetadata
-	Data []Item `json:"data"`
+	Data            []Item `json:"data"`
+	recurlyResponse *ResponseMetadata
+}
+
+// GetResponse returns the ResponseMetadata that generated this resource
+func (resource *itemList) GetResponse() *ResponseMetadata {
+	return resource.recurlyResponse
+}
+
+// setResponse sets the ResponseMetadata that generated this resource
+func (resource *itemList) setResponse(res *ResponseMetadata) {
+	resource.recurlyResponse = res
 }
 
 // ItemList allows you to paginate Item objects
@@ -3715,7 +4199,18 @@ func (resource *Pricing) setResponse(res *ResponseMetadata) {
 // internal struct for deserializing accounts
 type pricingList struct {
 	ListMetadata
-	Data []Pricing `json:"data"`
+	Data            []Pricing `json:"data"`
+	recurlyResponse *ResponseMetadata
+}
+
+// GetResponse returns the ResponseMetadata that generated this resource
+func (resource *pricingList) GetResponse() *ResponseMetadata {
+	return resource.recurlyResponse
+}
+
+// setResponse sets the ResponseMetadata that generated this resource
+func (resource *pricingList) setResponse(res *ResponseMetadata) {
+	resource.recurlyResponse = res
 }
 
 // PricingList allows you to paginate Pricing objects
@@ -3769,7 +4264,18 @@ func (resource *BinaryFile) setResponse(res *ResponseMetadata) {
 // internal struct for deserializing accounts
 type binaryFileList struct {
 	ListMetadata
-	Data []BinaryFile `json:"data"`
+	Data            []BinaryFile `json:"data"`
+	recurlyResponse *ResponseMetadata
+}
+
+// GetResponse returns the ResponseMetadata that generated this resource
+func (resource *binaryFileList) GetResponse() *ResponseMetadata {
+	return resource.recurlyResponse
+}
+
+// setResponse sets the ResponseMetadata that generated this resource
+func (resource *binaryFileList) setResponse(res *ResponseMetadata) {
+	resource.recurlyResponse = res
 }
 
 // BinaryFileList allows you to paginate BinaryFile objects
@@ -3890,7 +4396,18 @@ func (resource *Plan) setResponse(res *ResponseMetadata) {
 // internal struct for deserializing accounts
 type planList struct {
 	ListMetadata
-	Data []Plan `json:"data"`
+	Data            []Plan `json:"data"`
+	recurlyResponse *ResponseMetadata
+}
+
+// GetResponse returns the ResponseMetadata that generated this resource
+func (resource *planList) GetResponse() *ResponseMetadata {
+	return resource.recurlyResponse
+}
+
+// setResponse sets the ResponseMetadata that generated this resource
+func (resource *planList) setResponse(res *ResponseMetadata) {
+	resource.recurlyResponse = res
 }
 
 // PlanList allows you to paginate Plan objects
@@ -3951,7 +4468,18 @@ func (resource *PlanPricing) setResponse(res *ResponseMetadata) {
 // internal struct for deserializing accounts
 type planPricingList struct {
 	ListMetadata
-	Data []PlanPricing `json:"data"`
+	Data            []PlanPricing `json:"data"`
+	recurlyResponse *ResponseMetadata
+}
+
+// GetResponse returns the ResponseMetadata that generated this resource
+func (resource *planPricingList) GetResponse() *ResponseMetadata {
+	return resource.recurlyResponse
+}
+
+// setResponse sets the ResponseMetadata that generated this resource
+func (resource *planPricingList) setResponse(res *ResponseMetadata) {
+	resource.recurlyResponse = res
 }
 
 // PlanPricingList allows you to paginate PlanPricing objects
@@ -4015,7 +4543,18 @@ func (resource *PlanHostedPages) setResponse(res *ResponseMetadata) {
 // internal struct for deserializing accounts
 type planHostedPagesList struct {
 	ListMetadata
-	Data []PlanHostedPages `json:"data"`
+	Data            []PlanHostedPages `json:"data"`
+	recurlyResponse *ResponseMetadata
+}
+
+// GetResponse returns the ResponseMetadata that generated this resource
+func (resource *planHostedPagesList) GetResponse() *ResponseMetadata {
+	return resource.recurlyResponse
+}
+
+// setResponse sets the ResponseMetadata that generated this resource
+func (resource *planHostedPagesList) setResponse(res *ResponseMetadata) {
+	resource.recurlyResponse = res
 }
 
 // PlanHostedPagesList allows you to paginate PlanHostedPages objects
@@ -4121,7 +4660,18 @@ func (resource *AddOn) setResponse(res *ResponseMetadata) {
 // internal struct for deserializing accounts
 type addOnList struct {
 	ListMetadata
-	Data []AddOn `json:"data"`
+	Data            []AddOn `json:"data"`
+	recurlyResponse *ResponseMetadata
+}
+
+// GetResponse returns the ResponseMetadata that generated this resource
+func (resource *addOnList) GetResponse() *ResponseMetadata {
+	return resource.recurlyResponse
+}
+
+// setResponse sets the ResponseMetadata that generated this resource
+func (resource *addOnList) setResponse(res *ResponseMetadata) {
+	resource.recurlyResponse = res
 }
 
 // AddOnList allows you to paginate AddOn objects
@@ -4179,7 +4729,18 @@ func (resource *AddOnPricing) setResponse(res *ResponseMetadata) {
 // internal struct for deserializing accounts
 type addOnPricingList struct {
 	ListMetadata
-	Data []AddOnPricing `json:"data"`
+	Data            []AddOnPricing `json:"data"`
+	recurlyResponse *ResponseMetadata
+}
+
+// GetResponse returns the ResponseMetadata that generated this resource
+func (resource *addOnPricingList) GetResponse() *ResponseMetadata {
+	return resource.recurlyResponse
+}
+
+// setResponse sets the ResponseMetadata that generated this resource
+func (resource *addOnPricingList) setResponse(res *ResponseMetadata) {
+	resource.recurlyResponse = res
 }
 
 // AddOnPricingList allows you to paginate AddOnPricing objects
@@ -4249,7 +4810,18 @@ func (resource *ItemMini) setResponse(res *ResponseMetadata) {
 // internal struct for deserializing accounts
 type itemMiniList struct {
 	ListMetadata
-	Data []ItemMini `json:"data"`
+	Data            []ItemMini `json:"data"`
+	recurlyResponse *ResponseMetadata
+}
+
+// GetResponse returns the ResponseMetadata that generated this resource
+func (resource *itemMiniList) GetResponse() *ResponseMetadata {
+	return resource.recurlyResponse
+}
+
+// setResponse sets the ResponseMetadata that generated this resource
+func (resource *itemMiniList) setResponse(res *ResponseMetadata) {
+	resource.recurlyResponse = res
 }
 
 // ItemMiniList allows you to paginate ItemMini objects
@@ -4334,7 +4906,18 @@ func (resource *ShippingMethod) setResponse(res *ResponseMetadata) {
 // internal struct for deserializing accounts
 type shippingMethodList struct {
 	ListMetadata
-	Data []ShippingMethod `json:"data"`
+	Data            []ShippingMethod `json:"data"`
+	recurlyResponse *ResponseMetadata
+}
+
+// GetResponse returns the ResponseMetadata that generated this resource
+func (resource *shippingMethodList) GetResponse() *ResponseMetadata {
+	return resource.recurlyResponse
+}
+
+// setResponse sets the ResponseMetadata that generated this resource
+func (resource *shippingMethodList) setResponse(res *ResponseMetadata) {
+	resource.recurlyResponse = res
 }
 
 // ShippingMethodList allows you to paginate ShippingMethod objects
