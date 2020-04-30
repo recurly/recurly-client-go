@@ -188,6 +188,9 @@ func (c *Client) NewRequest(method string, requestURL string, params *Params) (*
 				return nil, err
 			}
 			req.Body = ioutil.NopCloser(bytes.NewBuffer(data))
+			if c.Log.IsLevel(LevelDebug) {
+				fmt.Println("Request Body: ", req.Body)
+			}
 		}
 
 		if params.Context != nil {
