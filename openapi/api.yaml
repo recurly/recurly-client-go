@@ -530,36 +530,18 @@ paths:
                 "$ref": "#/components/schemas/Error"
       x-code-samples:
       - lang: Go
-        source: |-
-          accountReq := &recurly.AccountCreate{
-            Code:      accountCode,
-            FirstName: "Isaac",
-            LastName:  "Du Monde",
-            Email:     "isaac@example.com",
-            BillingInfo: recurly.BillingInfoCreate{
-              FirstName: "Isaac",
-              LastName:  "Du Monde",
-              Address: recurly.Address{
-                Phone:      "415-555-5555",
-                Street1:    "400 Alabama St.",
-                City:       "San Francisco",
-                PostalCode: "94110",
-                Country:    "US",
-                Region:     "CA",
-              },
-              Number: "4111111111111111",
-              Month:  "12",
-              Year:   "22",
-              Cvv:    "123",
-            },
-          }
-
-          account, err := client.CreateAccount(accountReq)
-          if err != nil {
-            fmt.Printf("Failed to create an account: %v", err)
-            os.Exit(1)
-          }
-          fmt.Printf("Created Account: %s", account.Id)
+        source: "accountReq := &recurly.AccountCreate{\n\tCode:      &accountCode,\n\tFirstName:
+          recurly.String(\"Isaac\"),\n\tLastName:  recurly.String(\"Du Monde\"),\n\tEmail:
+          \    recurly.String(\"isaac@example.com\"),\n\tBillingInfo: &recurly.BillingInfoCreate{\n\t\tFirstName:
+          recurly.String(\"Isaac\"),\n\t\tLastName:  recurly.String(\"Du Monde\"),\n\t\tAddress:
+          &recurly.Address{\n\t\t\tPhone:      \"415-555-5555\",\n\t\t\tStreet1:    \"400
+          Alabama St.\",\n\t\t\tCity:       \"San Francisco\",\n\t\t\tPostalCode:
+          \"94110\",\n\t\t\tCountry:    \"US\",\n\t\t\tRegion:     \"CA\",\n\t\t},\n\t\tNumber:
+          recurly.String(\"4111111111111111\"),\n\t\tMonth:  recurly.String(\"12\"),\n\t\tYear:
+          \  recurly.String(\"22\"),\n\t\tCvv:    recurly.String(\"123\"),\n\t},\n}\n\naccount,
+          err := client.CreateAccount(accountReq)\nif err != nil {\n\tfmt.Printf(\"Failed
+          to create an account: %v\", err)\n\tos.Exit(1)\n}\nfmt.Printf(\"Created
+          Account: %s\", account.Id)"
       - lang: ".NET"
         source: |
           try
@@ -775,8 +757,8 @@ paths:
       x-code-samples:
       - lang: Go
         source: "account, err := client.GetAccount(accountId)\nif err != nil {\n\tfmt.Printf(\"Failed
-          to retrieve account: %v\", err)\n} else {\n\tfmt.Printf(\"Fetched Account:
-          %s\", account.Id)\n}"
+          to retrieve account: %v\", err)\n} else {\n\tfmt.Println(\"Fetched Account
+          \", account.Id)\n\tfmt.Println(account.Address.Street1)\n}"
       - lang: ".NET"
         source: |
           try

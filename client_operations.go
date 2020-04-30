@@ -5,7 +5,6 @@ import (
 	"strconv"
 	"strings"
 	"time"
-	//  "net/url"
 )
 
 const (
@@ -2007,18 +2006,6 @@ func (c *Client) PutInvoice(invoiceId string, body *InvoiceUpdatable) (*Invoice,
 	path := c.InterpolatePath("/invoices/{invoice_id}", invoiceId)
 	result := &Invoice{}
 	err := c.Call(http.MethodPut, path, body, result)
-	if err != nil {
-		return nil, err
-	}
-	return result, err
-}
-
-// GetInvoicePdf Fetch an invoice as a PDF
-// Returns: An invoice as a PDF.
-func (c *Client) GetInvoicePdf(invoiceId string) (*BinaryFile, error) {
-	path := c.InterpolatePath("/invoices/{invoice_id}.pdf", invoiceId)
-	result := &BinaryFile{}
-	err := c.Call(http.MethodGet, path, nil, result)
 	if err != nil {
 		return nil, err
 	}
