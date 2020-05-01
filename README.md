@@ -54,27 +54,27 @@ Every Create method on the client takes a specific Request type to form the requ
 
 ```go
 accountReq := &recurly.AccountCreate{
-    Code:      accountCode,
-    FirstName: "Isaac",
-    LastName:  "Du Monde",
-    Email:     "isaac@example.com",
-    BillingInfo: recurly.BillingInfoCreate{
-      FirstName: "Isaac",
-      LastName:  "Du Monde",
-      Address: recurly.Address{
-        Phone:      "415-555-5555",
-        Street1:    "400 Alabama St.",
-        City:       "San Francisco",
-        PostalCode: "94110",
-        Country:    "US",
-        Region:     "CA",
-      },
-      Number: "4111111111111111",
-      Month:  "12",
-      Year:   "22",
-      Cvv:    "123",
+  Code:      recurly.String("accountcode123"),
+  FirstName: recurly.String("Isaac"),
+  LastName:  recurly.String("Du Monde"),
+  Email:     recurly.String("isaac@example.com"),
+  BillingInfo: &recurly.BillingInfoCreate{
+    FirstName: recurly.String("Isaac"),
+    LastName:  recurly.String("Du Monde"),
+    Address: &recurly.AddressCreate{
+      Phone:      recurly.String("415-555-5555"),
+      Street1:    recurly.String("400 Alabama St."),
+      City:       recurly.String("San Francisco"),
+      PostalCode: recurly.String("94110"),
+      Country:    recurly.String("US"),
+      Region:     recurly.String("CA"),
     },
-  }
+    Number: recurly.String("4111111111111111"),
+    Month:  recurly.String("12"),
+    Year:   recurly.String("22"),
+    Cvv:    recurly.String("123"),
+  },
+}
 
 account, err := client.CreateAccount(accountReq)
 if e, ok := err.(*recurly.Error); ok {
@@ -159,13 +159,6 @@ if e, ok := err.(*recurly.Error); ok {
   }
 }
 fmt.Printf("Created Account: %s", account.Id)
-```
-
-When calling a method triggers an error, a pointer to the Error struct will be output detailing the error type, complete with an error message. The `e` variable will print out the error message. For example, if `GetAccount("invalid_id")` is called, where `invalid_id` is an invalid account ID, the resulting output is as follows:
-```
-Body:
-{"error":{"type":"not_found","message":"Couldn't find Account with id = invalid_id","params":[{"param":"account_id"}]}}
-Resource not found: Couldn't find Account with id = invalid_id
 ```
 
 ### HTTP Metadata
