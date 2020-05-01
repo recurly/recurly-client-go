@@ -134,6 +134,10 @@ if e, ok := err.(*recurly.Error); ok {
   switch e.Type {
   case recurly.ErrorTypeValidation:
     fmt.Printf("Failed validation: %v", e)
+    // You can dig into the individual parameters if needed
+    for _, p := range e.Params {
+      fmt.Printf("JSON key %v was invalid because %v", p.Property, p.Message)
+    }
     return nil, err
   case recurly.ErrorTypeNotFound:
     fmt.Printf("Resource not found: %v", e)
