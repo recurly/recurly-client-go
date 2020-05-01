@@ -90,7 +90,7 @@ type TransactionError struct {
 }
 
 type ErrorParam struct {
-	Property string `json:"property"`
+	Property string `json:"param"`
 	Message  string `json:"message"`
 }
 

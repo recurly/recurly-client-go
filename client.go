@@ -78,8 +78,8 @@ func DefaultClient() *Client {
 	}
 }
 
-// NewClient creates a new Recurly API Client
-func NewClient(apiKey string, httpClient *http.Client) *Client {
+// newClient creates a new Recurly API Client
+func newClient(apiKey string, httpClient *http.Client) *Client {
 	if apiKey == "" {
 		apiKey = APIKey
 	}

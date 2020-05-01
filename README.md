@@ -8,7 +8,19 @@ Documentation for the HTTP API and example code can be found [on our Developer H
 
 ### Installing
 
-TODO
+Install using `go get`:
+
+```
+go get -u github.com/recurly/recurly-client-go
+```
+
+import with:
+
+```go
+import (
+    "github.com/recurly/recurly-client-go"
+)
+```
 
 ### Creating a client
 
@@ -92,13 +104,13 @@ listParams := &recurly.ListAccountsParams{
 accounts := client.ListAccounts(listParams)
 ```
 
-`NextPage()` returns the next page of resources.
+`Fetch()` fetches the next page of resources and puts them in the `Data` array.
+After fetching the last page, `HasMore` will be false.
 
 ```go
-var err error
 for accounts.HasMore {
-    accounts, err = accounts.NextPage()
-    if e, ok := err.(*recurly.Error); ok {
+    err := accounts.NextPage()
+    if err {
         fmt.Printf("Failed to retrieve next page: %v", err)
         break
     }
@@ -122,6 +134,10 @@ if e, ok := err.(*recurly.Error); ok {
   switch e.Type {
   case recurly.ErrorTypeValidation:
     fmt.Printf("Failed validation: %v", e)
+    // You can dig into the individual parameters if needed
+    for _, p := range e.Params {
+      fmt.Printf("JSON key %v was invalid because %v", p.Property, p.Message)
+    }
     return nil, err
   case recurly.ErrorTypeNotFound:
     fmt.Printf("Resource not found: %v", e)

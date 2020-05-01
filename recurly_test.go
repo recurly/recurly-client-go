@@ -55,7 +55,7 @@ func (s *Scenario) MockHTTPClient() *Client {
 		return s.MakeResponse(req)
 	}
 
-	client := NewClient("APIKEY", &http.Client{
+	client := newClient("APIKEY", &http.Client{
 		Transport: roundTripFunc(roundTrip),
 	})
 
@@ -172,4 +172,33 @@ func (c *Client) DeleteResource(resourceId string) (*Empty, error) {
 		return nil, err
 	}
 	return result, err
+}
+
+func TestPointerHelpers(test *testing.T) {
+	t := &T{test}
+
+	str := "Hello"
+	strPtr := String("Hello")
+	// verify that recurly.String(s) returns a pointer to s
+	t.Assert(*strPtr, str, "recurly.String()")
+
+	i := 100
+	intPtr := Int(100)
+	// verify that recurly.Int(s) returns a pointer to s
+	t.Assert(*intPtr, i, "recurly.Int()")
+
+	flt := 100.0
+	fltPtr := Float(100.0)
+	// verify that recurly.Float(s) returns a pointer to s
+	t.Assert(*fltPtr, flt, "recurly.Float()")
+
+	boo := true
+	booPtr := Bool(true)
+	// verify that recurly.Bool(s) returns a pointer to s
+	t.Assert(*booPtr, boo, "recurly.Bool()")
+
+	z := time.Now()
+	zPtr := Time(z)
+	// verify that recurly.Time(s) returns a pointer to s
+	t.Assert(*zPtr, z, "recurly.Time()")
 }
