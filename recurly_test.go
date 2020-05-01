@@ -55,7 +55,7 @@ func (s *Scenario) MockHTTPClient() *Client {
 		return s.MakeResponse(req)
 	}
 
-	client := NewClient("APIKEY", &http.Client{
+	client := newClient("APIKEY", &http.Client{
 		Transport: roundTripFunc(roundTrip),
 	})
 
