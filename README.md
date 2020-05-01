@@ -1,5 +1,7 @@
 # Recurly 
 
+> *Warning*: This library is in a BETA phase. Until it hits 3.0.0, breaking changes my happen at any time.
+
 This repository houses the official Go library for Recurly's V3 API.
 
 Documentation for the HTTP API and example code can be found [on our Developer Hub](https://developers.recurly.com/api/latest/index.html).
