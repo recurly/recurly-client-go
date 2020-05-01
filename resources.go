@@ -75,27 +75,18 @@ type SiteList struct {
 	Data    []Site
 }
 
-func newSiteList(client *Client, list *siteList) *SiteList {
-	return &SiteList{
-		client:       client,
-		nextPagePath: list.Next,
-		HasMore:      list.HasMore,
-		Data:         list.Data,
-	}
-}
-
-// NextPage returns the next page of resources
-func (list SiteList) NextPage() (*SiteList, error) {
-	if !list.HasMore {
-		return nil, nil
-	}
-
+// Fetch fetches the next page of data into the `Data` property
+func (list *SiteList) Fetch() error {
 	resources := &siteList{}
 	err := list.client.Call(http.MethodGet, list.nextPagePath, nil, resources)
 	if err != nil {
-		return nil, err
+		return err
 	}
-	return newSiteList(list.client, resources), nil
+	// copy over properties from the response
+	list.nextPagePath = resources.Next
+	list.HasMore = resources.HasMore
+	list.Data = resources.Data
+	return nil
 }
 
 type Address struct {
@@ -165,27 +156,18 @@ type AddressList struct {
 	Data    []Address
 }
 
-func newAddressList(client *Client, list *addressList) *AddressList {
-	return &AddressList{
-		client:       client,
-		nextPagePath: list.Next,
-		HasMore:      list.HasMore,
-		Data:         list.Data,
-	}
-}
-
-// NextPage returns the next page of resources
-func (list AddressList) NextPage() (*AddressList, error) {
-	if !list.HasMore {
-		return nil, nil
-	}
-
+// Fetch fetches the next page of data into the `Data` property
+func (list *AddressList) Fetch() error {
 	resources := &addressList{}
 	err := list.client.Call(http.MethodGet, list.nextPagePath, nil, resources)
 	if err != nil {
-		return nil, err
+		return err
 	}
-	return newAddressList(list.client, resources), nil
+	// copy over properties from the response
+	list.nextPagePath = resources.Next
+	list.HasMore = resources.HasMore
+	list.Data = resources.Data
+	return nil
 }
 
 type Settings struct {
@@ -239,27 +221,18 @@ type SettingsList struct {
 	Data    []Settings
 }
 
-func newSettingsList(client *Client, list *settingsList) *SettingsList {
-	return &SettingsList{
-		client:       client,
-		nextPagePath: list.Next,
-		HasMore:      list.HasMore,
-		Data:         list.Data,
-	}
-}
-
-// NextPage returns the next page of resources
-func (list SettingsList) NextPage() (*SettingsList, error) {
-	if !list.HasMore {
-		return nil, nil
-	}
-
+// Fetch fetches the next page of data into the `Data` property
+func (list *SettingsList) Fetch() error {
 	resources := &settingsList{}
 	err := list.client.Call(http.MethodGet, list.nextPagePath, nil, resources)
 	if err != nil {
-		return nil, err
+		return err
 	}
-	return newSettingsList(list.client, resources), nil
+	// copy over properties from the response
+	list.nextPagePath = resources.Next
+	list.HasMore = resources.HasMore
+	list.Data = resources.Data
+	return nil
 }
 
 type Account struct {
@@ -386,27 +359,18 @@ type AccountList struct {
 	Data    []Account
 }
 
-func newAccountList(client *Client, list *accountList) *AccountList {
-	return &AccountList{
-		client:       client,
-		nextPagePath: list.Next,
-		HasMore:      list.HasMore,
-		Data:         list.Data,
-	}
-}
-
-// NextPage returns the next page of resources
-func (list AccountList) NextPage() (*AccountList, error) {
-	if !list.HasMore {
-		return nil, nil
-	}
-
+// Fetch fetches the next page of data into the `Data` property
+func (list *AccountList) Fetch() error {
 	resources := &accountList{}
 	err := list.client.Call(http.MethodGet, list.nextPagePath, nil, resources)
 	if err != nil {
-		return nil, err
+		return err
 	}
-	return newAccountList(list.client, resources), nil
+	// copy over properties from the response
+	list.nextPagePath = resources.Next
+	list.HasMore = resources.HasMore
+	list.Data = resources.Data
+	return nil
 }
 
 type ShippingAddress struct {
@@ -493,27 +457,18 @@ type ShippingAddressList struct {
 	Data    []ShippingAddress
 }
 
-func newShippingAddressList(client *Client, list *shippingAddressList) *ShippingAddressList {
-	return &ShippingAddressList{
-		client:       client,
-		nextPagePath: list.Next,
-		HasMore:      list.HasMore,
-		Data:         list.Data,
-	}
-}
-
-// NextPage returns the next page of resources
-func (list ShippingAddressList) NextPage() (*ShippingAddressList, error) {
-	if !list.HasMore {
-		return nil, nil
-	}
-
+// Fetch fetches the next page of data into the `Data` property
+func (list *ShippingAddressList) Fetch() error {
 	resources := &shippingAddressList{}
 	err := list.client.Call(http.MethodGet, list.nextPagePath, nil, resources)
 	if err != nil {
-		return nil, err
+		return err
 	}
-	return newShippingAddressList(list.client, resources), nil
+	// copy over properties from the response
+	list.nextPagePath = resources.Next
+	list.HasMore = resources.HasMore
+	list.Data = resources.Data
+	return nil
 }
 
 type BillingInfo struct {
@@ -589,27 +544,18 @@ type BillingInfoList struct {
 	Data    []BillingInfo
 }
 
-func newBillingInfoList(client *Client, list *billingInfoList) *BillingInfoList {
-	return &BillingInfoList{
-		client:       client,
-		nextPagePath: list.Next,
-		HasMore:      list.HasMore,
-		Data:         list.Data,
-	}
-}
-
-// NextPage returns the next page of resources
-func (list BillingInfoList) NextPage() (*BillingInfoList, error) {
-	if !list.HasMore {
-		return nil, nil
-	}
-
+// Fetch fetches the next page of data into the `Data` property
+func (list *BillingInfoList) Fetch() error {
 	resources := &billingInfoList{}
 	err := list.client.Call(http.MethodGet, list.nextPagePath, nil, resources)
 	if err != nil {
-		return nil, err
+		return err
 	}
-	return newBillingInfoList(list.client, resources), nil
+	// copy over properties from the response
+	list.nextPagePath = resources.Next
+	list.HasMore = resources.HasMore
+	list.Data = resources.Data
+	return nil
 }
 
 type PaymentMethod struct {
@@ -690,27 +636,18 @@ type PaymentMethodList struct {
 	Data    []PaymentMethod
 }
 
-func newPaymentMethodList(client *Client, list *paymentMethodList) *PaymentMethodList {
-	return &PaymentMethodList{
-		client:       client,
-		nextPagePath: list.Next,
-		HasMore:      list.HasMore,
-		Data:         list.Data,
-	}
-}
-
-// NextPage returns the next page of resources
-func (list PaymentMethodList) NextPage() (*PaymentMethodList, error) {
-	if !list.HasMore {
-		return nil, nil
-	}
-
+// Fetch fetches the next page of data into the `Data` property
+func (list *PaymentMethodList) Fetch() error {
 	resources := &paymentMethodList{}
 	err := list.client.Call(http.MethodGet, list.nextPagePath, nil, resources)
 	if err != nil {
-		return nil, err
+		return err
 	}
-	return newPaymentMethodList(list.client, resources), nil
+	// copy over properties from the response
+	list.nextPagePath = resources.Next
+	list.HasMore = resources.HasMore
+	list.Data = resources.Data
+	return nil
 }
 
 type FraudInfo struct {
@@ -762,27 +699,18 @@ type FraudInfoList struct {
 	Data    []FraudInfo
 }
 
-func newFraudInfoList(client *Client, list *fraudInfoList) *FraudInfoList {
-	return &FraudInfoList{
-		client:       client,
-		nextPagePath: list.Next,
-		HasMore:      list.HasMore,
-		Data:         list.Data,
-	}
-}
-
-// NextPage returns the next page of resources
-func (list FraudInfoList) NextPage() (*FraudInfoList, error) {
-	if !list.HasMore {
-		return nil, nil
-	}
-
+// Fetch fetches the next page of data into the `Data` property
+func (list *FraudInfoList) Fetch() error {
 	resources := &fraudInfoList{}
 	err := list.client.Call(http.MethodGet, list.nextPagePath, nil, resources)
 	if err != nil {
-		return nil, err
+		return err
 	}
-	return newFraudInfoList(list.client, resources), nil
+	// copy over properties from the response
+	list.nextPagePath = resources.Next
+	list.HasMore = resources.HasMore
+	list.Data = resources.Data
+	return nil
 }
 
 type BillingInfoUpdatedBy struct {
@@ -831,27 +759,18 @@ type BillingInfoUpdatedByList struct {
 	Data    []BillingInfoUpdatedBy
 }
 
-func newBillingInfoUpdatedByList(client *Client, list *billingInfoUpdatedByList) *BillingInfoUpdatedByList {
-	return &BillingInfoUpdatedByList{
-		client:       client,
-		nextPagePath: list.Next,
-		HasMore:      list.HasMore,
-		Data:         list.Data,
-	}
-}
-
-// NextPage returns the next page of resources
-func (list BillingInfoUpdatedByList) NextPage() (*BillingInfoUpdatedByList, error) {
-	if !list.HasMore {
-		return nil, nil
-	}
-
+// Fetch fetches the next page of data into the `Data` property
+func (list *BillingInfoUpdatedByList) Fetch() error {
 	resources := &billingInfoUpdatedByList{}
 	err := list.client.Call(http.MethodGet, list.nextPagePath, nil, resources)
 	if err != nil {
-		return nil, err
+		return err
 	}
-	return newBillingInfoUpdatedByList(list.client, resources), nil
+	// copy over properties from the response
+	list.nextPagePath = resources.Next
+	list.HasMore = resources.HasMore
+	list.Data = resources.Data
+	return nil
 }
 
 type CustomField struct {
@@ -900,27 +819,18 @@ type CustomFieldList struct {
 	Data    []CustomField
 }
 
-func newCustomFieldList(client *Client, list *customFieldList) *CustomFieldList {
-	return &CustomFieldList{
-		client:       client,
-		nextPagePath: list.Next,
-		HasMore:      list.HasMore,
-		Data:         list.Data,
-	}
-}
-
-// NextPage returns the next page of resources
-func (list CustomFieldList) NextPage() (*CustomFieldList, error) {
-	if !list.HasMore {
-		return nil, nil
-	}
-
+// Fetch fetches the next page of data into the `Data` property
+func (list *CustomFieldList) Fetch() error {
 	resources := &customFieldList{}
 	err := list.client.Call(http.MethodGet, list.nextPagePath, nil, resources)
 	if err != nil {
-		return nil, err
+		return err
 	}
-	return newCustomFieldList(list.client, resources), nil
+	// copy over properties from the response
+	list.nextPagePath = resources.Next
+	list.HasMore = resources.HasMore
+	list.Data = resources.Data
+	return nil
 }
 
 type ErrorMayHaveTransaction struct {
@@ -975,27 +885,18 @@ type ErrorMayHaveTransactionList struct {
 	Data    []ErrorMayHaveTransaction
 }
 
-func newErrorMayHaveTransactionList(client *Client, list *errorMayHaveTransactionList) *ErrorMayHaveTransactionList {
-	return &ErrorMayHaveTransactionList{
-		client:       client,
-		nextPagePath: list.Next,
-		HasMore:      list.HasMore,
-		Data:         list.Data,
-	}
-}
-
-// NextPage returns the next page of resources
-func (list ErrorMayHaveTransactionList) NextPage() (*ErrorMayHaveTransactionList, error) {
-	if !list.HasMore {
-		return nil, nil
-	}
-
+// Fetch fetches the next page of data into the `Data` property
+func (list *ErrorMayHaveTransactionList) Fetch() error {
 	resources := &errorMayHaveTransactionList{}
 	err := list.client.Call(http.MethodGet, list.nextPagePath, nil, resources)
 	if err != nil {
-		return nil, err
+		return err
 	}
-	return newErrorMayHaveTransactionList(list.client, resources), nil
+	// copy over properties from the response
+	list.nextPagePath = resources.Next
+	list.HasMore = resources.HasMore
+	list.Data = resources.Data
+	return nil
 }
 
 type AccountAcquisition struct {
@@ -1064,27 +965,18 @@ type AccountAcquisitionList struct {
 	Data    []AccountAcquisition
 }
 
-func newAccountAcquisitionList(client *Client, list *accountAcquisitionList) *AccountAcquisitionList {
-	return &AccountAcquisitionList{
-		client:       client,
-		nextPagePath: list.Next,
-		HasMore:      list.HasMore,
-		Data:         list.Data,
-	}
-}
-
-// NextPage returns the next page of resources
-func (list AccountAcquisitionList) NextPage() (*AccountAcquisitionList, error) {
-	if !list.HasMore {
-		return nil, nil
-	}
-
+// Fetch fetches the next page of data into the `Data` property
+func (list *AccountAcquisitionList) Fetch() error {
 	resources := &accountAcquisitionList{}
 	err := list.client.Call(http.MethodGet, list.nextPagePath, nil, resources)
 	if err != nil {
-		return nil, err
+		return err
 	}
-	return newAccountAcquisitionList(list.client, resources), nil
+	// copy over properties from the response
+	list.nextPagePath = resources.Next
+	list.HasMore = resources.HasMore
+	list.Data = resources.Data
+	return nil
 }
 
 type AccountAcquisitionCost struct {
@@ -1133,27 +1025,18 @@ type AccountAcquisitionCostList struct {
 	Data    []AccountAcquisitionCost
 }
 
-func newAccountAcquisitionCostList(client *Client, list *accountAcquisitionCostList) *AccountAcquisitionCostList {
-	return &AccountAcquisitionCostList{
-		client:       client,
-		nextPagePath: list.Next,
-		HasMore:      list.HasMore,
-		Data:         list.Data,
-	}
-}
-
-// NextPage returns the next page of resources
-func (list AccountAcquisitionCostList) NextPage() (*AccountAcquisitionCostList, error) {
-	if !list.HasMore {
-		return nil, nil
-	}
-
+// Fetch fetches the next page of data into the `Data` property
+func (list *AccountAcquisitionCostList) Fetch() error {
 	resources := &accountAcquisitionCostList{}
 	err := list.client.Call(http.MethodGet, list.nextPagePath, nil, resources)
 	if err != nil {
-		return nil, err
+		return err
 	}
-	return newAccountAcquisitionCostList(list.client, resources), nil
+	// copy over properties from the response
+	list.nextPagePath = resources.Next
+	list.HasMore = resources.HasMore
+	list.Data = resources.Data
+	return nil
 }
 
 type AccountMini struct {
@@ -1217,27 +1100,18 @@ type AccountMiniList struct {
 	Data    []AccountMini
 }
 
-func newAccountMiniList(client *Client, list *accountMiniList) *AccountMiniList {
-	return &AccountMiniList{
-		client:       client,
-		nextPagePath: list.Next,
-		HasMore:      list.HasMore,
-		Data:         list.Data,
-	}
-}
-
-// NextPage returns the next page of resources
-func (list AccountMiniList) NextPage() (*AccountMiniList, error) {
-	if !list.HasMore {
-		return nil, nil
-	}
-
+// Fetch fetches the next page of data into the `Data` property
+func (list *AccountMiniList) Fetch() error {
 	resources := &accountMiniList{}
 	err := list.client.Call(http.MethodGet, list.nextPagePath, nil, resources)
 	if err != nil {
-		return nil, err
+		return err
 	}
-	return newAccountMiniList(list.client, resources), nil
+	// copy over properties from the response
+	list.nextPagePath = resources.Next
+	list.HasMore = resources.HasMore
+	list.Data = resources.Data
+	return nil
 }
 
 type AccountBalance struct {
@@ -1290,27 +1164,18 @@ type AccountBalanceList struct {
 	Data    []AccountBalance
 }
 
-func newAccountBalanceList(client *Client, list *accountBalanceList) *AccountBalanceList {
-	return &AccountBalanceList{
-		client:       client,
-		nextPagePath: list.Next,
-		HasMore:      list.HasMore,
-		Data:         list.Data,
-	}
-}
-
-// NextPage returns the next page of resources
-func (list AccountBalanceList) NextPage() (*AccountBalanceList, error) {
-	if !list.HasMore {
-		return nil, nil
-	}
-
+// Fetch fetches the next page of data into the `Data` property
+func (list *AccountBalanceList) Fetch() error {
 	resources := &accountBalanceList{}
 	err := list.client.Call(http.MethodGet, list.nextPagePath, nil, resources)
 	if err != nil {
-		return nil, err
+		return err
 	}
-	return newAccountBalanceList(list.client, resources), nil
+	// copy over properties from the response
+	list.nextPagePath = resources.Next
+	list.HasMore = resources.HasMore
+	list.Data = resources.Data
+	return nil
 }
 
 type AccountBalanceAmount struct {
@@ -1359,27 +1224,18 @@ type AccountBalanceAmountList struct {
 	Data    []AccountBalanceAmount
 }
 
-func newAccountBalanceAmountList(client *Client, list *accountBalanceAmountList) *AccountBalanceAmountList {
-	return &AccountBalanceAmountList{
-		client:       client,
-		nextPagePath: list.Next,
-		HasMore:      list.HasMore,
-		Data:         list.Data,
-	}
-}
-
-// NextPage returns the next page of resources
-func (list AccountBalanceAmountList) NextPage() (*AccountBalanceAmountList, error) {
-	if !list.HasMore {
-		return nil, nil
-	}
-
+// Fetch fetches the next page of data into the `Data` property
+func (list *AccountBalanceAmountList) Fetch() error {
 	resources := &accountBalanceAmountList{}
 	err := list.client.Call(http.MethodGet, list.nextPagePath, nil, resources)
 	if err != nil {
-		return nil, err
+		return err
 	}
-	return newAccountBalanceAmountList(list.client, resources), nil
+	// copy over properties from the response
+	list.nextPagePath = resources.Next
+	list.HasMore = resources.HasMore
+	list.Data = resources.Data
+	return nil
 }
 
 type CouponRedemption struct {
@@ -1451,27 +1307,18 @@ type CouponRedemptionList struct {
 	Data    []CouponRedemption
 }
 
-func newCouponRedemptionList(client *Client, list *couponRedemptionList) *CouponRedemptionList {
-	return &CouponRedemptionList{
-		client:       client,
-		nextPagePath: list.Next,
-		HasMore:      list.HasMore,
-		Data:         list.Data,
-	}
-}
-
-// NextPage returns the next page of resources
-func (list CouponRedemptionList) NextPage() (*CouponRedemptionList, error) {
-	if !list.HasMore {
-		return nil, nil
-	}
-
+// Fetch fetches the next page of data into the `Data` property
+func (list *CouponRedemptionList) Fetch() error {
 	resources := &couponRedemptionList{}
 	err := list.client.Call(http.MethodGet, list.nextPagePath, nil, resources)
 	if err != nil {
-		return nil, err
+		return err
 	}
-	return newCouponRedemptionList(list.client, resources), nil
+	// copy over properties from the response
+	list.nextPagePath = resources.Next
+	list.HasMore = resources.HasMore
+	list.Data = resources.Data
+	return nil
 }
 
 type Coupon struct {
@@ -1600,27 +1447,18 @@ type CouponList struct {
 	Data    []Coupon
 }
 
-func newCouponList(client *Client, list *couponList) *CouponList {
-	return &CouponList{
-		client:       client,
-		nextPagePath: list.Next,
-		HasMore:      list.HasMore,
-		Data:         list.Data,
-	}
-}
-
-// NextPage returns the next page of resources
-func (list CouponList) NextPage() (*CouponList, error) {
-	if !list.HasMore {
-		return nil, nil
-	}
-
+// Fetch fetches the next page of data into the `Data` property
+func (list *CouponList) Fetch() error {
 	resources := &couponList{}
 	err := list.client.Call(http.MethodGet, list.nextPagePath, nil, resources)
 	if err != nil {
-		return nil, err
+		return err
 	}
-	return newCouponList(list.client, resources), nil
+	// copy over properties from the response
+	list.nextPagePath = resources.Next
+	list.HasMore = resources.HasMore
+	list.Data = resources.Data
+	return nil
 }
 
 type PlanMini struct {
@@ -1675,27 +1513,18 @@ type PlanMiniList struct {
 	Data    []PlanMini
 }
 
-func newPlanMiniList(client *Client, list *planMiniList) *PlanMiniList {
-	return &PlanMiniList{
-		client:       client,
-		nextPagePath: list.Next,
-		HasMore:      list.HasMore,
-		Data:         list.Data,
-	}
-}
-
-// NextPage returns the next page of resources
-func (list PlanMiniList) NextPage() (*PlanMiniList, error) {
-	if !list.HasMore {
-		return nil, nil
-	}
-
+// Fetch fetches the next page of data into the `Data` property
+func (list *PlanMiniList) Fetch() error {
 	resources := &planMiniList{}
 	err := list.client.Call(http.MethodGet, list.nextPagePath, nil, resources)
 	if err != nil {
-		return nil, err
+		return err
 	}
-	return newPlanMiniList(list.client, resources), nil
+	// copy over properties from the response
+	list.nextPagePath = resources.Next
+	list.HasMore = resources.HasMore
+	list.Data = resources.Data
+	return nil
 }
 
 type CouponDiscount struct {
@@ -1749,27 +1578,18 @@ type CouponDiscountList struct {
 	Data    []CouponDiscount
 }
 
-func newCouponDiscountList(client *Client, list *couponDiscountList) *CouponDiscountList {
-	return &CouponDiscountList{
-		client:       client,
-		nextPagePath: list.Next,
-		HasMore:      list.HasMore,
-		Data:         list.Data,
-	}
-}
-
-// NextPage returns the next page of resources
-func (list CouponDiscountList) NextPage() (*CouponDiscountList, error) {
-	if !list.HasMore {
-		return nil, nil
-	}
-
+// Fetch fetches the next page of data into the `Data` property
+func (list *CouponDiscountList) Fetch() error {
 	resources := &couponDiscountList{}
 	err := list.client.Call(http.MethodGet, list.nextPagePath, nil, resources)
 	if err != nil {
-		return nil, err
+		return err
 	}
-	return newCouponDiscountList(list.client, resources), nil
+	// copy over properties from the response
+	list.nextPagePath = resources.Next
+	list.HasMore = resources.HasMore
+	list.Data = resources.Data
+	return nil
 }
 
 type CouponDiscountPricing struct {
@@ -1818,27 +1638,18 @@ type CouponDiscountPricingList struct {
 	Data    []CouponDiscountPricing
 }
 
-func newCouponDiscountPricingList(client *Client, list *couponDiscountPricingList) *CouponDiscountPricingList {
-	return &CouponDiscountPricingList{
-		client:       client,
-		nextPagePath: list.Next,
-		HasMore:      list.HasMore,
-		Data:         list.Data,
-	}
-}
-
-// NextPage returns the next page of resources
-func (list CouponDiscountPricingList) NextPage() (*CouponDiscountPricingList, error) {
-	if !list.HasMore {
-		return nil, nil
-	}
-
+// Fetch fetches the next page of data into the `Data` property
+func (list *CouponDiscountPricingList) Fetch() error {
 	resources := &couponDiscountPricingList{}
 	err := list.client.Call(http.MethodGet, list.nextPagePath, nil, resources)
 	if err != nil {
-		return nil, err
+		return err
 	}
-	return newCouponDiscountPricingList(list.client, resources), nil
+	// copy over properties from the response
+	list.nextPagePath = resources.Next
+	list.HasMore = resources.HasMore
+	list.Data = resources.Data
+	return nil
 }
 
 type CouponDiscountTrial struct {
@@ -1887,27 +1698,18 @@ type CouponDiscountTrialList struct {
 	Data    []CouponDiscountTrial
 }
 
-func newCouponDiscountTrialList(client *Client, list *couponDiscountTrialList) *CouponDiscountTrialList {
-	return &CouponDiscountTrialList{
-		client:       client,
-		nextPagePath: list.Next,
-		HasMore:      list.HasMore,
-		Data:         list.Data,
-	}
-}
-
-// NextPage returns the next page of resources
-func (list CouponDiscountTrialList) NextPage() (*CouponDiscountTrialList, error) {
-	if !list.HasMore {
-		return nil, nil
-	}
-
+// Fetch fetches the next page of data into the `Data` property
+func (list *CouponDiscountTrialList) Fetch() error {
 	resources := &couponDiscountTrialList{}
 	err := list.client.Call(http.MethodGet, list.nextPagePath, nil, resources)
 	if err != nil {
-		return nil, err
+		return err
 	}
-	return newCouponDiscountTrialList(list.client, resources), nil
+	// copy over properties from the response
+	list.nextPagePath = resources.Next
+	list.HasMore = resources.HasMore
+	list.Data = resources.Data
+	return nil
 }
 
 type CreditPayment struct {
@@ -1991,27 +1793,18 @@ type CreditPaymentList struct {
 	Data    []CreditPayment
 }
 
-func newCreditPaymentList(client *Client, list *creditPaymentList) *CreditPaymentList {
-	return &CreditPaymentList{
-		client:       client,
-		nextPagePath: list.Next,
-		HasMore:      list.HasMore,
-		Data:         list.Data,
-	}
-}
-
-// NextPage returns the next page of resources
-func (list CreditPaymentList) NextPage() (*CreditPaymentList, error) {
-	if !list.HasMore {
-		return nil, nil
-	}
-
+// Fetch fetches the next page of data into the `Data` property
+func (list *CreditPaymentList) Fetch() error {
 	resources := &creditPaymentList{}
 	err := list.client.Call(http.MethodGet, list.nextPagePath, nil, resources)
 	if err != nil {
-		return nil, err
+		return err
 	}
-	return newCreditPaymentList(list.client, resources), nil
+	// copy over properties from the response
+	list.nextPagePath = resources.Next
+	list.HasMore = resources.HasMore
+	list.Data = resources.Data
+	return nil
 }
 
 type InvoiceMini struct {
@@ -2069,27 +1862,18 @@ type InvoiceMiniList struct {
 	Data    []InvoiceMini
 }
 
-func newInvoiceMiniList(client *Client, list *invoiceMiniList) *InvoiceMiniList {
-	return &InvoiceMiniList{
-		client:       client,
-		nextPagePath: list.Next,
-		HasMore:      list.HasMore,
-		Data:         list.Data,
-	}
-}
-
-// NextPage returns the next page of resources
-func (list InvoiceMiniList) NextPage() (*InvoiceMiniList, error) {
-	if !list.HasMore {
-		return nil, nil
-	}
-
+// Fetch fetches the next page of data into the `Data` property
+func (list *InvoiceMiniList) Fetch() error {
 	resources := &invoiceMiniList{}
 	err := list.client.Call(http.MethodGet, list.nextPagePath, nil, resources)
 	if err != nil {
-		return nil, err
+		return err
 	}
-	return newInvoiceMiniList(list.client, resources), nil
+	// copy over properties from the response
+	list.nextPagePath = resources.Next
+	list.HasMore = resources.HasMore
+	list.Data = resources.Data
+	return nil
 }
 
 type Transaction struct {
@@ -2244,27 +2028,18 @@ type TransactionList struct {
 	Data    []Transaction
 }
 
-func newTransactionList(client *Client, list *transactionList) *TransactionList {
-	return &TransactionList{
-		client:       client,
-		nextPagePath: list.Next,
-		HasMore:      list.HasMore,
-		Data:         list.Data,
-	}
-}
-
-// NextPage returns the next page of resources
-func (list TransactionList) NextPage() (*TransactionList, error) {
-	if !list.HasMore {
-		return nil, nil
-	}
-
+// Fetch fetches the next page of data into the `Data` property
+func (list *TransactionList) Fetch() error {
 	resources := &transactionList{}
 	err := list.client.Call(http.MethodGet, list.nextPagePath, nil, resources)
 	if err != nil {
-		return nil, err
+		return err
 	}
-	return newTransactionList(list.client, resources), nil
+	// copy over properties from the response
+	list.nextPagePath = resources.Next
+	list.HasMore = resources.HasMore
+	list.Data = resources.Data
+	return nil
 }
 
 type TransactionPaymentGateway struct {
@@ -2316,27 +2091,18 @@ type TransactionPaymentGatewayList struct {
 	Data    []TransactionPaymentGateway
 }
 
-func newTransactionPaymentGatewayList(client *Client, list *transactionPaymentGatewayList) *TransactionPaymentGatewayList {
-	return &TransactionPaymentGatewayList{
-		client:       client,
-		nextPagePath: list.Next,
-		HasMore:      list.HasMore,
-		Data:         list.Data,
-	}
-}
-
-// NextPage returns the next page of resources
-func (list TransactionPaymentGatewayList) NextPage() (*TransactionPaymentGatewayList, error) {
-	if !list.HasMore {
-		return nil, nil
-	}
-
+// Fetch fetches the next page of data into the `Data` property
+func (list *TransactionPaymentGatewayList) Fetch() error {
 	resources := &transactionPaymentGatewayList{}
 	err := list.client.Call(http.MethodGet, list.nextPagePath, nil, resources)
 	if err != nil {
-		return nil, err
+		return err
 	}
-	return newTransactionPaymentGatewayList(list.client, resources), nil
+	// copy over properties from the response
+	list.nextPagePath = resources.Next
+	list.HasMore = resources.HasMore
+	list.Data = resources.Data
+	return nil
 }
 
 type Invoice struct {
@@ -2478,27 +2244,18 @@ type InvoiceList struct {
 	Data    []Invoice
 }
 
-func newInvoiceList(client *Client, list *invoiceList) *InvoiceList {
-	return &InvoiceList{
-		client:       client,
-		nextPagePath: list.Next,
-		HasMore:      list.HasMore,
-		Data:         list.Data,
-	}
-}
-
-// NextPage returns the next page of resources
-func (list InvoiceList) NextPage() (*InvoiceList, error) {
-	if !list.HasMore {
-		return nil, nil
-	}
-
+// Fetch fetches the next page of data into the `Data` property
+func (list *InvoiceList) Fetch() error {
 	resources := &invoiceList{}
 	err := list.client.Call(http.MethodGet, list.nextPagePath, nil, resources)
 	if err != nil {
-		return nil, err
+		return err
 	}
-	return newInvoiceList(list.client, resources), nil
+	// copy over properties from the response
+	list.nextPagePath = resources.Next
+	list.HasMore = resources.HasMore
+	list.Data = resources.Data
+	return nil
 }
 
 type InvoiceAddress struct {
@@ -2574,27 +2331,18 @@ type InvoiceAddressList struct {
 	Data    []InvoiceAddress
 }
 
-func newInvoiceAddressList(client *Client, list *invoiceAddressList) *InvoiceAddressList {
-	return &InvoiceAddressList{
-		client:       client,
-		nextPagePath: list.Next,
-		HasMore:      list.HasMore,
-		Data:         list.Data,
-	}
-}
-
-// NextPage returns the next page of resources
-func (list InvoiceAddressList) NextPage() (*InvoiceAddressList, error) {
-	if !list.HasMore {
-		return nil, nil
-	}
-
+// Fetch fetches the next page of data into the `Data` property
+func (list *InvoiceAddressList) Fetch() error {
 	resources := &invoiceAddressList{}
 	err := list.client.Call(http.MethodGet, list.nextPagePath, nil, resources)
 	if err != nil {
-		return nil, err
+		return err
 	}
-	return newInvoiceAddressList(list.client, resources), nil
+	// copy over properties from the response
+	list.nextPagePath = resources.Next
+	list.HasMore = resources.HasMore
+	list.Data = resources.Data
+	return nil
 }
 
 type TaxInfo struct {
@@ -2646,27 +2394,18 @@ type TaxInfoList struct {
 	Data    []TaxInfo
 }
 
-func newTaxInfoList(client *Client, list *taxInfoList) *TaxInfoList {
-	return &TaxInfoList{
-		client:       client,
-		nextPagePath: list.Next,
-		HasMore:      list.HasMore,
-		Data:         list.Data,
-	}
-}
-
-// NextPage returns the next page of resources
-func (list TaxInfoList) NextPage() (*TaxInfoList, error) {
-	if !list.HasMore {
-		return nil, nil
-	}
-
+// Fetch fetches the next page of data into the `Data` property
+func (list *TaxInfoList) Fetch() error {
 	resources := &taxInfoList{}
 	err := list.client.Call(http.MethodGet, list.nextPagePath, nil, resources)
 	if err != nil {
-		return nil, err
+		return err
 	}
-	return newTaxInfoList(list.client, resources), nil
+	// copy over properties from the response
+	list.nextPagePath = resources.Next
+	list.HasMore = resources.HasMore
+	list.Data = resources.Data
+	return nil
 }
 
 type LineItem struct {
@@ -2847,27 +2586,18 @@ type LineItemList struct {
 	Data    []LineItem
 }
 
-func newLineItemList(client *Client, list *lineItemList) *LineItemList {
-	return &LineItemList{
-		client:       client,
-		nextPagePath: list.Next,
-		HasMore:      list.HasMore,
-		Data:         list.Data,
-	}
-}
-
-// NextPage returns the next page of resources
-func (list LineItemList) NextPage() (*LineItemList, error) {
-	if !list.HasMore {
-		return nil, nil
-	}
-
+// Fetch fetches the next page of data into the `Data` property
+func (list *LineItemList) Fetch() error {
 	resources := &lineItemList{}
 	err := list.client.Call(http.MethodGet, list.nextPagePath, nil, resources)
 	if err != nil {
-		return nil, err
+		return err
 	}
-	return newLineItemList(list.client, resources), nil
+	// copy over properties from the response
+	list.nextPagePath = resources.Next
+	list.HasMore = resources.HasMore
+	list.Data = resources.Data
+	return nil
 }
 
 type InvoiceCollection struct {
@@ -2918,27 +2648,18 @@ type InvoiceCollectionList struct {
 	Data    []InvoiceCollection
 }
 
-func newInvoiceCollectionList(client *Client, list *invoiceCollectionList) *InvoiceCollectionList {
-	return &InvoiceCollectionList{
-		client:       client,
-		nextPagePath: list.Next,
-		HasMore:      list.HasMore,
-		Data:         list.Data,
-	}
-}
-
-// NextPage returns the next page of resources
-func (list InvoiceCollectionList) NextPage() (*InvoiceCollectionList, error) {
-	if !list.HasMore {
-		return nil, nil
-	}
-
+// Fetch fetches the next page of data into the `Data` property
+func (list *InvoiceCollectionList) Fetch() error {
 	resources := &invoiceCollectionList{}
 	err := list.client.Call(http.MethodGet, list.nextPagePath, nil, resources)
 	if err != nil {
-		return nil, err
+		return err
 	}
-	return newInvoiceCollectionList(list.client, resources), nil
+	// copy over properties from the response
+	list.nextPagePath = resources.Next
+	list.HasMore = resources.HasMore
+	list.Data = resources.Data
+	return nil
 }
 
 type AccountNote struct {
@@ -2994,27 +2715,18 @@ type AccountNoteList struct {
 	Data    []AccountNote
 }
 
-func newAccountNoteList(client *Client, list *accountNoteList) *AccountNoteList {
-	return &AccountNoteList{
-		client:       client,
-		nextPagePath: list.Next,
-		HasMore:      list.HasMore,
-		Data:         list.Data,
-	}
-}
-
-// NextPage returns the next page of resources
-func (list AccountNoteList) NextPage() (*AccountNoteList, error) {
-	if !list.HasMore {
-		return nil, nil
-	}
-
+// Fetch fetches the next page of data into the `Data` property
+func (list *AccountNoteList) Fetch() error {
 	resources := &accountNoteList{}
 	err := list.client.Call(http.MethodGet, list.nextPagePath, nil, resources)
 	if err != nil {
-		return nil, err
+		return err
 	}
-	return newAccountNoteList(list.client, resources), nil
+	// copy over properties from the response
+	list.nextPagePath = resources.Next
+	list.HasMore = resources.HasMore
+	list.Data = resources.Data
+	return nil
 }
 
 type User struct {
@@ -3074,27 +2786,18 @@ type UserList struct {
 	Data    []User
 }
 
-func newUserList(client *Client, list *userList) *UserList {
-	return &UserList{
-		client:       client,
-		nextPagePath: list.Next,
-		HasMore:      list.HasMore,
-		Data:         list.Data,
-	}
-}
-
-// NextPage returns the next page of resources
-func (list UserList) NextPage() (*UserList, error) {
-	if !list.HasMore {
-		return nil, nil
-	}
-
+// Fetch fetches the next page of data into the `Data` property
+func (list *UserList) Fetch() error {
 	resources := &userList{}
 	err := list.client.Call(http.MethodGet, list.nextPagePath, nil, resources)
 	if err != nil {
-		return nil, err
+		return err
 	}
-	return newUserList(list.client, resources), nil
+	// copy over properties from the response
+	list.nextPagePath = resources.Next
+	list.HasMore = resources.HasMore
+	list.Data = resources.Data
+	return nil
 }
 
 type Subscription struct {
@@ -3260,27 +2963,18 @@ type SubscriptionList struct {
 	Data    []Subscription
 }
 
-func newSubscriptionList(client *Client, list *subscriptionList) *SubscriptionList {
-	return &SubscriptionList{
-		client:       client,
-		nextPagePath: list.Next,
-		HasMore:      list.HasMore,
-		Data:         list.Data,
-	}
-}
-
-// NextPage returns the next page of resources
-func (list SubscriptionList) NextPage() (*SubscriptionList, error) {
-	if !list.HasMore {
-		return nil, nil
-	}
-
+// Fetch fetches the next page of data into the `Data` property
+func (list *SubscriptionList) Fetch() error {
 	resources := &subscriptionList{}
 	err := list.client.Call(http.MethodGet, list.nextPagePath, nil, resources)
 	if err != nil {
-		return nil, err
+		return err
 	}
-	return newSubscriptionList(list.client, resources), nil
+	// copy over properties from the response
+	list.nextPagePath = resources.Next
+	list.HasMore = resources.HasMore
+	list.Data = resources.Data
+	return nil
 }
 
 type SubscriptionShipping struct {
@@ -3333,27 +3027,18 @@ type SubscriptionShippingList struct {
 	Data    []SubscriptionShipping
 }
 
-func newSubscriptionShippingList(client *Client, list *subscriptionShippingList) *SubscriptionShippingList {
-	return &SubscriptionShippingList{
-		client:       client,
-		nextPagePath: list.Next,
-		HasMore:      list.HasMore,
-		Data:         list.Data,
-	}
-}
-
-// NextPage returns the next page of resources
-func (list SubscriptionShippingList) NextPage() (*SubscriptionShippingList, error) {
-	if !list.HasMore {
-		return nil, nil
-	}
-
+// Fetch fetches the next page of data into the `Data` property
+func (list *SubscriptionShippingList) Fetch() error {
 	resources := &subscriptionShippingList{}
 	err := list.client.Call(http.MethodGet, list.nextPagePath, nil, resources)
 	if err != nil {
-		return nil, err
+		return err
 	}
-	return newSubscriptionShippingList(list.client, resources), nil
+	// copy over properties from the response
+	list.nextPagePath = resources.Next
+	list.HasMore = resources.HasMore
+	list.Data = resources.Data
+	return nil
 }
 
 type ShippingMethodMini struct {
@@ -3408,27 +3093,18 @@ type ShippingMethodMiniList struct {
 	Data    []ShippingMethodMini
 }
 
-func newShippingMethodMiniList(client *Client, list *shippingMethodMiniList) *ShippingMethodMiniList {
-	return &ShippingMethodMiniList{
-		client:       client,
-		nextPagePath: list.Next,
-		HasMore:      list.HasMore,
-		Data:         list.Data,
-	}
-}
-
-// NextPage returns the next page of resources
-func (list ShippingMethodMiniList) NextPage() (*ShippingMethodMiniList, error) {
-	if !list.HasMore {
-		return nil, nil
-	}
-
+// Fetch fetches the next page of data into the `Data` property
+func (list *ShippingMethodMiniList) Fetch() error {
 	resources := &shippingMethodMiniList{}
 	err := list.client.Call(http.MethodGet, list.nextPagePath, nil, resources)
 	if err != nil {
-		return nil, err
+		return err
 	}
-	return newShippingMethodMiniList(list.client, resources), nil
+	// copy over properties from the response
+	list.nextPagePath = resources.Next
+	list.HasMore = resources.HasMore
+	list.Data = resources.Data
+	return nil
 }
 
 type CouponRedemptionMini struct {
@@ -3488,27 +3164,18 @@ type CouponRedemptionMiniList struct {
 	Data    []CouponRedemptionMini
 }
 
-func newCouponRedemptionMiniList(client *Client, list *couponRedemptionMiniList) *CouponRedemptionMiniList {
-	return &CouponRedemptionMiniList{
-		client:       client,
-		nextPagePath: list.Next,
-		HasMore:      list.HasMore,
-		Data:         list.Data,
-	}
-}
-
-// NextPage returns the next page of resources
-func (list CouponRedemptionMiniList) NextPage() (*CouponRedemptionMiniList, error) {
-	if !list.HasMore {
-		return nil, nil
-	}
-
+// Fetch fetches the next page of data into the `Data` property
+func (list *CouponRedemptionMiniList) Fetch() error {
 	resources := &couponRedemptionMiniList{}
 	err := list.client.Call(http.MethodGet, list.nextPagePath, nil, resources)
 	if err != nil {
-		return nil, err
+		return err
 	}
-	return newCouponRedemptionMiniList(list.client, resources), nil
+	// copy over properties from the response
+	list.nextPagePath = resources.Next
+	list.HasMore = resources.HasMore
+	list.Data = resources.Data
+	return nil
 }
 
 type CouponMini struct {
@@ -3576,27 +3243,18 @@ type CouponMiniList struct {
 	Data    []CouponMini
 }
 
-func newCouponMiniList(client *Client, list *couponMiniList) *CouponMiniList {
-	return &CouponMiniList{
-		client:       client,
-		nextPagePath: list.Next,
-		HasMore:      list.HasMore,
-		Data:         list.Data,
-	}
-}
-
-// NextPage returns the next page of resources
-func (list CouponMiniList) NextPage() (*CouponMiniList, error) {
-	if !list.HasMore {
-		return nil, nil
-	}
-
+// Fetch fetches the next page of data into the `Data` property
+func (list *CouponMiniList) Fetch() error {
 	resources := &couponMiniList{}
 	err := list.client.Call(http.MethodGet, list.nextPagePath, nil, resources)
 	if err != nil {
-		return nil, err
+		return err
 	}
-	return newCouponMiniList(list.client, resources), nil
+	// copy over properties from the response
+	list.nextPagePath = resources.Next
+	list.HasMore = resources.HasMore
+	list.Data = resources.Data
+	return nil
 }
 
 type SubscriptionChange struct {
@@ -3684,27 +3342,18 @@ type SubscriptionChangeList struct {
 	Data    []SubscriptionChange
 }
 
-func newSubscriptionChangeList(client *Client, list *subscriptionChangeList) *SubscriptionChangeList {
-	return &SubscriptionChangeList{
-		client:       client,
-		nextPagePath: list.Next,
-		HasMore:      list.HasMore,
-		Data:         list.Data,
-	}
-}
-
-// NextPage returns the next page of resources
-func (list SubscriptionChangeList) NextPage() (*SubscriptionChangeList, error) {
-	if !list.HasMore {
-		return nil, nil
-	}
-
+// Fetch fetches the next page of data into the `Data` property
+func (list *SubscriptionChangeList) Fetch() error {
 	resources := &subscriptionChangeList{}
 	err := list.client.Call(http.MethodGet, list.nextPagePath, nil, resources)
 	if err != nil {
-		return nil, err
+		return err
 	}
-	return newSubscriptionChangeList(list.client, resources), nil
+	// copy over properties from the response
+	list.nextPagePath = resources.Next
+	list.HasMore = resources.HasMore
+	list.Data = resources.Data
+	return nil
 }
 
 type SubscriptionAddOn struct {
@@ -3774,27 +3423,18 @@ type SubscriptionAddOnList struct {
 	Data    []SubscriptionAddOn
 }
 
-func newSubscriptionAddOnList(client *Client, list *subscriptionAddOnList) *SubscriptionAddOnList {
-	return &SubscriptionAddOnList{
-		client:       client,
-		nextPagePath: list.Next,
-		HasMore:      list.HasMore,
-		Data:         list.Data,
-	}
-}
-
-// NextPage returns the next page of resources
-func (list SubscriptionAddOnList) NextPage() (*SubscriptionAddOnList, error) {
-	if !list.HasMore {
-		return nil, nil
-	}
-
+// Fetch fetches the next page of data into the `Data` property
+func (list *SubscriptionAddOnList) Fetch() error {
 	resources := &subscriptionAddOnList{}
 	err := list.client.Call(http.MethodGet, list.nextPagePath, nil, resources)
 	if err != nil {
-		return nil, err
+		return err
 	}
-	return newSubscriptionAddOnList(list.client, resources), nil
+	// copy over properties from the response
+	list.nextPagePath = resources.Next
+	list.HasMore = resources.HasMore
+	list.Data = resources.Data
+	return nil
 }
 
 type AddOnMini struct {
@@ -3858,27 +3498,18 @@ type AddOnMiniList struct {
 	Data    []AddOnMini
 }
 
-func newAddOnMiniList(client *Client, list *addOnMiniList) *AddOnMiniList {
-	return &AddOnMiniList{
-		client:       client,
-		nextPagePath: list.Next,
-		HasMore:      list.HasMore,
-		Data:         list.Data,
-	}
-}
-
-// NextPage returns the next page of resources
-func (list AddOnMiniList) NextPage() (*AddOnMiniList, error) {
-	if !list.HasMore {
-		return nil, nil
-	}
-
+// Fetch fetches the next page of data into the `Data` property
+func (list *AddOnMiniList) Fetch() error {
 	resources := &addOnMiniList{}
 	err := list.client.Call(http.MethodGet, list.nextPagePath, nil, resources)
 	if err != nil {
-		return nil, err
+		return err
 	}
-	return newAddOnMiniList(list.client, resources), nil
+	// copy over properties from the response
+	list.nextPagePath = resources.Next
+	list.HasMore = resources.HasMore
+	list.Data = resources.Data
+	return nil
 }
 
 type UniqueCouponCode struct {
@@ -3945,27 +3576,18 @@ type UniqueCouponCodeList struct {
 	Data    []UniqueCouponCode
 }
 
-func newUniqueCouponCodeList(client *Client, list *uniqueCouponCodeList) *UniqueCouponCodeList {
-	return &UniqueCouponCodeList{
-		client:       client,
-		nextPagePath: list.Next,
-		HasMore:      list.HasMore,
-		Data:         list.Data,
-	}
-}
-
-// NextPage returns the next page of resources
-func (list UniqueCouponCodeList) NextPage() (*UniqueCouponCodeList, error) {
-	if !list.HasMore {
-		return nil, nil
-	}
-
+// Fetch fetches the next page of data into the `Data` property
+func (list *UniqueCouponCodeList) Fetch() error {
 	resources := &uniqueCouponCodeList{}
 	err := list.client.Call(http.MethodGet, list.nextPagePath, nil, resources)
 	if err != nil {
-		return nil, err
+		return err
 	}
-	return newUniqueCouponCodeList(list.client, resources), nil
+	// copy over properties from the response
+	list.nextPagePath = resources.Next
+	list.HasMore = resources.HasMore
+	list.Data = resources.Data
+	return nil
 }
 
 type CustomFieldDefinition struct {
@@ -4042,27 +3664,18 @@ type CustomFieldDefinitionList struct {
 	Data    []CustomFieldDefinition
 }
 
-func newCustomFieldDefinitionList(client *Client, list *customFieldDefinitionList) *CustomFieldDefinitionList {
-	return &CustomFieldDefinitionList{
-		client:       client,
-		nextPagePath: list.Next,
-		HasMore:      list.HasMore,
-		Data:         list.Data,
-	}
-}
-
-// NextPage returns the next page of resources
-func (list CustomFieldDefinitionList) NextPage() (*CustomFieldDefinitionList, error) {
-	if !list.HasMore {
-		return nil, nil
-	}
-
+// Fetch fetches the next page of data into the `Data` property
+func (list *CustomFieldDefinitionList) Fetch() error {
 	resources := &customFieldDefinitionList{}
 	err := list.client.Call(http.MethodGet, list.nextPagePath, nil, resources)
 	if err != nil {
-		return nil, err
+		return err
 	}
-	return newCustomFieldDefinitionList(list.client, resources), nil
+	// copy over properties from the response
+	list.nextPagePath = resources.Next
+	list.HasMore = resources.HasMore
+	list.Data = resources.Data
+	return nil
 }
 
 type Item struct {
@@ -4153,27 +3766,18 @@ type ItemList struct {
 	Data    []Item
 }
 
-func newItemList(client *Client, list *itemList) *ItemList {
-	return &ItemList{
-		client:       client,
-		nextPagePath: list.Next,
-		HasMore:      list.HasMore,
-		Data:         list.Data,
-	}
-}
-
-// NextPage returns the next page of resources
-func (list ItemList) NextPage() (*ItemList, error) {
-	if !list.HasMore {
-		return nil, nil
-	}
-
+// Fetch fetches the next page of data into the `Data` property
+func (list *ItemList) Fetch() error {
 	resources := &itemList{}
 	err := list.client.Call(http.MethodGet, list.nextPagePath, nil, resources)
 	if err != nil {
-		return nil, err
+		return err
 	}
-	return newItemList(list.client, resources), nil
+	// copy over properties from the response
+	list.nextPagePath = resources.Next
+	list.HasMore = resources.HasMore
+	list.Data = resources.Data
+	return nil
 }
 
 type Pricing struct {
@@ -4222,27 +3826,18 @@ type PricingList struct {
 	Data    []Pricing
 }
 
-func newPricingList(client *Client, list *pricingList) *PricingList {
-	return &PricingList{
-		client:       client,
-		nextPagePath: list.Next,
-		HasMore:      list.HasMore,
-		Data:         list.Data,
-	}
-}
-
-// NextPage returns the next page of resources
-func (list PricingList) NextPage() (*PricingList, error) {
-	if !list.HasMore {
-		return nil, nil
-	}
-
+// Fetch fetches the next page of data into the `Data` property
+func (list *PricingList) Fetch() error {
 	resources := &pricingList{}
 	err := list.client.Call(http.MethodGet, list.nextPagePath, nil, resources)
 	if err != nil {
-		return nil, err
+		return err
 	}
-	return newPricingList(list.client, resources), nil
+	// copy over properties from the response
+	list.nextPagePath = resources.Next
+	list.HasMore = resources.HasMore
+	list.Data = resources.Data
+	return nil
 }
 
 type BinaryFile struct {
@@ -4287,27 +3882,18 @@ type BinaryFileList struct {
 	Data    []BinaryFile
 }
 
-func newBinaryFileList(client *Client, list *binaryFileList) *BinaryFileList {
-	return &BinaryFileList{
-		client:       client,
-		nextPagePath: list.Next,
-		HasMore:      list.HasMore,
-		Data:         list.Data,
-	}
-}
-
-// NextPage returns the next page of resources
-func (list BinaryFileList) NextPage() (*BinaryFileList, error) {
-	if !list.HasMore {
-		return nil, nil
-	}
-
+// Fetch fetches the next page of data into the `Data` property
+func (list *BinaryFileList) Fetch() error {
 	resources := &binaryFileList{}
 	err := list.client.Call(http.MethodGet, list.nextPagePath, nil, resources)
 	if err != nil {
-		return nil, err
+		return err
 	}
-	return newBinaryFileList(list.client, resources), nil
+	// copy over properties from the response
+	list.nextPagePath = resources.Next
+	list.HasMore = resources.HasMore
+	list.Data = resources.Data
+	return nil
 }
 
 type Plan struct {
@@ -4419,27 +4005,18 @@ type PlanList struct {
 	Data    []Plan
 }
 
-func newPlanList(client *Client, list *planList) *PlanList {
-	return &PlanList{
-		client:       client,
-		nextPagePath: list.Next,
-		HasMore:      list.HasMore,
-		Data:         list.Data,
-	}
-}
-
-// NextPage returns the next page of resources
-func (list PlanList) NextPage() (*PlanList, error) {
-	if !list.HasMore {
-		return nil, nil
-	}
-
+// Fetch fetches the next page of data into the `Data` property
+func (list *PlanList) Fetch() error {
 	resources := &planList{}
 	err := list.client.Call(http.MethodGet, list.nextPagePath, nil, resources)
 	if err != nil {
-		return nil, err
+		return err
 	}
-	return newPlanList(list.client, resources), nil
+	// copy over properties from the response
+	list.nextPagePath = resources.Next
+	list.HasMore = resources.HasMore
+	list.Data = resources.Data
+	return nil
 }
 
 type PlanPricing struct {
@@ -4491,27 +4068,18 @@ type PlanPricingList struct {
 	Data    []PlanPricing
 }
 
-func newPlanPricingList(client *Client, list *planPricingList) *PlanPricingList {
-	return &PlanPricingList{
-		client:       client,
-		nextPagePath: list.Next,
-		HasMore:      list.HasMore,
-		Data:         list.Data,
-	}
-}
-
-// NextPage returns the next page of resources
-func (list PlanPricingList) NextPage() (*PlanPricingList, error) {
-	if !list.HasMore {
-		return nil, nil
-	}
-
+// Fetch fetches the next page of data into the `Data` property
+func (list *PlanPricingList) Fetch() error {
 	resources := &planPricingList{}
 	err := list.client.Call(http.MethodGet, list.nextPagePath, nil, resources)
 	if err != nil {
-		return nil, err
+		return err
 	}
-	return newPlanPricingList(list.client, resources), nil
+	// copy over properties from the response
+	list.nextPagePath = resources.Next
+	list.HasMore = resources.HasMore
+	list.Data = resources.Data
+	return nil
 }
 
 type PlanHostedPages struct {
@@ -4566,27 +4134,18 @@ type PlanHostedPagesList struct {
 	Data    []PlanHostedPages
 }
 
-func newPlanHostedPagesList(client *Client, list *planHostedPagesList) *PlanHostedPagesList {
-	return &PlanHostedPagesList{
-		client:       client,
-		nextPagePath: list.Next,
-		HasMore:      list.HasMore,
-		Data:         list.Data,
-	}
-}
-
-// NextPage returns the next page of resources
-func (list PlanHostedPagesList) NextPage() (*PlanHostedPagesList, error) {
-	if !list.HasMore {
-		return nil, nil
-	}
-
+// Fetch fetches the next page of data into the `Data` property
+func (list *PlanHostedPagesList) Fetch() error {
 	resources := &planHostedPagesList{}
 	err := list.client.Call(http.MethodGet, list.nextPagePath, nil, resources)
 	if err != nil {
-		return nil, err
+		return err
 	}
-	return newPlanHostedPagesList(list.client, resources), nil
+	// copy over properties from the response
+	list.nextPagePath = resources.Next
+	list.HasMore = resources.HasMore
+	list.Data = resources.Data
+	return nil
 }
 
 type AddOn struct {
@@ -4683,27 +4242,18 @@ type AddOnList struct {
 	Data    []AddOn
 }
 
-func newAddOnList(client *Client, list *addOnList) *AddOnList {
-	return &AddOnList{
-		client:       client,
-		nextPagePath: list.Next,
-		HasMore:      list.HasMore,
-		Data:         list.Data,
-	}
-}
-
-// NextPage returns the next page of resources
-func (list AddOnList) NextPage() (*AddOnList, error) {
-	if !list.HasMore {
-		return nil, nil
-	}
-
+// Fetch fetches the next page of data into the `Data` property
+func (list *AddOnList) Fetch() error {
 	resources := &addOnList{}
 	err := list.client.Call(http.MethodGet, list.nextPagePath, nil, resources)
 	if err != nil {
-		return nil, err
+		return err
 	}
-	return newAddOnList(list.client, resources), nil
+	// copy over properties from the response
+	list.nextPagePath = resources.Next
+	list.HasMore = resources.HasMore
+	list.Data = resources.Data
+	return nil
 }
 
 type AddOnPricing struct {
@@ -4752,27 +4302,18 @@ type AddOnPricingList struct {
 	Data    []AddOnPricing
 }
 
-func newAddOnPricingList(client *Client, list *addOnPricingList) *AddOnPricingList {
-	return &AddOnPricingList{
-		client:       client,
-		nextPagePath: list.Next,
-		HasMore:      list.HasMore,
-		Data:         list.Data,
-	}
-}
-
-// NextPage returns the next page of resources
-func (list AddOnPricingList) NextPage() (*AddOnPricingList, error) {
-	if !list.HasMore {
-		return nil, nil
-	}
-
+// Fetch fetches the next page of data into the `Data` property
+func (list *AddOnPricingList) Fetch() error {
 	resources := &addOnPricingList{}
 	err := list.client.Call(http.MethodGet, list.nextPagePath, nil, resources)
 	if err != nil {
-		return nil, err
+		return err
 	}
-	return newAddOnPricingList(list.client, resources), nil
+	// copy over properties from the response
+	list.nextPagePath = resources.Next
+	list.HasMore = resources.HasMore
+	list.Data = resources.Data
+	return nil
 }
 
 type ItemMini struct {
@@ -4833,27 +4374,18 @@ type ItemMiniList struct {
 	Data    []ItemMini
 }
 
-func newItemMiniList(client *Client, list *itemMiniList) *ItemMiniList {
-	return &ItemMiniList{
-		client:       client,
-		nextPagePath: list.Next,
-		HasMore:      list.HasMore,
-		Data:         list.Data,
-	}
-}
-
-// NextPage returns the next page of resources
-func (list ItemMiniList) NextPage() (*ItemMiniList, error) {
-	if !list.HasMore {
-		return nil, nil
-	}
-
+// Fetch fetches the next page of data into the `Data` property
+func (list *ItemMiniList) Fetch() error {
 	resources := &itemMiniList{}
 	err := list.client.Call(http.MethodGet, list.nextPagePath, nil, resources)
 	if err != nil {
-		return nil, err
+		return err
 	}
-	return newItemMiniList(list.client, resources), nil
+	// copy over properties from the response
+	list.nextPagePath = resources.Next
+	list.HasMore = resources.HasMore
+	list.Data = resources.Data
+	return nil
 }
 
 type ShippingMethod struct {
@@ -4929,25 +4461,16 @@ type ShippingMethodList struct {
 	Data    []ShippingMethod
 }
 
-func newShippingMethodList(client *Client, list *shippingMethodList) *ShippingMethodList {
-	return &ShippingMethodList{
-		client:       client,
-		nextPagePath: list.Next,
-		HasMore:      list.HasMore,
-		Data:         list.Data,
-	}
-}
-
-// NextPage returns the next page of resources
-func (list ShippingMethodList) NextPage() (*ShippingMethodList, error) {
-	if !list.HasMore {
-		return nil, nil
-	}
-
+// Fetch fetches the next page of data into the `Data` property
+func (list *ShippingMethodList) Fetch() error {
 	resources := &shippingMethodList{}
 	err := list.client.Call(http.MethodGet, list.nextPagePath, nil, resources)
 	if err != nil {
-		return nil, err
+		return err
 	}
-	return newShippingMethodList(list.client, resources), nil
+	// copy over properties from the response
+	list.nextPagePath = resources.Next
+	list.HasMore = resources.HasMore
+	list.Data = resources.Data
+	return nil
 }

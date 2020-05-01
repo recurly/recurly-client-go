@@ -435,10 +435,10 @@ paths:
       x-code-samples:
       - lang: Go
         source: "listParams := &recurly.ListAccountsParams{\n\tSort:  recurly.String(\"created_at\"),\n\tOrder:
-          recurly.String(\"desc\"),\n\tLimit: recurly.Int(200),\n}\naccounts := client.ListAccounts(listParams)\n\nvar
-          err error = nil\nfor accounts.HasMore {\n\taccounts, err = accounts.NextPage()\n\tif
-          err != nil {\n\t\tfmt.Printf(\"Failed to retrieve next page: %v\", err)\n\t\tbreak\n\t}\n\tfor
-          i, account := range accounts.Data {\n\t\tfmt.Printf(\"Account %3d: %s, %s\\n\",\n\t\t\ti,\n\t\t\taccount.Id,\n\t\t\taccount.Code,\n\t\t)\n\t}\n}\n"
+          recurly.String(\"desc\"),\n\tLimit: recurly.Int(200),\n}\naccounts := client.ListAccounts(listParams)\n\nfor
+          accounts.HasMore {\n\terr := accounts.Fetch()\n\tif err != nil {\n\t\tfmt.Printf(\"Failed
+          to retrieve next page: %v\", err)\n\t\tbreak\n\t}\n\tfor i, account := range
+          accounts.Data {\n\t\tfmt.Printf(\"Account %3d: %s, %s\\n\",\n\t\t\ti,\n\t\t\taccount.Id,\n\t\t\taccount.Code,\n\t\t)\n\t}\n}\n"
       - lang: ".NET"
         source: |
           var accounts = client.ListAccounts(limit: 200);
@@ -534,9 +534,10 @@ paths:
           recurly.String(\"Isaac\"),\n\tLastName:  recurly.String(\"Du Monde\"),\n\tEmail:
           \    recurly.String(\"isaac@example.com\"),\n\tBillingInfo: &recurly.BillingInfoCreate{\n\t\tFirstName:
           recurly.String(\"Isaac\"),\n\t\tLastName:  recurly.String(\"Du Monde\"),\n\t\tAddress:
-          &recurly.Address{\n\t\t\tPhone:      \"415-555-5555\",\n\t\t\tStreet1:    \"400
-          Alabama St.\",\n\t\t\tCity:       \"San Francisco\",\n\t\t\tPostalCode:
-          \"94110\",\n\t\t\tCountry:    \"US\",\n\t\t\tRegion:     \"CA\",\n\t\t},\n\t\tNumber:
+          &recurly.AddressCreate{\n\t\t\tPhone:      recurly.String(\"415-555-5555\"),\n\t\t\tStreet1:
+          \   recurly.String(\"400 Alabama St.\"),\n\t\t\tCity:       recurly.String(\"San
+          Francisco\"),\n\t\t\tPostalCode: recurly.String(\"94110\"),\n\t\t\tCountry:
+          \   recurly.String(\"US\"),\n\t\t\tRegion:     recurly.String(\"CA\"),\n\t\t},\n\t\tNumber:
           recurly.String(\"4111111111111111\"),\n\t\tMonth:  recurly.String(\"12\"),\n\t\tYear:
           \  recurly.String(\"22\"),\n\t\tCvv:    recurly.String(\"123\"),\n\t},\n}\n\naccount,
           err := client.CreateAccount(accountReq)\nif err != nil {\n\tfmt.Printf(\"Failed
