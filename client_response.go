@@ -29,18 +29,30 @@ type ResponseMetadata struct {
 	StatusCode int
 	// Version indicates the response version
 	Version string
+	// TotalRecords is the header corresponding to the `Recurly-Total-Records`. The count of records matching this pager.
+	TotalRecords *int64
 	// Request is the metadata describing the request for this response
 	Request RequestMetadata
 }
 
+func parseIntPtr(str string) *int64 {
+	total, err := strconv.ParseInt(str, 10, 64)
+	if err != nil {
+		return nil
+	}
+	return &total
+}
+
 func parseResponseMetadata(res *http.Response) *ResponseMetadata {
 	deprecated := res.Header.Get("Recurly-Deprecated") == "TRUE"
+	total := parseIntPtr(res.Header.Get("Recurly-Total-Records"))
 	return &ResponseMetadata{
 		Deprecated:      deprecated,
 		DeprecationDate: res.Header.Get("Recurly-Sunset-Date"),
 		RateLimit:       parseRateLimit(res),
 		StatusCode:      res.StatusCode,
 		Version:         res.Header.Get("Recurly-Version"),
+		TotalRecords:    total,
 		Request: RequestMetadata{
 			ID:     res.Header.Get("X-Request-Id"),
 			Method: res.Request.Method,

@@ -17,7 +17,7 @@ func TestGetResource200(test *testing.T) {
 		},
 		MakeResponse: func(req *http.Request) *http.Response {
 			// default headers set, we may want to customize though
-			return mockResponse(req, 200, `{"id": "abcd1234"}`)
+			return mockResponse(req, 200, String(`{"id": "abcd1234"}`))
 		},
 	}
 	client := scenario.MockHTTPClient()
@@ -37,7 +37,7 @@ func TestGetResource404(test *testing.T) {
 		},
 		MakeResponse: func(req *http.Request) *http.Response {
 			body := `{ "error": { "type": "not_found", "message": "\"idontexist\" not found", "params": [{ "param": "resource_id", "message": "not found" }] }}`
-			return mockResponse(req, 404, body)
+			return mockResponse(req, 404, String(body))
 		},
 	}
 	client := scenario.MockHTTPClient()
@@ -60,7 +60,7 @@ func TestCreateResource201(test *testing.T) {
 		},
 		MakeResponse: func(req *http.Request) *http.Response {
 			body := `{ "id": "abcd1234" }`
-			return mockResponse(req, 201, body)
+			return mockResponse(req, 201, String(body))
 		},
 	}
 	client := scenario.MockHTTPClient()
@@ -91,7 +91,7 @@ func TestCreateResource422(test *testing.T) {
 						"params":[{"param":"string","message":"is bad"}]
 					}
 				}`
-			return mockResponse(req, 422, body)
+			return mockResponse(req, 422, String(body))
 		},
 	}
 	client := scenario.MockHTTPClient()
@@ -113,7 +113,7 @@ func TestClientInjectsResponseMetadataIntoResource(test *testing.T) {
 		T:             t,
 		AssertRequest: func(req *http.Request) {},
 		MakeResponse: func(req *http.Request) *http.Response {
-			return mockResponse(req, 200, `{"id": "abcd1234"}`)
+			return mockResponse(req, 200, String(`{"id": "abcd1234"}`))
 		},
 	}
 	client := scenario.MockHTTPClient()
@@ -134,7 +134,7 @@ func TestClientInjectsResponseMetadataIntoResource(test *testing.T) {
 		T:             t,
 		AssertRequest: func(req *http.Request) {},
 		MakeResponse: func(req *http.Request) *http.Response {
-			return mockResponse(req, 204, ``)
+			return mockResponse(req, 204, String(``))
 		},
 	}
 	client = scenario.MockHTTPClient()
@@ -143,4 +143,31 @@ func TestClientInjectsResponseMetadataIntoResource(test *testing.T) {
 
 	resp = empty.GetResponse()
 	t.Assert(resp.Request.ID, "msy-1234", "resp.Request.ID")
+}
+
+func TestHeadResource200(test *testing.T) {
+	t := &T{test}
+
+	scenario := &Scenario{
+		T:             t,
+		AssertRequest: func(req *http.Request) {},
+		MakeResponse: func(req *http.Request) *http.Response {
+			return mockResponse(req, 200, nil)
+		},
+	}
+	client := scenario.MockHTTPClient()
+
+	resp, err := client.GetResourceMetadata("abcd1234")
+	t.Assert(err, nil, "Error not expected")
+
+	t.Assert(resp.StatusCode, 200, "resp.StatusCode")
+	t.Assert(resp.Request.Method, "HEAD", "resp.Request.Method")
+	t.Assert(resp.Request.ID, "msy-1234", "resp.Request.ID")
+	t.Assert(resp.RateLimit.Limit, 2000, "resp.RateLimit.Limit")
+	t.Assert(resp.RateLimit.Remaining, 1999, "resp.RateLimit.Remaining")
+	t.Assert(resp.Version, "recurly."+APIVersion, "resp.Version")
+	intVal := *resp.TotalRecords
+	if intVal != 100 {
+		t.Errorf("resp.TotalRecords is incorrect. Expected: %v Got: %v", 100, intVal)
+	}
 }
