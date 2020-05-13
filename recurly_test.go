@@ -201,4 +201,9 @@ func TestPointerHelpers(test *testing.T) {
 	zPtr := Time(z)
 	// verify that recurly.Time(s) returns a pointer to s
 	t.Assert(*zPtr, z, "recurly.Time()")
+
+	strSlice := []string{"apple", "orange", "banana"}
+	slicePtr := StringSlice(strSlice)
+	// verify that recurly.StringSlice(s) returns a pointer to elements in slice s
+	t.Assert(*slicePtr[0], strSlice[0], "recurly.StringSlice()")
 }
