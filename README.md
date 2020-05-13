@@ -132,8 +132,7 @@ for accounts.HasMore {
 
 ```go
 listParams := &recurly.ListAccountsParams{
-    Subscriber: recurly.Bool(true),
-    PastDue: recurly.Bool(false),
+    Subscriber: recurly.Bool(true)
 }
 accounts := client.ListAccounts(listParams)
 count, err := accounts.Count()
@@ -141,7 +140,7 @@ if err != nil {
     fmt.Printf("Request failed: %v", err)
     return nil, err
 }
-fmt.Printf("Number of subscribers without past due accounts: %v", *count)
+fmt.Printf("Number of subscribers: %v", *count)
 ```
 
 ### Error Handling
