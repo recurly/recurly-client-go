@@ -15,12 +15,12 @@ func bodyToBytes(io io.ReadCloser) []byte {
 
 func mockResponseWithBody(statusCode int, body string) *http.Response {
 	req := &http.Request{Method: "GET"}
-	resp := mockResponse(req, statusCode, body)
+	resp := mockResponse(req, statusCode, String(body))
 	return resp
 }
 func mockResponseWithoutBody(statusCode int) *http.Response {
 	req := &http.Request{Method: "GET"}
-	resp := mockResponse(req, statusCode, "")
+	resp := mockResponse(req, statusCode, String(""))
 	resp.Header.Del("Content-Type")
 	return resp
 }

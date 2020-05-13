@@ -89,6 +89,17 @@ func (list *SiteList) Fetch() error {
 	return nil
 }
 
+// Count returns the count of items on the server that match this pager
+func (list *SiteList) Count() (*int64, error) {
+	resources := &siteList{}
+	err := list.client.Call(http.MethodHead, list.nextPagePath, nil, resources)
+	if err != nil {
+		return nil, err
+	}
+	resp := resources.GetResponse()
+	return resp.TotalRecords, nil
+}
+
 type Address struct {
 	recurlyResponse *ResponseMetadata
 
@@ -170,6 +181,17 @@ func (list *AddressList) Fetch() error {
 	return nil
 }
 
+// Count returns the count of items on the server that match this pager
+func (list *AddressList) Count() (*int64, error) {
+	resources := &addressList{}
+	err := list.client.Call(http.MethodHead, list.nextPagePath, nil, resources)
+	if err != nil {
+		return nil, err
+	}
+	resp := resources.GetResponse()
+	return resp.TotalRecords, nil
+}
+
 type Settings struct {
 	recurlyResponse *ResponseMetadata
 
@@ -233,6 +255,17 @@ func (list *SettingsList) Fetch() error {
 	list.HasMore = resources.HasMore
 	list.Data = resources.Data
 	return nil
+}
+
+// Count returns the count of items on the server that match this pager
+func (list *SettingsList) Count() (*int64, error) {
+	resources := &settingsList{}
+	err := list.client.Call(http.MethodHead, list.nextPagePath, nil, resources)
+	if err != nil {
+		return nil, err
+	}
+	resp := resources.GetResponse()
+	return resp.TotalRecords, nil
 }
 
 type Account struct {
@@ -373,6 +406,17 @@ func (list *AccountList) Fetch() error {
 	return nil
 }
 
+// Count returns the count of items on the server that match this pager
+func (list *AccountList) Count() (*int64, error) {
+	resources := &accountList{}
+	err := list.client.Call(http.MethodHead, list.nextPagePath, nil, resources)
+	if err != nil {
+		return nil, err
+	}
+	resp := resources.GetResponse()
+	return resp.TotalRecords, nil
+}
+
 type ShippingAddress struct {
 	recurlyResponse *ResponseMetadata
 
@@ -471,6 +515,17 @@ func (list *ShippingAddressList) Fetch() error {
 	return nil
 }
 
+// Count returns the count of items on the server that match this pager
+func (list *ShippingAddressList) Count() (*int64, error) {
+	resources := &shippingAddressList{}
+	err := list.client.Call(http.MethodHead, list.nextPagePath, nil, resources)
+	if err != nil {
+		return nil, err
+	}
+	resp := resources.GetResponse()
+	return resp.TotalRecords, nil
+}
+
 type BillingInfo struct {
 	recurlyResponse *ResponseMetadata
 
@@ -556,6 +611,17 @@ func (list *BillingInfoList) Fetch() error {
 	list.HasMore = resources.HasMore
 	list.Data = resources.Data
 	return nil
+}
+
+// Count returns the count of items on the server that match this pager
+func (list *BillingInfoList) Count() (*int64, error) {
+	resources := &billingInfoList{}
+	err := list.client.Call(http.MethodHead, list.nextPagePath, nil, resources)
+	if err != nil {
+		return nil, err
+	}
+	resp := resources.GetResponse()
+	return resp.TotalRecords, nil
 }
 
 type PaymentMethod struct {
@@ -650,6 +716,17 @@ func (list *PaymentMethodList) Fetch() error {
 	return nil
 }
 
+// Count returns the count of items on the server that match this pager
+func (list *PaymentMethodList) Count() (*int64, error) {
+	resources := &paymentMethodList{}
+	err := list.client.Call(http.MethodHead, list.nextPagePath, nil, resources)
+	if err != nil {
+		return nil, err
+	}
+	resp := resources.GetResponse()
+	return resp.TotalRecords, nil
+}
+
 type FraudInfo struct {
 	recurlyResponse *ResponseMetadata
 
@@ -713,6 +790,17 @@ func (list *FraudInfoList) Fetch() error {
 	return nil
 }
 
+// Count returns the count of items on the server that match this pager
+func (list *FraudInfoList) Count() (*int64, error) {
+	resources := &fraudInfoList{}
+	err := list.client.Call(http.MethodHead, list.nextPagePath, nil, resources)
+	if err != nil {
+		return nil, err
+	}
+	resp := resources.GetResponse()
+	return resp.TotalRecords, nil
+}
+
 type BillingInfoUpdatedBy struct {
 	recurlyResponse *ResponseMetadata
 
@@ -773,6 +861,17 @@ func (list *BillingInfoUpdatedByList) Fetch() error {
 	return nil
 }
 
+// Count returns the count of items on the server that match this pager
+func (list *BillingInfoUpdatedByList) Count() (*int64, error) {
+	resources := &billingInfoUpdatedByList{}
+	err := list.client.Call(http.MethodHead, list.nextPagePath, nil, resources)
+	if err != nil {
+		return nil, err
+	}
+	resp := resources.GetResponse()
+	return resp.TotalRecords, nil
+}
+
 type CustomField struct {
 	recurlyResponse *ResponseMetadata
 
@@ -831,6 +930,17 @@ func (list *CustomFieldList) Fetch() error {
 	list.HasMore = resources.HasMore
 	list.Data = resources.Data
 	return nil
+}
+
+// Count returns the count of items on the server that match this pager
+func (list *CustomFieldList) Count() (*int64, error) {
+	resources := &customFieldList{}
+	err := list.client.Call(http.MethodHead, list.nextPagePath, nil, resources)
+	if err != nil {
+		return nil, err
+	}
+	resp := resources.GetResponse()
+	return resp.TotalRecords, nil
 }
 
 type ErrorMayHaveTransaction struct {
@@ -897,6 +1007,17 @@ func (list *ErrorMayHaveTransactionList) Fetch() error {
 	list.HasMore = resources.HasMore
 	list.Data = resources.Data
 	return nil
+}
+
+// Count returns the count of items on the server that match this pager
+func (list *ErrorMayHaveTransactionList) Count() (*int64, error) {
+	resources := &errorMayHaveTransactionList{}
+	err := list.client.Call(http.MethodHead, list.nextPagePath, nil, resources)
+	if err != nil {
+		return nil, err
+	}
+	resp := resources.GetResponse()
+	return resp.TotalRecords, nil
 }
 
 type AccountAcquisition struct {
@@ -979,6 +1100,17 @@ func (list *AccountAcquisitionList) Fetch() error {
 	return nil
 }
 
+// Count returns the count of items on the server that match this pager
+func (list *AccountAcquisitionList) Count() (*int64, error) {
+	resources := &accountAcquisitionList{}
+	err := list.client.Call(http.MethodHead, list.nextPagePath, nil, resources)
+	if err != nil {
+		return nil, err
+	}
+	resp := resources.GetResponse()
+	return resp.TotalRecords, nil
+}
+
 type AccountAcquisitionCost struct {
 	recurlyResponse *ResponseMetadata
 
@@ -1037,6 +1169,17 @@ func (list *AccountAcquisitionCostList) Fetch() error {
 	list.HasMore = resources.HasMore
 	list.Data = resources.Data
 	return nil
+}
+
+// Count returns the count of items on the server that match this pager
+func (list *AccountAcquisitionCostList) Count() (*int64, error) {
+	resources := &accountAcquisitionCostList{}
+	err := list.client.Call(http.MethodHead, list.nextPagePath, nil, resources)
+	if err != nil {
+		return nil, err
+	}
+	resp := resources.GetResponse()
+	return resp.TotalRecords, nil
 }
 
 type AccountMini struct {
@@ -1114,6 +1257,17 @@ func (list *AccountMiniList) Fetch() error {
 	return nil
 }
 
+// Count returns the count of items on the server that match this pager
+func (list *AccountMiniList) Count() (*int64, error) {
+	resources := &accountMiniList{}
+	err := list.client.Call(http.MethodHead, list.nextPagePath, nil, resources)
+	if err != nil {
+		return nil, err
+	}
+	resp := resources.GetResponse()
+	return resp.TotalRecords, nil
+}
+
 type AccountBalance struct {
 	recurlyResponse *ResponseMetadata
 
@@ -1178,6 +1332,17 @@ func (list *AccountBalanceList) Fetch() error {
 	return nil
 }
 
+// Count returns the count of items on the server that match this pager
+func (list *AccountBalanceList) Count() (*int64, error) {
+	resources := &accountBalanceList{}
+	err := list.client.Call(http.MethodHead, list.nextPagePath, nil, resources)
+	if err != nil {
+		return nil, err
+	}
+	resp := resources.GetResponse()
+	return resp.TotalRecords, nil
+}
+
 type AccountBalanceAmount struct {
 	recurlyResponse *ResponseMetadata
 
@@ -1236,6 +1401,17 @@ func (list *AccountBalanceAmountList) Fetch() error {
 	list.HasMore = resources.HasMore
 	list.Data = resources.Data
 	return nil
+}
+
+// Count returns the count of items on the server that match this pager
+func (list *AccountBalanceAmountList) Count() (*int64, error) {
+	resources := &accountBalanceAmountList{}
+	err := list.client.Call(http.MethodHead, list.nextPagePath, nil, resources)
+	if err != nil {
+		return nil, err
+	}
+	resp := resources.GetResponse()
+	return resp.TotalRecords, nil
 }
 
 type CouponRedemption struct {
@@ -1319,6 +1495,17 @@ func (list *CouponRedemptionList) Fetch() error {
 	list.HasMore = resources.HasMore
 	list.Data = resources.Data
 	return nil
+}
+
+// Count returns the count of items on the server that match this pager
+func (list *CouponRedemptionList) Count() (*int64, error) {
+	resources := &couponRedemptionList{}
+	err := list.client.Call(http.MethodHead, list.nextPagePath, nil, resources)
+	if err != nil {
+		return nil, err
+	}
+	resp := resources.GetResponse()
+	return resp.TotalRecords, nil
 }
 
 type Coupon struct {
@@ -1461,6 +1648,17 @@ func (list *CouponList) Fetch() error {
 	return nil
 }
 
+// Count returns the count of items on the server that match this pager
+func (list *CouponList) Count() (*int64, error) {
+	resources := &couponList{}
+	err := list.client.Call(http.MethodHead, list.nextPagePath, nil, resources)
+	if err != nil {
+		return nil, err
+	}
+	resp := resources.GetResponse()
+	return resp.TotalRecords, nil
+}
+
 type PlanMini struct {
 	recurlyResponse *ResponseMetadata
 
@@ -1525,6 +1723,17 @@ func (list *PlanMiniList) Fetch() error {
 	list.HasMore = resources.HasMore
 	list.Data = resources.Data
 	return nil
+}
+
+// Count returns the count of items on the server that match this pager
+func (list *PlanMiniList) Count() (*int64, error) {
+	resources := &planMiniList{}
+	err := list.client.Call(http.MethodHead, list.nextPagePath, nil, resources)
+	if err != nil {
+		return nil, err
+	}
+	resp := resources.GetResponse()
+	return resp.TotalRecords, nil
 }
 
 type CouponDiscount struct {
@@ -1592,6 +1801,17 @@ func (list *CouponDiscountList) Fetch() error {
 	return nil
 }
 
+// Count returns the count of items on the server that match this pager
+func (list *CouponDiscountList) Count() (*int64, error) {
+	resources := &couponDiscountList{}
+	err := list.client.Call(http.MethodHead, list.nextPagePath, nil, resources)
+	if err != nil {
+		return nil, err
+	}
+	resp := resources.GetResponse()
+	return resp.TotalRecords, nil
+}
+
 type CouponDiscountPricing struct {
 	recurlyResponse *ResponseMetadata
 
@@ -1652,6 +1872,17 @@ func (list *CouponDiscountPricingList) Fetch() error {
 	return nil
 }
 
+// Count returns the count of items on the server that match this pager
+func (list *CouponDiscountPricingList) Count() (*int64, error) {
+	resources := &couponDiscountPricingList{}
+	err := list.client.Call(http.MethodHead, list.nextPagePath, nil, resources)
+	if err != nil {
+		return nil, err
+	}
+	resp := resources.GetResponse()
+	return resp.TotalRecords, nil
+}
+
 type CouponDiscountTrial struct {
 	recurlyResponse *ResponseMetadata
 
@@ -1710,6 +1941,17 @@ func (list *CouponDiscountTrialList) Fetch() error {
 	list.HasMore = resources.HasMore
 	list.Data = resources.Data
 	return nil
+}
+
+// Count returns the count of items on the server that match this pager
+func (list *CouponDiscountTrialList) Count() (*int64, error) {
+	resources := &couponDiscountTrialList{}
+	err := list.client.Call(http.MethodHead, list.nextPagePath, nil, resources)
+	if err != nil {
+		return nil, err
+	}
+	resp := resources.GetResponse()
+	return resp.TotalRecords, nil
 }
 
 type CreditPayment struct {
@@ -1807,6 +2049,17 @@ func (list *CreditPaymentList) Fetch() error {
 	return nil
 }
 
+// Count returns the count of items on the server that match this pager
+func (list *CreditPaymentList) Count() (*int64, error) {
+	resources := &creditPaymentList{}
+	err := list.client.Call(http.MethodHead, list.nextPagePath, nil, resources)
+	if err != nil {
+		return nil, err
+	}
+	resp := resources.GetResponse()
+	return resp.TotalRecords, nil
+}
+
 type InvoiceMini struct {
 	recurlyResponse *ResponseMetadata
 
@@ -1874,6 +2127,17 @@ func (list *InvoiceMiniList) Fetch() error {
 	list.HasMore = resources.HasMore
 	list.Data = resources.Data
 	return nil
+}
+
+// Count returns the count of items on the server that match this pager
+func (list *InvoiceMiniList) Count() (*int64, error) {
+	resources := &invoiceMiniList{}
+	err := list.client.Call(http.MethodHead, list.nextPagePath, nil, resources)
+	if err != nil {
+		return nil, err
+	}
+	resp := resources.GetResponse()
+	return resp.TotalRecords, nil
 }
 
 type Transaction struct {
@@ -2042,6 +2306,17 @@ func (list *TransactionList) Fetch() error {
 	return nil
 }
 
+// Count returns the count of items on the server that match this pager
+func (list *TransactionList) Count() (*int64, error) {
+	resources := &transactionList{}
+	err := list.client.Call(http.MethodHead, list.nextPagePath, nil, resources)
+	if err != nil {
+		return nil, err
+	}
+	resp := resources.GetResponse()
+	return resp.TotalRecords, nil
+}
+
 type TransactionPaymentGateway struct {
 	recurlyResponse *ResponseMetadata
 
@@ -2103,6 +2378,17 @@ func (list *TransactionPaymentGatewayList) Fetch() error {
 	list.HasMore = resources.HasMore
 	list.Data = resources.Data
 	return nil
+}
+
+// Count returns the count of items on the server that match this pager
+func (list *TransactionPaymentGatewayList) Count() (*int64, error) {
+	resources := &transactionPaymentGatewayList{}
+	err := list.client.Call(http.MethodHead, list.nextPagePath, nil, resources)
+	if err != nil {
+		return nil, err
+	}
+	resp := resources.GetResponse()
+	return resp.TotalRecords, nil
 }
 
 type Invoice struct {
@@ -2258,6 +2544,17 @@ func (list *InvoiceList) Fetch() error {
 	return nil
 }
 
+// Count returns the count of items on the server that match this pager
+func (list *InvoiceList) Count() (*int64, error) {
+	resources := &invoiceList{}
+	err := list.client.Call(http.MethodHead, list.nextPagePath, nil, resources)
+	if err != nil {
+		return nil, err
+	}
+	resp := resources.GetResponse()
+	return resp.TotalRecords, nil
+}
+
 type InvoiceAddress struct {
 	recurlyResponse *ResponseMetadata
 
@@ -2345,6 +2642,17 @@ func (list *InvoiceAddressList) Fetch() error {
 	return nil
 }
 
+// Count returns the count of items on the server that match this pager
+func (list *InvoiceAddressList) Count() (*int64, error) {
+	resources := &invoiceAddressList{}
+	err := list.client.Call(http.MethodHead, list.nextPagePath, nil, resources)
+	if err != nil {
+		return nil, err
+	}
+	resp := resources.GetResponse()
+	return resp.TotalRecords, nil
+}
+
 type TaxInfo struct {
 	recurlyResponse *ResponseMetadata
 
@@ -2406,6 +2714,17 @@ func (list *TaxInfoList) Fetch() error {
 	list.HasMore = resources.HasMore
 	list.Data = resources.Data
 	return nil
+}
+
+// Count returns the count of items on the server that match this pager
+func (list *TaxInfoList) Count() (*int64, error) {
+	resources := &taxInfoList{}
+	err := list.client.Call(http.MethodHead, list.nextPagePath, nil, resources)
+	if err != nil {
+		return nil, err
+	}
+	resp := resources.GetResponse()
+	return resp.TotalRecords, nil
 }
 
 type LineItem struct {
@@ -2600,6 +2919,17 @@ func (list *LineItemList) Fetch() error {
 	return nil
 }
 
+// Count returns the count of items on the server that match this pager
+func (list *LineItemList) Count() (*int64, error) {
+	resources := &lineItemList{}
+	err := list.client.Call(http.MethodHead, list.nextPagePath, nil, resources)
+	if err != nil {
+		return nil, err
+	}
+	resp := resources.GetResponse()
+	return resp.TotalRecords, nil
+}
+
 type InvoiceCollection struct {
 	recurlyResponse *ResponseMetadata
 
@@ -2660,6 +2990,17 @@ func (list *InvoiceCollectionList) Fetch() error {
 	list.HasMore = resources.HasMore
 	list.Data = resources.Data
 	return nil
+}
+
+// Count returns the count of items on the server that match this pager
+func (list *InvoiceCollectionList) Count() (*int64, error) {
+	resources := &invoiceCollectionList{}
+	err := list.client.Call(http.MethodHead, list.nextPagePath, nil, resources)
+	if err != nil {
+		return nil, err
+	}
+	resp := resources.GetResponse()
+	return resp.TotalRecords, nil
 }
 
 type AccountNote struct {
@@ -2727,6 +3068,17 @@ func (list *AccountNoteList) Fetch() error {
 	list.HasMore = resources.HasMore
 	list.Data = resources.Data
 	return nil
+}
+
+// Count returns the count of items on the server that match this pager
+func (list *AccountNoteList) Count() (*int64, error) {
+	resources := &accountNoteList{}
+	err := list.client.Call(http.MethodHead, list.nextPagePath, nil, resources)
+	if err != nil {
+		return nil, err
+	}
+	resp := resources.GetResponse()
+	return resp.TotalRecords, nil
 }
 
 type User struct {
@@ -2798,6 +3150,17 @@ func (list *UserList) Fetch() error {
 	list.HasMore = resources.HasMore
 	list.Data = resources.Data
 	return nil
+}
+
+// Count returns the count of items on the server that match this pager
+func (list *UserList) Count() (*int64, error) {
+	resources := &userList{}
+	err := list.client.Call(http.MethodHead, list.nextPagePath, nil, resources)
+	if err != nil {
+		return nil, err
+	}
+	resp := resources.GetResponse()
+	return resp.TotalRecords, nil
 }
 
 type Subscription struct {
@@ -2977,6 +3340,17 @@ func (list *SubscriptionList) Fetch() error {
 	return nil
 }
 
+// Count returns the count of items on the server that match this pager
+func (list *SubscriptionList) Count() (*int64, error) {
+	resources := &subscriptionList{}
+	err := list.client.Call(http.MethodHead, list.nextPagePath, nil, resources)
+	if err != nil {
+		return nil, err
+	}
+	resp := resources.GetResponse()
+	return resp.TotalRecords, nil
+}
+
 type SubscriptionShipping struct {
 	recurlyResponse *ResponseMetadata
 
@@ -3039,6 +3413,17 @@ func (list *SubscriptionShippingList) Fetch() error {
 	list.HasMore = resources.HasMore
 	list.Data = resources.Data
 	return nil
+}
+
+// Count returns the count of items on the server that match this pager
+func (list *SubscriptionShippingList) Count() (*int64, error) {
+	resources := &subscriptionShippingList{}
+	err := list.client.Call(http.MethodHead, list.nextPagePath, nil, resources)
+	if err != nil {
+		return nil, err
+	}
+	resp := resources.GetResponse()
+	return resp.TotalRecords, nil
 }
 
 type ShippingMethodMini struct {
@@ -3105,6 +3490,17 @@ func (list *ShippingMethodMiniList) Fetch() error {
 	list.HasMore = resources.HasMore
 	list.Data = resources.Data
 	return nil
+}
+
+// Count returns the count of items on the server that match this pager
+func (list *ShippingMethodMiniList) Count() (*int64, error) {
+	resources := &shippingMethodMiniList{}
+	err := list.client.Call(http.MethodHead, list.nextPagePath, nil, resources)
+	if err != nil {
+		return nil, err
+	}
+	resp := resources.GetResponse()
+	return resp.TotalRecords, nil
 }
 
 type CouponRedemptionMini struct {
@@ -3176,6 +3572,17 @@ func (list *CouponRedemptionMiniList) Fetch() error {
 	list.HasMore = resources.HasMore
 	list.Data = resources.Data
 	return nil
+}
+
+// Count returns the count of items on the server that match this pager
+func (list *CouponRedemptionMiniList) Count() (*int64, error) {
+	resources := &couponRedemptionMiniList{}
+	err := list.client.Call(http.MethodHead, list.nextPagePath, nil, resources)
+	if err != nil {
+		return nil, err
+	}
+	resp := resources.GetResponse()
+	return resp.TotalRecords, nil
 }
 
 type CouponMini struct {
@@ -3255,6 +3662,17 @@ func (list *CouponMiniList) Fetch() error {
 	list.HasMore = resources.HasMore
 	list.Data = resources.Data
 	return nil
+}
+
+// Count returns the count of items on the server that match this pager
+func (list *CouponMiniList) Count() (*int64, error) {
+	resources := &couponMiniList{}
+	err := list.client.Call(http.MethodHead, list.nextPagePath, nil, resources)
+	if err != nil {
+		return nil, err
+	}
+	resp := resources.GetResponse()
+	return resp.TotalRecords, nil
 }
 
 type SubscriptionChange struct {
@@ -3356,6 +3774,17 @@ func (list *SubscriptionChangeList) Fetch() error {
 	return nil
 }
 
+// Count returns the count of items on the server that match this pager
+func (list *SubscriptionChangeList) Count() (*int64, error) {
+	resources := &subscriptionChangeList{}
+	err := list.client.Call(http.MethodHead, list.nextPagePath, nil, resources)
+	if err != nil {
+		return nil, err
+	}
+	resp := resources.GetResponse()
+	return resp.TotalRecords, nil
+}
+
 type SubscriptionAddOn struct {
 	recurlyResponse *ResponseMetadata
 
@@ -3437,6 +3866,17 @@ func (list *SubscriptionAddOnList) Fetch() error {
 	return nil
 }
 
+// Count returns the count of items on the server that match this pager
+func (list *SubscriptionAddOnList) Count() (*int64, error) {
+	resources := &subscriptionAddOnList{}
+	err := list.client.Call(http.MethodHead, list.nextPagePath, nil, resources)
+	if err != nil {
+		return nil, err
+	}
+	resp := resources.GetResponse()
+	return resp.TotalRecords, nil
+}
+
 type AddOnMini struct {
 	recurlyResponse *ResponseMetadata
 
@@ -3510,6 +3950,17 @@ func (list *AddOnMiniList) Fetch() error {
 	list.HasMore = resources.HasMore
 	list.Data = resources.Data
 	return nil
+}
+
+// Count returns the count of items on the server that match this pager
+func (list *AddOnMiniList) Count() (*int64, error) {
+	resources := &addOnMiniList{}
+	err := list.client.Call(http.MethodHead, list.nextPagePath, nil, resources)
+	if err != nil {
+		return nil, err
+	}
+	resp := resources.GetResponse()
+	return resp.TotalRecords, nil
 }
 
 type UniqueCouponCode struct {
@@ -3588,6 +4039,17 @@ func (list *UniqueCouponCodeList) Fetch() error {
 	list.HasMore = resources.HasMore
 	list.Data = resources.Data
 	return nil
+}
+
+// Count returns the count of items on the server that match this pager
+func (list *UniqueCouponCodeList) Count() (*int64, error) {
+	resources := &uniqueCouponCodeList{}
+	err := list.client.Call(http.MethodHead, list.nextPagePath, nil, resources)
+	if err != nil {
+		return nil, err
+	}
+	resp := resources.GetResponse()
+	return resp.TotalRecords, nil
 }
 
 type CustomFieldDefinition struct {
@@ -3676,6 +4138,17 @@ func (list *CustomFieldDefinitionList) Fetch() error {
 	list.HasMore = resources.HasMore
 	list.Data = resources.Data
 	return nil
+}
+
+// Count returns the count of items on the server that match this pager
+func (list *CustomFieldDefinitionList) Count() (*int64, error) {
+	resources := &customFieldDefinitionList{}
+	err := list.client.Call(http.MethodHead, list.nextPagePath, nil, resources)
+	if err != nil {
+		return nil, err
+	}
+	resp := resources.GetResponse()
+	return resp.TotalRecords, nil
 }
 
 type Item struct {
@@ -3780,6 +4253,17 @@ func (list *ItemList) Fetch() error {
 	return nil
 }
 
+// Count returns the count of items on the server that match this pager
+func (list *ItemList) Count() (*int64, error) {
+	resources := &itemList{}
+	err := list.client.Call(http.MethodHead, list.nextPagePath, nil, resources)
+	if err != nil {
+		return nil, err
+	}
+	resp := resources.GetResponse()
+	return resp.TotalRecords, nil
+}
+
 type Pricing struct {
 	recurlyResponse *ResponseMetadata
 
@@ -3840,6 +4324,17 @@ func (list *PricingList) Fetch() error {
 	return nil
 }
 
+// Count returns the count of items on the server that match this pager
+func (list *PricingList) Count() (*int64, error) {
+	resources := &pricingList{}
+	err := list.client.Call(http.MethodHead, list.nextPagePath, nil, resources)
+	if err != nil {
+		return nil, err
+	}
+	resp := resources.GetResponse()
+	return resp.TotalRecords, nil
+}
+
 type BinaryFile struct {
 	recurlyResponse *ResponseMetadata
 
@@ -3894,6 +4389,17 @@ func (list *BinaryFileList) Fetch() error {
 	list.HasMore = resources.HasMore
 	list.Data = resources.Data
 	return nil
+}
+
+// Count returns the count of items on the server that match this pager
+func (list *BinaryFileList) Count() (*int64, error) {
+	resources := &binaryFileList{}
+	err := list.client.Call(http.MethodHead, list.nextPagePath, nil, resources)
+	if err != nil {
+		return nil, err
+	}
+	resp := resources.GetResponse()
+	return resp.TotalRecords, nil
 }
 
 type Plan struct {
@@ -4019,6 +4525,17 @@ func (list *PlanList) Fetch() error {
 	return nil
 }
 
+// Count returns the count of items on the server that match this pager
+func (list *PlanList) Count() (*int64, error) {
+	resources := &planList{}
+	err := list.client.Call(http.MethodHead, list.nextPagePath, nil, resources)
+	if err != nil {
+		return nil, err
+	}
+	resp := resources.GetResponse()
+	return resp.TotalRecords, nil
+}
+
 type PlanPricing struct {
 	recurlyResponse *ResponseMetadata
 
@@ -4080,6 +4597,17 @@ func (list *PlanPricingList) Fetch() error {
 	list.HasMore = resources.HasMore
 	list.Data = resources.Data
 	return nil
+}
+
+// Count returns the count of items on the server that match this pager
+func (list *PlanPricingList) Count() (*int64, error) {
+	resources := &planPricingList{}
+	err := list.client.Call(http.MethodHead, list.nextPagePath, nil, resources)
+	if err != nil {
+		return nil, err
+	}
+	resp := resources.GetResponse()
+	return resp.TotalRecords, nil
 }
 
 type PlanHostedPages struct {
@@ -4146,6 +4674,17 @@ func (list *PlanHostedPagesList) Fetch() error {
 	list.HasMore = resources.HasMore
 	list.Data = resources.Data
 	return nil
+}
+
+// Count returns the count of items on the server that match this pager
+func (list *PlanHostedPagesList) Count() (*int64, error) {
+	resources := &planHostedPagesList{}
+	err := list.client.Call(http.MethodHead, list.nextPagePath, nil, resources)
+	if err != nil {
+		return nil, err
+	}
+	resp := resources.GetResponse()
+	return resp.TotalRecords, nil
 }
 
 type AddOn struct {
@@ -4256,6 +4795,17 @@ func (list *AddOnList) Fetch() error {
 	return nil
 }
 
+// Count returns the count of items on the server that match this pager
+func (list *AddOnList) Count() (*int64, error) {
+	resources := &addOnList{}
+	err := list.client.Call(http.MethodHead, list.nextPagePath, nil, resources)
+	if err != nil {
+		return nil, err
+	}
+	resp := resources.GetResponse()
+	return resp.TotalRecords, nil
+}
+
 type AddOnPricing struct {
 	recurlyResponse *ResponseMetadata
 
@@ -4314,6 +4864,17 @@ func (list *AddOnPricingList) Fetch() error {
 	list.HasMore = resources.HasMore
 	list.Data = resources.Data
 	return nil
+}
+
+// Count returns the count of items on the server that match this pager
+func (list *AddOnPricingList) Count() (*int64, error) {
+	resources := &addOnPricingList{}
+	err := list.client.Call(http.MethodHead, list.nextPagePath, nil, resources)
+	if err != nil {
+		return nil, err
+	}
+	resp := resources.GetResponse()
+	return resp.TotalRecords, nil
 }
 
 type ItemMini struct {
@@ -4386,6 +4947,17 @@ func (list *ItemMiniList) Fetch() error {
 	list.HasMore = resources.HasMore
 	list.Data = resources.Data
 	return nil
+}
+
+// Count returns the count of items on the server that match this pager
+func (list *ItemMiniList) Count() (*int64, error) {
+	resources := &itemMiniList{}
+	err := list.client.Call(http.MethodHead, list.nextPagePath, nil, resources)
+	if err != nil {
+		return nil, err
+	}
+	resp := resources.GetResponse()
+	return resp.TotalRecords, nil
 }
 
 type ShippingMethod struct {
@@ -4473,4 +5045,15 @@ func (list *ShippingMethodList) Fetch() error {
 	list.HasMore = resources.HasMore
 	list.Data = resources.Data
 	return nil
+}
+
+// Count returns the count of items on the server that match this pager
+func (list *ShippingMethodList) Count() (*int64, error) {
+	resources := &shippingMethodList{}
+	err := list.client.Call(http.MethodHead, list.nextPagePath, nil, resources)
+	if err != nil {
+		return nil, err
+	}
+	resp := resources.GetResponse()
+	return resp.TotalRecords, nil
 }

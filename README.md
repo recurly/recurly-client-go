@@ -126,6 +126,23 @@ for accounts.HasMore {
 }
 ```
 
+#### Counting Resources
+
+`Count()` can effeciently fetch the number of records that would be returned by the pager. It does this by calling `HEAD` on the endpoint and parsing and returning the `Recurly-Total-Records` header. It will respect any filtering parameters you give it:
+
+```go
+listParams := &recurly.ListAccountsParams{
+    Subscriber: recurly.Bool(true)
+}
+accounts := client.ListAccounts(listParams)
+count, err := accounts.Count()
+if err != nil {
+    fmt.Printf("Request failed: %v", err)
+    return nil, err
+}
+fmt.Printf("Number of subscribers: %v", *count)
+```
+
 ### Error Handling
 
 Errors are configured in [error.go](error.go). Common scenarios in which errors occur may involve "not found" or "validation" errors, which are included among the examples below. A complete list of error types can be found in [error.go](error.go). You can use the list to customize your case statements.

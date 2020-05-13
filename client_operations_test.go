@@ -15,7 +15,7 @@ func TestCreateAccount(test *testing.T) {
 			t.Assert(bodyToString(req.Body), `{"code":"new_account"}`, "Request Body")
 		},
 		MakeResponse: func(req *http.Request) *http.Response {
-			return mockResponse(req, 201, `{"id": "abcd1234"}`)
+			return mockResponse(req, 201, String(`{"id": "abcd1234"}`))
 		},
 	}
 	client := scenario.MockHTTPClient()
@@ -38,7 +38,7 @@ func TestListAccounts(test *testing.T) {
 			t.Assert(req.URL.String(), "https://v3.recurly.com/accounts?limit=1&order=desc&sort=created_at", "Request URL")
 		},
 		MakeResponse: func(req *http.Request) *http.Response {
-			return mockResponse(req, 200, `{
+			return mockResponse(req, 200, String(`{
 				"object": "list",
 				"has_more": true,
 				"next": "/accounts?cursor=efgh5678%3A1588803986.0&limit=1&order=desc&sort=created_at",
@@ -54,7 +54,7 @@ func TestListAccounts(test *testing.T) {
 						"last_name": "pinecone"
 					}
 				]
-			}`)
+			}`))
 		},
 	}
 	client := scenario.MockHTTPClient()

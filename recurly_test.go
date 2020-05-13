@@ -65,9 +65,16 @@ func (s *Scenario) MockHTTPClient() *Client {
 	return client
 }
 
+func bodyReader(body *string) io.ReadCloser {
+	if body != nil {
+		return ioutil.NopCloser(bytes.NewBufferString(*body))
+	}
+	return ioutil.NopCloser(bytes.NewBuffer(nil))
+}
+
 // A helpful utility method for creating default
 // http.Responses with Recurly metadata
-func mockResponse(req *http.Request, statusCode int, body string) *http.Response {
+func mockResponse(req *http.Request, statusCode int, body *string) *http.Response {
 	headers := make(http.Header)
 	headers.Add("Content-Type", "application/json; charset=utf-8")
 	headers.Add("Recurly-Version", "recurly."+APIVersion)
@@ -75,9 +82,10 @@ func mockResponse(req *http.Request, statusCode int, body string) *http.Response
 	headers.Add("X-RateLimit-Remaining", "1999")
 	headers.Add("X-RateLimit-Reset", "1586203320")
 	headers.Add("X-Request-Id", "msy-1234")
+	headers.Add("Recurly-Total-Records", "100")
 	return &http.Response{
 		StatusCode: statusCode,
-		Body:       ioutil.NopCloser(bytes.NewBufferString(body)),
+		Body:       bodyReader(body),
 		Header:     headers,
 		Request:    req,
 	}
@@ -172,6 +180,17 @@ func (c *Client) DeleteResource(resourceId string) (*Empty, error) {
 		return nil, err
 	}
 	return result, err
+}
+
+// ResourceMetada calls the HEAD endpoint and returns the response metadata
+func (c *Client) GetResourceMetadata(resourceId string) (*ResponseMetadata, error) {
+	path := c.InterpolatePath("/resources")
+	result := &Empty{}
+	err := c.Call(http.MethodHead, path, nil, result)
+	if err != nil {
+		return nil, err
+	}
+	return result.GetResponse(), err
 }
 
 func TestPointerHelpers(test *testing.T) {

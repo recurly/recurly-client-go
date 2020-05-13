@@ -6,6 +6,7 @@ import (
 	"crypto/tls"
 	"encoding/json"
 	"fmt"
+	"io"
 	"io/ioutil"
 	"net"
 	"net/http"
@@ -217,14 +218,24 @@ func (c *Client) Do(req *http.Request, v interface{}) error {
 	defer res.Body.Close()
 
 	// Gzip decode
+	// TODO this could be cleaned up to better handle
+	// when the response body is empty
 	bodyReader := res.Body
 	contentEncoding := strings.ToLower(res.Header.Get("Content-Encoding"))
 	if contentEncoding == "gzip" {
 		gzipReader, err := gzip.NewReader(bodyReader)
+		// If the content is encoded, we cannot tell the difference b/w
+		// an empty response and one with content. The only signal we have
+		// is if we receive an EOF error from `NewReader`. If we get this
+		// error, we want to fall through this block and not wrap the bodyReader
+		// in the gzipReader. For any other error, we want to return early.
 		if err != nil {
-			return err
+			if err != io.EOF {
+				return err
+			}
+		} else {
+			bodyReader = gzipReader
 		}
-		bodyReader = gzipReader
 	}
 
 	body, err := ioutil.ReadAll(bodyReader)
