@@ -17,7 +17,7 @@ func TestEncodePathParameters(test *testing.T) {
 		},
 		MakeResponse: func(req *http.Request) *http.Response {
 			// default headers set, we may want to customize though
-			return mockResponse(req, 200, `{"id": "abcd1234"}`)
+			return mockResponse(req, 200, String(`{"id": "abcd1234"}`))
 		},
 	}
 	client := scenario.MockHTTPClient()
@@ -39,7 +39,7 @@ func TestValidatePathParameters(test *testing.T) {
 		},
 		MakeResponse: func(req *http.Request) *http.Response {
 			// default headers set, we may want to customize though
-			return mockResponse(req, 200, `{"id": "abcd1234"}`)
+			return mockResponse(req, 200, String(`{"id": "abcd1234"}`))
 		},
 	}
 	client := scenario.MockHTTPClient()

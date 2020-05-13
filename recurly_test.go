@@ -193,9 +193,12 @@ func (c *Client) DeleteResource(resourceId string) (*Empty, error) {
 
 // ResourceMetada calls the HEAD endpoint and returns the response metadata
 func (c *Client) GetResourceMetadata(resourceId string) (*ResponseMetadata, error) {
-	path := c.InterpolatePath("/resources")
+	path, err := c.InterpolatePath("/resources")
+	if err != nil {
+		return nil, err
+	}
 	result := &Empty{}
-	err := c.Call(http.MethodHead, path, nil, result)
+	err = c.Call(http.MethodHead, path, nil, result)
 	if err != nil {
 		return nil, err
 	}
