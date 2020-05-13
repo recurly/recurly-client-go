@@ -137,7 +137,7 @@ listParams := &recurly.ListAccountsParams{
 }
 accounts := client.ListAccounts(listParams)
 count, err := accounts.Count()
-if err {
+if err != nil {
     fmt.Printf("Request failed: %v", err)
     return nil, err
 }
