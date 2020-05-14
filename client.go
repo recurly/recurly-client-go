@@ -74,7 +74,7 @@ func DefaultClient() *Client {
 	return &Client{
 		apiKey:     APIKey,
 		baseURL:    APIHost,
-		Log:        NewLogger(LevelDebug),
+		Log:        NewLogger(LevelWarn),
 		HTTPClient: defaultClient,
 	}
 }
