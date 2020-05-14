@@ -45,7 +45,7 @@ func TestValidatePathParameters(test *testing.T) {
 	client := scenario.MockHTTPClient()
 
 	_, err := client.GetResource("")
-	t.Assert(err.Error(), "Parameters cannot be empty strings", "err.Error()")
+	t.Assert(err.Error(), "Operation parameters cannot be empty strings", "err.Error()")
 }
 
 func TestGetResource200(test *testing.T) {

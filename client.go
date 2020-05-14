@@ -103,7 +103,11 @@ func validatePathParameters(params []string) error {
 		}
 	}
 	if len(invalidParams) > 0 {
-		return fmt.Errorf("Parameters cannot be empty strings")
+		return &Error{
+			Message: "Operation parameters cannot be empty strings",
+			Class:   ErrorClassClient,
+			Type:    ErrorTypeValidation,
+		}
 	}
 	return nil
 }
