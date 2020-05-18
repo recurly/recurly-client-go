@@ -69,7 +69,7 @@ type Client struct {
 	HTTPClient *http.Client
 }
 
-// NwqClient returns the default API Client using the given APIKey
+// NewClient returns a new API Client using the given APIKey
 func NewClient(apiKey string) *Client {
 	return &Client{
 		apiKey:     apiKey,
