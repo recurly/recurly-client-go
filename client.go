@@ -69,10 +69,10 @@ type Client struct {
 	HTTPClient *http.Client
 }
 
-// DefaultClient returns the default API Client using the globally set Site and APIKey
-func DefaultClient() *Client {
+// NewClient returns a new API Client using the given APIKey
+func NewClient(apiKey string) *Client {
 	return &Client{
-		apiKey:     APIKey,
+		apiKey:     apiKey,
 		baseURL:    APIHost,
 		Log:        NewLogger(LevelWarn),
 		HTTPClient: defaultClient,
