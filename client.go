@@ -69,16 +69,7 @@ type Client struct {
 	HTTPClient *http.Client
 }
 
-// DefaultClient returns the default API Client using the globally set Site and APIKey
-func DefaultClient() *Client {
-	return &Client{
-		apiKey:     APIKey,
-		baseURL:    APIHost,
-		Log:        NewLogger(LevelWarn),
-		HTTPClient: defaultClient,
-	}
-}
-
+// NwqClient returns the default API Client using the given APIKey
 func NewClient(apiKey string) *Client {
 	return &Client{
 		apiKey:     apiKey,
