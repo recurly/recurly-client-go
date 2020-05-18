@@ -79,6 +79,15 @@ func DefaultClient() *Client {
 	}
 }
 
+func NewClient(apiKey string) *Client {
+	return &Client{
+		apiKey:     apiKey,
+		baseURL:    APIHost,
+		Log:        NewLogger(LevelWarn),
+		HTTPClient: defaultClient,
+	}
+}
+
 // newClient creates a new Recurly API Client
 func newClient(apiKey string, httpClient *http.Client) *Client {
 	if apiKey == "" {

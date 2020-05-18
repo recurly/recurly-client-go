@@ -29,8 +29,7 @@ import (
 A client represents a connection to the Recurly API. Every call to the server exists as a method on this struct. To initialize, you only need the private API key which can be obtained on the [API Credentials Page](https://app.recurly.com/go/integrations/api_keys).
 
 ```go
-recurly.APIKey = "<apikey>"
-client := recurly.DefaultClient()
+client := recurly.NewClient("<apikey>")
 ```
 
 ### Operations
