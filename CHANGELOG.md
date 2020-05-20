@@ -1,8 +1,22 @@
 # Changelog
 
-## [v3.0.0](https://github.com/recurly/recurly-client-go/tree/HEAD)
+## [v3.0.1](https://github.com/recurly/recurly-client-go/tree/HEAD)
 
-[Full Changelog](https://github.com/recurly/recurly-client-go/compare/v3.0.0-beta.1...HEAD)
+[Full Changelog](https://github.com/recurly/recurly-client-go/compare/v3.0.0...HEAD)
+
+**Fixed bugs:**
+
+- Add version scoped url to go.mod and install instructions [\#30](https://github.com/recurly/recurly-client-go/pull/30) ([bhelx](https://github.com/bhelx))
+
+**Merged pull requests:**
+
+- Release 3.0.1 [\#31](https://github.com/recurly/recurly-client-go/pull/31) ([bhelx](https://github.com/bhelx))
+- Fix release scripts and update readme [\#29](https://github.com/recurly/recurly-client-go/pull/29) ([bhelx](https://github.com/bhelx))
+- Add github templates [\#28](https://github.com/recurly/recurly-client-go/pull/28) ([bhelx](https://github.com/bhelx))
+
+## [v3.0.0](https://github.com/recurly/recurly-client-go/tree/v3.0.0) (2020-05-18)
+
+[Full Changelog](https://github.com/recurly/recurly-client-go/compare/v3.0.0-beta.1...v3.0.0)
 
 ## Breaking Changes
 
