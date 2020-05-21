@@ -353,11 +353,7 @@ paths:
           for (Site site : sites) {
               System.out.println(site.getSubdomain());
           }
-<<<<<<< HEAD
       - lang: PHP
-=======
-      - lang: Php
->>>>>>> 52b9f7f... Ensure that path parameters are not empty strings
         source: |
           $params = ['limit' => 200];
           $sites = $client->listSites($params);
@@ -566,11 +562,7 @@ paths:
           for (Account acct : accounts) {
               System.out.println(acct.getCode());
           }
-<<<<<<< HEAD
       - lang: PHP
-=======
-      - lang: Php
->>>>>>> 52b9f7f... Ensure that path parameters are not empty strings
         source: |
           $params = [
               'limit' => 200,
@@ -762,37 +754,6 @@ paths:
             puts "ValidationError: #{e.recurly_error.params}"
           end
       - lang: Java
-<<<<<<< HEAD
-=======
-        source: |
-          try {
-              AccountCreate accountReq = new AccountCreate();
-              Address address = new Address();
-
-              accountReq.setCode(accountCode);
-              accountReq.setFirstName("Aaron");
-              accountReq.setLastName("Du Monde");
-
-              address.setStreet1("900 Camp St.");
-              address.setCity("New Orleans");
-              address.setRegion("LA");
-              address.setCountry("US");
-              address.setPostalCode("70115");
-
-              accountReq.setAddress(address);
-
-              Account account = client.createAccount(accountReq);
-              System.out.println("Created account " + account.getCode());
-          } catch (ValidationException e) {
-              // If the request was not valid, you may want to tell your user
-              // why. You can find the invalid params and reasons in e.getError().getParams()
-              System.out.println("Failed validation: " + e.getError().getMessage());
-          } catch (ApiException e) {
-              // Use ApiException to catch a generic error from the API
-              System.out.println("Unexpected Recurly Error: " + e.getError().getMessage());
-          }
-      - lang: Php
->>>>>>> 52b9f7f... Ensure that path parameters are not empty strings
         source: |
           try {
               AccountCreate accountReq = new AccountCreate();
@@ -958,11 +919,7 @@ paths:
               // Use ApiException to catch a generic error from the API
               System.out.println("Unexpected Recurly Error: " + e.getError().getMessage());
           }
-<<<<<<< HEAD
       - lang: PHP
-=======
-      - lang: Php
->>>>>>> 52b9f7f... Ensure that path parameters are not empty strings
         source: |
           try {
               $account = $client->getAccount($account_id);
@@ -1118,11 +1075,7 @@ paths:
               // Use ApiException to catch a generic error from the API
               System.out.println("Unexpected Recurly Error: " + e.getError().getMessage());
           }
-<<<<<<< HEAD
       - lang: PHP
-=======
-      - lang: Php
->>>>>>> 52b9f7f... Ensure that path parameters are not empty strings
         source: |
           try {
               $account_update = [
@@ -1244,11 +1197,7 @@ paths:
               // Use ApiException to catch a generic error from the API
               System.out.println("Unexpected Recurly Error: " + e.getError().getMessage());
           }
-<<<<<<< HEAD
       - lang: PHP
-=======
-      - lang: Php
->>>>>>> 52b9f7f... Ensure that path parameters are not empty strings
         source: |
           try {
               $account = $client->deactivateAccount($account_id);
@@ -1361,11 +1310,7 @@ paths:
               // Use ApiException to catch a generic error from the API
               System.out.println("Unexpected Recurly Error: " + e.getError().getMessage());
           }
-<<<<<<< HEAD
       - lang: PHP
-=======
-      - lang: Php
->>>>>>> 52b9f7f... Ensure that path parameters are not empty strings
         source: |
           try {
               $acquisition = $client->getAccountAcquisition($account_id);
@@ -1637,11 +1582,7 @@ paths:
               // Use ApiException to catch a generic error from the API
               System.out.println("Unexpected Recurly Error: " + e.getError().getMessage());
           }
-<<<<<<< HEAD
       - lang: PHP
-=======
-      - lang: Php
->>>>>>> 52b9f7f... Ensure that path parameters are not empty strings
         source: |-
           try {
               $client->removeAccountAcquisition($account_id);
@@ -1763,11 +1704,7 @@ paths:
               // Use ApiException to catch a generic error from the API
               System.out.println("Unexpected Recurly Error: " + e.getError().getMessage());
           }
-<<<<<<< HEAD
       - lang: PHP
-=======
-      - lang: Php
->>>>>>> 52b9f7f... Ensure that path parameters are not empty strings
         source: |
           try {
               $account = $client->reactivateAccount($account_id);
@@ -1884,11 +1821,7 @@ paths:
               // Use ApiException to catch a generic error from the API
               System.out.println("Unexpected Recurly Error: " + e.getError().getMessage());
           }
-<<<<<<< HEAD
       - lang: PHP
-=======
-      - lang: Php
->>>>>>> 52b9f7f... Ensure that path parameters are not empty strings
         source: |
           try {
               $balance = $client->getAccountBalance($account_id);
@@ -1985,19 +1918,6 @@ paths:
               Console.WriteLine($"Unexpected Recurly Error: {ex.Error.Message}");
           }
       - lang: Ruby
-<<<<<<< HEAD
-=======
-        source: |
-          begin
-            billing = @client.get_billing_info(account_id: account_id)
-            puts "Got BillingInfo #{billing}"
-          rescue Recurly::Errors::NotFoundError
-            # If the resource was not found, you may want to alert the user or
-            # just return nil
-            puts "Resource Not Found"
-          end
-      - lang: Java
->>>>>>> 52b9f7f... Ensure that path parameters are not empty strings
         source: |
           begin
             billing = @client.get_billing_info(account_id: account_id)
@@ -2020,11 +1940,7 @@ paths:
               // Use ApiException to catch a generic error from the API
               System.out.println("Unexpected Recurly Error: " + e.getError().getMessage());
           }
-<<<<<<< HEAD
       - lang: PHP
-=======
-      - lang: Php
->>>>>>> 52b9f7f... Ensure that path parameters are not empty strings
         source: |
           try {
               $binfo = $client->getBillingInfo($account_id);
@@ -2194,11 +2110,7 @@ paths:
               // Use ApiException to catch a generic error from the API
               System.out.println("Unexpected Recurly Error: " + e.getError().getMessage());
           }
-<<<<<<< HEAD
       - lang: PHP
-=======
-      - lang: Php
->>>>>>> 52b9f7f... Ensure that path parameters are not empty strings
         source: |
           try {
               $binfo_update = [
@@ -2314,11 +2226,7 @@ paths:
               // Use ApiException to catch a generic error from the API
               System.out.println("Unexpected Recurly Error: " + e.getError().getMessage());
           }
-<<<<<<< HEAD
       - lang: PHP
-=======
-      - lang: Php
->>>>>>> 52b9f7f... Ensure that path parameters are not empty strings
         source: |-
           try {
               $client->removeBillingInfo($account_id);
@@ -2374,7 +2282,6 @@ paths:
               schema:
                 "$ref": "#/components/schemas/Error"
       x-code-samples:
-<<<<<<< HEAD
       - lang: Node.js
         source: |
           const redemptions = client.listAccountCouponRedemptions(accountId, { limit: 200 })
@@ -2382,14 +2289,11 @@ paths:
           for await (const redemption of redemptions.each()) {
             console.log(redemption.id)
           }
-=======
->>>>>>> 52b9f7f... Ensure that path parameters are not empty strings
       - lang: Python
         source: |
           redemptions = client.list_account_coupon_redemptions(account_id, limit=200).items()
           for redemption in redemptions:
               print(redemption.id)
-<<<<<<< HEAD
       - lang: ".NET"
         source: |
           var redemptions = client.ListAccountCouponRedemptions(accountId);
@@ -2397,8 +2301,6 @@ paths:
           {
               Console.WriteLine(redemption.Id);
           }
-=======
->>>>>>> 52b9f7f... Ensure that path parameters are not empty strings
       - lang: Ruby
         source: |
           redemptions = @client.list_account_coupon_redemptions(
@@ -2417,11 +2319,7 @@ paths:
           for (CouponRedemption redemption : redemptions) {
               System.out.println(redemption.getId());
           }
-<<<<<<< HEAD
       - lang: PHP
-=======
-      - lang: Php
->>>>>>> 52b9f7f... Ensure that path parameters are not empty strings
         source: |
           $params = ['limit' => 200];
           $account_coupon_redemptions = $client->listAccountCouponRedemptions($account->getId(), $params);
@@ -2468,34 +2366,6 @@ paths:
                 "$ref": "#/components/schemas/Error"
       x-code-samples:
       - lang: Node.js
-<<<<<<< HEAD
-=======
-        source: |
-          try {
-            const redemption = await client.getActiveCouponRedemption(accountId)
-            console.log('Fetched coupon redemption: ', redemption.id)
-          } catch (err) {
-            if (err instanceof recurly.errors.NotFoundError) {
-              // If the request was not found, you may want to alert the user or
-              // just return null
-              console.log('Resource Not Found')
-            } else {
-              // If we don't know what to do with the err, we should
-              // probably re-raise and let our web framework and logger handle it
-              console.log('Unknown Error: ', err)
-            }
-          }
-      - lang: Python
-        source: |
-          try:
-              redemption = client.get_active_coupon_redemption(account_id)
-              print("Got Redemption %s" % redemption)
-          except recurly.errors.NotFoundError:
-              # If the resource was not found, you may want to alert the user or
-              # just return nil
-              print("Resource Not Found")
-      - lang: ".NET"
->>>>>>> 52b9f7f... Ensure that path parameters are not empty strings
         source: |
           try {
             const redemption = await client.getActiveCouponRedemption(accountId)
@@ -2561,11 +2431,7 @@ paths:
               // Use ApiException to catch a generic error from the API
               System.out.println("Unexpected Recurly Error: " + e.getError().getMessage());
           }
-<<<<<<< HEAD
       - lang: PHP
-=======
-      - lang: Php
->>>>>>> 52b9f7f... Ensure that path parameters are not empty strings
         source: |
           try {
               $redemption = $client->getActiveCouponRedemption($account_id);
@@ -2639,7 +2505,6 @@ paths:
               # why. You can find the invalid params and reasons in e.error.params
               print("ValidationError: %s" % e.error.message)
               print(e.error.params)
-<<<<<<< HEAD
       - lang: ".NET"
         source: |-
           try {
@@ -2661,8 +2526,6 @@ paths:
               // Use ApiError to catch a generic error from the API
               Console.WriteLine($"Unexpected Recurly Error: {ex.Error.Message}");
           }
-=======
->>>>>>> 52b9f7f... Ensure that path parameters are not empty strings
       - lang: Ruby
         source: |
           begin
@@ -2696,11 +2559,7 @@ paths:
               // Use ApiException to catch a generic error from the API
               System.out.println("Unexpected Recurly Error: " + e.getError().getMessage());
           }
-<<<<<<< HEAD
       - lang: PHP
-=======
-      - lang: Php
->>>>>>> 52b9f7f... Ensure that path parameters are not empty strings
         source: |-
           try {
               $redemption_create = [
@@ -2755,30 +2614,7 @@ paths:
               schema:
                 "$ref": "#/components/schemas/Error"
       x-code-samples:
-<<<<<<< HEAD
       - lang: Node.js
-=======
-      - lang: Python
-        source: |
-          try:
-              client.remove_coupon_redemption(account_id)
-              print("Removed Redemption from Account id=%s" % account_id)
-          except recurly.errors.NotFoundError:
-              # If the resource was not found, you may want to alert the user or
-              # just return nil
-              print("Resource Not Found")
-      - lang: Ruby
-        source: |
-          begin
-            @client.remove_coupon_redemption(account_id: account_id)
-            puts "Removed CouponRedemption #{account_id}"
-          rescue Recurly::Errors::NotFoundError
-            # If the resource was not found, you may want to alert the user or
-            # just return nil
-            puts "Resource Not Found"
-          end
-      - lang: Java
->>>>>>> 52b9f7f... Ensure that path parameters are not empty strings
         source: |
           try {
             const redemption = await client.removeCouponRedemption(accountId)
@@ -2820,7 +2656,6 @@ paths:
               // Use ApiError to catch a generic error from the API
               Console.WriteLine($"Unexpected Recurly Error: {ex.Error.Message}");
           }
-<<<<<<< HEAD
       - lang: Ruby
         source: |
           begin
@@ -2845,9 +2680,6 @@ paths:
               System.out.println("Unexpected Recurly Error: " + e.getError().getMessage());
           }
       - lang: PHP
-=======
-      - lang: Php
->>>>>>> 52b9f7f... Ensure that path parameters are not empty strings
         source: |-
           try {
               $redemption = $client->removeCouponRedemption($account_id);
@@ -2948,11 +2780,7 @@ paths:
           for (CreditPayment payment : payments) {
               System.out.println(payment.getUuid());
           }
-<<<<<<< HEAD
       - lang: PHP
-=======
-      - lang: Php
->>>>>>> 52b9f7f... Ensure that path parameters are not empty strings
         source: |
           $params = ['limit' => 200];
           $credit_payments = $client->listAccountCreditPayments($account->getId(), $params);
@@ -3013,7 +2841,6 @@ paths:
               schema:
                 "$ref": "#/components/schemas/Error"
       x-code-samples:
-<<<<<<< HEAD
       - lang: Node.js
         source: |
           const invoices = client.listAccountInvoices(accountId, { limit: 200 })
@@ -3033,13 +2860,6 @@ paths:
           {
               Console.WriteLine(invoice.Id);
           }
-=======
-      - lang: Python
-        source: |
-          invoices = client.list_account_invoices(account_id, limit=200).items()
-          for invoice in invoices:
-              print(invoice.number)
->>>>>>> 52b9f7f... Ensure that path parameters are not empty strings
       - lang: Ruby
         source: |
           invoices = @client.list_account_invoices(
@@ -3058,11 +2878,7 @@ paths:
           for (Invoice invoice : invoices) {
               System.out.println(invoice.getNumber());
           }
-<<<<<<< HEAD
       - lang: PHP
-=======
-      - lang: Php
->>>>>>> 52b9f7f... Ensure that path parameters are not empty strings
         source: |
           $params = ['limit' => 10];
           $invoices = $client->listAccountInvoices($account->getId(), $params);
@@ -3219,11 +3035,7 @@ paths:
               // Use ApiException to catch a generic error from the API
               System.out.println("Unexpected Recurly Error: " + e.getError().getMessage());
           }
-<<<<<<< HEAD
       - lang: PHP
-=======
-      - lang: Php
->>>>>>> 52b9f7f... Ensure that path parameters are not empty strings
         source: |-
           try {
               $invoice_create = [
@@ -3394,11 +3206,7 @@ paths:
               // Use ApiException to catch a generic error from the API
               System.out.println("Unexpected Recurly Error: " + e.getError().getMessage());
           }
-<<<<<<< HEAD
       - lang: PHP
-=======
-      - lang: Php
->>>>>>> 52b9f7f... Ensure that path parameters are not empty strings
         source: |-
           try {
               $invoice_preview = [
@@ -3474,7 +3282,6 @@ paths:
               schema:
                 "$ref": "#/components/schemas/Error"
       x-code-samples:
-<<<<<<< HEAD
       - lang: Node.js
         source: |
           const lineItems = client.listAccountLineItems(accountId, { limit: 200 })
@@ -3494,13 +3301,6 @@ paths:
           {
               Console.WriteLine(lineItem.Id);
           }
-=======
-      - lang: Python
-        source: |
-          line_items = client.list_account_line_items(account_id, limit=200).items()
-          for line_item in line_items:
-              print(line_item.id)
->>>>>>> 52b9f7f... Ensure that path parameters are not empty strings
       - lang: Ruby
         source: |
           line_items = @client.list_account_line_items(
@@ -3519,11 +3319,7 @@ paths:
           for (LineItem lineItem : lineItems) {
               System.out.println(lineItem.getId());
           }
-<<<<<<< HEAD
       - lang: PHP
-=======
-      - lang: Php
->>>>>>> 52b9f7f... Ensure that path parameters are not empty strings
         source: |
           $params = ['limit' => 200];
           $account_line_items = $client->listAccountLineItems($account_id, $params);
@@ -3677,11 +3473,7 @@ paths:
               // Use ApiException to catch a generic error from the API
               System.out.println("Unexpected Recurly Error: " + e.getError().getMessage());
           }
-<<<<<<< HEAD
       - lang: PHP
-=======
-      - lang: Php
->>>>>>> 52b9f7f... Ensure that path parameters are not empty strings
         source: |-
           try {
               $line_item_create = [
@@ -3779,11 +3571,7 @@ paths:
           for (AccountNote note : notes) {
               System.out.println(note.getMessage());
           }
-<<<<<<< HEAD
       - lang: PHP
-=======
-      - lang: Php
->>>>>>> 52b9f7f... Ensure that path parameters are not empty strings
         source: |
           $params = ['limit' => 200];
           $account_notes = $client->listAccountNotes($account_id, $params);
@@ -3904,11 +3692,7 @@ paths:
               // Use ApiException to catch a generic error from the API
               System.out.println("Unexpected Recurly Error: " + e.getError().getMessage());
           }
-<<<<<<< HEAD
       - lang: PHP
-=======
-      - lang: Php
->>>>>>> 52b9f7f... Ensure that path parameters are not empty strings
         source: |
           try {
               $note = $client->getAccountNote($account_id, $account_node_id);
@@ -4005,7 +3789,6 @@ paths:
           for (ShippingAddress address : addresses) {
               System.out.println(address.getStreet1());
           }
-<<<<<<< HEAD
       - lang: PHP
         source: |
           $params = ['limit' => 200];
@@ -4014,8 +3797,6 @@ paths:
           foreach($shippingAddresses as $address) {
             echo 'Shipping Address: ' . $address->getId() . PHP_EOL;
           }
-=======
->>>>>>> 52b9f7f... Ensure that path parameters are not empty strings
       - lang: Go
         source: "listParams := &recurly.ListShippingAddressesParams{\n\tSort:  recurly.String(\"created_at\"),\n\tOrder:
           recurly.String(\"desc\"),\n\tLimit: recurly.Int(200),\n}\nshippingAddresses
@@ -4264,13 +4045,8 @@ paths:
       - lang: Python
         source: |
           try:
-<<<<<<< HEAD
               client.get_shipping_address(account_id, shipping_address_id)
               print("Got ShippingAddress %s" % shipping_address_id)
-=======
-              subscription = client.get_subscription(subscription_id)
-              print("Got Subscription %s" % subscription)
->>>>>>> 52b9f7f... Ensure that path parameters are not empty strings
           except recurly.errors.NotFoundError:
               # If the resource was not found, you may want to alert the user or
               # just return nil
@@ -4319,11 +4095,7 @@ paths:
               // Use ApiException to catch a generic error from the API
               System.out.println("Unexpected Recurly Error: " + e.getError().getMessage());
           }
-<<<<<<< HEAD
       - lang: PHP
-=======
-      - lang: Php
->>>>>>> 52b9f7f... Ensure that path parameters are not empty strings
         source: |
           try {
               $shipping_address = $client->getShippingAddress($account_id, $shipping_address_id);
@@ -4473,8 +4245,6 @@ paths:
             puts "ValidationError: #{e.recurly_error.params}"
           end
       - lang: Java
-<<<<<<< HEAD
-=======
         source: |
           try {
               final ShippingAddressUpdate shadUpdate = new ShippingAddressUpdate();
@@ -4491,25 +4261,6 @@ paths:
               // Use ApiException to catch a generic error from the API
               System.out.println("Unexpected Recurly Error: " + e.getError().getMessage());
           }
-      - lang: Php
->>>>>>> 52b9f7f... Ensure that path parameters are not empty strings
-        source: |
-          try {
-              final ShippingAddressUpdate shadUpdate = new ShippingAddressUpdate();
-              shadUpdate.setFirstName("Aaron");
-              shadUpdate.setLastName("Du Monde");
-
-              final ShippingAddress address = client.updateShippingAddress(accountId, shippingAddressId, shadUpdate);
-              System.out.println("Updated shipping address " + address.getStreet1());
-          } catch (ValidationException e) {
-              // If the request was not valid, you may want to tell your user
-              // why. You can find the invalid params and reasons in e.getError().getParams()
-              System.out.println("Failed validation: " + e.getError().getMessage());
-          } catch (ApiException e) {
-              // Use ApiException to catch a generic error from the API
-              System.out.println("Unexpected Recurly Error: " + e.getError().getMessage());
-          }
-<<<<<<< HEAD
       - lang: PHP
         source: |
           try {
@@ -4530,8 +4281,6 @@ paths:
               // probably re-raise and let our web framework and logger handle it
               var_dump($e);
           }
-=======
->>>>>>> 52b9f7f... Ensure that path parameters are not empty strings
       - lang: Go
         source: "updateReq := &recurly.ShippingAddressUpdate{\n\tFirstName: recurly.String(\"Joanna\"),\n\tLastName:
           \ recurly.String(\"DuMonde\"),\n}\nshippingAddress, err := client.UpdateShippingAddress(accountID,
@@ -4629,11 +4378,7 @@ paths:
               // Use ApiException to catch a generic error from the API
               System.out.println("Unexpected Recurly Error: " + e.getError().getMessage());
           }
-<<<<<<< HEAD
       - lang: PHP
-=======
-      - lang: Php
->>>>>>> 52b9f7f... Ensure that path parameters are not empty strings
         source: |-
           try {
               $client->removeShippingAddress($account_id, $shipping_address_id);
@@ -4698,7 +4443,6 @@ paths:
               schema:
                 "$ref": "#/components/schemas/Error"
       x-code-samples:
-<<<<<<< HEAD
       - lang: Node.js
         source: |
           const subscriptions = client.listAccountSubscriptions(accountId, { limit: 200 })
@@ -4717,13 +4461,6 @@ paths:
           foreach(Subscription subscription in subscriptions) {
             Console.WriteLine(subscription.Id);
           }
-=======
-      - lang: Python
-        source: |
-          subscriptions = client.list_account_subscriptions(account.id, limit=200).items()
-          for subscription in subscriptions:
-              print(subscription.uuid)
->>>>>>> 52b9f7f... Ensure that path parameters are not empty strings
       - lang: Ruby
         source: |
           subscriptions = @client.list_account_subscriptions(
@@ -4742,11 +4479,7 @@ paths:
           for (Subscription subscription : subscriptions) {
               System.out.println(subscription.getUuid());
           }
-<<<<<<< HEAD
       - lang: PHP
-=======
-      - lang: Php
->>>>>>> 52b9f7f... Ensure that path parameters are not empty strings
         source: |
           $params = ['limit' => 200];
           $account_subscriptions = $client->listAccountSubscriptions($account_id, $params);
@@ -4808,7 +4541,6 @@ paths:
               schema:
                 "$ref": "#/components/schemas/Error"
       x-code-samples:
-<<<<<<< HEAD
       - lang: Node.js
         source: |
           const transactions = client.listAccountTransactions(accountId, { limit: 200 })
@@ -4828,8 +4560,6 @@ paths:
           {
               Console.WriteLine(transaction.Id);
           }
-=======
->>>>>>> 52b9f7f... Ensure that path parameters are not empty strings
       - lang: Ruby
         source: |
           transactions = @client.list_account_transactions(
@@ -4848,11 +4578,7 @@ paths:
           for (Transaction transaction : transactions) {
               System.out.println(transaction.getUuid());
           }
-<<<<<<< HEAD
       - lang: PHP
-=======
-      - lang: Php
->>>>>>> 52b9f7f... Ensure that path parameters are not empty strings
         source: |
           $params = ['limit' => 200];
           $account_transactions = $client->listAccountTransactions($account_id, $params);
@@ -4985,7 +4711,6 @@ paths:
               schema:
                 "$ref": "#/components/schemas/Error"
       x-code-samples:
-<<<<<<< HEAD
       - lang: Node.js
         source: |
           const acquisitions = client.listAccountAcquisition({ limit: 200 })
@@ -4993,14 +4718,11 @@ paths:
           for await (const acquisition of acquisitions.each()) {
             console.log(acquisition.id)
           }
-=======
->>>>>>> 52b9f7f... Ensure that path parameters are not empty strings
       - lang: Python
         source: |
           acquisitions = client.list_account_acquisition(limit=200).items()
           for acquisition in acquisitions:
               print(acquisition.id)
-<<<<<<< HEAD
       - lang: ".NET"
         source: |
           var acquisitions = client.ListAccountAcquisition();
@@ -5008,8 +4730,6 @@ paths:
           {
               Console.WriteLine(acquisition.Id);
           }
-=======
->>>>>>> 52b9f7f... Ensure that path parameters are not empty strings
       - lang: Ruby
         source: |
           acquisitions = @client.list_account_acquisition(limit: 200)
@@ -5117,11 +4837,7 @@ paths:
           for (Coupon coupon : coupons) {
               System.out.println(coupon.getCode());
           }
-<<<<<<< HEAD
       - lang: PHP
-=======
-      - lang: Php
->>>>>>> 52b9f7f... Ensure that path parameters are not empty strings
         source: |
           $params = ['limit' => 200];
           $coupons = $client->listCoupons($params);
@@ -5180,50 +4896,7 @@ paths:
               schema:
                 "$ref": "#/components/schemas/Error"
       x-code-samples:
-<<<<<<< HEAD
       - lang: Node.js
-=======
-      - lang: Python
-        source: |
-          try:
-              coupon_create = {
-                  "name": "Promotional Coupon",
-                  "code": coupon_code,
-                  "discount_type": "fixed",
-                  "currencies": [{"currency": "USD", "discount": 10000}],
-              }
-              coupon = client.create_coupon(coupon_create)
-              print("Created Coupon %s" % coupon)
-          except recurly.errors.ValidationError as e:
-              # If the request was invalid, you may want to tell your user
-              # why. You can find the invalid params and reasons in e.error.params
-              print("ValidationError: %s" % e.error.message)
-              print(e.error.params)
-      - lang: Ruby
-        source: |
-          begin
-            coupon_create = {
-              name: "Promotional Coupon",
-              code: coupon_code,
-              discount_type: 'fixed',
-              currencies: [
-                {
-                  currency: 'USD',
-                  discount: 10_000
-                }
-              ]
-            }
-            coupon = @client.create_coupon(
-              body: coupon_create
-            )
-            puts "Created Coupon #{coupon}"
-          rescue Recurly::Errors::ValidationError => e
-            # If the request was invalid, you may want to tell your user
-            # why. You can find the invalid params and reasons in e.recurly_error.params
-            puts "ValidationError: #{e.recurly_error.params}"
-          end
-      - lang: Java
->>>>>>> 52b9f7f... Ensure that path parameters are not empty strings
         source: |
           try {
             const couponCreate = {
@@ -5291,7 +4964,6 @@ paths:
               // Use ApiError to catch a generic error from the API
               Console.WriteLine($"Unexpected Recurly Error: {ex.Error.Message}");
           }
-<<<<<<< HEAD
       - lang: Ruby
         source: |
           begin
@@ -5342,9 +5014,6 @@ paths:
               System.out.println("Unexpected Recurly Error: " + e.getError().getMessage());
           }
       - lang: PHP
-=======
-      - lang: Php
->>>>>>> 52b9f7f... Ensure that path parameters are not empty strings
         source: |
           try {
               $coupon_create = [
@@ -5475,11 +5144,7 @@ paths:
               // Use ApiException to catch a generic error from the API
               System.out.println("Unexpected Recurly Error: " + e.getError().getMessage());
           }
-<<<<<<< HEAD
       - lang: PHP
-=======
-      - lang: Php
->>>>>>> 52b9f7f... Ensure that path parameters are not empty strings
         source: |
           try {
               $coupon = $client->getCoupon($coupon_id);
@@ -5750,11 +5415,7 @@ paths:
               // Use ApiException to catch a generic error from the API
               System.out.println("Unexpected Recurly Error: " + e.getError().getMessage());
           }
-<<<<<<< HEAD
       - lang: PHP
-=======
-      - lang: Php
->>>>>>> 52b9f7f... Ensure that path parameters are not empty strings
         source: |
           try {
               $coupon = $client->deactivateCoupon($coupon_id);
@@ -5900,14 +5561,11 @@ paths:
           for await (const payment of payments.each()) {
             console.log(payment.uuid)
           }
-<<<<<<< HEAD
       - lang: Python
         source: |
           payments = client.list_credit_payments(limit=200).items()
           for payment in payments:
               print("Credit Payment %s" % payment.id)
-=======
->>>>>>> 52b9f7f... Ensure that path parameters are not empty strings
       - lang: ".NET"
         source: |
           var payments = client.ListCreditPayments(limit: 200);
@@ -5930,11 +5588,7 @@ paths:
           for (CreditPayment payment : payments) {
               System.out.println(payment.getUuid());
           }
-<<<<<<< HEAD
       - lang: PHP
-=======
-      - lang: Php
->>>>>>> 52b9f7f... Ensure that path parameters are not empty strings
         source: |
           $params = ['limit' => 200];
           $credit_payments = $client->listCreditPayments($params);
@@ -6063,11 +5717,7 @@ paths:
           for (CustomFieldDefinition field : fields) {
               System.out.println(field.getDisplayName());
           }
-<<<<<<< HEAD
       - lang: PHP
-=======
-      - lang: Php
->>>>>>> 52b9f7f... Ensure that path parameters are not empty strings
         source: |
           $params = ['limit' => 200];
           $custom_field_definitions = $client->listCustomFieldDefinitions($params);
@@ -6128,7 +5778,6 @@ paths:
               console.log('Unknown Error: ', err)
             }
           }
-<<<<<<< HEAD
       - lang: Python
         source: |
           try:
@@ -6136,8 +5785,6 @@ paths:
               print("Custom Field Definition %s" % custom_field_definition)
           except recurly.errors.NotFoundError as e:
               print("Invoice not found")
-=======
->>>>>>> 52b9f7f... Ensure that path parameters are not empty strings
       - lang: ".NET"
         source: |
           try
@@ -6280,11 +5927,7 @@ paths:
           for (Item item : items) {
               System.out.println(item.getCode());
           }
-<<<<<<< HEAD
       - lang: PHP
-=======
-      - lang: Php
->>>>>>> 52b9f7f... Ensure that path parameters are not empty strings
         source: |
           $params = ['limit' => 200];
           $items = $client->listItems($params);
@@ -6344,59 +5987,6 @@ paths:
                 "$ref": "#/components/schemas/Error"
       x-code-samples:
       - lang: Node.js
-<<<<<<< HEAD
-=======
-        source: |
-          try {
-            const itemCreate = {
-              code: itemCode,
-              name: "Item Name",
-              description: "Item Description",
-              external_sku: "a35JE-44",
-              accounting_code: "item-code-127",
-              revenue_schedule_type: "at_range_end",
-              custom_fields: [{
-                name: "custom-field-1",
-                value: "Custom Field 1 value"
-              }]
-            }
-            const item = await client.createItem(itemCreate)
-            console.log('Created Item: ', item.code)
-          } catch (err) {
-            if (err instanceof recurly.errors.ValidationError) {
-              // If the request was not valid, you may want to tell your user
-              // why. You can find the invalid params and reasons in err.params
-              console.log('Failed validation', err.params)
-            } else {
-              // If we don't know what to do with the err, we should
-              // probably re-raise and let our web framework and logger handle it
-              console.log('Unknown Error: ', err)
-            }
-          }
-      - lang: Python
-        source: |
-          try:
-              item_create = {
-                  "code": item_code,
-                  "name": "Item Name",
-                  "description": "Item Description",
-                  "external_sku": "a35JE-44",
-                  "accounting_code": "item-code-127",
-                  "revenue_schedule_type": "at_range_end",
-                  "custom_fields": [{
-                      "name": "custom-field-1",
-                      "value": "Custom Field 1 value"
-                  }]
-              }
-              item = client.create_item(item_create)
-              print("Created Item %s" % item)
-          except recurly.errors.ValidationError as e:
-              # If the request was invalid, you may want to tell your user
-              # why. You can find the invalid params and reasons in e.error.params
-              print("ValidationError: %s" % e.error.message)
-              print(e.error.params)
-      - lang: ".NET"
->>>>>>> 52b9f7f... Ensure that path parameters are not empty strings
         source: |
           try {
             const itemCreate = {
@@ -6532,11 +6122,7 @@ paths:
               // Use ApiException to catch a generic error from the API
               System.out.println("Unexpected Recurly Error: " + e.getError().getMessage());
           }
-<<<<<<< HEAD
       - lang: PHP
-=======
-      - lang: Php
->>>>>>> 52b9f7f... Ensure that path parameters are not empty strings
         source: |
           try {
               $item_create = [
@@ -6662,11 +6248,7 @@ paths:
               // Use ApiException to catch a generic error from the API
               System.out.println("Unexpected Recurly Error: " + e.getError().getMessage());
           }
-<<<<<<< HEAD
       - lang: PHP
-=======
-      - lang: Php
->>>>>>> 52b9f7f... Ensure that path parameters are not empty strings
         source: |
           try {
               $item = $client->getItem($item_id);
@@ -6735,43 +6317,6 @@ paths:
                 "$ref": "#/components/schemas/Error"
       x-code-samples:
       - lang: Node.js
-<<<<<<< HEAD
-=======
-        source: |
-          try {
-            const itemUpdate = {
-              name: 'New Item Name',
-              description: 'New Item Description'
-            }
-            const item = await client.updateItem(itemId, itemUpdate)
-            console.log('Updated item: ', item)
-          } catch (err) {
-            if (err instanceof recurly.errors.ValidationError) {
-              // If the request was not valid, you may want to tell your user
-              // why. You can find the invalid params and reasons in err.params
-              console.log('Failed validation', err.params)
-            } else {
-              // If we don't know what to do with the err, we should
-              // probably re-raise and let our web framework and logger handle it
-              console.log('Unknown Error: ', err)
-            }
-          }
-      - lang: Python
-        source: |
-          try:
-              item_update = {
-                  "name": "New Item Name",
-                  "description": "New Item Description",
-              }
-              item = client.update_item(item_id, item_update)
-              print("Updated Item %s" % item)
-          except recurly.errors.ValidationError as e:
-              # If the request was invalid, you may want to tell your user
-              # why. You can find the invalid params and reasons in e.error.params
-              print("ValidationError: %s" % e.error.message)
-              print(e.error.params)
-      - lang: ".NET"
->>>>>>> 52b9f7f... Ensure that path parameters are not empty strings
         source: |
           try {
             const itemUpdate = {
@@ -6864,11 +6409,7 @@ paths:
               // Use ApiException to catch a generic error from the API
               System.out.println("Unexpected Recurly Error: " + e.getError().getMessage());
           }
-<<<<<<< HEAD
       - lang: PHP
-=======
-      - lang: Php
->>>>>>> 52b9f7f... Ensure that path parameters are not empty strings
         source: |
           try {
               $item_update = [
@@ -6991,11 +6532,7 @@ paths:
               // Use ApiException to catch a generic error from the API
               System.out.println("Unexpected Recurly Error: " + e.getError().getMessage());
           }
-<<<<<<< HEAD
       - lang: PHP
-=======
-      - lang: Php
->>>>>>> 52b9f7f... Ensure that path parameters are not empty strings
         source: |
           try {
               $item = $client->deactivateItem($item_id);
@@ -7119,11 +6656,7 @@ paths:
               // Use ApiException to catch a generic error from the API
               System.out.println("Unexpected Recurly Error: " + e.getError().getMessage());
           }
-<<<<<<< HEAD
       - lang: PHP
-=======
-      - lang: Php
->>>>>>> 52b9f7f... Ensure that path parameters are not empty strings
         source: |
           try {
               $item = $client->reactivateItem($item_id);
@@ -7145,11 +6678,7 @@ paths:
           validation: %v\", e)\n\t\treturn nil, err\n\t}\n\tfmt.Printf(\"Unexpected
           Recurly error: %v\", e)\n\treturn nil, err\n}\nfmt.Printf(\"Reactivated
           Item: %s\", item.Id)"
-<<<<<<< HEAD
   "/sites/{site_id}/measured_units":
-=======
-  "/sites/{site_id}/invoices":
->>>>>>> 52b9f7f... Ensure that path parameters are not empty strings
     get:
       tags:
       - measured_unit
@@ -7412,11 +6941,7 @@ paths:
           for (Invoice invoice : invoices) {
               System.out.println(invoice.getNumber());
           }
-<<<<<<< HEAD
       - lang: PHP
-=======
-      - lang: Php
->>>>>>> 52b9f7f... Ensure that path parameters are not empty strings
         source: |
           $params = ['limit' => '200'];
           $invoices = $client->listInvoices($params);
@@ -7525,11 +7050,7 @@ paths:
               // Use ApiException to catch a generic error from the API
               System.out.println("Unexpected Recurly Error: " + e.getError().getMessage());
           }
-<<<<<<< HEAD
       - lang: PHP
-=======
-      - lang: Php
->>>>>>> 52b9f7f... Ensure that path parameters are not empty strings
         source: |
           try {
               $invoice = $client->getInvoice($invoice_id);
@@ -7607,7 +7128,6 @@ paths:
               console.log('Unknown Error: ', err)
             }
           }
-<<<<<<< HEAD
       - lang: Python
         source: |
           try:
@@ -7621,8 +7141,6 @@ paths:
               # If the resource was not found, you may want to alert the user or
               # just return nil
               print("Resource Not Found")
-=======
->>>>>>> 52b9f7f... Ensure that path parameters are not empty strings
       - lang: ".NET"
         source: |
           try
@@ -7677,7 +7195,6 @@ paths:
               // Use ApiException to catch a generic error from the API
               System.out.println("Unexpected Recurly Error: " + e.getError().getMessage());
           }
-<<<<<<< HEAD
       - lang: PHP
         source: |
           try {
@@ -7698,8 +7215,6 @@ paths:
               // probably re-raise and let our web framework and logger handle it
               var_dump($e);
           }
-=======
->>>>>>> 52b9f7f... Ensure that path parameters are not empty strings
       - lang: Go
         source: "updateReq := &recurly.InvoiceUpdatable{\n\tCustomerNotes:      recurly.String(\"New
           Notes\"),\n\tTermsAndConditions: recurly.String(\"New Terms and Conditions\"),\n}\ninvoice,
@@ -7828,11 +7343,7 @@ paths:
           } catch (java.io.IOException e) {
               System.out.println("Unexpected File Writing Error: " + e.toString());
           }
-<<<<<<< HEAD
       - lang: PHP
-=======
-      - lang: Php
->>>>>>> 52b9f7f... Ensure that path parameters are not empty strings
         source: |
           try {
               $invoice = $client->getInvoicePdf($invoice_id);
@@ -7958,11 +7469,7 @@ paths:
               // Use ApiException to catch a generic error from the API
               System.out.println("Unexpected Recurly Error: " + e.getError().getMessage());
           }
-<<<<<<< HEAD
       - lang: PHP
-=======
-      - lang: Php
->>>>>>> 52b9f7f... Ensure that path parameters are not empty strings
         source: |
           try {
               $invoice = $client->collectInvoice($invoice_id);
@@ -8025,53 +7532,6 @@ paths:
                 "$ref": "#/components/schemas/Error"
       x-code-samples:
       - lang: Node.js
-<<<<<<< HEAD
-=======
-        source: |
-          try {
-            const invoice = await client.failInvoice(invoiceId)
-            console.log('Failed invoice: ', invoice.number)
-          } catch (err) {
-            if (err instanceof recurly.errors.ValidationError) {
-              // If the request was not valid, you may want to tell your user
-              // why. You can find the invalid params and reasons in err.params
-              console.log('Failed validation', err.params)
-            } else {
-              // If we don't know what to do with the err, we should
-              // probably re-raise and let our web framework and logger handle it
-              console.log('Unknown Error: ', err)
-            }
-          }
-      - lang: ".NET"
-        source: |
-          try
-          {
-              Invoice invoice = client.FailInvoice(invoiceId);
-              Console.WriteLine($"Failed invoice #{invoice.Number}");
-          }
-          catch (Recurly.Errors.Validation ex)
-          {
-              // If the request was not valid, you may want to tell your user
-              // why. You can find the invalid params and reasons in ex.Error.Params
-              Console.WriteLine($"Failed validation: {ex.Error.Message}");
-          }
-          catch (Recurly.Errors.ApiError ex)
-          {
-              // Use ApiError to catch a generic error from the API
-              Console.WriteLine($"Unexpected Recurly Error: {ex.Error.Message}");
-          }
-      - lang: Ruby
-        source: |
-          begin
-            invoice = @client.fail_invoice(invoice_id: invoice_id)
-            puts "Failed invoice #{invoice}"
-          rescue Recurly::Errors::NotFoundError
-            # If the resource was not found, you may want to alert the user or
-            # just return nil
-            puts "Resource Not Found"
-          end
-      - lang: Java
->>>>>>> 52b9f7f... Ensure that path parameters are not empty strings
         source: |
           try {
             const invoice = await client.failInvoice(invoiceId)
@@ -8114,7 +7574,6 @@ paths:
               // Use ApiError to catch a generic error from the API
               Console.WriteLine($"Unexpected Recurly Error: {ex.Error.Message}");
           }
-<<<<<<< HEAD
       - lang: Ruby
         source: |
           begin
@@ -8139,9 +7598,6 @@ paths:
               System.out.println("Unexpected Recurly Error: " + e.getError().getMessage());
           }
       - lang: PHP
-=======
-      - lang: Php
->>>>>>> 52b9f7f... Ensure that path parameters are not empty strings
         source: |
           try {
               $invoice = $client->failInvoice($invoice_id);
@@ -8270,11 +7726,7 @@ paths:
               // Use ApiException to catch a generic error from the API
               System.out.println("Unexpected Recurly Error: " + e.getError().getMessage());
           }
-<<<<<<< HEAD
       - lang: PHP
-=======
-      - lang: Php
->>>>>>> 52b9f7f... Ensure that path parameters are not empty strings
         source: |
           try {
               $invoice = $client->markInvoiceSuccessful($invoice_id);
@@ -8348,7 +7800,6 @@ paths:
               console.log('Unknown Error: ', err)
             }
           }
-<<<<<<< HEAD
       - lang: Python
         source: |
           try:
@@ -8358,8 +7809,6 @@ paths:
               # If the resource was not found, you may want to alert the user or
               # just return nil
               print("Resource Not Found")
-=======
->>>>>>> 52b9f7f... Ensure that path parameters are not empty strings
       - lang: ".NET"
         source: |
           try
@@ -8401,11 +7850,7 @@ paths:
               // Use ApiException to catch a generic error from the API
               System.out.println("Unexpected Recurly Error: " + e.getError().getMessage());
           }
-<<<<<<< HEAD
       - lang: PHP
-=======
-      - lang: Php
->>>>>>> 52b9f7f... Ensure that path parameters are not empty strings
         source: |
           try {
               $invoice = $client->reopenInvoice($invoice_id);
@@ -8534,13 +7979,8 @@ paths:
           validation: %v\", e)\n\t\treturn nil, err\n\t}\n\tfmt.Printf(\"Unexpected
           Recurly error: %v\", e)\n\treturn nil, err\n}\n\nfmt.Printf(\"Voided Invoice:
           %v\", invoice)"
-<<<<<<< HEAD
   "/sites/{site_id}/invoices/{invoice_id}/transactions":
     post:
-=======
-  "/sites/{site_id}/invoices/{invoice_id}/line_items":
-    get:
->>>>>>> 52b9f7f... Ensure that path parameters are not empty strings
       tags:
       - invoice
       operationId: record_external_transaction
@@ -8743,7 +8183,6 @@ paths:
               schema:
                 "$ref": "#/components/schemas/Error"
       x-code-samples:
-<<<<<<< HEAD
       - lang: Node.js
         source: |
           const redemptions = client.listInvoiceCouponRedemptions(invoiceId, { limit: 200 })
@@ -8768,8 +8207,6 @@ paths:
           {
               Console.WriteLine(redemption.Id);
           }
-=======
->>>>>>> 52b9f7f... Ensure that path parameters are not empty strings
       - lang: Ruby
         source: |
           coupon_redemptions = @client.list_invoice_coupon_redemptions(
@@ -8788,11 +8225,7 @@ paths:
           for (CouponRedemption redemption : redemptions) {
               System.out.println(redemption.getId());
           }
-<<<<<<< HEAD
       - lang: PHP
-=======
-      - lang: Php
->>>>>>> 52b9f7f... Ensure that path parameters are not empty strings
         source: |
           $params = ['limit' => 200];
           $invoice_coupon_redemptions = $client->listInvoiceCouponRedemptions($invoice_id, $params);
@@ -8850,7 +8283,6 @@ paths:
           for await (const invoice of invoices.each()) {
             console.log(invoice.number)
           }
-<<<<<<< HEAD
       - lang: Python
         source: |
           try:
@@ -8861,8 +8293,6 @@ paths:
               # If the resource was not found, you may want to alert the user or
               # just return nil
               print("Resource Not Found")
-=======
->>>>>>> 52b9f7f... Ensure that path parameters are not empty strings
       - lang: ".NET"
         source: |
           var invoices = client.ListRelatedInvoices(invoiceId);
@@ -9037,11 +8467,7 @@ paths:
               // Use ApiException to catch a generic error from the API
               System.out.println("Unexpected Recurly Error: " + e.getError().getMessage());
           }
-<<<<<<< HEAD
       - lang: PHP
-=======
-      - lang: Php
->>>>>>> 52b9f7f... Ensure that path parameters are not empty strings
         source: |
           try {
               $refund = [
@@ -9259,11 +8685,7 @@ paths:
               // Use ApiException to catch a generic error from the API
               System.out.println("Unexpected Recurly Error: " + e.getError().getMessage());
           }
-<<<<<<< HEAD
       - lang: PHP
-=======
-      - lang: Php
->>>>>>> 52b9f7f... Ensure that path parameters are not empty strings
         source: |
           try {
               $line_item = $client->getLineItem($line_item_id);
@@ -9383,11 +8805,7 @@ paths:
               // Use ApiException to catch a generic error from the API
               System.out.println("Unexpected Recurly Error: " + e.getError().getMessage());
           }
-<<<<<<< HEAD
       - lang: PHP
-=======
-      - lang: Php
->>>>>>> 52b9f7f... Ensure that path parameters are not empty strings
         source: |
           try {
               $client->removeLineItem($line_item_id);
@@ -9484,11 +8902,7 @@ paths:
           for (Plan plan : plans) {
               System.out.println(plan.getCode());
           }
-<<<<<<< HEAD
       - lang: PHP
-=======
-      - lang: Php
->>>>>>> 52b9f7f... Ensure that path parameters are not empty strings
         source: |
           $params = ['limit' => 200];
           $plans = $client->listPlans($params);
@@ -9664,11 +9078,7 @@ paths:
               // Use ApiException to catch a generic error from the API
               System.out.println("Unexpected Recurly Error: " + e.getError().getMessage());
           }
-<<<<<<< HEAD
       - lang: PHP
-=======
-      - lang: Php
->>>>>>> 52b9f7f... Ensure that path parameters are not empty strings
         source: |
           try {
               $plan_create = [
@@ -9799,11 +9209,7 @@ paths:
               // Use ApiException to catch a generic error from the API
               System.out.println("Unexpected Recurly Error: " + e.getError().getMessage());
           }
-<<<<<<< HEAD
       - lang: PHP
-=======
-      - lang: Php
->>>>>>> 52b9f7f... Ensure that path parameters are not empty strings
         source: |
           try {
               $plan = $client->getPlan($plan_id);
@@ -9884,7 +9290,6 @@ paths:
               console.log('Unknown Error: ', err)
             }
           }
-<<<<<<< HEAD
       - lang: Python
         source: |
           try:
@@ -9897,8 +9302,6 @@ paths:
               # If the resource was not found, you may want to alert the user or
               # just return nil
               print("Resource Not Found")
-=======
->>>>>>> 52b9f7f... Ensure that path parameters are not empty strings
       - lang: ".NET"
         source: |
           try
@@ -10013,7 +9416,6 @@ paths:
               console.log('Unknown Error: ', err)
             }
           }
-<<<<<<< HEAD
       - lang: Python
         source: |
           try:
@@ -10023,8 +9425,6 @@ paths:
               # If the resource was not found, you may want to alert the user or
               # just return nil
               print("Resource Not Found")
-=======
->>>>>>> 52b9f7f... Ensure that path parameters are not empty strings
       - lang: ".NET"
         source: |
           try
@@ -10131,7 +9531,6 @@ paths:
               schema:
                 "$ref": "#/components/schemas/Error"
       x-code-samples:
-<<<<<<< HEAD
       - lang: Node.js
         source: |
           const addOns = client.listPlanAddOns(planId, { limit: 200 })
@@ -10151,13 +9550,6 @@ paths:
           {
               Console.WriteLine(addOn.Code);
           }
-=======
-      - lang: Python
-        source: |
-          add_ons = client.list_plan_add_ons(plan_id).items()
-          for add_on in add_ons:
-              print(add_on.code)
->>>>>>> 52b9f7f... Ensure that path parameters are not empty strings
       - lang: Ruby
         source: |
           add_ons = @client.list_plan_add_ons(
@@ -10176,11 +9568,7 @@ paths:
           for (AddOn addOn : addOns) {
               System.out.println(addOn.getCode());
           }
-<<<<<<< HEAD
       - lang: PHP
-=======
-      - lang: Php
->>>>>>> 52b9f7f... Ensure that path parameters are not empty strings
         source: |
           $params = ['limit' => 200];
           $plan_add_ons = $client->listPlanAddOns($plan_id, $params);
@@ -10236,7 +9624,6 @@ paths:
               schema:
                 "$ref": "#/components/schemas/Error"
       x-code-samples:
-<<<<<<< HEAD
       - lang: Node.js
         source: |
           try {
@@ -10265,8 +9652,6 @@ paths:
               console.log('Unknown Error: ', err)
             }
           }
-=======
->>>>>>> 52b9f7f... Ensure that path parameters are not empty strings
       - lang: Python
         source: |
           try:
@@ -10427,7 +9812,6 @@ paths:
               schema:
                 "$ref": "#/components/schemas/Error"
       x-code-samples:
-<<<<<<< HEAD
       - lang: Node.js
         source: |
           try {
@@ -10449,13 +9833,6 @@ paths:
           try:
               add_on = client.get_plan_add_on(plan_id, add_on_id)
               print("Got Plan Add-On %s" % add_on)
-=======
-      - lang: Python
-        source: |
-          try:
-              shipping_addr = client.get_shipping_address(account_id, shipping_address_id)
-              print("Got ShippingAddress %s" % shipping_addr)
->>>>>>> 52b9f7f... Ensure that path parameters are not empty strings
           except recurly.errors.NotFoundError:
               # If the resource was not found, you may want to alert the user or
               # just return nil
@@ -10503,11 +9880,7 @@ paths:
               // Use ApiException to catch a generic error from the API
               System.out.println("Unexpected Recurly Error: " + e.getError().getMessage());
           }
-<<<<<<< HEAD
       - lang: PHP
-=======
-      - lang: Php
->>>>>>> 52b9f7f... Ensure that path parameters are not empty strings
         source: |
           try {
               $add_on = $client->getPlanAddOn($plan_id, $add_on_id);
@@ -10700,7 +10073,6 @@ paths:
       - lang: Node.js
         source: |
           try {
-<<<<<<< HEAD
             const addOn = await client.removePlanAddOn(planId, addOnId)
             console.log('Removed plan add-on: ', addOn)
           } catch (err) {
@@ -10762,8 +10134,6 @@ paths:
       - lang: PHP
         source: |
           try {
-=======
->>>>>>> 52b9f7f... Ensure that path parameters are not empty strings
               $add_on = $client->removePlanAddOn($plan_id, $add_on_id);
 
               echo 'Removed Plan AddOn:' . PHP_EOL;
@@ -11087,7 +10457,6 @@ paths:
           ok {\n\t\tfmt.Printf(\"Failed to retrieve next page: %v\", e)\n\t\tbreak\n\t}\n\tfor
           i, method := range shippingMethods.Data {\n\t\tfmt.Printf(\"Shipping Method
           %3d: %s, %s\\n\",\n\t\t\ti,\n\t\t\tmethod.Id,\n\t\t\tmethod.Code,\n\t\t)\n\t}\n}"
-<<<<<<< HEAD
     post:
       tags:
       - shipping_method
@@ -11133,8 +10502,6 @@ paths:
               schema:
                 "$ref": "#/components/schemas/Error"
       x-code-samples: []
-=======
->>>>>>> 52b9f7f... Ensure that path parameters are not empty strings
   "/sites/{site_id}/shipping_methods/{id}":
     get:
       tags:
@@ -11216,7 +10583,6 @@ paths:
             application/json:
               schema:
                 "$ref": "#/components/schemas/Error"
-<<<<<<< HEAD
       x-code-samples: []
     delete:
       tags:
@@ -11290,8 +10656,6 @@ paths:
             application/json:
               schema:
                 "$ref": "#/components/schemas/Error"
-=======
->>>>>>> 52b9f7f... Ensure that path parameters are not empty strings
       x-code-samples:
       - lang: Node.js
         source: |
@@ -11327,11 +10691,7 @@ paths:
           for (Subscription subscription : subscriptions) {
               System.out.println(subscription.getUuid());
           }
-<<<<<<< HEAD
       - lang: PHP
-=======
-      - lang: Php
->>>>>>> 52b9f7f... Ensure that path parameters are not empty strings
         source: |
           $params = ['limit' => 200];
           $subscriptions = $client->listSubscriptions($params);
@@ -11473,30 +10833,6 @@ paths:
             puts "ValidationError: #{e.recurly_error.params}"
           end
       - lang: Java
-<<<<<<< HEAD
-=======
-        source: |
-          try {
-              SubscriptionCreate subscriptionCreate = new SubscriptionCreate();
-              AccountCreate accountCreate = new AccountCreate();
-
-              accountCreate.setCode(accountCode);
-              subscriptionCreate.setCurrency("USD");
-              subscriptionCreate.setAccount(accountCreate);
-              subscriptionCreate.setPlanCode(planCode);
-
-              Subscription subscription = client.createSubscription(subscriptionCreate);
-              System.out.println("Created Subscription with Id: " + subscription.getUuid());
-          } catch (ValidationException e) {
-              // If the request was not valid, you may want to tell your user
-              // why. You can find the invalid params and reasons in e.getError().getParams()
-              System.out.println("Failed validation: " + e.getError().getMessage());
-          } catch (ApiException e) {
-              // Use ApiException to catch a generic error from the API
-              System.out.println("Unexpected Recurly Error: " + e.getError().getMessage());
-          }
-      - lang: Php
->>>>>>> 52b9f7f... Ensure that path parameters are not empty strings
         source: |
           try {
               SubscriptionCreate subscriptionCreate = new SubscriptionCreate();
@@ -11646,11 +10982,7 @@ paths:
               // Use ApiException to catch a generic error from the API
               System.out.println("Unexpected Recurly Error: " + e.getError().getMessage());
           }
-<<<<<<< HEAD
       - lang: PHP
-=======
-      - lang: Php
->>>>>>> 52b9f7f... Ensure that path parameters are not empty strings
         source: |
           try {
               $subscription = $client->getSubscription($subscription_id);
@@ -11791,11 +11123,7 @@ paths:
               // Use ApiException to catch a generic error from the API
               System.out.println("Unexpected Recurly Error: " + e.getError().getMessage());
           }
-<<<<<<< HEAD
       - lang: PHP
-=======
-      - lang: Php
->>>>>>> 52b9f7f... Ensure that path parameters are not empty strings
         source: |
           try {
               $changes = [
@@ -11952,11 +11280,7 @@ paths:
               // Use ApiException to catch a generic error from the API
               System.out.println("Unexpected Recurly Error: " + e.getError().getMessage());
           }
-<<<<<<< HEAD
       - lang: PHP
-=======
-      - lang: Php
->>>>>>> 52b9f7f... Ensure that path parameters are not empty strings
         source: |
           try {
               $subscription = $client->terminateSubscription($subscription_id);
@@ -12094,11 +11418,7 @@ paths:
               // Use ApiException to catch a generic error from the API
               System.out.println("Unexpected Recurly Error: " + e.getError().getMessage());
           }
-<<<<<<< HEAD
       - lang: PHP
-=======
-      - lang: Php
->>>>>>> 52b9f7f... Ensure that path parameters are not empty strings
         source: |
           try {
               $subscription = $client->cancelSubscription($subscription_id);
@@ -12178,7 +11498,6 @@ paths:
               console.log('Unknown Error: ', err)
             }
           }
-<<<<<<< HEAD
       - lang: Python
         source: |
           try:
@@ -12188,8 +11507,6 @@ paths:
               # If the resource was not found, you may want to alert the user or
               # just return nil
               print("Resource Not Found")
-=======
->>>>>>> 52b9f7f... Ensure that path parameters are not empty strings
       - lang: ".NET"
         source: |
           try
@@ -12233,11 +11550,7 @@ paths:
               // Use ApiException to catch a generic error from the API
               System.out.println("Unexpected Recurly Error: " + e.getError().getMessage());
           }
-<<<<<<< HEAD
       - lang: PHP
-=======
-      - lang: Php
->>>>>>> 52b9f7f... Ensure that path parameters are not empty strings
         source: |
           try {
               $subscription = $client->reactivateSubscription($subscription_id);
@@ -12307,7 +11620,6 @@ paths:
               schema:
                 "$ref": "#/components/schemas/Error"
       x-code-samples:
-<<<<<<< HEAD
       - lang: Node.js
         source: |
           try {
@@ -12329,10 +11641,6 @@ paths:
           }
       - lang: Python
         source: |
-=======
-      - lang: Python
-        source: |
->>>>>>> 52b9f7f... Ensure that path parameters are not empty strings
           try:
               sub_pause = {"remaining_pause_cycles": 10}
               subscription = client.pause_subscription(subscription_id, sub_pause)
@@ -12342,7 +11650,6 @@ paths:
               # why. You can find the invalid params and reasons in e.error.params
               print("ValidationError: %s" % e.error.message)
               print(e.error.params)
-<<<<<<< HEAD
       - lang: ".NET"
         source: |
           try
@@ -12364,8 +11671,6 @@ paths:
               // Use ApiError to catch a generic error from the API
               Console.WriteLine($"Unexpected Recurly Error: {ex.Error.Message}");
           }
-=======
->>>>>>> 52b9f7f... Ensure that path parameters are not empty strings
       - lang: Ruby
         source: |
           begin
@@ -12398,11 +11703,7 @@ paths:
               // Use ApiException to catch a generic error from the API
               System.out.println("Unexpected Recurly Error: " + e.getError().getMessage());
           }
-<<<<<<< HEAD
       - lang: PHP
-=======
-      - lang: Php
->>>>>>> 52b9f7f... Ensure that path parameters are not empty strings
         source: |
           try {
               $sub_pause = [ "remaining_pause_cycles" => 10 ];
@@ -12467,7 +11768,6 @@ paths:
               schema:
                 "$ref": "#/components/schemas/Error"
       x-code-samples:
-<<<<<<< HEAD
       - lang: Node.js
         source: |
           try {
@@ -12484,8 +11784,6 @@ paths:
               console.log('Unknown Error: ', err)
             }
           }
-=======
->>>>>>> 52b9f7f... Ensure that path parameters are not empty strings
       - lang: Python
         source: |
           try:
@@ -12496,7 +11794,6 @@ paths:
               # why. You can find the invalid params and reasons in e.error.params
               print("ValidationError: %s" % e.error.message)
               print(e.error.params)
-<<<<<<< HEAD
       - lang: ".NET"
         source: |
           try
@@ -12515,8 +11812,6 @@ paths:
               // Use ApiError to catch a generic error from the API
               Console.WriteLine($"Unexpected Recurly Error: {ex.Error.Message}");
           }
-=======
->>>>>>> 52b9f7f... Ensure that path parameters are not empty strings
       - lang: Ruby
         source: |
           begin
@@ -12649,34 +11944,6 @@ paths:
                 "$ref": "#/components/schemas/Error"
       x-code-samples:
       - lang: Node.js
-<<<<<<< HEAD
-=======
-        source: |
-          try {
-            const change = await client.getSubscriptionChange(subscriptionId)
-            console.log('Fetched subscription change: ', change.id)
-          } catch (err) {
-            if (err instanceof recurly.errors.NotFoundError) {
-              // If the request was not found, you may want to alert the user or
-              // just return null
-              console.log('Resource Not Found')
-            } else {
-              // If we don't know what to do with the err, we should
-              // probably re-raise and let our web framework and logger handle it
-              console.log('Unknown Error: ', err)
-            }
-          }
-      - lang: Python
-        source: |
-          try:
-              change = client.get_subscription_change(subscription_id)
-              print("Got SubscriptionChange %s" % change)
-          except recurly.errors.NotFoundError:
-              # If the resource was not found, you may want to alert the user or
-              # just return nil
-              print("Resource Not Found")
-      - lang: ".NET"
->>>>>>> 52b9f7f... Ensure that path parameters are not empty strings
         source: |
           try {
             const change = await client.getSubscriptionChange(subscriptionId)
@@ -12744,11 +12011,7 @@ paths:
               // Use ApiException to catch a generic error from the API
               System.out.println("Unexpected Recurly Error: " + e.getError().getMessage());
           }
-<<<<<<< HEAD
       - lang: PHP
-=======
-      - lang: Php
->>>>>>> 52b9f7f... Ensure that path parameters are not empty strings
         source: |
           try {
               $change = $client->getSubscriptionChange($subscription_id);
@@ -12903,11 +12166,7 @@ paths:
               // Use ApiException to catch a generic error from the API
               System.out.println("Unexpected Recurly Error: " + e.getError().getMessage());
           }
-<<<<<<< HEAD
       - lang: PHP
-=======
-      - lang: Php
->>>>>>> 52b9f7f... Ensure that path parameters are not empty strings
         source: |
           try {
               $change_create = [
@@ -13029,11 +12288,7 @@ paths:
               // Use ApiException to catch a generic error from the API
               System.out.println("Unexpected Recurly Error: " + e.getError().getMessage());
           }
-<<<<<<< HEAD
       - lang: PHP
-=======
-      - lang: Php
->>>>>>> 52b9f7f... Ensure that path parameters are not empty strings
         source: |
           try {
               $client->removeSubscriptionChange($subscription_id);
@@ -13053,7 +12308,6 @@ paths:
           {\n\t\tfmt.Printf(\"Resource not found: %v\", e)\n\t\treturn nil, err\n\t}\n\tfmt.Printf(\"Unexpected
           Recurly error: %v\", e)\n\treturn nil, err\n}\n\nfmt.Printf(\"Removed Subscription
           Change: %v\", subscriptionChange)"
-<<<<<<< HEAD
   "/sites/{site_id}/subscriptions/{subscription_id}/change/preview":
     post:
       tags:
@@ -13099,8 +12353,6 @@ paths:
               schema:
                 "$ref": "#/components/schemas/Error"
       x-code-samples: []
-=======
->>>>>>> 52b9f7f... Ensure that path parameters are not empty strings
   "/sites/{site_id}/subscriptions/{subscription_id}/invoices":
     get:
       tags:
@@ -13146,7 +12398,6 @@ paths:
               schema:
                 "$ref": "#/components/schemas/Error"
       x-code-samples:
-<<<<<<< HEAD
       - lang: Node.js
         source: |
           const invoices = client.listSubscriptionInvoices(subscriptionId, { limit: 200 })
@@ -13166,13 +12417,6 @@ paths:
           {
               Console.WriteLine(invoice.Number);
           }
-=======
-      - lang: Python
-        source: |
-          invoices = client.list_subscription_invoices(subscription_id).items()
-          for invoice in invoices:
-              print(invoice.number)
->>>>>>> 52b9f7f... Ensure that path parameters are not empty strings
       - lang: Ruby
         source: |
           invoices = @client.list_subscription_invoices(
@@ -13191,11 +12435,7 @@ paths:
           for (Invoice invoice : invoices) {
               System.out.println(invoice.getNumber());
           }
-<<<<<<< HEAD
       - lang: PHP
-=======
-      - lang: Php
->>>>>>> 52b9f7f... Ensure that path parameters are not empty strings
         source: |
           $params = ['limit' => 200];
           $subscription_invoices = $client->listSubscriptionInvoices($subscription_id, $params);
@@ -13212,7 +12452,6 @@ paths:
           i, invoice := range subInvoices.Data {\n\t\tfmt.Printf(\"Subscription Invoice
           %3d: %s\\n\",\n\t\t\ti,\n\t\t\tinvoice.Id,\n\t\t)\n\t}\n}"
   "/sites/{site_id}/subscriptions/{subscription_id}/line_items":
-<<<<<<< HEAD
     get:
       tags:
       - subscription
@@ -13400,8 +12639,6 @@ paths:
           next page: %v\", e)\n\t\tbreak\n\t}\n\tfor i, redemption := range subCouponRedemptions.Data
           {\n\t\tfmt.Printf(\"Subscription Coupon Redemption %3d: %s\\n\",\n\t\t\ti,\n\t\t\tredemption.Id,\n\t\t)\n\t}\n}"
   "/sites/{site_id}/subscriptions/{subscription_id}/add_ons/{add_on_id}/usage":
-=======
->>>>>>> 52b9f7f... Ensure that path parameters are not empty strings
     get:
       tags:
       - invoice
@@ -13579,53 +12816,8 @@ paths:
             application/json:
               schema:
                 "$ref": "#/components/schemas/Error"
-<<<<<<< HEAD
       x-code-samples: []
     delete:
-=======
-      x-code-samples:
-      - lang: Python
-        source: |
-          line_items = client.list_subscription_line_items(subscription_id).items()
-          for line_item in line_items:
-              print(line_item.id)
-      - lang: Ruby
-        source: |
-          line_items = @client.list_subscription_line_items(
-            subscription_id: subscription_id,
-            limit: 200
-          )
-          line_items.each do |line_item|
-            puts "LineItem: #{line_item.id}"
-          end
-      - lang: Java
-        source: |
-          QueryParams params = new QueryParams();
-          params.setLimit(200); // Pull 200 records at a time
-          final Pager<LineItem> lineItems = client.listSubscriptionLineItems(subscriptionId, params);
-
-          for (LineItem lineItem : lineItems) {
-              System.out.println(lineItem.getId());
-          }
-      - lang: Php
-        source: |
-          $params = ['limit' => 200];
-          $subscription_line_items = $client->listSubscriptionLineItems($subscription_id, $params);
-
-          foreach($subscription_line_items as $line_item) {
-            echo 'Subscription Invoice: ' . $line_item->getId() . PHP_EOL;
-          }
-      - lang: Go
-        source: "listParams := &recurly.ListSubscriptionLineItemsParams{\n\tSort:
-          \ recurly.String(\"created_at\"),\n\tOrder: recurly.String(\"desc\"),\n\tLimit:
-          recurly.Int(200),\n}\nsubLineItems := client.ListSubscriptionLineItems(subID,
-          listParams)\n\nfor subLineItems.HasMore {\n\terr := subLineItems.Fetch()\n\tif
-          e, ok := err.(*recurly.Error); ok {\n\t\tfmt.Printf(\"Failed to retrieve
-          next page: %v\", e)\n\t\tbreak\n\t}\n\tfor i, lineItem := range subLineItems.Data
-          {\n\t\tfmt.Printf(\"Subscription Line Item %3d: %s\\n\",\n\t\t\ti,\n\t\t\tlineItem.Id,\n\t\t)\n\t}\n}"
-  "/sites/{site_id}/subscriptions/{subscription_id}/coupon_redemptions":
-    get:
->>>>>>> 52b9f7f... Ensure that path parameters are not empty strings
       tags:
       - invoice
       - subscription
@@ -13662,49 +12854,7 @@ paths:
             application/json:
               schema:
                 "$ref": "#/components/schemas/Error"
-<<<<<<< HEAD
       x-code-samples: []
-=======
-      x-code-samples:
-      - lang: Python
-        source: |
-          redemptions = client.list_subscription_coupon_redemptions(subscription_id).items()
-          for redemption in redemptions:
-              print(redemption.uuid)
-      - lang: Ruby
-        source: |
-          coupon_redemptions = @client.list_subscription_coupon_redemptions(
-            subscription_id: subscription_id,
-            limit: 200
-          )
-          coupon_redemptions.each do |redemption|
-            puts "CouponRedemption: #{redemption.id}"
-          end
-      - lang: Java
-        source: |
-          QueryParams params = new QueryParams();
-          params.setLimit(200); // Pull 200 records at a time
-          final Pager<CouponRedemption> redemptions = client.listSubscriptionCouponRedemptions(subscriptionId, params);
-
-          for (CouponRedemption redemption : redemptions) {
-              System.out.println(redemption.getId());
-          }
-      - lang: Php
-        source: |
-          $params = ['limit' => 200];
-          $subscription_coupon_redemptions = $client->listSubscriptionCouponRedemptions($subscription_id, $params);
-
-          foreach($subscription_coupon_redemptions as $redemption) {
-            echo 'Subscription Coupon Redemption: ' . $redemption->getId() . PHP_EOL;
-          }
-      - lang: Go
-        source: "listParams := &recurly.ListSubscriptionCouponRedemptionsParams{\n\tSort:
-          recurly.String(\"created_at\"),\n}\nsubCouponRedemptions := client.ListSubscriptionCouponRedemptions(subID,
-          listParams)\n\nfor subCouponRedemptions.HasMore {\n\terr := subCouponRedemptions.Fetch()\n\tif
-          e, ok := err.(*recurly.Error); ok {\n\t\tfmt.Printf(\"Failed to retrieve
-          next page: %v\", e)\n\t\tbreak\n\t}\n\tfor i, redemption := range subCouponRedemptions.Data
-          {\n\t\tfmt.Printf(\"Subscription Coupon Redemption %3d: %s\\n\",\n\t\t\ti,\n\t\t\tredemption.Id,\n\t\t)\n\t}\n}"
->>>>>>> 52b9f7f... Ensure that path parameters are not empty strings
   "/sites/{site_id}/transactions":
     get:
       tags:
@@ -13783,11 +12933,7 @@ paths:
           for (Transaction transaction : transactions) {
               System.out.println(transaction.getUuid());
           }
-<<<<<<< HEAD
       - lang: PHP
-=======
-      - lang: Php
->>>>>>> 52b9f7f... Ensure that path parameters are not empty strings
         source: |
           $params = ['limit' => 200];
           $transactions = $client->listTransactions($params);
@@ -13847,7 +12993,6 @@ paths:
               console.log('Unknown Error: ', err)
             }
           }
-<<<<<<< HEAD
       - lang: Python
         source: |
           try:
@@ -13857,8 +13002,6 @@ paths:
               # If the resource was not found, you may want to alert the user or
               # just return nil
               print("Resource Not Found")
-=======
->>>>>>> 52b9f7f... Ensure that path parameters are not empty strings
       - lang: ".NET"
         source: |
           try
@@ -13900,11 +13043,7 @@ paths:
               // Use ApiException to catch a generic error from the API
               System.out.println("Unexpected Recurly Error: " + e.getError().getMessage());
           }
-<<<<<<< HEAD
       - lang: PHP
-=======
-      - lang: Php
->>>>>>> 52b9f7f... Ensure that path parameters are not empty strings
         source: |
           try {
               $transaction = $client->getTransaction($transaction_id);
@@ -14215,11 +13354,7 @@ paths:
               // Use ApiException to catch a generic error from the API
               System.out.println("Unexpected Recurly Error: " + e.getError().getMessage());
           }
-<<<<<<< HEAD
       - lang: PHP
-=======
-      - lang: Php
->>>>>>> 52b9f7f... Ensure that path parameters are not empty strings
         source: |
           try {
               $purchase_create = [

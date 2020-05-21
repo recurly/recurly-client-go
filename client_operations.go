@@ -13,11 +13,11 @@ const (
 )
 
 type ClientInterface interface {
-	ListSites(params *ListSitesParams) *SiteList
+	ListSites(params *ListSitesParams) (*SiteList, error)
 
 	GetSite(siteId string) (*Site, error)
 
-	ListAccounts(params *ListAccountsParams) *AccountList
+	ListAccounts(params *ListAccountsParams) (*AccountList, error)
 
 	CreateAccount(body *AccountCreate) (*Account, error)
 
@@ -43,7 +43,7 @@ type ClientInterface interface {
 
 	RemoveBillingInfo(accountId string) (*Empty, error)
 
-	ListAccountCouponRedemptions(accountId string, params *ListAccountCouponRedemptionsParams) *CouponRedemptionList
+	ListAccountCouponRedemptions(accountId string, params *ListAccountCouponRedemptionsParams) (*CouponRedemptionList, error)
 
 	GetActiveCouponRedemption(accountId string) (*CouponRedemption, error)
 
@@ -51,23 +51,23 @@ type ClientInterface interface {
 
 	RemoveCouponRedemption(accountId string) (*CouponRedemption, error)
 
-	ListAccountCreditPayments(accountId string, params *ListAccountCreditPaymentsParams) *CreditPaymentList
+	ListAccountCreditPayments(accountId string, params *ListAccountCreditPaymentsParams) (*CreditPaymentList, error)
 
-	ListAccountInvoices(accountId string, params *ListAccountInvoicesParams) *InvoiceList
+	ListAccountInvoices(accountId string, params *ListAccountInvoicesParams) (*InvoiceList, error)
 
 	CreateInvoice(accountId string, body *InvoiceCreate) (*InvoiceCollection, error)
 
 	PreviewInvoice(accountId string, body *InvoiceCreate) (*InvoiceCollection, error)
 
-	ListAccountLineItems(accountId string, params *ListAccountLineItemsParams) *LineItemList
+	ListAccountLineItems(accountId string, params *ListAccountLineItemsParams) (*LineItemList, error)
 
 	CreateLineItem(accountId string, body *LineItemCreate) (*LineItem, error)
 
-	ListAccountNotes(accountId string, params *ListAccountNotesParams) *AccountNoteList
+	ListAccountNotes(accountId string, params *ListAccountNotesParams) (*AccountNoteList, error)
 
 	GetAccountNote(accountId string, accountNoteId string) (*AccountNote, error)
 
-	ListShippingAddresses(accountId string, params *ListShippingAddressesParams) *ShippingAddressList
+	ListShippingAddresses(accountId string, params *ListShippingAddressesParams) (*ShippingAddressList, error)
 
 	CreateShippingAddress(accountId string, body *ShippingAddressCreate) (*ShippingAddress, error)
 
@@ -77,15 +77,15 @@ type ClientInterface interface {
 
 	RemoveShippingAddress(accountId string, shippingAddressId string) (*Empty, error)
 
-	ListAccountSubscriptions(accountId string, params *ListAccountSubscriptionsParams) *SubscriptionList
+	ListAccountSubscriptions(accountId string, params *ListAccountSubscriptionsParams) (*SubscriptionList, error)
 
-	ListAccountTransactions(accountId string, params *ListAccountTransactionsParams) *TransactionList
+	ListAccountTransactions(accountId string, params *ListAccountTransactionsParams) (*TransactionList, error)
 
-	ListChildAccounts(accountId string, params *ListChildAccountsParams) *AccountList
+	ListChildAccounts(accountId string, params *ListChildAccountsParams) (*AccountList, error)
 
-	ListAccountAcquisition(params *ListAccountAcquisitionParams) *AccountAcquisitionList
+	ListAccountAcquisition(params *ListAccountAcquisitionParams) (*AccountAcquisitionList, error)
 
-	ListCoupons(params *ListCouponsParams) *CouponList
+	ListCoupons(params *ListCouponsParams) (*CouponList, error)
 
 	CreateCoupon(body *CouponCreate) (*Coupon, error)
 
@@ -95,17 +95,17 @@ type ClientInterface interface {
 
 	DeactivateCoupon(couponId string) (*Coupon, error)
 
-	ListUniqueCouponCodes(couponId string, params *ListUniqueCouponCodesParams) *UniqueCouponCodeList
+	ListUniqueCouponCodes(couponId string, params *ListUniqueCouponCodesParams) (*UniqueCouponCodeList, error)
 
-	ListCreditPayments(params *ListCreditPaymentsParams) *CreditPaymentList
+	ListCreditPayments(params *ListCreditPaymentsParams) (*CreditPaymentList, error)
 
 	GetCreditPayment(creditPaymentId string) (*CreditPayment, error)
 
-	ListCustomFieldDefinitions(params *ListCustomFieldDefinitionsParams) *CustomFieldDefinitionList
+	ListCustomFieldDefinitions(params *ListCustomFieldDefinitionsParams) (*CustomFieldDefinitionList, error)
 
 	GetCustomFieldDefinition(customFieldDefinitionId string) (*CustomFieldDefinition, error)
 
-	ListItems(params *ListItemsParams) *ItemList
+	ListItems(params *ListItemsParams) (*ItemList, error)
 
 	CreateItem(body *ItemCreate) (*Item, error)
 
@@ -117,7 +117,7 @@ type ClientInterface interface {
 
 	ReactivateItem(itemId string) (*Item, error)
 
-	ListMeasuredUnit(params *ListMeasuredUnitParams) *MeasuredUnitList
+	ListMeasuredUnit(params *ListMeasuredUnitParams) (*MeasuredUnitList, error)
 
 	CreateMeasuredUnit(body *MeasuredUnitCreate) (*MeasuredUnit, error)
 
@@ -127,7 +127,7 @@ type ClientInterface interface {
 
 	RemoveMeasuredUnit(measuredUnitId string) (*MeasuredUnit, error)
 
-	ListInvoices(params *ListInvoicesParams) *InvoiceList
+	ListInvoices(params *ListInvoicesParams) (*InvoiceList, error)
 
 	GetInvoice(invoiceId string) (*Invoice, error)
 
@@ -145,21 +145,21 @@ type ClientInterface interface {
 
 	RecordExternalTransaction(invoiceId string, body *ExternalTransaction) (*Transaction, error)
 
-	ListInvoiceLineItems(invoiceId string, params *ListInvoiceLineItemsParams) *LineItemList
+	ListInvoiceLineItems(invoiceId string, params *ListInvoiceLineItemsParams) (*LineItemList, error)
 
-	ListInvoiceCouponRedemptions(invoiceId string, params *ListInvoiceCouponRedemptionsParams) *CouponRedemptionList
+	ListInvoiceCouponRedemptions(invoiceId string, params *ListInvoiceCouponRedemptionsParams) (*CouponRedemptionList, error)
 
-	ListRelatedInvoices(invoiceId string) *InvoiceList
+	ListRelatedInvoices(invoiceId string) (*InvoiceList, error)
 
 	RefundInvoice(invoiceId string, body *InvoiceRefund) (*Invoice, error)
 
-	ListLineItems(params *ListLineItemsParams) *LineItemList
+	ListLineItems(params *ListLineItemsParams) (*LineItemList, error)
 
 	GetLineItem(lineItemId string) (*LineItem, error)
 
 	RemoveLineItem(lineItemId string) (*Empty, error)
 
-	ListPlans(params *ListPlansParams) *PlanList
+	ListPlans(params *ListPlansParams) (*PlanList, error)
 
 	CreatePlan(body *PlanCreate) (*Plan, error)
 
@@ -169,7 +169,7 @@ type ClientInterface interface {
 
 	RemovePlan(planId string) (*Plan, error)
 
-	ListPlanAddOns(planId string, params *ListPlanAddOnsParams) *AddOnList
+	ListPlanAddOns(planId string, params *ListPlanAddOnsParams) (*AddOnList, error)
 
 	CreatePlanAddOn(planId string, body *AddOnCreate) (*AddOn, error)
 
@@ -179,11 +179,11 @@ type ClientInterface interface {
 
 	RemovePlanAddOn(planId string, addOnId string) (*AddOn, error)
 
-	ListAddOns(params *ListAddOnsParams) *AddOnList
+	ListAddOns(params *ListAddOnsParams) (*AddOnList, error)
 
 	GetAddOn(addOnId string) (*AddOn, error)
 
-	ListShippingMethods(params *ListShippingMethodsParams) *ShippingMethodList
+	ListShippingMethods(params *ListShippingMethodsParams) (*ShippingMethodList, error)
 
 	CreateShippingMethod(body *ShippingMethodCreate) (*ShippingMethod, error)
 
@@ -193,7 +193,7 @@ type ClientInterface interface {
 
 	DeactivateShippingMethod(shippingMethodId string) (*ShippingMethod, error)
 
-	ListSubscriptions(params *ListSubscriptionsParams) *SubscriptionList
+	ListSubscriptions(params *ListSubscriptionsParams) (*SubscriptionList, error)
 
 	CreateSubscription(body *SubscriptionCreate) (*Subscription, error)
 
@@ -221,13 +221,13 @@ type ClientInterface interface {
 
 	PreviewSubscriptionChange(subscriptionId string, body *SubscriptionChangeCreate) (*SubscriptionChangePreview, error)
 
-	ListSubscriptionInvoices(subscriptionId string, params *ListSubscriptionInvoicesParams) *InvoiceList
+	ListSubscriptionInvoices(subscriptionId string, params *ListSubscriptionInvoicesParams) (*InvoiceList, error)
 
-	ListSubscriptionLineItems(subscriptionId string, params *ListSubscriptionLineItemsParams) *LineItemList
+	ListSubscriptionLineItems(subscriptionId string, params *ListSubscriptionLineItemsParams) (*LineItemList, error)
 
-	ListSubscriptionCouponRedemptions(subscriptionId string, params *ListSubscriptionCouponRedemptionsParams) *CouponRedemptionList
+	ListSubscriptionCouponRedemptions(subscriptionId string, params *ListSubscriptionCouponRedemptionsParams) (*CouponRedemptionList, error)
 
-	ListUsage(subscriptionId string, addOnId string, params *ListUsageParams) *UsageList
+	ListUsage(subscriptionId string, addOnId string, params *ListUsageParams) (*UsageList, error)
 
 	CreateUsage(subscriptionId string, addOnId string, body *UsageCreate) (*Usage, error)
 
@@ -237,7 +237,7 @@ type ClientInterface interface {
 
 	RemoveUsage(usageId string) (*Empty, error)
 
-	ListTransactions(params *ListTransactionsParams) *TransactionList
+	ListTransactions(params *ListTransactionsParams) (*TransactionList, error)
 
 	GetTransaction(transactionId string) (*Transaction, error)
 
@@ -327,15 +327,7 @@ func (c *Client) ListSites(params *ListSitesParams) (*SiteList, error) {
 		return nil, err
 	}
 	path = BuildUrl(path, params)
-<<<<<<< HEAD
-	return NewSiteList(c, path)
-=======
-	return &SiteList{
-		client:       c,
-		nextPagePath: path,
-		HasMore:      true,
-	}, nil
->>>>>>> 52b9f7f... Ensure that path parameters are not empty strings
+	return NewSiteList(c, path), nil
 }
 
 // GetSite Fetch a site
@@ -462,15 +454,7 @@ func (c *Client) ListAccounts(params *ListAccountsParams) (*AccountList, error) 
 		return nil, err
 	}
 	path = BuildUrl(path, params)
-<<<<<<< HEAD
-	return NewAccountList(c, path)
-=======
-	return &AccountList{
-		client:       c,
-		nextPagePath: path,
-		HasMore:      true,
-	}, nil
->>>>>>> 52b9f7f... Ensure that path parameters are not empty strings
+	return NewAccountList(c, path), nil
 }
 
 // CreateAccount Create an account
@@ -759,15 +743,7 @@ func (c *Client) ListAccountCouponRedemptions(accountId string, params *ListAcco
 		return nil, err
 	}
 	path = BuildUrl(path, params)
-<<<<<<< HEAD
-	return NewCouponRedemptionList(c, path)
-=======
-	return &CouponRedemptionList{
-		client:       c,
-		nextPagePath: path,
-		HasMore:      true,
-	}, nil
->>>>>>> 52b9f7f... Ensure that path parameters are not empty strings
+	return NewCouponRedemptionList(c, path), nil
 }
 
 // GetActiveCouponRedemption Show the coupon redemption that is active on an account
@@ -893,15 +869,7 @@ func (c *Client) ListAccountCreditPayments(accountId string, params *ListAccount
 		return nil, err
 	}
 	path = BuildUrl(path, params)
-<<<<<<< HEAD
-	return NewCreditPaymentList(c, path)
-=======
-	return &CreditPaymentList{
-		client:       c,
-		nextPagePath: path,
-		HasMore:      true,
-	}, nil
->>>>>>> 52b9f7f... Ensure that path parameters are not empty strings
+	return NewCreditPaymentList(c, path), nil
 }
 
 type ListAccountInvoicesParams struct {
@@ -999,15 +967,7 @@ func (c *Client) ListAccountInvoices(accountId string, params *ListAccountInvoic
 		return nil, err
 	}
 	path = BuildUrl(path, params)
-<<<<<<< HEAD
-	return NewInvoiceList(c, path)
-=======
-	return &InvoiceList{
-		client:       c,
-		nextPagePath: path,
-		HasMore:      true,
-	}, nil
->>>>>>> 52b9f7f... Ensure that path parameters are not empty strings
+	return NewInvoiceList(c, path), nil
 }
 
 // CreateInvoice Create an invoice for pending line items
@@ -1151,15 +1111,7 @@ func (c *Client) ListAccountLineItems(accountId string, params *ListAccountLineI
 		return nil, err
 	}
 	path = BuildUrl(path, params)
-<<<<<<< HEAD
-	return NewLineItemList(c, path)
-=======
-	return &LineItemList{
-		client:       c,
-		nextPagePath: path,
-		HasMore:      true,
-	}, nil
->>>>>>> 52b9f7f... Ensure that path parameters are not empty strings
+	return NewLineItemList(c, path), nil
 }
 
 // CreateLineItem Create a new line item for the account
@@ -1225,15 +1177,7 @@ func (c *Client) ListAccountNotes(accountId string, params *ListAccountNotesPara
 		return nil, err
 	}
 	path = BuildUrl(path, params)
-<<<<<<< HEAD
-	return NewAccountNoteList(c, path)
-=======
-	return &AccountNoteList{
-		client:       c,
-		nextPagePath: path,
-		HasMore:      true,
-	}, nil
->>>>>>> 52b9f7f... Ensure that path parameters are not empty strings
+	return NewAccountNoteList(c, path), nil
 }
 
 // GetAccountNote Fetch an account note
@@ -1338,15 +1282,7 @@ func (c *Client) ListShippingAddresses(accountId string, params *ListShippingAdd
 		return nil, err
 	}
 	path = BuildUrl(path, params)
-<<<<<<< HEAD
-	return NewShippingAddressList(c, path)
-=======
-	return &ShippingAddressList{
-		client:       c,
-		nextPagePath: path,
-		HasMore:      true,
-	}, nil
->>>>>>> 52b9f7f... Ensure that path parameters are not empty strings
+	return NewShippingAddressList(c, path), nil
 }
 
 // CreateShippingAddress Create a new shipping address for the account
@@ -1515,15 +1451,7 @@ func (c *Client) ListAccountSubscriptions(accountId string, params *ListAccountS
 		return nil, err
 	}
 	path = BuildUrl(path, params)
-<<<<<<< HEAD
-	return NewSubscriptionList(c, path)
-=======
-	return &SubscriptionList{
-		client:       c,
-		nextPagePath: path,
-		HasMore:      true,
-	}, nil
->>>>>>> 52b9f7f... Ensure that path parameters are not empty strings
+	return NewSubscriptionList(c, path), nil
 }
 
 type ListAccountTransactionsParams struct {
@@ -1624,15 +1552,7 @@ func (c *Client) ListAccountTransactions(accountId string, params *ListAccountTr
 		return nil, err
 	}
 	path = BuildUrl(path, params)
-<<<<<<< HEAD
-	return NewTransactionList(c, path)
-=======
-	return &TransactionList{
-		client:       c,
-		nextPagePath: path,
-		HasMore:      true,
-	}, nil
->>>>>>> 52b9f7f... Ensure that path parameters are not empty strings
+	return NewTransactionList(c, path), nil
 }
 
 type ListChildAccountsParams struct {
@@ -1741,15 +1661,7 @@ func (c *Client) ListChildAccounts(accountId string, params *ListChildAccountsPa
 		return nil, err
 	}
 	path = BuildUrl(path, params)
-<<<<<<< HEAD
-	return NewAccountList(c, path)
-=======
-	return &AccountList{
-		client:       c,
-		nextPagePath: path,
-		HasMore:      true,
-	}, nil
->>>>>>> 52b9f7f... Ensure that path parameters are not empty strings
+	return NewAccountList(c, path), nil
 }
 
 type ListAccountAcquisitionParams struct {
@@ -1836,15 +1748,7 @@ func (c *Client) ListAccountAcquisition(params *ListAccountAcquisitionParams) (*
 		return nil, err
 	}
 	path = BuildUrl(path, params)
-<<<<<<< HEAD
-	return NewAccountAcquisitionList(c, path)
-=======
-	return &AccountAcquisitionList{
-		client:       c,
-		nextPagePath: path,
-		HasMore:      true,
-	}, nil
->>>>>>> 52b9f7f... Ensure that path parameters are not empty strings
+	return NewAccountAcquisitionList(c, path), nil
 }
 
 type ListCouponsParams struct {
@@ -1931,15 +1835,7 @@ func (c *Client) ListCoupons(params *ListCouponsParams) (*CouponList, error) {
 		return nil, err
 	}
 	path = BuildUrl(path, params)
-<<<<<<< HEAD
-	return NewCouponList(c, path)
-=======
-	return &CouponList{
-		client:       c,
-		nextPagePath: path,
-		HasMore:      true,
-	}, nil
->>>>>>> 52b9f7f... Ensure that path parameters are not empty strings
+	return NewCouponList(c, path), nil
 }
 
 // CreateCoupon Create a new coupon
@@ -2098,15 +1994,7 @@ func (c *Client) ListUniqueCouponCodes(couponId string, params *ListUniqueCoupon
 		return nil, err
 	}
 	path = BuildUrl(path, params)
-<<<<<<< HEAD
-	return NewUniqueCouponCodeList(c, path)
-=======
-	return &UniqueCouponCodeList{
-		client:       c,
-		nextPagePath: path,
-		HasMore:      true,
-	}, nil
->>>>>>> 52b9f7f... Ensure that path parameters are not empty strings
+	return NewUniqueCouponCodeList(c, path), nil
 }
 
 type ListCreditPaymentsParams struct {
@@ -2178,15 +2066,7 @@ func (c *Client) ListCreditPayments(params *ListCreditPaymentsParams) (*CreditPa
 		return nil, err
 	}
 	path = BuildUrl(path, params)
-<<<<<<< HEAD
-	return NewCreditPaymentList(c, path)
-=======
-	return &CreditPaymentList{
-		client:       c,
-		nextPagePath: path,
-		HasMore:      true,
-	}, nil
->>>>>>> 52b9f7f... Ensure that path parameters are not empty strings
+	return NewCreditPaymentList(c, path), nil
 }
 
 // GetCreditPayment Fetch a credit payment
@@ -2298,15 +2178,7 @@ func (c *Client) ListCustomFieldDefinitions(params *ListCustomFieldDefinitionsPa
 		return nil, err
 	}
 	path = BuildUrl(path, params)
-<<<<<<< HEAD
-	return NewCustomFieldDefinitionList(c, path)
-=======
-	return &CustomFieldDefinitionList{
-		client:       c,
-		nextPagePath: path,
-		HasMore:      true,
-	}, nil
->>>>>>> 52b9f7f... Ensure that path parameters are not empty strings
+	return NewCustomFieldDefinitionList(c, path), nil
 }
 
 // GetCustomFieldDefinition Fetch an custom field definition
@@ -2418,15 +2290,7 @@ func (c *Client) ListItems(params *ListItemsParams) (*ItemList, error) {
 		return nil, err
 	}
 	path = BuildUrl(path, params)
-<<<<<<< HEAD
-	return NewItemList(c, path)
-=======
-	return &ItemList{
-		client:       c,
-		nextPagePath: path,
-		HasMore:      true,
-	}, nil
->>>>>>> 52b9f7f... Ensure that path parameters are not empty strings
+	return NewItemList(c, path), nil
 }
 
 // CreateItem Create a new item
@@ -2600,19 +2464,31 @@ func (list *ListMeasuredUnitParams) URLParams() []KeyValue {
 }
 
 // ListMeasuredUnit List a site's measured units
+//
+// API Documentation: https://developers.recurly.com/api/v2019-10-10#operation/list_measured_unit
+//
 // Returns: A list of the site's measured units.
-func (c *Client) ListMeasuredUnit(params *ListMeasuredUnitParams) *MeasuredUnitList {
-	path := "/measured_units"
+func (c *Client) ListMeasuredUnit(params *ListMeasuredUnitParams) (*MeasuredUnitList, error) {
+	path, err := c.InterpolatePath("/measured_units")
+	if err != nil {
+		return nil, err
+	}
 	path = BuildUrl(path, params)
-	return NewMeasuredUnitList(c, path)
+	return NewMeasuredUnitList(c, path), nil
 }
 
 // CreateMeasuredUnit Create a new measured unit
+//
+// API Documentation: https://developers.recurly.com/api/v2019-10-10#operation/create_measured_unit
+//
 // Returns: A new measured unit.
 func (c *Client) CreateMeasuredUnit(body *MeasuredUnitCreate) (*MeasuredUnit, error) {
-	path := c.InterpolatePath("/measured_units")
+	path, err := c.InterpolatePath("/measured_units")
+	if err != nil {
+		return nil, err
+	}
 	result := &MeasuredUnit{}
-	err := c.Call(http.MethodPost, path, body, result)
+	err = c.Call(http.MethodPost, path, body, result)
 	if err != nil {
 		return nil, err
 	}
@@ -2620,11 +2496,17 @@ func (c *Client) CreateMeasuredUnit(body *MeasuredUnitCreate) (*MeasuredUnit, er
 }
 
 // GetMeasuredUnit Fetch a measured unit
+//
+// API Documentation: https://developers.recurly.com/api/v2019-10-10#operation/get_measured_unit
+//
 // Returns: An item.
 func (c *Client) GetMeasuredUnit(measuredUnitId string) (*MeasuredUnit, error) {
-	path := c.InterpolatePath("/measured_units/{measured_unit_id}", measuredUnitId)
+	path, err := c.InterpolatePath("/measured_units/{measured_unit_id}", measuredUnitId)
+	if err != nil {
+		return nil, err
+	}
 	result := &MeasuredUnit{}
-	err := c.Call(http.MethodGet, path, nil, result)
+	err = c.Call(http.MethodGet, path, nil, result)
 	if err != nil {
 		return nil, err
 	}
@@ -2632,11 +2514,17 @@ func (c *Client) GetMeasuredUnit(measuredUnitId string) (*MeasuredUnit, error) {
 }
 
 // UpdateMeasuredUnit Update a measured unit
+//
+// API Documentation: https://developers.recurly.com/api/v2019-10-10#operation/update_measured_unit
+//
 // Returns: The updated measured_unit.
 func (c *Client) UpdateMeasuredUnit(measuredUnitId string, body *MeasuredUnitUpdate) (*MeasuredUnit, error) {
-	path := c.InterpolatePath("/measured_units/{measured_unit_id}", measuredUnitId)
+	path, err := c.InterpolatePath("/measured_units/{measured_unit_id}", measuredUnitId)
+	if err != nil {
+		return nil, err
+	}
 	result := &MeasuredUnit{}
-	err := c.Call(http.MethodPut, path, body, result)
+	err = c.Call(http.MethodPut, path, body, result)
 	if err != nil {
 		return nil, err
 	}
@@ -2644,11 +2532,17 @@ func (c *Client) UpdateMeasuredUnit(measuredUnitId string, body *MeasuredUnitUpd
 }
 
 // RemoveMeasuredUnit Remove a measured unit
+//
+// API Documentation: https://developers.recurly.com/api/v2019-10-10#operation/remove_measured_unit
+//
 // Returns: A measured unit.
 func (c *Client) RemoveMeasuredUnit(measuredUnitId string) (*MeasuredUnit, error) {
-	path := c.InterpolatePath("/measured_units/{measured_unit_id}", measuredUnitId)
+	path, err := c.InterpolatePath("/measured_units/{measured_unit_id}", measuredUnitId)
+	if err != nil {
+		return nil, err
+	}
 	result := &MeasuredUnit{}
-	err := c.Call(http.MethodDelete, path, nil, result)
+	err = c.Call(http.MethodDelete, path, nil, result)
 	if err != nil {
 		return nil, err
 	}
@@ -2750,15 +2644,7 @@ func (c *Client) ListInvoices(params *ListInvoicesParams) (*InvoiceList, error) 
 		return nil, err
 	}
 	path = BuildUrl(path, params)
-<<<<<<< HEAD
-	return NewInvoiceList(c, path)
-=======
-	return &InvoiceList{
-		client:       c,
-		nextPagePath: path,
-		HasMore:      true,
-	}, nil
->>>>>>> 52b9f7f... Ensure that path parameters are not empty strings
+	return NewInvoiceList(c, path), nil
 }
 
 // GetInvoice Fetch an invoice
@@ -2904,11 +2790,17 @@ func (c *Client) VoidInvoice(invoiceId string) (*Invoice, error) {
 }
 
 // RecordExternalTransaction Record an external payment for a manual invoices.
+//
+// API Documentation: https://developers.recurly.com/api/v2019-10-10#operation/record_external_transaction
+//
 // Returns: The recorded transaction.
 func (c *Client) RecordExternalTransaction(invoiceId string, body *ExternalTransaction) (*Transaction, error) {
-	path := c.InterpolatePath("/invoices/{invoice_id}/transactions", invoiceId)
+	path, err := c.InterpolatePath("/invoices/{invoice_id}/transactions", invoiceId)
+	if err != nil {
+		return nil, err
+	}
 	result := &Transaction{}
-	err := c.Call(http.MethodPost, path, body, result)
+	err = c.Call(http.MethodPost, path, body, result)
 	if err != nil {
 		return nil, err
 	}
@@ -3020,15 +2912,7 @@ func (c *Client) ListInvoiceLineItems(invoiceId string, params *ListInvoiceLineI
 		return nil, err
 	}
 	path = BuildUrl(path, params)
-<<<<<<< HEAD
-	return NewLineItemList(c, path)
-=======
-	return &LineItemList{
-		client:       c,
-		nextPagePath: path,
-		HasMore:      true,
-	}, nil
->>>>>>> 52b9f7f... Ensure that path parameters are not empty strings
+	return NewLineItemList(c, path), nil
 }
 
 type ListInvoiceCouponRedemptionsParams struct {
@@ -3101,15 +2985,7 @@ func (c *Client) ListInvoiceCouponRedemptions(invoiceId string, params *ListInvo
 		return nil, err
 	}
 	path = BuildUrl(path, params)
-<<<<<<< HEAD
-	return NewCouponRedemptionList(c, path)
-=======
-	return &CouponRedemptionList{
-		client:       c,
-		nextPagePath: path,
-		HasMore:      true,
-	}, nil
->>>>>>> 52b9f7f... Ensure that path parameters are not empty strings
+	return NewCouponRedemptionList(c, path), nil
 }
 
 // ListRelatedInvoices List an invoice's related credit or charge invoices
@@ -3117,22 +2993,12 @@ func (c *Client) ListInvoiceCouponRedemptions(invoiceId string, params *ListInvo
 // API Documentation: https://developers.recurly.com/api/v2019-10-10#operation/list_related_invoices
 //
 // Returns: A list of the credit or charge invoices associated with the invoice.
-<<<<<<< HEAD
-func (c *Client) ListRelatedInvoices(invoiceId string) *InvoiceList {
-	path := c.InterpolatePath("/invoices/{invoice_id}/related_invoices", invoiceId)
-	return NewInvoiceList(c, path)
-=======
 func (c *Client) ListRelatedInvoices(invoiceId string) (*InvoiceList, error) {
 	path, err := c.InterpolatePath("/invoices/{invoice_id}/related_invoices", invoiceId)
 	if err != nil {
 		return nil, err
 	}
-	return &InvoiceList{
-		client:       c,
-		nextPagePath: path,
-		HasMore:      true,
-	}, nil
->>>>>>> 52b9f7f... Ensure that path parameters are not empty strings
+	return NewInvoiceList(c, path), nil
 }
 
 // RefundInvoice Refund an invoice
@@ -3258,15 +3124,7 @@ func (c *Client) ListLineItems(params *ListLineItemsParams) (*LineItemList, erro
 		return nil, err
 	}
 	path = BuildUrl(path, params)
-<<<<<<< HEAD
-	return NewLineItemList(c, path)
-=======
-	return &LineItemList{
-		client:       c,
-		nextPagePath: path,
-		HasMore:      true,
-	}, nil
->>>>>>> 52b9f7f... Ensure that path parameters are not empty strings
+	return NewLineItemList(c, path), nil
 }
 
 // GetLineItem Fetch a line item
@@ -3396,15 +3254,7 @@ func (c *Client) ListPlans(params *ListPlansParams) (*PlanList, error) {
 		return nil, err
 	}
 	path = BuildUrl(path, params)
-<<<<<<< HEAD
-	return NewPlanList(c, path)
-=======
-	return &PlanList{
-		client:       c,
-		nextPagePath: path,
-		HasMore:      true,
-	}, nil
->>>>>>> 52b9f7f... Ensure that path parameters are not empty strings
+	return NewPlanList(c, path), nil
 }
 
 // CreatePlan Create a plan
@@ -3570,15 +3420,7 @@ func (c *Client) ListPlanAddOns(planId string, params *ListPlanAddOnsParams) (*A
 		return nil, err
 	}
 	path = BuildUrl(path, params)
-<<<<<<< HEAD
-	return NewAddOnList(c, path)
-=======
-	return &AddOnList{
-		client:       c,
-		nextPagePath: path,
-		HasMore:      true,
-	}, nil
->>>>>>> 52b9f7f... Ensure that path parameters are not empty strings
+	return NewAddOnList(c, path), nil
 }
 
 // CreatePlanAddOn Create an add-on
@@ -3744,15 +3586,7 @@ func (c *Client) ListAddOns(params *ListAddOnsParams) (*AddOnList, error) {
 		return nil, err
 	}
 	path = BuildUrl(path, params)
-<<<<<<< HEAD
-	return NewAddOnList(c, path)
-=======
-	return &AddOnList{
-		client:       c,
-		nextPagePath: path,
-		HasMore:      true,
-	}, nil
->>>>>>> 52b9f7f... Ensure that path parameters are not empty strings
+	return NewAddOnList(c, path), nil
 }
 
 // GetAddOn Fetch an add-on
@@ -3857,38 +3691,32 @@ func (c *Client) ListShippingMethods(params *ListShippingMethodsParams) (*Shippi
 		return nil, err
 	}
 	path = BuildUrl(path, params)
-<<<<<<< HEAD
-	return NewShippingMethodList(c, path)
+	return NewShippingMethodList(c, path), nil
 }
 
 // CreateShippingMethod Create a new shipping method
+//
+// API Documentation: https://developers.recurly.com/api/v2019-10-10#operation/create_shipping_method
+//
 // Returns: A new shipping method.
 func (c *Client) CreateShippingMethod(body *ShippingMethodCreate) (*ShippingMethod, error) {
-	path := c.InterpolatePath("/shipping_methods")
+	path, err := c.InterpolatePath("/shipping_methods")
+	if err != nil {
+		return nil, err
+	}
 	result := &ShippingMethod{}
-	err := c.Call(http.MethodPost, path, body, result)
+	err = c.Call(http.MethodPost, path, body, result)
 	if err != nil {
 		return nil, err
 	}
 	return result, err
-=======
-	return &ShippingMethodList{
-		client:       c,
-		nextPagePath: path,
-		HasMore:      true,
-	}, nil
->>>>>>> 52b9f7f... Ensure that path parameters are not empty strings
 }
 
 // GetShippingMethod Fetch a shipping method
-<<<<<<< HEAD
-// Returns: A shipping method.
-=======
 //
 // API Documentation: https://developers.recurly.com/api/v2019-10-10#operation/get_shipping_method
 //
-// Returns: A shipping_method.
->>>>>>> fd7ddc1... Regenerating function docs
+// Returns: A shipping method.
 func (c *Client) GetShippingMethod(id string) (*ShippingMethod, error) {
 	path, err := c.InterpolatePath("/shipping_methods/{id}", id)
 	if err != nil {
@@ -3903,11 +3731,17 @@ func (c *Client) GetShippingMethod(id string) (*ShippingMethod, error) {
 }
 
 // UpdateShippingMethod Update an active Shipping Method
+//
+// API Documentation: https://developers.recurly.com/api/v2019-10-10#operation/update_shipping_method
+//
 // Returns: The updated shipping method.
 func (c *Client) UpdateShippingMethod(shippingMethodId string, body *ShippingMethodUpdate) (*ShippingMethod, error) {
-	path := c.InterpolatePath("/shipping_methods/{shipping_method_id}", shippingMethodId)
+	path, err := c.InterpolatePath("/shipping_methods/{shipping_method_id}", shippingMethodId)
+	if err != nil {
+		return nil, err
+	}
 	result := &ShippingMethod{}
-	err := c.Call(http.MethodPut, path, body, result)
+	err = c.Call(http.MethodPut, path, body, result)
 	if err != nil {
 		return nil, err
 	}
@@ -3915,11 +3749,17 @@ func (c *Client) UpdateShippingMethod(shippingMethodId string, body *ShippingMet
 }
 
 // DeactivateShippingMethod Deactivate a shipping method
+//
+// API Documentation: https://developers.recurly.com/api/v2019-10-10#operation/deactivate_shipping_method
+//
 // Returns: A shipping method.
 func (c *Client) DeactivateShippingMethod(shippingMethodId string) (*ShippingMethod, error) {
-	path := c.InterpolatePath("/shipping_methods/{shipping_method_id}", shippingMethodId)
+	path, err := c.InterpolatePath("/shipping_methods/{shipping_method_id}", shippingMethodId)
+	if err != nil {
+		return nil, err
+	}
 	result := &ShippingMethod{}
-	err := c.Call(http.MethodDelete, path, nil, result)
+	err = c.Call(http.MethodDelete, path, nil, result)
 	if err != nil {
 		return nil, err
 	}
@@ -4020,15 +3860,7 @@ func (c *Client) ListSubscriptions(params *ListSubscriptionsParams) (*Subscripti
 		return nil, err
 	}
 	path = BuildUrl(path, params)
-<<<<<<< HEAD
-	return NewSubscriptionList(c, path)
-=======
-	return &SubscriptionList{
-		client:       c,
-		nextPagePath: path,
-		HasMore:      true,
-	}, nil
->>>>>>> 52b9f7f... Ensure that path parameters are not empty strings
+	return NewSubscriptionList(c, path), nil
 }
 
 // CreateSubscription Create a new subscription
@@ -4295,11 +4127,17 @@ func (c *Client) RemoveSubscriptionChange(subscriptionId string) (*Empty, error)
 }
 
 // PreviewSubscriptionChange Preview a new subscription change
+//
+// API Documentation: https://developers.recurly.com/api/v2019-10-10#operation/preview_subscription_change
+//
 // Returns: A subscription change.
 func (c *Client) PreviewSubscriptionChange(subscriptionId string, body *SubscriptionChangeCreate) (*SubscriptionChangePreview, error) {
-	path := c.InterpolatePath("/subscriptions/{subscription_id}/change/preview", subscriptionId)
+	path, err := c.InterpolatePath("/subscriptions/{subscription_id}/change/preview", subscriptionId)
+	if err != nil {
+		return nil, err
+	}
 	result := &SubscriptionChangePreview{}
-	err := c.Call(http.MethodPost, path, body, result)
+	err = c.Call(http.MethodPost, path, body, result)
 	if err != nil {
 		return nil, err
 	}
@@ -4401,15 +4239,7 @@ func (c *Client) ListSubscriptionInvoices(subscriptionId string, params *ListSub
 		return nil, err
 	}
 	path = BuildUrl(path, params)
-<<<<<<< HEAD
-	return NewInvoiceList(c, path)
-=======
-	return &InvoiceList{
-		client:       c,
-		nextPagePath: path,
-		HasMore:      true,
-	}, nil
->>>>>>> 52b9f7f... Ensure that path parameters are not empty strings
+	return NewInvoiceList(c, path), nil
 }
 
 type ListSubscriptionLineItemsParams struct {
@@ -4517,15 +4347,7 @@ func (c *Client) ListSubscriptionLineItems(subscriptionId string, params *ListSu
 		return nil, err
 	}
 	path = BuildUrl(path, params)
-<<<<<<< HEAD
-	return NewLineItemList(c, path)
-=======
-	return &LineItemList{
-		client:       c,
-		nextPagePath: path,
-		HasMore:      true,
-	}, nil
->>>>>>> 52b9f7f... Ensure that path parameters are not empty strings
+	return NewLineItemList(c, path), nil
 }
 
 type ListSubscriptionCouponRedemptionsParams struct {
@@ -4598,8 +4420,7 @@ func (c *Client) ListSubscriptionCouponRedemptions(subscriptionId string, params
 		return nil, err
 	}
 	path = BuildUrl(path, params)
-<<<<<<< HEAD
-	return NewCouponRedemptionList(c, path)
+	return NewCouponRedemptionList(c, path), nil
 }
 
 type ListUsageParams struct {
@@ -4683,19 +4504,31 @@ func (list *ListUsageParams) URLParams() []KeyValue {
 }
 
 // ListUsage List a subscription add-on's usage records
+//
+// API Documentation: https://developers.recurly.com/api/v2019-10-10#operation/list_usage
+//
 // Returns: A list of the subscription add-on's usage records.
-func (c *Client) ListUsage(subscriptionId string, addOnId string, params *ListUsageParams) *UsageList {
-	path := c.InterpolatePath("/subscriptions/{subscription_id}/add_ons/{add_on_id}/usage", subscriptionId, addOnId)
+func (c *Client) ListUsage(subscriptionId string, addOnId string, params *ListUsageParams) (*UsageList, error) {
+	path, err := c.InterpolatePath("/subscriptions/{subscription_id}/add_ons/{add_on_id}/usage", subscriptionId, addOnId)
+	if err != nil {
+		return nil, err
+	}
 	path = BuildUrl(path, params)
-	return NewUsageList(c, path)
+	return NewUsageList(c, path), nil
 }
 
 // CreateUsage Log a usage record on this subscription add-on
+//
+// API Documentation: https://developers.recurly.com/api/v2019-10-10#operation/create_usage
+//
 // Returns: The created usage record.
 func (c *Client) CreateUsage(subscriptionId string, addOnId string, body *UsageCreate) (*Usage, error) {
-	path := c.InterpolatePath("/subscriptions/{subscription_id}/add_ons/{add_on_id}/usage", subscriptionId, addOnId)
+	path, err := c.InterpolatePath("/subscriptions/{subscription_id}/add_ons/{add_on_id}/usage", subscriptionId, addOnId)
+	if err != nil {
+		return nil, err
+	}
 	result := &Usage{}
-	err := c.Call(http.MethodPost, path, body, result)
+	err = c.Call(http.MethodPost, path, body, result)
 	if err != nil {
 		return nil, err
 	}
@@ -4703,11 +4536,17 @@ func (c *Client) CreateUsage(subscriptionId string, addOnId string, body *UsageC
 }
 
 // GetUsage Get a usage record
+//
+// API Documentation: https://developers.recurly.com/api/v2019-10-10#operation/get_usage
+//
 // Returns: The usage record.
 func (c *Client) GetUsage(usageId string) (*Usage, error) {
-	path := c.InterpolatePath("/usage/{usage_id}", usageId)
+	path, err := c.InterpolatePath("/usage/{usage_id}", usageId)
+	if err != nil {
+		return nil, err
+	}
 	result := &Usage{}
-	err := c.Call(http.MethodGet, path, nil, result)
+	err = c.Call(http.MethodGet, path, nil, result)
 	if err != nil {
 		return nil, err
 	}
@@ -4715,11 +4554,17 @@ func (c *Client) GetUsage(usageId string) (*Usage, error) {
 }
 
 // UpdateUsage Update a usage record
+//
+// API Documentation: https://developers.recurly.com/api/v2019-10-10#operation/update_usage
+//
 // Returns: The updated usage record.
 func (c *Client) UpdateUsage(usageId string, body *UsageCreate) (*Usage, error) {
-	path := c.InterpolatePath("/usage/{usage_id}", usageId)
+	path, err := c.InterpolatePath("/usage/{usage_id}", usageId)
+	if err != nil {
+		return nil, err
+	}
 	result := &Usage{}
-	err := c.Call(http.MethodPut, path, body, result)
+	err = c.Call(http.MethodPut, path, body, result)
 	if err != nil {
 		return nil, err
 	}
@@ -4727,22 +4572,21 @@ func (c *Client) UpdateUsage(usageId string, body *UsageCreate) (*Usage, error) 
 }
 
 // RemoveUsage Delete a usage record.
+//
+// API Documentation: https://developers.recurly.com/api/v2019-10-10#operation/remove_usage
+//
 // Returns: Usage was successfully deleted.
 func (c *Client) RemoveUsage(usageId string) (*Empty, error) {
-	path := c.InterpolatePath("/usage/{usage_id}", usageId)
+	path, err := c.InterpolatePath("/usage/{usage_id}", usageId)
+	if err != nil {
+		return nil, err
+	}
 	result := &Empty{}
-	err := c.Call(http.MethodDelete, path, nil, result)
+	err = c.Call(http.MethodDelete, path, nil, result)
 	if err != nil {
 		return nil, err
 	}
 	return result, err
-=======
-	return &CouponRedemptionList{
-		client:       c,
-		nextPagePath: path,
-		HasMore:      true,
-	}, nil
->>>>>>> 52b9f7f... Ensure that path parameters are not empty strings
 }
 
 type ListTransactionsParams struct {
@@ -4843,15 +4687,7 @@ func (c *Client) ListTransactions(params *ListTransactionsParams) (*TransactionL
 		return nil, err
 	}
 	path = BuildUrl(path, params)
-<<<<<<< HEAD
-	return NewTransactionList(c, path)
-=======
-	return &TransactionList{
-		client:       c,
-		nextPagePath: path,
-		HasMore:      true,
-	}, nil
->>>>>>> 52b9f7f... Ensure that path parameters are not empty strings
+	return NewTransactionList(c, path), nil
 }
 
 // GetTransaction Fetch a transaction

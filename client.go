@@ -106,7 +106,7 @@ func validatePathParameters(params []string) error {
 		return &Error{
 			Message: "Operation parameters cannot be empty strings",
 			Class:   ErrorClassClient,
-			Type:    ErrorTypeValidation,
+			Type:    ErrorTypeBadRequest,
 		}
 	}
 	return nil
