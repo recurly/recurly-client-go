@@ -82,11 +82,12 @@ type errorDetails struct {
 }
 
 type TransactionError struct {
-	TransactionID  string                   `json:"transaction_id"`
-	Category       TransactionErrorCategory `json:"category"`
-	Code           string                   `json:"code"`
-	Message        string                   `json:"message"`
-	MerchantAdvice string                   `json:"merchant_advice"`
+	TransactionID             string                   `json:"transaction_id"`
+	Category                  TransactionErrorCategory `json:"category"`
+	Code                      string                   `json:"code"`
+	Message                   string                   `json:"message"`
+	MerchantAdvice            string                   `json:"merchant_advice"`
+	ThreeDSecureActionTokenId string                   `json:"three_d_secure_action_token_id"`
 }
 
 type ErrorParam struct {
