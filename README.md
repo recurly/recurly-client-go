@@ -109,7 +109,7 @@ After fetching the last page, `HasMore` will be false.
 ```go
 for accounts.HasMore {
     err := accounts.Fetch()
-    if err {
+    if err != nil {
         fmt.Printf("Failed to retrieve next page: %v", err)
         break
     }
