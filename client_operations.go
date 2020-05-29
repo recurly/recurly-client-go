@@ -36,6 +36,9 @@ type ListSitesParams struct {
 	// order. In descending order updated records will move behind the cursor and could
 	// prevent some records from being returned.
 	Sort *string
+
+	// State - Filter by state.
+	State *string
 }
 
 func (list *ListSitesParams) toParams() *Params {
@@ -64,6 +67,10 @@ func (list *ListSitesParams) URLParams() []KeyValue {
 
 	if list.Sort != nil {
 		options = append(options, KeyValue{Key: "sort", Value: *list.Sort})
+	}
+
+	if list.State != nil {
+		options = append(options, KeyValue{Key: "state", Value: *list.State})
 	}
 
 	return options
@@ -2082,6 +2089,18 @@ func (c *Client) VoidInvoice(invoiceId string) (*Invoice, error) {
 	path := c.InterpolatePath("/invoices/{invoice_id}/void", invoiceId)
 	result := &Invoice{}
 	err := c.Call(http.MethodPut, path, nil, result)
+	if err != nil {
+		return nil, err
+	}
+	return result, err
+}
+
+// RecordExternalTransaction Record an external payment for a manual invoices.
+// Returns: The recorded transaction.
+func (c *Client) RecordExternalTransaction(invoiceId string, body *ExternalTransaction) (*Transaction, error) {
+	path := c.InterpolatePath("/invoices/{invoice_id}/transactions", invoiceId)
+	result := &Transaction{}
+	err := c.Call(http.MethodPost, path, body, result)
 	if err != nil {
 		return nil, err
 	}

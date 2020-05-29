@@ -656,6 +656,9 @@ type PaymentMethod struct {
 	// Billing Agreement identifier. Only present for Amazon or Paypal payment methods.
 	BillingAgreementId string `json:"billing_agreement_id,omitempty"`
 
+	// The name associated with the bank account.
+	NameOnAccount string `json:"name_on_account,omitempty"`
+
 	// The bank account type. Only present for ACH payment methods.
 	AccountType string `json:"account_type,omitempty"`
 
@@ -2800,7 +2803,7 @@ type LineItem struct {
 	// Internal accounting code to help you reconcile your revenue to the correct ledger. Line items created as part of a subscription invoice will use the plan or add-on's accounting code, otherwise the value will only be present if you define an accounting code when creating the line item.
 	AccountingCode string `json:"accounting_code,omitempty"`
 
-	// For plan-related line items this will be the plan's code, for add-on related line items it will be the add-on's code. For item-related line itmes it will be the item's `external_sku`.
+	// For plan-related line items this will be the plan's code, for add-on related line items it will be the add-on's code. For item-related line items it will be the item's `external_sku`.
 	ProductCode string `json:"product_code,omitempty"`
 
 	// The reason the credit was given when line item is `type=credit`.
@@ -3806,6 +3809,15 @@ type SubscriptionAddOn struct {
 	// This is priced in the subscription's currency.
 	UnitAmount float64 `json:"unit_amount,omitempty"`
 
+	// Revenue schedule type
+	RevenueScheduleType string `json:"revenue_schedule_type,omitempty"`
+
+	// The type of tiering used by the Add-on.
+	TierType string `json:"tier_type,omitempty"`
+
+	// Empty unless `tier_type` is `tiered`, `volume`, or `stairstep`.
+	Tiers []SubscriptionAddOnTier `json:"tiers,omitempty"`
+
 	// Created at
 	CreatedAt time.Time `json:"created_at,omitempty"`
 
@@ -3955,6 +3967,77 @@ func (list *AddOnMiniList) Fetch() error {
 // Count returns the count of items on the server that match this pager
 func (list *AddOnMiniList) Count() (*int64, error) {
 	resources := &addOnMiniList{}
+	err := list.client.Call(http.MethodHead, list.nextPagePath, nil, resources)
+	if err != nil {
+		return nil, err
+	}
+	resp := resources.GetResponse()
+	return resp.TotalRecords, nil
+}
+
+type SubscriptionAddOnTier struct {
+	recurlyResponse *ResponseMetadata
+
+	// Ending quantity
+	EndingQuantity int `json:"ending_quantity,omitempty"`
+
+	// Unit amount
+	UnitAmount float64 `json:"unit_amount,omitempty"`
+}
+
+// GetResponse returns the ResponseMetadata that generated this resource
+func (resource *SubscriptionAddOnTier) GetResponse() *ResponseMetadata {
+	return resource.recurlyResponse
+}
+
+// setResponse sets the ResponseMetadata that generated this resource
+func (resource *SubscriptionAddOnTier) setResponse(res *ResponseMetadata) {
+	resource.recurlyResponse = res
+}
+
+// internal struct for deserializing accounts
+type subscriptionAddOnTierList struct {
+	ListMetadata
+	Data            []SubscriptionAddOnTier `json:"data"`
+	recurlyResponse *ResponseMetadata
+}
+
+// GetResponse returns the ResponseMetadata that generated this resource
+func (resource *subscriptionAddOnTierList) GetResponse() *ResponseMetadata {
+	return resource.recurlyResponse
+}
+
+// setResponse sets the ResponseMetadata that generated this resource
+func (resource *subscriptionAddOnTierList) setResponse(res *ResponseMetadata) {
+	resource.recurlyResponse = res
+}
+
+// SubscriptionAddOnTierList allows you to paginate SubscriptionAddOnTier objects
+type SubscriptionAddOnTierList struct {
+	client       *Client
+	nextPagePath string
+
+	HasMore bool
+	Data    []SubscriptionAddOnTier
+}
+
+// Fetch fetches the next page of data into the `Data` property
+func (list *SubscriptionAddOnTierList) Fetch() error {
+	resources := &subscriptionAddOnTierList{}
+	err := list.client.Call(http.MethodGet, list.nextPagePath, nil, resources)
+	if err != nil {
+		return err
+	}
+	// copy over properties from the response
+	list.nextPagePath = resources.Next
+	list.HasMore = resources.HasMore
+	list.Data = resources.Data
+	return nil
+}
+
+// Count returns the count of items on the server that match this pager
+func (list *SubscriptionAddOnTierList) Count() (*int64, error) {
+	resources := &subscriptionAddOnTierList{}
 	err := list.client.Call(http.MethodHead, list.nextPagePath, nil, resources)
 	if err != nil {
 		return nil, err
@@ -4732,6 +4815,12 @@ type AddOn struct {
 	// Just the important parts.
 	Item ItemMini `json:"item,omitempty"`
 
+	// The type of tiering used by the Add-on.
+	TierType string `json:"tier_type,omitempty"`
+
+	// Tiers
+	Tiers []Tier `json:"tiers,omitempty"`
+
 	// Optional, stock keeping unit to link the item to other inventory systems.
 	ExternalSku string `json:"external_sku,omitempty"`
 
@@ -4960,6 +5049,77 @@ func (list *ItemMiniList) Count() (*int64, error) {
 	return resp.TotalRecords, nil
 }
 
+type Tier struct {
+	recurlyResponse *ResponseMetadata
+
+	// Ending quantity
+	EndingQuantity int `json:"ending_quantity,omitempty"`
+
+	// Tier pricing
+	Currencies []Pricing `json:"currencies,omitempty"`
+}
+
+// GetResponse returns the ResponseMetadata that generated this resource
+func (resource *Tier) GetResponse() *ResponseMetadata {
+	return resource.recurlyResponse
+}
+
+// setResponse sets the ResponseMetadata that generated this resource
+func (resource *Tier) setResponse(res *ResponseMetadata) {
+	resource.recurlyResponse = res
+}
+
+// internal struct for deserializing accounts
+type tierList struct {
+	ListMetadata
+	Data            []Tier `json:"data"`
+	recurlyResponse *ResponseMetadata
+}
+
+// GetResponse returns the ResponseMetadata that generated this resource
+func (resource *tierList) GetResponse() *ResponseMetadata {
+	return resource.recurlyResponse
+}
+
+// setResponse sets the ResponseMetadata that generated this resource
+func (resource *tierList) setResponse(res *ResponseMetadata) {
+	resource.recurlyResponse = res
+}
+
+// TierList allows you to paginate Tier objects
+type TierList struct {
+	client       *Client
+	nextPagePath string
+
+	HasMore bool
+	Data    []Tier
+}
+
+// Fetch fetches the next page of data into the `Data` property
+func (list *TierList) Fetch() error {
+	resources := &tierList{}
+	err := list.client.Call(http.MethodGet, list.nextPagePath, nil, resources)
+	if err != nil {
+		return err
+	}
+	// copy over properties from the response
+	list.nextPagePath = resources.Next
+	list.HasMore = resources.HasMore
+	list.Data = resources.Data
+	return nil
+}
+
+// Count returns the count of items on the server that match this pager
+func (list *TierList) Count() (*int64, error) {
+	resources := &tierList{}
+	err := list.client.Call(http.MethodHead, list.nextPagePath, nil, resources)
+	if err != nil {
+		return nil, err
+	}
+	resp := resources.GetResponse()
+	return resp.TotalRecords, nil
+}
+
 type ShippingMethod struct {
 	recurlyResponse *ResponseMetadata
 
@@ -4974,6 +5134,9 @@ type ShippingMethod struct {
 
 	// The name of the shipping method displayed to customers.
 	Name string `json:"name,omitempty"`
+
+	// Accounting code for shipping method.
+	AccountingCode string `json:"accounting_code,omitempty"`
 
 	// Used by Avalara, Vertex, and Recurly’s built-in tax feature. The tax
 	// code values are specific to each tax system. If you are using Recurly’s
