@@ -1,8 +1,23 @@
 # Changelog
 
-## [v3.0.1](https://github.com/recurly/recurly-client-go/tree/HEAD)
+## [v3.1.0](https://github.com/recurly/recurly-client-go/tree/HEAD)
 
-[Full Changelog](https://github.com/recurly/recurly-client-go/compare/v3.0.0...HEAD)
+[Full Changelog](https://github.com/recurly/recurly-client-go/compare/v3.0.1...HEAD)
+
+**Implemented enhancements:**
+
+- Latest Features [\#34](https://github.com/recurly/recurly-client-go/pull/34) ([bhelx](https://github.com/bhelx))
+- Add three\_d\_secure\_action\_token\_id  to TransactionError [\#32](https://github.com/recurly/recurly-client-go/pull/32) ([YevheniiGera](https://github.com/YevheniiGera))
+
+**Merged pull requests:**
+
+- Release 3.1.0 [\#36](https://github.com/recurly/recurly-client-go/pull/36) ([bhelx](https://github.com/bhelx))
+- Dont use absolute path to go bin in scripts [\#35](https://github.com/recurly/recurly-client-go/pull/35) ([bhelx](https://github.com/bhelx))
+- Fix pagination example [\#33](https://github.com/recurly/recurly-client-go/pull/33) ([bhelx](https://github.com/bhelx))
+
+## [v3.0.1](https://github.com/recurly/recurly-client-go/tree/v3.0.1) (2020-05-20)
+
+[Full Changelog](https://github.com/recurly/recurly-client-go/compare/v3.0.0...v3.0.1)
 
 **Fixed bugs:**
 
