@@ -277,5 +277,5 @@ func (c *Client) Do(req *http.Request, v interface{}) error {
 }
 
 func successfulStatus(statusCode int) bool {
-	return statusCode == http.StatusOK || statusCode == http.StatusCreated || statusCode == http.StatusNoContent
+	return statusCode >= http.StatusOK && statusCode < http.StatusBadRequest
 }
