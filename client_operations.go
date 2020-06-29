@@ -2906,12 +2906,48 @@ func (c *Client) ListShippingMethods(params *ListShippingMethodsParams) *Shippin
 	}
 }
 
+// CreateShippingMethod Create a new shipping method
+// Returns: A new shipping method.
+func (c *Client) CreateShippingMethod(body *ShippingMethodCreate) (*ShippingMethod, error) {
+	path := c.InterpolatePath("/shipping_methods")
+	result := &ShippingMethod{}
+	err := c.Call(http.MethodPost, path, body, result)
+	if err != nil {
+		return nil, err
+	}
+	return result, err
+}
+
 // GetShippingMethod Fetch a shipping method
-// Returns: A shipping_method.
+// Returns: A shipping method.
 func (c *Client) GetShippingMethod(id string) (*ShippingMethod, error) {
 	path := c.InterpolatePath("/shipping_methods/{id}", id)
 	result := &ShippingMethod{}
 	err := c.Call(http.MethodGet, path, nil, result)
+	if err != nil {
+		return nil, err
+	}
+	return result, err
+}
+
+// UpdateShippingMethod Update an active Shipping Method
+// Returns: The updated shipping method.
+func (c *Client) UpdateShippingMethod(shippingMethodId string, body *ShippingMethodUpdate) (*ShippingMethod, error) {
+	path := c.InterpolatePath("/shipping_methods/{shipping_method_id}", shippingMethodId)
+	result := &ShippingMethod{}
+	err := c.Call(http.MethodPut, path, body, result)
+	if err != nil {
+		return nil, err
+	}
+	return result, err
+}
+
+// DeactivateShippingMethod Deactivate a shipping method
+// Returns: A shipping method.
+func (c *Client) DeactivateShippingMethod(shippingMethodId string) (*ShippingMethod, error) {
+	path := c.InterpolatePath("/shipping_methods/{shipping_method_id}", shippingMethodId)
+	result := &ShippingMethod{}
+	err := c.Call(http.MethodDelete, path, nil, result)
 	if err != nil {
 		return nil, err
 	}

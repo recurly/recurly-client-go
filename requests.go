@@ -253,14 +253,20 @@ type BillingInfoCreate struct {
 	// The International Bank Account Number, up to 34 alphanumeric characters comprising a country code; two check digits; and a number that includes the domestic bank account number, branch identifier, and potential routing information. (SEPA only)
 	Iban *string `json:"iban,omitempty"`
 
-	// The name associated with the bank account.
+	// The name associated with the bank account (ACH, SEPA, Bacs only)
 	NameOnAccount *string `json:"name_on_account,omitempty"`
 
-	// The bank account number. (ACH only)
+	// The bank account number. (ACH, Bacs only)
 	AccountNumber *string `json:"account_number,omitempty"`
 
 	// The bank's rounting number. (ACH only)
 	RoutingNumber *string `json:"routing_number,omitempty"`
+
+	// Bank identifier code for UK based banks. Required for Bacs based billing infos. (Bacs only)
+	SortCode *string `json:"sort_code,omitempty"`
+
+	// The payment method type for a non-credit card based billing info. The value of `bacs` is the only accepted value (Bacs only)
+	Type *string `json:"type,omitempty"`
 
 	// The bank account type. (ACH only)
 	AccountType *string `json:"account_type,omitempty"`
@@ -1008,6 +1014,9 @@ type PlanCreate struct {
 	// Length of plan's trial period in `trial_units`. `0` means `no trial`.
 	TrialLength *int `json:"trial_length,omitempty"`
 
+	// Allow free trial subscriptions to be created without billing info. Should not be used if billing info is needed for initial invoice due to existing uninvoiced charges or setup fee.
+	TrialRequiresBillingInfo *bool `json:"trial_requires_billing_info,omitempty"`
+
 	// Automatically terminate plans after a defined number of billing cycles.
 	TotalBillingCycles *int `json:"total_billing_cycles,omitempty"`
 
@@ -1037,6 +1046,11 @@ type PlanCreate struct {
 
 	// Add Ons
 	AddOns []AddOnCreate `json:"add_ons,omitempty"`
+
+	// Used to determine whether items can be assigned as add-ons to individual subscriptions.
+	// If `true`, items can be assigned as add-ons to individual subscription add-ons.
+	// If `false`, only plan add-ons can be used.
+	AllowAnyItemOnSubscriptions *bool `json:"allow_any_item_on_subscriptions,omitempty"`
 }
 
 func (attr *PlanCreate) toParams() *Params {
@@ -1139,10 +1153,14 @@ type AddOnCreate struct {
 	// then `currencies` must be absent.
 	Currencies []AddOnPricingCreate `json:"currencies,omitempty"`
 
-	// The type of tiering used by the Add-on.
+	// The pricing model for the add-on.  For more information,
+	// [click here](https://docs.recurly.com/docs/billing-models#section-quantity-based).
 	TierType *string `json:"tier_type,omitempty"`
 
-	// At least one tier is required if `tier_type` is not 'flat'.
+	// If the tier_type is `flat`, then `tiers` must be absent. The `tiers` object
+	// must include one to many tiers with `ending_quantity` and `unit_amount` for
+	// the desired `currencies`. There must be one tier with an `ending_quantity` of
+	// 999999999 which is the default if not provided.
 	Tiers []TierCreate `json:"tiers,omitempty"`
 }
 
@@ -1217,6 +1235,9 @@ type PlanUpdate struct {
 	// Length of plan's trial period in `trial_units`. `0` means `no trial`.
 	TrialLength *int `json:"trial_length,omitempty"`
 
+	// Allow free trial subscriptions to be created without billing info. Should not be used if billing info is needed for initial invoice due to existing uninvoiced charges or setup fee.
+	TrialRequiresBillingInfo *bool `json:"trial_requires_billing_info,omitempty"`
+
 	// Automatically terminate plans after a defined number of billing cycles.
 	TotalBillingCycles *int `json:"total_billing_cycles,omitempty"`
 
@@ -1246,6 +1267,11 @@ type PlanUpdate struct {
 
 	// Add Ons
 	AddOns []AddOnCreate `json:"add_ons,omitempty"`
+
+	// Used to determine whether items can be assigned as add-ons to individual subscriptions.
+	// If `true`, items can be assigned as add-ons to individual subscription add-ons.
+	// If `false`, only plan add-ons can be used.
+	AllowAnyItemOnSubscriptions *bool `json:"allow_any_item_on_subscriptions,omitempty"`
 }
 
 func (attr *PlanUpdate) toParams() *Params {
@@ -1291,12 +1317,82 @@ type AddOnUpdate struct {
 	// then `currencies` must be absent.
 	Currencies []AddOnPricingCreate `json:"currencies,omitempty"`
 
-	// If tiers are provided in the request, all existing tiers on the Add-on will be
-	// removed and replaced by the tiers in the request.
+	// If the tier_type is `flat`, then `tiers` must be absent. The `tiers` object
+	// must include one to many tiers with `ending_quantity` and `unit_amount` for
+	// the desired `currencies`. There must be one tier with an `ending_quantity` of
+	// 999999999 which is the default if not provided.
 	Tiers []TierCreate `json:"tiers,omitempty"`
 }
 
 func (attr *AddOnUpdate) toParams() *Params {
+	return &Params{
+		IdempotencyKey: attr.IdempotencyKey,
+		Header:         attr.Header,
+		Context:        attr.Context,
+		Data:           attr,
+	}
+}
+
+type ShippingMethodCreate struct {
+	Params `json:"-"`
+
+	// The internal name used identify the shipping method.
+	Code *string `json:"code,omitempty"`
+
+	// The name of the shipping method displayed to customers.
+	Name *string `json:"name,omitempty"`
+
+	// Accounting code for shipping method.
+	AccountingCode *string `json:"accounting_code,omitempty"`
+
+	// Used by Avalara, Vertex, and Recurly’s built-in tax feature. The tax
+	// code values are specific to each tax system. If you are using Recurly’s
+	// built-in taxes the values are:
+	// - `FR` – Common Carrier FOB Destination
+	// - `FR022000` – Common Carrier FOB Origin
+	// - `FR020400` – Non Common Carrier FOB Destination
+	// - `FR020500` – Non Common Carrier FOB Origin
+	// - `FR010100` – Delivery by Company Vehicle Before Passage of Title
+	// - `FR010200` – Delivery by Company Vehicle After Passage of Title
+	// - `NT` – Non-Taxable
+	TaxCode *string `json:"tax_code,omitempty"`
+}
+
+func (attr *ShippingMethodCreate) toParams() *Params {
+	return &Params{
+		IdempotencyKey: attr.IdempotencyKey,
+		Header:         attr.Header,
+		Context:        attr.Context,
+		Data:           attr,
+	}
+}
+
+type ShippingMethodUpdate struct {
+	Params `json:"-"`
+
+	// The internal name used identify the shipping method.
+	Code *string `json:"code,omitempty"`
+
+	// The name of the shipping method displayed to customers.
+	Name *string `json:"name,omitempty"`
+
+	// Accounting code for shipping method.
+	AccountingCode *string `json:"accounting_code,omitempty"`
+
+	// Used by Avalara, Vertex, and Recurly’s built-in tax feature. The tax
+	// code values are specific to each tax system. If you are using Recurly’s
+	// built-in taxes the values are:
+	// - `FR` – Common Carrier FOB Destination
+	// - `FR022000` – Common Carrier FOB Origin
+	// - `FR020400` – Non Common Carrier FOB Destination
+	// - `FR020500` – Non Common Carrier FOB Origin
+	// - `FR010100` – Delivery by Company Vehicle Before Passage of Title
+	// - `FR010200` – Delivery by Company Vehicle After Passage of Title
+	// - `NT` – Non-Taxable
+	TaxCode *string `json:"tax_code,omitempty"`
+}
+
+func (attr *ShippingMethodUpdate) toParams() *Params {
 	return &Params{
 		IdempotencyKey: attr.IdempotencyKey,
 		Header:         attr.Header,
@@ -1429,7 +1525,10 @@ type SubscriptionAddOnCreate struct {
 	// * If the plan add-on's `tier_type` is `tiered`, `volume`, or `stairstep`, then `unit_amount` must be absent.
 	UnitAmount *float64 `json:"unit_amount,omitempty"`
 
-	// If the plan add-on's `tier_type` is `flat`, then `tiers` must be absent.
+	// If the plan add-on's `tier_type` is `flat`, then `tiers` must be absent. The `tiers` object
+	// must include one to many tiers with `ending_quantity` and `unit_amount`.
+	// There must be one tier with an `ending_quantity` of 999999999 which is the
+	// default if not provided.
 	Tiers []SubscriptionAddOnTierCreate `json:"tiers,omitempty"`
 
 	// Revenue schedule type
@@ -1670,7 +1769,10 @@ type SubscriptionAddOnUpdate struct {
 	// Optionally, override the add-on's default unit amount.
 	UnitAmount *float64 `json:"unit_amount,omitempty"`
 
-	// If the plan add-on's `tier_type` is `flat`, then `tiers` must be absent.
+	// If the plan add-on's `tier_type` is `flat`, then `tiers` must be absent. The `tiers` object
+	// must include one to many tiers with `ending_quantity` and `unit_amount`.
+	// There must be one tier with an `ending_quantity` of 999999999 which is the
+	// default if not provided.
 	Tiers []SubscriptionAddOnTierCreate `json:"tiers,omitempty"`
 
 	// Revenue schedule type

@@ -2252,6 +2252,9 @@ type Transaction struct {
 	// Created at
 	CreatedAt time.Time `json:"created_at,omitempty"`
 
+	// Updated at
+	UpdatedAt time.Time `json:"updated_at,omitempty"`
+
 	// Voided at
 	VoidedAt time.Time `json:"voided_at,omitempty"`
 
@@ -4518,6 +4521,9 @@ type Plan struct {
 	// Length of plan's trial period in `trial_units`. `0` means `no trial`.
 	TrialLength int `json:"trial_length,omitempty"`
 
+	// Allow free trial subscriptions to be created without billing info.
+	TrialRequiresBillingInfo bool `json:"trial_requires_billing_info,omitempty"`
+
 	// Automatically terminate subscriptions after a defined number of billing cycles. Number of billing cycles before the plan automatically stops renewing, defaults to `null` for continuous, automatic renewal.
 	TotalBillingCycles int `json:"total_billing_cycles,omitempty"`
 
@@ -4547,6 +4553,11 @@ type Plan struct {
 
 	// Hosted pages settings
 	HostedPages PlanHostedPages `json:"hosted_pages,omitempty"`
+
+	// Used to determine whether items can be assigned as add-ons to individual subscriptions.
+	// If `true`, items can be assigned as add-ons to individual subscription add-ons.
+	// If `false`, only plan add-ons can be used.
+	AllowAnyItemOnSubscriptions bool `json:"allow_any_item_on_subscriptions,omitempty"`
 
 	// Created at
 	CreatedAt time.Time `json:"created_at,omitempty"`
