@@ -1,18 +1,32 @@
 # Changelog
 
-## [v3.1.0](https://github.com/recurly/recurly-client-go/tree/HEAD)
+## [v3.2.0](https://github.com/recurly/recurly-client-go/tree/HEAD)
 
-[Full Changelog](https://github.com/recurly/recurly-client-go/compare/v3.0.1...HEAD)
+[Full Changelog](https://github.com/recurly/recurly-client-go/compare/v3.1.0...HEAD)
 
 **Implemented enhancements:**
 
+- Mon Jun 29 17:14:42 UTC 2020 Upgrade API version v2019-10-10 [\#39](https://github.com/recurly/recurly-client-go/pull/39) ([douglasmiller](https://github.com/douglasmiller))
+- Cleaner implementation of --this-version [\#37](https://github.com/recurly/recurly-client-go/pull/37) ([bhelx](https://github.com/bhelx))
+
+**Merged pull requests:**
+
+- Release 3.2.0 [\#40](https://github.com/recurly/recurly-client-go/pull/40) ([douglasmiller](https://github.com/douglasmiller))
+- Loosen restrictions on what is successful resp [\#38](https://github.com/recurly/recurly-client-go/pull/38) ([bhelx](https://github.com/bhelx))
+
+## [v3.1.0](https://github.com/recurly/recurly-client-go/tree/v3.1.0) (2020-06-01)
+
+[Full Changelog](https://github.com/recurly/recurly-client-go/compare/v3.0.1...v3.1.0)
+
+**Implemented enhancements:**
+
+- Dont use absolute path to go bin in scripts [\#35](https://github.com/recurly/recurly-client-go/pull/35) ([bhelx](https://github.com/bhelx))
 - Latest Features [\#34](https://github.com/recurly/recurly-client-go/pull/34) ([bhelx](https://github.com/bhelx))
 - Add three\_d\_secure\_action\_token\_id  to TransactionError [\#32](https://github.com/recurly/recurly-client-go/pull/32) ([YevheniiGera](https://github.com/YevheniiGera))
 
 **Merged pull requests:**
 
 - Release 3.1.0 [\#36](https://github.com/recurly/recurly-client-go/pull/36) ([bhelx](https://github.com/bhelx))
-- Dont use absolute path to go bin in scripts [\#35](https://github.com/recurly/recurly-client-go/pull/35) ([bhelx](https://github.com/bhelx))
 - Fix pagination example [\#33](https://github.com/recurly/recurly-client-go/pull/33) ([bhelx](https://github.com/bhelx))
 
 ## [v3.0.1](https://github.com/recurly/recurly-client-go/tree/v3.0.1) (2020-05-20)
