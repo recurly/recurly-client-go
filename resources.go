@@ -3806,6 +3806,12 @@ type SubscriptionAddOn struct {
 	// Just the important parts.
 	AddOn AddOnMini `json:"add_on,omitempty"`
 
+	// Used to determine where the associated add-on data is pulled from. If this value is set to
+	// `plan_add_on` or left blank, then add-on data will be pulled from the plan's add-ons. If the associated
+	// `plan` has `allow_any_item_on_subscriptions` set to `true` and this field is set to `item`, then
+	// the associated add-on data will be pulled from the site's item catalog.
+	AddOnSource string `json:"add_on_source,omitempty"`
+
 	// Add-on quantity
 	Quantity int `json:"quantity,omitempty"`
 
@@ -5224,6 +5230,119 @@ func (list *ShippingMethodList) Fetch() error {
 // Count returns the count of items on the server that match this pager
 func (list *ShippingMethodList) Count() (*int64, error) {
 	resources := &shippingMethodList{}
+	err := list.client.Call(http.MethodHead, list.nextPagePath, nil, resources)
+	if err != nil {
+		return nil, err
+	}
+	resp := resources.GetResponse()
+	return resp.TotalRecords, nil
+}
+
+type SubscriptionChangePreview struct {
+	recurlyResponse *ResponseMetadata
+
+	// Invoice collection
+	InvoiceCollection InvoiceCollection `json:"invoice_collection,omitempty"`
+
+	// The ID of the Subscription Change.
+	Id string `json:"id,omitempty"`
+
+	// Object type
+	Object string `json:"object,omitempty"`
+
+	// The ID of the subscription that is going to be changed.
+	SubscriptionId string `json:"subscription_id,omitempty"`
+
+	// Just the important parts.
+	Plan PlanMini `json:"plan,omitempty"`
+
+	// These add-ons will be used when the subscription renews.
+	AddOns []SubscriptionAddOn `json:"add_ons,omitempty"`
+
+	// Unit amount
+	UnitAmount float64 `json:"unit_amount,omitempty"`
+
+	// Subscription quantity
+	Quantity int `json:"quantity,omitempty"`
+
+	// Subscription shipping details
+	Shipping SubscriptionShipping `json:"shipping,omitempty"`
+
+	// Activated at
+	ActivateAt time.Time `json:"activate_at,omitempty"`
+
+	// Returns `true` if the subscription change is activated.
+	Activated bool `json:"activated,omitempty"`
+
+	// Revenue schedule type
+	RevenueScheduleType string `json:"revenue_schedule_type,omitempty"`
+
+	// Setup fee revenue schedule type
+	SetupFeeRevenueScheduleType string `json:"setup_fee_revenue_schedule_type,omitempty"`
+
+	// Created at
+	CreatedAt time.Time `json:"created_at,omitempty"`
+
+	// Updated at
+	UpdatedAt time.Time `json:"updated_at,omitempty"`
+
+	// Deleted at
+	DeletedAt time.Time `json:"deleted_at,omitempty"`
+}
+
+// GetResponse returns the ResponseMetadata that generated this resource
+func (resource *SubscriptionChangePreview) GetResponse() *ResponseMetadata {
+	return resource.recurlyResponse
+}
+
+// setResponse sets the ResponseMetadata that generated this resource
+func (resource *SubscriptionChangePreview) setResponse(res *ResponseMetadata) {
+	resource.recurlyResponse = res
+}
+
+// internal struct for deserializing accounts
+type subscriptionChangePreviewList struct {
+	ListMetadata
+	Data            []SubscriptionChangePreview `json:"data"`
+	recurlyResponse *ResponseMetadata
+}
+
+// GetResponse returns the ResponseMetadata that generated this resource
+func (resource *subscriptionChangePreviewList) GetResponse() *ResponseMetadata {
+	return resource.recurlyResponse
+}
+
+// setResponse sets the ResponseMetadata that generated this resource
+func (resource *subscriptionChangePreviewList) setResponse(res *ResponseMetadata) {
+	resource.recurlyResponse = res
+}
+
+// SubscriptionChangePreviewList allows you to paginate SubscriptionChangePreview objects
+type SubscriptionChangePreviewList struct {
+	client       *Client
+	nextPagePath string
+
+	HasMore bool
+	Data    []SubscriptionChangePreview
+}
+
+// Fetch fetches the next page of data into the `Data` property
+func (list *SubscriptionChangePreviewList) Fetch() error {
+	resources := &subscriptionChangePreviewList{}
+	err := list.client.Call(http.MethodGet, list.nextPagePath, nil, resources)
+	if err != nil {
+		return err
+	}
+	// copy over properties from the response
+	list.nextPagePath = resources.Next
+	list.HasMore = resources.HasMore
+	list.Data = resources.Data
+	return nil
+}
+
+// Count returns the count of items on the server that match this pager
+func (list *SubscriptionChangePreviewList) Count() (*int64, error) {
+	resources := &subscriptionChangePreviewList{}
 	err := list.client.Call(http.MethodHead, list.nextPagePath, nil, resources)
 	if err != nil {
 		return nil, err

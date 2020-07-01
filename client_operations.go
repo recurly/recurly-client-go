@@ -3240,6 +3240,18 @@ func (c *Client) RemoveSubscriptionChange(subscriptionId string) (*Empty, error)
 	return result, err
 }
 
+// PreviewSubscriptionChange Preview a new subscription change
+// Returns: A subscription change.
+func (c *Client) PreviewSubscriptionChange(subscriptionId string, body *SubscriptionChangeCreate) (*SubscriptionChangePreview, error) {
+	path := c.InterpolatePath("/subscriptions/{subscription_id}/change/preview", subscriptionId)
+	result := &SubscriptionChangePreview{}
+	err := c.Call(http.MethodPost, path, body, result)
+	if err != nil {
+		return nil, err
+	}
+	return result, err
+}
+
 type ListSubscriptionInvoicesParams struct {
 	Params
 
