@@ -1,5 +1,5 @@
 package recurly
 
 const (
-	clientVersion = "3.3.0"
+	clientVersion = "3.4.0"
 )
