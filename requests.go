@@ -1515,7 +1515,8 @@ func (attr *SubscriptionShippingCreate) toParams() *Params {
 type SubscriptionAddOnCreate struct {
 	Params `json:"-"`
 
-	// Add-on code
+	// If `add_on_source` is set to `plan_add_on` or left blank, then plan's add-on `code` should be used.
+	// If `add_on_source` is set to `item`, then the `code` from the associated item should be used.
 	Code *string `json:"code,omitempty"`
 
 	// Used to determine where the associated add-on data is pulled from. If this value is set to
@@ -1766,8 +1767,16 @@ type SubscriptionAddOnUpdate struct {
 
 	// If a code is provided without an id, the subscription add-on attributes
 	// will be set to the current value for those attributes on the plan add-on
-	// unless provided in the request.
+	// unless provided in the request. If `add_on_source` is set to `plan_add_on`
+	// or left blank, then plan's add-on `code` should be used. If `add_on_source`
+	// is set to `item`, then the `code` from the associated item should be used.
 	Code *string `json:"code,omitempty"`
+
+	// Used to determine where the associated add-on data is pulled from. If this value is set to
+	// `plan_add_on` or left blank, then add_on data will be pulled from the plan's add-ons. If the associated
+	// `plan` has `allow_any_item_on_subscriptions` set to `true` and this field is set to `item`, then
+	// the associated add-on data will be pulled from the site's item catalog.
+	AddOnSource *string `json:"add_on_source,omitempty"`
 
 	// Quantity
 	Quantity *int `json:"quantity,omitempty"`
