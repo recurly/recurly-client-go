@@ -1,8 +1,20 @@
 # Changelog
 
-## [v3.3.0](https://github.com/recurly/recurly-client-go/tree/HEAD)
+## [v3.4.0](https://github.com/recurly/recurly-client-go/tree/HEAD)
 
-[Full Changelog](https://github.com/recurly/recurly-client-go/compare/v3.2.0...HEAD)
+[Full Changelog](https://github.com/recurly/recurly-client-go/compare/v3.3.0...HEAD)
+
+**Implemented enhancements:**
+
+- Mon Jul  6 14:54:37 UTC 2020 Upgrade API version v2019-10-10 [\#43](https://github.com/recurly/recurly-client-go/pull/43) ([douglasmiller](https://github.com/douglasmiller))
+
+**Merged pull requests:**
+
+- Release 3.4.0 [\#44](https://github.com/recurly/recurly-client-go/pull/44) ([douglasmiller](https://github.com/douglasmiller))
+
+## [v3.3.0](https://github.com/recurly/recurly-client-go/tree/v3.3.0) (2020-07-01)
+
+[Full Changelog](https://github.com/recurly/recurly-client-go/compare/v3.2.0...v3.3.0)
 
 **Implemented enhancements:**
 
