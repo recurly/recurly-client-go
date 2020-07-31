@@ -780,6 +780,50 @@ func (attr *ItemUpdate) toParams() *Params {
 	}
 }
 
+type MeasuredUnitCreate struct {
+	Params `json:"-"`
+
+	// Unique internal name of the measured unit on your site.
+	Name *string `json:"name,omitempty"`
+
+	// Display name for the measured unit.
+	DisplayName *string `json:"display_name,omitempty"`
+
+	// Optional internal description.
+	Description *string `json:"description,omitempty"`
+}
+
+func (attr *MeasuredUnitCreate) toParams() *Params {
+	return &Params{
+		IdempotencyKey: attr.IdempotencyKey,
+		Header:         attr.Header,
+		Context:        attr.Context,
+		Data:           attr,
+	}
+}
+
+type MeasuredUnitUpdate struct {
+	Params `json:"-"`
+
+	// Unique internal name of the measured unit on your site.
+	Name *string `json:"name,omitempty"`
+
+	// Display name for the measured unit.
+	DisplayName *string `json:"display_name,omitempty"`
+
+	// Optional internal description.
+	Description *string `json:"description,omitempty"`
+}
+
+func (attr *MeasuredUnitUpdate) toParams() *Params {
+	return &Params{
+		IdempotencyKey: attr.IdempotencyKey,
+		Header:         attr.Header,
+		Context:        attr.Context,
+		Data:           attr,
+	}
+}
+
 type InvoiceUpdatable struct {
 	Params `json:"-"`
 
@@ -1124,6 +1168,21 @@ type AddOnCreate struct {
 	// Describes your add-on and will appear in subscribers' invoices. If `item_code`/`item_id` is part of the request then `name` must be absent. If `item_code`/`item_id` is not present `name` is required.
 	Name *string `json:"name,omitempty"`
 
+	// Whether the add-on type is fixed, or usage-based.
+	AddOnType *string `json:"add_on_type,omitempty"`
+
+	// Type of usage, required if `add_on_type` is `usage`.
+	UsageType *string `json:"usage_type,omitempty"`
+
+	// The percentage taken of the monetary amount of usage tracked. This can be up to 4 decimal places. A value between 0.0 and 100.0. Required if `add_on_type` is usage and `usage_type` is percentage. Must be omitted otherwise. `usage_percentage` does not support tiers.
+	UsagePercentage *float64 `json:"usage_percentage,omitempty"`
+
+	// System-generated unique identifier for a measured unit to be associated with the add-on. Either `measured_unit_id` or `measured_unit_name` are required when `add_on_type` is `usage`. If `measured_unit_id` and `measured_unit_name` are both present, `measured_unit_id` will be used.
+	MeasuredUnitId *string `json:"measured_unit_id,omitempty"`
+
+	// Name of a measured unit to be associated with the add-on. Either `measured_unit_id` or `measured_unit_name` are required when `add_on_type` is `usage`. If `measured_unit_id` and `measured_unit_name` are both present, `measured_unit_id` will be used.
+	MeasuredUnitName *string `json:"measured_unit_name,omitempty"`
+
 	// Plan ID
 	PlanId *string `json:"plan_id,omitempty"`
 
@@ -1294,6 +1353,15 @@ type AddOnUpdate struct {
 
 	// Describes your add-on and will appear in subscribers' invoices. If an `Item` is associated to the `AddOn` then `name` must be absent.
 	Name *string `json:"name,omitempty"`
+
+	// The percentage taken of the monetary amount of usage tracked. This can be up to 4 decimal places. A value between 0.0 and 100.0. Required if `add_on_type` is usage and `usage_type` is percentage. Must be omitted otherwise. `usage_percentage` does not support tiers.
+	UsagePercentage *float64 `json:"usage_percentage,omitempty"`
+
+	// System-generated unique identifier for a measured unit to be associated with the add-on. Either `measured_unit_id` or `measured_unit_name` are required when `add_on_type` is `usage`. If `measured_unit_id` and `measured_unit_name` are both present, `measured_unit_id` will be used.
+	MeasuredUnitId *string `json:"measured_unit_id,omitempty"`
+
+	// Name of a measured unit to be associated with the add-on. Either `measured_unit_id` or `measured_unit_name` are required when `add_on_type` is `usage`. If `measured_unit_id` and `measured_unit_name` are both present, `measured_unit_id` will be used.
+	MeasuredUnitName *string `json:"measured_unit_name,omitempty"`
 
 	// Accounting code for invoice line items for this add-on. If no value is provided, it defaults to add-on's code. If an `Item` is associated to the `AddOn` then `accounting code` must be absent.
 	AccountingCode *string `json:"accounting_code,omitempty"`
@@ -1537,6 +1605,9 @@ type SubscriptionAddOnCreate struct {
 	// There must be one tier with an `ending_quantity` of 999999999 which is the
 	// default if not provided.
 	Tiers []SubscriptionAddOnTierCreate `json:"tiers,omitempty"`
+
+	// The percentage taken of the monetary amount of usage tracked. This can be up to 4 decimal places. A value between 0.0 and 100.0. Required if `add_on_type` is usage and `usage_type` is percentage. Must be omitted otherwise. `usage_percentage` does not support tiers.
+	UsagePercentage *float64 `json:"usage_percentage,omitempty"`
 
 	// Revenue schedule type
 	RevenueScheduleType *string `json:"revenue_schedule_type,omitempty"`
@@ -1790,11 +1861,39 @@ type SubscriptionAddOnUpdate struct {
 	// default if not provided.
 	Tiers []SubscriptionAddOnTierCreate `json:"tiers,omitempty"`
 
+	// The percentage taken of the monetary amount of usage tracked. This can be up to 4 decimal places. A value between 0.0 and 100.0. Required if add_on_type is usage and usage_type is percentage.
+	UsagePercentage *float64 `json:"usage_percentage,omitempty"`
+
 	// Revenue schedule type
 	RevenueScheduleType *string `json:"revenue_schedule_type,omitempty"`
 }
 
 func (attr *SubscriptionAddOnUpdate) toParams() *Params {
+	return &Params{
+		IdempotencyKey: attr.IdempotencyKey,
+		Header:         attr.Header,
+		Context:        attr.Context,
+		Data:           attr,
+	}
+}
+
+type UsageCreate struct {
+	Params `json:"-"`
+
+	// Custom field for recording the id in your own system associated with the usage, so you can provide auditable usage displays to your customers using a GET on this endpoint.
+	MerchantTag *string `json:"merchant_tag,omitempty"`
+
+	// The amount of usage. Can be positive, negative, or 0. No decimals allowed, we will strip them. If the usage-based add-on is billed with a percentage, your usage will be a monetary amount you will want to format in cents. (e.g., $5.00 is "500").
+	Amount *float64 `json:"amount,omitempty"`
+
+	// When the usage was recorded in your system.
+	RecordingTimestamp *time.Time `json:"recording_timestamp,omitempty"`
+
+	// When the usage actually happened. This will define the line item dates this usage is billed under and is important for revenue recognition.
+	UsageTimestamp *time.Time `json:"usage_timestamp,omitempty"`
+}
+
+func (attr *UsageCreate) toParams() *Params {
 	return &Params{
 		IdempotencyKey: attr.IdempotencyKey,
 		Header:         attr.Header,
@@ -1998,6 +2097,9 @@ type SubscriptionPurchase struct {
 
 	// If set, overrides the default trial behavior for the subscription. The date must be in the future.
 	TrialEndsAt *time.Time `json:"trial_ends_at,omitempty"`
+
+	// If set, the subscription will begin in the future on this date. The subscription will apply the setup fee and trial period, unless the plan has no trial.
+	StartsAt *time.Time `json:"starts_at,omitempty"`
 
 	// If present, this sets the date the subscription's next billing period will start (`current_period_ends_at`). This can be used to align the subscription’s billing to a specific day of the month. The initial invoice will be prorated for the period between the subscription's activation date and the billing period end date. Subsequent periods will be based off the plan interval. For a subscription with a trial period, this will change when the trial expires.
 	NextBillDate *time.Time `json:"next_bill_date,omitempty"`

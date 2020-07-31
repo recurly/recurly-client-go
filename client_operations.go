@@ -125,11 +125,11 @@ type ListAccountsParams struct {
 	// prevent some records from being returned.
 	Sort *string
 
-	// BeginTime - Filter by begin_time when `sort=created_at` or `sort=updated_at`.
+	// BeginTime - Inclusively filter by begin_time when `sort=created_at` or `sort=updated_at`.
 	// **Note:** this value is an ISO8601 timestamp. A partial timestamp that does not include a time zone will default to UTC.
 	BeginTime *time.Time
 
-	// EndTime - Filter by end_time when `sort=created_at` or `sort=updated_at`.
+	// EndTime - Inclusively filter by end_time when `sort=created_at` or `sort=updated_at`.
 	// **Note:** this value is an ISO8601 timestamp. A partial timestamp that does not include a time zone will default to UTC.
 	EndTime *time.Time
 
@@ -370,11 +370,11 @@ type ListAccountCouponRedemptionsParams struct {
 	// prevent some records from being returned.
 	Sort *string
 
-	// BeginTime - Filter by begin_time when `sort=created_at` or `sort=updated_at`.
+	// BeginTime - Inclusively filter by begin_time when `sort=created_at` or `sort=updated_at`.
 	// **Note:** this value is an ISO8601 timestamp. A partial timestamp that does not include a time zone will default to UTC.
 	BeginTime *time.Time
 
-	// EndTime - Filter by end_time when `sort=created_at` or `sort=updated_at`.
+	// EndTime - Inclusively filter by end_time when `sort=created_at` or `sort=updated_at`.
 	// **Note:** this value is an ISO8601 timestamp. A partial timestamp that does not include a time zone will default to UTC.
 	EndTime *time.Time
 }
@@ -472,11 +472,11 @@ type ListAccountCreditPaymentsParams struct {
 	// prevent some records from being returned.
 	Sort *string
 
-	// BeginTime - Filter by begin_time when `sort=created_at` or `sort=updated_at`.
+	// BeginTime - Inclusively filter by begin_time when `sort=created_at` or `sort=updated_at`.
 	// **Note:** this value is an ISO8601 timestamp. A partial timestamp that does not include a time zone will default to UTC.
 	BeginTime *time.Time
 
-	// EndTime - Filter by end_time when `sort=created_at` or `sort=updated_at`.
+	// EndTime - Inclusively filter by end_time when `sort=created_at` or `sort=updated_at`.
 	// **Note:** this value is an ISO8601 timestamp. A partial timestamp that does not include a time zone will default to UTC.
 	EndTime *time.Time
 }
@@ -553,11 +553,11 @@ type ListAccountInvoicesParams struct {
 	// prevent some records from being returned.
 	Sort *string
 
-	// BeginTime - Filter by begin_time when `sort=created_at` or `sort=updated_at`.
+	// BeginTime - Inclusively filter by begin_time when `sort=created_at` or `sort=updated_at`.
 	// **Note:** this value is an ISO8601 timestamp. A partial timestamp that does not include a time zone will default to UTC.
 	BeginTime *time.Time
 
-	// EndTime - Filter by end_time when `sort=created_at` or `sort=updated_at`.
+	// EndTime - Inclusively filter by end_time when `sort=created_at` or `sort=updated_at`.
 	// **Note:** this value is an ISO8601 timestamp. A partial timestamp that does not include a time zone will default to UTC.
 	EndTime *time.Time
 
@@ -673,11 +673,11 @@ type ListAccountLineItemsParams struct {
 	// prevent some records from being returned.
 	Sort *string
 
-	// BeginTime - Filter by begin_time when `sort=created_at` or `sort=updated_at`.
+	// BeginTime - Inclusively filter by begin_time when `sort=created_at` or `sort=updated_at`.
 	// **Note:** this value is an ISO8601 timestamp. A partial timestamp that does not include a time zone will default to UTC.
 	BeginTime *time.Time
 
-	// EndTime - Filter by end_time when `sort=created_at` or `sort=updated_at`.
+	// EndTime - Inclusively filter by end_time when `sort=created_at` or `sort=updated_at`.
 	// **Note:** this value is an ISO8601 timestamp. A partial timestamp that does not include a time zone will default to UTC.
 	EndTime *time.Time
 
@@ -849,11 +849,11 @@ type ListShippingAddressesParams struct {
 	// prevent some records from being returned.
 	Sort *string
 
-	// BeginTime - Filter by begin_time when `sort=created_at` or `sort=updated_at`.
+	// BeginTime - Inclusively filter by begin_time when `sort=created_at` or `sort=updated_at`.
 	// **Note:** this value is an ISO8601 timestamp. A partial timestamp that does not include a time zone will default to UTC.
 	BeginTime *time.Time
 
-	// EndTime - Filter by end_time when `sort=created_at` or `sort=updated_at`.
+	// EndTime - Inclusively filter by end_time when `sort=created_at` or `sort=updated_at`.
 	// **Note:** this value is an ISO8601 timestamp. A partial timestamp that does not include a time zone will default to UTC.
 	EndTime *time.Time
 }
@@ -982,11 +982,11 @@ type ListAccountSubscriptionsParams struct {
 	// prevent some records from being returned.
 	Sort *string
 
-	// BeginTime - Filter by begin_time when `sort=created_at` or `sort=updated_at`.
+	// BeginTime - Inclusively filter by begin_time when `sort=created_at` or `sort=updated_at`.
 	// **Note:** this value is an ISO8601 timestamp. A partial timestamp that does not include a time zone will default to UTC.
 	BeginTime *time.Time
 
-	// EndTime - Filter by end_time when `sort=created_at` or `sort=updated_at`.
+	// EndTime - Inclusively filter by end_time when `sort=created_at` or `sort=updated_at`.
 	// **Note:** this value is an ISO8601 timestamp. A partial timestamp that does not include a time zone will default to UTC.
 	EndTime *time.Time
 
@@ -1077,11 +1077,11 @@ type ListAccountTransactionsParams struct {
 	// prevent some records from being returned.
 	Sort *string
 
-	// BeginTime - Filter by begin_time when `sort=created_at` or `sort=updated_at`.
+	// BeginTime - Inclusively filter by begin_time when `sort=created_at` or `sort=updated_at`.
 	// **Note:** this value is an ISO8601 timestamp. A partial timestamp that does not include a time zone will default to UTC.
 	BeginTime *time.Time
 
-	// EndTime - Filter by end_time when `sort=created_at` or `sort=updated_at`.
+	// EndTime - Inclusively filter by end_time when `sort=created_at` or `sort=updated_at`.
 	// **Note:** this value is an ISO8601 timestamp. A partial timestamp that does not include a time zone will default to UTC.
 	EndTime *time.Time
 
@@ -1176,11 +1176,11 @@ type ListChildAccountsParams struct {
 	// prevent some records from being returned.
 	Sort *string
 
-	// BeginTime - Filter by begin_time when `sort=created_at` or `sort=updated_at`.
+	// BeginTime - Inclusively filter by begin_time when `sort=created_at` or `sort=updated_at`.
 	// **Note:** this value is an ISO8601 timestamp. A partial timestamp that does not include a time zone will default to UTC.
 	BeginTime *time.Time
 
-	// EndTime - Filter by end_time when `sort=created_at` or `sort=updated_at`.
+	// EndTime - Inclusively filter by end_time when `sort=created_at` or `sort=updated_at`.
 	// **Note:** this value is an ISO8601 timestamp. A partial timestamp that does not include a time zone will default to UTC.
 	EndTime *time.Time
 
@@ -1283,11 +1283,11 @@ type ListAccountAcquisitionParams struct {
 	// prevent some records from being returned.
 	Sort *string
 
-	// BeginTime - Filter by begin_time when `sort=created_at` or `sort=updated_at`.
+	// BeginTime - Inclusively filter by begin_time when `sort=created_at` or `sort=updated_at`.
 	// **Note:** this value is an ISO8601 timestamp. A partial timestamp that does not include a time zone will default to UTC.
 	BeginTime *time.Time
 
-	// EndTime - Filter by end_time when `sort=created_at` or `sort=updated_at`.
+	// EndTime - Inclusively filter by end_time when `sort=created_at` or `sort=updated_at`.
 	// **Note:** this value is an ISO8601 timestamp. A partial timestamp that does not include a time zone will default to UTC.
 	EndTime *time.Time
 }
@@ -1368,11 +1368,11 @@ type ListCouponsParams struct {
 	// prevent some records from being returned.
 	Sort *string
 
-	// BeginTime - Filter by begin_time when `sort=created_at` or `sort=updated_at`.
+	// BeginTime - Inclusively filter by begin_time when `sort=created_at` or `sort=updated_at`.
 	// **Note:** this value is an ISO8601 timestamp. A partial timestamp that does not include a time zone will default to UTC.
 	BeginTime *time.Time
 
-	// EndTime - Filter by end_time when `sort=created_at` or `sort=updated_at`.
+	// EndTime - Inclusively filter by end_time when `sort=created_at` or `sort=updated_at`.
 	// **Note:** this value is an ISO8601 timestamp. A partial timestamp that does not include a time zone will default to UTC.
 	EndTime *time.Time
 }
@@ -1501,11 +1501,11 @@ type ListUniqueCouponCodesParams struct {
 	// prevent some records from being returned.
 	Sort *string
 
-	// BeginTime - Filter by begin_time when `sort=created_at` or `sort=updated_at`.
+	// BeginTime - Inclusively filter by begin_time when `sort=created_at` or `sort=updated_at`.
 	// **Note:** this value is an ISO8601 timestamp. A partial timestamp that does not include a time zone will default to UTC.
 	BeginTime *time.Time
 
-	// EndTime - Filter by end_time when `sort=created_at` or `sort=updated_at`.
+	// EndTime - Inclusively filter by end_time when `sort=created_at` or `sort=updated_at`.
 	// **Note:** this value is an ISO8601 timestamp. A partial timestamp that does not include a time zone will default to UTC.
 	EndTime *time.Time
 }
@@ -1575,11 +1575,11 @@ type ListCreditPaymentsParams struct {
 	// prevent some records from being returned.
 	Sort *string
 
-	// BeginTime - Filter by begin_time when `sort=created_at` or `sort=updated_at`.
+	// BeginTime - Inclusively filter by begin_time when `sort=created_at` or `sort=updated_at`.
 	// **Note:** this value is an ISO8601 timestamp. A partial timestamp that does not include a time zone will default to UTC.
 	BeginTime *time.Time
 
-	// EndTime - Filter by end_time when `sort=created_at` or `sort=updated_at`.
+	// EndTime - Inclusively filter by end_time when `sort=created_at` or `sort=updated_at`.
 	// **Note:** this value is an ISO8601 timestamp. A partial timestamp that does not include a time zone will default to UTC.
 	EndTime *time.Time
 }
@@ -1668,11 +1668,11 @@ type ListCustomFieldDefinitionsParams struct {
 	// prevent some records from being returned.
 	Sort *string
 
-	// BeginTime - Filter by begin_time when `sort=created_at` or `sort=updated_at`.
+	// BeginTime - Inclusively filter by begin_time when `sort=created_at` or `sort=updated_at`.
 	// **Note:** this value is an ISO8601 timestamp. A partial timestamp that does not include a time zone will default to UTC.
 	BeginTime *time.Time
 
-	// EndTime - Filter by end_time when `sort=created_at` or `sort=updated_at`.
+	// EndTime - Inclusively filter by end_time when `sort=created_at` or `sort=updated_at`.
 	// **Note:** this value is an ISO8601 timestamp. A partial timestamp that does not include a time zone will default to UTC.
 	EndTime *time.Time
 
@@ -1772,11 +1772,11 @@ type ListItemsParams struct {
 	// prevent some records from being returned.
 	Sort *string
 
-	// BeginTime - Filter by begin_time when `sort=created_at` or `sort=updated_at`.
+	// BeginTime - Inclusively filter by begin_time when `sort=created_at` or `sort=updated_at`.
 	// **Note:** this value is an ISO8601 timestamp. A partial timestamp that does not include a time zone will default to UTC.
 	BeginTime *time.Time
 
-	// EndTime - Filter by end_time when `sort=created_at` or `sort=updated_at`.
+	// EndTime - Inclusively filter by end_time when `sort=created_at` or `sort=updated_at`.
 	// **Note:** this value is an ISO8601 timestamp. A partial timestamp that does not include a time zone will default to UTC.
 	EndTime *time.Time
 
@@ -1899,6 +1899,146 @@ func (c *Client) ReactivateItem(itemId string) (*Item, error) {
 	return result, err
 }
 
+type ListMeasuredUnitParams struct {
+	Params
+
+	// Ids - Filter results by their IDs. Up to 200 IDs can be passed at once using
+	// commas as separators, e.g. `ids=h1at4d57xlmy,gyqgg0d3v9n1,jrsm5b4yefg6`.
+	// **Important notes:**
+	// * The `ids` parameter cannot be used with any other ordering or filtering
+	//   parameters (`limit`, `order`, `sort`, `begin_time`, `end_time`, etc)
+	// * Invalid or unknown IDs will be ignored, so you should check that the
+	//   results correspond to your request.
+	// * Records are returned in an arbitrary order. Since results are all
+	//   returned at once you can sort the records yourself.
+	Ids []string
+
+	// Limit - Limit number of records 1-200.
+	Limit *int
+
+	// Order - Sort order.
+	Order *string
+
+	// Sort - Sort field. You *really* only want to sort by `updated_at` in ascending
+	// order. In descending order updated records will move behind the cursor and could
+	// prevent some records from being returned.
+	Sort *string
+
+	// BeginTime - Inclusively filter by begin_time when `sort=created_at` or `sort=updated_at`.
+	// **Note:** this value is an ISO8601 timestamp. A partial timestamp that does not include a time zone will default to UTC.
+	BeginTime *time.Time
+
+	// EndTime - Inclusively filter by end_time when `sort=created_at` or `sort=updated_at`.
+	// **Note:** this value is an ISO8601 timestamp. A partial timestamp that does not include a time zone will default to UTC.
+	EndTime *time.Time
+
+	// State - Filter by state.
+	State *string
+}
+
+func (list *ListMeasuredUnitParams) toParams() *Params {
+	return &Params{
+		IdempotencyKey: list.IdempotencyKey,
+		Header:         list.Header,
+		Context:        list.Context,
+		RequestParams:  list,
+	}
+}
+
+func (list *ListMeasuredUnitParams) URLParams() []KeyValue {
+	var options []KeyValue
+
+	if list.Ids != nil {
+		options = append(options, KeyValue{Key: "ids", Value: strings.Join(list.Ids, ",")})
+	}
+
+	if list.Limit != nil {
+		options = append(options, KeyValue{Key: "limit", Value: strconv.Itoa(*list.Limit)})
+	}
+
+	if list.Order != nil {
+		options = append(options, KeyValue{Key: "order", Value: *list.Order})
+	}
+
+	if list.Sort != nil {
+		options = append(options, KeyValue{Key: "sort", Value: *list.Sort})
+	}
+
+	if list.BeginTime != nil {
+		options = append(options, KeyValue{Key: "begin_time", Value: formatTime(*list.BeginTime)})
+	}
+
+	if list.EndTime != nil {
+		options = append(options, KeyValue{Key: "end_time", Value: formatTime(*list.EndTime)})
+	}
+
+	if list.State != nil {
+		options = append(options, KeyValue{Key: "state", Value: *list.State})
+	}
+
+	return options
+}
+
+// ListMeasuredUnit List a site's measured units
+// Returns: A list of the site's measured units.
+func (c *Client) ListMeasuredUnit(params *ListMeasuredUnitParams) *MeasuredUnitList {
+	path := "/measured_units"
+	path = BuildUrl(path, params)
+	return &MeasuredUnitList{
+		client:       c,
+		nextPagePath: path,
+		HasMore:      true,
+	}
+}
+
+// CreateMeasuredUnit Create a new measured unit
+// Returns: A new measured unit.
+func (c *Client) CreateMeasuredUnit(body *MeasuredUnitCreate) (*MeasuredUnit, error) {
+	path := c.InterpolatePath("/measured_units")
+	result := &MeasuredUnit{}
+	err := c.Call(http.MethodPost, path, body, result)
+	if err != nil {
+		return nil, err
+	}
+	return result, err
+}
+
+// GetMeasuredUnit Fetch a measured unit
+// Returns: An item.
+func (c *Client) GetMeasuredUnit(measuredUnitId string) (*MeasuredUnit, error) {
+	path := c.InterpolatePath("/measured_units/{measured_unit_id}", measuredUnitId)
+	result := &MeasuredUnit{}
+	err := c.Call(http.MethodGet, path, nil, result)
+	if err != nil {
+		return nil, err
+	}
+	return result, err
+}
+
+// UpdateMeasuredUnit Update a measured unit
+// Returns: The updated measured_unit.
+func (c *Client) UpdateMeasuredUnit(measuredUnitId string, body *MeasuredUnitUpdate) (*MeasuredUnit, error) {
+	path := c.InterpolatePath("/measured_units/{measured_unit_id}", measuredUnitId)
+	result := &MeasuredUnit{}
+	err := c.Call(http.MethodPut, path, body, result)
+	if err != nil {
+		return nil, err
+	}
+	return result, err
+}
+
+// RemoveMeasuredUnit Remove a measured unit
+// Returns: A measured unit.
+func (c *Client) RemoveMeasuredUnit(measuredUnitId string) (*MeasuredUnit, error) {
+	path := c.InterpolatePath("/measured_units/{measured_unit_id}", measuredUnitId)
+	result := &MeasuredUnit{}
+	err := c.Call(http.MethodDelete, path, nil, result)
+	if err != nil {
+		return nil, err
+	}
+	return result, err
+}
+
 type ListInvoicesParams struct {
 	Params
 
@@ -1924,11 +2064,11 @@ type ListInvoicesParams struct {
 	// prevent some records from being returned.
 	Sort *string
 
-	// BeginTime - Filter by begin_time when `sort=created_at` or `sort=updated_at`.
+	// BeginTime - Inclusively filter by begin_time when `sort=created_at` or `sort=updated_at`.
 	// **Note:** this value is an ISO8601 timestamp. A partial timestamp that does not include a time zone will default to UTC.
 	BeginTime *time.Time
 
-	// EndTime - Filter by end_time when `sort=created_at` or `sort=updated_at`.
+	// EndTime - Inclusively filter by end_time when `sort=created_at` or `sort=updated_at`.
 	// **Note:** this value is an ISO8601 timestamp. A partial timestamp that does not include a time zone will default to UTC.
 	EndTime *time.Time
 
@@ -2132,11 +2272,11 @@ type ListInvoiceLineItemsParams struct {
 	// prevent some records from being returned.
 	Sort *string
 
-	// BeginTime - Filter by begin_time when `sort=created_at` or `sort=updated_at`.
+	// BeginTime - Inclusively filter by begin_time when `sort=created_at` or `sort=updated_at`.
 	// **Note:** this value is an ISO8601 timestamp. A partial timestamp that does not include a time zone will default to UTC.
 	BeginTime *time.Time
 
-	// EndTime - Filter by end_time when `sort=created_at` or `sort=updated_at`.
+	// EndTime - Inclusively filter by end_time when `sort=created_at` or `sort=updated_at`.
 	// **Note:** this value is an ISO8601 timestamp. A partial timestamp that does not include a time zone will default to UTC.
 	EndTime *time.Time
 
@@ -2232,11 +2372,11 @@ type ListInvoiceCouponRedemptionsParams struct {
 	// prevent some records from being returned.
 	Sort *string
 
-	// BeginTime - Filter by begin_time when `sort=created_at` or `sort=updated_at`.
+	// BeginTime - Inclusively filter by begin_time when `sort=created_at` or `sort=updated_at`.
 	// **Note:** this value is an ISO8601 timestamp. A partial timestamp that does not include a time zone will default to UTC.
 	BeginTime *time.Time
 
-	// EndTime - Filter by end_time when `sort=created_at` or `sort=updated_at`.
+	// EndTime - Inclusively filter by end_time when `sort=created_at` or `sort=updated_at`.
 	// **Note:** this value is an ISO8601 timestamp. A partial timestamp that does not include a time zone will default to UTC.
 	EndTime *time.Time
 }
@@ -2332,11 +2472,11 @@ type ListLineItemsParams struct {
 	// prevent some records from being returned.
 	Sort *string
 
-	// BeginTime - Filter by begin_time when `sort=created_at` or `sort=updated_at`.
+	// BeginTime - Inclusively filter by begin_time when `sort=created_at` or `sort=updated_at`.
 	// **Note:** this value is an ISO8601 timestamp. A partial timestamp that does not include a time zone will default to UTC.
 	BeginTime *time.Time
 
-	// EndTime - Filter by end_time when `sort=created_at` or `sort=updated_at`.
+	// EndTime - Inclusively filter by end_time when `sort=created_at` or `sort=updated_at`.
 	// **Note:** this value is an ISO8601 timestamp. A partial timestamp that does not include a time zone will default to UTC.
 	EndTime *time.Time
 
@@ -2462,11 +2602,11 @@ type ListPlansParams struct {
 	// prevent some records from being returned.
 	Sort *string
 
-	// BeginTime - Filter by begin_time when `sort=created_at` or `sort=updated_at`.
+	// BeginTime - Inclusively filter by begin_time when `sort=created_at` or `sort=updated_at`.
 	// **Note:** this value is an ISO8601 timestamp. A partial timestamp that does not include a time zone will default to UTC.
 	BeginTime *time.Time
 
-	// EndTime - Filter by end_time when `sort=created_at` or `sort=updated_at`.
+	// EndTime - Inclusively filter by end_time when `sort=created_at` or `sort=updated_at`.
 	// **Note:** this value is an ISO8601 timestamp. A partial timestamp that does not include a time zone will default to UTC.
 	EndTime *time.Time
 
@@ -2602,11 +2742,11 @@ type ListPlanAddOnsParams struct {
 	// prevent some records from being returned.
 	Sort *string
 
-	// BeginTime - Filter by begin_time when `sort=created_at` or `sort=updated_at`.
+	// BeginTime - Inclusively filter by begin_time when `sort=created_at` or `sort=updated_at`.
 	// **Note:** this value is an ISO8601 timestamp. A partial timestamp that does not include a time zone will default to UTC.
 	BeginTime *time.Time
 
-	// EndTime - Filter by end_time when `sort=created_at` or `sort=updated_at`.
+	// EndTime - Inclusively filter by end_time when `sort=created_at` or `sort=updated_at`.
 	// **Note:** this value is an ISO8601 timestamp. A partial timestamp that does not include a time zone will default to UTC.
 	EndTime *time.Time
 
@@ -2742,11 +2882,11 @@ type ListAddOnsParams struct {
 	// prevent some records from being returned.
 	Sort *string
 
-	// BeginTime - Filter by begin_time when `sort=created_at` or `sort=updated_at`.
+	// BeginTime - Inclusively filter by begin_time when `sort=created_at` or `sort=updated_at`.
 	// **Note:** this value is an ISO8601 timestamp. A partial timestamp that does not include a time zone will default to UTC.
 	BeginTime *time.Time
 
-	// EndTime - Filter by end_time when `sort=created_at` or `sort=updated_at`.
+	// EndTime - Inclusively filter by end_time when `sort=created_at` or `sort=updated_at`.
 	// **Note:** this value is an ISO8601 timestamp. A partial timestamp that does not include a time zone will default to UTC.
 	EndTime *time.Time
 
@@ -2846,11 +2986,11 @@ type ListShippingMethodsParams struct {
 	// prevent some records from being returned.
 	Sort *string
 
-	// BeginTime - Filter by begin_time when `sort=created_at` or `sort=updated_at`.
+	// BeginTime - Inclusively filter by begin_time when `sort=created_at` or `sort=updated_at`.
 	// **Note:** this value is an ISO8601 timestamp. A partial timestamp that does not include a time zone will default to UTC.
 	BeginTime *time.Time
 
-	// EndTime - Filter by end_time when `sort=created_at` or `sort=updated_at`.
+	// EndTime - Inclusively filter by end_time when `sort=created_at` or `sort=updated_at`.
 	// **Note:** this value is an ISO8601 timestamp. A partial timestamp that does not include a time zone will default to UTC.
 	EndTime *time.Time
 }
@@ -2979,11 +3119,11 @@ type ListSubscriptionsParams struct {
 	// prevent some records from being returned.
 	Sort *string
 
-	// BeginTime - Filter by begin_time when `sort=created_at` or `sort=updated_at`.
+	// BeginTime - Inclusively filter by begin_time when `sort=created_at` or `sort=updated_at`.
 	// **Note:** this value is an ISO8601 timestamp. A partial timestamp that does not include a time zone will default to UTC.
 	BeginTime *time.Time
 
-	// EndTime - Filter by end_time when `sort=created_at` or `sort=updated_at`.
+	// EndTime - Inclusively filter by end_time when `sort=created_at` or `sort=updated_at`.
 	// **Note:** this value is an ISO8601 timestamp. A partial timestamp that does not include a time zone will default to UTC.
 	EndTime *time.Time
 
@@ -3277,11 +3417,11 @@ type ListSubscriptionInvoicesParams struct {
 	// prevent some records from being returned.
 	Sort *string
 
-	// BeginTime - Filter by begin_time when `sort=created_at` or `sort=updated_at`.
+	// BeginTime - Inclusively filter by begin_time when `sort=created_at` or `sort=updated_at`.
 	// **Note:** this value is an ISO8601 timestamp. A partial timestamp that does not include a time zone will default to UTC.
 	BeginTime *time.Time
 
-	// EndTime - Filter by end_time when `sort=created_at` or `sort=updated_at`.
+	// EndTime - Inclusively filter by end_time when `sort=created_at` or `sort=updated_at`.
 	// **Note:** this value is an ISO8601 timestamp. A partial timestamp that does not include a time zone will default to UTC.
 	EndTime *time.Time
 
@@ -3373,11 +3513,11 @@ type ListSubscriptionLineItemsParams struct {
 	// prevent some records from being returned.
 	Sort *string
 
-	// BeginTime - Filter by begin_time when `sort=created_at` or `sort=updated_at`.
+	// BeginTime - Inclusively filter by begin_time when `sort=created_at` or `sort=updated_at`.
 	// **Note:** this value is an ISO8601 timestamp. A partial timestamp that does not include a time zone will default to UTC.
 	BeginTime *time.Time
 
-	// EndTime - Filter by end_time when `sort=created_at` or `sort=updated_at`.
+	// EndTime - Inclusively filter by end_time when `sort=created_at` or `sort=updated_at`.
 	// **Note:** this value is an ISO8601 timestamp. A partial timestamp that does not include a time zone will default to UTC.
 	EndTime *time.Time
 
@@ -3473,11 +3613,11 @@ type ListSubscriptionCouponRedemptionsParams struct {
 	// prevent some records from being returned.
 	Sort *string
 
-	// BeginTime - Filter by begin_time when `sort=created_at` or `sort=updated_at`.
+	// BeginTime - Inclusively filter by begin_time when `sort=created_at` or `sort=updated_at`.
 	// **Note:** this value is an ISO8601 timestamp. A partial timestamp that does not include a time zone will default to UTC.
 	BeginTime *time.Time
 
-	// EndTime - Filter by end_time when `sort=created_at` or `sort=updated_at`.
+	// EndTime - Inclusively filter by end_time when `sort=created_at` or `sort=updated_at`.
 	// **Note:** this value is an ISO8601 timestamp. A partial timestamp that does not include a time zone will default to UTC.
 	EndTime *time.Time
 }
@@ -3525,6 +3665,131 @@ func (c *Client) ListSubscriptionCouponRedemptions(subscriptionId string, params
 	}
 }
 
+type ListUsageParams struct {
+	Params
+
+	// Limit - Limit number of records 1-200.
+	Limit *int
+
+	// Order - Sort order.
+	Order *string
+
+	// Sort - Sort field. You *really* only want to sort by `usage_timestamp` in ascending
+	// order. In descending order updated records will move behind the cursor and could
+	// prevent some records from being returned.
+	Sort *string
+
+	// BeginTime - Inclusively filter by begin_time when `sort=usage_timestamp` or `sort=recorded_timestamp`.
+	// **Note:** this value is an ISO8601 timestamp. A partial timestamp that does not include a time zone will default to UTC.
+	BeginTime *time.Time
+
+	// EndTime - Inclusively filter by end_time when `sort=usage_timestamp` or `sort=recorded_timestamp`.
+	// **Note:** this value is an ISO8601 timestamp. A partial timestamp that does not include a time zone will default to UTC.
+	EndTime *time.Time
+
+	// BillingStatus - Filter by usage record's billing status
+	BillingStatus *string
+}
+
+func (list *ListUsageParams) toParams() *Params {
+	return &Params{
+		IdempotencyKey: list.IdempotencyKey,
+		Header:         list.Header,
+		Context:        list.Context,
+		RequestParams:  list,
+	}
+}
+
+func (list *ListUsageParams) URLParams() []KeyValue {
+	var options []KeyValue
+
+	if list.Limit != nil {
+		options = append(options, KeyValue{Key: "limit", Value: strconv.Itoa(*list.Limit)})
+	}
+
+	if list.Order != nil {
+		options = append(options, KeyValue{Key: "order", Value: *list.Order})
+	}
+
+	if list.Sort != nil {
+		options = append(options, KeyValue{Key: "sort", Value: *list.Sort})
+	}
+
+	if list.BeginTime != nil {
+		options = append(options, KeyValue{Key: "begin_time", Value: formatTime(*list.BeginTime)})
+	}
+
+	if list.EndTime != nil {
+		options = append(options, KeyValue{Key: "end_time", Value: formatTime(*list.EndTime)})
+	}
+
+	if list.BillingStatus != nil {
+		options = append(options, KeyValue{Key: "billing_status", Value: *list.BillingStatus})
+	}
+
+	return options
+}
+
+// ListUsage List a subscription add-on's usage records
+// Returns: A list of the subscription add-on's usage records.
+func (c *Client) ListUsage(subscriptionId string, addOnId string, params *ListUsageParams) *UsageList {
+	path := c.InterpolatePath("/subscriptions/{subscription_id}/add_ons/{add_on_id}/usage", subscriptionId, addOnId)
+	path = BuildUrl(path, params)
+	return &UsageList{
+		client:       c,
+		nextPagePath: path,
+		HasMore:      true,
+	}
+}
+
+// CreateUsage Log a usage record on this subscription add-on
+// Returns: The created usage record.
+func (c *Client) CreateUsage(subscriptionId string, addOnId string, body *UsageCreate) (*Usage, error) {
+	path := c.InterpolatePath("/subscriptions/{subscription_id}/add_ons/{add_on_id}/usage", subscriptionId, addOnId)
+	result := &Usage{}
+	err := c.Call(http.MethodPost, path, body, result)
+	if err != nil {
+		return nil, err
+	}
+	return result, err
+}
+
+// GetUsage Get a usage record
+// Returns: The usage record.
+func (c *Client) GetUsage(usageId string) (*Usage, error) {
+	path := c.InterpolatePath("/usage/{usage_id}", usageId)
+	result := &Usage{}
+	err := c.Call(http.MethodGet, path, nil, result)
+	if err != nil {
+		return nil, err
+	}
+	return result, err
+}
+
+// UpdateUsage Update a usage record
+// Returns: The updated usage record.
+func (c *Client) UpdateUsage(usageId string, body *UsageCreate) (*Usage, error) {
+	path := c.InterpolatePath("/usage/{usage_id}", usageId)
+	result := &Usage{}
+	err := c.Call(http.MethodPut, path, body, result)
+	if err != nil {
+		return nil, err
+	}
+	return result, err
+}
+
+// RemoveUsage Delete a usage record.
+// Returns: Usage was successfully deleted.
+func (c *Client) RemoveUsage(usageId string) (*Empty, error) {
+	path := c.InterpolatePath("/usage/{usage_id}", usageId)
+	result := &Empty{}
+	err := c.Call(http.MethodDelete, path, nil, result)
+	if err != nil {
+		return nil, err
+	}
+	return result, err
+}
+
 type ListTransactionsParams struct {
 	Params
 
@@ -3550,11 +3815,11 @@ type ListTransactionsParams struct {
 	// prevent some records from being returned.
 	Sort *string
 
-	// BeginTime - Filter by begin_time when `sort=created_at` or `sort=updated_at`.
+	// BeginTime - Inclusively filter by begin_time when `sort=created_at` or `sort=updated_at`.
 	// **Note:** this value is an ISO8601 timestamp. A partial timestamp that does not include a time zone will default to UTC.
 	BeginTime *time.Time
 
-	// EndTime - Filter by end_time when `sort=created_at` or `sort=updated_at`.
+	// EndTime - Inclusively filter by end_time when `sort=created_at` or `sort=updated_at`.
 	// **Note:** this value is an ISO8601 timestamp. A partial timestamp that does not include a time zone will default to UTC.
 	EndTime *time.Time
 

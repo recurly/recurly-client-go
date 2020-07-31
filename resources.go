@@ -3720,6 +3720,9 @@ type SubscriptionChange struct {
 	// Setup fee revenue schedule type
 	SetupFeeRevenueScheduleType string `json:"setup_fee_revenue_schedule_type,omitempty"`
 
+	// Invoice Collection
+	InvoiceCollection InvoiceCollection `json:"invoice_collection,omitempty"`
+
 	// Created at
 	CreatedAt time.Time `json:"created_at,omitempty"`
 
@@ -3824,8 +3827,12 @@ type SubscriptionAddOn struct {
 	// The type of tiering used by the Add-on.
 	TierType string `json:"tier_type,omitempty"`
 
-	// Empty unless `tier_type` is `tiered`, `volume`, or `stairstep`.
+	// If tiers are provided in the request, all existing tiers on the Subscription Add-on will be
+	// removed and replaced by the tiers in the request.
 	Tiers []SubscriptionAddOnTier `json:"tiers,omitempty"`
+
+	// The percentage taken of the monetary amount of usage tracked. This can be up to 4 decimal places. A value between 0.0 and 100.0. Required if add_on_type is usage and usage_type is percentage.
+	UsagePercentage float64 `json:"usage_percentage,omitempty"`
 
 	// Created at
 	CreatedAt time.Time `json:"created_at,omitempty"`
@@ -3912,6 +3919,18 @@ type AddOnMini struct {
 
 	// Describes your add-on and will appear in subscribers' invoices.
 	Name string `json:"name,omitempty"`
+
+	// Whether the add-on type is fixed, or usage-based.
+	AddOnType string `json:"add_on_type,omitempty"`
+
+	// Type of usage, returns usage type if `add_on_type` is `usage`.
+	UsageType string `json:"usage_type,omitempty"`
+
+	// The percentage taken of the monetary amount of usage tracked. This can be up to 4 decimal places. A value between 0.0 and 100.0.
+	UsagePercentage float64 `json:"usage_percentage,omitempty"`
+
+	// System-generated unique identifier for an measured unit associated with the add-on.
+	MeasuredUnitId string `json:"measured_unit_id,omitempty"`
 
 	// Item ID
 	ItemId string `json:"item_id,omitempty"`
@@ -4427,6 +4446,98 @@ func (list *PricingList) Count() (*int64, error) {
 	return resp.TotalRecords, nil
 }
 
+type MeasuredUnit struct {
+	recurlyResponse *ResponseMetadata
+
+	// Item ID
+	Id string `json:"id,omitempty"`
+
+	// Object type
+	Object string `json:"object,omitempty"`
+
+	// Unique internal name of the measured unit on your site.
+	Name string `json:"name,omitempty"`
+
+	// Display name for the measured unit. Can only contain spaces, underscores and must be alphanumeric.
+	DisplayName string `json:"display_name,omitempty"`
+
+	// The current state of the measured unit.
+	State string `json:"state,omitempty"`
+
+	// Optional internal description.
+	Description string `json:"description,omitempty"`
+
+	// Created at
+	CreatedAt time.Time `json:"created_at,omitempty"`
+
+	// Last updated at
+	UpdatedAt time.Time `json:"updated_at,omitempty"`
+
+	// Deleted at
+	DeletedAt time.Time `json:"deleted_at,omitempty"`
+}
+
+// GetResponse returns the ResponseMetadata that generated this resource
+func (resource *MeasuredUnit) GetResponse() *ResponseMetadata {
+	return resource.recurlyResponse
+}
+
+// setResponse sets the ResponseMetadata that generated this resource
+func (resource *MeasuredUnit) setResponse(res *ResponseMetadata) {
+	resource.recurlyResponse = res
+}
+
+// internal struct for deserializing accounts
+type measuredUnitList struct {
+	ListMetadata
+	Data            []MeasuredUnit `json:"data"`
+	recurlyResponse *ResponseMetadata
+}
+
+// GetResponse returns the ResponseMetadata that generated this resource
+func (resource *measuredUnitList) GetResponse() *ResponseMetadata {
+	return resource.recurlyResponse
+}
+
+// setResponse sets the ResponseMetadata that generated this resource
+func (resource *measuredUnitList) setResponse(res *ResponseMetadata) {
+	resource.recurlyResponse = res
+}
+
+// MeasuredUnitList allows you to paginate MeasuredUnit objects
+type MeasuredUnitList struct {
+	client       *Client
+	nextPagePath string
+
+	HasMore bool
+	Data    []MeasuredUnit
+}
+
+// Fetch fetches the next page of data into the `Data` property
+func (list *MeasuredUnitList) Fetch() error {
+	resources := &measuredUnitList{}
+	err := list.client.Call(http.MethodGet, list.nextPagePath, nil, resources)
+	if err != nil {
+		return err
+	}
+	// copy over properties from the response
+	list.nextPagePath = resources.Next
+	list.HasMore = resources.HasMore
+	list.Data = resources.Data
+	return nil
+}
+
+// Count returns the count of items on the server that match this pager
+func (list *MeasuredUnitList) Count() (*int64, error) {
+	resources := &measuredUnitList{}
+	err := list.client.Call(http.MethodHead, list.nextPagePath, nil, resources)
+	if err != nil {
+		return nil, err
+	}
+	resp := resources.GetResponse()
+	return resp.TotalRecords, nil
+}
+
 type BinaryFile struct {
 	recurlyResponse *ResponseMetadata
 
@@ -4807,6 +4918,18 @@ type AddOn struct {
 
 	// Describes your add-on and will appear in subscribers' invoices.
 	Name string `json:"name,omitempty"`
+
+	// Whether the add-on type is fixed, or usage-based.
+	AddOnType string `json:"add_on_type,omitempty"`
+
+	// Type of usage, returns usage type if `add_on_type` is `usage`.
+	UsageType string `json:"usage_type,omitempty"`
+
+	// The percentage taken of the monetary amount of usage tracked. This can be up to 4 decimal places. A value between 0.0 and 100.0.
+	UsagePercentage float64 `json:"usage_percentage,omitempty"`
+
+	// System-generated unique identifier for an measured unit associated with the add-on.
+	MeasuredUnitId string `json:"measured_unit_id,omitempty"`
 
 	// Accounting code for invoice line items for this add-on. If no value is provided, it defaults to add-on's code.
 	AccountingCode string `json:"accounting_code,omitempty"`
@@ -5241,9 +5364,6 @@ func (list *ShippingMethodList) Count() (*int64, error) {
 type SubscriptionChangePreview struct {
 	recurlyResponse *ResponseMetadata
 
-	// Invoice collection
-	InvoiceCollection InvoiceCollection `json:"invoice_collection,omitempty"`
-
 	// The ID of the Subscription Change.
 	Id string `json:"id,omitempty"`
 
@@ -5279,6 +5399,9 @@ type SubscriptionChangePreview struct {
 
 	// Setup fee revenue schedule type
 	SetupFeeRevenueScheduleType string `json:"setup_fee_revenue_schedule_type,omitempty"`
+
+	// Invoice Collection
+	InvoiceCollection InvoiceCollection `json:"invoice_collection,omitempty"`
 
 	// Created at
 	CreatedAt time.Time `json:"created_at,omitempty"`
@@ -5343,6 +5466,110 @@ func (list *SubscriptionChangePreviewList) Fetch() error {
 // Count returns the count of items on the server that match this pager
 func (list *SubscriptionChangePreviewList) Count() (*int64, error) {
 	resources := &subscriptionChangePreviewList{}
+	err := list.client.Call(http.MethodHead, list.nextPagePath, nil, resources)
+	if err != nil {
+		return nil, err
+	}
+	resp := resources.GetResponse()
+	return resp.TotalRecords, nil
+}
+
+type Usage struct {
+	recurlyResponse *ResponseMetadata
+
+	Id string `json:"id,omitempty"`
+
+	// Object type
+	Object string `json:"object,omitempty"`
+
+	// Custom field for recording the id in your own system associated with the usage, so you can provide auditable usage displays to your customers using a GET on this endpoint.
+	MerchantTag string `json:"merchant_tag,omitempty"`
+
+	// The amount of usage. Can be positive, negative, or 0. No decimals allowed, we will strip them. If the usage-based add-on is billed with a percentage, your usage will be a monetary amount you will want to format in cents. (e.g., $5.00 is "500").
+	Amount float64 `json:"amount,omitempty"`
+
+	// Type of usage, returns usage type if `add_on_type` is `usage`.
+	UsageType string `json:"usage_type,omitempty"`
+
+	// The pricing model for the add-on.  For more information,
+	// [click here](https://docs.recurly.com/docs/billing-models#section-quantity-based).
+	TierType string `json:"tier_type,omitempty"`
+
+	// The tiers and prices of the subscription based on the usage_timestamp. If tier_type = flat, tiers = null
+	Tiers []SubscriptionAddOnTier `json:"tiers,omitempty"`
+
+	// The ID of the measured unit associated with the add-on the usage record is for.
+	MeasuredUnitId string `json:"measured_unit_id,omitempty"`
+
+	// When the usage was recorded in your system.
+	RecordingTimestamp time.Time `json:"recording_timestamp,omitempty"`
+
+	// When the usage actually happened. This will define the line item dates this usage is billed under and is important for revenue recognition.
+	UsageTimestamp time.Time `json:"usage_timestamp,omitempty"`
+
+	// When the usage record was billed on an invoice.
+	BilledAt time.Time `json:"billed_at,omitempty"`
+
+	// When the usage record was created in Recurly.
+	CreatedAt time.Time `json:"created_at,omitempty"`
+
+	// When the usage record was billed on an invoice.
+	UpdatedAt time.Time `json:"updated_at,omitempty"`
+}
+
+// GetResponse returns the ResponseMetadata that generated this resource
+func (resource *Usage) GetResponse() *ResponseMetadata {
+	return resource.recurlyResponse
+}
+
+// setResponse sets the ResponseMetadata that generated this resource
+func (resource *Usage) setResponse(res *ResponseMetadata) {
+	resource.recurlyResponse = res
+}
+
+// internal struct for deserializing accounts
+type usageList struct {
+	ListMetadata
+	Data            []Usage `json:"data"`
+	recurlyResponse *ResponseMetadata
+}
+
+// GetResponse returns the ResponseMetadata that generated this resource
+func (resource *usageList) GetResponse() *ResponseMetadata {
+	return resource.recurlyResponse
+}
+
+// setResponse sets the ResponseMetadata that generated this resource
+func (resource *usageList) setResponse(res *ResponseMetadata) {
+	resource.recurlyResponse = res
+}
+
+// UsageList allows you to paginate Usage objects
+type UsageList struct {
+	client       *Client
+	nextPagePath string
+
+	HasMore bool
+	Data    []Usage
+}
+
+// Fetch fetches the next page of data into the `Data` property
+func (list *UsageList) Fetch() error {
+	resources := &usageList{}
+	err := list.client.Call(http.MethodGet, list.nextPagePath, nil, resources)
+	if err != nil {
+		return err
+	}
+	// copy over properties from the response
+	list.nextPagePath = resources.Next
+	list.HasMore = resources.HasMore
+	list.Data = resources.Data
+	return nil
+}
+
+// Count returns the count of items on the server that match this pager
+func (list *UsageList) Count() (*int64, error) {
+	resources := &usageList{}
 	err := list.client.Call(http.MethodHead, list.nextPagePath, nil, resources)
 	if err != nil {
 		return nil, err
