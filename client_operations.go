@@ -12,6 +12,246 @@ const (
 	APIVersion = "v2019-10-10"
 )
 
+type IClient interface {
+	ListSites(params *ListSitesParams) *SiteList
+
+	GetSite(siteId string) (*Site, error)
+
+	ListAccounts(params *ListAccountsParams) *AccountList
+
+	CreateAccount(body *AccountCreate) (*Account, error)
+
+	GetAccount(accountId string) (*Account, error)
+
+	UpdateAccount(accountId string, body *AccountUpdate) (*Account, error)
+
+	DeactivateAccount(accountId string) (*Account, error)
+
+	GetAccountAcquisition(accountId string) (*AccountAcquisition, error)
+
+	UpdateAccountAcquisition(accountId string, body *AccountAcquisitionUpdatable) (*AccountAcquisition, error)
+
+	RemoveAccountAcquisition(accountId string) (*Empty, error)
+
+	ReactivateAccount(accountId string) (*Account, error)
+
+	GetAccountBalance(accountId string) (*AccountBalance, error)
+
+	GetBillingInfo(accountId string) (*BillingInfo, error)
+
+	UpdateBillingInfo(accountId string, body *BillingInfoCreate) (*BillingInfo, error)
+
+	RemoveBillingInfo(accountId string) (*Empty, error)
+
+	ListAccountCouponRedemptions(accountId string, params *ListAccountCouponRedemptionsParams) *CouponRedemptionList
+
+	GetActiveCouponRedemption(accountId string) (*CouponRedemption, error)
+
+	CreateCouponRedemption(accountId string, body *CouponRedemptionCreate) (*CouponRedemption, error)
+
+	RemoveCouponRedemption(accountId string) (*CouponRedemption, error)
+
+	ListAccountCreditPayments(accountId string, params *ListAccountCreditPaymentsParams) *CreditPaymentList
+
+	ListAccountInvoices(accountId string, params *ListAccountInvoicesParams) *InvoiceList
+
+	CreateInvoice(accountId string, body *InvoiceCreate) (*InvoiceCollection, error)
+
+	PreviewInvoice(accountId string, body *InvoiceCreate) (*InvoiceCollection, error)
+
+	ListAccountLineItems(accountId string, params *ListAccountLineItemsParams) *LineItemList
+
+	CreateLineItem(accountId string, body *LineItemCreate) (*LineItem, error)
+
+	ListAccountNotes(accountId string, params *ListAccountNotesParams) *AccountNoteList
+
+	GetAccountNote(accountId string, accountNoteId string) (*AccountNote, error)
+
+	ListShippingAddresses(accountId string, params *ListShippingAddressesParams) *ShippingAddressList
+
+	CreateShippingAddress(accountId string, body *ShippingAddressCreate) (*ShippingAddress, error)
+
+	GetShippingAddress(accountId string, shippingAddressId string) (*ShippingAddress, error)
+
+	UpdateShippingAddress(accountId string, shippingAddressId string, body *ShippingAddressUpdate) (*ShippingAddress, error)
+
+	RemoveShippingAddress(accountId string, shippingAddressId string) (*Empty, error)
+
+	ListAccountSubscriptions(accountId string, params *ListAccountSubscriptionsParams) *SubscriptionList
+
+	ListAccountTransactions(accountId string, params *ListAccountTransactionsParams) *TransactionList
+
+	ListChildAccounts(accountId string, params *ListChildAccountsParams) *AccountList
+
+	ListAccountAcquisition(params *ListAccountAcquisitionParams) *AccountAcquisitionList
+
+	ListCoupons(params *ListCouponsParams) *CouponList
+
+	CreateCoupon(body *CouponCreate) (*Coupon, error)
+
+	GetCoupon(couponId string) (*Coupon, error)
+
+	UpdateCoupon(couponId string, body *CouponUpdate) (*Coupon, error)
+
+	DeactivateCoupon(couponId string) (*Coupon, error)
+
+	ListUniqueCouponCodes(couponId string, params *ListUniqueCouponCodesParams) *UniqueCouponCodeList
+
+	ListCreditPayments(params *ListCreditPaymentsParams) *CreditPaymentList
+
+	GetCreditPayment(creditPaymentId string) (*CreditPayment, error)
+
+	ListCustomFieldDefinitions(params *ListCustomFieldDefinitionsParams) *CustomFieldDefinitionList
+
+	GetCustomFieldDefinition(customFieldDefinitionId string) (*CustomFieldDefinition, error)
+
+	ListItems(params *ListItemsParams) *ItemList
+
+	CreateItem(body *ItemCreate) (*Item, error)
+
+	GetItem(itemId string) (*Item, error)
+
+	UpdateItem(itemId string, body *ItemUpdate) (*Item, error)
+
+	DeactivateItem(itemId string) (*Item, error)
+
+	ReactivateItem(itemId string) (*Item, error)
+
+	ListMeasuredUnit(params *ListMeasuredUnitParams) *MeasuredUnitList
+
+	CreateMeasuredUnit(body *MeasuredUnitCreate) (*MeasuredUnit, error)
+
+	GetMeasuredUnit(measuredUnitId string) (*MeasuredUnit, error)
+
+	UpdateMeasuredUnit(measuredUnitId string, body *MeasuredUnitUpdate) (*MeasuredUnit, error)
+
+	RemoveMeasuredUnit(measuredUnitId string) (*MeasuredUnit, error)
+
+	ListInvoices(params *ListInvoicesParams) *InvoiceList
+
+	GetInvoice(invoiceId string) (*Invoice, error)
+
+	PutInvoice(invoiceId string, body *InvoiceUpdatable) (*Invoice, error)
+
+	CollectInvoice(invoiceId string, params *CollectInvoiceParams) (*Invoice, error)
+
+	FailInvoice(invoiceId string) (*Invoice, error)
+
+	MarkInvoiceSuccessful(invoiceId string) (*Invoice, error)
+
+	ReopenInvoice(invoiceId string) (*Invoice, error)
+
+	VoidInvoice(invoiceId string) (*Invoice, error)
+
+	RecordExternalTransaction(invoiceId string, body *ExternalTransaction) (*Transaction, error)
+
+	ListInvoiceLineItems(invoiceId string, params *ListInvoiceLineItemsParams) *LineItemList
+
+	ListInvoiceCouponRedemptions(invoiceId string, params *ListInvoiceCouponRedemptionsParams) *CouponRedemptionList
+
+	ListRelatedInvoices(invoiceId string) *InvoiceList
+
+	RefundInvoice(invoiceId string, body *InvoiceRefund) (*Invoice, error)
+
+	ListLineItems(params *ListLineItemsParams) *LineItemList
+
+	GetLineItem(lineItemId string) (*LineItem, error)
+
+	RemoveLineItem(lineItemId string) (*Empty, error)
+
+	ListPlans(params *ListPlansParams) *PlanList
+
+	CreatePlan(body *PlanCreate) (*Plan, error)
+
+	GetPlan(planId string) (*Plan, error)
+
+	UpdatePlan(planId string, body *PlanUpdate) (*Plan, error)
+
+	RemovePlan(planId string) (*Plan, error)
+
+	ListPlanAddOns(planId string, params *ListPlanAddOnsParams) *AddOnList
+
+	CreatePlanAddOn(planId string, body *AddOnCreate) (*AddOn, error)
+
+	GetPlanAddOn(planId string, addOnId string) (*AddOn, error)
+
+	UpdatePlanAddOn(planId string, addOnId string, body *AddOnUpdate) (*AddOn, error)
+
+	RemovePlanAddOn(planId string, addOnId string) (*AddOn, error)
+
+	ListAddOns(params *ListAddOnsParams) *AddOnList
+
+	GetAddOn(addOnId string) (*AddOn, error)
+
+	ListShippingMethods(params *ListShippingMethodsParams) *ShippingMethodList
+
+	CreateShippingMethod(body *ShippingMethodCreate) (*ShippingMethod, error)
+
+	GetShippingMethod(id string) (*ShippingMethod, error)
+
+	UpdateShippingMethod(shippingMethodId string, body *ShippingMethodUpdate) (*ShippingMethod, error)
+
+	DeactivateShippingMethod(shippingMethodId string) (*ShippingMethod, error)
+
+	ListSubscriptions(params *ListSubscriptionsParams) *SubscriptionList
+
+	CreateSubscription(body *SubscriptionCreate) (*Subscription, error)
+
+	GetSubscription(subscriptionId string) (*Subscription, error)
+
+	ModifySubscription(subscriptionId string, body *SubscriptionUpdate) (*Subscription, error)
+
+	TerminateSubscription(subscriptionId string, params *TerminateSubscriptionParams) (*Subscription, error)
+
+	CancelSubscription(subscriptionId string, params *CancelSubscriptionParams) (*Subscription, error)
+
+	ReactivateSubscription(subscriptionId string) (*Subscription, error)
+
+	PauseSubscription(subscriptionId string, body *SubscriptionPause) (*Subscription, error)
+
+	ResumeSubscription(subscriptionId string) (*Subscription, error)
+
+	ConvertTrial(subscriptionId string) (*Subscription, error)
+
+	GetSubscriptionChange(subscriptionId string) (*SubscriptionChange, error)
+
+	CreateSubscriptionChange(subscriptionId string, body *SubscriptionChangeCreate) (*SubscriptionChange, error)
+
+	RemoveSubscriptionChange(subscriptionId string) (*Empty, error)
+
+	PreviewSubscriptionChange(subscriptionId string, body *SubscriptionChangeCreate) (*SubscriptionChangePreview, error)
+
+	ListSubscriptionInvoices(subscriptionId string, params *ListSubscriptionInvoicesParams) *InvoiceList
+
+	ListSubscriptionLineItems(subscriptionId string, params *ListSubscriptionLineItemsParams) *LineItemList
+
+	ListSubscriptionCouponRedemptions(subscriptionId string, params *ListSubscriptionCouponRedemptionsParams) *CouponRedemptionList
+
+	ListUsage(subscriptionId string, addOnId string, params *ListUsageParams) *UsageList
+
+	CreateUsage(subscriptionId string, addOnId string, body *UsageCreate) (*Usage, error)
+
+	GetUsage(usageId string) (*Usage, error)
+
+	UpdateUsage(usageId string, body *UsageCreate) (*Usage, error)
+
+	RemoveUsage(usageId string) (*Empty, error)
+
+	ListTransactions(params *ListTransactionsParams) *TransactionList
+
+	GetTransaction(transactionId string) (*Transaction, error)
+
+	GetUniqueCouponCode(uniqueCouponCodeId string) (*UniqueCouponCode, error)
+
+	DeactivateUniqueCouponCode(uniqueCouponCodeId string) (*UniqueCouponCode, error)
+
+	ReactivateUniqueCouponCode(uniqueCouponCodeId string) (*UniqueCouponCode, error)
+
+	CreatePurchase(body *PurchaseCreate) (*InvoiceCollection, error)
+
+	PreviewPurchase(body *PurchaseCreate) (*InvoiceCollection, error)
+}
+
 type ListSitesParams struct {
 	Params
 
