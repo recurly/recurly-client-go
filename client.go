@@ -107,6 +107,11 @@ func (c *Client) InterpolatePath(path string, params ...string) string {
 	return fmt.Sprintf(template, encodedParams...)
 }
 
+// HttpCaller is the generic http interface used by the Client
+type HttpCaller interface {
+	Call(method string, path string, genericParams GenericParams, v interface{}) error
+}
+
 // Call sends a request to Recurly and parses the JSON response for the expected response type
 func (c *Client) Call(method string, path string, genericParams GenericParams, v interface{}) error {
 	if !strings.HasPrefix(path, "/") {

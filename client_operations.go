@@ -12,7 +12,7 @@ const (
 	APIVersion = "v2019-10-10"
 )
 
-type IClient interface {
+type ClientInterface interface {
 	ListSites(params *ListSitesParams) *SiteList
 
 	GetSite(siteId string) (*Site, error)
@@ -321,11 +321,7 @@ func (list *ListSitesParams) URLParams() []KeyValue {
 func (c *Client) ListSites(params *ListSitesParams) *SiteList {
 	path := "/sites"
 	path = BuildUrl(path, params)
-	return &SiteList{
-		client:       c,
-		nextPagePath: path,
-		HasMore:      true,
-	}
+	return NewSiteList(c, path)
 }
 
 // GetSite Fetch a site
@@ -440,11 +436,7 @@ func (list *ListAccountsParams) URLParams() []KeyValue {
 func (c *Client) ListAccounts(params *ListAccountsParams) *AccountList {
 	path := "/accounts"
 	path = BuildUrl(path, params)
-	return &AccountList{
-		client:       c,
-		nextPagePath: path,
-		HasMore:      true,
-	}
+	return NewAccountList(c, path)
 }
 
 // CreateAccount Create an account
@@ -655,11 +647,7 @@ func (list *ListAccountCouponRedemptionsParams) URLParams() []KeyValue {
 func (c *Client) ListAccountCouponRedemptions(accountId string, params *ListAccountCouponRedemptionsParams) *CouponRedemptionList {
 	path := c.InterpolatePath("/accounts/{account_id}/coupon_redemptions", accountId)
 	path = BuildUrl(path, params)
-	return &CouponRedemptionList{
-		client:       c,
-		nextPagePath: path,
-		HasMore:      true,
-	}
+	return NewCouponRedemptionList(c, path)
 }
 
 // GetActiveCouponRedemption Show the coupon redemption that is active on an account
@@ -761,11 +749,7 @@ func (list *ListAccountCreditPaymentsParams) URLParams() []KeyValue {
 func (c *Client) ListAccountCreditPayments(accountId string, params *ListAccountCreditPaymentsParams) *CreditPaymentList {
 	path := c.InterpolatePath("/accounts/{account_id}/credit_payments", accountId)
 	path = BuildUrl(path, params)
-	return &CreditPaymentList{
-		client:       c,
-		nextPagePath: path,
-		HasMore:      true,
-	}
+	return NewCreditPaymentList(c, path)
 }
 
 type ListAccountInvoicesParams struct {
@@ -857,11 +841,7 @@ func (list *ListAccountInvoicesParams) URLParams() []KeyValue {
 func (c *Client) ListAccountInvoices(accountId string, params *ListAccountInvoicesParams) *InvoiceList {
 	path := c.InterpolatePath("/accounts/{account_id}/invoices", accountId)
 	path = BuildUrl(path, params)
-	return &InvoiceList{
-		client:       c,
-		nextPagePath: path,
-		HasMore:      true,
-	}
+	return NewInvoiceList(c, path)
 }
 
 // CreateInvoice Create an invoice for pending line items
@@ -987,11 +967,7 @@ func (list *ListAccountLineItemsParams) URLParams() []KeyValue {
 func (c *Client) ListAccountLineItems(accountId string, params *ListAccountLineItemsParams) *LineItemList {
 	path := c.InterpolatePath("/accounts/{account_id}/line_items", accountId)
 	path = BuildUrl(path, params)
-	return &LineItemList{
-		client:       c,
-		nextPagePath: path,
-		HasMore:      true,
-	}
+	return NewLineItemList(c, path)
 }
 
 // CreateLineItem Create a new line item for the account
@@ -1045,11 +1021,7 @@ func (list *ListAccountNotesParams) URLParams() []KeyValue {
 func (c *Client) ListAccountNotes(accountId string, params *ListAccountNotesParams) *AccountNoteList {
 	path := c.InterpolatePath("/accounts/{account_id}/notes", accountId)
 	path = BuildUrl(path, params)
-	return &AccountNoteList{
-		client:       c,
-		nextPagePath: path,
-		HasMore:      true,
-	}
+	return NewAccountNoteList(c, path)
 }
 
 // GetAccountNote Fetch an account note
@@ -1142,11 +1114,7 @@ func (list *ListShippingAddressesParams) URLParams() []KeyValue {
 func (c *Client) ListShippingAddresses(accountId string, params *ListShippingAddressesParams) *ShippingAddressList {
 	path := c.InterpolatePath("/accounts/{account_id}/shipping_addresses", accountId)
 	path = BuildUrl(path, params)
-	return &ShippingAddressList{
-		client:       c,
-		nextPagePath: path,
-		HasMore:      true,
-	}
+	return NewShippingAddressList(c, path)
 }
 
 // CreateShippingAddress Create a new shipping address for the account
@@ -1285,11 +1253,7 @@ func (list *ListAccountSubscriptionsParams) URLParams() []KeyValue {
 func (c *Client) ListAccountSubscriptions(accountId string, params *ListAccountSubscriptionsParams) *SubscriptionList {
 	path := c.InterpolatePath("/accounts/{account_id}/subscriptions", accountId)
 	path = BuildUrl(path, params)
-	return &SubscriptionList{
-		client:       c,
-		nextPagePath: path,
-		HasMore:      true,
-	}
+	return NewSubscriptionList(c, path)
 }
 
 type ListAccountTransactionsParams struct {
@@ -1384,11 +1348,7 @@ func (list *ListAccountTransactionsParams) URLParams() []KeyValue {
 func (c *Client) ListAccountTransactions(accountId string, params *ListAccountTransactionsParams) *TransactionList {
 	path := c.InterpolatePath("/accounts/{account_id}/transactions", accountId)
 	path = BuildUrl(path, params)
-	return &TransactionList{
-		client:       c,
-		nextPagePath: path,
-		HasMore:      true,
-	}
+	return NewTransactionList(c, path)
 }
 
 type ListChildAccountsParams struct {
@@ -1491,11 +1451,7 @@ func (list *ListChildAccountsParams) URLParams() []KeyValue {
 func (c *Client) ListChildAccounts(accountId string, params *ListChildAccountsParams) *AccountList {
 	path := c.InterpolatePath("/accounts/{account_id}/accounts", accountId)
 	path = BuildUrl(path, params)
-	return &AccountList{
-		client:       c,
-		nextPagePath: path,
-		HasMore:      true,
-	}
+	return NewAccountList(c, path)
 }
 
 type ListAccountAcquisitionParams struct {
@@ -1576,11 +1532,7 @@ func (list *ListAccountAcquisitionParams) URLParams() []KeyValue {
 func (c *Client) ListAccountAcquisition(params *ListAccountAcquisitionParams) *AccountAcquisitionList {
 	path := "/acquisitions"
 	path = BuildUrl(path, params)
-	return &AccountAcquisitionList{
-		client:       c,
-		nextPagePath: path,
-		HasMore:      true,
-	}
+	return NewAccountAcquisitionList(c, path)
 }
 
 type ListCouponsParams struct {
@@ -1661,11 +1613,7 @@ func (list *ListCouponsParams) URLParams() []KeyValue {
 func (c *Client) ListCoupons(params *ListCouponsParams) *CouponList {
 	path := "/coupons"
 	path = BuildUrl(path, params)
-	return &CouponList{
-		client:       c,
-		nextPagePath: path,
-		HasMore:      true,
-	}
+	return NewCouponList(c, path)
 }
 
 // CreateCoupon Create a new coupon
@@ -1794,11 +1742,7 @@ func (list *ListUniqueCouponCodesParams) URLParams() []KeyValue {
 func (c *Client) ListUniqueCouponCodes(couponId string, params *ListUniqueCouponCodesParams) *UniqueCouponCodeList {
 	path := c.InterpolatePath("/coupons/{coupon_id}/unique_coupon_codes", couponId)
 	path = BuildUrl(path, params)
-	return &UniqueCouponCodeList{
-		client:       c,
-		nextPagePath: path,
-		HasMore:      true,
-	}
+	return NewUniqueCouponCodeList(c, path)
 }
 
 type ListCreditPaymentsParams struct {
@@ -1864,11 +1808,7 @@ func (list *ListCreditPaymentsParams) URLParams() []KeyValue {
 func (c *Client) ListCreditPayments(params *ListCreditPaymentsParams) *CreditPaymentList {
 	path := "/credit_payments"
 	path = BuildUrl(path, params)
-	return &CreditPaymentList{
-		client:       c,
-		nextPagePath: path,
-		HasMore:      true,
-	}
+	return NewCreditPaymentList(c, path)
 }
 
 // GetCreditPayment Fetch a credit payment
@@ -1968,11 +1908,7 @@ func (list *ListCustomFieldDefinitionsParams) URLParams() []KeyValue {
 func (c *Client) ListCustomFieldDefinitions(params *ListCustomFieldDefinitionsParams) *CustomFieldDefinitionList {
 	path := "/custom_field_definitions"
 	path = BuildUrl(path, params)
-	return &CustomFieldDefinitionList{
-		client:       c,
-		nextPagePath: path,
-		HasMore:      true,
-	}
+	return NewCustomFieldDefinitionList(c, path)
 }
 
 // GetCustomFieldDefinition Fetch an custom field definition
@@ -2072,11 +2008,7 @@ func (list *ListItemsParams) URLParams() []KeyValue {
 func (c *Client) ListItems(params *ListItemsParams) *ItemList {
 	path := "/items"
 	path = BuildUrl(path, params)
-	return &ItemList{
-		client:       c,
-		nextPagePath: path,
-		HasMore:      true,
-	}
+	return NewItemList(c, path)
 }
 
 // CreateItem Create a new item
@@ -2224,11 +2156,7 @@ func (list *ListMeasuredUnitParams) URLParams() []KeyValue {
 func (c *Client) ListMeasuredUnit(params *ListMeasuredUnitParams) *MeasuredUnitList {
 	path := "/measured_units"
 	path = BuildUrl(path, params)
-	return &MeasuredUnitList{
-		client:       c,
-		nextPagePath: path,
-		HasMore:      true,
-	}
+	return NewMeasuredUnitList(c, path)
 }
 
 // CreateMeasuredUnit Create a new measured unit
@@ -2368,11 +2296,7 @@ func (list *ListInvoicesParams) URLParams() []KeyValue {
 func (c *Client) ListInvoices(params *ListInvoicesParams) *InvoiceList {
 	path := "/invoices"
 	path = BuildUrl(path, params)
-	return &InvoiceList{
-		client:       c,
-		nextPagePath: path,
-		HasMore:      true,
-	}
+	return NewInvoiceList(c, path)
 }
 
 // GetInvoice Fetch an invoice
@@ -2586,11 +2510,7 @@ func (list *ListInvoiceLineItemsParams) URLParams() []KeyValue {
 func (c *Client) ListInvoiceLineItems(invoiceId string, params *ListInvoiceLineItemsParams) *LineItemList {
 	path := c.InterpolatePath("/invoices/{invoice_id}/line_items", invoiceId)
 	path = BuildUrl(path, params)
-	return &LineItemList{
-		client:       c,
-		nextPagePath: path,
-		HasMore:      true,
-	}
+	return NewLineItemList(c, path)
 }
 
 type ListInvoiceCouponRedemptionsParams struct {
@@ -2657,22 +2577,14 @@ func (list *ListInvoiceCouponRedemptionsParams) URLParams() []KeyValue {
 func (c *Client) ListInvoiceCouponRedemptions(invoiceId string, params *ListInvoiceCouponRedemptionsParams) *CouponRedemptionList {
 	path := c.InterpolatePath("/invoices/{invoice_id}/coupon_redemptions", invoiceId)
 	path = BuildUrl(path, params)
-	return &CouponRedemptionList{
-		client:       c,
-		nextPagePath: path,
-		HasMore:      true,
-	}
+	return NewCouponRedemptionList(c, path)
 }
 
 // ListRelatedInvoices List an invoice's related credit or charge invoices
 // Returns: A list of the credit or charge invoices associated with the invoice.
 func (c *Client) ListRelatedInvoices(invoiceId string) *InvoiceList {
 	path := c.InterpolatePath("/invoices/{invoice_id}/related_invoices", invoiceId)
-	return &InvoiceList{
-		client:       c,
-		nextPagePath: path,
-		HasMore:      true,
-	}
+	return NewInvoiceList(c, path)
 }
 
 // RefundInvoice Refund an invoice
@@ -2786,11 +2698,7 @@ func (list *ListLineItemsParams) URLParams() []KeyValue {
 func (c *Client) ListLineItems(params *ListLineItemsParams) *LineItemList {
 	path := "/line_items"
 	path = BuildUrl(path, params)
-	return &LineItemList{
-		client:       c,
-		nextPagePath: path,
-		HasMore:      true,
-	}
+	return NewLineItemList(c, path)
 }
 
 // GetLineItem Fetch a line item
@@ -2902,11 +2810,7 @@ func (list *ListPlansParams) URLParams() []KeyValue {
 func (c *Client) ListPlans(params *ListPlansParams) *PlanList {
 	path := "/plans"
 	path = BuildUrl(path, params)
-	return &PlanList{
-		client:       c,
-		nextPagePath: path,
-		HasMore:      true,
-	}
+	return NewPlanList(c, path)
 }
 
 // CreatePlan Create a plan
@@ -3042,11 +2946,7 @@ func (list *ListPlanAddOnsParams) URLParams() []KeyValue {
 func (c *Client) ListPlanAddOns(planId string, params *ListPlanAddOnsParams) *AddOnList {
 	path := c.InterpolatePath("/plans/{plan_id}/add_ons", planId)
 	path = BuildUrl(path, params)
-	return &AddOnList{
-		client:       c,
-		nextPagePath: path,
-		HasMore:      true,
-	}
+	return NewAddOnList(c, path)
 }
 
 // CreatePlanAddOn Create an add-on
@@ -3182,11 +3082,7 @@ func (list *ListAddOnsParams) URLParams() []KeyValue {
 func (c *Client) ListAddOns(params *ListAddOnsParams) *AddOnList {
 	path := "/add_ons"
 	path = BuildUrl(path, params)
-	return &AddOnList{
-		client:       c,
-		nextPagePath: path,
-		HasMore:      true,
-	}
+	return NewAddOnList(c, path)
 }
 
 // GetAddOn Fetch an add-on
@@ -3279,11 +3175,7 @@ func (list *ListShippingMethodsParams) URLParams() []KeyValue {
 func (c *Client) ListShippingMethods(params *ListShippingMethodsParams) *ShippingMethodList {
 	path := "/shipping_methods"
 	path = BuildUrl(path, params)
-	return &ShippingMethodList{
-		client:       c,
-		nextPagePath: path,
-		HasMore:      true,
-	}
+	return NewShippingMethodList(c, path)
 }
 
 // CreateShippingMethod Create a new shipping method
@@ -3422,11 +3314,7 @@ func (list *ListSubscriptionsParams) URLParams() []KeyValue {
 func (c *Client) ListSubscriptions(params *ListSubscriptionsParams) *SubscriptionList {
 	path := "/subscriptions"
 	path = BuildUrl(path, params)
-	return &SubscriptionList{
-		client:       c,
-		nextPagePath: path,
-		HasMore:      true,
-	}
+	return NewSubscriptionList(c, path)
 }
 
 // CreateSubscription Create a new subscription
@@ -3721,11 +3609,7 @@ func (list *ListSubscriptionInvoicesParams) URLParams() []KeyValue {
 func (c *Client) ListSubscriptionInvoices(subscriptionId string, params *ListSubscriptionInvoicesParams) *InvoiceList {
 	path := c.InterpolatePath("/subscriptions/{subscription_id}/invoices", subscriptionId)
 	path = BuildUrl(path, params)
-	return &InvoiceList{
-		client:       c,
-		nextPagePath: path,
-		HasMore:      true,
-	}
+	return NewInvoiceList(c, path)
 }
 
 type ListSubscriptionLineItemsParams struct {
@@ -3827,11 +3711,7 @@ func (list *ListSubscriptionLineItemsParams) URLParams() []KeyValue {
 func (c *Client) ListSubscriptionLineItems(subscriptionId string, params *ListSubscriptionLineItemsParams) *LineItemList {
 	path := c.InterpolatePath("/subscriptions/{subscription_id}/line_items", subscriptionId)
 	path = BuildUrl(path, params)
-	return &LineItemList{
-		client:       c,
-		nextPagePath: path,
-		HasMore:      true,
-	}
+	return NewLineItemList(c, path)
 }
 
 type ListSubscriptionCouponRedemptionsParams struct {
@@ -3898,11 +3778,7 @@ func (list *ListSubscriptionCouponRedemptionsParams) URLParams() []KeyValue {
 func (c *Client) ListSubscriptionCouponRedemptions(subscriptionId string, params *ListSubscriptionCouponRedemptionsParams) *CouponRedemptionList {
 	path := c.InterpolatePath("/subscriptions/{subscription_id}/coupon_redemptions", subscriptionId)
 	path = BuildUrl(path, params)
-	return &CouponRedemptionList{
-		client:       c,
-		nextPagePath: path,
-		HasMore:      true,
-	}
+	return NewCouponRedemptionList(c, path)
 }
 
 type ListUsageParams struct {
@@ -3975,11 +3851,7 @@ func (list *ListUsageParams) URLParams() []KeyValue {
 func (c *Client) ListUsage(subscriptionId string, addOnId string, params *ListUsageParams) *UsageList {
 	path := c.InterpolatePath("/subscriptions/{subscription_id}/add_ons/{add_on_id}/usage", subscriptionId, addOnId)
 	path = BuildUrl(path, params)
-	return &UsageList{
-		client:       c,
-		nextPagePath: path,
-		HasMore:      true,
-	}
+	return NewUsageList(c, path)
 }
 
 // CreateUsage Log a usage record on this subscription add-on
@@ -4122,11 +3994,7 @@ func (list *ListTransactionsParams) URLParams() []KeyValue {
 func (c *Client) ListTransactions(params *ListTransactionsParams) *TransactionList {
 	path := "/transactions"
 	path = BuildUrl(path, params)
-	return &TransactionList{
-		client:       c,
-		nextPagePath: path,
-		HasMore:      true,
-	}
+	return NewTransactionList(c, path)
 }
 
 // GetTransaction Fetch a transaction
