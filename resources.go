@@ -68,11 +68,19 @@ func (resource *siteList) setResponse(res *ResponseMetadata) {
 
 // SiteList allows you to paginate Site objects
 type SiteList struct {
-	client       *Client
+	client       HttpCaller
 	nextPagePath string
 
 	HasMore bool
 	Data    []Site
+}
+
+func NewSiteList(client HttpCaller, nextPagePath string) *SiteList {
+	return &SiteList{
+		client:       client,
+		nextPagePath: nextPagePath,
+		HasMore:      true,
+	}
 }
 
 // Fetch fetches the next page of data into the `Data` property
@@ -160,11 +168,19 @@ func (resource *addressList) setResponse(res *ResponseMetadata) {
 
 // AddressList allows you to paginate Address objects
 type AddressList struct {
-	client       *Client
+	client       HttpCaller
 	nextPagePath string
 
 	HasMore bool
 	Data    []Address
+}
+
+func NewAddressList(client HttpCaller, nextPagePath string) *AddressList {
+	return &AddressList{
+		client:       client,
+		nextPagePath: nextPagePath,
+		HasMore:      true,
+	}
 }
 
 // Fetch fetches the next page of data into the `Data` property
@@ -236,11 +252,19 @@ func (resource *settingsList) setResponse(res *ResponseMetadata) {
 
 // SettingsList allows you to paginate Settings objects
 type SettingsList struct {
-	client       *Client
+	client       HttpCaller
 	nextPagePath string
 
 	HasMore bool
 	Data    []Settings
+}
+
+func NewSettingsList(client HttpCaller, nextPagePath string) *SettingsList {
+	return &SettingsList{
+		client:       client,
+		nextPagePath: nextPagePath,
+		HasMore:      true,
+	}
 }
 
 // Fetch fetches the next page of data into the `Data` property
@@ -385,11 +409,19 @@ func (resource *accountList) setResponse(res *ResponseMetadata) {
 
 // AccountList allows you to paginate Account objects
 type AccountList struct {
-	client       *Client
+	client       HttpCaller
 	nextPagePath string
 
 	HasMore bool
 	Data    []Account
+}
+
+func NewAccountList(client HttpCaller, nextPagePath string) *AccountList {
+	return &AccountList{
+		client:       client,
+		nextPagePath: nextPagePath,
+		HasMore:      true,
+	}
 }
 
 // Fetch fetches the next page of data into the `Data` property
@@ -494,11 +526,19 @@ func (resource *shippingAddressList) setResponse(res *ResponseMetadata) {
 
 // ShippingAddressList allows you to paginate ShippingAddress objects
 type ShippingAddressList struct {
-	client       *Client
+	client       HttpCaller
 	nextPagePath string
 
 	HasMore bool
 	Data    []ShippingAddress
+}
+
+func NewShippingAddressList(client HttpCaller, nextPagePath string) *ShippingAddressList {
+	return &ShippingAddressList{
+		client:       client,
+		nextPagePath: nextPagePath,
+		HasMore:      true,
+	}
 }
 
 // Fetch fetches the next page of data into the `Data` property
@@ -592,11 +632,19 @@ func (resource *billingInfoList) setResponse(res *ResponseMetadata) {
 
 // BillingInfoList allows you to paginate BillingInfo objects
 type BillingInfoList struct {
-	client       *Client
+	client       HttpCaller
 	nextPagePath string
 
 	HasMore bool
 	Data    []BillingInfo
+}
+
+func NewBillingInfoList(client HttpCaller, nextPagePath string) *BillingInfoList {
+	return &BillingInfoList{
+		client:       client,
+		nextPagePath: nextPagePath,
+		HasMore:      true,
+	}
 }
 
 // Fetch fetches the next page of data into the `Data` property
@@ -698,11 +746,19 @@ func (resource *paymentMethodList) setResponse(res *ResponseMetadata) {
 
 // PaymentMethodList allows you to paginate PaymentMethod objects
 type PaymentMethodList struct {
-	client       *Client
+	client       HttpCaller
 	nextPagePath string
 
 	HasMore bool
 	Data    []PaymentMethod
+}
+
+func NewPaymentMethodList(client HttpCaller, nextPagePath string) *PaymentMethodList {
+	return &PaymentMethodList{
+		client:       client,
+		nextPagePath: nextPagePath,
+		HasMore:      true,
+	}
 }
 
 // Fetch fetches the next page of data into the `Data` property
@@ -772,11 +828,19 @@ func (resource *fraudInfoList) setResponse(res *ResponseMetadata) {
 
 // FraudInfoList allows you to paginate FraudInfo objects
 type FraudInfoList struct {
-	client       *Client
+	client       HttpCaller
 	nextPagePath string
 
 	HasMore bool
 	Data    []FraudInfo
+}
+
+func NewFraudInfoList(client HttpCaller, nextPagePath string) *FraudInfoList {
+	return &FraudInfoList{
+		client:       client,
+		nextPagePath: nextPagePath,
+		HasMore:      true,
+	}
 }
 
 // Fetch fetches the next page of data into the `Data` property
@@ -843,11 +907,19 @@ func (resource *billingInfoUpdatedByList) setResponse(res *ResponseMetadata) {
 
 // BillingInfoUpdatedByList allows you to paginate BillingInfoUpdatedBy objects
 type BillingInfoUpdatedByList struct {
-	client       *Client
+	client       HttpCaller
 	nextPagePath string
 
 	HasMore bool
 	Data    []BillingInfoUpdatedBy
+}
+
+func NewBillingInfoUpdatedByList(client HttpCaller, nextPagePath string) *BillingInfoUpdatedByList {
+	return &BillingInfoUpdatedByList{
+		client:       client,
+		nextPagePath: nextPagePath,
+		HasMore:      true,
+	}
 }
 
 // Fetch fetches the next page of data into the `Data` property
@@ -914,11 +986,19 @@ func (resource *customFieldList) setResponse(res *ResponseMetadata) {
 
 // CustomFieldList allows you to paginate CustomField objects
 type CustomFieldList struct {
-	client       *Client
+	client       HttpCaller
 	nextPagePath string
 
 	HasMore bool
 	Data    []CustomField
+}
+
+func NewCustomFieldList(client HttpCaller, nextPagePath string) *CustomFieldList {
+	return &CustomFieldList{
+		client:       client,
+		nextPagePath: nextPagePath,
+		HasMore:      true,
+	}
 }
 
 // Fetch fetches the next page of data into the `Data` property
@@ -991,11 +1071,19 @@ func (resource *errorMayHaveTransactionList) setResponse(res *ResponseMetadata) 
 
 // ErrorMayHaveTransactionList allows you to paginate ErrorMayHaveTransaction objects
 type ErrorMayHaveTransactionList struct {
-	client       *Client
+	client       HttpCaller
 	nextPagePath string
 
 	HasMore bool
 	Data    []ErrorMayHaveTransaction
+}
+
+func NewErrorMayHaveTransactionList(client HttpCaller, nextPagePath string) *ErrorMayHaveTransactionList {
+	return &ErrorMayHaveTransactionList{
+		client:       client,
+		nextPagePath: nextPagePath,
+		HasMore:      true,
+	}
 }
 
 // Fetch fetches the next page of data into the `Data` property
@@ -1082,11 +1170,19 @@ func (resource *accountAcquisitionList) setResponse(res *ResponseMetadata) {
 
 // AccountAcquisitionList allows you to paginate AccountAcquisition objects
 type AccountAcquisitionList struct {
-	client       *Client
+	client       HttpCaller
 	nextPagePath string
 
 	HasMore bool
 	Data    []AccountAcquisition
+}
+
+func NewAccountAcquisitionList(client HttpCaller, nextPagePath string) *AccountAcquisitionList {
+	return &AccountAcquisitionList{
+		client:       client,
+		nextPagePath: nextPagePath,
+		HasMore:      true,
+	}
 }
 
 // Fetch fetches the next page of data into the `Data` property
@@ -1153,11 +1249,19 @@ func (resource *accountAcquisitionCostList) setResponse(res *ResponseMetadata) {
 
 // AccountAcquisitionCostList allows you to paginate AccountAcquisitionCost objects
 type AccountAcquisitionCostList struct {
-	client       *Client
+	client       HttpCaller
 	nextPagePath string
 
 	HasMore bool
 	Data    []AccountAcquisitionCost
+}
+
+func NewAccountAcquisitionCostList(client HttpCaller, nextPagePath string) *AccountAcquisitionCostList {
+	return &AccountAcquisitionCostList{
+		client:       client,
+		nextPagePath: nextPagePath,
+		HasMore:      true,
+	}
 }
 
 // Fetch fetches the next page of data into the `Data` property
@@ -1239,11 +1343,19 @@ func (resource *accountMiniList) setResponse(res *ResponseMetadata) {
 
 // AccountMiniList allows you to paginate AccountMini objects
 type AccountMiniList struct {
-	client       *Client
+	client       HttpCaller
 	nextPagePath string
 
 	HasMore bool
 	Data    []AccountMini
+}
+
+func NewAccountMiniList(client HttpCaller, nextPagePath string) *AccountMiniList {
+	return &AccountMiniList{
+		client:       client,
+		nextPagePath: nextPagePath,
+		HasMore:      true,
+	}
 }
 
 // Fetch fetches the next page of data into the `Data` property
@@ -1314,11 +1426,19 @@ func (resource *accountBalanceList) setResponse(res *ResponseMetadata) {
 
 // AccountBalanceList allows you to paginate AccountBalance objects
 type AccountBalanceList struct {
-	client       *Client
+	client       HttpCaller
 	nextPagePath string
 
 	HasMore bool
 	Data    []AccountBalance
+}
+
+func NewAccountBalanceList(client HttpCaller, nextPagePath string) *AccountBalanceList {
+	return &AccountBalanceList{
+		client:       client,
+		nextPagePath: nextPagePath,
+		HasMore:      true,
+	}
 }
 
 // Fetch fetches the next page of data into the `Data` property
@@ -1385,11 +1505,19 @@ func (resource *accountBalanceAmountList) setResponse(res *ResponseMetadata) {
 
 // AccountBalanceAmountList allows you to paginate AccountBalanceAmount objects
 type AccountBalanceAmountList struct {
-	client       *Client
+	client       HttpCaller
 	nextPagePath string
 
 	HasMore bool
 	Data    []AccountBalanceAmount
+}
+
+func NewAccountBalanceAmountList(client HttpCaller, nextPagePath string) *AccountBalanceAmountList {
+	return &AccountBalanceAmountList{
+		client:       client,
+		nextPagePath: nextPagePath,
+		HasMore:      true,
+	}
 }
 
 // Fetch fetches the next page of data into the `Data` property
@@ -1479,11 +1607,19 @@ func (resource *couponRedemptionList) setResponse(res *ResponseMetadata) {
 
 // CouponRedemptionList allows you to paginate CouponRedemption objects
 type CouponRedemptionList struct {
-	client       *Client
+	client       HttpCaller
 	nextPagePath string
 
 	HasMore bool
 	Data    []CouponRedemption
+}
+
+func NewCouponRedemptionList(client HttpCaller, nextPagePath string) *CouponRedemptionList {
+	return &CouponRedemptionList{
+		client:       client,
+		nextPagePath: nextPagePath,
+		HasMore:      true,
+	}
 }
 
 // Fetch fetches the next page of data into the `Data` property
@@ -1630,11 +1766,19 @@ func (resource *couponList) setResponse(res *ResponseMetadata) {
 
 // CouponList allows you to paginate Coupon objects
 type CouponList struct {
-	client       *Client
+	client       HttpCaller
 	nextPagePath string
 
 	HasMore bool
 	Data    []Coupon
+}
+
+func NewCouponList(client HttpCaller, nextPagePath string) *CouponList {
+	return &CouponList{
+		client:       client,
+		nextPagePath: nextPagePath,
+		HasMore:      true,
+	}
 }
 
 // Fetch fetches the next page of data into the `Data` property
@@ -1707,11 +1851,19 @@ func (resource *planMiniList) setResponse(res *ResponseMetadata) {
 
 // PlanMiniList allows you to paginate PlanMini objects
 type PlanMiniList struct {
-	client       *Client
+	client       HttpCaller
 	nextPagePath string
 
 	HasMore bool
 	Data    []PlanMini
+}
+
+func NewPlanMiniList(client HttpCaller, nextPagePath string) *PlanMiniList {
+	return &PlanMiniList{
+		client:       client,
+		nextPagePath: nextPagePath,
+		HasMore:      true,
+	}
 }
 
 // Fetch fetches the next page of data into the `Data` property
@@ -1783,11 +1935,19 @@ func (resource *couponDiscountList) setResponse(res *ResponseMetadata) {
 
 // CouponDiscountList allows you to paginate CouponDiscount objects
 type CouponDiscountList struct {
-	client       *Client
+	client       HttpCaller
 	nextPagePath string
 
 	HasMore bool
 	Data    []CouponDiscount
+}
+
+func NewCouponDiscountList(client HttpCaller, nextPagePath string) *CouponDiscountList {
+	return &CouponDiscountList{
+		client:       client,
+		nextPagePath: nextPagePath,
+		HasMore:      true,
+	}
 }
 
 // Fetch fetches the next page of data into the `Data` property
@@ -1854,11 +2014,19 @@ func (resource *couponDiscountPricingList) setResponse(res *ResponseMetadata) {
 
 // CouponDiscountPricingList allows you to paginate CouponDiscountPricing objects
 type CouponDiscountPricingList struct {
-	client       *Client
+	client       HttpCaller
 	nextPagePath string
 
 	HasMore bool
 	Data    []CouponDiscountPricing
+}
+
+func NewCouponDiscountPricingList(client HttpCaller, nextPagePath string) *CouponDiscountPricingList {
+	return &CouponDiscountPricingList{
+		client:       client,
+		nextPagePath: nextPagePath,
+		HasMore:      true,
+	}
 }
 
 // Fetch fetches the next page of data into the `Data` property
@@ -1925,11 +2093,19 @@ func (resource *couponDiscountTrialList) setResponse(res *ResponseMetadata) {
 
 // CouponDiscountTrialList allows you to paginate CouponDiscountTrial objects
 type CouponDiscountTrialList struct {
-	client       *Client
+	client       HttpCaller
 	nextPagePath string
 
 	HasMore bool
 	Data    []CouponDiscountTrial
+}
+
+func NewCouponDiscountTrialList(client HttpCaller, nextPagePath string) *CouponDiscountTrialList {
+	return &CouponDiscountTrialList{
+		client:       client,
+		nextPagePath: nextPagePath,
+		HasMore:      true,
+	}
 }
 
 // Fetch fetches the next page of data into the `Data` property
@@ -2031,11 +2207,19 @@ func (resource *creditPaymentList) setResponse(res *ResponseMetadata) {
 
 // CreditPaymentList allows you to paginate CreditPayment objects
 type CreditPaymentList struct {
-	client       *Client
+	client       HttpCaller
 	nextPagePath string
 
 	HasMore bool
 	Data    []CreditPayment
+}
+
+func NewCreditPaymentList(client HttpCaller, nextPagePath string) *CreditPaymentList {
+	return &CreditPaymentList{
+		client:       client,
+		nextPagePath: nextPagePath,
+		HasMore:      true,
+	}
 }
 
 // Fetch fetches the next page of data into the `Data` property
@@ -2111,11 +2295,19 @@ func (resource *invoiceMiniList) setResponse(res *ResponseMetadata) {
 
 // InvoiceMiniList allows you to paginate InvoiceMini objects
 type InvoiceMiniList struct {
-	client       *Client
+	client       HttpCaller
 	nextPagePath string
 
 	HasMore bool
 	Data    []InvoiceMini
+}
+
+func NewInvoiceMiniList(client HttpCaller, nextPagePath string) *InvoiceMiniList {
+	return &InvoiceMiniList{
+		client:       client,
+		nextPagePath: nextPagePath,
+		HasMore:      true,
+	}
 }
 
 // Fetch fetches the next page of data into the `Data` property
@@ -2291,11 +2483,19 @@ func (resource *transactionList) setResponse(res *ResponseMetadata) {
 
 // TransactionList allows you to paginate Transaction objects
 type TransactionList struct {
-	client       *Client
+	client       HttpCaller
 	nextPagePath string
 
 	HasMore bool
 	Data    []Transaction
+}
+
+func NewTransactionList(client HttpCaller, nextPagePath string) *TransactionList {
+	return &TransactionList{
+		client:       client,
+		nextPagePath: nextPagePath,
+		HasMore:      true,
+	}
 }
 
 // Fetch fetches the next page of data into the `Data` property
@@ -2365,11 +2565,19 @@ func (resource *transactionPaymentGatewayList) setResponse(res *ResponseMetadata
 
 // TransactionPaymentGatewayList allows you to paginate TransactionPaymentGateway objects
 type TransactionPaymentGatewayList struct {
-	client       *Client
+	client       HttpCaller
 	nextPagePath string
 
 	HasMore bool
 	Data    []TransactionPaymentGateway
+}
+
+func NewTransactionPaymentGatewayList(client HttpCaller, nextPagePath string) *TransactionPaymentGatewayList {
+	return &TransactionPaymentGatewayList{
+		client:       client,
+		nextPagePath: nextPagePath,
+		HasMore:      true,
+	}
 }
 
 // Fetch fetches the next page of data into the `Data` property
@@ -2529,11 +2737,19 @@ func (resource *invoiceList) setResponse(res *ResponseMetadata) {
 
 // InvoiceList allows you to paginate Invoice objects
 type InvoiceList struct {
-	client       *Client
+	client       HttpCaller
 	nextPagePath string
 
 	HasMore bool
 	Data    []Invoice
+}
+
+func NewInvoiceList(client HttpCaller, nextPagePath string) *InvoiceList {
+	return &InvoiceList{
+		client:       client,
+		nextPagePath: nextPagePath,
+		HasMore:      true,
+	}
 }
 
 // Fetch fetches the next page of data into the `Data` property
@@ -2627,11 +2843,19 @@ func (resource *invoiceAddressList) setResponse(res *ResponseMetadata) {
 
 // InvoiceAddressList allows you to paginate InvoiceAddress objects
 type InvoiceAddressList struct {
-	client       *Client
+	client       HttpCaller
 	nextPagePath string
 
 	HasMore bool
 	Data    []InvoiceAddress
+}
+
+func NewInvoiceAddressList(client HttpCaller, nextPagePath string) *InvoiceAddressList {
+	return &InvoiceAddressList{
+		client:       client,
+		nextPagePath: nextPagePath,
+		HasMore:      true,
+	}
 }
 
 // Fetch fetches the next page of data into the `Data` property
@@ -2701,11 +2925,19 @@ func (resource *taxInfoList) setResponse(res *ResponseMetadata) {
 
 // TaxInfoList allows you to paginate TaxInfo objects
 type TaxInfoList struct {
-	client       *Client
+	client       HttpCaller
 	nextPagePath string
 
 	HasMore bool
 	Data    []TaxInfo
+}
+
+func NewTaxInfoList(client HttpCaller, nextPagePath string) *TaxInfoList {
+	return &TaxInfoList{
+		client:       client,
+		nextPagePath: nextPagePath,
+		HasMore:      true,
+	}
 }
 
 // Fetch fetches the next page of data into the `Data` property
@@ -2904,11 +3136,19 @@ func (resource *lineItemList) setResponse(res *ResponseMetadata) {
 
 // LineItemList allows you to paginate LineItem objects
 type LineItemList struct {
-	client       *Client
+	client       HttpCaller
 	nextPagePath string
 
 	HasMore bool
 	Data    []LineItem
+}
+
+func NewLineItemList(client HttpCaller, nextPagePath string) *LineItemList {
+	return &LineItemList{
+		client:       client,
+		nextPagePath: nextPagePath,
+		HasMore:      true,
+	}
 }
 
 // Fetch fetches the next page of data into the `Data` property
@@ -2977,11 +3217,19 @@ func (resource *invoiceCollectionList) setResponse(res *ResponseMetadata) {
 
 // InvoiceCollectionList allows you to paginate InvoiceCollection objects
 type InvoiceCollectionList struct {
-	client       *Client
+	client       HttpCaller
 	nextPagePath string
 
 	HasMore bool
 	Data    []InvoiceCollection
+}
+
+func NewInvoiceCollectionList(client HttpCaller, nextPagePath string) *InvoiceCollectionList {
+	return &InvoiceCollectionList{
+		client:       client,
+		nextPagePath: nextPagePath,
+		HasMore:      true,
+	}
 }
 
 // Fetch fetches the next page of data into the `Data` property
@@ -3055,11 +3303,19 @@ func (resource *accountNoteList) setResponse(res *ResponseMetadata) {
 
 // AccountNoteList allows you to paginate AccountNote objects
 type AccountNoteList struct {
-	client       *Client
+	client       HttpCaller
 	nextPagePath string
 
 	HasMore bool
 	Data    []AccountNote
+}
+
+func NewAccountNoteList(client HttpCaller, nextPagePath string) *AccountNoteList {
+	return &AccountNoteList{
+		client:       client,
+		nextPagePath: nextPagePath,
+		HasMore:      true,
+	}
 }
 
 // Fetch fetches the next page of data into the `Data` property
@@ -3137,11 +3393,19 @@ func (resource *userList) setResponse(res *ResponseMetadata) {
 
 // UserList allows you to paginate User objects
 type UserList struct {
-	client       *Client
+	client       HttpCaller
 	nextPagePath string
 
 	HasMore bool
 	Data    []User
+}
+
+func NewUserList(client HttpCaller, nextPagePath string) *UserList {
+	return &UserList{
+		client:       client,
+		nextPagePath: nextPagePath,
+		HasMore:      true,
+	}
 }
 
 // Fetch fetches the next page of data into the `Data` property
@@ -3325,11 +3589,19 @@ func (resource *subscriptionList) setResponse(res *ResponseMetadata) {
 
 // SubscriptionList allows you to paginate Subscription objects
 type SubscriptionList struct {
-	client       *Client
+	client       HttpCaller
 	nextPagePath string
 
 	HasMore bool
 	Data    []Subscription
+}
+
+func NewSubscriptionList(client HttpCaller, nextPagePath string) *SubscriptionList {
+	return &SubscriptionList{
+		client:       client,
+		nextPagePath: nextPagePath,
+		HasMore:      true,
+	}
 }
 
 // Fetch fetches the next page of data into the `Data` property
@@ -3400,11 +3672,19 @@ func (resource *subscriptionShippingList) setResponse(res *ResponseMetadata) {
 
 // SubscriptionShippingList allows you to paginate SubscriptionShipping objects
 type SubscriptionShippingList struct {
-	client       *Client
+	client       HttpCaller
 	nextPagePath string
 
 	HasMore bool
 	Data    []SubscriptionShipping
+}
+
+func NewSubscriptionShippingList(client HttpCaller, nextPagePath string) *SubscriptionShippingList {
+	return &SubscriptionShippingList{
+		client:       client,
+		nextPagePath: nextPagePath,
+		HasMore:      true,
+	}
 }
 
 // Fetch fetches the next page of data into the `Data` property
@@ -3477,11 +3757,19 @@ func (resource *shippingMethodMiniList) setResponse(res *ResponseMetadata) {
 
 // ShippingMethodMiniList allows you to paginate ShippingMethodMini objects
 type ShippingMethodMiniList struct {
-	client       *Client
+	client       HttpCaller
 	nextPagePath string
 
 	HasMore bool
 	Data    []ShippingMethodMini
+}
+
+func NewShippingMethodMiniList(client HttpCaller, nextPagePath string) *ShippingMethodMiniList {
+	return &ShippingMethodMiniList{
+		client:       client,
+		nextPagePath: nextPagePath,
+		HasMore:      true,
+	}
 }
 
 // Fetch fetches the next page of data into the `Data` property
@@ -3559,11 +3847,19 @@ func (resource *couponRedemptionMiniList) setResponse(res *ResponseMetadata) {
 
 // CouponRedemptionMiniList allows you to paginate CouponRedemptionMini objects
 type CouponRedemptionMiniList struct {
-	client       *Client
+	client       HttpCaller
 	nextPagePath string
 
 	HasMore bool
 	Data    []CouponRedemptionMini
+}
+
+func NewCouponRedemptionMiniList(client HttpCaller, nextPagePath string) *CouponRedemptionMiniList {
+	return &CouponRedemptionMiniList{
+		client:       client,
+		nextPagePath: nextPagePath,
+		HasMore:      true,
+	}
 }
 
 // Fetch fetches the next page of data into the `Data` property
@@ -3649,11 +3945,19 @@ func (resource *couponMiniList) setResponse(res *ResponseMetadata) {
 
 // CouponMiniList allows you to paginate CouponMini objects
 type CouponMiniList struct {
-	client       *Client
+	client       HttpCaller
 	nextPagePath string
 
 	HasMore bool
 	Data    []CouponMini
+}
+
+func NewCouponMiniList(client HttpCaller, nextPagePath string) *CouponMiniList {
+	return &CouponMiniList{
+		client:       client,
+		nextPagePath: nextPagePath,
+		HasMore:      true,
+	}
 }
 
 // Fetch fetches the next page of data into the `Data` property
@@ -3762,11 +4066,19 @@ func (resource *subscriptionChangeList) setResponse(res *ResponseMetadata) {
 
 // SubscriptionChangeList allows you to paginate SubscriptionChange objects
 type SubscriptionChangeList struct {
-	client       *Client
+	client       HttpCaller
 	nextPagePath string
 
 	HasMore bool
 	Data    []SubscriptionChange
+}
+
+func NewSubscriptionChangeList(client HttpCaller, nextPagePath string) *SubscriptionChangeList {
+	return &SubscriptionChangeList{
+		client:       client,
+		nextPagePath: nextPagePath,
+		HasMore:      true,
+	}
 }
 
 // Fetch fetches the next page of data into the `Data` property
@@ -3873,11 +4185,19 @@ func (resource *subscriptionAddOnList) setResponse(res *ResponseMetadata) {
 
 // SubscriptionAddOnList allows you to paginate SubscriptionAddOn objects
 type SubscriptionAddOnList struct {
-	client       *Client
+	client       HttpCaller
 	nextPagePath string
 
 	HasMore bool
 	Data    []SubscriptionAddOn
+}
+
+func NewSubscriptionAddOnList(client HttpCaller, nextPagePath string) *SubscriptionAddOnList {
+	return &SubscriptionAddOnList{
+		client:       client,
+		nextPagePath: nextPagePath,
+		HasMore:      true,
+	}
 }
 
 // Fetch fetches the next page of data into the `Data` property
@@ -3971,11 +4291,19 @@ func (resource *addOnMiniList) setResponse(res *ResponseMetadata) {
 
 // AddOnMiniList allows you to paginate AddOnMini objects
 type AddOnMiniList struct {
-	client       *Client
+	client       HttpCaller
 	nextPagePath string
 
 	HasMore bool
 	Data    []AddOnMini
+}
+
+func NewAddOnMiniList(client HttpCaller, nextPagePath string) *AddOnMiniList {
+	return &AddOnMiniList{
+		client:       client,
+		nextPagePath: nextPagePath,
+		HasMore:      true,
+	}
 }
 
 // Fetch fetches the next page of data into the `Data` property
@@ -4042,11 +4370,19 @@ func (resource *subscriptionAddOnTierList) setResponse(res *ResponseMetadata) {
 
 // SubscriptionAddOnTierList allows you to paginate SubscriptionAddOnTier objects
 type SubscriptionAddOnTierList struct {
-	client       *Client
+	client       HttpCaller
 	nextPagePath string
 
 	HasMore bool
 	Data    []SubscriptionAddOnTier
+}
+
+func NewSubscriptionAddOnTierList(client HttpCaller, nextPagePath string) *SubscriptionAddOnTierList {
+	return &SubscriptionAddOnTierList{
+		client:       client,
+		nextPagePath: nextPagePath,
+		HasMore:      true,
+	}
 }
 
 // Fetch fetches the next page of data into the `Data` property
@@ -4131,11 +4467,19 @@ func (resource *uniqueCouponCodeList) setResponse(res *ResponseMetadata) {
 
 // UniqueCouponCodeList allows you to paginate UniqueCouponCode objects
 type UniqueCouponCodeList struct {
-	client       *Client
+	client       HttpCaller
 	nextPagePath string
 
 	HasMore bool
 	Data    []UniqueCouponCode
+}
+
+func NewUniqueCouponCodeList(client HttpCaller, nextPagePath string) *UniqueCouponCodeList {
+	return &UniqueCouponCodeList{
+		client:       client,
+		nextPagePath: nextPagePath,
+		HasMore:      true,
+	}
 }
 
 // Fetch fetches the next page of data into the `Data` property
@@ -4230,11 +4574,19 @@ func (resource *customFieldDefinitionList) setResponse(res *ResponseMetadata) {
 
 // CustomFieldDefinitionList allows you to paginate CustomFieldDefinition objects
 type CustomFieldDefinitionList struct {
-	client       *Client
+	client       HttpCaller
 	nextPagePath string
 
 	HasMore bool
 	Data    []CustomFieldDefinition
+}
+
+func NewCustomFieldDefinitionList(client HttpCaller, nextPagePath string) *CustomFieldDefinitionList {
+	return &CustomFieldDefinitionList{
+		client:       client,
+		nextPagePath: nextPagePath,
+		HasMore:      true,
+	}
 }
 
 // Fetch fetches the next page of data into the `Data` property
@@ -4343,11 +4695,19 @@ func (resource *itemList) setResponse(res *ResponseMetadata) {
 
 // ItemList allows you to paginate Item objects
 type ItemList struct {
-	client       *Client
+	client       HttpCaller
 	nextPagePath string
 
 	HasMore bool
 	Data    []Item
+}
+
+func NewItemList(client HttpCaller, nextPagePath string) *ItemList {
+	return &ItemList{
+		client:       client,
+		nextPagePath: nextPagePath,
+		HasMore:      true,
+	}
 }
 
 // Fetch fetches the next page of data into the `Data` property
@@ -4414,11 +4774,19 @@ func (resource *pricingList) setResponse(res *ResponseMetadata) {
 
 // PricingList allows you to paginate Pricing objects
 type PricingList struct {
-	client       *Client
+	client       HttpCaller
 	nextPagePath string
 
 	HasMore bool
 	Data    []Pricing
+}
+
+func NewPricingList(client HttpCaller, nextPagePath string) *PricingList {
+	return &PricingList{
+		client:       client,
+		nextPagePath: nextPagePath,
+		HasMore:      true,
+	}
 }
 
 // Fetch fetches the next page of data into the `Data` property
@@ -4506,11 +4874,19 @@ func (resource *measuredUnitList) setResponse(res *ResponseMetadata) {
 
 // MeasuredUnitList allows you to paginate MeasuredUnit objects
 type MeasuredUnitList struct {
-	client       *Client
+	client       HttpCaller
 	nextPagePath string
 
 	HasMore bool
 	Data    []MeasuredUnit
+}
+
+func NewMeasuredUnitList(client HttpCaller, nextPagePath string) *MeasuredUnitList {
+	return &MeasuredUnitList{
+		client:       client,
+		nextPagePath: nextPagePath,
+		HasMore:      true,
+	}
 }
 
 // Fetch fetches the next page of data into the `Data` property
@@ -4573,11 +4949,19 @@ func (resource *binaryFileList) setResponse(res *ResponseMetadata) {
 
 // BinaryFileList allows you to paginate BinaryFile objects
 type BinaryFileList struct {
-	client       *Client
+	client       HttpCaller
 	nextPagePath string
 
 	HasMore bool
 	Data    []BinaryFile
+}
+
+func NewBinaryFileList(client HttpCaller, nextPagePath string) *BinaryFileList {
+	return &BinaryFileList{
+		client:       client,
+		nextPagePath: nextPagePath,
+		HasMore:      true,
+	}
 }
 
 // Fetch fetches the next page of data into the `Data` property
@@ -4715,11 +5099,19 @@ func (resource *planList) setResponse(res *ResponseMetadata) {
 
 // PlanList allows you to paginate Plan objects
 type PlanList struct {
-	client       *Client
+	client       HttpCaller
 	nextPagePath string
 
 	HasMore bool
 	Data    []Plan
+}
+
+func NewPlanList(client HttpCaller, nextPagePath string) *PlanList {
+	return &PlanList{
+		client:       client,
+		nextPagePath: nextPagePath,
+		HasMore:      true,
+	}
 }
 
 // Fetch fetches the next page of data into the `Data` property
@@ -4789,11 +5181,19 @@ func (resource *planPricingList) setResponse(res *ResponseMetadata) {
 
 // PlanPricingList allows you to paginate PlanPricing objects
 type PlanPricingList struct {
-	client       *Client
+	client       HttpCaller
 	nextPagePath string
 
 	HasMore bool
 	Data    []PlanPricing
+}
+
+func NewPlanPricingList(client HttpCaller, nextPagePath string) *PlanPricingList {
+	return &PlanPricingList{
+		client:       client,
+		nextPagePath: nextPagePath,
+		HasMore:      true,
+	}
 }
 
 // Fetch fetches the next page of data into the `Data` property
@@ -4866,11 +5266,19 @@ func (resource *planHostedPagesList) setResponse(res *ResponseMetadata) {
 
 // PlanHostedPagesList allows you to paginate PlanHostedPages objects
 type PlanHostedPagesList struct {
-	client       *Client
+	client       HttpCaller
 	nextPagePath string
 
 	HasMore bool
 	Data    []PlanHostedPages
+}
+
+func NewPlanHostedPagesList(client HttpCaller, nextPagePath string) *PlanHostedPagesList {
+	return &PlanHostedPagesList{
+		client:       client,
+		nextPagePath: nextPagePath,
+		HasMore:      true,
+	}
 }
 
 // Fetch fetches the next page of data into the `Data` property
@@ -5003,11 +5411,19 @@ func (resource *addOnList) setResponse(res *ResponseMetadata) {
 
 // AddOnList allows you to paginate AddOn objects
 type AddOnList struct {
-	client       *Client
+	client       HttpCaller
 	nextPagePath string
 
 	HasMore bool
 	Data    []AddOn
+}
+
+func NewAddOnList(client HttpCaller, nextPagePath string) *AddOnList {
+	return &AddOnList{
+		client:       client,
+		nextPagePath: nextPagePath,
+		HasMore:      true,
+	}
 }
 
 // Fetch fetches the next page of data into the `Data` property
@@ -5074,11 +5490,19 @@ func (resource *addOnPricingList) setResponse(res *ResponseMetadata) {
 
 // AddOnPricingList allows you to paginate AddOnPricing objects
 type AddOnPricingList struct {
-	client       *Client
+	client       HttpCaller
 	nextPagePath string
 
 	HasMore bool
 	Data    []AddOnPricing
+}
+
+func NewAddOnPricingList(client HttpCaller, nextPagePath string) *AddOnPricingList {
+	return &AddOnPricingList{
+		client:       client,
+		nextPagePath: nextPagePath,
+		HasMore:      true,
+	}
 }
 
 // Fetch fetches the next page of data into the `Data` property
@@ -5157,11 +5581,19 @@ func (resource *itemMiniList) setResponse(res *ResponseMetadata) {
 
 // ItemMiniList allows you to paginate ItemMini objects
 type ItemMiniList struct {
-	client       *Client
+	client       HttpCaller
 	nextPagePath string
 
 	HasMore bool
 	Data    []ItemMini
+}
+
+func NewItemMiniList(client HttpCaller, nextPagePath string) *ItemMiniList {
+	return &ItemMiniList{
+		client:       client,
+		nextPagePath: nextPagePath,
+		HasMore:      true,
+	}
 }
 
 // Fetch fetches the next page of data into the `Data` property
@@ -5228,11 +5660,19 @@ func (resource *tierList) setResponse(res *ResponseMetadata) {
 
 // TierList allows you to paginate Tier objects
 type TierList struct {
-	client       *Client
+	client       HttpCaller
 	nextPagePath string
 
 	HasMore bool
 	Data    []Tier
+}
+
+func NewTierList(client HttpCaller, nextPagePath string) *TierList {
+	return &TierList{
+		client:       client,
+		nextPagePath: nextPagePath,
+		HasMore:      true,
+	}
 }
 
 // Fetch fetches the next page of data into the `Data` property
@@ -5329,11 +5769,19 @@ func (resource *shippingMethodList) setResponse(res *ResponseMetadata) {
 
 // ShippingMethodList allows you to paginate ShippingMethod objects
 type ShippingMethodList struct {
-	client       *Client
+	client       HttpCaller
 	nextPagePath string
 
 	HasMore bool
 	Data    []ShippingMethod
+}
+
+func NewShippingMethodList(client HttpCaller, nextPagePath string) *ShippingMethodList {
+	return &ShippingMethodList{
+		client:       client,
+		nextPagePath: nextPagePath,
+		HasMore:      true,
+	}
 }
 
 // Fetch fetches the next page of data into the `Data` property
@@ -5442,11 +5890,19 @@ func (resource *subscriptionChangePreviewList) setResponse(res *ResponseMetadata
 
 // SubscriptionChangePreviewList allows you to paginate SubscriptionChangePreview objects
 type SubscriptionChangePreviewList struct {
-	client       *Client
+	client       HttpCaller
 	nextPagePath string
 
 	HasMore bool
 	Data    []SubscriptionChangePreview
+}
+
+func NewSubscriptionChangePreviewList(client HttpCaller, nextPagePath string) *SubscriptionChangePreviewList {
+	return &SubscriptionChangePreviewList{
+		client:       client,
+		nextPagePath: nextPagePath,
+		HasMore:      true,
+	}
 }
 
 // Fetch fetches the next page of data into the `Data` property
@@ -5546,11 +6002,19 @@ func (resource *usageList) setResponse(res *ResponseMetadata) {
 
 // UsageList allows you to paginate Usage objects
 type UsageList struct {
-	client       *Client
+	client       HttpCaller
 	nextPagePath string
 
 	HasMore bool
 	Data    []Usage
+}
+
+func NewUsageList(client HttpCaller, nextPagePath string) *UsageList {
+	return &UsageList{
+		client:       client,
+		nextPagePath: nextPagePath,
+		HasMore:      true,
+	}
 }
 
 // Fetch fetches the next page of data into the `Data` property
