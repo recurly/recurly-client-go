@@ -454,6 +454,12 @@ type LineItemCreate struct {
 	// `true` exempts tax on charges, `false` applies tax on charges. If not defined, then defaults to the Plan and Site settings. This attribute does not work for credits (negative line items). Credits are always applied post-tax. Pre-tax discounts should use the Coupons feature.
 	TaxExempt *bool `json:"tax_exempt,omitempty"`
 
+	// Used by Avalara for Communications taxes. The transaction type in combination with the service type describe how the line item is taxed. Refer to [the documentation](https://help.avalara.com/AvaTax_for_Communications/Tax_Calculation/AvaTax_for_Communications_Tax_Engine/Mapping_Resources/TM_00115_AFC_Modules_Corresponding_Transaction_Types) for more available t/s types. If an `Item` is associated to the `LineItem`, then the `avalara_transaction_type` must be absent.
+	AvalaraTransactionType *int `json:"avalara_transaction_type,omitempty"`
+
+	// Used by Avalara for Communications taxes. The transaction type in combination with the service type describe how the line item is taxed. Refer to [the documentation](https://help.avalara.com/AvaTax_for_Communications/Tax_Calculation/AvaTax_for_Communications_Tax_Engine/Mapping_Resources/TM_00115_AFC_Modules_Corresponding_Transaction_Types) for more available t/s types. If an `Item` is associated to the `LineItem`, then the `avalara_service_type` must be absent.
+	AvalaraServiceType *int `json:"avalara_service_type,omitempty"`
+
 	// Optional field used by Avalara, Vertex, and Recurly's EU VAT tax feature to determine taxation rules. If you have your own AvaTax or Vertex account configured, use their tax codes to assign specific tax rules. If you are using Recurly's EU VAT feature, you can use values of `unknown`, `physical`, or `digital`.
 	TaxCode *string `json:"tax_code,omitempty"`
 
@@ -696,6 +702,12 @@ type ItemCreate struct {
 	// Revenue schedule type
 	RevenueScheduleType *string `json:"revenue_schedule_type,omitempty"`
 
+	// Used by Avalara for Communications taxes. The transaction type in combination with the service type describe how the item is taxed. Refer to [the documentation](https://help.avalara.com/AvaTax_for_Communications/Tax_Calculation/AvaTax_for_Communications_Tax_Engine/Mapping_Resources/TM_00115_AFC_Modules_Corresponding_Transaction_Types) for more available t/s types.
+	AvalaraTransactionType *int `json:"avalara_transaction_type,omitempty"`
+
+	// Used by Avalara for Communications taxes. The transaction type in combination with the service type describe how the item is taxed. Refer to [the documentation](https://help.avalara.com/AvaTax_for_Communications/Tax_Calculation/AvaTax_for_Communications_Tax_Engine/Mapping_Resources/TM_00115_AFC_Modules_Corresponding_Transaction_Types) for more available t/s types.
+	AvalaraServiceType *int `json:"avalara_service_type,omitempty"`
+
 	// Used by Avalara, Vertex, and Recurly’s EU VAT tax feature. The tax code values are specific to each tax system. If you are using Recurly’s EU VAT feature you can use `unknown`, `physical`, or `digital`.
 	TaxCode *string `json:"tax_code,omitempty"`
 
@@ -757,6 +769,12 @@ type ItemUpdate struct {
 
 	// Revenue schedule type
 	RevenueScheduleType *string `json:"revenue_schedule_type,omitempty"`
+
+	// Used by Avalara for Communications taxes. The transaction type in combination with the service type describe how the item is taxed. Refer to [the documentation](https://help.avalara.com/AvaTax_for_Communications/Tax_Calculation/AvaTax_for_Communications_Tax_Engine/Mapping_Resources/TM_00115_AFC_Modules_Corresponding_Transaction_Types) for more available t/s types.
+	AvalaraTransactionType *int `json:"avalara_transaction_type,omitempty"`
+
+	// Used by Avalara for Communications taxes. The transaction type in combination with the service type describe how the item is taxed. Refer to [the documentation](https://help.avalara.com/AvaTax_for_Communications/Tax_Calculation/AvaTax_for_Communications_Tax_Engine/Mapping_Resources/TM_00115_AFC_Modules_Corresponding_Transaction_Types) for more available t/s types.
+	AvalaraServiceType *int `json:"avalara_service_type,omitempty"`
 
 	// Used by Avalara, Vertex, and Recurly’s EU VAT tax feature. The tax code values are specific to each tax system. If you are using Recurly’s EU VAT feature you can use `unknown`, `physical`, or `digital`.
 	TaxCode *string `json:"tax_code,omitempty"`
@@ -1076,6 +1094,12 @@ type PlanCreate struct {
 	// Accounting code for invoice line items for the plan's setup fee. If no value is provided, it defaults to plan's accounting code.
 	SetupFeeAccountingCode *string `json:"setup_fee_accounting_code,omitempty"`
 
+	// Used by Avalara for Communications taxes. The transaction type in combination with the service type describe how the plan is taxed. Refer to [the documentation](https://help.avalara.com/AvaTax_for_Communications/Tax_Calculation/AvaTax_for_Communications_Tax_Engine/Mapping_Resources/TM_00115_AFC_Modules_Corresponding_Transaction_Types) for more available t/s types.
+	AvalaraTransactionType *int `json:"avalara_transaction_type,omitempty"`
+
+	// Used by Avalara for Communications taxes. The transaction type in combination with the service type describe how the plan is taxed. Refer to [the documentation](https://help.avalara.com/AvaTax_for_Communications/Tax_Calculation/AvaTax_for_Communications_Tax_Engine/Mapping_Resources/TM_00115_AFC_Modules_Corresponding_Transaction_Types) for more available t/s types.
+	AvalaraServiceType *int `json:"avalara_service_type,omitempty"`
+
 	// Optional field used by Avalara, Vertex, and Recurly's EU VAT tax feature to determine taxation rules. If you have your own AvaTax or Vertex account configured, use their tax codes to assign specific tax rules. If you are using Recurly's EU VAT feature, you can use values of `unknown`, `physical`, or `digital`.
 	TaxCode *string `json:"tax_code,omitempty"`
 
@@ -1201,6 +1225,12 @@ type AddOnCreate struct {
 	// Whether the add-on is optional for the customer to include in their purchase on the hosted payment page. If false, the add-on will be included when a subscription is created through the Recurly UI. However, the add-on will not be included when a subscription is created through the API.
 	Optional *bool `json:"optional,omitempty"`
 
+	// Used by Avalara for Communications taxes. The transaction type in combination with the service type describe how the add-on is taxed. Refer to [the documentation](https://help.avalara.com/AvaTax_for_Communications/Tax_Calculation/AvaTax_for_Communications_Tax_Engine/Mapping_Resources/TM_00115_AFC_Modules_Corresponding_Transaction_Types) for more available t/s types. If an `Item` is associated to the `AddOn`, then the `avalara_transaction_type` must be absent.
+	AvalaraTransactionType *int `json:"avalara_transaction_type,omitempty"`
+
+	// Used by Avalara for Communications taxes. The transaction type in combination with the service type describe how the add-on is taxed. Refer to [the documentation](https://help.avalara.com/AvaTax_for_Communications/Tax_Calculation/AvaTax_for_Communications_Tax_Engine/Mapping_Resources/TM_00115_AFC_Modules_Corresponding_Transaction_Types) for more available t/s types. If an `Item` is associated to the `AddOn`, then the `avalara_service_type` must be absent.
+	AvalaraServiceType *int `json:"avalara_service_type,omitempty"`
+
 	// Optional field used by Avalara, Vertex, and Recurly's EU VAT tax feature to determine taxation rules. If you have your own AvaTax or Vertex account configured, use their tax codes to assign specific tax rules. If you are using Recurly's EU VAT feature, you can use values of `unknown`, `physical`, or `digital`. If `item_code`/`item_id` is part of the request then `tax_code` must be absent.
 	TaxCode *string `json:"tax_code,omitempty"`
 
@@ -1312,6 +1342,12 @@ type PlanUpdate struct {
 	// Accounting code for invoice line items for the plan's setup fee. If no value is provided, it defaults to plan's accounting code.
 	SetupFeeAccountingCode *string `json:"setup_fee_accounting_code,omitempty"`
 
+	// Used by Avalara for Communications taxes. The transaction type in combination with the service type describe how the plan is taxed. Refer to [the documentation](https://help.avalara.com/AvaTax_for_Communications/Tax_Calculation/AvaTax_for_Communications_Tax_Engine/Mapping_Resources/TM_00115_AFC_Modules_Corresponding_Transaction_Types) for more available t/s types.
+	AvalaraTransactionType *int `json:"avalara_transaction_type,omitempty"`
+
+	// Used by Avalara for Communications taxes. The transaction type in combination with the service type describe how the plan is taxed. Refer to [the documentation](https://help.avalara.com/AvaTax_for_Communications/Tax_Calculation/AvaTax_for_Communications_Tax_Engine/Mapping_Resources/TM_00115_AFC_Modules_Corresponding_Transaction_Types) for more available t/s types.
+	AvalaraServiceType *int `json:"avalara_service_type,omitempty"`
+
 	// Optional field used by Avalara, Vertex, and Recurly's EU VAT tax feature to determine taxation rules. If you have your own AvaTax or Vertex account configured, use their tax codes to assign specific tax rules. If you are using Recurly's EU VAT feature, you can use values of `unknown`, `physical`, or `digital`.
 	TaxCode *string `json:"tax_code,omitempty"`
 
@@ -1368,6 +1404,12 @@ type AddOnUpdate struct {
 
 	// When this add-on is invoiced, the line item will use this revenue schedule. If an `Item` is associated to the `AddOn` then `revenue_schedule_type` must be absent in the request as the value will be set from the item.
 	RevenueScheduleType *string `json:"revenue_schedule_type,omitempty"`
+
+	// Used by Avalara for Communications taxes. The transaction type in combination with the service type describe how the add-on is taxed. Refer to [the documentation](https://help.avalara.com/AvaTax_for_Communications/Tax_Calculation/AvaTax_for_Communications_Tax_Engine/Mapping_Resources/TM_00115_AFC_Modules_Corresponding_Transaction_Types) for more available t/s types. If an `Item` is associated to the `AddOn`, then the `avalara_transaction_type` must be absent.
+	AvalaraTransactionType *int `json:"avalara_transaction_type,omitempty"`
+
+	// Used by Avalara for Communications taxes. The transaction type in combination with the service type describe how the add-on is taxed. Refer to [the documentation](https://help.avalara.com/AvaTax_for_Communications/Tax_Calculation/AvaTax_for_Communications_Tax_Engine/Mapping_Resources/TM_00115_AFC_Modules_Corresponding_Transaction_Types) for more available t/s types. If an `Item` is associated to the `AddOn`, then the `avalara_service_type` must be absent.
+	AvalaraServiceType *int `json:"avalara_service_type,omitempty"`
 
 	// Optional field used by Avalara, Vertex, and Recurly's EU VAT tax feature to determine taxation rules. If you have your own AvaTax or Vertex account configured, use their tax codes to assign specific tax rules. If you are using Recurly's EU VAT feature, you can use values of `unknown`, `physical`, or `digital`. If an `Item` is associated to the `AddOn` then `tax code` must be absent.
 	TaxCode *string `json:"tax_code,omitempty"`
@@ -1767,10 +1809,11 @@ type SubscriptionChangeCreate struct {
 	// A list of coupon_codes to be redeemed on the subscription during the change. Only allowed if timeframe is now and you change something about the subscription that creates an invoice.
 	CouponCodes []string `json:"coupon_codes,omitempty"`
 
-	// If you provide a value for this field it will replace any
-	// existing add-ons. So, when adding or modifying an add-on, you need to
-	// include the existing subscription add-ons. Unchanged add-ons can be included
-	// just using the subscription add-on's ID: `{"id": "abc123"}`.
+	// If this value is omitted your existing add-ons will be removed. If you provide
+	// a value for this field it will replace any existing add-ons. So, when adding or
+	// modifying an add-on, you need to include the existing subscription add-ons.
+	// Unchanged add-ons can be included just using the subscription add-on's ID:
+	// `{"id": "abc123"}`.
 	// If a subscription add-on's `code` is supplied without the `id`,
 	// `{"code": "def456"}`, the subscription add-on attributes will be set to the
 	// current values of the plan add-on unless provided in the request.
@@ -2031,7 +2074,7 @@ func (attr *AccountPurchase) toParams() *Params {
 type ShippingPurchase struct {
 	Params `json:"-"`
 
-	// Assign a shipping address from the account's existing shipping addresses. If this and `shipping_address` are both present, `shipping_address` will take precedence.
+	// Assign a shipping address from the account's existing shipping addresses. If this and `address` are both present, `address` will take precedence.
 	AddressId *string `json:"address_id,omitempty"`
 
 	Address *ShippingAddressCreate `json:"address,omitempty"`
