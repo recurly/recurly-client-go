@@ -64,7 +64,8 @@ func TestListAccounts(test *testing.T) {
 		Order: String("desc"),
 		Limit: Int(1),
 	}
-	accounts := client.ListAccounts(params)
+	accounts, err := client.ListAccounts(params)
+	t.Assert(err, nil, "Error not expected")
 	accounts.Fetch()
 
 	t.Assert(accounts.Data[0].Id, "abcd1234", "list.Data[0].Id")
