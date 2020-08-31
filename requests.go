@@ -572,10 +572,13 @@ type CouponCreate struct {
 	// The coupon is valid for one-time, non-plan charges if true.
 	AppliesToNonPlanCharges *bool `json:"applies_to_non_plan_charges,omitempty"`
 
-	// The coupon is valid for all plans if true. If false then `plans` and `plans_names` will list the applicable plans.
+	// The coupon is valid for all plans if true. If false then
+	// `plans` and `plans_names` will list the applicable plans.
 	AppliesToAllPlans *bool `json:"applies_to_all_plans,omitempty"`
 
-	// List of plan codes to which this coupon applies. See `applies_to_all_plans`
+	// List of plan codes to which this coupon applies. Required
+	// if `applies_to_all_plans` is false. Overrides `applies_to_all_plans`
+	// when `applies_to_all_plans` is true.
 	PlanCodes []string `json:"plan_codes,omitempty"`
 
 	// This field does not apply when the discount_type is `free_trial`.
@@ -1830,6 +1833,9 @@ type SubscriptionChangeCreate struct {
 
 	// Revenue schedule type
 	RevenueScheduleType *string `json:"revenue_schedule_type,omitempty"`
+
+	// The custom fields will only be altered when they are included in a request. Sending an empty array will not remove any existing values. To remove a field send the name with a null or empty value.
+	CustomFields []CustomFieldCreate `json:"custom_fields,omitempty"`
 
 	// For manual invoicing, this identifies the PO number associated with the subscription.
 	PoNumber *string `json:"po_number,omitempty"`
