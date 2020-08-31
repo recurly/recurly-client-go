@@ -1,5 +1,7 @@
 # Recurly 
 
+[![Contributor Covenant](https://img.shields.io/badge/Contributor%20Covenant-v2.0%20adopted-ff69b4.svg)](code_of_conduct.md)
+
 This repository houses the official Go library for Recurly's V3 API.
 
 Documentation for the HTTP API and example code can be found [on our Developer Hub](https://developers.recurly.com/api/latest/index.html).
