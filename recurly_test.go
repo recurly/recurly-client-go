@@ -153,12 +153,9 @@ func (attr *ResourceCreate) toParams() *Params {
 // We also implement fake CRUD operations for these fake resources
 // We want to use the Client from the consuming code's perspective
 func (c *Client) GetResource(resourceId string) (*RecurlyResource, error) {
-	path, err := c.InterpolatePath("/resources/{resource_id}", resourceId)
-	if err != nil {
-		return nil, err
-	}
+	path := c.InterpolatePath("/resources/{resource_id}", resourceId)
 	result := &RecurlyResource{}
-	err = c.Call(http.MethodGet, path, nil, result)
+	err := c.Call(http.MethodGet, path, nil, result)
 	if err != nil {
 		return nil, err
 	}
@@ -166,12 +163,9 @@ func (c *Client) GetResource(resourceId string) (*RecurlyResource, error) {
 }
 
 func (c *Client) CreateResource(body *ResourceCreate) (*RecurlyResource, error) {
-	path, err := c.InterpolatePath("/resources")
-	if err != nil {
-		return nil, err
-	}
+	path := c.InterpolatePath("/resources")
 	result := &RecurlyResource{}
-	err = c.Call(http.MethodPost, path, body, result)
+	err := c.Call(http.MethodPost, path, body, result)
 	if err != nil {
 		return nil, err
 	}
@@ -179,12 +173,9 @@ func (c *Client) CreateResource(body *ResourceCreate) (*RecurlyResource, error) 
 }
 
 func (c *Client) DeleteResource(resourceId string) (*Empty, error) {
-	path, err := c.InterpolatePath("/resources")
-	if err != nil {
-		return nil, err
-	}
+	path := c.InterpolatePath("/resources")
 	result := &Empty{}
-	err = c.Call(http.MethodDelete, path, nil, result)
+	err := c.Call(http.MethodDelete, path, nil, result)
 	if err != nil {
 		return nil, err
 	}
@@ -193,12 +184,9 @@ func (c *Client) DeleteResource(resourceId string) (*Empty, error) {
 
 // ResourceMetada calls the HEAD endpoint and returns the response metadata
 func (c *Client) GetResourceMetadata(resourceId string) (*ResponseMetadata, error) {
-	path, err := c.InterpolatePath("/resources")
-	if err != nil {
-		return nil, err
-	}
+	path := c.InterpolatePath("/resources")
 	result := &Empty{}
-	err = c.Call(http.MethodHead, path, nil, result)
+	err := c.Call(http.MethodHead, path, nil, result)
 	if err != nil {
 		return nil, err
 	}
