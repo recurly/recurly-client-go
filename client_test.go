@@ -5,49 +5,6 @@ import (
 	"testing"
 )
 
-func TestEncodePathParameters(test *testing.T) {
-	t := &T{test}
-
-	scenario := &Scenario{
-		T: t,
-		AssertRequest: func(req *http.Request) {
-			t.Assert(req.Method, http.MethodGet, "HTTP Method")
-			t.Assert(req.URL.String(), "https://v3.recurly.com/resources/%2F", "Request URL")
-			// assert headers and other request properties
-		},
-		MakeResponse: func(req *http.Request) *http.Response {
-			// default headers set, we may want to customize though
-			return mockResponse(req, 200, String(`{"id": "abcd1234"}`))
-		},
-	}
-	client := scenario.MockHTTPClient()
-
-	resource, err := client.GetResource("/")
-	t.Assert(err, nil, "Error not expected")
-	t.Assert(resource.Id, "abcd1234", "resource.Id")
-}
-
-func TestValidatePathParameters(test *testing.T) {
-	t := &T{test}
-
-	scenario := &Scenario{
-		T: t,
-		AssertRequest: func(req *http.Request) {
-			t.Assert(req.Method, http.MethodGet, "HTTP Method")
-			t.Assert(req.URL.String(), "https://v3.recurly.com/resources/abcd1234", "Request URL")
-			// assert headers and other request properties
-		},
-		MakeResponse: func(req *http.Request) *http.Response {
-			// default headers set, we may want to customize though
-			return mockResponse(req, 200, String(`{"id": "abcd1234"}`))
-		},
-	}
-	client := scenario.MockHTTPClient()
-
-	_, err := client.GetResource("")
-	t.Assert(err.Error(), "Operation parameters cannot be empty strings", "err.Error()")
-}
-
 func TestGetResource200(test *testing.T) {
 	t := &T{test}
 
