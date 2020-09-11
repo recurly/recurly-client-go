@@ -13632,6 +13632,8 @@ paths:
           Recurly error: %v\", e)\n\treturn nil, err\n}\nfmt.Printf(\"Preview Charge
           Invoice %v\", collection.ChargeInvoice)"
   "/sites/{site_id}/export_dates":
+    parameters:
+    - "$ref": "#/components/parameters/site_id"
     get:
       tags:
       - automated_exports
@@ -13639,8 +13641,6 @@ paths:
       summary: List the dates that have an available export to download.
       description: Returns a list of dates for which export files are available for
         download.
-      parameters:
-      - "$ref": "#/components/parameters/site_id"
       responses:
         '200':
           description: Returns a list of dates.
@@ -13668,6 +13668,9 @@ paths:
                 "$ref": "#/components/schemas/Error"
       x-code-samples: []
   "/sites/{site_id}/export_dates/{export_date}/export_files":
+    parameters:
+    - "$ref": "#/components/parameters/site_id"
+    - "$ref": "#/components/parameters/export_date"
     get:
       tags:
       - automated_exports
@@ -13675,9 +13678,6 @@ paths:
       summary: List of the export files that are available to download.
       description: Returns a list of presigned URLs to download export files for the
         given date, with their MD5 sums.
-      parameters:
-      - "$ref": "#/components/parameters/site_id"
-      - "$ref": "#/components/parameters/export_date"
       responses:
         '200':
           description: Returns a list of export files to download.
@@ -14069,10 +14069,11 @@ components:
         - non-legacy
         - legacy
     export_date:
-      name: date
-      in: query
+      name: export_date
+      in: path
       description: Date for which to get a list of available automated export files.
         Date must be in YYYY-MM-DD format.
+      required: true
       schema:
         type: string
   securitySchemes:

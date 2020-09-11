@@ -253,7 +253,7 @@ type ClientInterface interface {
 
 	GetExportDates() (*ExportDates, error)
 
-	GetExportFiles(params *GetExportFilesParams) (*ExportFiles, error)
+	GetExportFiles(exportDate string) (*ExportFiles, error)
 }
 
 type ListSitesParams struct {
@@ -4100,38 +4100,12 @@ func (c *Client) GetExportDates() (*ExportDates, error) {
 	return result, err
 }
 
-type GetExportFilesParams struct {
-	Params
-
-	// Date - Date for which to get a list of available automated export files. Date must be in YYYY-MM-DD format.
-	Date *string
-}
-
-func (list *GetExportFilesParams) toParams() *Params {
-	return &Params{
-		IdempotencyKey: list.IdempotencyKey,
-		Header:         list.Header,
-		Context:        list.Context,
-		RequestParams:  list,
-	}
-}
-
-func (list *GetExportFilesParams) URLParams() []KeyValue {
-	var options []KeyValue
-
-	if list.Date != nil {
-		options = append(options, KeyValue{Key: "date", Value: *list.Date})
-	}
-
-	return options
-}
-
 // GetExportFiles List of the export files that are available to download.
 // Returns: Returns a list of export files to download.
-func (c *Client) GetExportFiles(params *GetExportFilesParams) (*ExportFiles, error) {
-	path := "/export_dates/{export_date}/export_files"
+func (c *Client) GetExportFiles(exportDate string) (*ExportFiles, error) {
+	path := c.InterpolatePath("/export_dates/{export_date}/export_files", exportDate)
 	result := &ExportFiles{}
-	err := c.Call(http.MethodGet, path, params, result)
+	err := c.Call(http.MethodGet, path, nil, result)
 	if err != nil {
 		return nil, err
 	}
