@@ -1699,7 +1699,7 @@ type Coupon struct {
 	// The coupon is valid for one-time, non-plan charges if true.
 	AppliesToNonPlanCharges bool `json:"applies_to_non_plan_charges,omitempty"`
 
-	// TODO
+	// A list of plan names for which this coupon applies.
 	PlansNames []string `json:"plans_names,omitempty"`
 
 	// A list of plans for which this coupon applies. This will be `null` if `applies_to_all_plans=true`.
@@ -6093,6 +6093,9 @@ func (list *UsageList) Count() (*int64, error) {
 type ExportDates struct {
 	recurlyResponse *ResponseMetadata
 
+	// Object type
+	Object string `json:"object,omitempty"`
+
 	// An array of dates that have available exports.
 	Dates []string `json:"dates,omitempty"`
 }
@@ -6168,6 +6171,9 @@ func (list *ExportDatesList) Count() (*int64, error) {
 
 type ExportFiles struct {
 	recurlyResponse *ResponseMetadata
+
+	// Object type
+	Object string `json:"object,omitempty"`
 
 	Files []ExportFile `json:"files,omitempty"`
 }
