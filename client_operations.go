@@ -250,6 +250,10 @@ type ClientInterface interface {
 	CreatePurchase(body *PurchaseCreate) (*InvoiceCollection, error)
 
 	PreviewPurchase(body *PurchaseCreate) (*InvoiceCollection, error)
+
+	GetExportDates() (*ExportDates, error)
+
+	GetExportFiles(exportDate string) (*ExportFiles, error)
 }
 
 type ListSitesParams struct {
@@ -4078,6 +4082,30 @@ func (c *Client) PreviewPurchase(body *PurchaseCreate) (*InvoiceCollection, erro
 	path := c.InterpolatePath("/purchases/preview")
 	result := &InvoiceCollection{}
 	err := c.Call(http.MethodPost, path, body, result)
+	if err != nil {
+		return nil, err
+	}
+	return result, err
+}
+
+// GetExportDates List the dates that have an available export to download.
+// Returns: Returns a list of dates.
+func (c *Client) GetExportDates() (*ExportDates, error) {
+	path := "/export_dates"
+	result := &ExportDates{}
+	err := c.Call(http.MethodGet, path, nil, result)
+	if err != nil {
+		return nil, err
+	}
+	return result, err
+}
+
+// GetExportFiles List of the export files that are available to download.
+// Returns: Returns a list of export files to download.
+func (c *Client) GetExportFiles(exportDate string) (*ExportFiles, error) {
+	path := c.InterpolatePath("/export_dates/{export_date}/export_files", exportDate)
+	result := &ExportFiles{}
+	err := c.Call(http.MethodGet, path, nil, result)
 	if err != nil {
 		return nil, err
 	}

@@ -466,7 +466,7 @@ type LineItemCreate struct {
 	// Optional field to track a product code or SKU for the line item. This can be used to later reporting on product purchases. For Vertex tax calculations, this field will be used as the Vertex `product` field. If `item_code`/`item_id` is part of the request then `product_code` must be absent.
 	ProductCode *string `json:"product_code,omitempty"`
 
-	// Only allowed if the Gift Cards feature is enabled on your site and `type` is `credit`. Can only have a value of `external_gift_card`. Set this value in order to track gift card credits from external gift cards (like InComm). It also skips billing information requirements.
+	// Origin `external_gift_card` is allowed if the Gift Cards feature is enabled on your site and `type` is `credit`. Set this value in order to track gift card credits from external gift cards (like InComm). It also skips billing information requirements.  Origin `prepayment` is only allowed if `type` is `charge` and `tax_exempt` is left blank or set to true.  This origin creates a charge and opposite credit on the account to be used for future invoices.
 	Origin *string `json:"origin,omitempty"`
 
 	// If an end date is present, this is value indicates the beginning of a billing time range. If no end date is present it indicates billing for a specific date. Defaults to the current date-time.
@@ -1198,7 +1198,9 @@ type AddOnCreate struct {
 	// Whether the add-on type is fixed, or usage-based.
 	AddOnType *string `json:"add_on_type,omitempty"`
 
-	// Type of usage, required if `add_on_type` is `usage`.
+	// Type of usage, required if `add_on_type` is `usage`. See our
+	// [Guide](https://developers.recurly.com/guides/usage-based-billing-guide.html)
+	// for an overview of how to configure usage add-ons.
 	UsageType *string `json:"usage_type,omitempty"`
 
 	// The percentage taken of the monetary amount of usage tracked. This can be up to 4 decimal places. A value between 0.0 and 100.0. Required if `add_on_type` is usage and `usage_type` is percentage. Must be omitted otherwise. `usage_percentage` does not support tiers.
@@ -1246,7 +1248,9 @@ type AddOnCreate struct {
 	Currencies []AddOnPricingCreate `json:"currencies,omitempty"`
 
 	// The pricing model for the add-on.  For more information,
-	// [click here](https://docs.recurly.com/docs/billing-models#section-quantity-based).
+	// [click here](https://docs.recurly.com/docs/billing-models#section-quantity-based). See
+	// our [Guide](https://developers.recurly.com/guides/item-addon-guide.html) for an overview
+	// of how to configure quantity-based pricing models.
 	TierType *string `json:"tier_type,omitempty"`
 
 	// If the tier_type is `flat`, then `tiers` must be absent. The `tiers` object
@@ -1648,10 +1652,11 @@ type SubscriptionAddOnCreate struct {
 	// If the plan add-on's `tier_type` is `flat`, then `tiers` must be absent. The `tiers` object
 	// must include one to many tiers with `ending_quantity` and `unit_amount`.
 	// There must be one tier with an `ending_quantity` of 999999999 which is the
-	// default if not provided.
+	// default if not provided. See our [Guide](https://developers.recurly.com/guides/item-addon-guide.html)
+	// for an overview of how to configure quantity-based pricing models.
 	Tiers []SubscriptionAddOnTierCreate `json:"tiers,omitempty"`
 
-	// The percentage taken of the monetary amount of usage tracked. This can be up to 4 decimal places. A value between 0.0 and 100.0. Required if `add_on_type` is usage and `usage_type` is percentage. Must be omitted otherwise. `usage_percentage` does not support tiers.
+	// The percentage taken of the monetary amount of usage tracked. This can be up to 4 decimal places. A value between 0.0 and 100.0. Required if `add_on_type` is usage and `usage_type` is percentage. Must be omitted otherwise. `usage_percentage` does not support tiers. See our [Guide](https://developers.recurly.com/guides/usage-based-billing-guide.html) for an overview of how to configure usage add-ons.
 	UsagePercentage *float64 `json:"usage_percentage,omitempty"`
 
 	// Revenue schedule type

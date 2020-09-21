@@ -1699,7 +1699,7 @@ type Coupon struct {
 	// The coupon is valid for one-time, non-plan charges if true.
 	AppliesToNonPlanCharges bool `json:"applies_to_non_plan_charges,omitempty"`
 
-	// TODO
+	// A list of plan names for which this coupon applies.
 	PlansNames []string `json:"plans_names,omitempty"`
 
 	// A list of plans for which this coupon applies. This will be `null` if `applies_to_all_plans=true`.
@@ -1723,6 +1723,12 @@ type Coupon struct {
 
 	// The date and time the coupon will expire and can no longer be redeemed. Time is always 11:59:59, the end-of-day Pacific time.
 	RedeemBy time.Time `json:"redeem_by,omitempty"`
+
+	// The Coupon ID of the parent Bulk Coupon
+	BulkCouponId string `json:"bulk_coupon_id,omitempty"`
+
+	// The Coupon code of the parent Bulk Coupon
+	BulkCouponCode string `json:"bulk_coupon_code,omitempty"`
 
 	// The date and time the unique coupon code was redeemed. This is only present for bulk coupons.
 	RedeemedAt time.Time `json:"redeemed_at,omitempty"`
@@ -4434,6 +4440,12 @@ type UniqueCouponCode struct {
 	// Indicates if the unique coupon code is redeemable or why not.
 	State string `json:"state,omitempty"`
 
+	// The Coupon ID of the parent Bulk Coupon
+	BulkCouponId string `json:"bulk_coupon_id,omitempty"`
+
+	// The Coupon code of the parent Bulk Coupon
+	BulkCouponCode string `json:"bulk_coupon_code,omitempty"`
+
 	// Created at
 	CreatedAt time.Time `json:"created_at,omitempty"`
 
@@ -5993,6 +6005,12 @@ type Usage struct {
 	// When the usage actually happened. This will define the line item dates this usage is billed under and is important for revenue recognition.
 	UsageTimestamp time.Time `json:"usage_timestamp,omitempty"`
 
+	// The percentage taken of the monetary amount of usage tracked. This can be up to 4 decimal places. A value between 0.0 and 100.0.
+	UsagePercentage float64 `json:"usage_percentage,omitempty"`
+
+	// Unit price
+	UnitAmount float64 `json:"unit_amount,omitempty"`
+
 	// When the usage record was billed on an invoice.
 	BilledAt time.Time `json:"billed_at,omitempty"`
 
@@ -6064,6 +6082,245 @@ func (list *UsageList) Fetch() error {
 // Count returns the count of items on the server that match this pager
 func (list *UsageList) Count() (*int64, error) {
 	resources := &usageList{}
+	err := list.client.Call(http.MethodHead, list.nextPagePath, nil, resources)
+	if err != nil {
+		return nil, err
+	}
+	resp := resources.GetResponse()
+	return resp.TotalRecords, nil
+}
+
+type ExportDates struct {
+	recurlyResponse *ResponseMetadata
+
+	// Object type
+	Object string `json:"object,omitempty"`
+
+	// An array of dates that have available exports.
+	Dates []string `json:"dates,omitempty"`
+}
+
+// GetResponse returns the ResponseMetadata that generated this resource
+func (resource *ExportDates) GetResponse() *ResponseMetadata {
+	return resource.recurlyResponse
+}
+
+// setResponse sets the ResponseMetadata that generated this resource
+func (resource *ExportDates) setResponse(res *ResponseMetadata) {
+	resource.recurlyResponse = res
+}
+
+// internal struct for deserializing accounts
+type exportDatesList struct {
+	ListMetadata
+	Data            []ExportDates `json:"data"`
+	recurlyResponse *ResponseMetadata
+}
+
+// GetResponse returns the ResponseMetadata that generated this resource
+func (resource *exportDatesList) GetResponse() *ResponseMetadata {
+	return resource.recurlyResponse
+}
+
+// setResponse sets the ResponseMetadata that generated this resource
+func (resource *exportDatesList) setResponse(res *ResponseMetadata) {
+	resource.recurlyResponse = res
+}
+
+// ExportDatesList allows you to paginate ExportDates objects
+type ExportDatesList struct {
+	client       HttpCaller
+	nextPagePath string
+
+	HasMore bool
+	Data    []ExportDates
+}
+
+func NewExportDatesList(client HttpCaller, nextPagePath string) *ExportDatesList {
+	return &ExportDatesList{
+		client:       client,
+		nextPagePath: nextPagePath,
+		HasMore:      true,
+	}
+}
+
+// Fetch fetches the next page of data into the `Data` property
+func (list *ExportDatesList) Fetch() error {
+	resources := &exportDatesList{}
+	err := list.client.Call(http.MethodGet, list.nextPagePath, nil, resources)
+	if err != nil {
+		return err
+	}
+	// copy over properties from the response
+	list.nextPagePath = resources.Next
+	list.HasMore = resources.HasMore
+	list.Data = resources.Data
+	return nil
+}
+
+// Count returns the count of items on the server that match this pager
+func (list *ExportDatesList) Count() (*int64, error) {
+	resources := &exportDatesList{}
+	err := list.client.Call(http.MethodHead, list.nextPagePath, nil, resources)
+	if err != nil {
+		return nil, err
+	}
+	resp := resources.GetResponse()
+	return resp.TotalRecords, nil
+}
+
+type ExportFiles struct {
+	recurlyResponse *ResponseMetadata
+
+	// Object type
+	Object string `json:"object,omitempty"`
+
+	Files []ExportFile `json:"files,omitempty"`
+}
+
+// GetResponse returns the ResponseMetadata that generated this resource
+func (resource *ExportFiles) GetResponse() *ResponseMetadata {
+	return resource.recurlyResponse
+}
+
+// setResponse sets the ResponseMetadata that generated this resource
+func (resource *ExportFiles) setResponse(res *ResponseMetadata) {
+	resource.recurlyResponse = res
+}
+
+// internal struct for deserializing accounts
+type exportFilesList struct {
+	ListMetadata
+	Data            []ExportFiles `json:"data"`
+	recurlyResponse *ResponseMetadata
+}
+
+// GetResponse returns the ResponseMetadata that generated this resource
+func (resource *exportFilesList) GetResponse() *ResponseMetadata {
+	return resource.recurlyResponse
+}
+
+// setResponse sets the ResponseMetadata that generated this resource
+func (resource *exportFilesList) setResponse(res *ResponseMetadata) {
+	resource.recurlyResponse = res
+}
+
+// ExportFilesList allows you to paginate ExportFiles objects
+type ExportFilesList struct {
+	client       HttpCaller
+	nextPagePath string
+
+	HasMore bool
+	Data    []ExportFiles
+}
+
+func NewExportFilesList(client HttpCaller, nextPagePath string) *ExportFilesList {
+	return &ExportFilesList{
+		client:       client,
+		nextPagePath: nextPagePath,
+		HasMore:      true,
+	}
+}
+
+// Fetch fetches the next page of data into the `Data` property
+func (list *ExportFilesList) Fetch() error {
+	resources := &exportFilesList{}
+	err := list.client.Call(http.MethodGet, list.nextPagePath, nil, resources)
+	if err != nil {
+		return err
+	}
+	// copy over properties from the response
+	list.nextPagePath = resources.Next
+	list.HasMore = resources.HasMore
+	list.Data = resources.Data
+	return nil
+}
+
+// Count returns the count of items on the server that match this pager
+func (list *ExportFilesList) Count() (*int64, error) {
+	resources := &exportFilesList{}
+	err := list.client.Call(http.MethodHead, list.nextPagePath, nil, resources)
+	if err != nil {
+		return nil, err
+	}
+	resp := resources.GetResponse()
+	return resp.TotalRecords, nil
+}
+
+type ExportFile struct {
+	recurlyResponse *ResponseMetadata
+
+	// Name of the export file.
+	Name string `json:"name,omitempty"`
+
+	// MD5 hash of the export file.
+	Md5sum string `json:"md5sum,omitempty"`
+
+	// A presigned link to download the export file.
+	Href string `json:"href,omitempty"`
+}
+
+// GetResponse returns the ResponseMetadata that generated this resource
+func (resource *ExportFile) GetResponse() *ResponseMetadata {
+	return resource.recurlyResponse
+}
+
+// setResponse sets the ResponseMetadata that generated this resource
+func (resource *ExportFile) setResponse(res *ResponseMetadata) {
+	resource.recurlyResponse = res
+}
+
+// internal struct for deserializing accounts
+type exportFileList struct {
+	ListMetadata
+	Data            []ExportFile `json:"data"`
+	recurlyResponse *ResponseMetadata
+}
+
+// GetResponse returns the ResponseMetadata that generated this resource
+func (resource *exportFileList) GetResponse() *ResponseMetadata {
+	return resource.recurlyResponse
+}
+
+// setResponse sets the ResponseMetadata that generated this resource
+func (resource *exportFileList) setResponse(res *ResponseMetadata) {
+	resource.recurlyResponse = res
+}
+
+// ExportFileList allows you to paginate ExportFile objects
+type ExportFileList struct {
+	client       HttpCaller
+	nextPagePath string
+
+	HasMore bool
+	Data    []ExportFile
+}
+
+func NewExportFileList(client HttpCaller, nextPagePath string) *ExportFileList {
+	return &ExportFileList{
+		client:       client,
+		nextPagePath: nextPagePath,
+		HasMore:      true,
+	}
+}
+
+// Fetch fetches the next page of data into the `Data` property
+func (list *ExportFileList) Fetch() error {
+	resources := &exportFileList{}
+	err := list.client.Call(http.MethodGet, list.nextPagePath, nil, resources)
+	if err != nil {
+		return err
+	}
+	// copy over properties from the response
+	list.nextPagePath = resources.Next
+	list.HasMore = resources.HasMore
+	list.Data = resources.Data
+	return nil
+}
+
+// Count returns the count of items on the server that match this pager
+func (list *ExportFileList) Count() (*int64, error) {
+	resources := &exportFileList{}
 	err := list.client.Call(http.MethodHead, list.nextPagePath, nil, resources)
 	if err != nil {
 		return nil, err
