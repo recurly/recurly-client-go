@@ -1,8 +1,22 @@
 # Changelog
 
-## [v3.7.0](https://github.com/recurly/recurly-client-go/tree/HEAD)
+## [v3.8.0](https://github.com/recurly/recurly-client-go/tree/HEAD)
 
-[Full Changelog](https://github.com/recurly/recurly-client-go/compare/v3.6.0...HEAD)
+[Full Changelog](https://github.com/recurly/recurly-client-go/compare/v3.7.0...HEAD)
+
+**Implemented enhancements:**
+
+- Latest Changes for 2019-10-10 \(Automated Exports, additional resource data attributes\) [\#56](https://github.com/recurly/recurly-client-go/pull/56) ([douglasmiller](https://github.com/douglasmiller))
+- Ensure that path parameters are not empty strings [\#21](https://github.com/recurly/recurly-client-go/pull/21) ([douglasmiller](https://github.com/douglasmiller))
+
+**Merged pull requests:**
+
+- Release 3.8.0 [\#57](https://github.com/recurly/recurly-client-go/pull/57) ([douglasmiller](https://github.com/douglasmiller))
+- Revert "Ensure that path parameters are not empty strings" [\#53](https://github.com/recurly/recurly-client-go/pull/53) ([douglasmiller](https://github.com/douglasmiller))
+
+## [v3.7.0](https://github.com/recurly/recurly-client-go/tree/v3.7.0) (2020-08-31)
+
+[Full Changelog](https://github.com/recurly/recurly-client-go/compare/v3.6.0...v3.7.0)
 
 **Implemented enhancements:**
 
