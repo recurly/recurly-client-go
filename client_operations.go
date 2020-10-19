@@ -95,6 +95,8 @@ type ClientInterface interface {
 
 	DeactivateCoupon(couponId string) (*Coupon, error)
 
+	RestoreCoupon(couponId string, body *CouponUpdate) (*Coupon, error)
+
 	ListUniqueCouponCodes(couponId string, params *ListUniqueCouponCodesParams) *UniqueCouponCodeList
 
 	ListCreditPayments(params *ListCreditPaymentsParams) *CreditPaymentList
@@ -1662,6 +1664,18 @@ func (c *Client) DeactivateCoupon(couponId string) (*Coupon, error) {
 	path := c.InterpolatePath("/coupons/{coupon_id}", couponId)
 	result := &Coupon{}
 	err := c.Call(http.MethodDelete, path, nil, result)
+	if err != nil {
+		return nil, err
+	}
+	return result, err
+}
+
+// RestoreCoupon Restore an inactive coupon
+// Returns: The restored coupon.
+func (c *Client) RestoreCoupon(couponId string, body *CouponUpdate) (*Coupon, error) {
+	path := c.InterpolatePath("/coupons/{coupon_id}/restore", couponId)
+	result := &Coupon{}
+	err := c.Call(http.MethodPut, path, body, result)
 	if err != nil {
 		return nil, err
 	}
