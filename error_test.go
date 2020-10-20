@@ -49,7 +49,7 @@ func Test401UnauthorizedError(test *testing.T) {
 	// test fallback without body
 	resp = mockResponseWithoutBody(401)
 	err = parseError(resp)
-	t.Assert(err.Error(), "Unauthorized", "err.Error()")
+	t.Assert(err.Error(), "An unexpected 401 error has occurred.", "err.Error()")
 	if e, ok := err.(*Error); ok {
 		t.Assert(e.Type, ErrorTypeUnauthorized, "e.Type")
 		t.Assert(e.Class, ErrorClassClient, "e.Class")
@@ -75,7 +75,7 @@ func Test403ForbiddenError(test *testing.T) {
 	// test fallback without body
 	resp = mockResponseWithoutBody(403)
 	err = parseError(resp)
-	t.Assert(err.Error(), "The API key is not authorized for this resource", "err.Error()")
+	t.Assert(err.Error(), "An unexpected 403 error has occurred.", "err.Error()")
 	if e, ok := err.(*Error); ok {
 		t.Assert(e.Type, ErrorTypeForbidden, "e.Type")
 		t.Assert(e.Class, ErrorClassClient, "e.Class")
@@ -102,12 +102,40 @@ func Test404NotFoundError(test *testing.T) {
 	// test fallback without body
 	resp = mockResponseWithoutBody(404)
 	err = parseError(resp)
-	t.Assert(err.Error(), "Requested object or endpoint not found", "err.Error()")
+	t.Assert(err.Error(), "An unexpected 404 error has occurred.", "err.Error()")
 	if e, ok := err.(*Error); ok {
 		t.Assert(e.Type, ErrorTypeNotFound, "e.Type")
 		t.Assert(e.Class, ErrorClassClient, "e.Class")
 	}
 }
+
+func Test408GatewayTimeoutError(test *testing.T) {
+	t := &T{test}
+
+	resp := mockResponseWithBody(408, `
+		{
+			 "error": {
+				"type": "timeout",
+				"message": "The request timed out"
+			}
+		}`)
+	err := parseError(resp)
+	t.Assert(err.Error(), "The request timed out", "err.Error()")
+	if e, ok := err.(*Error); ok {
+		t.Assert(e.Type, ErrorTypeTimeout, "e.Type")
+		t.Assert(e.Class, ErrorClassClient, "e.Class")
+	}
+
+	// test fallback without body
+	resp = mockResponseWithoutBody(408)
+	err = parseError(resp)
+	t.Assert(err.Error(), "An unexpected 408 error has occurred.", "err.Error()")
+	if e, ok := err.(*Error); ok {
+		t.Assert(e.Type, ErrorTypeUnknown, "e.Type")
+		t.Assert(e.Class, ErrorClassClient, "e.Class")
+	}
+}
+
 func Test422ValidationError(test *testing.T) {
 	t := &T{test}
 
@@ -132,7 +160,7 @@ func Test422ValidationError(test *testing.T) {
 	// test fallback without body
 	resp = mockResponseWithoutBody(422)
 	err = parseError(resp)
-	t.Assert(err.Error(), "Invalid request", "err.Error()")
+	t.Assert(err.Error(), "An unexpected 422 error has occurred.", "err.Error()")
 	if e, ok := err.(*Error); ok {
 		t.Assert(e.Type, ErrorTypeValidation, "e.Type")
 		t.Assert(e.Class, ErrorClassClient, "e.Class")
@@ -159,7 +187,7 @@ func Test429RateLimitedError(test *testing.T) {
 	// test fallback without body
 	resp = mockResponseWithoutBody(429)
 	err = parseError(resp)
-	t.Assert(err.Error(), "You made too many API requests", "err.Error()")
+	t.Assert(err.Error(), "An unexpected 429 error has occurred.", "err.Error()")
 	if e, ok := err.(*Error); ok {
 		t.Assert(e.Type, ErrorTypeRateLimited, "e.Type")
 		t.Assert(e.Class, ErrorClassClient, "e.Class")
@@ -186,7 +214,7 @@ func Test500InternalServerError(test *testing.T) {
 	// test fallback without body
 	resp = mockResponseWithoutBody(500)
 	err = parseError(resp)
-	t.Assert(err.Error(), "Server experienced an error", "err.Error()")
+	t.Assert(err.Error(), "An unexpected 500 error has occurred.", "err.Error()")
 	if e, ok := err.(*Error); ok {
 		t.Assert(e.Type, ErrorTypeInternalServer, "e.Type")
 		t.Assert(e.Class, ErrorClassServer, "e.Class")
@@ -213,7 +241,7 @@ func Test502BadGatewatError(test *testing.T) {
 	// test fallback without body
 	resp = mockResponseWithoutBody(502)
 	err = parseError(resp)
-	t.Assert(err.Error(), "Error contacting server", "err.Error()")
+	t.Assert(err.Error(), "An unexpected 502 error has occurred.", "err.Error()")
 	if e, ok := err.(*Error); ok {
 		t.Assert(e.Type, ErrorTypeBadGateway, "e.Type")
 		t.Assert(e.Class, ErrorClassServer, "e.Class")
@@ -240,7 +268,7 @@ func Test503ServiceUnavailableError(test *testing.T) {
 	// test fallback without body
 	resp = mockResponseWithoutBody(503)
 	err = parseError(resp)
-	t.Assert(err.Error(), "Service unavailable", "err.Error()")
+	t.Assert(err.Error(), "An unexpected 503 error has occurred.", "err.Error()")
 	if e, ok := err.(*Error); ok {
 		t.Assert(e.Type, ErrorTypeServiceUnavailable, "e.Type")
 		t.Assert(e.Class, ErrorClassServer, "e.Class")
@@ -267,9 +295,22 @@ func Test504GatewayTimeoutError(test *testing.T) {
 	// test fallback without body
 	resp = mockResponseWithoutBody(504)
 	err = parseError(resp)
-	t.Assert(err.Error(), "Request timed out", "err.Error()")
+	t.Assert(err.Error(), "An unexpected 504 error has occurred.", "err.Error()")
 	if e, ok := err.(*Error); ok {
 		t.Assert(e.Type, ErrorTypeTimeout, "e.Type")
+		t.Assert(e.Class, ErrorClassServer, "e.Class")
+	}
+}
+
+func TestUnknownError(test *testing.T) {
+	t := &T{test}
+
+	// test fallback without body
+	resp := mockResponseWithoutBody(0)
+	err := parseError(resp)
+	t.Assert(err.Error(), "An unexpected 0 error has occurred.", "err.Error()")
+	if e, ok := err.(*Error); ok {
+		t.Assert(e.Type, ErrorTypeUnknown, "e.Type")
 		t.Assert(e.Class, ErrorClassServer, "e.Class")
 	}
 }
