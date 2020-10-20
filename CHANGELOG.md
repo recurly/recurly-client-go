@@ -1,8 +1,21 @@
 # Changelog
 
-## [v3.8.0](https://github.com/recurly/recurly-client-go/tree/HEAD)
+## [v3.9.0](https://github.com/recurly/recurly-client-go/tree/HEAD)
 
-[Full Changelog](https://github.com/recurly/recurly-client-go/compare/v3.7.0...HEAD)
+[Full Changelog](https://github.com/recurly/recurly-client-go/compare/v3.8.0...HEAD)
+
+**Implemented enhancements:**
+
+- Mon Oct 19 20:43:56 UTC 2020 Upgrade API version v2019-10-10 [\#61](https://github.com/recurly/recurly-client-go/pull/61) ([douglasmiller](https://github.com/douglasmiller))
+
+**Merged pull requests:**
+
+- Release 3.9.0 [\#62](https://github.com/recurly/recurly-client-go/pull/62) ([douglasmiller](https://github.com/douglasmiller))
+- Splitting up large files into many smaller files [\#60](https://github.com/recurly/recurly-client-go/pull/60) ([douglasmiller](https://github.com/douglasmiller))
+
+## [v3.8.0](https://github.com/recurly/recurly-client-go/tree/v3.8.0) (2020-09-22)
+
+[Full Changelog](https://github.com/recurly/recurly-client-go/compare/v3.7.0...v3.8.0)
 
 **Implemented enhancements:**
 
