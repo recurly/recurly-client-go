@@ -118,3 +118,4 @@ rm -f shipping_purchase.go
 rm -f shipping_fee_create.go
 rm -f subscription_purchase.go
 rm -f subscription_shipping_purchase.go
+

@@ -2,6 +2,7 @@ package recurly
 
 import (
 	"encoding/json"
+	"fmt"
 	"net/http"
 	"strings"
 )
@@ -36,40 +37,6 @@ type ErrorClass string
 
 type TransactionErrorCategory string
 
-const (
-	ErrorClassServer = ErrorClass("server")
-	ErrorClassClient = ErrorClass("client")
-
-	ErrorTypeUnknown                 = ErrorType("unknown")
-	ErrorTypeRateLimited             = ErrorType("rate_limited")
-	ErrorTypeTimeout                 = ErrorType("timeout")
-	ErrorTypeValidation              = ErrorType("validation")
-	ErrorTypeTransaction             = ErrorType("transaction")
-	ErrorTypeNotFound                = ErrorType("not_found")
-	ErrorTypeBadRequest              = ErrorType("bad_request")
-	ErrorTypeInternalServer          = ErrorType("internal_server_error")
-	ErrorTypeImmutableSubscription   = ErrorType("immutable_subscription")
-	ErrorTypeInvalidApiKey           = ErrorType("invalid_api_key")
-	ErrorTypeInvalidContentType      = ErrorType("invalid_content_type")
-	ErrorTypeInvalidApiVersion       = ErrorType("invalid_api_version")
-	ErrorTypeInvalidPermissions      = ErrorType("invalid_permissions")
-	ErrorTypeInvalidToken            = ErrorType("invalid_token")
-	ErrorTypeSimulaneousRequest      = ErrorType("simultaneous_request")
-	ErrorTypeUnavailableInApiVersion = ErrorType("unavailable_in_api_version")
-	ErrorTypeUnknownApiVersion       = ErrorType("unknown_api_version")
-	ErrorTypeMissingFeature          = ErrorType("missing_feature")
-	ErrorTypeUnauthorized            = ErrorType("unauthorized")
-	ErrorTypeForbidden               = ErrorType("forbidden")
-	ErrorTypeBadGateway              = ErrorType("bad_gateway")
-	ErrorTypeServiceUnavailable      = ErrorType("service_unavailable")
-
-	TransactionErrorCategorySoft          = TransactionErrorCategory("soft")
-	TransactionErrorCategoryFraud         = TransactionErrorCategory("fraud")
-	TransactionErrorCategoryHard          = TransactionErrorCategory("hard")
-	TransactionErrorCategoryCommunication = TransactionErrorCategory("communication")
-	TransactionErrorCategoryUnknown       = TransactionErrorCategory("unknown")
-)
-
 type errorResponse struct {
 	Error errorDetails `json:"error"`
 }
@@ -94,6 +61,19 @@ type ErrorParam struct {
 	Property string `json:"param"`
 	Message  string `json:"message"`
 }
+
+const (
+	ErrorClassServer = ErrorClass("server")
+	ErrorClassClient = ErrorClass("client")
+
+	ErrorTypeUnknown = ErrorType("unknown")
+
+	TransactionErrorCategorySoft          = TransactionErrorCategory("soft")
+	TransactionErrorCategoryFraud         = TransactionErrorCategory("fraud")
+	TransactionErrorCategoryHard          = TransactionErrorCategory("hard")
+	TransactionErrorCategoryCommunication = TransactionErrorCategory("communication")
+	TransactionErrorCategoryUnknown       = TransactionErrorCategory("unknown")
+)
 
 // parseResponseToError converts an http.Response to the appropriate error
 func parseResponseToError(res *http.Response, body []byte) error {
@@ -124,38 +104,16 @@ func parseResponseToError(res *http.Response, body []byte) error {
 
 	// If we don't have a body, construct the details from the status code
 
-	errMessage := "An unknown error has occurred. Please try again later."
-	errType := ErrorTypeUnknown
+	errMessage := fmt.Sprintf("An unexpected %d error has occurred.", res.StatusCode)
+	errType := ErrorFromStatusCode(res)
 
+	// This is here to preserve existing behavior from hard coded error
+	// handling that existed prior to the introduction of ErrorFromStatusCode
 	switch res.StatusCode {
-	case http.StatusUnauthorized: // 401
-		errMessage = "Unauthorized"
-		errType = ErrorTypeUnauthorized
-	case http.StatusForbidden: // 403
-		errMessage = "The API key is not authorized for this resource"
-		errType = ErrorTypeForbidden
-	case http.StatusNotFound: // 404
-		errMessage = "Requested object or endpoint not found"
-		errType = ErrorTypeNotFound
 	case http.StatusUnprocessableEntity: // 422
-		errMessage = "Invalid request"
 		errType = ErrorTypeValidation
 	case http.StatusTooManyRequests: // 429
-		errMessage = "You made too many API requests"
 		errType = ErrorTypeRateLimited
-	case http.StatusInternalServerError: // 500
-		errMessage = "Server experienced an error"
-		errType = ErrorTypeInternalServer
-	case http.StatusBadGateway: // 502
-		errMessage = "Error contacting server"
-		errType = ErrorTypeBadGateway
-	case http.StatusServiceUnavailable: // 503
-		errMessage = "Service unavailable"
-		errType = ErrorTypeServiceUnavailable
-	case http.StatusRequestTimeout: // 408
-	case http.StatusGatewayTimeout: // 504
-		errMessage = "Request timed out"
-		errType = ErrorTypeTimeout
 	}
 
 	return &Error{
