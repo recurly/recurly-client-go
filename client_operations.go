@@ -47,7 +47,7 @@ type ClientInterface interface {
 
 	RemoveBillingInfo(accountId string) (*Empty, error)
 
-	GetBillingInfos(accountId string, params *GetBillingInfosParams) *BillingInfoList
+	ListBillingInfos(accountId string, params *ListBillingInfosParams) *BillingInfoList
 
 	CreateBillingInfo(accountId string, body *BillingInfoCreate) (*BillingInfo, error)
 
@@ -55,7 +55,7 @@ type ClientInterface interface {
 
 	UpdateABillingInfo(accountId string, billingInfoId string, body *BillingInfoCreate) (*BillingInfo, error)
 
-	RemoveOneBillingInfo(accountId string, billingInfoId string) (*Empty, error)
+	RemoveABillingInfo(accountId string, billingInfoId string) (*Empty, error)
 
 	ListAccountCouponRedemptions(accountId string, params *ListAccountCouponRedemptionsParams) *CouponRedemptionList
 
@@ -603,7 +603,7 @@ func (c *Client) RemoveBillingInfo(accountId string) (*Empty, error) {
 	return result, err
 }
 
-type GetBillingInfosParams struct {
+type ListBillingInfosParams struct {
 	Params
 
 	// Ids - Filter results by their IDs. Up to 200 IDs can be passed at once using
@@ -631,7 +631,7 @@ type GetBillingInfosParams struct {
 	EndTime *time.Time
 }
 
-func (list *GetBillingInfosParams) toParams() *Params {
+func (list *ListBillingInfosParams) toParams() *Params {
 	return &Params{
 		IdempotencyKey: list.IdempotencyKey,
 		Header:         list.Header,
@@ -640,7 +640,7 @@ func (list *GetBillingInfosParams) toParams() *Params {
 	}
 }
 
-func (list *GetBillingInfosParams) URLParams() []KeyValue {
+func (list *ListBillingInfosParams) URLParams() []KeyValue {
 	var options []KeyValue
 
 	if list.Ids != nil {
@@ -662,9 +662,9 @@ func (list *GetBillingInfosParams) URLParams() []KeyValue {
 	return options
 }
 
-// GetBillingInfos Get the list of billing information associated with an account
+// ListBillingInfos Get the list of billing information associated with an account
 // Returns: A list of the the billing information for an account's
-func (c *Client) GetBillingInfos(accountId string, params *GetBillingInfosParams) *BillingInfoList {
+func (c *Client) ListBillingInfos(accountId string, params *ListBillingInfosParams) *BillingInfoList {
 	path := c.InterpolatePath("/accounts/{account_id}/billing_infos", accountId)
 	path = BuildUrl(path, params)
 	return NewBillingInfoList(c, path)
@@ -706,9 +706,9 @@ func (c *Client) UpdateABillingInfo(accountId string, billingInfoId string, body
 	return result, err
 }
 
-// RemoveOneBillingInfo Remove an account's billing information
+// RemoveABillingInfo Remove an account's billing information
 // Returns: Billing information deleted
-func (c *Client) RemoveOneBillingInfo(accountId string, billingInfoId string) (*Empty, error) {
+func (c *Client) RemoveABillingInfo(accountId string, billingInfoId string) (*Empty, error) {
 	path := c.InterpolatePath("/accounts/{account_id}/billing_infos/{billing_info_id}", accountId, billingInfoId)
 	result := &Empty{}
 	err := c.Call(http.MethodDelete, path, nil, result)
