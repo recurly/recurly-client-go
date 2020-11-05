@@ -95,16 +95,36 @@ func newClient(apiKey string, httpClient *http.Client) *Client {
 	}
 }
 
+func validatePathParameters(params []string) error {
+	invalidParams := []string{}
+	for _, param := range params {
+		if len(strings.TrimSpace(param)) == 0 {
+			invalidParams = append(invalidParams, param)
+		}
+	}
+	if len(invalidParams) > 0 {
+		return &Error{
+			Message: "Operation parameters cannot be empty strings.",
+			Class:   ErrorClassClient,
+			Type:    ErrorTypeBadRequest,
+		}
+	}
+	return nil
+}
+
 // Takes an OpenAPI-style path such as "/accounts/{account_id}/shipping_addresses/{shipping_address_id}"
 // and a list of string arguments to fill the template, and it returns the interpolated path
 func (c *Client) InterpolatePath(path string, params ...string) (string, error) {
+	err := validatePathParameters(params)
+	if err != nil {
+		return "", err
+	}
 	template := pathPattern.ReplaceAllString(path, "%s")
 	encodedParams := make([]interface{}, len(params))
 	for i, param := range params {
 		encoded := url.PathEscape(param)
 		encodedParams[i] = encoded
 	}
-	// Adding nil error to facilitate a change in the upcoming 4.x client.
 	return fmt.Sprintf(template, encodedParams...), nil
 }
 
