@@ -47,6 +47,16 @@ type ClientInterface interface {
 
 	RemoveBillingInfo(accountId string) (*Empty, error)
 
+	ListBillingInfos(accountId string, params *ListBillingInfosParams) *BillingInfoList
+
+	CreateBillingInfo(accountId string, body *BillingInfoCreate) (*BillingInfo, error)
+
+	GetABillingInfo(accountId string, billingInfoId string) (*BillingInfo, error)
+
+	UpdateABillingInfo(accountId string, billingInfoId string, body *BillingInfoCreate) (*BillingInfo, error)
+
+	RemoveABillingInfo(accountId string, billingInfoId string) (*Empty, error)
+
 	ListAccountCouponRedemptions(accountId string, params *ListAccountCouponRedemptionsParams) *CouponRedemptionList
 
 	GetActiveCouponRedemption(accountId string) (*CouponRedemption, error)
@@ -585,6 +595,121 @@ func (c *Client) UpdateBillingInfo(accountId string, body *BillingInfoCreate) (*
 // Returns: Billing information deleted
 func (c *Client) RemoveBillingInfo(accountId string) (*Empty, error) {
 	path := c.InterpolatePath("/accounts/{account_id}/billing_info", accountId)
+	result := &Empty{}
+	err := c.Call(http.MethodDelete, path, nil, result)
+	if err != nil {
+		return nil, err
+	}
+	return result, err
+}
+
+type ListBillingInfosParams struct {
+	Params
+
+	// Ids - Filter results by their IDs. Up to 200 IDs can be passed at once using
+	// commas as separators, e.g. `ids=h1at4d57xlmy,gyqgg0d3v9n1,jrsm5b4yefg6`.
+	// **Important notes:**
+	// * The `ids` parameter cannot be used with any other ordering or filtering
+	//   parameters (`limit`, `order`, `sort`, `begin_time`, `end_time`, etc)
+	// * Invalid or unknown IDs will be ignored, so you should check that the
+	//   results correspond to your request.
+	// * Records are returned in an arbitrary order. Since results are all
+	//   returned at once you can sort the records yourself.
+	Ids []string
+
+	// Sort - Sort field. You *really* only want to sort by `updated_at` in ascending
+	// order. In descending order updated records will move behind the cursor and could
+	// prevent some records from being returned.
+	Sort *string
+
+	// BeginTime - Inclusively filter by begin_time when `sort=created_at` or `sort=updated_at`.
+	// **Note:** this value is an ISO8601 timestamp. A partial timestamp that does not include a time zone will default to UTC.
+	BeginTime *time.Time
+
+	// EndTime - Inclusively filter by end_time when `sort=created_at` or `sort=updated_at`.
+	// **Note:** this value is an ISO8601 timestamp. A partial timestamp that does not include a time zone will default to UTC.
+	EndTime *time.Time
+}
+
+func (list *ListBillingInfosParams) toParams() *Params {
+	return &Params{
+		IdempotencyKey: list.IdempotencyKey,
+		Header:         list.Header,
+		Context:        list.Context,
+		RequestParams:  list,
+	}
+}
+
+func (list *ListBillingInfosParams) URLParams() []KeyValue {
+	var options []KeyValue
+
+	if list.Ids != nil {
+		options = append(options, KeyValue{Key: "ids", Value: strings.Join(list.Ids, ",")})
+	}
+
+	if list.Sort != nil {
+		options = append(options, KeyValue{Key: "sort", Value: *list.Sort})
+	}
+
+	if list.BeginTime != nil {
+		options = append(options, KeyValue{Key: "begin_time", Value: formatTime(*list.BeginTime)})
+	}
+
+	if list.EndTime != nil {
+		options = append(options, KeyValue{Key: "end_time", Value: formatTime(*list.EndTime)})
+	}
+
+	return options
+}
+
+// ListBillingInfos Get the list of billing information associated with an account
+// Returns: A list of the the billing information for an account's
+func (c *Client) ListBillingInfos(accountId string, params *ListBillingInfosParams) *BillingInfoList {
+	path := c.InterpolatePath("/accounts/{account_id}/billing_infos", accountId)
+	path = BuildUrl(path, params)
+	return NewBillingInfoList(c, path)
+}
+
+// CreateBillingInfo Set an account's billing information when the wallet feature is enabled
+// Returns: Updated billing information.
+func (c *Client) CreateBillingInfo(accountId string, body *BillingInfoCreate) (*BillingInfo, error) {
+	path := c.InterpolatePath("/accounts/{account_id}/billing_infos", accountId)
+	result := &BillingInfo{}
+	err := c.Call(http.MethodPost, path, body, result)
+	if err != nil {
+		return nil, err
+	}
+	return result, err
+}
+
+// GetABillingInfo Fetch a billing info
+// Returns: A billing info.
+func (c *Client) GetABillingInfo(accountId string, billingInfoId string) (*BillingInfo, error) {
+	path := c.InterpolatePath("/accounts/{account_id}/billing_infos/{billing_info_id}", accountId, billingInfoId)
+	result := &BillingInfo{}
+	err := c.Call(http.MethodGet, path, nil, result)
+	if err != nil {
+		return nil, err
+	}
+	return result, err
+}
+
+// UpdateABillingInfo Update an account's billing information
+// Returns: Updated billing information.
+func (c *Client) UpdateABillingInfo(accountId string, billingInfoId string, body *BillingInfoCreate) (*BillingInfo, error) {
+	path := c.InterpolatePath("/accounts/{account_id}/billing_infos/{billing_info_id}", accountId, billingInfoId)
+	result := &BillingInfo{}
+	err := c.Call(http.MethodPut, path, body, result)
+	if err != nil {
+		return nil, err
+	}
+	return result, err
+}
+
+// RemoveABillingInfo Remove an account's billing information
+// Returns: Billing information deleted
+func (c *Client) RemoveABillingInfo(accountId string, billingInfoId string) (*Empty, error) {
+	path := c.InterpolatePath("/accounts/{account_id}/billing_infos/{billing_info_id}", accountId, billingInfoId)
 	result := &Empty{}
 	err := c.Call(http.MethodDelete, path, nil, result)
 	if err != nil {

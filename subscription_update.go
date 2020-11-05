@@ -46,6 +46,9 @@ type SubscriptionUpdate struct {
 
 	// Subscription shipping details
 	Shipping *SubscriptionShippingUpdate `json:"shipping,omitempty"`
+
+	// The `billing_info_id` is the value that represents a specific billing info for an end customer. When `billing_info_id` is used to assign billing info to the subscription, all future billing events for the subscription will bill to the specified billing info.
+	BillingInfoId *string `json:"billing_info_id,omitempty"`
 }
 
 func (attr *SubscriptionUpdate) toParams() *Params {

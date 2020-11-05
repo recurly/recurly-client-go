@@ -58,6 +58,10 @@ type Coupon struct {
 	// The coupon is valid for all plans if true. If false then `plans` and `plans_names` will list the applicable plans.
 	AppliesToAllPlans bool `json:"applies_to_all_plans,omitempty"`
 
+	// The coupon is valid for all items if true. If false then `items`
+	// will list the applicable items.
+	AppliesToAllItems bool `json:"applies_to_all_items,omitempty"`
+
 	// The coupon is valid for one-time, non-plan charges if true.
 	AppliesToNonPlanCharges bool `json:"applies_to_non_plan_charges,omitempty"`
 
@@ -66,6 +70,10 @@ type Coupon struct {
 
 	// A list of plans for which this coupon applies. This will be `null` if `applies_to_all_plans=true`.
 	Plans []PlanMini `json:"plans,omitempty"`
+
+	// A list of items for which this coupon applies. This will be
+	// `null` if `applies_to_all_items=true`.
+	Items []ItemMini `json:"items,omitempty"`
 
 	// Whether the discount is for all eligible charges on the account, or only a specific subscription.
 	RedemptionResource string `json:"redemption_resource,omitempty"`

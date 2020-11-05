@@ -134,6 +134,9 @@ type Subscription struct {
 
 	// Recurring subscriptions paid with ACH will have this attribute set. This timestamp is used for alerting customers to reauthorize in 3 years in accordance with NACHA rules. If a subscription becomes inactive or the billing info is no longer a bank account, this timestamp is cleared.
 	BankAccountAuthorizedAt time.Time `json:"bank_account_authorized_at,omitempty"`
+
+	// Billing Info ID.
+	BillingInfoId string `json:"billing_info_id,omitempty"`
 }
 
 // GetResponse returns the ResponseMetadata that generated this resource

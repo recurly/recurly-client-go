@@ -37,6 +37,9 @@ type BillingInfo struct {
 	// Most recent fraud result.
 	Fraud FraudInfo `json:"fraud,omitempty"`
 
+	// The `primary_payment_method` indicator is used to designate the primary billing info on the account. The first billing info created on an account will always become primary. Adding additional billing infos provides the flexibility to mark another billing info as primary, or adding additional non-primary billing infos. This can be accomplished by passing the `primary_payment_method` indicator. When adding billing infos via the billing_info and /accounts endpoints, this value is not permitted, and will return an error if provided.
+	PrimaryPaymentMethod bool `json:"primary_payment_method,omitempty"`
+
 	// When the billing information was created.
 	CreatedAt time.Time `json:"created_at,omitempty"`
 

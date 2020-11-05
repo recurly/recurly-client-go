@@ -52,10 +52,23 @@ type CouponCreate struct {
 	// `plans` and `plans_names` will list the applicable plans.
 	AppliesToAllPlans *bool `json:"applies_to_all_plans,omitempty"`
 
+	// To apply coupon to Items in your Catalog, include a list
+	// of `item_codes` in the request that the coupon will apply to. Or set value
+	// to true to apply to all Items in your Catalog. The following values
+	// are not permitted when `applies_to_all_items` is included: `free_trial_amount`
+	// and `free_trial_unit`.
+	AppliesToAllItems *bool `json:"applies_to_all_items,omitempty"`
+
 	// List of plan codes to which this coupon applies. Required
 	// if `applies_to_all_plans` is false. Overrides `applies_to_all_plans`
 	// when `applies_to_all_plans` is true.
 	PlanCodes []string `json:"plan_codes,omitempty"`
+
+	// List of item codes to which this coupon applies. Sending
+	// `item_codes` is only permitted when `applies_to_all_items` is set to false.
+	// The following values are not permitted when `item_codes` is included:
+	// `free_trial_amount` and `free_trial_unit`.
+	ItemCodes []string `json:"item_codes,omitempty"`
 
 	// This field does not apply when the discount_type is `free_trial`.
 	// - "single_use" coupons applies to the first invoice only.
