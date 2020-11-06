@@ -1,8 +1,21 @@
 # Changelog
 
-## [v3.9.0](https://github.com/recurly/recurly-client-go/tree/HEAD)
+## [v3.10.0](https://github.com/recurly/recurly-client-go/tree/HEAD)
 
-[Full Changelog](https://github.com/recurly/recurly-client-go/compare/v3.8.0...HEAD)
+[Full Changelog](https://github.com/recurly/recurly-client-go/compare/v3.9.0...HEAD)
+
+**Implemented enhancements:**
+
+- Latest Changes for 2019-10-10 \(Wallet, Item Coupons\) [\#65](https://github.com/recurly/recurly-client-go/pull/65) ([douglasmiller](https://github.com/douglasmiller))
+- Updating ErrorTypes and status code based error handling to be generated [\#64](https://github.com/recurly/recurly-client-go/pull/64) ([douglasmiller](https://github.com/douglasmiller))
+
+**Merged pull requests:**
+
+- Release 3.10.0 [\#66](https://github.com/recurly/recurly-client-go/pull/66) ([douglasmiller](https://github.com/douglasmiller))
+
+## [v3.9.0](https://github.com/recurly/recurly-client-go/tree/v3.9.0) (2020-10-20)
+
+[Full Changelog](https://github.com/recurly/recurly-client-go/compare/v3.8.0...v3.9.0)
 
 **Implemented enhancements:**
 
