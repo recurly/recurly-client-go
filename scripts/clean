@@ -54,10 +54,8 @@ rm -f plan.go
 rm -f plan_pricing.go
 rm -f plan_hosted_pages.go
 rm -f add_on.go
-rm -f add_on_pricing.go
 rm -f tier.go
 rm -f shipping_method.go
-rm -f subscription_change_preview.go
 rm -f usage.go
 rm -f export_dates.go
 rm -f export_files.go
@@ -94,7 +92,6 @@ rm -f plan_create.go
 rm -f plan_pricing_create.go
 rm -f plan_hosted_pages_create.go
 rm -f add_on_create.go
-rm -f add_on_pricing_create.go
 rm -f tier_create.go
 rm -f plan_update.go
 rm -f add_on_update.go

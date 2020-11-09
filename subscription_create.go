@@ -37,8 +37,8 @@ type SubscriptionCreate struct {
 	// Add-ons
 	AddOns []SubscriptionAddOnCreate `json:"add_ons,omitempty"`
 
-	// Optional coupon code to redeem on the account and discount the subscription. Please note, the subscription request will fail if the coupon is invalid.
-	CouponCode *string `json:"coupon_code,omitempty"`
+	// A list of coupon_codes to be redeemed on the subscription or account during the purchase.
+	CouponCodes []string `json:"coupon_codes,omitempty"`
 
 	// The custom fields will only be altered when they are included in a request. Sending an empty array will not remove any existing values. To remove a field send the name with a null or empty value.
 	CustomFields []CustomFieldCreate `json:"custom_fields,omitempty"`

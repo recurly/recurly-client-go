@@ -67,12 +67,15 @@ type AddOn struct {
 	Optional bool `json:"optional,omitempty"`
 
 	// Add-on pricing
-	Currencies []AddOnPricing `json:"currencies,omitempty"`
+	Currencies []Pricing `json:"currencies,omitempty"`
 
 	// Just the important parts.
 	Item ItemMini `json:"item,omitempty"`
 
-	// The type of tiering used by the Add-on.
+	// The pricing model for the add-on.  For more information,
+	// [click here](https://docs.recurly.com/docs/billing-models#section-quantity-based). See our
+	// [Guide](https://developers.recurly.com/guides/item-addon-guide.html) for an overview of how
+	// to configure quantity-based pricing models.
 	TierType string `json:"tier_type,omitempty"`
 
 	// Tiers

@@ -11,7 +11,7 @@ import (
 type ExternalTransaction struct {
 	Params `json:"-"`
 
-	// Payment method used for the external transaction.
+	// Payment method used for external transaction.
 	PaymentMethod *string `json:"payment_method,omitempty"`
 
 	// Used as the transaction's description.

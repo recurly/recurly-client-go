@@ -30,11 +30,12 @@ type SubscriptionChangeCreate struct {
 	// A list of coupon_codes to be redeemed on the subscription during the change. Only allowed if timeframe is now and you change something about the subscription that creates an invoice.
 	CouponCodes []string `json:"coupon_codes,omitempty"`
 
-	// If this value is omitted your existing add-ons will be removed. If you provide
-	// a value for this field it will replace any existing add-ons. So, when adding or
-	// modifying an add-on, you need to include the existing subscription add-ons.
-	// Unchanged add-ons can be included just using the subscription add-on's ID:
-	// `{"id": "abc123"}`.
+	// If you provide a value for this field it will replace any
+	// existing add-ons. So, when adding or modifying an add-on, you need to
+	// include the existing subscription add-ons. Unchanged add-ons can be included
+	// just using the subscription add-on''s ID: `{"id": "abc123"}`. If this
+	// value is omitted your existing add-ons will be unaffected. To remove all
+	// existing add-ons, this value should be an empty array.'
 	// If a subscription add-on's `code` is supplied without the `id`,
 	// `{"code": "def456"}`, the subscription add-on attributes will be set to the
 	// current values of the plan add-on unless provided in the request.

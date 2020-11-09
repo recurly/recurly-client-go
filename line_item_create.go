@@ -16,8 +16,8 @@ type LineItemCreate struct {
 
 	// A positive or negative amount with `type=charge` will result in a positive `unit_amount`.
 	// A positive or negative amount with `type=credit` will result in a negative `unit_amount`.
-	// If `item_code`/`item_id` is present, `unit_amount` can be passed in, to override the `Item`'s
-	// `unit_amount`. If `item_code`/`item_id` is not present then `unit_amount` is required.
+	// If `item_code`/`item_id` is present, `unit_amount` can be passed in, to override the
+	// `Item`'s `unit_amount`. If `item_code`/`item_id` is not present then `unit_amount` is required.
 	UnitAmount *float64 `json:"unit_amount,omitempty"`
 
 	// This number will be multiplied by the unit amount to compute the subtotal before any discounts or taxes.
@@ -26,7 +26,7 @@ type LineItemCreate struct {
 	// Description that appears on the invoice. If `item_code`/`item_id` is part of the request then `description` must be absent.
 	Description *string `json:"description,omitempty"`
 
-	// Unique code to identify an item. Avaliable when the Credit Invoices and Subscription Billing Terms features are enabled.
+	// Unique code to identify an item. Available when the Credit Invoices and Subscription Billing Terms features are enabled.
 	ItemCode *string `json:"item_code,omitempty"`
 
 	// System-generated unique identifier for an item. Available when the Credit Invoices and Subscription Billing Terms features are enabled.

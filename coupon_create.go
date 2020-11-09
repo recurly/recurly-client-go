@@ -48,8 +48,7 @@ type CouponCreate struct {
 	// The coupon is valid for one-time, non-plan charges if true.
 	AppliesToNonPlanCharges *bool `json:"applies_to_non_plan_charges,omitempty"`
 
-	// The coupon is valid for all plans if true. If false then
-	// `plans` and `plans_names` will list the applicable plans.
+	// The coupon is valid for all plans if true. If false then `plans` will list the applicable plans.
 	AppliesToAllPlans *bool `json:"applies_to_all_plans,omitempty"`
 
 	// To apply coupon to Items in your Catalog, include a list

@@ -33,7 +33,7 @@ type Subscription struct {
 	// Subscription shipping details
 	Shipping SubscriptionShipping `json:"shipping,omitempty"`
 
-	// Coupon redemptions
+	// Returns subscription level coupon redemptions that are tied to this subscription.
 	CouponRedemptions []CouponRedemptionMini `json:"coupon_redemptions,omitempty"`
 
 	// Subscription Change

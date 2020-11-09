@@ -13,7 +13,7 @@ import (
 
 const (
 	// APIVersion is the current Recurly API Version
-	APIVersion = "v2019-10-10"
+	APIVersion = "v2020-01-01"
 )
 
 type ClientInterface interface {
@@ -59,7 +59,7 @@ type ClientInterface interface {
 
 	ListAccountCouponRedemptions(accountId string, params *ListAccountCouponRedemptionsParams) *CouponRedemptionList
 
-	GetActiveCouponRedemption(accountId string) (*CouponRedemption, error)
+	ListActiveCouponRedemptions(accountId string) *CouponRedemptionList
 
 	CreateCouponRedemption(accountId string, body *CouponRedemptionCreate) (*CouponRedemption, error)
 
@@ -203,7 +203,7 @@ type ClientInterface interface {
 
 	CreateShippingMethod(body *ShippingMethodCreate) (*ShippingMethod, error)
 
-	GetShippingMethod(id string) (*ShippingMethod, error)
+	GetShippingMethod(shippingMethodId string) (*ShippingMethod, error)
 
 	UpdateShippingMethod(shippingMethodId string, body *ShippingMethodUpdate) (*ShippingMethod, error)
 
@@ -235,7 +235,7 @@ type ClientInterface interface {
 
 	RemoveSubscriptionChange(subscriptionId string) (*Empty, error)
 
-	PreviewSubscriptionChange(subscriptionId string, body *SubscriptionChangeCreate) (*SubscriptionChangePreview, error)
+	PreviewSubscriptionChange(subscriptionId string, body *SubscriptionChangeCreate) (*SubscriptionChange, error)
 
 	ListSubscriptionInvoices(subscriptionId string, params *ListSubscriptionInvoicesParams) *InvoiceList
 
@@ -785,16 +785,11 @@ func (c *Client) ListAccountCouponRedemptions(accountId string, params *ListAcco
 	return NewCouponRedemptionList(c, path)
 }
 
-// GetActiveCouponRedemption Show the coupon redemption that is active on an account
-// Returns: An active coupon redemption on an account.
-func (c *Client) GetActiveCouponRedemption(accountId string) (*CouponRedemption, error) {
+// ListActiveCouponRedemptions Show the coupon redemptions that are active on an account
+// Returns: Active coupon redemptions on an account.
+func (c *Client) ListActiveCouponRedemptions(accountId string) *CouponRedemptionList {
 	path := c.InterpolatePath("/accounts/{account_id}/coupon_redemptions/active", accountId)
-	result := &CouponRedemption{}
-	err := c.Call(http.MethodGet, path, nil, result)
-	if err != nil {
-		return nil, err
-	}
-	return result, err
+	return NewCouponRedemptionList(c, path)
 }
 
 // CreateCouponRedemption Generate an active coupon redemption on an account
@@ -3339,8 +3334,8 @@ func (c *Client) CreateShippingMethod(body *ShippingMethodCreate) (*ShippingMeth
 
 // GetShippingMethod Fetch a shipping method
 // Returns: A shipping method.
-func (c *Client) GetShippingMethod(id string) (*ShippingMethod, error) {
-	path := c.InterpolatePath("/shipping_methods/{id}", id)
+func (c *Client) GetShippingMethod(shippingMethodId string) (*ShippingMethod, error) {
+	path := c.InterpolatePath("/shipping_methods/{shipping_method_id}", shippingMethodId)
 	result := &ShippingMethod{}
 	err := c.Call(http.MethodGet, path, nil, result)
 	if err != nil {
@@ -3657,9 +3652,9 @@ func (c *Client) RemoveSubscriptionChange(subscriptionId string) (*Empty, error)
 
 // PreviewSubscriptionChange Preview a new subscription change
 // Returns: A subscription change.
-func (c *Client) PreviewSubscriptionChange(subscriptionId string, body *SubscriptionChangeCreate) (*SubscriptionChangePreview, error) {
+func (c *Client) PreviewSubscriptionChange(subscriptionId string, body *SubscriptionChangeCreate) (*SubscriptionChange, error) {
 	path := c.InterpolatePath("/subscriptions/{subscription_id}/change/preview", subscriptionId)
-	result := &SubscriptionChangePreview{}
+	result := &SubscriptionChange{}
 	err := c.Call(http.MethodPost, path, body, result)
 	if err != nil {
 		return nil, err

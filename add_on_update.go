@@ -30,7 +30,7 @@ type AddOnUpdate struct {
 	// Accounting code for invoice line items for this add-on. If no value is provided, it defaults to add-on's code. If an `Item` is associated to the `AddOn` then `accounting code` must be absent.
 	AccountingCode *string `json:"accounting_code,omitempty"`
 
-	// When this add-on is invoiced, the line item will use this revenue schedule. If an `Item` is associated to the `AddOn` then `revenue_schedule_type` must be absent in the request as the value will be set from the item.
+	// When this add-on is invoiced, the line item will use this revenue schedule. If `item_code`/`item_id` is part of the request then `revenue_schedule_type` must be absent in the request as the value will be set from the item.
 	RevenueScheduleType *string `json:"revenue_schedule_type,omitempty"`
 
 	// Used by Avalara for Communications taxes. The transaction type in combination with the service type describe how the add-on is taxed. Refer to [the documentation](https://help.avalara.com/AvaTax_for_Communications/Tax_Calculation/AvaTax_for_Communications_Tax_Engine/Mapping_Resources/TM_00115_AFC_Modules_Corresponding_Transaction_Types) for more available t/s types. If an `Item` is associated to the `AddOn`, then the `avalara_transaction_type` must be absent.
@@ -51,14 +51,14 @@ type AddOnUpdate struct {
 	// Whether the add-on is optional for the customer to include in their purchase on the hosted payment page. If false, the add-on will be included when a subscription is created through the Recurly UI. However, the add-on will not be included when a subscription is created through the API.
 	Optional *bool `json:"optional,omitempty"`
 
-	// If the add-on's `tier_type` is `tiered`, `volume` or `stairstep`,
-	// then `currencies` must be absent.
-	Currencies []AddOnPricingCreate `json:"currencies,omitempty"`
+	// If the add-on's `tier_type` is `tiered`, `volume`, or `stairstep`,
+	// then currencies must be absent
+	Currencies []PricingCreate `json:"currencies,omitempty"`
 
 	// If the tier_type is `flat`, then `tiers` must be absent. The `tiers` object
 	// must include one to many tiers with `ending_quantity` and `unit_amount` for
-	// the desired `currencies`. There must be one tier with an `ending_quantity` of
-	// 999999999 which is the default if not provided.
+	// the desired `currencies`. There must be one tier with an `ending_quantity`
+	// of 999999999 which is the default if not provided.
 	Tiers []TierCreate `json:"tiers,omitempty"`
 }
 

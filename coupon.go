@@ -39,6 +39,9 @@ type Coupon struct {
 	// On a bulk coupon, the template from which unique coupon codes are generated.
 	UniqueCodeTemplate string `json:"unique_code_template,omitempty"`
 
+	// Will be populated when the Coupon being returned is a `UniqueCouponCode`.
+	UniqueCouponCode map[string]interface{} `json:"unique_coupon_code,omitempty"`
+
 	// - "single_use" coupons applies to the first invoice only.
 	// - "temporal" coupons will apply to invoices for the duration determined by the `temporal_unit` and `temporal_amount` attributes.
 	Duration string `json:"duration,omitempty"`
@@ -55,7 +58,7 @@ type Coupon struct {
 	// Sets the duration of time the `free_trial_unit` is for.
 	FreeTrialAmount int `json:"free_trial_amount,omitempty"`
 
-	// The coupon is valid for all plans if true. If false then `plans` and `plans_names` will list the applicable plans.
+	// The coupon is valid for all plans if true. If false then `plans` will list the applicable plans.
 	AppliesToAllPlans bool `json:"applies_to_all_plans,omitempty"`
 
 	// The coupon is valid for all items if true. If false then `items`
@@ -64,9 +67,6 @@ type Coupon struct {
 
 	// The coupon is valid for one-time, non-plan charges if true.
 	AppliesToNonPlanCharges bool `json:"applies_to_non_plan_charges,omitempty"`
-
-	// A list of plan names for which this coupon applies.
-	PlansNames []string `json:"plans_names,omitempty"`
 
 	// A list of plans for which this coupon applies. This will be `null` if `applies_to_all_plans=true`.
 	Plans []PlanMini `json:"plans,omitempty"`
@@ -93,15 +93,6 @@ type Coupon struct {
 
 	// The date and time the coupon will expire and can no longer be redeemed. Time is always 11:59:59, the end-of-day Pacific time.
 	RedeemBy time.Time `json:"redeem_by,omitempty"`
-
-	// The Coupon ID of the parent Bulk Coupon
-	BulkCouponId string `json:"bulk_coupon_id,omitempty"`
-
-	// The Coupon code of the parent Bulk Coupon
-	BulkCouponCode string `json:"bulk_coupon_code,omitempty"`
-
-	// The date and time the unique coupon code was redeemed. This is only present for bulk coupons.
-	RedeemedAt time.Time `json:"redeemed_at,omitempty"`
 
 	// Created at
 	CreatedAt time.Time `json:"created_at,omitempty"`

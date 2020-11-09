@@ -45,9 +45,6 @@ type SubscriptionChange struct {
 	// Revenue schedule type
 	RevenueScheduleType string `json:"revenue_schedule_type,omitempty"`
 
-	// Setup fee revenue schedule type
-	SetupFeeRevenueScheduleType string `json:"setup_fee_revenue_schedule_type,omitempty"`
-
 	// Invoice Collection
 	InvoiceCollection InvoiceCollection `json:"invoice_collection,omitempty"`
 

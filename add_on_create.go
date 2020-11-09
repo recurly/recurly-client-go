@@ -9,7 +9,7 @@ import ()
 type AddOnCreate struct {
 	Params `json:"-"`
 
-	// Unique code to identify an item. Avaliable when the `Credit Invoices` and `Subscription Billing Terms` features are enabled. If `item_id` and `item_code` are both present, `item_id` will be used.
+	// Unique code to identify an item. Available when the `Credit Invoices` and `Subscription Billing Terms` features are enabled. If `item_id` and `item_code` are both present, `item_id` will be used.
 	ItemCode *string `json:"item_code,omitempty"`
 
 	// System-generated unique identifier for an item. Available when the `Credit Invoices` and `Subscription Billing Terms` features are enabled. If `item_id` and `item_code` are both present, `item_id` will be used.
@@ -25,8 +25,8 @@ type AddOnCreate struct {
 	AddOnType *string `json:"add_on_type,omitempty"`
 
 	// Type of usage, required if `add_on_type` is `usage`. See our
-	// [Guide](https://developers.recurly.com/guides/usage-based-billing-guide.html)
-	// for an overview of how to configure usage add-ons.
+	// [Guide](https://developers.recurly.com/guides/usage-based-billing-guide.html) for an
+	// overview of how to configure usage add-ons.
 	UsageType *string `json:"usage_type,omitempty"`
 
 	// The percentage taken of the monetary amount of usage tracked. This can be up to 4 decimal places. A value between 0.0 and 100.0. Required if `add_on_type` is usage and `usage_type` is percentage. Must be omitted otherwise. `usage_percentage` does not support tiers.
@@ -71,18 +71,18 @@ type AddOnCreate struct {
 	// is not present `currencies` is required.
 	// * If the add-on's `tier_type` is `tiered`, `volume`, or `stairstep`,
 	// then `currencies` must be absent.
-	Currencies []AddOnPricingCreate `json:"currencies,omitempty"`
+	Currencies []PricingCreate `json:"currencies,omitempty"`
 
 	// The pricing model for the add-on.  For more information,
-	// [click here](https://docs.recurly.com/docs/billing-models#section-quantity-based). See
-	// our [Guide](https://developers.recurly.com/guides/item-addon-guide.html) for an overview
-	// of how to configure quantity-based pricing models.
+	// [click here](https://docs.recurly.com/docs/billing-models#section-quantity-based). See our
+	// [Guide](https://developers.recurly.com/guides/item-addon-guide.html) for an overview of how
+	// to configure quantity-based pricing models.
 	TierType *string `json:"tier_type,omitempty"`
 
 	// If the tier_type is `flat`, then `tiers` must be absent. The `tiers` object
 	// must include one to many tiers with `ending_quantity` and `unit_amount` for
-	// the desired `currencies`. There must be one tier with an `ending_quantity` of
-	// 999999999 which is the default if not provided.
+	// the desired `currencies`. There must be one tier with an `ending_quantity`
+	// of 999999999 which is the default if not provided.
 	Tiers []TierCreate `json:"tiers,omitempty"`
 }
 

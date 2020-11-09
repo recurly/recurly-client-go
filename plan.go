@@ -42,7 +42,7 @@ type Plan struct {
 	// Length of plan's trial period in `trial_units`. `0` means `no trial`.
 	TrialLength int `json:"trial_length,omitempty"`
 
-	// Allow free trial subscriptions to be created without billing info.
+	// Allow free trial subscriptions to be created without billing info. Should not be used if billing info is needed for initial invoice due to existing uninvoiced charges or setup fee.
 	TrialRequiresBillingInfo bool `json:"trial_requires_billing_info,omitempty"`
 
 	// Automatically terminate subscriptions after a defined number of billing cycles. Number of billing cycles before the plan automatically stops renewing, defaults to `null` for continuous, automatic renewal.
@@ -51,14 +51,14 @@ type Plan struct {
 	// Subscriptions will automatically inherit this value once they are active. If `auto_renew` is `true`, then a subscription will automatically renew its term at renewal. If `auto_renew` is `false`, then a subscription will expire at the end of its term. `auto_renew` can be overridden on the subscription record itself.
 	AutoRenew bool `json:"auto_renew,omitempty"`
 
-	// Accounting code for invoice line items for the plan. If no value is provided, it defaults to plan's code.
-	AccountingCode string `json:"accounting_code,omitempty"`
-
 	// Revenue schedule type
 	RevenueScheduleType string `json:"revenue_schedule_type,omitempty"`
 
 	// Setup fee revenue schedule type
 	SetupFeeRevenueScheduleType string `json:"setup_fee_revenue_schedule_type,omitempty"`
+
+	// Accounting code for invoice line items for the plan. If no value is provided, it defaults to plan's code.
+	AccountingCode string `json:"accounting_code,omitempty"`
 
 	// Accounting code for invoice line items for the plan's setup fee. If no value is provided, it defaults to plan's accounting code.
 	SetupFeeAccountingCode string `json:"setup_fee_accounting_code,omitempty"`
