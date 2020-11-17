@@ -864,6 +864,9 @@ type ListAccountCouponRedemptionsParams struct {
 	// EndTime - Inclusively filter by end_time when `sort=created_at` or `sort=updated_at`.
 	// **Note:** this value is an ISO8601 timestamp. A partial timestamp that does not include a time zone will default to UTC.
 	EndTime *time.Time
+
+	// State - Filter by state.
+	State *string
 }
 
 func (list *ListAccountCouponRedemptionsParams) toParams() *Params {
@@ -892,6 +895,10 @@ func (list *ListAccountCouponRedemptionsParams) URLParams() []KeyValue {
 
 	if list.EndTime != nil {
 		options = append(options, KeyValue{Key: "end_time", Value: formatTime(*list.EndTime)})
+	}
+
+	if list.State != nil {
+		options = append(options, KeyValue{Key: "state", Value: *list.State})
 	}
 
 	return options
@@ -4110,6 +4117,9 @@ type TerminateSubscriptionParams struct {
 	// In the event that the most recent invoice is a $0 invoice paid entirely by credit, Recurly will apply the credit back to the customer’s account.
 	// You may also terminate a subscription with no refund and then manually refund specific invoices.
 	Refund *string
+
+	// Charge - Applicable only if the subscription has usage based add-ons and unbilled usage logged for the current billing cycle. If true, current billing cycle unbilled usage is billed on the final invoice. If false, Recurly will create a negative usage record for current billing cycle usage that will zero out the final invoice line items.
+	Charge *bool
 }
 
 func (list *TerminateSubscriptionParams) toParams() *Params {
@@ -4126,6 +4136,10 @@ func (list *TerminateSubscriptionParams) URLParams() []KeyValue {
 
 	if list.Refund != nil {
 		options = append(options, KeyValue{Key: "refund", Value: *list.Refund})
+	}
+
+	if list.Charge != nil {
+		options = append(options, KeyValue{Key: "charge", Value: strconv.FormatBool(*list.Charge)})
 	}
 
 	return options
