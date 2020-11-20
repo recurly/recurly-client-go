@@ -17,7 +17,7 @@ type SubscriptionCreate struct {
 	// You must provide either a `plan_code` or `plan_id`. If both are provided the `plan_id` will be used.
 	PlanId *string `json:"plan_id,omitempty"`
 
-	Account *AccountCreate `json:"account,omitempty"`
+	Account *map[string]interface{} `json:"account,omitempty"`
 
 	// Create a shipping address on the account and assign it to the subscription.
 	Shipping *SubscriptionShippingCreate `json:"shipping,omitempty"`
