@@ -95,7 +95,7 @@ func newClient(apiKey string, httpClient *http.Client) *Client {
 	}
 }
 
-// Takes an OpenAPI-style path such as "/accounts/{account_id}/shipping_addresses/{shipping_address_id}"
+// InterpolatePath takes an OpenAPI-style path such as "/accounts/{account_id}/shipping_addresses/{shipping_address_id}"
 // and a list of string arguments to fill the template, and it returns the interpolated path
 func (c *Client) InterpolatePath(path string, params ...string) (string, error) {
 	template := pathPattern.ReplaceAllString(path, "%s")
@@ -108,27 +108,30 @@ func (c *Client) InterpolatePath(path string, params ...string) (string, error) 
 	return fmt.Sprintf(template, encodedParams...), nil
 }
 
-// HttpCaller is the generic http interface used by the Client
-type HttpCaller interface {
-	Call(method string, path string, genericParams GenericParams, v interface{}) error
+// HTTPCaller is the generic http interface used by the Client
+type HTTPCaller interface {
+	Call(method string, path string, body GenericParams, queryParams GenericParams, requestOptions optionsApplier, v interface{}) error
 }
 
-// Call sends a request to Recurly and parses the JSON response for the expected response type
-func (c *Client) Call(method string, path string, genericParams GenericParams, v interface{}) error {
+// Call sends a request to Recurly and parses the JSON response for the expected response type.
+// The RequestOptions have been added to replace the common features of the Params struct
+// (which is returned by genericParams.toParams()) to seperate concerns with payload/URL params
+// from configurations of the HTTP request (RequestOptions).
+func (c *Client) Call(method string, path string, body GenericParams, queryParams GenericParams, requestOptions optionsApplier, v interface{}) error {
 	if !strings.HasPrefix(path, "/") {
 		path = fmt.Sprintf("%s/%s", c.baseURL, path)
 	} else {
 		path = fmt.Sprintf("%s%s", c.baseURL, path)
 	}
 
-	path = BuildUrl(path, genericParams)
+	path = BuildURL(path, queryParams)
 
 	var params *Params
-	if genericParams != nil && !reflect.ValueOf(genericParams).IsNil() { // test if the interface is nil
-		params = genericParams.toParams()
+	if body != nil && !reflect.ValueOf(body).IsNil() { // test if the interface is nil
+		params = body.toParams()
 	}
 
-	req, err := c.NewRequest(method, path, params)
+	req, err := c.NewRequest(method, path, params, requestOptions)
 	if err != nil {
 		return err
 	}
@@ -137,7 +140,7 @@ func (c *Client) Call(method string, path string, genericParams GenericParams, v
 }
 
 // Append URL parameters
-func BuildUrl(requestURL string, genericParams GenericParams) string {
+func BuildURL(requestURL string, genericParams GenericParams) string {
 	var params *Params
 	if genericParams != nil && !reflect.ValueOf(genericParams).IsNil() { // test if the interface is nil
 		params = genericParams.toParams()
@@ -165,29 +168,25 @@ func BuildUrl(requestURL string, genericParams GenericParams) string {
 }
 
 // NewRequest generates an http.Request for the API client to submit to Recurly.
-func (c *Client) NewRequest(method string, requestURL string, params *Params) (*http.Request, error) {
+// The RequestOptions have been added to replace the common features of the Params struct in
+// an attempt to seperate request payload information (Params.Data) from configurations of the
+// HTTP request (RequestOptions).
+func (c *Client) NewRequest(method string, requestURL string, params *Params, requestOptions optionsApplier) (*http.Request, error) {
 	req, err := http.NewRequest(method, requestURL, nil)
 	if err != nil {
 		return nil, err
 	}
 
-	req.Header.Add("Accept", acceptVersion)
+	req = requestOptions.applyOptions(req)
+
+	// Set required headers after custom headers so that they aren't accidentally overwritten.
+	req.Header.Set("Accept", acceptVersion)
 	req.Header.Set("Accept-Encoding", "gzip")
-	req.Header.Add("Content-Type", "application/json; charset=utf-8")
-	req.Header.Add("User-Agent", userAgent)
+	req.Header.Set("Content-Type", "application/json; charset=utf-8")
+	req.Header.Set("User-Agent", userAgent)
 	req.SetBasicAuth(c.apiKey, "")
 
 	if params != nil {
-		// TODO: generate an idempotency key if missing?
-		if params.IdempotencyKey != "" {
-			req.Header.Add("Idempotency-Key", params.IdempotencyKey)
-		}
-		for key, v := range params.Header {
-			for _, value := range v {
-				req.Header.Set(key, value)
-			}
-		}
-
 		if params.Data != nil && method != http.MethodGet {
 			data, err := json.Marshal(params.Data)
 			if err != nil {
@@ -198,10 +197,6 @@ func (c *Client) NewRequest(method string, requestURL string, params *Params) (*
 			if c.Log.IsLevel(LevelDebug) {
 				fmt.Println("Request Body: ", req.Body)
 			}
-		}
-
-		if params.Context != nil {
-			req = req.WithContext(params.Context)
 		}
 	}
 
