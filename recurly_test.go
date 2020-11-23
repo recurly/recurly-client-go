@@ -2,6 +2,7 @@ package recurly
 
 import (
 	"bytes"
+	"context"
 	"io"
 	"io/ioutil"
 	"net/http"
@@ -137,54 +138,47 @@ func (resource *SubResource) setResponse(res *ResponseMetadata) {
 }
 
 type ResourceCreate struct {
-	Params `json:"-"`
 	String string `json:"string,omitempty"`
-}
-
-func (attr *ResourceCreate) toParams() *Params {
-	return &Params{
-		IdempotencyKey: attr.IdempotencyKey,
-		Header:         attr.Header,
-		Context:        attr.Context,
-		Data:           attr,
-	}
 }
 
 // We also implement fake CRUD operations for these fake resources
 // We want to use the Client from the consuming code's perspective
-func (c *Client) GetResource(resourceId string) (*RecurlyResource, error) {
+func (c *Client) GetResource(ctx context.Context, resourceId string, opts ...Option) (*RecurlyResource, error) {
 	path, err := c.InterpolatePath("/resources/{resource_id}", resourceId)
 	if err != nil {
 		return nil, err
 	}
+	requestOptions := NewRequestOptions(opts...)
 	result := &RecurlyResource{}
-	err = c.Call(http.MethodGet, path, nil, result)
+	err = c.Call(ctx, http.MethodGet, path, nil, nil, requestOptions, result)
 	if err != nil {
 		return nil, err
 	}
 	return result, err
 }
 
-func (c *Client) CreateResource(body *ResourceCreate) (*RecurlyResource, error) {
+func (c *Client) CreateResource(ctx context.Context, body *ResourceCreate, opts ...Option) (*RecurlyResource, error) {
 	path, err := c.InterpolatePath("/resources")
 	if err != nil {
 		return nil, err
 	}
+	requestOptions := NewRequestOptions(opts...)
 	result := &RecurlyResource{}
-	err = c.Call(http.MethodPost, path, body, result)
+	err = c.Call(ctx, http.MethodPost, path, body, nil, requestOptions, result)
 	if err != nil {
 		return nil, err
 	}
 	return result, err
 }
 
-func (c *Client) DeleteResource(resourceId string) (*Empty, error) {
+func (c *Client) DeleteResource(ctx context.Context, resourceId string, opts ...Option) (*Empty, error) {
 	path, err := c.InterpolatePath("/resources")
 	if err != nil {
 		return nil, err
 	}
+	requestOptions := NewRequestOptions(opts...)
 	result := &Empty{}
-	err = c.Call(http.MethodDelete, path, nil, result)
+	err = c.Call(ctx, http.MethodDelete, path, nil, nil, requestOptions, result)
 	if err != nil {
 		return nil, err
 	}
@@ -192,13 +186,14 @@ func (c *Client) DeleteResource(resourceId string) (*Empty, error) {
 }
 
 // ResourceMetada calls the HEAD endpoint and returns the response metadata
-func (c *Client) GetResourceMetadata(resourceId string) (*ResponseMetadata, error) {
+func (c *Client) GetResourceMetadata(resourceId string, opts ...Option) (*ResponseMetadata, error) {
 	path, err := c.InterpolatePath("/resources")
 	if err != nil {
 		return nil, err
 	}
+	requestOptions := NewRequestOptions(opts...)
 	result := &Empty{}
-	err = c.Call(http.MethodHead, path, nil, result)
+	err = c.Call(context.Background(), http.MethodHead, path, nil, nil, requestOptions, result)
 	if err != nil {
 		return nil, err
 	}

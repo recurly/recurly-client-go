@@ -1,6 +1,7 @@
 package recurly
 
 import (
+	"context"
 	"net/http"
 	"testing"
 )
@@ -24,7 +25,7 @@ func TestCreateAccount(test *testing.T) {
 		Code: String("new_account"),
 	}
 
-	account, _ := client.CreateAccount(body)
+	account, _ := client.CreateAccount(context.Background(), body)
 	t.Assert(account.Id, "abcd1234", "account.Id")
 }
 
@@ -66,7 +67,7 @@ func TestListAccounts(test *testing.T) {
 	}
 	accounts, err := client.ListAccounts(params)
 	t.Assert(err, nil, "Error not expected")
-	accounts.Fetch()
+	accounts.Fetch(context.Background())
 
 	t.Assert(accounts.Data[0].Id, "abcd1234", "list.Data[0].Id")
 	t.Assert(accounts.Data[1].FirstName, "juniper", "list.Data[1].FirstName")
