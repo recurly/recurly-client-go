@@ -9,7 +9,6 @@ import (
 )
 
 type UsageCreate struct {
-	Params `json:"-"`
 
 	// Custom field for recording the id in your own system associated with the usage, so you can provide auditable usage displays to your customers using a GET on this endpoint.
 	MerchantTag *string `json:"merchant_tag,omitempty"`
@@ -22,13 +21,4 @@ type UsageCreate struct {
 
 	// When the usage actually happened. This will define the line item dates this usage is billed under and is important for revenue recognition.
 	UsageTimestamp *time.Time `json:"usage_timestamp,omitempty"`
-}
-
-func (attr *UsageCreate) toParams() *Params {
-	return &Params{
-		IdempotencyKey: attr.IdempotencyKey,
-		Header:         attr.Header,
-		Context:        attr.Context,
-		Data:           attr,
-	}
 }

@@ -5,6 +5,7 @@
 package recurly
 
 import (
+	"context"
 	"net/http"
 	"time"
 )
@@ -90,25 +91,27 @@ func (resource *subscriptionChangeList) setResponse(res *ResponseMetadata) {
 
 // SubscriptionChangeList allows you to paginate SubscriptionChange objects
 type SubscriptionChangeList struct {
-	client       HttpCaller
-	nextPagePath string
+	client         HTTPCaller
+	requestOptions *RequestOptions
+	nextPagePath   string
 
 	HasMore bool
 	Data    []SubscriptionChange
 }
 
-func NewSubscriptionChangeList(client HttpCaller, nextPagePath string) *SubscriptionChangeList {
+func NewSubscriptionChangeList(client HTTPCaller, nextPagePath string, requestOptions *RequestOptions) *SubscriptionChangeList {
 	return &SubscriptionChangeList{
-		client:       client,
-		nextPagePath: nextPagePath,
-		HasMore:      true,
+		client:         client,
+		requestOptions: requestOptions,
+		nextPagePath:   nextPagePath,
+		HasMore:        true,
 	}
 }
 
 // Fetch fetches the next page of data into the `Data` property
-func (list *SubscriptionChangeList) Fetch() error {
+func (list *SubscriptionChangeList) FetchWithContext(ctx context.Context) error {
 	resources := &subscriptionChangeList{}
-	err := list.client.Call(http.MethodGet, list.nextPagePath, nil, resources)
+	err := list.client.Call(ctx, http.MethodGet, list.nextPagePath, nil, nil, list.requestOptions, resources)
 	if err != nil {
 		return err
 	}
@@ -119,13 +122,23 @@ func (list *SubscriptionChangeList) Fetch() error {
 	return nil
 }
 
+// Fetch fetches the next page of data into the `Data` property
+func (list *SubscriptionChangeList) Fetch() error {
+	return list.FetchWithContext(context.Background())
+}
+
 // Count returns the count of items on the server that match this pager
-func (list *SubscriptionChangeList) Count() (*int64, error) {
+func (list *SubscriptionChangeList) CountWithContext(ctx context.Context) (*int64, error) {
 	resources := &subscriptionChangeList{}
-	err := list.client.Call(http.MethodHead, list.nextPagePath, nil, resources)
+	err := list.client.Call(ctx, http.MethodHead, list.nextPagePath, nil, nil, list.requestOptions, resources)
 	if err != nil {
 		return nil, err
 	}
 	resp := resources.GetResponse()
 	return resp.TotalRecords, nil
+}
+
+// Count returns the count of items on the server that match this pager
+func (list *SubscriptionChangeList) Count() (*int64, error) {
+	return list.CountWithContext(context.Background())
 }

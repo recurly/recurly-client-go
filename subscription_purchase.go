@@ -9,7 +9,6 @@ import (
 )
 
 type SubscriptionPurchase struct {
-	Params `json:"-"`
 
 	// Plan code
 	PlanCode *string `json:"plan_code,omitempty"`
@@ -52,13 +51,4 @@ type SubscriptionPurchase struct {
 
 	// Revenue schedule type
 	RevenueScheduleType *string `json:"revenue_schedule_type,omitempty"`
-}
-
-func (attr *SubscriptionPurchase) toParams() *Params {
-	return &Params{
-		IdempotencyKey: attr.IdempotencyKey,
-		Header:         attr.Header,
-		Context:        attr.Context,
-		Data:           attr,
-	}
 }

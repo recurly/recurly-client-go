@@ -7,7 +7,6 @@ package recurly
 import ()
 
 type PlanPricingCreate struct {
-	Params `json:"-"`
 
 	// 3-letter ISO 4217 currency code.
 	Currency *string `json:"currency,omitempty"`
@@ -17,13 +16,4 @@ type PlanPricingCreate struct {
 
 	// Unit price
 	UnitAmount *float64 `json:"unit_amount,omitempty"`
-}
-
-func (attr *PlanPricingCreate) toParams() *Params {
-	return &Params{
-		IdempotencyKey: attr.IdempotencyKey,
-		Header:         attr.Header,
-		Context:        attr.Context,
-		Data:           attr,
-	}
 }

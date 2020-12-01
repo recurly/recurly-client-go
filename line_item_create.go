@@ -9,7 +9,6 @@ import (
 )
 
 type LineItemCreate struct {
-	Params `json:"-"`
 
 	// 3-letter ISO 4217 currency code. If `item_code`/`item_id` is part of the request then `currency` is optional, if the site has a single default currency. `currency` is required if `item_code`/`item_id` is present, and there are multiple currencies defined on the site. If `item_code`/`item_id` is not present `currency` is required.
 	Currency *string `json:"currency,omitempty"`
@@ -67,13 +66,4 @@ type LineItemCreate struct {
 
 	// If this date is provided, it indicates the end of a time range.
 	EndDate *time.Time `json:"end_date,omitempty"`
-}
-
-func (attr *LineItemCreate) toParams() *Params {
-	return &Params{
-		IdempotencyKey: attr.IdempotencyKey,
-		Header:         attr.Header,
-		Context:        attr.Context,
-		Data:           attr,
-	}
 }

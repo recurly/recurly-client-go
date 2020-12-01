@@ -7,7 +7,6 @@ package recurly
 import ()
 
 type PlanHostedPagesCreate struct {
-	Params `json:"-"`
 
 	// URL to redirect to after signup on the hosted payment pages.
 	SuccessUrl *string `json:"success_url,omitempty"`
@@ -20,13 +19,4 @@ type PlanHostedPagesCreate struct {
 
 	// Determines if the quantity field is displayed on the hosted pages for the plan.
 	DisplayQuantity *bool `json:"display_quantity,omitempty"`
-}
-
-func (attr *PlanHostedPagesCreate) toParams() *Params {
-	return &Params{
-		IdempotencyKey: attr.IdempotencyKey,
-		Header:         attr.Header,
-		Context:        attr.Context,
-		Data:           attr,
-	}
 }

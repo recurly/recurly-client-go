@@ -5,6 +5,7 @@
 package recurly
 
 import (
+	"context"
 	"net/http"
 	"strconv"
 	"strings"
@@ -17,263 +18,354 @@ const (
 )
 
 type ClientInterface interface {
-	ListSites(params *ListSitesParams) (*SiteList, error)
+	ListSites(params *ListSitesParams, opts ...Option) (*SiteList, error)
 
-	GetSite(siteId string) (*Site, error)
+	GetSite(siteId string, opts ...Option) (*Site, error)
+	GetSiteWithContext(ctx context.Context, siteId string, opts ...Option) (*Site, error)
 
-	ListAccounts(params *ListAccountsParams) (*AccountList, error)
+	ListAccounts(params *ListAccountsParams, opts ...Option) (*AccountList, error)
 
-	CreateAccount(body *AccountCreate) (*Account, error)
+	CreateAccount(body *AccountCreate, opts ...Option) (*Account, error)
+	CreateAccountWithContext(ctx context.Context, body *AccountCreate, opts ...Option) (*Account, error)
 
-	GetAccount(accountId string) (*Account, error)
+	GetAccount(accountId string, opts ...Option) (*Account, error)
+	GetAccountWithContext(ctx context.Context, accountId string, opts ...Option) (*Account, error)
 
-	UpdateAccount(accountId string, body *AccountUpdate) (*Account, error)
+	UpdateAccount(accountId string, body *AccountUpdate, opts ...Option) (*Account, error)
+	UpdateAccountWithContext(ctx context.Context, accountId string, body *AccountUpdate, opts ...Option) (*Account, error)
 
-	DeactivateAccount(accountId string) (*Account, error)
+	DeactivateAccount(accountId string, opts ...Option) (*Account, error)
+	DeactivateAccountWithContext(ctx context.Context, accountId string, opts ...Option) (*Account, error)
 
-	GetAccountAcquisition(accountId string) (*AccountAcquisition, error)
+	GetAccountAcquisition(accountId string, opts ...Option) (*AccountAcquisition, error)
+	GetAccountAcquisitionWithContext(ctx context.Context, accountId string, opts ...Option) (*AccountAcquisition, error)
 
-	UpdateAccountAcquisition(accountId string, body *AccountAcquisitionUpdatable) (*AccountAcquisition, error)
+	UpdateAccountAcquisition(accountId string, body *AccountAcquisitionUpdatable, opts ...Option) (*AccountAcquisition, error)
+	UpdateAccountAcquisitionWithContext(ctx context.Context, accountId string, body *AccountAcquisitionUpdatable, opts ...Option) (*AccountAcquisition, error)
 
-	RemoveAccountAcquisition(accountId string) (*Empty, error)
+	RemoveAccountAcquisition(accountId string, opts ...Option) (*Empty, error)
+	RemoveAccountAcquisitionWithContext(ctx context.Context, accountId string, opts ...Option) (*Empty, error)
 
-	ReactivateAccount(accountId string) (*Account, error)
+	ReactivateAccount(accountId string, opts ...Option) (*Account, error)
+	ReactivateAccountWithContext(ctx context.Context, accountId string, opts ...Option) (*Account, error)
 
-	GetAccountBalance(accountId string) (*AccountBalance, error)
+	GetAccountBalance(accountId string, opts ...Option) (*AccountBalance, error)
+	GetAccountBalanceWithContext(ctx context.Context, accountId string, opts ...Option) (*AccountBalance, error)
 
-	GetBillingInfo(accountId string) (*BillingInfo, error)
+	GetBillingInfo(accountId string, opts ...Option) (*BillingInfo, error)
+	GetBillingInfoWithContext(ctx context.Context, accountId string, opts ...Option) (*BillingInfo, error)
 
-	UpdateBillingInfo(accountId string, body *BillingInfoCreate) (*BillingInfo, error)
+	UpdateBillingInfo(accountId string, body *BillingInfoCreate, opts ...Option) (*BillingInfo, error)
+	UpdateBillingInfoWithContext(ctx context.Context, accountId string, body *BillingInfoCreate, opts ...Option) (*BillingInfo, error)
 
-	RemoveBillingInfo(accountId string) (*Empty, error)
+	RemoveBillingInfo(accountId string, opts ...Option) (*Empty, error)
+	RemoveBillingInfoWithContext(ctx context.Context, accountId string, opts ...Option) (*Empty, error)
 
-	ListBillingInfos(accountId string, params *ListBillingInfosParams) (*BillingInfoList, error)
+	ListBillingInfos(accountId string, params *ListBillingInfosParams, opts ...Option) (*BillingInfoList, error)
 
-	CreateBillingInfo(accountId string, body *BillingInfoCreate) (*BillingInfo, error)
+	CreateBillingInfo(accountId string, body *BillingInfoCreate, opts ...Option) (*BillingInfo, error)
+	CreateBillingInfoWithContext(ctx context.Context, accountId string, body *BillingInfoCreate, opts ...Option) (*BillingInfo, error)
 
-	GetABillingInfo(accountId string, billingInfoId string) (*BillingInfo, error)
+	GetABillingInfo(accountId string, billingInfoId string, opts ...Option) (*BillingInfo, error)
+	GetABillingInfoWithContext(ctx context.Context, accountId string, billingInfoId string, opts ...Option) (*BillingInfo, error)
 
-	UpdateABillingInfo(accountId string, billingInfoId string, body *BillingInfoCreate) (*BillingInfo, error)
+	UpdateABillingInfo(accountId string, billingInfoId string, body *BillingInfoCreate, opts ...Option) (*BillingInfo, error)
+	UpdateABillingInfoWithContext(ctx context.Context, accountId string, billingInfoId string, body *BillingInfoCreate, opts ...Option) (*BillingInfo, error)
 
-	RemoveABillingInfo(accountId string, billingInfoId string) (*Empty, error)
+	RemoveABillingInfo(accountId string, billingInfoId string, opts ...Option) (*Empty, error)
+	RemoveABillingInfoWithContext(ctx context.Context, accountId string, billingInfoId string, opts ...Option) (*Empty, error)
 
-	ListAccountCouponRedemptions(accountId string, params *ListAccountCouponRedemptionsParams) (*CouponRedemptionList, error)
+	ListAccountCouponRedemptions(accountId string, params *ListAccountCouponRedemptionsParams, opts ...Option) (*CouponRedemptionList, error)
 
-	ListActiveCouponRedemptions(accountId string) (*CouponRedemptionList, error)
+	ListActiveCouponRedemptions(accountId string, opts ...Option) (*CouponRedemptionList, error)
 
-	CreateCouponRedemption(accountId string, body *CouponRedemptionCreate) (*CouponRedemption, error)
+	CreateCouponRedemption(accountId string, body *CouponRedemptionCreate, opts ...Option) (*CouponRedemption, error)
+	CreateCouponRedemptionWithContext(ctx context.Context, accountId string, body *CouponRedemptionCreate, opts ...Option) (*CouponRedemption, error)
 
-	RemoveCouponRedemption(accountId string) (*CouponRedemption, error)
+	RemoveCouponRedemption(accountId string, opts ...Option) (*CouponRedemption, error)
+	RemoveCouponRedemptionWithContext(ctx context.Context, accountId string, opts ...Option) (*CouponRedemption, error)
 
-	ListAccountCreditPayments(accountId string, params *ListAccountCreditPaymentsParams) (*CreditPaymentList, error)
+	ListAccountCreditPayments(accountId string, params *ListAccountCreditPaymentsParams, opts ...Option) (*CreditPaymentList, error)
 
-	ListAccountInvoices(accountId string, params *ListAccountInvoicesParams) (*InvoiceList, error)
+	ListAccountInvoices(accountId string, params *ListAccountInvoicesParams, opts ...Option) (*InvoiceList, error)
 
-	CreateInvoice(accountId string, body *InvoiceCreate) (*InvoiceCollection, error)
+	CreateInvoice(accountId string, body *InvoiceCreate, opts ...Option) (*InvoiceCollection, error)
+	CreateInvoiceWithContext(ctx context.Context, accountId string, body *InvoiceCreate, opts ...Option) (*InvoiceCollection, error)
 
-	PreviewInvoice(accountId string, body *InvoiceCreate) (*InvoiceCollection, error)
+	PreviewInvoice(accountId string, body *InvoiceCreate, opts ...Option) (*InvoiceCollection, error)
+	PreviewInvoiceWithContext(ctx context.Context, accountId string, body *InvoiceCreate, opts ...Option) (*InvoiceCollection, error)
 
-	ListAccountLineItems(accountId string, params *ListAccountLineItemsParams) (*LineItemList, error)
+	ListAccountLineItems(accountId string, params *ListAccountLineItemsParams, opts ...Option) (*LineItemList, error)
 
-	CreateLineItem(accountId string, body *LineItemCreate) (*LineItem, error)
+	CreateLineItem(accountId string, body *LineItemCreate, opts ...Option) (*LineItem, error)
+	CreateLineItemWithContext(ctx context.Context, accountId string, body *LineItemCreate, opts ...Option) (*LineItem, error)
 
-	ListAccountNotes(accountId string, params *ListAccountNotesParams) (*AccountNoteList, error)
+	ListAccountNotes(accountId string, params *ListAccountNotesParams, opts ...Option) (*AccountNoteList, error)
 
-	GetAccountNote(accountId string, accountNoteId string) (*AccountNote, error)
+	GetAccountNote(accountId string, accountNoteId string, opts ...Option) (*AccountNote, error)
+	GetAccountNoteWithContext(ctx context.Context, accountId string, accountNoteId string, opts ...Option) (*AccountNote, error)
 
-	ListShippingAddresses(accountId string, params *ListShippingAddressesParams) (*ShippingAddressList, error)
+	ListShippingAddresses(accountId string, params *ListShippingAddressesParams, opts ...Option) (*ShippingAddressList, error)
 
-	CreateShippingAddress(accountId string, body *ShippingAddressCreate) (*ShippingAddress, error)
+	CreateShippingAddress(accountId string, body *ShippingAddressCreate, opts ...Option) (*ShippingAddress, error)
+	CreateShippingAddressWithContext(ctx context.Context, accountId string, body *ShippingAddressCreate, opts ...Option) (*ShippingAddress, error)
 
-	GetShippingAddress(accountId string, shippingAddressId string) (*ShippingAddress, error)
+	GetShippingAddress(accountId string, shippingAddressId string, opts ...Option) (*ShippingAddress, error)
+	GetShippingAddressWithContext(ctx context.Context, accountId string, shippingAddressId string, opts ...Option) (*ShippingAddress, error)
 
-	UpdateShippingAddress(accountId string, shippingAddressId string, body *ShippingAddressUpdate) (*ShippingAddress, error)
+	UpdateShippingAddress(accountId string, shippingAddressId string, body *ShippingAddressUpdate, opts ...Option) (*ShippingAddress, error)
+	UpdateShippingAddressWithContext(ctx context.Context, accountId string, shippingAddressId string, body *ShippingAddressUpdate, opts ...Option) (*ShippingAddress, error)
 
-	RemoveShippingAddress(accountId string, shippingAddressId string) (*Empty, error)
+	RemoveShippingAddress(accountId string, shippingAddressId string, opts ...Option) (*Empty, error)
+	RemoveShippingAddressWithContext(ctx context.Context, accountId string, shippingAddressId string, opts ...Option) (*Empty, error)
 
-	ListAccountSubscriptions(accountId string, params *ListAccountSubscriptionsParams) (*SubscriptionList, error)
+	ListAccountSubscriptions(accountId string, params *ListAccountSubscriptionsParams, opts ...Option) (*SubscriptionList, error)
 
-	ListAccountTransactions(accountId string, params *ListAccountTransactionsParams) (*TransactionList, error)
+	ListAccountTransactions(accountId string, params *ListAccountTransactionsParams, opts ...Option) (*TransactionList, error)
 
-	ListChildAccounts(accountId string, params *ListChildAccountsParams) (*AccountList, error)
+	ListChildAccounts(accountId string, params *ListChildAccountsParams, opts ...Option) (*AccountList, error)
 
-	ListAccountAcquisition(params *ListAccountAcquisitionParams) (*AccountAcquisitionList, error)
+	ListAccountAcquisition(params *ListAccountAcquisitionParams, opts ...Option) (*AccountAcquisitionList, error)
 
-	ListCoupons(params *ListCouponsParams) (*CouponList, error)
+	ListCoupons(params *ListCouponsParams, opts ...Option) (*CouponList, error)
 
-	CreateCoupon(body *CouponCreate) (*Coupon, error)
+	CreateCoupon(body *CouponCreate, opts ...Option) (*Coupon, error)
+	CreateCouponWithContext(ctx context.Context, body *CouponCreate, opts ...Option) (*Coupon, error)
 
-	GetCoupon(couponId string) (*Coupon, error)
+	GetCoupon(couponId string, opts ...Option) (*Coupon, error)
+	GetCouponWithContext(ctx context.Context, couponId string, opts ...Option) (*Coupon, error)
 
-	UpdateCoupon(couponId string, body *CouponUpdate) (*Coupon, error)
+	UpdateCoupon(couponId string, body *CouponUpdate, opts ...Option) (*Coupon, error)
+	UpdateCouponWithContext(ctx context.Context, couponId string, body *CouponUpdate, opts ...Option) (*Coupon, error)
 
-	DeactivateCoupon(couponId string) (*Coupon, error)
+	DeactivateCoupon(couponId string, opts ...Option) (*Coupon, error)
+	DeactivateCouponWithContext(ctx context.Context, couponId string, opts ...Option) (*Coupon, error)
 
-	RestoreCoupon(couponId string, body *CouponUpdate) (*Coupon, error)
+	RestoreCoupon(couponId string, body *CouponUpdate, opts ...Option) (*Coupon, error)
+	RestoreCouponWithContext(ctx context.Context, couponId string, body *CouponUpdate, opts ...Option) (*Coupon, error)
 
-	ListUniqueCouponCodes(couponId string, params *ListUniqueCouponCodesParams) (*UniqueCouponCodeList, error)
+	ListUniqueCouponCodes(couponId string, params *ListUniqueCouponCodesParams, opts ...Option) (*UniqueCouponCodeList, error)
 
-	ListCreditPayments(params *ListCreditPaymentsParams) (*CreditPaymentList, error)
+	ListCreditPayments(params *ListCreditPaymentsParams, opts ...Option) (*CreditPaymentList, error)
 
-	GetCreditPayment(creditPaymentId string) (*CreditPayment, error)
+	GetCreditPayment(creditPaymentId string, opts ...Option) (*CreditPayment, error)
+	GetCreditPaymentWithContext(ctx context.Context, creditPaymentId string, opts ...Option) (*CreditPayment, error)
 
-	ListCustomFieldDefinitions(params *ListCustomFieldDefinitionsParams) (*CustomFieldDefinitionList, error)
+	ListCustomFieldDefinitions(params *ListCustomFieldDefinitionsParams, opts ...Option) (*CustomFieldDefinitionList, error)
 
-	GetCustomFieldDefinition(customFieldDefinitionId string) (*CustomFieldDefinition, error)
+	GetCustomFieldDefinition(customFieldDefinitionId string, opts ...Option) (*CustomFieldDefinition, error)
+	GetCustomFieldDefinitionWithContext(ctx context.Context, customFieldDefinitionId string, opts ...Option) (*CustomFieldDefinition, error)
 
-	ListItems(params *ListItemsParams) (*ItemList, error)
+	ListItems(params *ListItemsParams, opts ...Option) (*ItemList, error)
 
-	CreateItem(body *ItemCreate) (*Item, error)
+	CreateItem(body *ItemCreate, opts ...Option) (*Item, error)
+	CreateItemWithContext(ctx context.Context, body *ItemCreate, opts ...Option) (*Item, error)
 
-	GetItem(itemId string) (*Item, error)
+	GetItem(itemId string, opts ...Option) (*Item, error)
+	GetItemWithContext(ctx context.Context, itemId string, opts ...Option) (*Item, error)
 
-	UpdateItem(itemId string, body *ItemUpdate) (*Item, error)
+	UpdateItem(itemId string, body *ItemUpdate, opts ...Option) (*Item, error)
+	UpdateItemWithContext(ctx context.Context, itemId string, body *ItemUpdate, opts ...Option) (*Item, error)
 
-	DeactivateItem(itemId string) (*Item, error)
+	DeactivateItem(itemId string, opts ...Option) (*Item, error)
+	DeactivateItemWithContext(ctx context.Context, itemId string, opts ...Option) (*Item, error)
 
-	ReactivateItem(itemId string) (*Item, error)
+	ReactivateItem(itemId string, opts ...Option) (*Item, error)
+	ReactivateItemWithContext(ctx context.Context, itemId string, opts ...Option) (*Item, error)
 
-	ListMeasuredUnit(params *ListMeasuredUnitParams) (*MeasuredUnitList, error)
+	ListMeasuredUnit(params *ListMeasuredUnitParams, opts ...Option) (*MeasuredUnitList, error)
 
-	CreateMeasuredUnit(body *MeasuredUnitCreate) (*MeasuredUnit, error)
+	CreateMeasuredUnit(body *MeasuredUnitCreate, opts ...Option) (*MeasuredUnit, error)
+	CreateMeasuredUnitWithContext(ctx context.Context, body *MeasuredUnitCreate, opts ...Option) (*MeasuredUnit, error)
 
-	GetMeasuredUnit(measuredUnitId string) (*MeasuredUnit, error)
+	GetMeasuredUnit(measuredUnitId string, opts ...Option) (*MeasuredUnit, error)
+	GetMeasuredUnitWithContext(ctx context.Context, measuredUnitId string, opts ...Option) (*MeasuredUnit, error)
 
-	UpdateMeasuredUnit(measuredUnitId string, body *MeasuredUnitUpdate) (*MeasuredUnit, error)
+	UpdateMeasuredUnit(measuredUnitId string, body *MeasuredUnitUpdate, opts ...Option) (*MeasuredUnit, error)
+	UpdateMeasuredUnitWithContext(ctx context.Context, measuredUnitId string, body *MeasuredUnitUpdate, opts ...Option) (*MeasuredUnit, error)
 
-	RemoveMeasuredUnit(measuredUnitId string) (*MeasuredUnit, error)
+	RemoveMeasuredUnit(measuredUnitId string, opts ...Option) (*MeasuredUnit, error)
+	RemoveMeasuredUnitWithContext(ctx context.Context, measuredUnitId string, opts ...Option) (*MeasuredUnit, error)
 
-	ListInvoices(params *ListInvoicesParams) (*InvoiceList, error)
+	ListInvoices(params *ListInvoicesParams, opts ...Option) (*InvoiceList, error)
 
-	GetInvoice(invoiceId string) (*Invoice, error)
+	GetInvoice(invoiceId string, opts ...Option) (*Invoice, error)
+	GetInvoiceWithContext(ctx context.Context, invoiceId string, opts ...Option) (*Invoice, error)
 
-	PutInvoice(invoiceId string, body *InvoiceUpdatable) (*Invoice, error)
+	PutInvoice(invoiceId string, body *InvoiceUpdatable, opts ...Option) (*Invoice, error)
+	PutInvoiceWithContext(ctx context.Context, invoiceId string, body *InvoiceUpdatable, opts ...Option) (*Invoice, error)
 
-	CollectInvoice(invoiceId string, params *CollectInvoiceParams) (*Invoice, error)
+	CollectInvoice(invoiceId string, params *CollectInvoiceParams, opts ...Option) (*Invoice, error)
+	CollectInvoiceWithContext(ctx context.Context, invoiceId string, params *CollectInvoiceParams, opts ...Option) (*Invoice, error)
 
-	FailInvoice(invoiceId string) (*Invoice, error)
+	FailInvoice(invoiceId string, opts ...Option) (*Invoice, error)
+	FailInvoiceWithContext(ctx context.Context, invoiceId string, opts ...Option) (*Invoice, error)
 
-	MarkInvoiceSuccessful(invoiceId string) (*Invoice, error)
+	MarkInvoiceSuccessful(invoiceId string, opts ...Option) (*Invoice, error)
+	MarkInvoiceSuccessfulWithContext(ctx context.Context, invoiceId string, opts ...Option) (*Invoice, error)
 
-	ReopenInvoice(invoiceId string) (*Invoice, error)
+	ReopenInvoice(invoiceId string, opts ...Option) (*Invoice, error)
+	ReopenInvoiceWithContext(ctx context.Context, invoiceId string, opts ...Option) (*Invoice, error)
 
-	VoidInvoice(invoiceId string) (*Invoice, error)
+	VoidInvoice(invoiceId string, opts ...Option) (*Invoice, error)
+	VoidInvoiceWithContext(ctx context.Context, invoiceId string, opts ...Option) (*Invoice, error)
 
-	RecordExternalTransaction(invoiceId string, body *ExternalTransaction) (*Transaction, error)
+	RecordExternalTransaction(invoiceId string, body *ExternalTransaction, opts ...Option) (*Transaction, error)
+	RecordExternalTransactionWithContext(ctx context.Context, invoiceId string, body *ExternalTransaction, opts ...Option) (*Transaction, error)
 
-	ListInvoiceLineItems(invoiceId string, params *ListInvoiceLineItemsParams) (*LineItemList, error)
+	ListInvoiceLineItems(invoiceId string, params *ListInvoiceLineItemsParams, opts ...Option) (*LineItemList, error)
 
-	ListInvoiceCouponRedemptions(invoiceId string, params *ListInvoiceCouponRedemptionsParams) (*CouponRedemptionList, error)
+	ListInvoiceCouponRedemptions(invoiceId string, params *ListInvoiceCouponRedemptionsParams, opts ...Option) (*CouponRedemptionList, error)
 
-	ListRelatedInvoices(invoiceId string) (*InvoiceList, error)
+	ListRelatedInvoices(invoiceId string, opts ...Option) (*InvoiceList, error)
 
-	RefundInvoice(invoiceId string, body *InvoiceRefund) (*Invoice, error)
+	RefundInvoice(invoiceId string, body *InvoiceRefund, opts ...Option) (*Invoice, error)
+	RefundInvoiceWithContext(ctx context.Context, invoiceId string, body *InvoiceRefund, opts ...Option) (*Invoice, error)
 
-	ListLineItems(params *ListLineItemsParams) (*LineItemList, error)
+	ListLineItems(params *ListLineItemsParams, opts ...Option) (*LineItemList, error)
 
-	GetLineItem(lineItemId string) (*LineItem, error)
+	GetLineItem(lineItemId string, opts ...Option) (*LineItem, error)
+	GetLineItemWithContext(ctx context.Context, lineItemId string, opts ...Option) (*LineItem, error)
 
-	RemoveLineItem(lineItemId string) (*Empty, error)
+	RemoveLineItem(lineItemId string, opts ...Option) (*Empty, error)
+	RemoveLineItemWithContext(ctx context.Context, lineItemId string, opts ...Option) (*Empty, error)
 
-	ListPlans(params *ListPlansParams) (*PlanList, error)
+	ListPlans(params *ListPlansParams, opts ...Option) (*PlanList, error)
 
-	CreatePlan(body *PlanCreate) (*Plan, error)
+	CreatePlan(body *PlanCreate, opts ...Option) (*Plan, error)
+	CreatePlanWithContext(ctx context.Context, body *PlanCreate, opts ...Option) (*Plan, error)
 
-	GetPlan(planId string) (*Plan, error)
+	GetPlan(planId string, opts ...Option) (*Plan, error)
+	GetPlanWithContext(ctx context.Context, planId string, opts ...Option) (*Plan, error)
 
-	UpdatePlan(planId string, body *PlanUpdate) (*Plan, error)
+	UpdatePlan(planId string, body *PlanUpdate, opts ...Option) (*Plan, error)
+	UpdatePlanWithContext(ctx context.Context, planId string, body *PlanUpdate, opts ...Option) (*Plan, error)
 
-	RemovePlan(planId string) (*Plan, error)
+	RemovePlan(planId string, opts ...Option) (*Plan, error)
+	RemovePlanWithContext(ctx context.Context, planId string, opts ...Option) (*Plan, error)
 
-	ListPlanAddOns(planId string, params *ListPlanAddOnsParams) (*AddOnList, error)
+	ListPlanAddOns(planId string, params *ListPlanAddOnsParams, opts ...Option) (*AddOnList, error)
 
-	CreatePlanAddOn(planId string, body *AddOnCreate) (*AddOn, error)
+	CreatePlanAddOn(planId string, body *AddOnCreate, opts ...Option) (*AddOn, error)
+	CreatePlanAddOnWithContext(ctx context.Context, planId string, body *AddOnCreate, opts ...Option) (*AddOn, error)
 
-	GetPlanAddOn(planId string, addOnId string) (*AddOn, error)
+	GetPlanAddOn(planId string, addOnId string, opts ...Option) (*AddOn, error)
+	GetPlanAddOnWithContext(ctx context.Context, planId string, addOnId string, opts ...Option) (*AddOn, error)
 
-	UpdatePlanAddOn(planId string, addOnId string, body *AddOnUpdate) (*AddOn, error)
+	UpdatePlanAddOn(planId string, addOnId string, body *AddOnUpdate, opts ...Option) (*AddOn, error)
+	UpdatePlanAddOnWithContext(ctx context.Context, planId string, addOnId string, body *AddOnUpdate, opts ...Option) (*AddOn, error)
 
-	RemovePlanAddOn(planId string, addOnId string) (*AddOn, error)
+	RemovePlanAddOn(planId string, addOnId string, opts ...Option) (*AddOn, error)
+	RemovePlanAddOnWithContext(ctx context.Context, planId string, addOnId string, opts ...Option) (*AddOn, error)
 
-	ListAddOns(params *ListAddOnsParams) (*AddOnList, error)
+	ListAddOns(params *ListAddOnsParams, opts ...Option) (*AddOnList, error)
 
-	GetAddOn(addOnId string) (*AddOn, error)
+	GetAddOn(addOnId string, opts ...Option) (*AddOn, error)
+	GetAddOnWithContext(ctx context.Context, addOnId string, opts ...Option) (*AddOn, error)
 
-	ListShippingMethods(params *ListShippingMethodsParams) (*ShippingMethodList, error)
+	ListShippingMethods(params *ListShippingMethodsParams, opts ...Option) (*ShippingMethodList, error)
 
-	CreateShippingMethod(body *ShippingMethodCreate) (*ShippingMethod, error)
+	CreateShippingMethod(body *ShippingMethodCreate, opts ...Option) (*ShippingMethod, error)
+	CreateShippingMethodWithContext(ctx context.Context, body *ShippingMethodCreate, opts ...Option) (*ShippingMethod, error)
 
-	GetShippingMethod(shippingMethodId string) (*ShippingMethod, error)
+	GetShippingMethod(shippingMethodId string, opts ...Option) (*ShippingMethod, error)
+	GetShippingMethodWithContext(ctx context.Context, shippingMethodId string, opts ...Option) (*ShippingMethod, error)
 
-	UpdateShippingMethod(shippingMethodId string, body *ShippingMethodUpdate) (*ShippingMethod, error)
+	UpdateShippingMethod(shippingMethodId string, body *ShippingMethodUpdate, opts ...Option) (*ShippingMethod, error)
+	UpdateShippingMethodWithContext(ctx context.Context, shippingMethodId string, body *ShippingMethodUpdate, opts ...Option) (*ShippingMethod, error)
 
-	DeactivateShippingMethod(shippingMethodId string) (*ShippingMethod, error)
+	DeactivateShippingMethod(shippingMethodId string, opts ...Option) (*ShippingMethod, error)
+	DeactivateShippingMethodWithContext(ctx context.Context, shippingMethodId string, opts ...Option) (*ShippingMethod, error)
 
-	ListSubscriptions(params *ListSubscriptionsParams) (*SubscriptionList, error)
+	ListSubscriptions(params *ListSubscriptionsParams, opts ...Option) (*SubscriptionList, error)
 
-	CreateSubscription(body *SubscriptionCreate) (*Subscription, error)
+	CreateSubscription(body *SubscriptionCreate, opts ...Option) (*Subscription, error)
+	CreateSubscriptionWithContext(ctx context.Context, body *SubscriptionCreate, opts ...Option) (*Subscription, error)
 
-	GetSubscription(subscriptionId string) (*Subscription, error)
+	GetSubscription(subscriptionId string, opts ...Option) (*Subscription, error)
+	GetSubscriptionWithContext(ctx context.Context, subscriptionId string, opts ...Option) (*Subscription, error)
 
-	ModifySubscription(subscriptionId string, body *SubscriptionUpdate) (*Subscription, error)
+	ModifySubscription(subscriptionId string, body *SubscriptionUpdate, opts ...Option) (*Subscription, error)
+	ModifySubscriptionWithContext(ctx context.Context, subscriptionId string, body *SubscriptionUpdate, opts ...Option) (*Subscription, error)
 
-	TerminateSubscription(subscriptionId string, params *TerminateSubscriptionParams) (*Subscription, error)
+	TerminateSubscription(subscriptionId string, params *TerminateSubscriptionParams, opts ...Option) (*Subscription, error)
+	TerminateSubscriptionWithContext(ctx context.Context, subscriptionId string, params *TerminateSubscriptionParams, opts ...Option) (*Subscription, error)
 
-	CancelSubscription(subscriptionId string, params *CancelSubscriptionParams) (*Subscription, error)
+	CancelSubscription(subscriptionId string, params *CancelSubscriptionParams, opts ...Option) (*Subscription, error)
+	CancelSubscriptionWithContext(ctx context.Context, subscriptionId string, params *CancelSubscriptionParams, opts ...Option) (*Subscription, error)
 
-	ReactivateSubscription(subscriptionId string) (*Subscription, error)
+	ReactivateSubscription(subscriptionId string, opts ...Option) (*Subscription, error)
+	ReactivateSubscriptionWithContext(ctx context.Context, subscriptionId string, opts ...Option) (*Subscription, error)
 
-	PauseSubscription(subscriptionId string, body *SubscriptionPause) (*Subscription, error)
+	PauseSubscription(subscriptionId string, body *SubscriptionPause, opts ...Option) (*Subscription, error)
+	PauseSubscriptionWithContext(ctx context.Context, subscriptionId string, body *SubscriptionPause, opts ...Option) (*Subscription, error)
 
-	ResumeSubscription(subscriptionId string) (*Subscription, error)
+	ResumeSubscription(subscriptionId string, opts ...Option) (*Subscription, error)
+	ResumeSubscriptionWithContext(ctx context.Context, subscriptionId string, opts ...Option) (*Subscription, error)
 
-	ConvertTrial(subscriptionId string) (*Subscription, error)
+	ConvertTrial(subscriptionId string, opts ...Option) (*Subscription, error)
+	ConvertTrialWithContext(ctx context.Context, subscriptionId string, opts ...Option) (*Subscription, error)
 
-	GetSubscriptionChange(subscriptionId string) (*SubscriptionChange, error)
+	GetSubscriptionChange(subscriptionId string, opts ...Option) (*SubscriptionChange, error)
+	GetSubscriptionChangeWithContext(ctx context.Context, subscriptionId string, opts ...Option) (*SubscriptionChange, error)
 
-	CreateSubscriptionChange(subscriptionId string, body *SubscriptionChangeCreate) (*SubscriptionChange, error)
+	CreateSubscriptionChange(subscriptionId string, body *SubscriptionChangeCreate, opts ...Option) (*SubscriptionChange, error)
+	CreateSubscriptionChangeWithContext(ctx context.Context, subscriptionId string, body *SubscriptionChangeCreate, opts ...Option) (*SubscriptionChange, error)
 
-	RemoveSubscriptionChange(subscriptionId string) (*Empty, error)
+	RemoveSubscriptionChange(subscriptionId string, opts ...Option) (*Empty, error)
+	RemoveSubscriptionChangeWithContext(ctx context.Context, subscriptionId string, opts ...Option) (*Empty, error)
 
-	PreviewSubscriptionChange(subscriptionId string, body *SubscriptionChangeCreate) (*SubscriptionChange, error)
+	PreviewSubscriptionChange(subscriptionId string, body *SubscriptionChangeCreate, opts ...Option) (*SubscriptionChange, error)
+	PreviewSubscriptionChangeWithContext(ctx context.Context, subscriptionId string, body *SubscriptionChangeCreate, opts ...Option) (*SubscriptionChange, error)
 
-	ListSubscriptionInvoices(subscriptionId string, params *ListSubscriptionInvoicesParams) (*InvoiceList, error)
+	ListSubscriptionInvoices(subscriptionId string, params *ListSubscriptionInvoicesParams, opts ...Option) (*InvoiceList, error)
 
-	ListSubscriptionLineItems(subscriptionId string, params *ListSubscriptionLineItemsParams) (*LineItemList, error)
+	ListSubscriptionLineItems(subscriptionId string, params *ListSubscriptionLineItemsParams, opts ...Option) (*LineItemList, error)
 
-	ListSubscriptionCouponRedemptions(subscriptionId string, params *ListSubscriptionCouponRedemptionsParams) (*CouponRedemptionList, error)
+	ListSubscriptionCouponRedemptions(subscriptionId string, params *ListSubscriptionCouponRedemptionsParams, opts ...Option) (*CouponRedemptionList, error)
 
-	ListUsage(subscriptionId string, addOnId string, params *ListUsageParams) (*UsageList, error)
+	ListUsage(subscriptionId string, addOnId string, params *ListUsageParams, opts ...Option) (*UsageList, error)
 
-	CreateUsage(subscriptionId string, addOnId string, body *UsageCreate) (*Usage, error)
+	CreateUsage(subscriptionId string, addOnId string, body *UsageCreate, opts ...Option) (*Usage, error)
+	CreateUsageWithContext(ctx context.Context, subscriptionId string, addOnId string, body *UsageCreate, opts ...Option) (*Usage, error)
 
-	GetUsage(usageId string) (*Usage, error)
+	GetUsage(usageId string, opts ...Option) (*Usage, error)
+	GetUsageWithContext(ctx context.Context, usageId string, opts ...Option) (*Usage, error)
 
-	UpdateUsage(usageId string, body *UsageCreate) (*Usage, error)
+	UpdateUsage(usageId string, body *UsageCreate, opts ...Option) (*Usage, error)
+	UpdateUsageWithContext(ctx context.Context, usageId string, body *UsageCreate, opts ...Option) (*Usage, error)
 
-	RemoveUsage(usageId string) (*Empty, error)
+	RemoveUsage(usageId string, opts ...Option) (*Empty, error)
+	RemoveUsageWithContext(ctx context.Context, usageId string, opts ...Option) (*Empty, error)
 
-	ListTransactions(params *ListTransactionsParams) (*TransactionList, error)
+	ListTransactions(params *ListTransactionsParams, opts ...Option) (*TransactionList, error)
 
-	GetTransaction(transactionId string) (*Transaction, error)
+	GetTransaction(transactionId string, opts ...Option) (*Transaction, error)
+	GetTransactionWithContext(ctx context.Context, transactionId string, opts ...Option) (*Transaction, error)
 
-	GetUniqueCouponCode(uniqueCouponCodeId string) (*UniqueCouponCode, error)
+	GetUniqueCouponCode(uniqueCouponCodeId string, opts ...Option) (*UniqueCouponCode, error)
+	GetUniqueCouponCodeWithContext(ctx context.Context, uniqueCouponCodeId string, opts ...Option) (*UniqueCouponCode, error)
 
-	DeactivateUniqueCouponCode(uniqueCouponCodeId string) (*UniqueCouponCode, error)
+	DeactivateUniqueCouponCode(uniqueCouponCodeId string, opts ...Option) (*UniqueCouponCode, error)
+	DeactivateUniqueCouponCodeWithContext(ctx context.Context, uniqueCouponCodeId string, opts ...Option) (*UniqueCouponCode, error)
 
-	ReactivateUniqueCouponCode(uniqueCouponCodeId string) (*UniqueCouponCode, error)
+	ReactivateUniqueCouponCode(uniqueCouponCodeId string, opts ...Option) (*UniqueCouponCode, error)
+	ReactivateUniqueCouponCodeWithContext(ctx context.Context, uniqueCouponCodeId string, opts ...Option) (*UniqueCouponCode, error)
 
-	CreatePurchase(body *PurchaseCreate) (*InvoiceCollection, error)
+	CreatePurchase(body *PurchaseCreate, opts ...Option) (*InvoiceCollection, error)
+	CreatePurchaseWithContext(ctx context.Context, body *PurchaseCreate, opts ...Option) (*InvoiceCollection, error)
 
-	PreviewPurchase(body *PurchaseCreate) (*InvoiceCollection, error)
+	PreviewPurchase(body *PurchaseCreate, opts ...Option) (*InvoiceCollection, error)
+	PreviewPurchaseWithContext(ctx context.Context, body *PurchaseCreate, opts ...Option) (*InvoiceCollection, error)
 
-	GetExportDates() (*ExportDates, error)
+	GetExportDates(opts ...Option) (*ExportDates, error)
+	GetExportDatesWithContext(ctx context.Context, opts ...Option) (*ExportDates, error)
 
-	GetExportFiles(exportDate string) (*ExportFiles, error)
+	GetExportFiles(exportDate string, opts ...Option) (*ExportFiles, error)
+	GetExportFilesWithContext(ctx context.Context, exportDate string, opts ...Option) (*ExportFiles, error)
 }
 
 type ListSitesParams struct {
-	Params
 
 	// Ids - Filter results by their IDs. Up to 200 IDs can be passed at once using
 	// commas as separators, e.g. `ids=h1at4d57xlmy,gyqgg0d3v9n1,jrsm5b4yefg6`.
@@ -299,15 +391,6 @@ type ListSitesParams struct {
 
 	// State - Filter by state.
 	State *string
-}
-
-func (list *ListSitesParams) toParams() *Params {
-	return &Params{
-		IdempotencyKey: list.IdempotencyKey,
-		Header:         list.Header,
-		Context:        list.Context,
-		RequestParams:  list,
-	}
 }
 
 func (list *ListSitesParams) URLParams() []KeyValue {
@@ -341,27 +424,38 @@ func (list *ListSitesParams) URLParams() []KeyValue {
 // API Documentation: https://developers.recurly.com/api/v2020-01-01#operation/list_sites
 //
 // Returns: A list of sites.
-func (c *Client) ListSites(params *ListSitesParams) (*SiteList, error) {
+func (c *Client) ListSites(params *ListSitesParams, opts ...Option) (*SiteList, error) {
 	path, err := c.InterpolatePath("/sites")
 	if err != nil {
 		return nil, err
 	}
-	path = BuildUrl(path, params)
-	return NewSiteList(c, path), nil
+	requestOptions := NewRequestOptions(opts...)
+	path = BuildURL(path, params)
+	return NewSiteList(c, path, requestOptions), nil
 }
 
-// GetSite Fetch a site
+// GetSite wraps GetSiteWithContext using the background context
+func (c *Client) GetSite(siteId string, opts ...Option) (*Site, error) {
+	return c.getSite(context.Background(), siteId, opts...)
+}
+
+// GetSiteWithContext Fetch a site
 //
 // API Documentation: https://developers.recurly.com/api/v2020-01-01#operation/get_site
 //
 // Returns: A site.
-func (c *Client) GetSite(siteId string) (*Site, error) {
+func (c *Client) GetSiteWithContext(ctx context.Context, siteId string, opts ...Option) (*Site, error) {
+	return c.getSite(ctx, siteId, opts...)
+}
+
+func (c *Client) getSite(ctx context.Context, siteId string, opts ...Option) (*Site, error) {
 	path, err := c.InterpolatePath("/sites/{site_id}", siteId)
 	if err != nil {
 		return nil, err
 	}
+	requestOptions := NewRequestOptions(opts...)
 	result := &Site{}
-	err = c.Call(http.MethodGet, path, nil, result)
+	err = c.Call(ctx, http.MethodGet, path, nil, nil, requestOptions, result)
 	if err != nil {
 		return nil, err
 	}
@@ -369,7 +463,6 @@ func (c *Client) GetSite(siteId string) (*Site, error) {
 }
 
 type ListAccountsParams struct {
-	Params
 
 	// Ids - Filter results by their IDs. Up to 200 IDs can be passed at once using
 	// commas as separators, e.g. `ids=h1at4d57xlmy,gyqgg0d3v9n1,jrsm5b4yefg6`.
@@ -410,15 +503,6 @@ type ListAccountsParams struct {
 
 	// PastDue - Filter for accounts with an invoice in the `past_due` state.
 	PastDue *string
-}
-
-func (list *ListAccountsParams) toParams() *Params {
-	return &Params{
-		IdempotencyKey: list.IdempotencyKey,
-		Header:         list.Header,
-		Context:        list.Context,
-		RequestParams:  list,
-	}
 }
 
 func (list *ListAccountsParams) URLParams() []KeyValue {
@@ -468,225 +552,346 @@ func (list *ListAccountsParams) URLParams() []KeyValue {
 // API Documentation: https://developers.recurly.com/api/v2020-01-01#operation/list_accounts
 //
 // Returns: A list of the site's accounts.
-func (c *Client) ListAccounts(params *ListAccountsParams) (*AccountList, error) {
+func (c *Client) ListAccounts(params *ListAccountsParams, opts ...Option) (*AccountList, error) {
 	path, err := c.InterpolatePath("/accounts")
 	if err != nil {
 		return nil, err
 	}
-	path = BuildUrl(path, params)
-	return NewAccountList(c, path), nil
+	requestOptions := NewRequestOptions(opts...)
+	path = BuildURL(path, params)
+	return NewAccountList(c, path, requestOptions), nil
 }
 
-// CreateAccount Create an account
+// CreateAccount wraps CreateAccountWithContext using the background context
+func (c *Client) CreateAccount(body *AccountCreate, opts ...Option) (*Account, error) {
+	return c.createAccount(context.Background(), body, opts...)
+}
+
+// CreateAccountWithContext Create an account
 //
 // API Documentation: https://developers.recurly.com/api/v2020-01-01#operation/create_account
 //
 // Returns: An account.
-func (c *Client) CreateAccount(body *AccountCreate) (*Account, error) {
+func (c *Client) CreateAccountWithContext(ctx context.Context, body *AccountCreate, opts ...Option) (*Account, error) {
+	return c.createAccount(ctx, body, opts...)
+}
+
+func (c *Client) createAccount(ctx context.Context, body *AccountCreate, opts ...Option) (*Account, error) {
 	path, err := c.InterpolatePath("/accounts")
 	if err != nil {
 		return nil, err
 	}
+	requestOptions := NewRequestOptions(opts...)
 	result := &Account{}
-	err = c.Call(http.MethodPost, path, body, result)
+	err = c.Call(ctx, http.MethodPost, path, body, nil, requestOptions, result)
 	if err != nil {
 		return nil, err
 	}
 	return result, err
 }
 
-// GetAccount Fetch an account
+// GetAccount wraps GetAccountWithContext using the background context
+func (c *Client) GetAccount(accountId string, opts ...Option) (*Account, error) {
+	return c.getAccount(context.Background(), accountId, opts...)
+}
+
+// GetAccountWithContext Fetch an account
 //
 // API Documentation: https://developers.recurly.com/api/v2020-01-01#operation/get_account
 //
 // Returns: An account.
-func (c *Client) GetAccount(accountId string) (*Account, error) {
+func (c *Client) GetAccountWithContext(ctx context.Context, accountId string, opts ...Option) (*Account, error) {
+	return c.getAccount(ctx, accountId, opts...)
+}
+
+func (c *Client) getAccount(ctx context.Context, accountId string, opts ...Option) (*Account, error) {
 	path, err := c.InterpolatePath("/accounts/{account_id}", accountId)
 	if err != nil {
 		return nil, err
 	}
+	requestOptions := NewRequestOptions(opts...)
 	result := &Account{}
-	err = c.Call(http.MethodGet, path, nil, result)
+	err = c.Call(ctx, http.MethodGet, path, nil, nil, requestOptions, result)
 	if err != nil {
 		return nil, err
 	}
 	return result, err
 }
 
-// UpdateAccount Modify an account
+// UpdateAccount wraps UpdateAccountWithContext using the background context
+func (c *Client) UpdateAccount(accountId string, body *AccountUpdate, opts ...Option) (*Account, error) {
+	return c.updateAccount(context.Background(), accountId, body, opts...)
+}
+
+// UpdateAccountWithContext Modify an account
 //
 // API Documentation: https://developers.recurly.com/api/v2020-01-01#operation/update_account
 //
 // Returns: An account.
-func (c *Client) UpdateAccount(accountId string, body *AccountUpdate) (*Account, error) {
+func (c *Client) UpdateAccountWithContext(ctx context.Context, accountId string, body *AccountUpdate, opts ...Option) (*Account, error) {
+	return c.updateAccount(ctx, accountId, body, opts...)
+}
+
+func (c *Client) updateAccount(ctx context.Context, accountId string, body *AccountUpdate, opts ...Option) (*Account, error) {
 	path, err := c.InterpolatePath("/accounts/{account_id}", accountId)
 	if err != nil {
 		return nil, err
 	}
+	requestOptions := NewRequestOptions(opts...)
 	result := &Account{}
-	err = c.Call(http.MethodPut, path, body, result)
+	err = c.Call(ctx, http.MethodPut, path, body, nil, requestOptions, result)
 	if err != nil {
 		return nil, err
 	}
 	return result, err
 }
 
-// DeactivateAccount Deactivate an account
+// DeactivateAccount wraps DeactivateAccountWithContext using the background context
+func (c *Client) DeactivateAccount(accountId string, opts ...Option) (*Account, error) {
+	return c.deactivateAccount(context.Background(), accountId, opts...)
+}
+
+// DeactivateAccountWithContext Deactivate an account
 //
 // API Documentation: https://developers.recurly.com/api/v2020-01-01#operation/deactivate_account
 //
 // Returns: An account.
-func (c *Client) DeactivateAccount(accountId string) (*Account, error) {
+func (c *Client) DeactivateAccountWithContext(ctx context.Context, accountId string, opts ...Option) (*Account, error) {
+	return c.deactivateAccount(ctx, accountId, opts...)
+}
+
+func (c *Client) deactivateAccount(ctx context.Context, accountId string, opts ...Option) (*Account, error) {
 	path, err := c.InterpolatePath("/accounts/{account_id}", accountId)
 	if err != nil {
 		return nil, err
 	}
+	requestOptions := NewRequestOptions(opts...)
 	result := &Account{}
-	err = c.Call(http.MethodDelete, path, nil, result)
+	err = c.Call(ctx, http.MethodDelete, path, nil, nil, requestOptions, result)
 	if err != nil {
 		return nil, err
 	}
 	return result, err
 }
 
-// GetAccountAcquisition Fetch an account's acquisition data
+// GetAccountAcquisition wraps GetAccountAcquisitionWithContext using the background context
+func (c *Client) GetAccountAcquisition(accountId string, opts ...Option) (*AccountAcquisition, error) {
+	return c.getAccountAcquisition(context.Background(), accountId, opts...)
+}
+
+// GetAccountAcquisitionWithContext Fetch an account's acquisition data
 //
 // API Documentation: https://developers.recurly.com/api/v2020-01-01#operation/get_account_acquisition
 //
 // Returns: An account's acquisition data.
-func (c *Client) GetAccountAcquisition(accountId string) (*AccountAcquisition, error) {
+func (c *Client) GetAccountAcquisitionWithContext(ctx context.Context, accountId string, opts ...Option) (*AccountAcquisition, error) {
+	return c.getAccountAcquisition(ctx, accountId, opts...)
+}
+
+func (c *Client) getAccountAcquisition(ctx context.Context, accountId string, opts ...Option) (*AccountAcquisition, error) {
 	path, err := c.InterpolatePath("/accounts/{account_id}/acquisition", accountId)
 	if err != nil {
 		return nil, err
 	}
+	requestOptions := NewRequestOptions(opts...)
 	result := &AccountAcquisition{}
-	err = c.Call(http.MethodGet, path, nil, result)
+	err = c.Call(ctx, http.MethodGet, path, nil, nil, requestOptions, result)
 	if err != nil {
 		return nil, err
 	}
 	return result, err
 }
 
-// UpdateAccountAcquisition Update an account's acquisition data
+// UpdateAccountAcquisition wraps UpdateAccountAcquisitionWithContext using the background context
+func (c *Client) UpdateAccountAcquisition(accountId string, body *AccountAcquisitionUpdatable, opts ...Option) (*AccountAcquisition, error) {
+	return c.updateAccountAcquisition(context.Background(), accountId, body, opts...)
+}
+
+// UpdateAccountAcquisitionWithContext Update an account's acquisition data
 //
 // API Documentation: https://developers.recurly.com/api/v2020-01-01#operation/update_account_acquisition
 //
 // Returns: An account's updated acquisition data.
-func (c *Client) UpdateAccountAcquisition(accountId string, body *AccountAcquisitionUpdatable) (*AccountAcquisition, error) {
+func (c *Client) UpdateAccountAcquisitionWithContext(ctx context.Context, accountId string, body *AccountAcquisitionUpdatable, opts ...Option) (*AccountAcquisition, error) {
+	return c.updateAccountAcquisition(ctx, accountId, body, opts...)
+}
+
+func (c *Client) updateAccountAcquisition(ctx context.Context, accountId string, body *AccountAcquisitionUpdatable, opts ...Option) (*AccountAcquisition, error) {
 	path, err := c.InterpolatePath("/accounts/{account_id}/acquisition", accountId)
 	if err != nil {
 		return nil, err
 	}
+	requestOptions := NewRequestOptions(opts...)
 	result := &AccountAcquisition{}
-	err = c.Call(http.MethodPut, path, body, result)
+	err = c.Call(ctx, http.MethodPut, path, body, nil, requestOptions, result)
 	if err != nil {
 		return nil, err
 	}
 	return result, err
 }
 
-// RemoveAccountAcquisition Remove an account's acquisition data
+// RemoveAccountAcquisition wraps RemoveAccountAcquisitionWithContext using the background context
+func (c *Client) RemoveAccountAcquisition(accountId string, opts ...Option) (*Empty, error) {
+	return c.removeAccountAcquisition(context.Background(), accountId, opts...)
+}
+
+// RemoveAccountAcquisitionWithContext Remove an account's acquisition data
 //
 // API Documentation: https://developers.recurly.com/api/v2020-01-01#operation/remove_account_acquisition
 //
 // Returns: Acquisition data was succesfully deleted.
-func (c *Client) RemoveAccountAcquisition(accountId string) (*Empty, error) {
+func (c *Client) RemoveAccountAcquisitionWithContext(ctx context.Context, accountId string, opts ...Option) (*Empty, error) {
+	return c.removeAccountAcquisition(ctx, accountId, opts...)
+}
+
+func (c *Client) removeAccountAcquisition(ctx context.Context, accountId string, opts ...Option) (*Empty, error) {
 	path, err := c.InterpolatePath("/accounts/{account_id}/acquisition", accountId)
 	if err != nil {
 		return nil, err
 	}
+	requestOptions := NewRequestOptions(opts...)
 	result := &Empty{}
-	err = c.Call(http.MethodDelete, path, nil, result)
+	err = c.Call(ctx, http.MethodDelete, path, nil, nil, requestOptions, result)
 	if err != nil {
 		return nil, err
 	}
 	return result, err
 }
 
-// ReactivateAccount Reactivate an inactive account
+// ReactivateAccount wraps ReactivateAccountWithContext using the background context
+func (c *Client) ReactivateAccount(accountId string, opts ...Option) (*Account, error) {
+	return c.reactivateAccount(context.Background(), accountId, opts...)
+}
+
+// ReactivateAccountWithContext Reactivate an inactive account
 //
 // API Documentation: https://developers.recurly.com/api/v2020-01-01#operation/reactivate_account
 //
 // Returns: An account.
-func (c *Client) ReactivateAccount(accountId string) (*Account, error) {
+func (c *Client) ReactivateAccountWithContext(ctx context.Context, accountId string, opts ...Option) (*Account, error) {
+	return c.reactivateAccount(ctx, accountId, opts...)
+}
+
+func (c *Client) reactivateAccount(ctx context.Context, accountId string, opts ...Option) (*Account, error) {
 	path, err := c.InterpolatePath("/accounts/{account_id}/reactivate", accountId)
 	if err != nil {
 		return nil, err
 	}
+	requestOptions := NewRequestOptions(opts...)
 	result := &Account{}
-	err = c.Call(http.MethodPut, path, nil, result)
+	err = c.Call(ctx, http.MethodPut, path, nil, nil, requestOptions, result)
 	if err != nil {
 		return nil, err
 	}
 	return result, err
 }
 
-// GetAccountBalance Fetch an account's balance and past due status
+// GetAccountBalance wraps GetAccountBalanceWithContext using the background context
+func (c *Client) GetAccountBalance(accountId string, opts ...Option) (*AccountBalance, error) {
+	return c.getAccountBalance(context.Background(), accountId, opts...)
+}
+
+// GetAccountBalanceWithContext Fetch an account's balance and past due status
 //
 // API Documentation: https://developers.recurly.com/api/v2020-01-01#operation/get_account_balance
 //
 // Returns: An account's balance.
-func (c *Client) GetAccountBalance(accountId string) (*AccountBalance, error) {
+func (c *Client) GetAccountBalanceWithContext(ctx context.Context, accountId string, opts ...Option) (*AccountBalance, error) {
+	return c.getAccountBalance(ctx, accountId, opts...)
+}
+
+func (c *Client) getAccountBalance(ctx context.Context, accountId string, opts ...Option) (*AccountBalance, error) {
 	path, err := c.InterpolatePath("/accounts/{account_id}/balance", accountId)
 	if err != nil {
 		return nil, err
 	}
+	requestOptions := NewRequestOptions(opts...)
 	result := &AccountBalance{}
-	err = c.Call(http.MethodGet, path, nil, result)
+	err = c.Call(ctx, http.MethodGet, path, nil, nil, requestOptions, result)
 	if err != nil {
 		return nil, err
 	}
 	return result, err
 }
 
-// GetBillingInfo Fetch an account's billing information
+// GetBillingInfo wraps GetBillingInfoWithContext using the background context
+func (c *Client) GetBillingInfo(accountId string, opts ...Option) (*BillingInfo, error) {
+	return c.getBillingInfo(context.Background(), accountId, opts...)
+}
+
+// GetBillingInfoWithContext Fetch an account's billing information
 //
 // API Documentation: https://developers.recurly.com/api/v2020-01-01#operation/get_billing_info
 //
 // Returns: An account's billing information.
-func (c *Client) GetBillingInfo(accountId string) (*BillingInfo, error) {
+func (c *Client) GetBillingInfoWithContext(ctx context.Context, accountId string, opts ...Option) (*BillingInfo, error) {
+	return c.getBillingInfo(ctx, accountId, opts...)
+}
+
+func (c *Client) getBillingInfo(ctx context.Context, accountId string, opts ...Option) (*BillingInfo, error) {
 	path, err := c.InterpolatePath("/accounts/{account_id}/billing_info", accountId)
 	if err != nil {
 		return nil, err
 	}
+	requestOptions := NewRequestOptions(opts...)
 	result := &BillingInfo{}
-	err = c.Call(http.MethodGet, path, nil, result)
+	err = c.Call(ctx, http.MethodGet, path, nil, nil, requestOptions, result)
 	if err != nil {
 		return nil, err
 	}
 	return result, err
 }
 
-// UpdateBillingInfo Set an account's billing information
+// UpdateBillingInfo wraps UpdateBillingInfoWithContext using the background context
+func (c *Client) UpdateBillingInfo(accountId string, body *BillingInfoCreate, opts ...Option) (*BillingInfo, error) {
+	return c.updateBillingInfo(context.Background(), accountId, body, opts...)
+}
+
+// UpdateBillingInfoWithContext Set an account's billing information
 //
 // API Documentation: https://developers.recurly.com/api/v2020-01-01#operation/update_billing_info
 //
 // Returns: Updated billing information.
-func (c *Client) UpdateBillingInfo(accountId string, body *BillingInfoCreate) (*BillingInfo, error) {
+func (c *Client) UpdateBillingInfoWithContext(ctx context.Context, accountId string, body *BillingInfoCreate, opts ...Option) (*BillingInfo, error) {
+	return c.updateBillingInfo(ctx, accountId, body, opts...)
+}
+
+func (c *Client) updateBillingInfo(ctx context.Context, accountId string, body *BillingInfoCreate, opts ...Option) (*BillingInfo, error) {
 	path, err := c.InterpolatePath("/accounts/{account_id}/billing_info", accountId)
 	if err != nil {
 		return nil, err
 	}
+	requestOptions := NewRequestOptions(opts...)
 	result := &BillingInfo{}
-	err = c.Call(http.MethodPut, path, body, result)
+	err = c.Call(ctx, http.MethodPut, path, body, nil, requestOptions, result)
 	if err != nil {
 		return nil, err
 	}
 	return result, err
 }
 
-// RemoveBillingInfo Remove an account's billing information
+// RemoveBillingInfo wraps RemoveBillingInfoWithContext using the background context
+func (c *Client) RemoveBillingInfo(accountId string, opts ...Option) (*Empty, error) {
+	return c.removeBillingInfo(context.Background(), accountId, opts...)
+}
+
+// RemoveBillingInfoWithContext Remove an account's billing information
 //
 // API Documentation: https://developers.recurly.com/api/v2020-01-01#operation/remove_billing_info
 //
 // Returns: Billing information deleted
-func (c *Client) RemoveBillingInfo(accountId string) (*Empty, error) {
+func (c *Client) RemoveBillingInfoWithContext(ctx context.Context, accountId string, opts ...Option) (*Empty, error) {
+	return c.removeBillingInfo(ctx, accountId, opts...)
+}
+
+func (c *Client) removeBillingInfo(ctx context.Context, accountId string, opts ...Option) (*Empty, error) {
 	path, err := c.InterpolatePath("/accounts/{account_id}/billing_info", accountId)
 	if err != nil {
 		return nil, err
 	}
+	requestOptions := NewRequestOptions(opts...)
 	result := &Empty{}
-	err = c.Call(http.MethodDelete, path, nil, result)
+	err = c.Call(ctx, http.MethodDelete, path, nil, nil, requestOptions, result)
 	if err != nil {
 		return nil, err
 	}
@@ -694,7 +899,6 @@ func (c *Client) RemoveBillingInfo(accountId string) (*Empty, error) {
 }
 
 type ListBillingInfosParams struct {
-	Params
 
 	// Ids - Filter results by their IDs. Up to 200 IDs can be passed at once using
 	// commas as separators, e.g. `ids=h1at4d57xlmy,gyqgg0d3v9n1,jrsm5b4yefg6`.
@@ -719,15 +923,6 @@ type ListBillingInfosParams struct {
 	// EndTime - Inclusively filter by end_time when `sort=created_at` or `sort=updated_at`.
 	// **Note:** this value is an ISO8601 timestamp. A partial timestamp that does not include a time zone will default to UTC.
 	EndTime *time.Time
-}
-
-func (list *ListBillingInfosParams) toParams() *Params {
-	return &Params{
-		IdempotencyKey: list.IdempotencyKey,
-		Header:         list.Header,
-		Context:        list.Context,
-		RequestParams:  list,
-	}
 }
 
 func (list *ListBillingInfosParams) URLParams() []KeyValue {
@@ -757,81 +952,122 @@ func (list *ListBillingInfosParams) URLParams() []KeyValue {
 // API Documentation: https://developers.recurly.com/api/v2020-01-01#operation/list_billing_infos
 //
 // Returns: A list of the the billing information for an account's
-func (c *Client) ListBillingInfos(accountId string, params *ListBillingInfosParams) (*BillingInfoList, error) {
+func (c *Client) ListBillingInfos(accountId string, params *ListBillingInfosParams, opts ...Option) (*BillingInfoList, error) {
 	path, err := c.InterpolatePath("/accounts/{account_id}/billing_infos", accountId)
 	if err != nil {
 		return nil, err
 	}
-	path = BuildUrl(path, params)
-	return NewBillingInfoList(c, path), nil
+	requestOptions := NewRequestOptions(opts...)
+	path = BuildURL(path, params)
+	return NewBillingInfoList(c, path, requestOptions), nil
 }
 
-// CreateBillingInfo Set an account's billing information when the wallet feature is enabled
+// CreateBillingInfo wraps CreateBillingInfoWithContext using the background context
+func (c *Client) CreateBillingInfo(accountId string, body *BillingInfoCreate, opts ...Option) (*BillingInfo, error) {
+	return c.createBillingInfo(context.Background(), accountId, body, opts...)
+}
+
+// CreateBillingInfoWithContext Set an account's billing information when the wallet feature is enabled
 //
 // API Documentation: https://developers.recurly.com/api/v2020-01-01#operation/create_billing_info
 //
 // Returns: Updated billing information.
-func (c *Client) CreateBillingInfo(accountId string, body *BillingInfoCreate) (*BillingInfo, error) {
+func (c *Client) CreateBillingInfoWithContext(ctx context.Context, accountId string, body *BillingInfoCreate, opts ...Option) (*BillingInfo, error) {
+	return c.createBillingInfo(ctx, accountId, body, opts...)
+}
+
+func (c *Client) createBillingInfo(ctx context.Context, accountId string, body *BillingInfoCreate, opts ...Option) (*BillingInfo, error) {
 	path, err := c.InterpolatePath("/accounts/{account_id}/billing_infos", accountId)
 	if err != nil {
 		return nil, err
 	}
+	requestOptions := NewRequestOptions(opts...)
 	result := &BillingInfo{}
-	err = c.Call(http.MethodPost, path, body, result)
+	err = c.Call(ctx, http.MethodPost, path, body, nil, requestOptions, result)
 	if err != nil {
 		return nil, err
 	}
 	return result, err
 }
 
-// GetABillingInfo Fetch a billing info
+// GetABillingInfo wraps GetABillingInfoWithContext using the background context
+func (c *Client) GetABillingInfo(accountId string, billingInfoId string, opts ...Option) (*BillingInfo, error) {
+	return c.getABillingInfo(context.Background(), accountId, billingInfoId, opts...)
+}
+
+// GetABillingInfoWithContext Fetch a billing info
 //
 // API Documentation: https://developers.recurly.com/api/v2020-01-01#operation/get_a_billing_info
 //
 // Returns: A billing info.
-func (c *Client) GetABillingInfo(accountId string, billingInfoId string) (*BillingInfo, error) {
+func (c *Client) GetABillingInfoWithContext(ctx context.Context, accountId string, billingInfoId string, opts ...Option) (*BillingInfo, error) {
+	return c.getABillingInfo(ctx, accountId, billingInfoId, opts...)
+}
+
+func (c *Client) getABillingInfo(ctx context.Context, accountId string, billingInfoId string, opts ...Option) (*BillingInfo, error) {
 	path, err := c.InterpolatePath("/accounts/{account_id}/billing_infos/{billing_info_id}", accountId, billingInfoId)
 	if err != nil {
 		return nil, err
 	}
+	requestOptions := NewRequestOptions(opts...)
 	result := &BillingInfo{}
-	err = c.Call(http.MethodGet, path, nil, result)
+	err = c.Call(ctx, http.MethodGet, path, nil, nil, requestOptions, result)
 	if err != nil {
 		return nil, err
 	}
 	return result, err
 }
 
-// UpdateABillingInfo Update an account's billing information
+// UpdateABillingInfo wraps UpdateABillingInfoWithContext using the background context
+func (c *Client) UpdateABillingInfo(accountId string, billingInfoId string, body *BillingInfoCreate, opts ...Option) (*BillingInfo, error) {
+	return c.updateABillingInfo(context.Background(), accountId, billingInfoId, body, opts...)
+}
+
+// UpdateABillingInfoWithContext Update an account's billing information
 //
 // API Documentation: https://developers.recurly.com/api/v2020-01-01#operation/update_a_billing_info
 //
 // Returns: Updated billing information.
-func (c *Client) UpdateABillingInfo(accountId string, billingInfoId string, body *BillingInfoCreate) (*BillingInfo, error) {
+func (c *Client) UpdateABillingInfoWithContext(ctx context.Context, accountId string, billingInfoId string, body *BillingInfoCreate, opts ...Option) (*BillingInfo, error) {
+	return c.updateABillingInfo(ctx, accountId, billingInfoId, body, opts...)
+}
+
+func (c *Client) updateABillingInfo(ctx context.Context, accountId string, billingInfoId string, body *BillingInfoCreate, opts ...Option) (*BillingInfo, error) {
 	path, err := c.InterpolatePath("/accounts/{account_id}/billing_infos/{billing_info_id}", accountId, billingInfoId)
 	if err != nil {
 		return nil, err
 	}
+	requestOptions := NewRequestOptions(opts...)
 	result := &BillingInfo{}
-	err = c.Call(http.MethodPut, path, body, result)
+	err = c.Call(ctx, http.MethodPut, path, body, nil, requestOptions, result)
 	if err != nil {
 		return nil, err
 	}
 	return result, err
 }
 
-// RemoveABillingInfo Remove an account's billing information
+// RemoveABillingInfo wraps RemoveABillingInfoWithContext using the background context
+func (c *Client) RemoveABillingInfo(accountId string, billingInfoId string, opts ...Option) (*Empty, error) {
+	return c.removeABillingInfo(context.Background(), accountId, billingInfoId, opts...)
+}
+
+// RemoveABillingInfoWithContext Remove an account's billing information
 //
 // API Documentation: https://developers.recurly.com/api/v2020-01-01#operation/remove_a_billing_info
 //
 // Returns: Billing information deleted
-func (c *Client) RemoveABillingInfo(accountId string, billingInfoId string) (*Empty, error) {
+func (c *Client) RemoveABillingInfoWithContext(ctx context.Context, accountId string, billingInfoId string, opts ...Option) (*Empty, error) {
+	return c.removeABillingInfo(ctx, accountId, billingInfoId, opts...)
+}
+
+func (c *Client) removeABillingInfo(ctx context.Context, accountId string, billingInfoId string, opts ...Option) (*Empty, error) {
 	path, err := c.InterpolatePath("/accounts/{account_id}/billing_infos/{billing_info_id}", accountId, billingInfoId)
 	if err != nil {
 		return nil, err
 	}
+	requestOptions := NewRequestOptions(opts...)
 	result := &Empty{}
-	err = c.Call(http.MethodDelete, path, nil, result)
+	err = c.Call(ctx, http.MethodDelete, path, nil, nil, requestOptions, result)
 	if err != nil {
 		return nil, err
 	}
@@ -839,7 +1075,6 @@ func (c *Client) RemoveABillingInfo(accountId string, billingInfoId string) (*Em
 }
 
 type ListAccountCouponRedemptionsParams struct {
-	Params
 
 	// Ids - Filter results by their IDs. Up to 200 IDs can be passed at once using
 	// commas as separators, e.g. `ids=h1at4d57xlmy,gyqgg0d3v9n1,jrsm5b4yefg6`.
@@ -864,15 +1099,6 @@ type ListAccountCouponRedemptionsParams struct {
 	// EndTime - Inclusively filter by end_time when `sort=created_at` or `sort=updated_at`.
 	// **Note:** this value is an ISO8601 timestamp. A partial timestamp that does not include a time zone will default to UTC.
 	EndTime *time.Time
-}
-
-func (list *ListAccountCouponRedemptionsParams) toParams() *Params {
-	return &Params{
-		IdempotencyKey: list.IdempotencyKey,
-		Header:         list.Header,
-		Context:        list.Context,
-		RequestParams:  list,
-	}
 }
 
 func (list *ListAccountCouponRedemptionsParams) URLParams() []KeyValue {
@@ -902,13 +1128,14 @@ func (list *ListAccountCouponRedemptionsParams) URLParams() []KeyValue {
 // API Documentation: https://developers.recurly.com/api/v2020-01-01#operation/list_account_coupon_redemptions
 //
 // Returns: A list of the the coupon redemptions on an account.
-func (c *Client) ListAccountCouponRedemptions(accountId string, params *ListAccountCouponRedemptionsParams) (*CouponRedemptionList, error) {
+func (c *Client) ListAccountCouponRedemptions(accountId string, params *ListAccountCouponRedemptionsParams, opts ...Option) (*CouponRedemptionList, error) {
 	path, err := c.InterpolatePath("/accounts/{account_id}/coupon_redemptions", accountId)
 	if err != nil {
 		return nil, err
 	}
-	path = BuildUrl(path, params)
-	return NewCouponRedemptionList(c, path), nil
+	requestOptions := NewRequestOptions(opts...)
+	path = BuildURL(path, params)
+	return NewCouponRedemptionList(c, path, requestOptions), nil
 }
 
 // ListActiveCouponRedemptions Show the coupon redemptions that are active on an account
@@ -916,44 +1143,65 @@ func (c *Client) ListAccountCouponRedemptions(accountId string, params *ListAcco
 // API Documentation: https://developers.recurly.com/api/v2020-01-01#operation/list_active_coupon_redemptions
 //
 // Returns: Active coupon redemptions on an account.
-func (c *Client) ListActiveCouponRedemptions(accountId string) (*CouponRedemptionList, error) {
+func (c *Client) ListActiveCouponRedemptions(accountId string, opts ...Option) (*CouponRedemptionList, error) {
 	path, err := c.InterpolatePath("/accounts/{account_id}/coupon_redemptions/active", accountId)
 	if err != nil {
 		return nil, err
 	}
-	return NewCouponRedemptionList(c, path), nil
+	requestOptions := NewRequestOptions(opts...)
+	return NewCouponRedemptionList(c, path, requestOptions), nil
 }
 
-// CreateCouponRedemption Generate an active coupon redemption on an account
+// CreateCouponRedemption wraps CreateCouponRedemptionWithContext using the background context
+func (c *Client) CreateCouponRedemption(accountId string, body *CouponRedemptionCreate, opts ...Option) (*CouponRedemption, error) {
+	return c.createCouponRedemption(context.Background(), accountId, body, opts...)
+}
+
+// CreateCouponRedemptionWithContext Generate an active coupon redemption on an account
 //
 // API Documentation: https://developers.recurly.com/api/v2020-01-01#operation/create_coupon_redemption
 //
 // Returns: Returns the new coupon redemption.
-func (c *Client) CreateCouponRedemption(accountId string, body *CouponRedemptionCreate) (*CouponRedemption, error) {
+func (c *Client) CreateCouponRedemptionWithContext(ctx context.Context, accountId string, body *CouponRedemptionCreate, opts ...Option) (*CouponRedemption, error) {
+	return c.createCouponRedemption(ctx, accountId, body, opts...)
+}
+
+func (c *Client) createCouponRedemption(ctx context.Context, accountId string, body *CouponRedemptionCreate, opts ...Option) (*CouponRedemption, error) {
 	path, err := c.InterpolatePath("/accounts/{account_id}/coupon_redemptions/active", accountId)
 	if err != nil {
 		return nil, err
 	}
+	requestOptions := NewRequestOptions(opts...)
 	result := &CouponRedemption{}
-	err = c.Call(http.MethodPost, path, body, result)
+	err = c.Call(ctx, http.MethodPost, path, body, nil, requestOptions, result)
 	if err != nil {
 		return nil, err
 	}
 	return result, err
 }
 
-// RemoveCouponRedemption Delete the active coupon redemption from an account
+// RemoveCouponRedemption wraps RemoveCouponRedemptionWithContext using the background context
+func (c *Client) RemoveCouponRedemption(accountId string, opts ...Option) (*CouponRedemption, error) {
+	return c.removeCouponRedemption(context.Background(), accountId, opts...)
+}
+
+// RemoveCouponRedemptionWithContext Delete the active coupon redemption from an account
 //
 // API Documentation: https://developers.recurly.com/api/v2020-01-01#operation/remove_coupon_redemption
 //
 // Returns: Coupon redemption deleted.
-func (c *Client) RemoveCouponRedemption(accountId string) (*CouponRedemption, error) {
+func (c *Client) RemoveCouponRedemptionWithContext(ctx context.Context, accountId string, opts ...Option) (*CouponRedemption, error) {
+	return c.removeCouponRedemption(ctx, accountId, opts...)
+}
+
+func (c *Client) removeCouponRedemption(ctx context.Context, accountId string, opts ...Option) (*CouponRedemption, error) {
 	path, err := c.InterpolatePath("/accounts/{account_id}/coupon_redemptions/active", accountId)
 	if err != nil {
 		return nil, err
 	}
+	requestOptions := NewRequestOptions(opts...)
 	result := &CouponRedemption{}
-	err = c.Call(http.MethodDelete, path, nil, result)
+	err = c.Call(ctx, http.MethodDelete, path, nil, nil, requestOptions, result)
 	if err != nil {
 		return nil, err
 	}
@@ -961,7 +1209,6 @@ func (c *Client) RemoveCouponRedemption(accountId string) (*CouponRedemption, er
 }
 
 type ListAccountCreditPaymentsParams struct {
-	Params
 
 	// Limit - Limit number of records 1-200.
 	Limit *int
@@ -981,15 +1228,6 @@ type ListAccountCreditPaymentsParams struct {
 	// EndTime - Inclusively filter by end_time when `sort=created_at` or `sort=updated_at`.
 	// **Note:** this value is an ISO8601 timestamp. A partial timestamp that does not include a time zone will default to UTC.
 	EndTime *time.Time
-}
-
-func (list *ListAccountCreditPaymentsParams) toParams() *Params {
-	return &Params{
-		IdempotencyKey: list.IdempotencyKey,
-		Header:         list.Header,
-		Context:        list.Context,
-		RequestParams:  list,
-	}
 }
 
 func (list *ListAccountCreditPaymentsParams) URLParams() []KeyValue {
@@ -1023,17 +1261,17 @@ func (list *ListAccountCreditPaymentsParams) URLParams() []KeyValue {
 // API Documentation: https://developers.recurly.com/api/v2020-01-01#operation/list_account_credit_payments
 //
 // Returns: A list of the account's credit payments.
-func (c *Client) ListAccountCreditPayments(accountId string, params *ListAccountCreditPaymentsParams) (*CreditPaymentList, error) {
+func (c *Client) ListAccountCreditPayments(accountId string, params *ListAccountCreditPaymentsParams, opts ...Option) (*CreditPaymentList, error) {
 	path, err := c.InterpolatePath("/accounts/{account_id}/credit_payments", accountId)
 	if err != nil {
 		return nil, err
 	}
-	path = BuildUrl(path, params)
-	return NewCreditPaymentList(c, path), nil
+	requestOptions := NewRequestOptions(opts...)
+	path = BuildURL(path, params)
+	return NewCreditPaymentList(c, path, requestOptions), nil
 }
 
 type ListAccountInvoicesParams struct {
-	Params
 
 	// Ids - Filter results by their IDs. Up to 200 IDs can be passed at once using
 	// commas as separators, e.g. `ids=h1at4d57xlmy,gyqgg0d3v9n1,jrsm5b4yefg6`.
@@ -1071,15 +1309,6 @@ type ListAccountInvoicesParams struct {
 	// - `type=non-legacy`, only charge and credit invoices will be returned.
 	// - `type=legacy`, only legacy invoices will be returned.
 	Type *string
-}
-
-func (list *ListAccountInvoicesParams) toParams() *Params {
-	return &Params{
-		IdempotencyKey: list.IdempotencyKey,
-		Header:         list.Header,
-		Context:        list.Context,
-		RequestParams:  list,
-	}
 }
 
 func (list *ListAccountInvoicesParams) URLParams() []KeyValue {
@@ -1121,45 +1350,66 @@ func (list *ListAccountInvoicesParams) URLParams() []KeyValue {
 // API Documentation: https://developers.recurly.com/api/v2020-01-01#operation/list_account_invoices
 //
 // Returns: A list of the account's invoices.
-func (c *Client) ListAccountInvoices(accountId string, params *ListAccountInvoicesParams) (*InvoiceList, error) {
+func (c *Client) ListAccountInvoices(accountId string, params *ListAccountInvoicesParams, opts ...Option) (*InvoiceList, error) {
 	path, err := c.InterpolatePath("/accounts/{account_id}/invoices", accountId)
 	if err != nil {
 		return nil, err
 	}
-	path = BuildUrl(path, params)
-	return NewInvoiceList(c, path), nil
+	requestOptions := NewRequestOptions(opts...)
+	path = BuildURL(path, params)
+	return NewInvoiceList(c, path, requestOptions), nil
 }
 
-// CreateInvoice Create an invoice for pending line items
+// CreateInvoice wraps CreateInvoiceWithContext using the background context
+func (c *Client) CreateInvoice(accountId string, body *InvoiceCreate, opts ...Option) (*InvoiceCollection, error) {
+	return c.createInvoice(context.Background(), accountId, body, opts...)
+}
+
+// CreateInvoiceWithContext Create an invoice for pending line items
 //
 // API Documentation: https://developers.recurly.com/api/v2020-01-01#operation/create_invoice
 //
 // Returns: Returns the new invoices.
-func (c *Client) CreateInvoice(accountId string, body *InvoiceCreate) (*InvoiceCollection, error) {
+func (c *Client) CreateInvoiceWithContext(ctx context.Context, accountId string, body *InvoiceCreate, opts ...Option) (*InvoiceCollection, error) {
+	return c.createInvoice(ctx, accountId, body, opts...)
+}
+
+func (c *Client) createInvoice(ctx context.Context, accountId string, body *InvoiceCreate, opts ...Option) (*InvoiceCollection, error) {
 	path, err := c.InterpolatePath("/accounts/{account_id}/invoices", accountId)
 	if err != nil {
 		return nil, err
 	}
+	requestOptions := NewRequestOptions(opts...)
 	result := &InvoiceCollection{}
-	err = c.Call(http.MethodPost, path, body, result)
+	err = c.Call(ctx, http.MethodPost, path, body, nil, requestOptions, result)
 	if err != nil {
 		return nil, err
 	}
 	return result, err
 }
 
-// PreviewInvoice Preview new invoice for pending line items
+// PreviewInvoice wraps PreviewInvoiceWithContext using the background context
+func (c *Client) PreviewInvoice(accountId string, body *InvoiceCreate, opts ...Option) (*InvoiceCollection, error) {
+	return c.previewInvoice(context.Background(), accountId, body, opts...)
+}
+
+// PreviewInvoiceWithContext Preview new invoice for pending line items
 //
 // API Documentation: https://developers.recurly.com/api/v2020-01-01#operation/preview_invoice
 //
 // Returns: Returns the invoice previews.
-func (c *Client) PreviewInvoice(accountId string, body *InvoiceCreate) (*InvoiceCollection, error) {
+func (c *Client) PreviewInvoiceWithContext(ctx context.Context, accountId string, body *InvoiceCreate, opts ...Option) (*InvoiceCollection, error) {
+	return c.previewInvoice(ctx, accountId, body, opts...)
+}
+
+func (c *Client) previewInvoice(ctx context.Context, accountId string, body *InvoiceCreate, opts ...Option) (*InvoiceCollection, error) {
 	path, err := c.InterpolatePath("/accounts/{account_id}/invoices/preview", accountId)
 	if err != nil {
 		return nil, err
 	}
+	requestOptions := NewRequestOptions(opts...)
 	result := &InvoiceCollection{}
-	err = c.Call(http.MethodPost, path, body, result)
+	err = c.Call(ctx, http.MethodPost, path, body, nil, requestOptions, result)
 	if err != nil {
 		return nil, err
 	}
@@ -1167,7 +1417,6 @@ func (c *Client) PreviewInvoice(accountId string, body *InvoiceCreate) (*Invoice
 }
 
 type ListAccountLineItemsParams struct {
-	Params
 
 	// Ids - Filter results by their IDs. Up to 200 IDs can be passed at once using
 	// commas as separators, e.g. `ids=h1at4d57xlmy,gyqgg0d3v9n1,jrsm5b4yefg6`.
@@ -1207,15 +1456,6 @@ type ListAccountLineItemsParams struct {
 
 	// Type - Filter by type field.
 	Type *string
-}
-
-func (list *ListAccountLineItemsParams) toParams() *Params {
-	return &Params{
-		IdempotencyKey: list.IdempotencyKey,
-		Header:         list.Header,
-		Context:        list.Context,
-		RequestParams:  list,
-	}
 }
 
 func (list *ListAccountLineItemsParams) URLParams() []KeyValue {
@@ -1265,27 +1505,38 @@ func (list *ListAccountLineItemsParams) URLParams() []KeyValue {
 // API Documentation: https://developers.recurly.com/api/v2020-01-01#operation/list_account_line_items
 //
 // Returns: A list of the account's line items.
-func (c *Client) ListAccountLineItems(accountId string, params *ListAccountLineItemsParams) (*LineItemList, error) {
+func (c *Client) ListAccountLineItems(accountId string, params *ListAccountLineItemsParams, opts ...Option) (*LineItemList, error) {
 	path, err := c.InterpolatePath("/accounts/{account_id}/line_items", accountId)
 	if err != nil {
 		return nil, err
 	}
-	path = BuildUrl(path, params)
-	return NewLineItemList(c, path), nil
+	requestOptions := NewRequestOptions(opts...)
+	path = BuildURL(path, params)
+	return NewLineItemList(c, path, requestOptions), nil
 }
 
-// CreateLineItem Create a new line item for the account
+// CreateLineItem wraps CreateLineItemWithContext using the background context
+func (c *Client) CreateLineItem(accountId string, body *LineItemCreate, opts ...Option) (*LineItem, error) {
+	return c.createLineItem(context.Background(), accountId, body, opts...)
+}
+
+// CreateLineItemWithContext Create a new line item for the account
 //
 // API Documentation: https://developers.recurly.com/api/v2020-01-01#operation/create_line_item
 //
 // Returns: Returns the new line item.
-func (c *Client) CreateLineItem(accountId string, body *LineItemCreate) (*LineItem, error) {
+func (c *Client) CreateLineItemWithContext(ctx context.Context, accountId string, body *LineItemCreate, opts ...Option) (*LineItem, error) {
+	return c.createLineItem(ctx, accountId, body, opts...)
+}
+
+func (c *Client) createLineItem(ctx context.Context, accountId string, body *LineItemCreate, opts ...Option) (*LineItem, error) {
 	path, err := c.InterpolatePath("/accounts/{account_id}/line_items", accountId)
 	if err != nil {
 		return nil, err
 	}
+	requestOptions := NewRequestOptions(opts...)
 	result := &LineItem{}
-	err = c.Call(http.MethodPost, path, body, result)
+	err = c.Call(ctx, http.MethodPost, path, body, nil, requestOptions, result)
 	if err != nil {
 		return nil, err
 	}
@@ -1293,7 +1544,6 @@ func (c *Client) CreateLineItem(accountId string, body *LineItemCreate) (*LineIt
 }
 
 type ListAccountNotesParams struct {
-	Params
 
 	// Ids - Filter results by their IDs. Up to 200 IDs can be passed at once using
 	// commas as separators, e.g. `ids=h1at4d57xlmy,gyqgg0d3v9n1,jrsm5b4yefg6`.
@@ -1305,15 +1555,6 @@ type ListAccountNotesParams struct {
 	// * Records are returned in an arbitrary order. Since results are all
 	//   returned at once you can sort the records yourself.
 	Ids []string
-}
-
-func (list *ListAccountNotesParams) toParams() *Params {
-	return &Params{
-		IdempotencyKey: list.IdempotencyKey,
-		Header:         list.Header,
-		Context:        list.Context,
-		RequestParams:  list,
-	}
 }
 
 func (list *ListAccountNotesParams) URLParams() []KeyValue {
@@ -1331,27 +1572,38 @@ func (list *ListAccountNotesParams) URLParams() []KeyValue {
 // API Documentation: https://developers.recurly.com/api/v2020-01-01#operation/list_account_notes
 //
 // Returns: A list of an account's notes.
-func (c *Client) ListAccountNotes(accountId string, params *ListAccountNotesParams) (*AccountNoteList, error) {
+func (c *Client) ListAccountNotes(accountId string, params *ListAccountNotesParams, opts ...Option) (*AccountNoteList, error) {
 	path, err := c.InterpolatePath("/accounts/{account_id}/notes", accountId)
 	if err != nil {
 		return nil, err
 	}
-	path = BuildUrl(path, params)
-	return NewAccountNoteList(c, path), nil
+	requestOptions := NewRequestOptions(opts...)
+	path = BuildURL(path, params)
+	return NewAccountNoteList(c, path, requestOptions), nil
 }
 
-// GetAccountNote Fetch an account note
+// GetAccountNote wraps GetAccountNoteWithContext using the background context
+func (c *Client) GetAccountNote(accountId string, accountNoteId string, opts ...Option) (*AccountNote, error) {
+	return c.getAccountNote(context.Background(), accountId, accountNoteId, opts...)
+}
+
+// GetAccountNoteWithContext Fetch an account note
 //
 // API Documentation: https://developers.recurly.com/api/v2020-01-01#operation/get_account_note
 //
 // Returns: An account note.
-func (c *Client) GetAccountNote(accountId string, accountNoteId string) (*AccountNote, error) {
+func (c *Client) GetAccountNoteWithContext(ctx context.Context, accountId string, accountNoteId string, opts ...Option) (*AccountNote, error) {
+	return c.getAccountNote(ctx, accountId, accountNoteId, opts...)
+}
+
+func (c *Client) getAccountNote(ctx context.Context, accountId string, accountNoteId string, opts ...Option) (*AccountNote, error) {
 	path, err := c.InterpolatePath("/accounts/{account_id}/notes/{account_note_id}", accountId, accountNoteId)
 	if err != nil {
 		return nil, err
 	}
+	requestOptions := NewRequestOptions(opts...)
 	result := &AccountNote{}
-	err = c.Call(http.MethodGet, path, nil, result)
+	err = c.Call(ctx, http.MethodGet, path, nil, nil, requestOptions, result)
 	if err != nil {
 		return nil, err
 	}
@@ -1359,7 +1611,6 @@ func (c *Client) GetAccountNote(accountId string, accountNoteId string) (*Accoun
 }
 
 type ListShippingAddressesParams struct {
-	Params
 
 	// Ids - Filter results by their IDs. Up to 200 IDs can be passed at once using
 	// commas as separators, e.g. `ids=h1at4d57xlmy,gyqgg0d3v9n1,jrsm5b4yefg6`.
@@ -1390,15 +1641,6 @@ type ListShippingAddressesParams struct {
 	// EndTime - Inclusively filter by end_time when `sort=created_at` or `sort=updated_at`.
 	// **Note:** this value is an ISO8601 timestamp. A partial timestamp that does not include a time zone will default to UTC.
 	EndTime *time.Time
-}
-
-func (list *ListShippingAddressesParams) toParams() *Params {
-	return &Params{
-		IdempotencyKey: list.IdempotencyKey,
-		Header:         list.Header,
-		Context:        list.Context,
-		RequestParams:  list,
-	}
 }
 
 func (list *ListShippingAddressesParams) URLParams() []KeyValue {
@@ -1436,81 +1678,122 @@ func (list *ListShippingAddressesParams) URLParams() []KeyValue {
 // API Documentation: https://developers.recurly.com/api/v2020-01-01#operation/list_shipping_addresses
 //
 // Returns: A list of an account's shipping addresses.
-func (c *Client) ListShippingAddresses(accountId string, params *ListShippingAddressesParams) (*ShippingAddressList, error) {
+func (c *Client) ListShippingAddresses(accountId string, params *ListShippingAddressesParams, opts ...Option) (*ShippingAddressList, error) {
 	path, err := c.InterpolatePath("/accounts/{account_id}/shipping_addresses", accountId)
 	if err != nil {
 		return nil, err
 	}
-	path = BuildUrl(path, params)
-	return NewShippingAddressList(c, path), nil
+	requestOptions := NewRequestOptions(opts...)
+	path = BuildURL(path, params)
+	return NewShippingAddressList(c, path, requestOptions), nil
 }
 
-// CreateShippingAddress Create a new shipping address for the account
+// CreateShippingAddress wraps CreateShippingAddressWithContext using the background context
+func (c *Client) CreateShippingAddress(accountId string, body *ShippingAddressCreate, opts ...Option) (*ShippingAddress, error) {
+	return c.createShippingAddress(context.Background(), accountId, body, opts...)
+}
+
+// CreateShippingAddressWithContext Create a new shipping address for the account
 //
 // API Documentation: https://developers.recurly.com/api/v2020-01-01#operation/create_shipping_address
 //
 // Returns: Returns the new shipping address.
-func (c *Client) CreateShippingAddress(accountId string, body *ShippingAddressCreate) (*ShippingAddress, error) {
+func (c *Client) CreateShippingAddressWithContext(ctx context.Context, accountId string, body *ShippingAddressCreate, opts ...Option) (*ShippingAddress, error) {
+	return c.createShippingAddress(ctx, accountId, body, opts...)
+}
+
+func (c *Client) createShippingAddress(ctx context.Context, accountId string, body *ShippingAddressCreate, opts ...Option) (*ShippingAddress, error) {
 	path, err := c.InterpolatePath("/accounts/{account_id}/shipping_addresses", accountId)
 	if err != nil {
 		return nil, err
 	}
+	requestOptions := NewRequestOptions(opts...)
 	result := &ShippingAddress{}
-	err = c.Call(http.MethodPost, path, body, result)
+	err = c.Call(ctx, http.MethodPost, path, body, nil, requestOptions, result)
 	if err != nil {
 		return nil, err
 	}
 	return result, err
 }
 
-// GetShippingAddress Fetch an account's shipping address
+// GetShippingAddress wraps GetShippingAddressWithContext using the background context
+func (c *Client) GetShippingAddress(accountId string, shippingAddressId string, opts ...Option) (*ShippingAddress, error) {
+	return c.getShippingAddress(context.Background(), accountId, shippingAddressId, opts...)
+}
+
+// GetShippingAddressWithContext Fetch an account's shipping address
 //
 // API Documentation: https://developers.recurly.com/api/v2020-01-01#operation/get_shipping_address
 //
 // Returns: A shipping address.
-func (c *Client) GetShippingAddress(accountId string, shippingAddressId string) (*ShippingAddress, error) {
+func (c *Client) GetShippingAddressWithContext(ctx context.Context, accountId string, shippingAddressId string, opts ...Option) (*ShippingAddress, error) {
+	return c.getShippingAddress(ctx, accountId, shippingAddressId, opts...)
+}
+
+func (c *Client) getShippingAddress(ctx context.Context, accountId string, shippingAddressId string, opts ...Option) (*ShippingAddress, error) {
 	path, err := c.InterpolatePath("/accounts/{account_id}/shipping_addresses/{shipping_address_id}", accountId, shippingAddressId)
 	if err != nil {
 		return nil, err
 	}
+	requestOptions := NewRequestOptions(opts...)
 	result := &ShippingAddress{}
-	err = c.Call(http.MethodGet, path, nil, result)
+	err = c.Call(ctx, http.MethodGet, path, nil, nil, requestOptions, result)
 	if err != nil {
 		return nil, err
 	}
 	return result, err
 }
 
-// UpdateShippingAddress Update an account's shipping address
+// UpdateShippingAddress wraps UpdateShippingAddressWithContext using the background context
+func (c *Client) UpdateShippingAddress(accountId string, shippingAddressId string, body *ShippingAddressUpdate, opts ...Option) (*ShippingAddress, error) {
+	return c.updateShippingAddress(context.Background(), accountId, shippingAddressId, body, opts...)
+}
+
+// UpdateShippingAddressWithContext Update an account's shipping address
 //
 // API Documentation: https://developers.recurly.com/api/v2020-01-01#operation/update_shipping_address
 //
 // Returns: The updated shipping address.
-func (c *Client) UpdateShippingAddress(accountId string, shippingAddressId string, body *ShippingAddressUpdate) (*ShippingAddress, error) {
+func (c *Client) UpdateShippingAddressWithContext(ctx context.Context, accountId string, shippingAddressId string, body *ShippingAddressUpdate, opts ...Option) (*ShippingAddress, error) {
+	return c.updateShippingAddress(ctx, accountId, shippingAddressId, body, opts...)
+}
+
+func (c *Client) updateShippingAddress(ctx context.Context, accountId string, shippingAddressId string, body *ShippingAddressUpdate, opts ...Option) (*ShippingAddress, error) {
 	path, err := c.InterpolatePath("/accounts/{account_id}/shipping_addresses/{shipping_address_id}", accountId, shippingAddressId)
 	if err != nil {
 		return nil, err
 	}
+	requestOptions := NewRequestOptions(opts...)
 	result := &ShippingAddress{}
-	err = c.Call(http.MethodPut, path, body, result)
+	err = c.Call(ctx, http.MethodPut, path, body, nil, requestOptions, result)
 	if err != nil {
 		return nil, err
 	}
 	return result, err
 }
 
-// RemoveShippingAddress Remove an account's shipping address
+// RemoveShippingAddress wraps RemoveShippingAddressWithContext using the background context
+func (c *Client) RemoveShippingAddress(accountId string, shippingAddressId string, opts ...Option) (*Empty, error) {
+	return c.removeShippingAddress(context.Background(), accountId, shippingAddressId, opts...)
+}
+
+// RemoveShippingAddressWithContext Remove an account's shipping address
 //
 // API Documentation: https://developers.recurly.com/api/v2020-01-01#operation/remove_shipping_address
 //
 // Returns: Shipping address deleted.
-func (c *Client) RemoveShippingAddress(accountId string, shippingAddressId string) (*Empty, error) {
+func (c *Client) RemoveShippingAddressWithContext(ctx context.Context, accountId string, shippingAddressId string, opts ...Option) (*Empty, error) {
+	return c.removeShippingAddress(ctx, accountId, shippingAddressId, opts...)
+}
+
+func (c *Client) removeShippingAddress(ctx context.Context, accountId string, shippingAddressId string, opts ...Option) (*Empty, error) {
 	path, err := c.InterpolatePath("/accounts/{account_id}/shipping_addresses/{shipping_address_id}", accountId, shippingAddressId)
 	if err != nil {
 		return nil, err
 	}
+	requestOptions := NewRequestOptions(opts...)
 	result := &Empty{}
-	err = c.Call(http.MethodDelete, path, nil, result)
+	err = c.Call(ctx, http.MethodDelete, path, nil, nil, requestOptions, result)
 	if err != nil {
 		return nil, err
 	}
@@ -1518,7 +1801,6 @@ func (c *Client) RemoveShippingAddress(accountId string, shippingAddressId strin
 }
 
 type ListAccountSubscriptionsParams struct {
-	Params
 
 	// Ids - Filter results by their IDs. Up to 200 IDs can be passed at once using
 	// commas as separators, e.g. `ids=h1at4d57xlmy,gyqgg0d3v9n1,jrsm5b4yefg6`.
@@ -1555,15 +1837,6 @@ type ListAccountSubscriptionsParams struct {
 	// - When `state=in_trial`, only subscriptions that have a trial_started_at date earlier than now and a trial_ends_at date later than now will be returned.
 	// - When `state=live`, only subscriptions that are in an active, canceled, or future state or are in trial will be returned.
 	State *string
-}
-
-func (list *ListAccountSubscriptionsParams) toParams() *Params {
-	return &Params{
-		IdempotencyKey: list.IdempotencyKey,
-		Header:         list.Header,
-		Context:        list.Context,
-		RequestParams:  list,
-	}
 }
 
 func (list *ListAccountSubscriptionsParams) URLParams() []KeyValue {
@@ -1605,17 +1878,17 @@ func (list *ListAccountSubscriptionsParams) URLParams() []KeyValue {
 // API Documentation: https://developers.recurly.com/api/v2020-01-01#operation/list_account_subscriptions
 //
 // Returns: A list of the account's subscriptions.
-func (c *Client) ListAccountSubscriptions(accountId string, params *ListAccountSubscriptionsParams) (*SubscriptionList, error) {
+func (c *Client) ListAccountSubscriptions(accountId string, params *ListAccountSubscriptionsParams, opts ...Option) (*SubscriptionList, error) {
 	path, err := c.InterpolatePath("/accounts/{account_id}/subscriptions", accountId)
 	if err != nil {
 		return nil, err
 	}
-	path = BuildUrl(path, params)
-	return NewSubscriptionList(c, path), nil
+	requestOptions := NewRequestOptions(opts...)
+	path = BuildURL(path, params)
+	return NewSubscriptionList(c, path, requestOptions), nil
 }
 
 type ListAccountTransactionsParams struct {
-	Params
 
 	// Ids - Filter results by their IDs. Up to 200 IDs can be passed at once using
 	// commas as separators, e.g. `ids=h1at4d57xlmy,gyqgg0d3v9n1,jrsm5b4yefg6`.
@@ -1652,15 +1925,6 @@ type ListAccountTransactionsParams struct {
 
 	// Success - Filter by success field.
 	Success *string
-}
-
-func (list *ListAccountTransactionsParams) toParams() *Params {
-	return &Params{
-		IdempotencyKey: list.IdempotencyKey,
-		Header:         list.Header,
-		Context:        list.Context,
-		RequestParams:  list,
-	}
 }
 
 func (list *ListAccountTransactionsParams) URLParams() []KeyValue {
@@ -1706,17 +1970,17 @@ func (list *ListAccountTransactionsParams) URLParams() []KeyValue {
 // API Documentation: https://developers.recurly.com/api/v2020-01-01#operation/list_account_transactions
 //
 // Returns: A list of the account's transactions.
-func (c *Client) ListAccountTransactions(accountId string, params *ListAccountTransactionsParams) (*TransactionList, error) {
+func (c *Client) ListAccountTransactions(accountId string, params *ListAccountTransactionsParams, opts ...Option) (*TransactionList, error) {
 	path, err := c.InterpolatePath("/accounts/{account_id}/transactions", accountId)
 	if err != nil {
 		return nil, err
 	}
-	path = BuildUrl(path, params)
-	return NewTransactionList(c, path), nil
+	requestOptions := NewRequestOptions(opts...)
+	path = BuildURL(path, params)
+	return NewTransactionList(c, path, requestOptions), nil
 }
 
 type ListChildAccountsParams struct {
-	Params
 
 	// Ids - Filter results by their IDs. Up to 200 IDs can be passed at once using
 	// commas as separators, e.g. `ids=h1at4d57xlmy,gyqgg0d3v9n1,jrsm5b4yefg6`.
@@ -1757,15 +2021,6 @@ type ListChildAccountsParams struct {
 
 	// PastDue - Filter for accounts with an invoice in the `past_due` state.
 	PastDue *string
-}
-
-func (list *ListChildAccountsParams) toParams() *Params {
-	return &Params{
-		IdempotencyKey: list.IdempotencyKey,
-		Header:         list.Header,
-		Context:        list.Context,
-		RequestParams:  list,
-	}
 }
 
 func (list *ListChildAccountsParams) URLParams() []KeyValue {
@@ -1815,17 +2070,17 @@ func (list *ListChildAccountsParams) URLParams() []KeyValue {
 // API Documentation: https://developers.recurly.com/api/v2020-01-01#operation/list_child_accounts
 //
 // Returns: A list of an account's child accounts.
-func (c *Client) ListChildAccounts(accountId string, params *ListChildAccountsParams) (*AccountList, error) {
+func (c *Client) ListChildAccounts(accountId string, params *ListChildAccountsParams, opts ...Option) (*AccountList, error) {
 	path, err := c.InterpolatePath("/accounts/{account_id}/accounts", accountId)
 	if err != nil {
 		return nil, err
 	}
-	path = BuildUrl(path, params)
-	return NewAccountList(c, path), nil
+	requestOptions := NewRequestOptions(opts...)
+	path = BuildURL(path, params)
+	return NewAccountList(c, path, requestOptions), nil
 }
 
 type ListAccountAcquisitionParams struct {
-	Params
 
 	// Ids - Filter results by their IDs. Up to 200 IDs can be passed at once using
 	// commas as separators, e.g. `ids=h1at4d57xlmy,gyqgg0d3v9n1,jrsm5b4yefg6`.
@@ -1856,15 +2111,6 @@ type ListAccountAcquisitionParams struct {
 	// EndTime - Inclusively filter by end_time when `sort=created_at` or `sort=updated_at`.
 	// **Note:** this value is an ISO8601 timestamp. A partial timestamp that does not include a time zone will default to UTC.
 	EndTime *time.Time
-}
-
-func (list *ListAccountAcquisitionParams) toParams() *Params {
-	return &Params{
-		IdempotencyKey: list.IdempotencyKey,
-		Header:         list.Header,
-		Context:        list.Context,
-		RequestParams:  list,
-	}
 }
 
 func (list *ListAccountAcquisitionParams) URLParams() []KeyValue {
@@ -1902,17 +2148,17 @@ func (list *ListAccountAcquisitionParams) URLParams() []KeyValue {
 // API Documentation: https://developers.recurly.com/api/v2020-01-01#operation/list_account_acquisition
 //
 // Returns: A list of the site's account acquisition data.
-func (c *Client) ListAccountAcquisition(params *ListAccountAcquisitionParams) (*AccountAcquisitionList, error) {
+func (c *Client) ListAccountAcquisition(params *ListAccountAcquisitionParams, opts ...Option) (*AccountAcquisitionList, error) {
 	path, err := c.InterpolatePath("/acquisitions")
 	if err != nil {
 		return nil, err
 	}
-	path = BuildUrl(path, params)
-	return NewAccountAcquisitionList(c, path), nil
+	requestOptions := NewRequestOptions(opts...)
+	path = BuildURL(path, params)
+	return NewAccountAcquisitionList(c, path, requestOptions), nil
 }
 
 type ListCouponsParams struct {
-	Params
 
 	// Ids - Filter results by their IDs. Up to 200 IDs can be passed at once using
 	// commas as separators, e.g. `ids=h1at4d57xlmy,gyqgg0d3v9n1,jrsm5b4yefg6`.
@@ -1943,15 +2189,6 @@ type ListCouponsParams struct {
 	// EndTime - Inclusively filter by end_time when `sort=created_at` or `sort=updated_at`.
 	// **Note:** this value is an ISO8601 timestamp. A partial timestamp that does not include a time zone will default to UTC.
 	EndTime *time.Time
-}
-
-func (list *ListCouponsParams) toParams() *Params {
-	return &Params{
-		IdempotencyKey: list.IdempotencyKey,
-		Header:         list.Header,
-		Context:        list.Context,
-		RequestParams:  list,
-	}
 }
 
 func (list *ListCouponsParams) URLParams() []KeyValue {
@@ -1989,99 +2226,150 @@ func (list *ListCouponsParams) URLParams() []KeyValue {
 // API Documentation: https://developers.recurly.com/api/v2020-01-01#operation/list_coupons
 //
 // Returns: A list of the site's coupons.
-func (c *Client) ListCoupons(params *ListCouponsParams) (*CouponList, error) {
+func (c *Client) ListCoupons(params *ListCouponsParams, opts ...Option) (*CouponList, error) {
 	path, err := c.InterpolatePath("/coupons")
 	if err != nil {
 		return nil, err
 	}
-	path = BuildUrl(path, params)
-	return NewCouponList(c, path), nil
+	requestOptions := NewRequestOptions(opts...)
+	path = BuildURL(path, params)
+	return NewCouponList(c, path, requestOptions), nil
 }
 
-// CreateCoupon Create a new coupon
+// CreateCoupon wraps CreateCouponWithContext using the background context
+func (c *Client) CreateCoupon(body *CouponCreate, opts ...Option) (*Coupon, error) {
+	return c.createCoupon(context.Background(), body, opts...)
+}
+
+// CreateCouponWithContext Create a new coupon
 //
 // API Documentation: https://developers.recurly.com/api/v2020-01-01#operation/create_coupon
 //
 // Returns: A new coupon.
-func (c *Client) CreateCoupon(body *CouponCreate) (*Coupon, error) {
+func (c *Client) CreateCouponWithContext(ctx context.Context, body *CouponCreate, opts ...Option) (*Coupon, error) {
+	return c.createCoupon(ctx, body, opts...)
+}
+
+func (c *Client) createCoupon(ctx context.Context, body *CouponCreate, opts ...Option) (*Coupon, error) {
 	path, err := c.InterpolatePath("/coupons")
 	if err != nil {
 		return nil, err
 	}
+	requestOptions := NewRequestOptions(opts...)
 	result := &Coupon{}
-	err = c.Call(http.MethodPost, path, body, result)
+	err = c.Call(ctx, http.MethodPost, path, body, nil, requestOptions, result)
 	if err != nil {
 		return nil, err
 	}
 	return result, err
 }
 
-// GetCoupon Fetch a coupon
+// GetCoupon wraps GetCouponWithContext using the background context
+func (c *Client) GetCoupon(couponId string, opts ...Option) (*Coupon, error) {
+	return c.getCoupon(context.Background(), couponId, opts...)
+}
+
+// GetCouponWithContext Fetch a coupon
 //
 // API Documentation: https://developers.recurly.com/api/v2020-01-01#operation/get_coupon
 //
 // Returns: A coupon.
-func (c *Client) GetCoupon(couponId string) (*Coupon, error) {
+func (c *Client) GetCouponWithContext(ctx context.Context, couponId string, opts ...Option) (*Coupon, error) {
+	return c.getCoupon(ctx, couponId, opts...)
+}
+
+func (c *Client) getCoupon(ctx context.Context, couponId string, opts ...Option) (*Coupon, error) {
 	path, err := c.InterpolatePath("/coupons/{coupon_id}", couponId)
 	if err != nil {
 		return nil, err
 	}
+	requestOptions := NewRequestOptions(opts...)
 	result := &Coupon{}
-	err = c.Call(http.MethodGet, path, nil, result)
+	err = c.Call(ctx, http.MethodGet, path, nil, nil, requestOptions, result)
 	if err != nil {
 		return nil, err
 	}
 	return result, err
 }
 
-// UpdateCoupon Update an active coupon
+// UpdateCoupon wraps UpdateCouponWithContext using the background context
+func (c *Client) UpdateCoupon(couponId string, body *CouponUpdate, opts ...Option) (*Coupon, error) {
+	return c.updateCoupon(context.Background(), couponId, body, opts...)
+}
+
+// UpdateCouponWithContext Update an active coupon
 //
 // API Documentation: https://developers.recurly.com/api/v2020-01-01#operation/update_coupon
 //
 // Returns: The updated coupon.
-func (c *Client) UpdateCoupon(couponId string, body *CouponUpdate) (*Coupon, error) {
+func (c *Client) UpdateCouponWithContext(ctx context.Context, couponId string, body *CouponUpdate, opts ...Option) (*Coupon, error) {
+	return c.updateCoupon(ctx, couponId, body, opts...)
+}
+
+func (c *Client) updateCoupon(ctx context.Context, couponId string, body *CouponUpdate, opts ...Option) (*Coupon, error) {
 	path, err := c.InterpolatePath("/coupons/{coupon_id}", couponId)
 	if err != nil {
 		return nil, err
 	}
+	requestOptions := NewRequestOptions(opts...)
 	result := &Coupon{}
-	err = c.Call(http.MethodPut, path, body, result)
+	err = c.Call(ctx, http.MethodPut, path, body, nil, requestOptions, result)
 	if err != nil {
 		return nil, err
 	}
 	return result, err
 }
 
-// DeactivateCoupon Expire a coupon
+// DeactivateCoupon wraps DeactivateCouponWithContext using the background context
+func (c *Client) DeactivateCoupon(couponId string, opts ...Option) (*Coupon, error) {
+	return c.deactivateCoupon(context.Background(), couponId, opts...)
+}
+
+// DeactivateCouponWithContext Expire a coupon
 //
 // API Documentation: https://developers.recurly.com/api/v2020-01-01#operation/deactivate_coupon
 //
 // Returns: The expired Coupon
-func (c *Client) DeactivateCoupon(couponId string) (*Coupon, error) {
+func (c *Client) DeactivateCouponWithContext(ctx context.Context, couponId string, opts ...Option) (*Coupon, error) {
+	return c.deactivateCoupon(ctx, couponId, opts...)
+}
+
+func (c *Client) deactivateCoupon(ctx context.Context, couponId string, opts ...Option) (*Coupon, error) {
 	path, err := c.InterpolatePath("/coupons/{coupon_id}", couponId)
 	if err != nil {
 		return nil, err
 	}
+	requestOptions := NewRequestOptions(opts...)
 	result := &Coupon{}
-	err = c.Call(http.MethodDelete, path, nil, result)
+	err = c.Call(ctx, http.MethodDelete, path, nil, nil, requestOptions, result)
 	if err != nil {
 		return nil, err
 	}
 	return result, err
 }
 
-// RestoreCoupon Restore an inactive coupon
+// RestoreCoupon wraps RestoreCouponWithContext using the background context
+func (c *Client) RestoreCoupon(couponId string, body *CouponUpdate, opts ...Option) (*Coupon, error) {
+	return c.restoreCoupon(context.Background(), couponId, body, opts...)
+}
+
+// RestoreCouponWithContext Restore an inactive coupon
 //
 // API Documentation: https://developers.recurly.com/api/v2020-01-01#operation/restore_coupon
 //
 // Returns: The restored coupon.
-func (c *Client) RestoreCoupon(couponId string, body *CouponUpdate) (*Coupon, error) {
+func (c *Client) RestoreCouponWithContext(ctx context.Context, couponId string, body *CouponUpdate, opts ...Option) (*Coupon, error) {
+	return c.restoreCoupon(ctx, couponId, body, opts...)
+}
+
+func (c *Client) restoreCoupon(ctx context.Context, couponId string, body *CouponUpdate, opts ...Option) (*Coupon, error) {
 	path, err := c.InterpolatePath("/coupons/{coupon_id}/restore", couponId)
 	if err != nil {
 		return nil, err
 	}
+	requestOptions := NewRequestOptions(opts...)
 	result := &Coupon{}
-	err = c.Call(http.MethodPut, path, body, result)
+	err = c.Call(ctx, http.MethodPut, path, body, nil, requestOptions, result)
 	if err != nil {
 		return nil, err
 	}
@@ -2089,7 +2377,6 @@ func (c *Client) RestoreCoupon(couponId string, body *CouponUpdate) (*Coupon, er
 }
 
 type ListUniqueCouponCodesParams struct {
-	Params
 
 	// Ids - Filter results by their IDs. Up to 200 IDs can be passed at once using
 	// commas as separators, e.g. `ids=h1at4d57xlmy,gyqgg0d3v9n1,jrsm5b4yefg6`.
@@ -2120,15 +2407,6 @@ type ListUniqueCouponCodesParams struct {
 	// EndTime - Inclusively filter by end_time when `sort=created_at` or `sort=updated_at`.
 	// **Note:** this value is an ISO8601 timestamp. A partial timestamp that does not include a time zone will default to UTC.
 	EndTime *time.Time
-}
-
-func (list *ListUniqueCouponCodesParams) toParams() *Params {
-	return &Params{
-		IdempotencyKey: list.IdempotencyKey,
-		Header:         list.Header,
-		Context:        list.Context,
-		RequestParams:  list,
-	}
 }
 
 func (list *ListUniqueCouponCodesParams) URLParams() []KeyValue {
@@ -2166,17 +2444,17 @@ func (list *ListUniqueCouponCodesParams) URLParams() []KeyValue {
 // API Documentation: https://developers.recurly.com/api/v2020-01-01#operation/list_unique_coupon_codes
 //
 // Returns: A list of unique coupon codes that were generated
-func (c *Client) ListUniqueCouponCodes(couponId string, params *ListUniqueCouponCodesParams) (*UniqueCouponCodeList, error) {
+func (c *Client) ListUniqueCouponCodes(couponId string, params *ListUniqueCouponCodesParams, opts ...Option) (*UniqueCouponCodeList, error) {
 	path, err := c.InterpolatePath("/coupons/{coupon_id}/unique_coupon_codes", couponId)
 	if err != nil {
 		return nil, err
 	}
-	path = BuildUrl(path, params)
-	return NewUniqueCouponCodeList(c, path), nil
+	requestOptions := NewRequestOptions(opts...)
+	path = BuildURL(path, params)
+	return NewUniqueCouponCodeList(c, path, requestOptions), nil
 }
 
 type ListCreditPaymentsParams struct {
-	Params
 
 	// Limit - Limit number of records 1-200.
 	Limit *int
@@ -2196,15 +2474,6 @@ type ListCreditPaymentsParams struct {
 	// EndTime - Inclusively filter by end_time when `sort=created_at` or `sort=updated_at`.
 	// **Note:** this value is an ISO8601 timestamp. A partial timestamp that does not include a time zone will default to UTC.
 	EndTime *time.Time
-}
-
-func (list *ListCreditPaymentsParams) toParams() *Params {
-	return &Params{
-		IdempotencyKey: list.IdempotencyKey,
-		Header:         list.Header,
-		Context:        list.Context,
-		RequestParams:  list,
-	}
 }
 
 func (list *ListCreditPaymentsParams) URLParams() []KeyValue {
@@ -2238,27 +2507,38 @@ func (list *ListCreditPaymentsParams) URLParams() []KeyValue {
 // API Documentation: https://developers.recurly.com/api/v2020-01-01#operation/list_credit_payments
 //
 // Returns: A list of the site's credit payments.
-func (c *Client) ListCreditPayments(params *ListCreditPaymentsParams) (*CreditPaymentList, error) {
+func (c *Client) ListCreditPayments(params *ListCreditPaymentsParams, opts ...Option) (*CreditPaymentList, error) {
 	path, err := c.InterpolatePath("/credit_payments")
 	if err != nil {
 		return nil, err
 	}
-	path = BuildUrl(path, params)
-	return NewCreditPaymentList(c, path), nil
+	requestOptions := NewRequestOptions(opts...)
+	path = BuildURL(path, params)
+	return NewCreditPaymentList(c, path, requestOptions), nil
 }
 
-// GetCreditPayment Fetch a credit payment
+// GetCreditPayment wraps GetCreditPaymentWithContext using the background context
+func (c *Client) GetCreditPayment(creditPaymentId string, opts ...Option) (*CreditPayment, error) {
+	return c.getCreditPayment(context.Background(), creditPaymentId, opts...)
+}
+
+// GetCreditPaymentWithContext Fetch a credit payment
 //
 // API Documentation: https://developers.recurly.com/api/v2020-01-01#operation/get_credit_payment
 //
 // Returns: A credit payment.
-func (c *Client) GetCreditPayment(creditPaymentId string) (*CreditPayment, error) {
+func (c *Client) GetCreditPaymentWithContext(ctx context.Context, creditPaymentId string, opts ...Option) (*CreditPayment, error) {
+	return c.getCreditPayment(ctx, creditPaymentId, opts...)
+}
+
+func (c *Client) getCreditPayment(ctx context.Context, creditPaymentId string, opts ...Option) (*CreditPayment, error) {
 	path, err := c.InterpolatePath("/credit_payments/{credit_payment_id}", creditPaymentId)
 	if err != nil {
 		return nil, err
 	}
+	requestOptions := NewRequestOptions(opts...)
 	result := &CreditPayment{}
-	err = c.Call(http.MethodGet, path, nil, result)
+	err = c.Call(ctx, http.MethodGet, path, nil, nil, requestOptions, result)
 	if err != nil {
 		return nil, err
 	}
@@ -2266,7 +2546,6 @@ func (c *Client) GetCreditPayment(creditPaymentId string) (*CreditPayment, error
 }
 
 type ListCustomFieldDefinitionsParams struct {
-	Params
 
 	// Ids - Filter results by their IDs. Up to 200 IDs can be passed at once using
 	// commas as separators, e.g. `ids=h1at4d57xlmy,gyqgg0d3v9n1,jrsm5b4yefg6`.
@@ -2300,15 +2579,6 @@ type ListCustomFieldDefinitionsParams struct {
 
 	// RelatedType - Filter by related type.
 	RelatedType *string
-}
-
-func (list *ListCustomFieldDefinitionsParams) toParams() *Params {
-	return &Params{
-		IdempotencyKey: list.IdempotencyKey,
-		Header:         list.Header,
-		Context:        list.Context,
-		RequestParams:  list,
-	}
 }
 
 func (list *ListCustomFieldDefinitionsParams) URLParams() []KeyValue {
@@ -2350,27 +2620,38 @@ func (list *ListCustomFieldDefinitionsParams) URLParams() []KeyValue {
 // API Documentation: https://developers.recurly.com/api/v2020-01-01#operation/list_custom_field_definitions
 //
 // Returns: A list of the site's custom field definitions.
-func (c *Client) ListCustomFieldDefinitions(params *ListCustomFieldDefinitionsParams) (*CustomFieldDefinitionList, error) {
+func (c *Client) ListCustomFieldDefinitions(params *ListCustomFieldDefinitionsParams, opts ...Option) (*CustomFieldDefinitionList, error) {
 	path, err := c.InterpolatePath("/custom_field_definitions")
 	if err != nil {
 		return nil, err
 	}
-	path = BuildUrl(path, params)
-	return NewCustomFieldDefinitionList(c, path), nil
+	requestOptions := NewRequestOptions(opts...)
+	path = BuildURL(path, params)
+	return NewCustomFieldDefinitionList(c, path, requestOptions), nil
 }
 
-// GetCustomFieldDefinition Fetch an custom field definition
+// GetCustomFieldDefinition wraps GetCustomFieldDefinitionWithContext using the background context
+func (c *Client) GetCustomFieldDefinition(customFieldDefinitionId string, opts ...Option) (*CustomFieldDefinition, error) {
+	return c.getCustomFieldDefinition(context.Background(), customFieldDefinitionId, opts...)
+}
+
+// GetCustomFieldDefinitionWithContext Fetch an custom field definition
 //
 // API Documentation: https://developers.recurly.com/api/v2020-01-01#operation/get_custom_field_definition
 //
 // Returns: An custom field definition.
-func (c *Client) GetCustomFieldDefinition(customFieldDefinitionId string) (*CustomFieldDefinition, error) {
+func (c *Client) GetCustomFieldDefinitionWithContext(ctx context.Context, customFieldDefinitionId string, opts ...Option) (*CustomFieldDefinition, error) {
+	return c.getCustomFieldDefinition(ctx, customFieldDefinitionId, opts...)
+}
+
+func (c *Client) getCustomFieldDefinition(ctx context.Context, customFieldDefinitionId string, opts ...Option) (*CustomFieldDefinition, error) {
 	path, err := c.InterpolatePath("/custom_field_definitions/{custom_field_definition_id}", customFieldDefinitionId)
 	if err != nil {
 		return nil, err
 	}
+	requestOptions := NewRequestOptions(opts...)
 	result := &CustomFieldDefinition{}
-	err = c.Call(http.MethodGet, path, nil, result)
+	err = c.Call(ctx, http.MethodGet, path, nil, nil, requestOptions, result)
 	if err != nil {
 		return nil, err
 	}
@@ -2378,7 +2659,6 @@ func (c *Client) GetCustomFieldDefinition(customFieldDefinitionId string) (*Cust
 }
 
 type ListItemsParams struct {
-	Params
 
 	// Ids - Filter results by their IDs. Up to 200 IDs can be passed at once using
 	// commas as separators, e.g. `ids=h1at4d57xlmy,gyqgg0d3v9n1,jrsm5b4yefg6`.
@@ -2412,15 +2692,6 @@ type ListItemsParams struct {
 
 	// State - Filter by state.
 	State *string
-}
-
-func (list *ListItemsParams) toParams() *Params {
-	return &Params{
-		IdempotencyKey: list.IdempotencyKey,
-		Header:         list.Header,
-		Context:        list.Context,
-		RequestParams:  list,
-	}
 }
 
 func (list *ListItemsParams) URLParams() []KeyValue {
@@ -2462,99 +2733,150 @@ func (list *ListItemsParams) URLParams() []KeyValue {
 // API Documentation: https://developers.recurly.com/api/v2020-01-01#operation/list_items
 //
 // Returns: A list of the site's items.
-func (c *Client) ListItems(params *ListItemsParams) (*ItemList, error) {
+func (c *Client) ListItems(params *ListItemsParams, opts ...Option) (*ItemList, error) {
 	path, err := c.InterpolatePath("/items")
 	if err != nil {
 		return nil, err
 	}
-	path = BuildUrl(path, params)
-	return NewItemList(c, path), nil
+	requestOptions := NewRequestOptions(opts...)
+	path = BuildURL(path, params)
+	return NewItemList(c, path, requestOptions), nil
 }
 
-// CreateItem Create a new item
+// CreateItem wraps CreateItemWithContext using the background context
+func (c *Client) CreateItem(body *ItemCreate, opts ...Option) (*Item, error) {
+	return c.createItem(context.Background(), body, opts...)
+}
+
+// CreateItemWithContext Create a new item
 //
 // API Documentation: https://developers.recurly.com/api/v2020-01-01#operation/create_item
 //
 // Returns: A new item.
-func (c *Client) CreateItem(body *ItemCreate) (*Item, error) {
+func (c *Client) CreateItemWithContext(ctx context.Context, body *ItemCreate, opts ...Option) (*Item, error) {
+	return c.createItem(ctx, body, opts...)
+}
+
+func (c *Client) createItem(ctx context.Context, body *ItemCreate, opts ...Option) (*Item, error) {
 	path, err := c.InterpolatePath("/items")
 	if err != nil {
 		return nil, err
 	}
+	requestOptions := NewRequestOptions(opts...)
 	result := &Item{}
-	err = c.Call(http.MethodPost, path, body, result)
+	err = c.Call(ctx, http.MethodPost, path, body, nil, requestOptions, result)
 	if err != nil {
 		return nil, err
 	}
 	return result, err
 }
 
-// GetItem Fetch an item
+// GetItem wraps GetItemWithContext using the background context
+func (c *Client) GetItem(itemId string, opts ...Option) (*Item, error) {
+	return c.getItem(context.Background(), itemId, opts...)
+}
+
+// GetItemWithContext Fetch an item
 //
 // API Documentation: https://developers.recurly.com/api/v2020-01-01#operation/get_item
 //
 // Returns: An item.
-func (c *Client) GetItem(itemId string) (*Item, error) {
+func (c *Client) GetItemWithContext(ctx context.Context, itemId string, opts ...Option) (*Item, error) {
+	return c.getItem(ctx, itemId, opts...)
+}
+
+func (c *Client) getItem(ctx context.Context, itemId string, opts ...Option) (*Item, error) {
 	path, err := c.InterpolatePath("/items/{item_id}", itemId)
 	if err != nil {
 		return nil, err
 	}
+	requestOptions := NewRequestOptions(opts...)
 	result := &Item{}
-	err = c.Call(http.MethodGet, path, nil, result)
+	err = c.Call(ctx, http.MethodGet, path, nil, nil, requestOptions, result)
 	if err != nil {
 		return nil, err
 	}
 	return result, err
 }
 
-// UpdateItem Update an active item
+// UpdateItem wraps UpdateItemWithContext using the background context
+func (c *Client) UpdateItem(itemId string, body *ItemUpdate, opts ...Option) (*Item, error) {
+	return c.updateItem(context.Background(), itemId, body, opts...)
+}
+
+// UpdateItemWithContext Update an active item
 //
 // API Documentation: https://developers.recurly.com/api/v2020-01-01#operation/update_item
 //
 // Returns: The updated item.
-func (c *Client) UpdateItem(itemId string, body *ItemUpdate) (*Item, error) {
+func (c *Client) UpdateItemWithContext(ctx context.Context, itemId string, body *ItemUpdate, opts ...Option) (*Item, error) {
+	return c.updateItem(ctx, itemId, body, opts...)
+}
+
+func (c *Client) updateItem(ctx context.Context, itemId string, body *ItemUpdate, opts ...Option) (*Item, error) {
 	path, err := c.InterpolatePath("/items/{item_id}", itemId)
 	if err != nil {
 		return nil, err
 	}
+	requestOptions := NewRequestOptions(opts...)
 	result := &Item{}
-	err = c.Call(http.MethodPut, path, body, result)
+	err = c.Call(ctx, http.MethodPut, path, body, nil, requestOptions, result)
 	if err != nil {
 		return nil, err
 	}
 	return result, err
 }
 
-// DeactivateItem Deactivate an item
+// DeactivateItem wraps DeactivateItemWithContext using the background context
+func (c *Client) DeactivateItem(itemId string, opts ...Option) (*Item, error) {
+	return c.deactivateItem(context.Background(), itemId, opts...)
+}
+
+// DeactivateItemWithContext Deactivate an item
 //
 // API Documentation: https://developers.recurly.com/api/v2020-01-01#operation/deactivate_item
 //
 // Returns: An item.
-func (c *Client) DeactivateItem(itemId string) (*Item, error) {
+func (c *Client) DeactivateItemWithContext(ctx context.Context, itemId string, opts ...Option) (*Item, error) {
+	return c.deactivateItem(ctx, itemId, opts...)
+}
+
+func (c *Client) deactivateItem(ctx context.Context, itemId string, opts ...Option) (*Item, error) {
 	path, err := c.InterpolatePath("/items/{item_id}", itemId)
 	if err != nil {
 		return nil, err
 	}
+	requestOptions := NewRequestOptions(opts...)
 	result := &Item{}
-	err = c.Call(http.MethodDelete, path, nil, result)
+	err = c.Call(ctx, http.MethodDelete, path, nil, nil, requestOptions, result)
 	if err != nil {
 		return nil, err
 	}
 	return result, err
 }
 
-// ReactivateItem Reactivate an inactive item
+// ReactivateItem wraps ReactivateItemWithContext using the background context
+func (c *Client) ReactivateItem(itemId string, opts ...Option) (*Item, error) {
+	return c.reactivateItem(context.Background(), itemId, opts...)
+}
+
+// ReactivateItemWithContext Reactivate an inactive item
 //
 // API Documentation: https://developers.recurly.com/api/v2020-01-01#operation/reactivate_item
 //
 // Returns: An item.
-func (c *Client) ReactivateItem(itemId string) (*Item, error) {
+func (c *Client) ReactivateItemWithContext(ctx context.Context, itemId string, opts ...Option) (*Item, error) {
+	return c.reactivateItem(ctx, itemId, opts...)
+}
+
+func (c *Client) reactivateItem(ctx context.Context, itemId string, opts ...Option) (*Item, error) {
 	path, err := c.InterpolatePath("/items/{item_id}/reactivate", itemId)
 	if err != nil {
 		return nil, err
 	}
+	requestOptions := NewRequestOptions(opts...)
 	result := &Item{}
-	err = c.Call(http.MethodPut, path, nil, result)
+	err = c.Call(ctx, http.MethodPut, path, nil, nil, requestOptions, result)
 	if err != nil {
 		return nil, err
 	}
@@ -2562,7 +2884,6 @@ func (c *Client) ReactivateItem(itemId string) (*Item, error) {
 }
 
 type ListMeasuredUnitParams struct {
-	Params
 
 	// Ids - Filter results by their IDs. Up to 200 IDs can be passed at once using
 	// commas as separators, e.g. `ids=h1at4d57xlmy,gyqgg0d3v9n1,jrsm5b4yefg6`.
@@ -2596,15 +2917,6 @@ type ListMeasuredUnitParams struct {
 
 	// State - Filter by state.
 	State *string
-}
-
-func (list *ListMeasuredUnitParams) toParams() *Params {
-	return &Params{
-		IdempotencyKey: list.IdempotencyKey,
-		Header:         list.Header,
-		Context:        list.Context,
-		RequestParams:  list,
-	}
 }
 
 func (list *ListMeasuredUnitParams) URLParams() []KeyValue {
@@ -2646,81 +2958,122 @@ func (list *ListMeasuredUnitParams) URLParams() []KeyValue {
 // API Documentation: https://developers.recurly.com/api/v2020-01-01#operation/list_measured_unit
 //
 // Returns: A list of the site's measured units.
-func (c *Client) ListMeasuredUnit(params *ListMeasuredUnitParams) (*MeasuredUnitList, error) {
+func (c *Client) ListMeasuredUnit(params *ListMeasuredUnitParams, opts ...Option) (*MeasuredUnitList, error) {
 	path, err := c.InterpolatePath("/measured_units")
 	if err != nil {
 		return nil, err
 	}
-	path = BuildUrl(path, params)
-	return NewMeasuredUnitList(c, path), nil
+	requestOptions := NewRequestOptions(opts...)
+	path = BuildURL(path, params)
+	return NewMeasuredUnitList(c, path, requestOptions), nil
 }
 
-// CreateMeasuredUnit Create a new measured unit
+// CreateMeasuredUnit wraps CreateMeasuredUnitWithContext using the background context
+func (c *Client) CreateMeasuredUnit(body *MeasuredUnitCreate, opts ...Option) (*MeasuredUnit, error) {
+	return c.createMeasuredUnit(context.Background(), body, opts...)
+}
+
+// CreateMeasuredUnitWithContext Create a new measured unit
 //
 // API Documentation: https://developers.recurly.com/api/v2020-01-01#operation/create_measured_unit
 //
 // Returns: A new measured unit.
-func (c *Client) CreateMeasuredUnit(body *MeasuredUnitCreate) (*MeasuredUnit, error) {
+func (c *Client) CreateMeasuredUnitWithContext(ctx context.Context, body *MeasuredUnitCreate, opts ...Option) (*MeasuredUnit, error) {
+	return c.createMeasuredUnit(ctx, body, opts...)
+}
+
+func (c *Client) createMeasuredUnit(ctx context.Context, body *MeasuredUnitCreate, opts ...Option) (*MeasuredUnit, error) {
 	path, err := c.InterpolatePath("/measured_units")
 	if err != nil {
 		return nil, err
 	}
+	requestOptions := NewRequestOptions(opts...)
 	result := &MeasuredUnit{}
-	err = c.Call(http.MethodPost, path, body, result)
+	err = c.Call(ctx, http.MethodPost, path, body, nil, requestOptions, result)
 	if err != nil {
 		return nil, err
 	}
 	return result, err
 }
 
-// GetMeasuredUnit Fetch a measured unit
+// GetMeasuredUnit wraps GetMeasuredUnitWithContext using the background context
+func (c *Client) GetMeasuredUnit(measuredUnitId string, opts ...Option) (*MeasuredUnit, error) {
+	return c.getMeasuredUnit(context.Background(), measuredUnitId, opts...)
+}
+
+// GetMeasuredUnitWithContext Fetch a measured unit
 //
 // API Documentation: https://developers.recurly.com/api/v2020-01-01#operation/get_measured_unit
 //
 // Returns: An item.
-func (c *Client) GetMeasuredUnit(measuredUnitId string) (*MeasuredUnit, error) {
+func (c *Client) GetMeasuredUnitWithContext(ctx context.Context, measuredUnitId string, opts ...Option) (*MeasuredUnit, error) {
+	return c.getMeasuredUnit(ctx, measuredUnitId, opts...)
+}
+
+func (c *Client) getMeasuredUnit(ctx context.Context, measuredUnitId string, opts ...Option) (*MeasuredUnit, error) {
 	path, err := c.InterpolatePath("/measured_units/{measured_unit_id}", measuredUnitId)
 	if err != nil {
 		return nil, err
 	}
+	requestOptions := NewRequestOptions(opts...)
 	result := &MeasuredUnit{}
-	err = c.Call(http.MethodGet, path, nil, result)
+	err = c.Call(ctx, http.MethodGet, path, nil, nil, requestOptions, result)
 	if err != nil {
 		return nil, err
 	}
 	return result, err
 }
 
-// UpdateMeasuredUnit Update a measured unit
+// UpdateMeasuredUnit wraps UpdateMeasuredUnitWithContext using the background context
+func (c *Client) UpdateMeasuredUnit(measuredUnitId string, body *MeasuredUnitUpdate, opts ...Option) (*MeasuredUnit, error) {
+	return c.updateMeasuredUnit(context.Background(), measuredUnitId, body, opts...)
+}
+
+// UpdateMeasuredUnitWithContext Update a measured unit
 //
 // API Documentation: https://developers.recurly.com/api/v2020-01-01#operation/update_measured_unit
 //
 // Returns: The updated measured_unit.
-func (c *Client) UpdateMeasuredUnit(measuredUnitId string, body *MeasuredUnitUpdate) (*MeasuredUnit, error) {
+func (c *Client) UpdateMeasuredUnitWithContext(ctx context.Context, measuredUnitId string, body *MeasuredUnitUpdate, opts ...Option) (*MeasuredUnit, error) {
+	return c.updateMeasuredUnit(ctx, measuredUnitId, body, opts...)
+}
+
+func (c *Client) updateMeasuredUnit(ctx context.Context, measuredUnitId string, body *MeasuredUnitUpdate, opts ...Option) (*MeasuredUnit, error) {
 	path, err := c.InterpolatePath("/measured_units/{measured_unit_id}", measuredUnitId)
 	if err != nil {
 		return nil, err
 	}
+	requestOptions := NewRequestOptions(opts...)
 	result := &MeasuredUnit{}
-	err = c.Call(http.MethodPut, path, body, result)
+	err = c.Call(ctx, http.MethodPut, path, body, nil, requestOptions, result)
 	if err != nil {
 		return nil, err
 	}
 	return result, err
 }
 
-// RemoveMeasuredUnit Remove a measured unit
+// RemoveMeasuredUnit wraps RemoveMeasuredUnitWithContext using the background context
+func (c *Client) RemoveMeasuredUnit(measuredUnitId string, opts ...Option) (*MeasuredUnit, error) {
+	return c.removeMeasuredUnit(context.Background(), measuredUnitId, opts...)
+}
+
+// RemoveMeasuredUnitWithContext Remove a measured unit
 //
 // API Documentation: https://developers.recurly.com/api/v2020-01-01#operation/remove_measured_unit
 //
 // Returns: A measured unit.
-func (c *Client) RemoveMeasuredUnit(measuredUnitId string) (*MeasuredUnit, error) {
+func (c *Client) RemoveMeasuredUnitWithContext(ctx context.Context, measuredUnitId string, opts ...Option) (*MeasuredUnit, error) {
+	return c.removeMeasuredUnit(ctx, measuredUnitId, opts...)
+}
+
+func (c *Client) removeMeasuredUnit(ctx context.Context, measuredUnitId string, opts ...Option) (*MeasuredUnit, error) {
 	path, err := c.InterpolatePath("/measured_units/{measured_unit_id}", measuredUnitId)
 	if err != nil {
 		return nil, err
 	}
+	requestOptions := NewRequestOptions(opts...)
 	result := &MeasuredUnit{}
-	err = c.Call(http.MethodDelete, path, nil, result)
+	err = c.Call(ctx, http.MethodDelete, path, nil, nil, requestOptions, result)
 	if err != nil {
 		return nil, err
 	}
@@ -2728,7 +3081,6 @@ func (c *Client) RemoveMeasuredUnit(measuredUnitId string) (*MeasuredUnit, error
 }
 
 type ListInvoicesParams struct {
-	Params
 
 	// Ids - Filter results by their IDs. Up to 200 IDs can be passed at once using
 	// commas as separators, e.g. `ids=h1at4d57xlmy,gyqgg0d3v9n1,jrsm5b4yefg6`.
@@ -2766,15 +3118,6 @@ type ListInvoicesParams struct {
 	// - `type=non-legacy`, only charge and credit invoices will be returned.
 	// - `type=legacy`, only legacy invoices will be returned.
 	Type *string
-}
-
-func (list *ListInvoicesParams) toParams() *Params {
-	return &Params{
-		IdempotencyKey: list.IdempotencyKey,
-		Header:         list.Header,
-		Context:        list.Context,
-		RequestParams:  list,
-	}
 }
 
 func (list *ListInvoicesParams) URLParams() []KeyValue {
@@ -2816,45 +3159,66 @@ func (list *ListInvoicesParams) URLParams() []KeyValue {
 // API Documentation: https://developers.recurly.com/api/v2020-01-01#operation/list_invoices
 //
 // Returns: A list of the site's invoices.
-func (c *Client) ListInvoices(params *ListInvoicesParams) (*InvoiceList, error) {
+func (c *Client) ListInvoices(params *ListInvoicesParams, opts ...Option) (*InvoiceList, error) {
 	path, err := c.InterpolatePath("/invoices")
 	if err != nil {
 		return nil, err
 	}
-	path = BuildUrl(path, params)
-	return NewInvoiceList(c, path), nil
+	requestOptions := NewRequestOptions(opts...)
+	path = BuildURL(path, params)
+	return NewInvoiceList(c, path, requestOptions), nil
 }
 
-// GetInvoice Fetch an invoice
+// GetInvoice wraps GetInvoiceWithContext using the background context
+func (c *Client) GetInvoice(invoiceId string, opts ...Option) (*Invoice, error) {
+	return c.getInvoice(context.Background(), invoiceId, opts...)
+}
+
+// GetInvoiceWithContext Fetch an invoice
 //
 // API Documentation: https://developers.recurly.com/api/v2020-01-01#operation/get_invoice
 //
 // Returns: An invoice.
-func (c *Client) GetInvoice(invoiceId string) (*Invoice, error) {
+func (c *Client) GetInvoiceWithContext(ctx context.Context, invoiceId string, opts ...Option) (*Invoice, error) {
+	return c.getInvoice(ctx, invoiceId, opts...)
+}
+
+func (c *Client) getInvoice(ctx context.Context, invoiceId string, opts ...Option) (*Invoice, error) {
 	path, err := c.InterpolatePath("/invoices/{invoice_id}", invoiceId)
 	if err != nil {
 		return nil, err
 	}
+	requestOptions := NewRequestOptions(opts...)
 	result := &Invoice{}
-	err = c.Call(http.MethodGet, path, nil, result)
+	err = c.Call(ctx, http.MethodGet, path, nil, nil, requestOptions, result)
 	if err != nil {
 		return nil, err
 	}
 	return result, err
 }
 
-// PutInvoice Update an invoice
+// PutInvoice wraps PutInvoiceWithContext using the background context
+func (c *Client) PutInvoice(invoiceId string, body *InvoiceUpdatable, opts ...Option) (*Invoice, error) {
+	return c.putInvoice(context.Background(), invoiceId, body, opts...)
+}
+
+// PutInvoiceWithContext Update an invoice
 //
 // API Documentation: https://developers.recurly.com/api/v2020-01-01#operation/put_invoice
 //
 // Returns: An invoice.
-func (c *Client) PutInvoice(invoiceId string, body *InvoiceUpdatable) (*Invoice, error) {
+func (c *Client) PutInvoiceWithContext(ctx context.Context, invoiceId string, body *InvoiceUpdatable, opts ...Option) (*Invoice, error) {
+	return c.putInvoice(ctx, invoiceId, body, opts...)
+}
+
+func (c *Client) putInvoice(ctx context.Context, invoiceId string, body *InvoiceUpdatable, opts ...Option) (*Invoice, error) {
 	path, err := c.InterpolatePath("/invoices/{invoice_id}", invoiceId)
 	if err != nil {
 		return nil, err
 	}
+	requestOptions := NewRequestOptions(opts...)
 	result := &Invoice{}
-	err = c.Call(http.MethodPut, path, body, result)
+	err = c.Call(ctx, http.MethodPut, path, body, nil, requestOptions, result)
 	if err != nil {
 		return nil, err
 	}
@@ -2862,123 +3226,179 @@ func (c *Client) PutInvoice(invoiceId string, body *InvoiceUpdatable) (*Invoice,
 }
 
 type CollectInvoiceParams struct {
-	Params
 
 	// Body - The body of the request.
 	Body *InvoiceCollect
 }
 
-func (list *CollectInvoiceParams) toParams() *Params {
-	return &Params{
-		IdempotencyKey: list.IdempotencyKey,
-		Header:         list.Header,
-		Context:        list.Context,
-		RequestParams:  list,
-	}
+func (list *CollectInvoiceParams) URLParams() []KeyValue {
+	var options []KeyValue
+
+	return options
 }
 
-// CollectInvoice Collect a pending or past due, automatic invoice
+// CollectInvoice wraps CollectInvoiceWithContext using the background context
+func (c *Client) CollectInvoice(invoiceId string, params *CollectInvoiceParams, opts ...Option) (*Invoice, error) {
+	return c.collectInvoice(context.Background(), invoiceId, params, opts...)
+}
+
+// CollectInvoiceWithContext Collect a pending or past due, automatic invoice
 //
 // API Documentation: https://developers.recurly.com/api/v2020-01-01#operation/collect_invoice
 //
 // Returns: The updated invoice.
-func (c *Client) CollectInvoice(invoiceId string, params *CollectInvoiceParams) (*Invoice, error) {
+func (c *Client) CollectInvoiceWithContext(ctx context.Context, invoiceId string, params *CollectInvoiceParams, opts ...Option) (*Invoice, error) {
+	return c.collectInvoice(ctx, invoiceId, params, opts...)
+}
+
+func (c *Client) collectInvoice(ctx context.Context, invoiceId string, params *CollectInvoiceParams, opts ...Option) (*Invoice, error) {
 	path, err := c.InterpolatePath("/invoices/{invoice_id}/collect", invoiceId)
 	if err != nil {
 		return nil, err
 	}
+	requestOptions := NewRequestOptions(opts...)
 	result := &Invoice{}
-	err = c.Call(http.MethodPut, path, params, result)
+	err = c.Call(ctx, http.MethodPut, path, nil, params, requestOptions, result)
 	if err != nil {
 		return nil, err
 	}
 	return result, err
 }
 
-// FailInvoice Mark an open invoice as failed
+// FailInvoice wraps FailInvoiceWithContext using the background context
+func (c *Client) FailInvoice(invoiceId string, opts ...Option) (*Invoice, error) {
+	return c.failInvoice(context.Background(), invoiceId, opts...)
+}
+
+// FailInvoiceWithContext Mark an open invoice as failed
 //
 // API Documentation: https://developers.recurly.com/api/v2020-01-01#operation/fail_invoice
 //
 // Returns: The updated invoice.
-func (c *Client) FailInvoice(invoiceId string) (*Invoice, error) {
+func (c *Client) FailInvoiceWithContext(ctx context.Context, invoiceId string, opts ...Option) (*Invoice, error) {
+	return c.failInvoice(ctx, invoiceId, opts...)
+}
+
+func (c *Client) failInvoice(ctx context.Context, invoiceId string, opts ...Option) (*Invoice, error) {
 	path, err := c.InterpolatePath("/invoices/{invoice_id}/mark_failed", invoiceId)
 	if err != nil {
 		return nil, err
 	}
+	requestOptions := NewRequestOptions(opts...)
 	result := &Invoice{}
-	err = c.Call(http.MethodPut, path, nil, result)
+	err = c.Call(ctx, http.MethodPut, path, nil, nil, requestOptions, result)
 	if err != nil {
 		return nil, err
 	}
 	return result, err
 }
 
-// MarkInvoiceSuccessful Mark an open invoice as successful
+// MarkInvoiceSuccessful wraps MarkInvoiceSuccessfulWithContext using the background context
+func (c *Client) MarkInvoiceSuccessful(invoiceId string, opts ...Option) (*Invoice, error) {
+	return c.markInvoiceSuccessful(context.Background(), invoiceId, opts...)
+}
+
+// MarkInvoiceSuccessfulWithContext Mark an open invoice as successful
 //
 // API Documentation: https://developers.recurly.com/api/v2020-01-01#operation/mark_invoice_successful
 //
 // Returns: The updated invoice.
-func (c *Client) MarkInvoiceSuccessful(invoiceId string) (*Invoice, error) {
+func (c *Client) MarkInvoiceSuccessfulWithContext(ctx context.Context, invoiceId string, opts ...Option) (*Invoice, error) {
+	return c.markInvoiceSuccessful(ctx, invoiceId, opts...)
+}
+
+func (c *Client) markInvoiceSuccessful(ctx context.Context, invoiceId string, opts ...Option) (*Invoice, error) {
 	path, err := c.InterpolatePath("/invoices/{invoice_id}/mark_successful", invoiceId)
 	if err != nil {
 		return nil, err
 	}
+	requestOptions := NewRequestOptions(opts...)
 	result := &Invoice{}
-	err = c.Call(http.MethodPut, path, nil, result)
+	err = c.Call(ctx, http.MethodPut, path, nil, nil, requestOptions, result)
 	if err != nil {
 		return nil, err
 	}
 	return result, err
 }
 
-// ReopenInvoice Reopen a closed, manual invoice
+// ReopenInvoice wraps ReopenInvoiceWithContext using the background context
+func (c *Client) ReopenInvoice(invoiceId string, opts ...Option) (*Invoice, error) {
+	return c.reopenInvoice(context.Background(), invoiceId, opts...)
+}
+
+// ReopenInvoiceWithContext Reopen a closed, manual invoice
 //
 // API Documentation: https://developers.recurly.com/api/v2020-01-01#operation/reopen_invoice
 //
 // Returns: The updated invoice.
-func (c *Client) ReopenInvoice(invoiceId string) (*Invoice, error) {
+func (c *Client) ReopenInvoiceWithContext(ctx context.Context, invoiceId string, opts ...Option) (*Invoice, error) {
+	return c.reopenInvoice(ctx, invoiceId, opts...)
+}
+
+func (c *Client) reopenInvoice(ctx context.Context, invoiceId string, opts ...Option) (*Invoice, error) {
 	path, err := c.InterpolatePath("/invoices/{invoice_id}/reopen", invoiceId)
 	if err != nil {
 		return nil, err
 	}
+	requestOptions := NewRequestOptions(opts...)
 	result := &Invoice{}
-	err = c.Call(http.MethodPut, path, nil, result)
+	err = c.Call(ctx, http.MethodPut, path, nil, nil, requestOptions, result)
 	if err != nil {
 		return nil, err
 	}
 	return result, err
 }
 
-// VoidInvoice Void a credit invoice.
+// VoidInvoice wraps VoidInvoiceWithContext using the background context
+func (c *Client) VoidInvoice(invoiceId string, opts ...Option) (*Invoice, error) {
+	return c.voidInvoice(context.Background(), invoiceId, opts...)
+}
+
+// VoidInvoiceWithContext Void a credit invoice.
 //
 // API Documentation: https://developers.recurly.com/api/v2020-01-01#operation/void_invoice
 //
 // Returns: The updated invoice.
-func (c *Client) VoidInvoice(invoiceId string) (*Invoice, error) {
+func (c *Client) VoidInvoiceWithContext(ctx context.Context, invoiceId string, opts ...Option) (*Invoice, error) {
+	return c.voidInvoice(ctx, invoiceId, opts...)
+}
+
+func (c *Client) voidInvoice(ctx context.Context, invoiceId string, opts ...Option) (*Invoice, error) {
 	path, err := c.InterpolatePath("/invoices/{invoice_id}/void", invoiceId)
 	if err != nil {
 		return nil, err
 	}
+	requestOptions := NewRequestOptions(opts...)
 	result := &Invoice{}
-	err = c.Call(http.MethodPut, path, nil, result)
+	err = c.Call(ctx, http.MethodPut, path, nil, nil, requestOptions, result)
 	if err != nil {
 		return nil, err
 	}
 	return result, err
 }
 
-// RecordExternalTransaction Record an external payment for a manual invoices.
+// RecordExternalTransaction wraps RecordExternalTransactionWithContext using the background context
+func (c *Client) RecordExternalTransaction(invoiceId string, body *ExternalTransaction, opts ...Option) (*Transaction, error) {
+	return c.recordExternalTransaction(context.Background(), invoiceId, body, opts...)
+}
+
+// RecordExternalTransactionWithContext Record an external payment for a manual invoices.
 //
 // API Documentation: https://developers.recurly.com/api/v2020-01-01#operation/record_external_transaction
 //
 // Returns: The recorded transaction.
-func (c *Client) RecordExternalTransaction(invoiceId string, body *ExternalTransaction) (*Transaction, error) {
+func (c *Client) RecordExternalTransactionWithContext(ctx context.Context, invoiceId string, body *ExternalTransaction, opts ...Option) (*Transaction, error) {
+	return c.recordExternalTransaction(ctx, invoiceId, body, opts...)
+}
+
+func (c *Client) recordExternalTransaction(ctx context.Context, invoiceId string, body *ExternalTransaction, opts ...Option) (*Transaction, error) {
 	path, err := c.InterpolatePath("/invoices/{invoice_id}/transactions", invoiceId)
 	if err != nil {
 		return nil, err
 	}
+	requestOptions := NewRequestOptions(opts...)
 	result := &Transaction{}
-	err = c.Call(http.MethodPost, path, body, result)
+	err = c.Call(ctx, http.MethodPost, path, body, nil, requestOptions, result)
 	if err != nil {
 		return nil, err
 	}
@@ -2986,7 +3406,6 @@ func (c *Client) RecordExternalTransaction(invoiceId string, body *ExternalTrans
 }
 
 type ListInvoiceLineItemsParams struct {
-	Params
 
 	// Ids - Filter results by their IDs. Up to 200 IDs can be passed at once using
 	// commas as separators, e.g. `ids=h1at4d57xlmy,gyqgg0d3v9n1,jrsm5b4yefg6`.
@@ -3026,15 +3445,6 @@ type ListInvoiceLineItemsParams struct {
 
 	// Type - Filter by type field.
 	Type *string
-}
-
-func (list *ListInvoiceLineItemsParams) toParams() *Params {
-	return &Params{
-		IdempotencyKey: list.IdempotencyKey,
-		Header:         list.Header,
-		Context:        list.Context,
-		RequestParams:  list,
-	}
 }
 
 func (list *ListInvoiceLineItemsParams) URLParams() []KeyValue {
@@ -3084,17 +3494,17 @@ func (list *ListInvoiceLineItemsParams) URLParams() []KeyValue {
 // API Documentation: https://developers.recurly.com/api/v2020-01-01#operation/list_invoice_line_items
 //
 // Returns: A list of the invoice's line items.
-func (c *Client) ListInvoiceLineItems(invoiceId string, params *ListInvoiceLineItemsParams) (*LineItemList, error) {
+func (c *Client) ListInvoiceLineItems(invoiceId string, params *ListInvoiceLineItemsParams, opts ...Option) (*LineItemList, error) {
 	path, err := c.InterpolatePath("/invoices/{invoice_id}/line_items", invoiceId)
 	if err != nil {
 		return nil, err
 	}
-	path = BuildUrl(path, params)
-	return NewLineItemList(c, path), nil
+	requestOptions := NewRequestOptions(opts...)
+	path = BuildURL(path, params)
+	return NewLineItemList(c, path, requestOptions), nil
 }
 
 type ListInvoiceCouponRedemptionsParams struct {
-	Params
 
 	// Ids - Filter results by their IDs. Up to 200 IDs can be passed at once using
 	// commas as separators, e.g. `ids=h1at4d57xlmy,gyqgg0d3v9n1,jrsm5b4yefg6`.
@@ -3119,15 +3529,6 @@ type ListInvoiceCouponRedemptionsParams struct {
 	// EndTime - Inclusively filter by end_time when `sort=created_at` or `sort=updated_at`.
 	// **Note:** this value is an ISO8601 timestamp. A partial timestamp that does not include a time zone will default to UTC.
 	EndTime *time.Time
-}
-
-func (list *ListInvoiceCouponRedemptionsParams) toParams() *Params {
-	return &Params{
-		IdempotencyKey: list.IdempotencyKey,
-		Header:         list.Header,
-		Context:        list.Context,
-		RequestParams:  list,
-	}
 }
 
 func (list *ListInvoiceCouponRedemptionsParams) URLParams() []KeyValue {
@@ -3157,13 +3558,14 @@ func (list *ListInvoiceCouponRedemptionsParams) URLParams() []KeyValue {
 // API Documentation: https://developers.recurly.com/api/v2020-01-01#operation/list_invoice_coupon_redemptions
 //
 // Returns: A list of the the coupon redemptions associated with the invoice.
-func (c *Client) ListInvoiceCouponRedemptions(invoiceId string, params *ListInvoiceCouponRedemptionsParams) (*CouponRedemptionList, error) {
+func (c *Client) ListInvoiceCouponRedemptions(invoiceId string, params *ListInvoiceCouponRedemptionsParams, opts ...Option) (*CouponRedemptionList, error) {
 	path, err := c.InterpolatePath("/invoices/{invoice_id}/coupon_redemptions", invoiceId)
 	if err != nil {
 		return nil, err
 	}
-	path = BuildUrl(path, params)
-	return NewCouponRedemptionList(c, path), nil
+	requestOptions := NewRequestOptions(opts...)
+	path = BuildURL(path, params)
+	return NewCouponRedemptionList(c, path, requestOptions), nil
 }
 
 // ListRelatedInvoices List an invoice's related credit or charge invoices
@@ -3171,26 +3573,37 @@ func (c *Client) ListInvoiceCouponRedemptions(invoiceId string, params *ListInvo
 // API Documentation: https://developers.recurly.com/api/v2020-01-01#operation/list_related_invoices
 //
 // Returns: A list of the credit or charge invoices associated with the invoice.
-func (c *Client) ListRelatedInvoices(invoiceId string) (*InvoiceList, error) {
+func (c *Client) ListRelatedInvoices(invoiceId string, opts ...Option) (*InvoiceList, error) {
 	path, err := c.InterpolatePath("/invoices/{invoice_id}/related_invoices", invoiceId)
 	if err != nil {
 		return nil, err
 	}
-	return NewInvoiceList(c, path), nil
+	requestOptions := NewRequestOptions(opts...)
+	return NewInvoiceList(c, path, requestOptions), nil
 }
 
-// RefundInvoice Refund an invoice
+// RefundInvoice wraps RefundInvoiceWithContext using the background context
+func (c *Client) RefundInvoice(invoiceId string, body *InvoiceRefund, opts ...Option) (*Invoice, error) {
+	return c.refundInvoice(context.Background(), invoiceId, body, opts...)
+}
+
+// RefundInvoiceWithContext Refund an invoice
 //
 // API Documentation: https://developers.recurly.com/api/v2020-01-01#operation/refund_invoice
 //
 // Returns: Returns the new credit invoice.
-func (c *Client) RefundInvoice(invoiceId string, body *InvoiceRefund) (*Invoice, error) {
+func (c *Client) RefundInvoiceWithContext(ctx context.Context, invoiceId string, body *InvoiceRefund, opts ...Option) (*Invoice, error) {
+	return c.refundInvoice(ctx, invoiceId, body, opts...)
+}
+
+func (c *Client) refundInvoice(ctx context.Context, invoiceId string, body *InvoiceRefund, opts ...Option) (*Invoice, error) {
 	path, err := c.InterpolatePath("/invoices/{invoice_id}/refund", invoiceId)
 	if err != nil {
 		return nil, err
 	}
+	requestOptions := NewRequestOptions(opts...)
 	result := &Invoice{}
-	err = c.Call(http.MethodPost, path, body, result)
+	err = c.Call(ctx, http.MethodPost, path, body, nil, requestOptions, result)
 	if err != nil {
 		return nil, err
 	}
@@ -3198,7 +3611,6 @@ func (c *Client) RefundInvoice(invoiceId string, body *InvoiceRefund) (*Invoice,
 }
 
 type ListLineItemsParams struct {
-	Params
 
 	// Ids - Filter results by their IDs. Up to 200 IDs can be passed at once using
 	// commas as separators, e.g. `ids=h1at4d57xlmy,gyqgg0d3v9n1,jrsm5b4yefg6`.
@@ -3238,15 +3650,6 @@ type ListLineItemsParams struct {
 
 	// Type - Filter by type field.
 	Type *string
-}
-
-func (list *ListLineItemsParams) toParams() *Params {
-	return &Params{
-		IdempotencyKey: list.IdempotencyKey,
-		Header:         list.Header,
-		Context:        list.Context,
-		RequestParams:  list,
-	}
 }
 
 func (list *ListLineItemsParams) URLParams() []KeyValue {
@@ -3296,45 +3699,66 @@ func (list *ListLineItemsParams) URLParams() []KeyValue {
 // API Documentation: https://developers.recurly.com/api/v2020-01-01#operation/list_line_items
 //
 // Returns: A list of the site's line items.
-func (c *Client) ListLineItems(params *ListLineItemsParams) (*LineItemList, error) {
+func (c *Client) ListLineItems(params *ListLineItemsParams, opts ...Option) (*LineItemList, error) {
 	path, err := c.InterpolatePath("/line_items")
 	if err != nil {
 		return nil, err
 	}
-	path = BuildUrl(path, params)
-	return NewLineItemList(c, path), nil
+	requestOptions := NewRequestOptions(opts...)
+	path = BuildURL(path, params)
+	return NewLineItemList(c, path, requestOptions), nil
 }
 
-// GetLineItem Fetch a line item
+// GetLineItem wraps GetLineItemWithContext using the background context
+func (c *Client) GetLineItem(lineItemId string, opts ...Option) (*LineItem, error) {
+	return c.getLineItem(context.Background(), lineItemId, opts...)
+}
+
+// GetLineItemWithContext Fetch a line item
 //
 // API Documentation: https://developers.recurly.com/api/v2020-01-01#operation/get_line_item
 //
 // Returns: A line item.
-func (c *Client) GetLineItem(lineItemId string) (*LineItem, error) {
+func (c *Client) GetLineItemWithContext(ctx context.Context, lineItemId string, opts ...Option) (*LineItem, error) {
+	return c.getLineItem(ctx, lineItemId, opts...)
+}
+
+func (c *Client) getLineItem(ctx context.Context, lineItemId string, opts ...Option) (*LineItem, error) {
 	path, err := c.InterpolatePath("/line_items/{line_item_id}", lineItemId)
 	if err != nil {
 		return nil, err
 	}
+	requestOptions := NewRequestOptions(opts...)
 	result := &LineItem{}
-	err = c.Call(http.MethodGet, path, nil, result)
+	err = c.Call(ctx, http.MethodGet, path, nil, nil, requestOptions, result)
 	if err != nil {
 		return nil, err
 	}
 	return result, err
 }
 
-// RemoveLineItem Delete an uninvoiced line item
+// RemoveLineItem wraps RemoveLineItemWithContext using the background context
+func (c *Client) RemoveLineItem(lineItemId string, opts ...Option) (*Empty, error) {
+	return c.removeLineItem(context.Background(), lineItemId, opts...)
+}
+
+// RemoveLineItemWithContext Delete an uninvoiced line item
 //
 // API Documentation: https://developers.recurly.com/api/v2020-01-01#operation/remove_line_item
 //
 // Returns: Line item deleted.
-func (c *Client) RemoveLineItem(lineItemId string) (*Empty, error) {
+func (c *Client) RemoveLineItemWithContext(ctx context.Context, lineItemId string, opts ...Option) (*Empty, error) {
+	return c.removeLineItem(ctx, lineItemId, opts...)
+}
+
+func (c *Client) removeLineItem(ctx context.Context, lineItemId string, opts ...Option) (*Empty, error) {
 	path, err := c.InterpolatePath("/line_items/{line_item_id}", lineItemId)
 	if err != nil {
 		return nil, err
 	}
+	requestOptions := NewRequestOptions(opts...)
 	result := &Empty{}
-	err = c.Call(http.MethodDelete, path, nil, result)
+	err = c.Call(ctx, http.MethodDelete, path, nil, nil, requestOptions, result)
 	if err != nil {
 		return nil, err
 	}
@@ -3342,7 +3766,6 @@ func (c *Client) RemoveLineItem(lineItemId string) (*Empty, error) {
 }
 
 type ListPlansParams struct {
-	Params
 
 	// Ids - Filter results by their IDs. Up to 200 IDs can be passed at once using
 	// commas as separators, e.g. `ids=h1at4d57xlmy,gyqgg0d3v9n1,jrsm5b4yefg6`.
@@ -3376,15 +3799,6 @@ type ListPlansParams struct {
 
 	// State - Filter by state.
 	State *string
-}
-
-func (list *ListPlansParams) toParams() *Params {
-	return &Params{
-		IdempotencyKey: list.IdempotencyKey,
-		Header:         list.Header,
-		Context:        list.Context,
-		RequestParams:  list,
-	}
 }
 
 func (list *ListPlansParams) URLParams() []KeyValue {
@@ -3426,81 +3840,122 @@ func (list *ListPlansParams) URLParams() []KeyValue {
 // API Documentation: https://developers.recurly.com/api/v2020-01-01#operation/list_plans
 //
 // Returns: A list of plans.
-func (c *Client) ListPlans(params *ListPlansParams) (*PlanList, error) {
+func (c *Client) ListPlans(params *ListPlansParams, opts ...Option) (*PlanList, error) {
 	path, err := c.InterpolatePath("/plans")
 	if err != nil {
 		return nil, err
 	}
-	path = BuildUrl(path, params)
-	return NewPlanList(c, path), nil
+	requestOptions := NewRequestOptions(opts...)
+	path = BuildURL(path, params)
+	return NewPlanList(c, path, requestOptions), nil
 }
 
-// CreatePlan Create a plan
+// CreatePlan wraps CreatePlanWithContext using the background context
+func (c *Client) CreatePlan(body *PlanCreate, opts ...Option) (*Plan, error) {
+	return c.createPlan(context.Background(), body, opts...)
+}
+
+// CreatePlanWithContext Create a plan
 //
 // API Documentation: https://developers.recurly.com/api/v2020-01-01#operation/create_plan
 //
 // Returns: A plan.
-func (c *Client) CreatePlan(body *PlanCreate) (*Plan, error) {
+func (c *Client) CreatePlanWithContext(ctx context.Context, body *PlanCreate, opts ...Option) (*Plan, error) {
+	return c.createPlan(ctx, body, opts...)
+}
+
+func (c *Client) createPlan(ctx context.Context, body *PlanCreate, opts ...Option) (*Plan, error) {
 	path, err := c.InterpolatePath("/plans")
 	if err != nil {
 		return nil, err
 	}
+	requestOptions := NewRequestOptions(opts...)
 	result := &Plan{}
-	err = c.Call(http.MethodPost, path, body, result)
+	err = c.Call(ctx, http.MethodPost, path, body, nil, requestOptions, result)
 	if err != nil {
 		return nil, err
 	}
 	return result, err
 }
 
-// GetPlan Fetch a plan
+// GetPlan wraps GetPlanWithContext using the background context
+func (c *Client) GetPlan(planId string, opts ...Option) (*Plan, error) {
+	return c.getPlan(context.Background(), planId, opts...)
+}
+
+// GetPlanWithContext Fetch a plan
 //
 // API Documentation: https://developers.recurly.com/api/v2020-01-01#operation/get_plan
 //
 // Returns: A plan.
-func (c *Client) GetPlan(planId string) (*Plan, error) {
+func (c *Client) GetPlanWithContext(ctx context.Context, planId string, opts ...Option) (*Plan, error) {
+	return c.getPlan(ctx, planId, opts...)
+}
+
+func (c *Client) getPlan(ctx context.Context, planId string, opts ...Option) (*Plan, error) {
 	path, err := c.InterpolatePath("/plans/{plan_id}", planId)
 	if err != nil {
 		return nil, err
 	}
+	requestOptions := NewRequestOptions(opts...)
 	result := &Plan{}
-	err = c.Call(http.MethodGet, path, nil, result)
+	err = c.Call(ctx, http.MethodGet, path, nil, nil, requestOptions, result)
 	if err != nil {
 		return nil, err
 	}
 	return result, err
 }
 
-// UpdatePlan Update a plan
+// UpdatePlan wraps UpdatePlanWithContext using the background context
+func (c *Client) UpdatePlan(planId string, body *PlanUpdate, opts ...Option) (*Plan, error) {
+	return c.updatePlan(context.Background(), planId, body, opts...)
+}
+
+// UpdatePlanWithContext Update a plan
 //
 // API Documentation: https://developers.recurly.com/api/v2020-01-01#operation/update_plan
 //
 // Returns: A plan.
-func (c *Client) UpdatePlan(planId string, body *PlanUpdate) (*Plan, error) {
+func (c *Client) UpdatePlanWithContext(ctx context.Context, planId string, body *PlanUpdate, opts ...Option) (*Plan, error) {
+	return c.updatePlan(ctx, planId, body, opts...)
+}
+
+func (c *Client) updatePlan(ctx context.Context, planId string, body *PlanUpdate, opts ...Option) (*Plan, error) {
 	path, err := c.InterpolatePath("/plans/{plan_id}", planId)
 	if err != nil {
 		return nil, err
 	}
+	requestOptions := NewRequestOptions(opts...)
 	result := &Plan{}
-	err = c.Call(http.MethodPut, path, body, result)
+	err = c.Call(ctx, http.MethodPut, path, body, nil, requestOptions, result)
 	if err != nil {
 		return nil, err
 	}
 	return result, err
 }
 
-// RemovePlan Remove a plan
+// RemovePlan wraps RemovePlanWithContext using the background context
+func (c *Client) RemovePlan(planId string, opts ...Option) (*Plan, error) {
+	return c.removePlan(context.Background(), planId, opts...)
+}
+
+// RemovePlanWithContext Remove a plan
 //
 // API Documentation: https://developers.recurly.com/api/v2020-01-01#operation/remove_plan
 //
 // Returns: Plan deleted
-func (c *Client) RemovePlan(planId string) (*Plan, error) {
+func (c *Client) RemovePlanWithContext(ctx context.Context, planId string, opts ...Option) (*Plan, error) {
+	return c.removePlan(ctx, planId, opts...)
+}
+
+func (c *Client) removePlan(ctx context.Context, planId string, opts ...Option) (*Plan, error) {
 	path, err := c.InterpolatePath("/plans/{plan_id}", planId)
 	if err != nil {
 		return nil, err
 	}
+	requestOptions := NewRequestOptions(opts...)
 	result := &Plan{}
-	err = c.Call(http.MethodDelete, path, nil, result)
+	err = c.Call(ctx, http.MethodDelete, path, nil, nil, requestOptions, result)
 	if err != nil {
 		return nil, err
 	}
@@ -3508,7 +3963,6 @@ func (c *Client) RemovePlan(planId string) (*Plan, error) {
 }
 
 type ListPlanAddOnsParams struct {
-	Params
 
 	// Ids - Filter results by their IDs. Up to 200 IDs can be passed at once using
 	// commas as separators, e.g. `ids=h1at4d57xlmy,gyqgg0d3v9n1,jrsm5b4yefg6`.
@@ -3542,15 +3996,6 @@ type ListPlanAddOnsParams struct {
 
 	// State - Filter by state.
 	State *string
-}
-
-func (list *ListPlanAddOnsParams) toParams() *Params {
-	return &Params{
-		IdempotencyKey: list.IdempotencyKey,
-		Header:         list.Header,
-		Context:        list.Context,
-		RequestParams:  list,
-	}
 }
 
 func (list *ListPlanAddOnsParams) URLParams() []KeyValue {
@@ -3592,81 +4037,122 @@ func (list *ListPlanAddOnsParams) URLParams() []KeyValue {
 // API Documentation: https://developers.recurly.com/api/v2020-01-01#operation/list_plan_add_ons
 //
 // Returns: A list of add-ons.
-func (c *Client) ListPlanAddOns(planId string, params *ListPlanAddOnsParams) (*AddOnList, error) {
+func (c *Client) ListPlanAddOns(planId string, params *ListPlanAddOnsParams, opts ...Option) (*AddOnList, error) {
 	path, err := c.InterpolatePath("/plans/{plan_id}/add_ons", planId)
 	if err != nil {
 		return nil, err
 	}
-	path = BuildUrl(path, params)
-	return NewAddOnList(c, path), nil
+	requestOptions := NewRequestOptions(opts...)
+	path = BuildURL(path, params)
+	return NewAddOnList(c, path, requestOptions), nil
 }
 
-// CreatePlanAddOn Create an add-on
+// CreatePlanAddOn wraps CreatePlanAddOnWithContext using the background context
+func (c *Client) CreatePlanAddOn(planId string, body *AddOnCreate, opts ...Option) (*AddOn, error) {
+	return c.createPlanAddOn(context.Background(), planId, body, opts...)
+}
+
+// CreatePlanAddOnWithContext Create an add-on
 //
 // API Documentation: https://developers.recurly.com/api/v2020-01-01#operation/create_plan_add_on
 //
 // Returns: An add-on.
-func (c *Client) CreatePlanAddOn(planId string, body *AddOnCreate) (*AddOn, error) {
+func (c *Client) CreatePlanAddOnWithContext(ctx context.Context, planId string, body *AddOnCreate, opts ...Option) (*AddOn, error) {
+	return c.createPlanAddOn(ctx, planId, body, opts...)
+}
+
+func (c *Client) createPlanAddOn(ctx context.Context, planId string, body *AddOnCreate, opts ...Option) (*AddOn, error) {
 	path, err := c.InterpolatePath("/plans/{plan_id}/add_ons", planId)
 	if err != nil {
 		return nil, err
 	}
+	requestOptions := NewRequestOptions(opts...)
 	result := &AddOn{}
-	err = c.Call(http.MethodPost, path, body, result)
+	err = c.Call(ctx, http.MethodPost, path, body, nil, requestOptions, result)
 	if err != nil {
 		return nil, err
 	}
 	return result, err
 }
 
-// GetPlanAddOn Fetch a plan's add-on
+// GetPlanAddOn wraps GetPlanAddOnWithContext using the background context
+func (c *Client) GetPlanAddOn(planId string, addOnId string, opts ...Option) (*AddOn, error) {
+	return c.getPlanAddOn(context.Background(), planId, addOnId, opts...)
+}
+
+// GetPlanAddOnWithContext Fetch a plan's add-on
 //
 // API Documentation: https://developers.recurly.com/api/v2020-01-01#operation/get_plan_add_on
 //
 // Returns: An add-on.
-func (c *Client) GetPlanAddOn(planId string, addOnId string) (*AddOn, error) {
+func (c *Client) GetPlanAddOnWithContext(ctx context.Context, planId string, addOnId string, opts ...Option) (*AddOn, error) {
+	return c.getPlanAddOn(ctx, planId, addOnId, opts...)
+}
+
+func (c *Client) getPlanAddOn(ctx context.Context, planId string, addOnId string, opts ...Option) (*AddOn, error) {
 	path, err := c.InterpolatePath("/plans/{plan_id}/add_ons/{add_on_id}", planId, addOnId)
 	if err != nil {
 		return nil, err
 	}
+	requestOptions := NewRequestOptions(opts...)
 	result := &AddOn{}
-	err = c.Call(http.MethodGet, path, nil, result)
+	err = c.Call(ctx, http.MethodGet, path, nil, nil, requestOptions, result)
 	if err != nil {
 		return nil, err
 	}
 	return result, err
 }
 
-// UpdatePlanAddOn Update an add-on
+// UpdatePlanAddOn wraps UpdatePlanAddOnWithContext using the background context
+func (c *Client) UpdatePlanAddOn(planId string, addOnId string, body *AddOnUpdate, opts ...Option) (*AddOn, error) {
+	return c.updatePlanAddOn(context.Background(), planId, addOnId, body, opts...)
+}
+
+// UpdatePlanAddOnWithContext Update an add-on
 //
 // API Documentation: https://developers.recurly.com/api/v2020-01-01#operation/update_plan_add_on
 //
 // Returns: An add-on.
-func (c *Client) UpdatePlanAddOn(planId string, addOnId string, body *AddOnUpdate) (*AddOn, error) {
+func (c *Client) UpdatePlanAddOnWithContext(ctx context.Context, planId string, addOnId string, body *AddOnUpdate, opts ...Option) (*AddOn, error) {
+	return c.updatePlanAddOn(ctx, planId, addOnId, body, opts...)
+}
+
+func (c *Client) updatePlanAddOn(ctx context.Context, planId string, addOnId string, body *AddOnUpdate, opts ...Option) (*AddOn, error) {
 	path, err := c.InterpolatePath("/plans/{plan_id}/add_ons/{add_on_id}", planId, addOnId)
 	if err != nil {
 		return nil, err
 	}
+	requestOptions := NewRequestOptions(opts...)
 	result := &AddOn{}
-	err = c.Call(http.MethodPut, path, body, result)
+	err = c.Call(ctx, http.MethodPut, path, body, nil, requestOptions, result)
 	if err != nil {
 		return nil, err
 	}
 	return result, err
 }
 
-// RemovePlanAddOn Remove an add-on
+// RemovePlanAddOn wraps RemovePlanAddOnWithContext using the background context
+func (c *Client) RemovePlanAddOn(planId string, addOnId string, opts ...Option) (*AddOn, error) {
+	return c.removePlanAddOn(context.Background(), planId, addOnId, opts...)
+}
+
+// RemovePlanAddOnWithContext Remove an add-on
 //
 // API Documentation: https://developers.recurly.com/api/v2020-01-01#operation/remove_plan_add_on
 //
 // Returns: Add-on deleted
-func (c *Client) RemovePlanAddOn(planId string, addOnId string) (*AddOn, error) {
+func (c *Client) RemovePlanAddOnWithContext(ctx context.Context, planId string, addOnId string, opts ...Option) (*AddOn, error) {
+	return c.removePlanAddOn(ctx, planId, addOnId, opts...)
+}
+
+func (c *Client) removePlanAddOn(ctx context.Context, planId string, addOnId string, opts ...Option) (*AddOn, error) {
 	path, err := c.InterpolatePath("/plans/{plan_id}/add_ons/{add_on_id}", planId, addOnId)
 	if err != nil {
 		return nil, err
 	}
+	requestOptions := NewRequestOptions(opts...)
 	result := &AddOn{}
-	err = c.Call(http.MethodDelete, path, nil, result)
+	err = c.Call(ctx, http.MethodDelete, path, nil, nil, requestOptions, result)
 	if err != nil {
 		return nil, err
 	}
@@ -3674,7 +4160,6 @@ func (c *Client) RemovePlanAddOn(planId string, addOnId string) (*AddOn, error) 
 }
 
 type ListAddOnsParams struct {
-	Params
 
 	// Ids - Filter results by their IDs. Up to 200 IDs can be passed at once using
 	// commas as separators, e.g. `ids=h1at4d57xlmy,gyqgg0d3v9n1,jrsm5b4yefg6`.
@@ -3708,15 +4193,6 @@ type ListAddOnsParams struct {
 
 	// State - Filter by state.
 	State *string
-}
-
-func (list *ListAddOnsParams) toParams() *Params {
-	return &Params{
-		IdempotencyKey: list.IdempotencyKey,
-		Header:         list.Header,
-		Context:        list.Context,
-		RequestParams:  list,
-	}
 }
 
 func (list *ListAddOnsParams) URLParams() []KeyValue {
@@ -3758,27 +4234,38 @@ func (list *ListAddOnsParams) URLParams() []KeyValue {
 // API Documentation: https://developers.recurly.com/api/v2020-01-01#operation/list_add_ons
 //
 // Returns: A list of add-ons.
-func (c *Client) ListAddOns(params *ListAddOnsParams) (*AddOnList, error) {
+func (c *Client) ListAddOns(params *ListAddOnsParams, opts ...Option) (*AddOnList, error) {
 	path, err := c.InterpolatePath("/add_ons")
 	if err != nil {
 		return nil, err
 	}
-	path = BuildUrl(path, params)
-	return NewAddOnList(c, path), nil
+	requestOptions := NewRequestOptions(opts...)
+	path = BuildURL(path, params)
+	return NewAddOnList(c, path, requestOptions), nil
 }
 
-// GetAddOn Fetch an add-on
+// GetAddOn wraps GetAddOnWithContext using the background context
+func (c *Client) GetAddOn(addOnId string, opts ...Option) (*AddOn, error) {
+	return c.getAddOn(context.Background(), addOnId, opts...)
+}
+
+// GetAddOnWithContext Fetch an add-on
 //
 // API Documentation: https://developers.recurly.com/api/v2020-01-01#operation/get_add_on
 //
 // Returns: An add-on.
-func (c *Client) GetAddOn(addOnId string) (*AddOn, error) {
+func (c *Client) GetAddOnWithContext(ctx context.Context, addOnId string, opts ...Option) (*AddOn, error) {
+	return c.getAddOn(ctx, addOnId, opts...)
+}
+
+func (c *Client) getAddOn(ctx context.Context, addOnId string, opts ...Option) (*AddOn, error) {
 	path, err := c.InterpolatePath("/add_ons/{add_on_id}", addOnId)
 	if err != nil {
 		return nil, err
 	}
+	requestOptions := NewRequestOptions(opts...)
 	result := &AddOn{}
-	err = c.Call(http.MethodGet, path, nil, result)
+	err = c.Call(ctx, http.MethodGet, path, nil, nil, requestOptions, result)
 	if err != nil {
 		return nil, err
 	}
@@ -3786,7 +4273,6 @@ func (c *Client) GetAddOn(addOnId string) (*AddOn, error) {
 }
 
 type ListShippingMethodsParams struct {
-	Params
 
 	// Ids - Filter results by their IDs. Up to 200 IDs can be passed at once using
 	// commas as separators, e.g. `ids=h1at4d57xlmy,gyqgg0d3v9n1,jrsm5b4yefg6`.
@@ -3817,15 +4303,6 @@ type ListShippingMethodsParams struct {
 	// EndTime - Inclusively filter by end_time when `sort=created_at` or `sort=updated_at`.
 	// **Note:** this value is an ISO8601 timestamp. A partial timestamp that does not include a time zone will default to UTC.
 	EndTime *time.Time
-}
-
-func (list *ListShippingMethodsParams) toParams() *Params {
-	return &Params{
-		IdempotencyKey: list.IdempotencyKey,
-		Header:         list.Header,
-		Context:        list.Context,
-		RequestParams:  list,
-	}
 }
 
 func (list *ListShippingMethodsParams) URLParams() []KeyValue {
@@ -3863,81 +4340,122 @@ func (list *ListShippingMethodsParams) URLParams() []KeyValue {
 // API Documentation: https://developers.recurly.com/api/v2020-01-01#operation/list_shipping_methods
 //
 // Returns: A list of the site's shipping methods.
-func (c *Client) ListShippingMethods(params *ListShippingMethodsParams) (*ShippingMethodList, error) {
+func (c *Client) ListShippingMethods(params *ListShippingMethodsParams, opts ...Option) (*ShippingMethodList, error) {
 	path, err := c.InterpolatePath("/shipping_methods")
 	if err != nil {
 		return nil, err
 	}
-	path = BuildUrl(path, params)
-	return NewShippingMethodList(c, path), nil
+	requestOptions := NewRequestOptions(opts...)
+	path = BuildURL(path, params)
+	return NewShippingMethodList(c, path, requestOptions), nil
 }
 
-// CreateShippingMethod Create a new shipping method
+// CreateShippingMethod wraps CreateShippingMethodWithContext using the background context
+func (c *Client) CreateShippingMethod(body *ShippingMethodCreate, opts ...Option) (*ShippingMethod, error) {
+	return c.createShippingMethod(context.Background(), body, opts...)
+}
+
+// CreateShippingMethodWithContext Create a new shipping method
 //
 // API Documentation: https://developers.recurly.com/api/v2020-01-01#operation/create_shipping_method
 //
 // Returns: A new shipping method.
-func (c *Client) CreateShippingMethod(body *ShippingMethodCreate) (*ShippingMethod, error) {
+func (c *Client) CreateShippingMethodWithContext(ctx context.Context, body *ShippingMethodCreate, opts ...Option) (*ShippingMethod, error) {
+	return c.createShippingMethod(ctx, body, opts...)
+}
+
+func (c *Client) createShippingMethod(ctx context.Context, body *ShippingMethodCreate, opts ...Option) (*ShippingMethod, error) {
 	path, err := c.InterpolatePath("/shipping_methods")
 	if err != nil {
 		return nil, err
 	}
+	requestOptions := NewRequestOptions(opts...)
 	result := &ShippingMethod{}
-	err = c.Call(http.MethodPost, path, body, result)
+	err = c.Call(ctx, http.MethodPost, path, body, nil, requestOptions, result)
 	if err != nil {
 		return nil, err
 	}
 	return result, err
 }
 
-// GetShippingMethod Fetch a shipping method
+// GetShippingMethod wraps GetShippingMethodWithContext using the background context
+func (c *Client) GetShippingMethod(shippingMethodId string, opts ...Option) (*ShippingMethod, error) {
+	return c.getShippingMethod(context.Background(), shippingMethodId, opts...)
+}
+
+// GetShippingMethodWithContext Fetch a shipping method
 //
 // API Documentation: https://developers.recurly.com/api/v2020-01-01#operation/get_shipping_method
 //
 // Returns: A shipping method.
-func (c *Client) GetShippingMethod(shippingMethodId string) (*ShippingMethod, error) {
+func (c *Client) GetShippingMethodWithContext(ctx context.Context, shippingMethodId string, opts ...Option) (*ShippingMethod, error) {
+	return c.getShippingMethod(ctx, shippingMethodId, opts...)
+}
+
+func (c *Client) getShippingMethod(ctx context.Context, shippingMethodId string, opts ...Option) (*ShippingMethod, error) {
 	path, err := c.InterpolatePath("/shipping_methods/{shipping_method_id}", shippingMethodId)
 	if err != nil {
 		return nil, err
 	}
+	requestOptions := NewRequestOptions(opts...)
 	result := &ShippingMethod{}
-	err = c.Call(http.MethodGet, path, nil, result)
+	err = c.Call(ctx, http.MethodGet, path, nil, nil, requestOptions, result)
 	if err != nil {
 		return nil, err
 	}
 	return result, err
 }
 
-// UpdateShippingMethod Update an active Shipping Method
+// UpdateShippingMethod wraps UpdateShippingMethodWithContext using the background context
+func (c *Client) UpdateShippingMethod(shippingMethodId string, body *ShippingMethodUpdate, opts ...Option) (*ShippingMethod, error) {
+	return c.updateShippingMethod(context.Background(), shippingMethodId, body, opts...)
+}
+
+// UpdateShippingMethodWithContext Update an active Shipping Method
 //
 // API Documentation: https://developers.recurly.com/api/v2020-01-01#operation/update_shipping_method
 //
 // Returns: The updated shipping method.
-func (c *Client) UpdateShippingMethod(shippingMethodId string, body *ShippingMethodUpdate) (*ShippingMethod, error) {
+func (c *Client) UpdateShippingMethodWithContext(ctx context.Context, shippingMethodId string, body *ShippingMethodUpdate, opts ...Option) (*ShippingMethod, error) {
+	return c.updateShippingMethod(ctx, shippingMethodId, body, opts...)
+}
+
+func (c *Client) updateShippingMethod(ctx context.Context, shippingMethodId string, body *ShippingMethodUpdate, opts ...Option) (*ShippingMethod, error) {
 	path, err := c.InterpolatePath("/shipping_methods/{shipping_method_id}", shippingMethodId)
 	if err != nil {
 		return nil, err
 	}
+	requestOptions := NewRequestOptions(opts...)
 	result := &ShippingMethod{}
-	err = c.Call(http.MethodPut, path, body, result)
+	err = c.Call(ctx, http.MethodPut, path, body, nil, requestOptions, result)
 	if err != nil {
 		return nil, err
 	}
 	return result, err
 }
 
-// DeactivateShippingMethod Deactivate a shipping method
+// DeactivateShippingMethod wraps DeactivateShippingMethodWithContext using the background context
+func (c *Client) DeactivateShippingMethod(shippingMethodId string, opts ...Option) (*ShippingMethod, error) {
+	return c.deactivateShippingMethod(context.Background(), shippingMethodId, opts...)
+}
+
+// DeactivateShippingMethodWithContext Deactivate a shipping method
 //
 // API Documentation: https://developers.recurly.com/api/v2020-01-01#operation/deactivate_shipping_method
 //
 // Returns: A shipping method.
-func (c *Client) DeactivateShippingMethod(shippingMethodId string) (*ShippingMethod, error) {
+func (c *Client) DeactivateShippingMethodWithContext(ctx context.Context, shippingMethodId string, opts ...Option) (*ShippingMethod, error) {
+	return c.deactivateShippingMethod(ctx, shippingMethodId, opts...)
+}
+
+func (c *Client) deactivateShippingMethod(ctx context.Context, shippingMethodId string, opts ...Option) (*ShippingMethod, error) {
 	path, err := c.InterpolatePath("/shipping_methods/{shipping_method_id}", shippingMethodId)
 	if err != nil {
 		return nil, err
 	}
+	requestOptions := NewRequestOptions(opts...)
 	result := &ShippingMethod{}
-	err = c.Call(http.MethodDelete, path, nil, result)
+	err = c.Call(ctx, http.MethodDelete, path, nil, nil, requestOptions, result)
 	if err != nil {
 		return nil, err
 	}
@@ -3945,7 +4463,6 @@ func (c *Client) DeactivateShippingMethod(shippingMethodId string) (*ShippingMet
 }
 
 type ListSubscriptionsParams struct {
-	Params
 
 	// Ids - Filter results by their IDs. Up to 200 IDs can be passed at once using
 	// commas as separators, e.g. `ids=h1at4d57xlmy,gyqgg0d3v9n1,jrsm5b4yefg6`.
@@ -3982,15 +4499,6 @@ type ListSubscriptionsParams struct {
 	// - When `state=in_trial`, only subscriptions that have a trial_started_at date earlier than now and a trial_ends_at date later than now will be returned.
 	// - When `state=live`, only subscriptions that are in an active, canceled, or future state or are in trial will be returned.
 	State *string
-}
-
-func (list *ListSubscriptionsParams) toParams() *Params {
-	return &Params{
-		IdempotencyKey: list.IdempotencyKey,
-		Header:         list.Header,
-		Context:        list.Context,
-		RequestParams:  list,
-	}
 }
 
 func (list *ListSubscriptionsParams) URLParams() []KeyValue {
@@ -4032,63 +4540,94 @@ func (list *ListSubscriptionsParams) URLParams() []KeyValue {
 // API Documentation: https://developers.recurly.com/api/v2020-01-01#operation/list_subscriptions
 //
 // Returns: A list of the site's subscriptions.
-func (c *Client) ListSubscriptions(params *ListSubscriptionsParams) (*SubscriptionList, error) {
+func (c *Client) ListSubscriptions(params *ListSubscriptionsParams, opts ...Option) (*SubscriptionList, error) {
 	path, err := c.InterpolatePath("/subscriptions")
 	if err != nil {
 		return nil, err
 	}
-	path = BuildUrl(path, params)
-	return NewSubscriptionList(c, path), nil
+	requestOptions := NewRequestOptions(opts...)
+	path = BuildURL(path, params)
+	return NewSubscriptionList(c, path, requestOptions), nil
 }
 
-// CreateSubscription Create a new subscription
+// CreateSubscription wraps CreateSubscriptionWithContext using the background context
+func (c *Client) CreateSubscription(body *SubscriptionCreate, opts ...Option) (*Subscription, error) {
+	return c.createSubscription(context.Background(), body, opts...)
+}
+
+// CreateSubscriptionWithContext Create a new subscription
 //
 // API Documentation: https://developers.recurly.com/api/v2020-01-01#operation/create_subscription
 //
 // Returns: A subscription.
-func (c *Client) CreateSubscription(body *SubscriptionCreate) (*Subscription, error) {
+func (c *Client) CreateSubscriptionWithContext(ctx context.Context, body *SubscriptionCreate, opts ...Option) (*Subscription, error) {
+	return c.createSubscription(ctx, body, opts...)
+}
+
+func (c *Client) createSubscription(ctx context.Context, body *SubscriptionCreate, opts ...Option) (*Subscription, error) {
 	path, err := c.InterpolatePath("/subscriptions")
 	if err != nil {
 		return nil, err
 	}
+	requestOptions := NewRequestOptions(opts...)
 	result := &Subscription{}
-	err = c.Call(http.MethodPost, path, body, result)
+	err = c.Call(ctx, http.MethodPost, path, body, nil, requestOptions, result)
 	if err != nil {
 		return nil, err
 	}
 	return result, err
 }
 
-// GetSubscription Fetch a subscription
+// GetSubscription wraps GetSubscriptionWithContext using the background context
+func (c *Client) GetSubscription(subscriptionId string, opts ...Option) (*Subscription, error) {
+	return c.getSubscription(context.Background(), subscriptionId, opts...)
+}
+
+// GetSubscriptionWithContext Fetch a subscription
 //
 // API Documentation: https://developers.recurly.com/api/v2020-01-01#operation/get_subscription
 //
 // Returns: A subscription.
-func (c *Client) GetSubscription(subscriptionId string) (*Subscription, error) {
+func (c *Client) GetSubscriptionWithContext(ctx context.Context, subscriptionId string, opts ...Option) (*Subscription, error) {
+	return c.getSubscription(ctx, subscriptionId, opts...)
+}
+
+func (c *Client) getSubscription(ctx context.Context, subscriptionId string, opts ...Option) (*Subscription, error) {
 	path, err := c.InterpolatePath("/subscriptions/{subscription_id}", subscriptionId)
 	if err != nil {
 		return nil, err
 	}
+	requestOptions := NewRequestOptions(opts...)
 	result := &Subscription{}
-	err = c.Call(http.MethodGet, path, nil, result)
+	err = c.Call(ctx, http.MethodGet, path, nil, nil, requestOptions, result)
 	if err != nil {
 		return nil, err
 	}
 	return result, err
 }
 
-// ModifySubscription Modify a subscription
+// ModifySubscription wraps ModifySubscriptionWithContext using the background context
+func (c *Client) ModifySubscription(subscriptionId string, body *SubscriptionUpdate, opts ...Option) (*Subscription, error) {
+	return c.modifySubscription(context.Background(), subscriptionId, body, opts...)
+}
+
+// ModifySubscriptionWithContext Modify a subscription
 //
 // API Documentation: https://developers.recurly.com/api/v2020-01-01#operation/modify_subscription
 //
 // Returns: A subscription.
-func (c *Client) ModifySubscription(subscriptionId string, body *SubscriptionUpdate) (*Subscription, error) {
+func (c *Client) ModifySubscriptionWithContext(ctx context.Context, subscriptionId string, body *SubscriptionUpdate, opts ...Option) (*Subscription, error) {
+	return c.modifySubscription(ctx, subscriptionId, body, opts...)
+}
+
+func (c *Client) modifySubscription(ctx context.Context, subscriptionId string, body *SubscriptionUpdate, opts ...Option) (*Subscription, error) {
 	path, err := c.InterpolatePath("/subscriptions/{subscription_id}", subscriptionId)
 	if err != nil {
 		return nil, err
 	}
+	requestOptions := NewRequestOptions(opts...)
 	result := &Subscription{}
-	err = c.Call(http.MethodPut, path, body, result)
+	err = c.Call(ctx, http.MethodPut, path, body, nil, requestOptions, result)
 	if err != nil {
 		return nil, err
 	}
@@ -4096,7 +4635,6 @@ func (c *Client) ModifySubscription(subscriptionId string, body *SubscriptionUpd
 }
 
 type TerminateSubscriptionParams struct {
-	Params
 
 	// Refund - The type of refund to perform:
 	// * `full` - Performs a full refund of the last invoice for the current subscription term.
@@ -4105,15 +4643,6 @@ type TerminateSubscriptionParams struct {
 	// In the event that the most recent invoice is a $0 invoice paid entirely by credit, Recurly will apply the credit back to the customer’s account.
 	// You may also terminate a subscription with no refund and then manually refund specific invoices.
 	Refund *string
-}
-
-func (list *TerminateSubscriptionParams) toParams() *Params {
-	return &Params{
-		IdempotencyKey: list.IdempotencyKey,
-		Header:         list.Header,
-		Context:        list.Context,
-		RequestParams:  list,
-	}
 }
 
 func (list *TerminateSubscriptionParams) URLParams() []KeyValue {
@@ -4126,18 +4655,28 @@ func (list *TerminateSubscriptionParams) URLParams() []KeyValue {
 	return options
 }
 
-// TerminateSubscription Terminate a subscription
+// TerminateSubscription wraps TerminateSubscriptionWithContext using the background context
+func (c *Client) TerminateSubscription(subscriptionId string, params *TerminateSubscriptionParams, opts ...Option) (*Subscription, error) {
+	return c.terminateSubscription(context.Background(), subscriptionId, params, opts...)
+}
+
+// TerminateSubscriptionWithContext Terminate a subscription
 //
 // API Documentation: https://developers.recurly.com/api/v2020-01-01#operation/terminate_subscription
 //
 // Returns: An expired subscription.
-func (c *Client) TerminateSubscription(subscriptionId string, params *TerminateSubscriptionParams) (*Subscription, error) {
+func (c *Client) TerminateSubscriptionWithContext(ctx context.Context, subscriptionId string, params *TerminateSubscriptionParams, opts ...Option) (*Subscription, error) {
+	return c.terminateSubscription(ctx, subscriptionId, params, opts...)
+}
+
+func (c *Client) terminateSubscription(ctx context.Context, subscriptionId string, params *TerminateSubscriptionParams, opts ...Option) (*Subscription, error) {
 	path, err := c.InterpolatePath("/subscriptions/{subscription_id}", subscriptionId)
 	if err != nil {
 		return nil, err
 	}
+	requestOptions := NewRequestOptions(opts...)
 	result := &Subscription{}
-	err = c.Call(http.MethodDelete, path, params, result)
+	err = c.Call(ctx, http.MethodDelete, path, nil, params, requestOptions, result)
 	if err != nil {
 		return nil, err
 	}
@@ -4145,177 +4684,263 @@ func (c *Client) TerminateSubscription(subscriptionId string, params *TerminateS
 }
 
 type CancelSubscriptionParams struct {
-	Params
 
 	// Body - The body of the request.
 	Body *SubscriptionCancel
 }
 
-func (list *CancelSubscriptionParams) toParams() *Params {
-	return &Params{
-		IdempotencyKey: list.IdempotencyKey,
-		Header:         list.Header,
-		Context:        list.Context,
-		RequestParams:  list,
-	}
+func (list *CancelSubscriptionParams) URLParams() []KeyValue {
+	var options []KeyValue
+
+	return options
 }
 
-// CancelSubscription Cancel a subscription
+// CancelSubscription wraps CancelSubscriptionWithContext using the background context
+func (c *Client) CancelSubscription(subscriptionId string, params *CancelSubscriptionParams, opts ...Option) (*Subscription, error) {
+	return c.cancelSubscription(context.Background(), subscriptionId, params, opts...)
+}
+
+// CancelSubscriptionWithContext Cancel a subscription
 //
 // API Documentation: https://developers.recurly.com/api/v2020-01-01#operation/cancel_subscription
 //
 // Returns: A canceled or failed subscription.
-func (c *Client) CancelSubscription(subscriptionId string, params *CancelSubscriptionParams) (*Subscription, error) {
+func (c *Client) CancelSubscriptionWithContext(ctx context.Context, subscriptionId string, params *CancelSubscriptionParams, opts ...Option) (*Subscription, error) {
+	return c.cancelSubscription(ctx, subscriptionId, params, opts...)
+}
+
+func (c *Client) cancelSubscription(ctx context.Context, subscriptionId string, params *CancelSubscriptionParams, opts ...Option) (*Subscription, error) {
 	path, err := c.InterpolatePath("/subscriptions/{subscription_id}/cancel", subscriptionId)
 	if err != nil {
 		return nil, err
 	}
+	requestOptions := NewRequestOptions(opts...)
 	result := &Subscription{}
-	err = c.Call(http.MethodPut, path, params, result)
+	err = c.Call(ctx, http.MethodPut, path, nil, params, requestOptions, result)
 	if err != nil {
 		return nil, err
 	}
 	return result, err
 }
 
-// ReactivateSubscription Reactivate a canceled subscription
+// ReactivateSubscription wraps ReactivateSubscriptionWithContext using the background context
+func (c *Client) ReactivateSubscription(subscriptionId string, opts ...Option) (*Subscription, error) {
+	return c.reactivateSubscription(context.Background(), subscriptionId, opts...)
+}
+
+// ReactivateSubscriptionWithContext Reactivate a canceled subscription
 //
 // API Documentation: https://developers.recurly.com/api/v2020-01-01#operation/reactivate_subscription
 //
 // Returns: An active subscription.
-func (c *Client) ReactivateSubscription(subscriptionId string) (*Subscription, error) {
+func (c *Client) ReactivateSubscriptionWithContext(ctx context.Context, subscriptionId string, opts ...Option) (*Subscription, error) {
+	return c.reactivateSubscription(ctx, subscriptionId, opts...)
+}
+
+func (c *Client) reactivateSubscription(ctx context.Context, subscriptionId string, opts ...Option) (*Subscription, error) {
 	path, err := c.InterpolatePath("/subscriptions/{subscription_id}/reactivate", subscriptionId)
 	if err != nil {
 		return nil, err
 	}
+	requestOptions := NewRequestOptions(opts...)
 	result := &Subscription{}
-	err = c.Call(http.MethodPut, path, nil, result)
+	err = c.Call(ctx, http.MethodPut, path, nil, nil, requestOptions, result)
 	if err != nil {
 		return nil, err
 	}
 	return result, err
 }
 
-// PauseSubscription Pause subscription
+// PauseSubscription wraps PauseSubscriptionWithContext using the background context
+func (c *Client) PauseSubscription(subscriptionId string, body *SubscriptionPause, opts ...Option) (*Subscription, error) {
+	return c.pauseSubscription(context.Background(), subscriptionId, body, opts...)
+}
+
+// PauseSubscriptionWithContext Pause subscription
 //
 // API Documentation: https://developers.recurly.com/api/v2020-01-01#operation/pause_subscription
 //
 // Returns: A subscription.
-func (c *Client) PauseSubscription(subscriptionId string, body *SubscriptionPause) (*Subscription, error) {
+func (c *Client) PauseSubscriptionWithContext(ctx context.Context, subscriptionId string, body *SubscriptionPause, opts ...Option) (*Subscription, error) {
+	return c.pauseSubscription(ctx, subscriptionId, body, opts...)
+}
+
+func (c *Client) pauseSubscription(ctx context.Context, subscriptionId string, body *SubscriptionPause, opts ...Option) (*Subscription, error) {
 	path, err := c.InterpolatePath("/subscriptions/{subscription_id}/pause", subscriptionId)
 	if err != nil {
 		return nil, err
 	}
+	requestOptions := NewRequestOptions(opts...)
 	result := &Subscription{}
-	err = c.Call(http.MethodPut, path, body, result)
+	err = c.Call(ctx, http.MethodPut, path, body, nil, requestOptions, result)
 	if err != nil {
 		return nil, err
 	}
 	return result, err
 }
 
-// ResumeSubscription Resume subscription
+// ResumeSubscription wraps ResumeSubscriptionWithContext using the background context
+func (c *Client) ResumeSubscription(subscriptionId string, opts ...Option) (*Subscription, error) {
+	return c.resumeSubscription(context.Background(), subscriptionId, opts...)
+}
+
+// ResumeSubscriptionWithContext Resume subscription
 //
 // API Documentation: https://developers.recurly.com/api/v2020-01-01#operation/resume_subscription
 //
 // Returns: A subscription.
-func (c *Client) ResumeSubscription(subscriptionId string) (*Subscription, error) {
+func (c *Client) ResumeSubscriptionWithContext(ctx context.Context, subscriptionId string, opts ...Option) (*Subscription, error) {
+	return c.resumeSubscription(ctx, subscriptionId, opts...)
+}
+
+func (c *Client) resumeSubscription(ctx context.Context, subscriptionId string, opts ...Option) (*Subscription, error) {
 	path, err := c.InterpolatePath("/subscriptions/{subscription_id}/resume", subscriptionId)
 	if err != nil {
 		return nil, err
 	}
+	requestOptions := NewRequestOptions(opts...)
 	result := &Subscription{}
-	err = c.Call(http.MethodPut, path, nil, result)
+	err = c.Call(ctx, http.MethodPut, path, nil, nil, requestOptions, result)
 	if err != nil {
 		return nil, err
 	}
 	return result, err
 }
 
-// ConvertTrial Convert trial subscription
+// ConvertTrial wraps ConvertTrialWithContext using the background context
+func (c *Client) ConvertTrial(subscriptionId string, opts ...Option) (*Subscription, error) {
+	return c.convertTrial(context.Background(), subscriptionId, opts...)
+}
+
+// ConvertTrialWithContext Convert trial subscription
 //
 // API Documentation: https://developers.recurly.com/api/v2020-01-01#operation/convert_trial
 //
 // Returns: A subscription.
-func (c *Client) ConvertTrial(subscriptionId string) (*Subscription, error) {
+func (c *Client) ConvertTrialWithContext(ctx context.Context, subscriptionId string, opts ...Option) (*Subscription, error) {
+	return c.convertTrial(ctx, subscriptionId, opts...)
+}
+
+func (c *Client) convertTrial(ctx context.Context, subscriptionId string, opts ...Option) (*Subscription, error) {
 	path, err := c.InterpolatePath("/subscriptions/{subscription_id}/convert_trial", subscriptionId)
 	if err != nil {
 		return nil, err
 	}
+	requestOptions := NewRequestOptions(opts...)
 	result := &Subscription{}
-	err = c.Call(http.MethodPut, path, nil, result)
+	err = c.Call(ctx, http.MethodPut, path, nil, nil, requestOptions, result)
 	if err != nil {
 		return nil, err
 	}
 	return result, err
 }
 
-// GetSubscriptionChange Fetch a subscription's pending change
+// GetSubscriptionChange wraps GetSubscriptionChangeWithContext using the background context
+func (c *Client) GetSubscriptionChange(subscriptionId string, opts ...Option) (*SubscriptionChange, error) {
+	return c.getSubscriptionChange(context.Background(), subscriptionId, opts...)
+}
+
+// GetSubscriptionChangeWithContext Fetch a subscription's pending change
 //
 // API Documentation: https://developers.recurly.com/api/v2020-01-01#operation/get_subscription_change
 //
 // Returns: A subscription's pending change.
-func (c *Client) GetSubscriptionChange(subscriptionId string) (*SubscriptionChange, error) {
+func (c *Client) GetSubscriptionChangeWithContext(ctx context.Context, subscriptionId string, opts ...Option) (*SubscriptionChange, error) {
+	return c.getSubscriptionChange(ctx, subscriptionId, opts...)
+}
+
+func (c *Client) getSubscriptionChange(ctx context.Context, subscriptionId string, opts ...Option) (*SubscriptionChange, error) {
 	path, err := c.InterpolatePath("/subscriptions/{subscription_id}/change", subscriptionId)
 	if err != nil {
 		return nil, err
 	}
+	requestOptions := NewRequestOptions(opts...)
 	result := &SubscriptionChange{}
-	err = c.Call(http.MethodGet, path, nil, result)
+	err = c.Call(ctx, http.MethodGet, path, nil, nil, requestOptions, result)
 	if err != nil {
 		return nil, err
 	}
 	return result, err
 }
 
-// CreateSubscriptionChange Create a new subscription change
+// CreateSubscriptionChange wraps CreateSubscriptionChangeWithContext using the background context
+func (c *Client) CreateSubscriptionChange(subscriptionId string, body *SubscriptionChangeCreate, opts ...Option) (*SubscriptionChange, error) {
+	return c.createSubscriptionChange(context.Background(), subscriptionId, body, opts...)
+}
+
+// CreateSubscriptionChangeWithContext Create a new subscription change
 //
 // API Documentation: https://developers.recurly.com/api/v2020-01-01#operation/create_subscription_change
 //
 // Returns: A subscription change.
-func (c *Client) CreateSubscriptionChange(subscriptionId string, body *SubscriptionChangeCreate) (*SubscriptionChange, error) {
+func (c *Client) CreateSubscriptionChangeWithContext(ctx context.Context, subscriptionId string, body *SubscriptionChangeCreate, opts ...Option) (*SubscriptionChange, error) {
+	return c.createSubscriptionChange(ctx, subscriptionId, body, opts...)
+}
+
+func (c *Client) createSubscriptionChange(ctx context.Context, subscriptionId string, body *SubscriptionChangeCreate, opts ...Option) (*SubscriptionChange, error) {
 	path, err := c.InterpolatePath("/subscriptions/{subscription_id}/change", subscriptionId)
 	if err != nil {
 		return nil, err
 	}
+	requestOptions := NewRequestOptions(opts...)
 	result := &SubscriptionChange{}
-	err = c.Call(http.MethodPost, path, body, result)
+	err = c.Call(ctx, http.MethodPost, path, body, nil, requestOptions, result)
 	if err != nil {
 		return nil, err
 	}
 	return result, err
 }
 
-// RemoveSubscriptionChange Delete the pending subscription change
+// RemoveSubscriptionChange wraps RemoveSubscriptionChangeWithContext using the background context
+func (c *Client) RemoveSubscriptionChange(subscriptionId string, opts ...Option) (*Empty, error) {
+	return c.removeSubscriptionChange(context.Background(), subscriptionId, opts...)
+}
+
+// RemoveSubscriptionChangeWithContext Delete the pending subscription change
 //
 // API Documentation: https://developers.recurly.com/api/v2020-01-01#operation/remove_subscription_change
 //
 // Returns: Subscription change was deleted.
-func (c *Client) RemoveSubscriptionChange(subscriptionId string) (*Empty, error) {
+func (c *Client) RemoveSubscriptionChangeWithContext(ctx context.Context, subscriptionId string, opts ...Option) (*Empty, error) {
+	return c.removeSubscriptionChange(ctx, subscriptionId, opts...)
+}
+
+func (c *Client) removeSubscriptionChange(ctx context.Context, subscriptionId string, opts ...Option) (*Empty, error) {
 	path, err := c.InterpolatePath("/subscriptions/{subscription_id}/change", subscriptionId)
 	if err != nil {
 		return nil, err
 	}
+	requestOptions := NewRequestOptions(opts...)
 	result := &Empty{}
-	err = c.Call(http.MethodDelete, path, nil, result)
+	err = c.Call(ctx, http.MethodDelete, path, nil, nil, requestOptions, result)
 	if err != nil {
 		return nil, err
 	}
 	return result, err
 }
 
-// PreviewSubscriptionChange Preview a new subscription change
+// PreviewSubscriptionChange wraps PreviewSubscriptionChangeWithContext using the background context
+func (c *Client) PreviewSubscriptionChange(subscriptionId string, body *SubscriptionChangeCreate, opts ...Option) (*SubscriptionChange, error) {
+	return c.previewSubscriptionChange(context.Background(), subscriptionId, body, opts...)
+}
+
+// PreviewSubscriptionChangeWithContext Preview a new subscription change
 //
 // API Documentation: https://developers.recurly.com/api/v2020-01-01#operation/preview_subscription_change
 //
 // Returns: A subscription change.
-func (c *Client) PreviewSubscriptionChange(subscriptionId string, body *SubscriptionChangeCreate) (*SubscriptionChange, error) {
+func (c *Client) PreviewSubscriptionChangeWithContext(ctx context.Context, subscriptionId string, body *SubscriptionChangeCreate, opts ...Option) (*SubscriptionChange, error) {
+	return c.previewSubscriptionChange(ctx, subscriptionId, body, opts...)
+}
+
+func (c *Client) previewSubscriptionChange(ctx context.Context, subscriptionId string, body *SubscriptionChangeCreate, opts ...Option) (*SubscriptionChange, error) {
 	path, err := c.InterpolatePath("/subscriptions/{subscription_id}/change/preview", subscriptionId)
 	if err != nil {
 		return nil, err
 	}
+	requestOptions := NewRequestOptions(opts...)
 	result := &SubscriptionChange{}
-	err = c.Call(http.MethodPost, path, body, result)
+	err = c.Call(ctx, http.MethodPost, path, body, nil, requestOptions, result)
 	if err != nil {
 		return nil, err
 	}
@@ -4323,7 +4948,6 @@ func (c *Client) PreviewSubscriptionChange(subscriptionId string, body *Subscrip
 }
 
 type ListSubscriptionInvoicesParams struct {
-	Params
 
 	// Ids - Filter results by their IDs. Up to 200 IDs can be passed at once using
 	// commas as separators, e.g. `ids=h1at4d57xlmy,gyqgg0d3v9n1,jrsm5b4yefg6`.
@@ -4361,15 +4985,6 @@ type ListSubscriptionInvoicesParams struct {
 	// - `type=non-legacy`, only charge and credit invoices will be returned.
 	// - `type=legacy`, only legacy invoices will be returned.
 	Type *string
-}
-
-func (list *ListSubscriptionInvoicesParams) toParams() *Params {
-	return &Params{
-		IdempotencyKey: list.IdempotencyKey,
-		Header:         list.Header,
-		Context:        list.Context,
-		RequestParams:  list,
-	}
 }
 
 func (list *ListSubscriptionInvoicesParams) URLParams() []KeyValue {
@@ -4411,17 +5026,17 @@ func (list *ListSubscriptionInvoicesParams) URLParams() []KeyValue {
 // API Documentation: https://developers.recurly.com/api/v2020-01-01#operation/list_subscription_invoices
 //
 // Returns: A list of the subscription's invoices.
-func (c *Client) ListSubscriptionInvoices(subscriptionId string, params *ListSubscriptionInvoicesParams) (*InvoiceList, error) {
+func (c *Client) ListSubscriptionInvoices(subscriptionId string, params *ListSubscriptionInvoicesParams, opts ...Option) (*InvoiceList, error) {
 	path, err := c.InterpolatePath("/subscriptions/{subscription_id}/invoices", subscriptionId)
 	if err != nil {
 		return nil, err
 	}
-	path = BuildUrl(path, params)
-	return NewInvoiceList(c, path), nil
+	requestOptions := NewRequestOptions(opts...)
+	path = BuildURL(path, params)
+	return NewInvoiceList(c, path, requestOptions), nil
 }
 
 type ListSubscriptionLineItemsParams struct {
-	Params
 
 	// Ids - Filter results by their IDs. Up to 200 IDs can be passed at once using
 	// commas as separators, e.g. `ids=h1at4d57xlmy,gyqgg0d3v9n1,jrsm5b4yefg6`.
@@ -4461,15 +5076,6 @@ type ListSubscriptionLineItemsParams struct {
 
 	// Type - Filter by type field.
 	Type *string
-}
-
-func (list *ListSubscriptionLineItemsParams) toParams() *Params {
-	return &Params{
-		IdempotencyKey: list.IdempotencyKey,
-		Header:         list.Header,
-		Context:        list.Context,
-		RequestParams:  list,
-	}
 }
 
 func (list *ListSubscriptionLineItemsParams) URLParams() []KeyValue {
@@ -4519,17 +5125,17 @@ func (list *ListSubscriptionLineItemsParams) URLParams() []KeyValue {
 // API Documentation: https://developers.recurly.com/api/v2020-01-01#operation/list_subscription_line_items
 //
 // Returns: A list of the subscription's line items.
-func (c *Client) ListSubscriptionLineItems(subscriptionId string, params *ListSubscriptionLineItemsParams) (*LineItemList, error) {
+func (c *Client) ListSubscriptionLineItems(subscriptionId string, params *ListSubscriptionLineItemsParams, opts ...Option) (*LineItemList, error) {
 	path, err := c.InterpolatePath("/subscriptions/{subscription_id}/line_items", subscriptionId)
 	if err != nil {
 		return nil, err
 	}
-	path = BuildUrl(path, params)
-	return NewLineItemList(c, path), nil
+	requestOptions := NewRequestOptions(opts...)
+	path = BuildURL(path, params)
+	return NewLineItemList(c, path, requestOptions), nil
 }
 
 type ListSubscriptionCouponRedemptionsParams struct {
-	Params
 
 	// Ids - Filter results by their IDs. Up to 200 IDs can be passed at once using
 	// commas as separators, e.g. `ids=h1at4d57xlmy,gyqgg0d3v9n1,jrsm5b4yefg6`.
@@ -4554,15 +5160,6 @@ type ListSubscriptionCouponRedemptionsParams struct {
 	// EndTime - Inclusively filter by end_time when `sort=created_at` or `sort=updated_at`.
 	// **Note:** this value is an ISO8601 timestamp. A partial timestamp that does not include a time zone will default to UTC.
 	EndTime *time.Time
-}
-
-func (list *ListSubscriptionCouponRedemptionsParams) toParams() *Params {
-	return &Params{
-		IdempotencyKey: list.IdempotencyKey,
-		Header:         list.Header,
-		Context:        list.Context,
-		RequestParams:  list,
-	}
 }
 
 func (list *ListSubscriptionCouponRedemptionsParams) URLParams() []KeyValue {
@@ -4592,17 +5189,17 @@ func (list *ListSubscriptionCouponRedemptionsParams) URLParams() []KeyValue {
 // API Documentation: https://developers.recurly.com/api/v2020-01-01#operation/list_subscription_coupon_redemptions
 //
 // Returns: A list of the the coupon redemptions on a subscription.
-func (c *Client) ListSubscriptionCouponRedemptions(subscriptionId string, params *ListSubscriptionCouponRedemptionsParams) (*CouponRedemptionList, error) {
+func (c *Client) ListSubscriptionCouponRedemptions(subscriptionId string, params *ListSubscriptionCouponRedemptionsParams, opts ...Option) (*CouponRedemptionList, error) {
 	path, err := c.InterpolatePath("/subscriptions/{subscription_id}/coupon_redemptions", subscriptionId)
 	if err != nil {
 		return nil, err
 	}
-	path = BuildUrl(path, params)
-	return NewCouponRedemptionList(c, path), nil
+	requestOptions := NewRequestOptions(opts...)
+	path = BuildURL(path, params)
+	return NewCouponRedemptionList(c, path, requestOptions), nil
 }
 
 type ListUsageParams struct {
-	Params
 
 	// Ids - Filter results by their IDs. Up to 200 IDs can be passed at once using
 	// commas as separators, e.g. `ids=h1at4d57xlmy,gyqgg0d3v9n1,jrsm5b4yefg6`.
@@ -4636,15 +5233,6 @@ type ListUsageParams struct {
 
 	// BillingStatus - Filter by usage record's billing status
 	BillingStatus *string
-}
-
-func (list *ListUsageParams) toParams() *Params {
-	return &Params{
-		IdempotencyKey: list.IdempotencyKey,
-		Header:         list.Header,
-		Context:        list.Context,
-		RequestParams:  list,
-	}
 }
 
 func (list *ListUsageParams) URLParams() []KeyValue {
@@ -4686,81 +5274,122 @@ func (list *ListUsageParams) URLParams() []KeyValue {
 // API Documentation: https://developers.recurly.com/api/v2020-01-01#operation/list_usage
 //
 // Returns: A list of the subscription add-on's usage records.
-func (c *Client) ListUsage(subscriptionId string, addOnId string, params *ListUsageParams) (*UsageList, error) {
+func (c *Client) ListUsage(subscriptionId string, addOnId string, params *ListUsageParams, opts ...Option) (*UsageList, error) {
 	path, err := c.InterpolatePath("/subscriptions/{subscription_id}/add_ons/{add_on_id}/usage", subscriptionId, addOnId)
 	if err != nil {
 		return nil, err
 	}
-	path = BuildUrl(path, params)
-	return NewUsageList(c, path), nil
+	requestOptions := NewRequestOptions(opts...)
+	path = BuildURL(path, params)
+	return NewUsageList(c, path, requestOptions), nil
 }
 
-// CreateUsage Log a usage record on this subscription add-on
+// CreateUsage wraps CreateUsageWithContext using the background context
+func (c *Client) CreateUsage(subscriptionId string, addOnId string, body *UsageCreate, opts ...Option) (*Usage, error) {
+	return c.createUsage(context.Background(), subscriptionId, addOnId, body, opts...)
+}
+
+// CreateUsageWithContext Log a usage record on this subscription add-on
 //
 // API Documentation: https://developers.recurly.com/api/v2020-01-01#operation/create_usage
 //
 // Returns: The created usage record.
-func (c *Client) CreateUsage(subscriptionId string, addOnId string, body *UsageCreate) (*Usage, error) {
+func (c *Client) CreateUsageWithContext(ctx context.Context, subscriptionId string, addOnId string, body *UsageCreate, opts ...Option) (*Usage, error) {
+	return c.createUsage(ctx, subscriptionId, addOnId, body, opts...)
+}
+
+func (c *Client) createUsage(ctx context.Context, subscriptionId string, addOnId string, body *UsageCreate, opts ...Option) (*Usage, error) {
 	path, err := c.InterpolatePath("/subscriptions/{subscription_id}/add_ons/{add_on_id}/usage", subscriptionId, addOnId)
 	if err != nil {
 		return nil, err
 	}
+	requestOptions := NewRequestOptions(opts...)
 	result := &Usage{}
-	err = c.Call(http.MethodPost, path, body, result)
+	err = c.Call(ctx, http.MethodPost, path, body, nil, requestOptions, result)
 	if err != nil {
 		return nil, err
 	}
 	return result, err
 }
 
-// GetUsage Get a usage record
+// GetUsage wraps GetUsageWithContext using the background context
+func (c *Client) GetUsage(usageId string, opts ...Option) (*Usage, error) {
+	return c.getUsage(context.Background(), usageId, opts...)
+}
+
+// GetUsageWithContext Get a usage record
 //
 // API Documentation: https://developers.recurly.com/api/v2020-01-01#operation/get_usage
 //
 // Returns: The usage record.
-func (c *Client) GetUsage(usageId string) (*Usage, error) {
+func (c *Client) GetUsageWithContext(ctx context.Context, usageId string, opts ...Option) (*Usage, error) {
+	return c.getUsage(ctx, usageId, opts...)
+}
+
+func (c *Client) getUsage(ctx context.Context, usageId string, opts ...Option) (*Usage, error) {
 	path, err := c.InterpolatePath("/usage/{usage_id}", usageId)
 	if err != nil {
 		return nil, err
 	}
+	requestOptions := NewRequestOptions(opts...)
 	result := &Usage{}
-	err = c.Call(http.MethodGet, path, nil, result)
+	err = c.Call(ctx, http.MethodGet, path, nil, nil, requestOptions, result)
 	if err != nil {
 		return nil, err
 	}
 	return result, err
 }
 
-// UpdateUsage Update a usage record
+// UpdateUsage wraps UpdateUsageWithContext using the background context
+func (c *Client) UpdateUsage(usageId string, body *UsageCreate, opts ...Option) (*Usage, error) {
+	return c.updateUsage(context.Background(), usageId, body, opts...)
+}
+
+// UpdateUsageWithContext Update a usage record
 //
 // API Documentation: https://developers.recurly.com/api/v2020-01-01#operation/update_usage
 //
 // Returns: The updated usage record.
-func (c *Client) UpdateUsage(usageId string, body *UsageCreate) (*Usage, error) {
+func (c *Client) UpdateUsageWithContext(ctx context.Context, usageId string, body *UsageCreate, opts ...Option) (*Usage, error) {
+	return c.updateUsage(ctx, usageId, body, opts...)
+}
+
+func (c *Client) updateUsage(ctx context.Context, usageId string, body *UsageCreate, opts ...Option) (*Usage, error) {
 	path, err := c.InterpolatePath("/usage/{usage_id}", usageId)
 	if err != nil {
 		return nil, err
 	}
+	requestOptions := NewRequestOptions(opts...)
 	result := &Usage{}
-	err = c.Call(http.MethodPut, path, body, result)
+	err = c.Call(ctx, http.MethodPut, path, body, nil, requestOptions, result)
 	if err != nil {
 		return nil, err
 	}
 	return result, err
 }
 
-// RemoveUsage Delete a usage record.
+// RemoveUsage wraps RemoveUsageWithContext using the background context
+func (c *Client) RemoveUsage(usageId string, opts ...Option) (*Empty, error) {
+	return c.removeUsage(context.Background(), usageId, opts...)
+}
+
+// RemoveUsageWithContext Delete a usage record.
 //
 // API Documentation: https://developers.recurly.com/api/v2020-01-01#operation/remove_usage
 //
 // Returns: Usage was successfully deleted.
-func (c *Client) RemoveUsage(usageId string) (*Empty, error) {
+func (c *Client) RemoveUsageWithContext(ctx context.Context, usageId string, opts ...Option) (*Empty, error) {
+	return c.removeUsage(ctx, usageId, opts...)
+}
+
+func (c *Client) removeUsage(ctx context.Context, usageId string, opts ...Option) (*Empty, error) {
 	path, err := c.InterpolatePath("/usage/{usage_id}", usageId)
 	if err != nil {
 		return nil, err
 	}
+	requestOptions := NewRequestOptions(opts...)
 	result := &Empty{}
-	err = c.Call(http.MethodDelete, path, nil, result)
+	err = c.Call(ctx, http.MethodDelete, path, nil, nil, requestOptions, result)
 	if err != nil {
 		return nil, err
 	}
@@ -4768,7 +5397,6 @@ func (c *Client) RemoveUsage(usageId string) (*Empty, error) {
 }
 
 type ListTransactionsParams struct {
-	Params
 
 	// Ids - Filter results by their IDs. Up to 200 IDs can be passed at once using
 	// commas as separators, e.g. `ids=h1at4d57xlmy,gyqgg0d3v9n1,jrsm5b4yefg6`.
@@ -4805,15 +5433,6 @@ type ListTransactionsParams struct {
 
 	// Success - Filter by success field.
 	Success *string
-}
-
-func (list *ListTransactionsParams) toParams() *Params {
-	return &Params{
-		IdempotencyKey: list.IdempotencyKey,
-		Header:         list.Header,
-		Context:        list.Context,
-		RequestParams:  list,
-	}
 }
 
 func (list *ListTransactionsParams) URLParams() []KeyValue {
@@ -4859,153 +5478,234 @@ func (list *ListTransactionsParams) URLParams() []KeyValue {
 // API Documentation: https://developers.recurly.com/api/v2020-01-01#operation/list_transactions
 //
 // Returns: A list of the site's transactions.
-func (c *Client) ListTransactions(params *ListTransactionsParams) (*TransactionList, error) {
+func (c *Client) ListTransactions(params *ListTransactionsParams, opts ...Option) (*TransactionList, error) {
 	path, err := c.InterpolatePath("/transactions")
 	if err != nil {
 		return nil, err
 	}
-	path = BuildUrl(path, params)
-	return NewTransactionList(c, path), nil
+	requestOptions := NewRequestOptions(opts...)
+	path = BuildURL(path, params)
+	return NewTransactionList(c, path, requestOptions), nil
 }
 
-// GetTransaction Fetch a transaction
+// GetTransaction wraps GetTransactionWithContext using the background context
+func (c *Client) GetTransaction(transactionId string, opts ...Option) (*Transaction, error) {
+	return c.getTransaction(context.Background(), transactionId, opts...)
+}
+
+// GetTransactionWithContext Fetch a transaction
 //
 // API Documentation: https://developers.recurly.com/api/v2020-01-01#operation/get_transaction
 //
 // Returns: A transaction.
-func (c *Client) GetTransaction(transactionId string) (*Transaction, error) {
+func (c *Client) GetTransactionWithContext(ctx context.Context, transactionId string, opts ...Option) (*Transaction, error) {
+	return c.getTransaction(ctx, transactionId, opts...)
+}
+
+func (c *Client) getTransaction(ctx context.Context, transactionId string, opts ...Option) (*Transaction, error) {
 	path, err := c.InterpolatePath("/transactions/{transaction_id}", transactionId)
 	if err != nil {
 		return nil, err
 	}
+	requestOptions := NewRequestOptions(opts...)
 	result := &Transaction{}
-	err = c.Call(http.MethodGet, path, nil, result)
+	err = c.Call(ctx, http.MethodGet, path, nil, nil, requestOptions, result)
 	if err != nil {
 		return nil, err
 	}
 	return result, err
 }
 
-// GetUniqueCouponCode Fetch a unique coupon code
+// GetUniqueCouponCode wraps GetUniqueCouponCodeWithContext using the background context
+func (c *Client) GetUniqueCouponCode(uniqueCouponCodeId string, opts ...Option) (*UniqueCouponCode, error) {
+	return c.getUniqueCouponCode(context.Background(), uniqueCouponCodeId, opts...)
+}
+
+// GetUniqueCouponCodeWithContext Fetch a unique coupon code
 //
 // API Documentation: https://developers.recurly.com/api/v2020-01-01#operation/get_unique_coupon_code
 //
 // Returns: A unique coupon code.
-func (c *Client) GetUniqueCouponCode(uniqueCouponCodeId string) (*UniqueCouponCode, error) {
+func (c *Client) GetUniqueCouponCodeWithContext(ctx context.Context, uniqueCouponCodeId string, opts ...Option) (*UniqueCouponCode, error) {
+	return c.getUniqueCouponCode(ctx, uniqueCouponCodeId, opts...)
+}
+
+func (c *Client) getUniqueCouponCode(ctx context.Context, uniqueCouponCodeId string, opts ...Option) (*UniqueCouponCode, error) {
 	path, err := c.InterpolatePath("/unique_coupon_codes/{unique_coupon_code_id}", uniqueCouponCodeId)
 	if err != nil {
 		return nil, err
 	}
+	requestOptions := NewRequestOptions(opts...)
 	result := &UniqueCouponCode{}
-	err = c.Call(http.MethodGet, path, nil, result)
+	err = c.Call(ctx, http.MethodGet, path, nil, nil, requestOptions, result)
 	if err != nil {
 		return nil, err
 	}
 	return result, err
 }
 
-// DeactivateUniqueCouponCode Deactivate a unique coupon code
+// DeactivateUniqueCouponCode wraps DeactivateUniqueCouponCodeWithContext using the background context
+func (c *Client) DeactivateUniqueCouponCode(uniqueCouponCodeId string, opts ...Option) (*UniqueCouponCode, error) {
+	return c.deactivateUniqueCouponCode(context.Background(), uniqueCouponCodeId, opts...)
+}
+
+// DeactivateUniqueCouponCodeWithContext Deactivate a unique coupon code
 //
 // API Documentation: https://developers.recurly.com/api/v2020-01-01#operation/deactivate_unique_coupon_code
 //
 // Returns: A unique coupon code.
-func (c *Client) DeactivateUniqueCouponCode(uniqueCouponCodeId string) (*UniqueCouponCode, error) {
+func (c *Client) DeactivateUniqueCouponCodeWithContext(ctx context.Context, uniqueCouponCodeId string, opts ...Option) (*UniqueCouponCode, error) {
+	return c.deactivateUniqueCouponCode(ctx, uniqueCouponCodeId, opts...)
+}
+
+func (c *Client) deactivateUniqueCouponCode(ctx context.Context, uniqueCouponCodeId string, opts ...Option) (*UniqueCouponCode, error) {
 	path, err := c.InterpolatePath("/unique_coupon_codes/{unique_coupon_code_id}", uniqueCouponCodeId)
 	if err != nil {
 		return nil, err
 	}
+	requestOptions := NewRequestOptions(opts...)
 	result := &UniqueCouponCode{}
-	err = c.Call(http.MethodDelete, path, nil, result)
+	err = c.Call(ctx, http.MethodDelete, path, nil, nil, requestOptions, result)
 	if err != nil {
 		return nil, err
 	}
 	return result, err
 }
 
-// ReactivateUniqueCouponCode Restore a unique coupon code
+// ReactivateUniqueCouponCode wraps ReactivateUniqueCouponCodeWithContext using the background context
+func (c *Client) ReactivateUniqueCouponCode(uniqueCouponCodeId string, opts ...Option) (*UniqueCouponCode, error) {
+	return c.reactivateUniqueCouponCode(context.Background(), uniqueCouponCodeId, opts...)
+}
+
+// ReactivateUniqueCouponCodeWithContext Restore a unique coupon code
 //
 // API Documentation: https://developers.recurly.com/api/v2020-01-01#operation/reactivate_unique_coupon_code
 //
 // Returns: A unique coupon code.
-func (c *Client) ReactivateUniqueCouponCode(uniqueCouponCodeId string) (*UniqueCouponCode, error) {
+func (c *Client) ReactivateUniqueCouponCodeWithContext(ctx context.Context, uniqueCouponCodeId string, opts ...Option) (*UniqueCouponCode, error) {
+	return c.reactivateUniqueCouponCode(ctx, uniqueCouponCodeId, opts...)
+}
+
+func (c *Client) reactivateUniqueCouponCode(ctx context.Context, uniqueCouponCodeId string, opts ...Option) (*UniqueCouponCode, error) {
 	path, err := c.InterpolatePath("/unique_coupon_codes/{unique_coupon_code_id}/restore", uniqueCouponCodeId)
 	if err != nil {
 		return nil, err
 	}
+	requestOptions := NewRequestOptions(opts...)
 	result := &UniqueCouponCode{}
-	err = c.Call(http.MethodPut, path, nil, result)
+	err = c.Call(ctx, http.MethodPut, path, nil, nil, requestOptions, result)
 	if err != nil {
 		return nil, err
 	}
 	return result, err
 }
 
-// CreatePurchase Create a new purchase
+// CreatePurchase wraps CreatePurchaseWithContext using the background context
+func (c *Client) CreatePurchase(body *PurchaseCreate, opts ...Option) (*InvoiceCollection, error) {
+	return c.createPurchase(context.Background(), body, opts...)
+}
+
+// CreatePurchaseWithContext Create a new purchase
 //
 // API Documentation: https://developers.recurly.com/api/v2020-01-01#operation/create_purchase
 //
 // Returns: Returns the new invoices
-func (c *Client) CreatePurchase(body *PurchaseCreate) (*InvoiceCollection, error) {
+func (c *Client) CreatePurchaseWithContext(ctx context.Context, body *PurchaseCreate, opts ...Option) (*InvoiceCollection, error) {
+	return c.createPurchase(ctx, body, opts...)
+}
+
+func (c *Client) createPurchase(ctx context.Context, body *PurchaseCreate, opts ...Option) (*InvoiceCollection, error) {
 	path, err := c.InterpolatePath("/purchases")
 	if err != nil {
 		return nil, err
 	}
+	requestOptions := NewRequestOptions(opts...)
 	result := &InvoiceCollection{}
-	err = c.Call(http.MethodPost, path, body, result)
+	err = c.Call(ctx, http.MethodPost, path, body, nil, requestOptions, result)
 	if err != nil {
 		return nil, err
 	}
 	return result, err
 }
 
-// PreviewPurchase Preview a new purchase
+// PreviewPurchase wraps PreviewPurchaseWithContext using the background context
+func (c *Client) PreviewPurchase(body *PurchaseCreate, opts ...Option) (*InvoiceCollection, error) {
+	return c.previewPurchase(context.Background(), body, opts...)
+}
+
+// PreviewPurchaseWithContext Preview a new purchase
 //
 // API Documentation: https://developers.recurly.com/api/v2020-01-01#operation/preview_purchase
 //
 // Returns: Returns preview of the new invoices
-func (c *Client) PreviewPurchase(body *PurchaseCreate) (*InvoiceCollection, error) {
+func (c *Client) PreviewPurchaseWithContext(ctx context.Context, body *PurchaseCreate, opts ...Option) (*InvoiceCollection, error) {
+	return c.previewPurchase(ctx, body, opts...)
+}
+
+func (c *Client) previewPurchase(ctx context.Context, body *PurchaseCreate, opts ...Option) (*InvoiceCollection, error) {
 	path, err := c.InterpolatePath("/purchases/preview")
 	if err != nil {
 		return nil, err
 	}
+	requestOptions := NewRequestOptions(opts...)
 	result := &InvoiceCollection{}
-	err = c.Call(http.MethodPost, path, body, result)
+	err = c.Call(ctx, http.MethodPost, path, body, nil, requestOptions, result)
 	if err != nil {
 		return nil, err
 	}
 	return result, err
 }
 
-// GetExportDates List the dates that have an available export to download.
+// GetExportDates wraps GetExportDatesWithContext using the background context
+func (c *Client) GetExportDates(opts ...Option) (*ExportDates, error) {
+	return c.getExportDates(context.Background(), opts...)
+}
+
+// GetExportDatesWithContext List the dates that have an available export to download.
 //
 // API Documentation: https://developers.recurly.com/api/v2020-01-01#operation/get_export_dates
 //
 // Returns: Returns a list of dates.
-func (c *Client) GetExportDates() (*ExportDates, error) {
+func (c *Client) GetExportDatesWithContext(ctx context.Context, opts ...Option) (*ExportDates, error) {
+	return c.getExportDates(ctx, opts...)
+}
+
+func (c *Client) getExportDates(ctx context.Context, opts ...Option) (*ExportDates, error) {
 	path, err := c.InterpolatePath("/export_dates")
 	if err != nil {
 		return nil, err
 	}
+	requestOptions := NewRequestOptions(opts...)
 	result := &ExportDates{}
-	err = c.Call(http.MethodGet, path, nil, result)
+	err = c.Call(ctx, http.MethodGet, path, nil, nil, requestOptions, result)
 	if err != nil {
 		return nil, err
 	}
 	return result, err
 }
 
-// GetExportFiles List of the export files that are available to download.
+// GetExportFiles wraps GetExportFilesWithContext using the background context
+func (c *Client) GetExportFiles(exportDate string, opts ...Option) (*ExportFiles, error) {
+	return c.getExportFiles(context.Background(), exportDate, opts...)
+}
+
+// GetExportFilesWithContext List of the export files that are available to download.
 //
 // API Documentation: https://developers.recurly.com/api/v2020-01-01#operation/get_export_files
 //
 // Returns: Returns a list of export files to download.
-func (c *Client) GetExportFiles(exportDate string) (*ExportFiles, error) {
+func (c *Client) GetExportFilesWithContext(ctx context.Context, exportDate string, opts ...Option) (*ExportFiles, error) {
+	return c.getExportFiles(ctx, exportDate, opts...)
+}
+
+func (c *Client) getExportFiles(ctx context.Context, exportDate string, opts ...Option) (*ExportFiles, error) {
 	path, err := c.InterpolatePath("/export_dates/{export_date}/export_files", exportDate)
 	if err != nil {
 		return nil, err
 	}
+	requestOptions := NewRequestOptions(opts...)
 	result := &ExportFiles{}
-	err = c.Call(http.MethodGet, path, nil, result)
+	err = c.Call(ctx, http.MethodGet, path, nil, nil, requestOptions, result)
 	if err != nil {
 		return nil, err
 	}

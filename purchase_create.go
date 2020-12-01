@@ -7,7 +7,6 @@ package recurly
 import ()
 
 type PurchaseCreate struct {
-	Params `json:"-"`
 
 	// 3-letter ISO 4217 currency code.
 	Currency *string `json:"currency,omitempty"`
@@ -54,13 +53,4 @@ type PurchaseCreate struct {
 
 	// An optional type designation for the payment gateway transaction created by this request. Supports 'moto' value, which is the acronym for mail order and telephone transactions.
 	TransactionType *string `json:"transaction_type,omitempty"`
-}
-
-func (attr *PurchaseCreate) toParams() *Params {
-	return &Params{
-		IdempotencyKey: attr.IdempotencyKey,
-		Header:         attr.Header,
-		Context:        attr.Context,
-		Data:           attr,
-	}
 }

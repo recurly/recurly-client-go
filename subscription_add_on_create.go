@@ -7,7 +7,6 @@ package recurly
 import ()
 
 type SubscriptionAddOnCreate struct {
-	Params `json:"-"`
 
 	// If `add_on_source` is set to `plan_add_on` or left blank, then plan's add-on `code` should be used.
 	// If `add_on_source` is set to `item`, then the `code` from the associated item should be used.
@@ -38,13 +37,4 @@ type SubscriptionAddOnCreate struct {
 
 	// Revenue schedule type
 	RevenueScheduleType *string `json:"revenue_schedule_type,omitempty"`
-}
-
-func (attr *SubscriptionAddOnCreate) toParams() *Params {
-	return &Params{
-		IdempotencyKey: attr.IdempotencyKey,
-		Header:         attr.Header,
-		Context:        attr.Context,
-		Data:           attr,
-	}
 }

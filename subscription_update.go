@@ -9,7 +9,6 @@ import (
 )
 
 type SubscriptionUpdate struct {
-	Params `json:"-"`
 
 	// Change collection method
 	CollectionMethod *string `json:"collection_method,omitempty"`
@@ -49,13 +48,4 @@ type SubscriptionUpdate struct {
 
 	// The `billing_info_id` is the value that represents a specific billing info for an end customer. When `billing_info_id` is used to assign billing info to the subscription, all future billing events for the subscription will bill to the specified billing info.
 	BillingInfoId *string `json:"billing_info_id,omitempty"`
-}
-
-func (attr *SubscriptionUpdate) toParams() *Params {
-	return &Params{
-		IdempotencyKey: attr.IdempotencyKey,
-		Header:         attr.Header,
-		Context:        attr.Context,
-		Data:           attr,
-	}
 }

@@ -7,7 +7,6 @@ package recurly
 import ()
 
 type SubscriptionAddOnUpdate struct {
-	Params `json:"-"`
 
 	// When an id is provided, the existing subscription add-on attributes will
 	// persist unless overridden in the request.
@@ -43,13 +42,4 @@ type SubscriptionAddOnUpdate struct {
 
 	// Revenue schedule type
 	RevenueScheduleType *string `json:"revenue_schedule_type,omitempty"`
-}
-
-func (attr *SubscriptionAddOnUpdate) toParams() *Params {
-	return &Params{
-		IdempotencyKey: attr.IdempotencyKey,
-		Header:         attr.Header,
-		Context:        attr.Context,
-		Data:           attr,
-	}
 }

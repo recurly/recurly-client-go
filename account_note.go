@@ -5,6 +5,7 @@
 package recurly
 
 import (
+	"context"
 	"net/http"
 	"time"
 )
@@ -55,25 +56,27 @@ func (resource *accountNoteList) setResponse(res *ResponseMetadata) {
 
 // AccountNoteList allows you to paginate AccountNote objects
 type AccountNoteList struct {
-	client       HttpCaller
-	nextPagePath string
+	client         HTTPCaller
+	requestOptions *RequestOptions
+	nextPagePath   string
 
 	HasMore bool
 	Data    []AccountNote
 }
 
-func NewAccountNoteList(client HttpCaller, nextPagePath string) *AccountNoteList {
+func NewAccountNoteList(client HTTPCaller, nextPagePath string, requestOptions *RequestOptions) *AccountNoteList {
 	return &AccountNoteList{
-		client:       client,
-		nextPagePath: nextPagePath,
-		HasMore:      true,
+		client:         client,
+		requestOptions: requestOptions,
+		nextPagePath:   nextPagePath,
+		HasMore:        true,
 	}
 }
 
 // Fetch fetches the next page of data into the `Data` property
-func (list *AccountNoteList) Fetch() error {
+func (list *AccountNoteList) FetchWithContext(ctx context.Context) error {
 	resources := &accountNoteList{}
-	err := list.client.Call(http.MethodGet, list.nextPagePath, nil, resources)
+	err := list.client.Call(ctx, http.MethodGet, list.nextPagePath, nil, nil, list.requestOptions, resources)
 	if err != nil {
 		return err
 	}
@@ -84,13 +87,23 @@ func (list *AccountNoteList) Fetch() error {
 	return nil
 }
 
+// Fetch fetches the next page of data into the `Data` property
+func (list *AccountNoteList) Fetch() error {
+	return list.FetchWithContext(context.Background())
+}
+
 // Count returns the count of items on the server that match this pager
-func (list *AccountNoteList) Count() (*int64, error) {
+func (list *AccountNoteList) CountWithContext(ctx context.Context) (*int64, error) {
 	resources := &accountNoteList{}
-	err := list.client.Call(http.MethodHead, list.nextPagePath, nil, resources)
+	err := list.client.Call(ctx, http.MethodHead, list.nextPagePath, nil, nil, list.requestOptions, resources)
 	if err != nil {
 		return nil, err
 	}
 	resp := resources.GetResponse()
 	return resp.TotalRecords, nil
+}
+
+// Count returns the count of items on the server that match this pager
+func (list *AccountNoteList) Count() (*int64, error) {
+	return list.CountWithContext(context.Background())
 }

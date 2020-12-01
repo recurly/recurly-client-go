@@ -7,7 +7,6 @@ package recurly
 import ()
 
 type AddressCreate struct {
-	Params `json:"-"`
 
 	// First name
 	FirstName *string `json:"first_name,omitempty"`
@@ -35,13 +34,4 @@ type AddressCreate struct {
 
 	// Country, 2-letter ISO code.
 	Country *string `json:"country,omitempty"`
-}
-
-func (attr *AddressCreate) toParams() *Params {
-	return &Params{
-		IdempotencyKey: attr.IdempotencyKey,
-		Header:         attr.Header,
-		Context:        attr.Context,
-		Data:           attr,
-	}
 }

@@ -7,7 +7,6 @@ package recurly
 import ()
 
 type InvoiceAddressCreate struct {
-	Params `json:"-"`
 
 	// Name on account
 	NameOnAccount *string `json:"name_on_account,omitempty"`
@@ -41,13 +40,4 @@ type InvoiceAddressCreate struct {
 
 	// Country, 2-letter ISO code.
 	Country *string `json:"country,omitempty"`
-}
-
-func (attr *InvoiceAddressCreate) toParams() *Params {
-	return &Params{
-		IdempotencyKey: attr.IdempotencyKey,
-		Header:         attr.Header,
-		Context:        attr.Context,
-		Data:           attr,
-	}
 }

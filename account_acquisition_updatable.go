@@ -7,7 +7,6 @@ package recurly
 import ()
 
 type AccountAcquisitionUpdatable struct {
-	Params `json:"-"`
 
 	// Account balance
 	Cost *AccountAcquisitionCostCreate `json:"cost,omitempty"`
@@ -20,13 +19,4 @@ type AccountAcquisitionUpdatable struct {
 
 	// An arbitrary identifier for the marketing campaign that led to the acquisition of this account.
 	Campaign *string `json:"campaign,omitempty"`
-}
-
-func (attr *AccountAcquisitionUpdatable) toParams() *Params {
-	return &Params{
-		IdempotencyKey: attr.IdempotencyKey,
-		Header:         attr.Header,
-		Context:        attr.Context,
-		Data:           attr,
-	}
 }

@@ -7,7 +7,6 @@ package recurly
 import ()
 
 type InvoiceRefund struct {
-	Params `json:"-"`
 
 	// The type of refund. Amount and line items cannot both be specified in the request.
 	Type *string `json:"type,omitempty"`
@@ -37,13 +36,4 @@ type InvoiceRefund struct {
 	// - refunding a credit invoice for a partial amount
 	// This field can only be included when the Credit Invoices feature is enabled.
 	ExternalRefund *ExternalRefund `json:"external_refund,omitempty"`
-}
-
-func (attr *InvoiceRefund) toParams() *Params {
-	return &Params{
-		IdempotencyKey: attr.IdempotencyKey,
-		Header:         attr.Header,
-		Context:        attr.Context,
-		Data:           attr,
-	}
 }
