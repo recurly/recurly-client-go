@@ -143,21 +143,29 @@ type ResourceCreate struct {
 
 // We also implement fake CRUD operations for these fake resources
 // We want to use the Client from the consuming code's perspective
-func (c *Client) GetResource(ctx context.Context, resourceId string, opts ...Option) (*RecurlyResource, error) {
+func (c *Client) GetResource(resourceId string, opts ...Option) (*RecurlyResource, error) {
 	path, err := c.InterpolatePath("/resources/{resource_id}", resourceId)
 	if err != nil {
 		return nil, err
 	}
 	requestOptions := NewRequestOptions(opts...)
 	result := &RecurlyResource{}
-	err = c.Call(ctx, http.MethodGet, path, nil, nil, requestOptions, result)
+	err = c.Call(context.Background(), http.MethodGet, path, nil, nil, requestOptions, result)
 	if err != nil {
 		return nil, err
 	}
 	return result, err
 }
 
-func (c *Client) CreateResource(ctx context.Context, body *ResourceCreate, opts ...Option) (*RecurlyResource, error) {
+func (c *Client) CreateResourceWithContext(ctx context.Context, body *ResourceCreate, opts ...Option) (*RecurlyResource, error) {
+	return c.createResource(ctx, body, opts...)
+}
+
+func (c *Client) CreateResource(body *ResourceCreate, opts ...Option) (*RecurlyResource, error) {
+	return c.createResource(context.Background(), body, opts...)
+}
+
+func (c *Client) createResource(ctx context.Context, body *ResourceCreate, opts ...Option) (*RecurlyResource, error) {
 	path, err := c.InterpolatePath("/resources")
 	if err != nil {
 		return nil, err
@@ -171,14 +179,14 @@ func (c *Client) CreateResource(ctx context.Context, body *ResourceCreate, opts 
 	return result, err
 }
 
-func (c *Client) DeleteResource(ctx context.Context, resourceId string, opts ...Option) (*Empty, error) {
+func (c *Client) DeleteResource(resourceId string, opts ...Option) (*Empty, error) {
 	path, err := c.InterpolatePath("/resources")
 	if err != nil {
 		return nil, err
 	}
 	requestOptions := NewRequestOptions(opts...)
 	result := &Empty{}
-	err = c.Call(ctx, http.MethodDelete, path, nil, nil, requestOptions, result)
+	err = c.Call(context.Background(), http.MethodDelete, path, nil, nil, requestOptions, result)
 	if err != nil {
 		return nil, err
 	}

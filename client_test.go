@@ -1,7 +1,6 @@
 package recurly
 
 import (
-	"context"
 	"net/http"
 	"testing"
 )
@@ -23,7 +22,7 @@ func TestGetResource200(test *testing.T) {
 	}
 	client := scenario.MockHTTPClient()
 
-	resource, err := client.GetResource(context.Background(), "abcd1234")
+	resource, err := client.GetResource("abcd1234")
 	t.Assert(err, nil, "Error not expected")
 	t.Assert(resource.Id, "abcd1234", "resource.Id")
 }
@@ -43,7 +42,7 @@ func TestGetResource404(test *testing.T) {
 	}
 	client := scenario.MockHTTPClient()
 
-	resource, err := client.GetResource(context.Background(), "idontexist")
+	resource, err := client.GetResource("idontexist")
 	if resource != nil {
 		t.Error("Expected Resource to be nil")
 	}
@@ -69,7 +68,7 @@ func TestCreateResource201(test *testing.T) {
 	body := &ResourceCreate{
 		String: "hello world",
 	}
-	resource, err := client.CreateResource(context.Background(), body)
+	resource, err := client.CreateResource(body)
 	t.Assert(err, nil, "Error not expected")
 	t.Assert(resource.Id, "abcd1234", "resource.Id")
 }
@@ -100,7 +99,7 @@ func TestCreateResource422(test *testing.T) {
 	body := &ResourceCreate{
 		String: "hello world",
 	}
-	resource, err := client.CreateResource(context.Background(), body)
+	resource, err := client.CreateResource(body)
 	if resource != nil {
 		t.Error("Expected Resource to be nil")
 	}
@@ -119,7 +118,7 @@ func TestClientInjectsResponseMetadataIntoResource(test *testing.T) {
 	}
 	client := scenario.MockHTTPClient()
 
-	resource, err := client.GetResource(context.Background(), "abcd1234")
+	resource, err := client.GetResource("abcd1234")
 	t.Assert(err, nil, "Error not expected")
 
 	resp := resource.GetResponse()
@@ -140,7 +139,7 @@ func TestClientInjectsResponseMetadataIntoResource(test *testing.T) {
 	}
 	client = scenario.MockHTTPClient()
 
-	empty, err := client.DeleteResource(context.Background(), "abcd1234")
+	empty, err := client.DeleteResource("abcd1234")
 
 	resp = empty.GetResponse()
 	t.Assert(resp.Request.ID, "msy-1234", "resp.Request.ID")
@@ -190,7 +189,7 @@ func TestEncodePathParameters(test *testing.T) {
 	}
 	client := scenario.MockHTTPClient()
 
-	resource, err := client.GetResource(context.Background(), "/")
+	resource, err := client.GetResource("/")
 	t.Assert(err, nil, "Error not expected")
 	t.Assert(resource.Id, "abcd1234", "resource.Id")
 }
@@ -212,7 +211,7 @@ func TestValidatePathParameters(test *testing.T) {
 	}
 	client := scenario.MockHTTPClient()
 
-	_, err := client.GetResource(context.Background(), "")
+	_, err := client.GetResource("")
 	t.Assert(err.Error(), "Operation parameters cannot be empty strings.", "err.Error()")
 }
 
@@ -235,7 +234,7 @@ func TestSetCustomHeader(test *testing.T) {
 	client := scenario.MockHTTPClient()
 
 	header := http.Header{hKey: []string{hVal}}
-	client.GetResource(context.Background(), "abcd1234", WithHeader(header))
+	client.GetResource("abcd1234", WithHeader(header))
 }
 
 func TestPreserveInternalHeaders(test *testing.T) {
@@ -254,7 +253,7 @@ func TestPreserveInternalHeaders(test *testing.T) {
 	client := scenario.MockHTTPClient()
 
 	header := http.Header{"Content-Type": []string{"Custom-Value"}}
-	client.GetResource(context.Background(), "abcd1234", WithHeader(header))
+	client.GetResource("abcd1234", WithHeader(header))
 }
 
 func TestSetIdempotencyKey(test *testing.T) {
@@ -274,43 +273,5 @@ func TestSetIdempotencyKey(test *testing.T) {
 	}
 	client := scenario.MockHTTPClient()
 
-	client.GetResource(context.Background(), "abcd1234", WithIdempotencyKey(key))
-}
-
-func TestSetContext(test *testing.T) {
-	t := &T{test}
-
-	ctx := context.TODO()
-
-	scenario := &Scenario{
-		T: t,
-		AssertRequest: func(req *http.Request) {
-			t.Assert(req.Context(), ctx, "Set Context")
-		},
-		MakeResponse: func(req *http.Request) *http.Response {
-			// default headers set, we may want to customize though
-			return mockResponse(req, 200, String(`{"id": "abcd1234"}`))
-		},
-	}
-	client := scenario.MockHTTPClient()
-
-	client.GetResource(ctx, "abcd1234")
-}
-
-func TestDefaultContext(test *testing.T) {
-	t := &T{test}
-
-	scenario := &Scenario{
-		T: t,
-		AssertRequest: func(req *http.Request) {
-			t.Assert(req.Context(), context.Background(), "Set Context")
-		},
-		MakeResponse: func(req *http.Request) *http.Response {
-			// default headers set, we may want to customize though
-			return mockResponse(req, 200, String(`{"id": "abcd1234"}`))
-		},
-	}
-	client := scenario.MockHTTPClient()
-
-	client.GetResource(nil, "abcd1234")
+	client.GetResource("abcd1234", WithIdempotencyKey(key))
 }
