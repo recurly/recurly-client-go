@@ -2,6 +2,7 @@ package recurly
 
 import (
 	"bytes"
+	"context"
 	"io"
 	"io/ioutil"
 	"net/http"
@@ -156,7 +157,7 @@ func (c *Client) GetResource(resourceId string, opts ...Option) (*RecurlyResourc
 	path, err := c.InterpolatePath("/resources/{resource_id}", resourceId)
 	requestOptions := NewRequestOptions(opts...)
 	result := &RecurlyResource{}
-	err = c.Call(http.MethodGet, path, nil, nil, requestOptions, result)
+	err = c.Call(context.Background(), http.MethodGet, path, nil, nil, requestOptions, result)
 	if err != nil {
 		return nil, err
 	}
@@ -167,7 +168,7 @@ func (c *Client) CreateResource(body *ResourceCreate, opts ...Option) (*RecurlyR
 	path, err := c.InterpolatePath("/resources")
 	requestOptions := NewRequestOptions(opts...)
 	result := &RecurlyResource{}
-	err = c.Call(http.MethodPost, path, body, nil, requestOptions, result)
+	err = c.Call(context.Background(), http.MethodPost, path, body, nil, requestOptions, result)
 	if err != nil {
 		return nil, err
 	}
@@ -178,7 +179,7 @@ func (c *Client) DeleteResource(resourceId string, opts ...Option) (*Empty, erro
 	path, err := c.InterpolatePath("/resources")
 	requestOptions := NewRequestOptions(opts...)
 	result := &Empty{}
-	err = c.Call(http.MethodDelete, path, nil, nil, requestOptions, result)
+	err = c.Call(context.Background(), http.MethodDelete, path, nil, nil, requestOptions, result)
 	if err != nil {
 		return nil, err
 	}
@@ -190,7 +191,7 @@ func (c *Client) GetResourceMetadata(resourceId string, opts ...Option) (*Respon
 	path, err := c.InterpolatePath("/resources")
 	requestOptions := NewRequestOptions(opts...)
 	result := &Empty{}
-	err = c.Call(http.MethodHead, path, nil, nil, requestOptions, result)
+	err = c.Call(context.Background(), http.MethodHead, path, nil, nil, requestOptions, result)
 	if err != nil {
 		return nil, err
 	}

@@ -1,7 +1,6 @@
 package recurly
 
 import (
-	"context"
 	"net/http"
 	"testing"
 )
@@ -232,24 +231,4 @@ func TestSetIdempotencyKey(test *testing.T) {
 	client := scenario.MockHTTPClient()
 
 	client.GetResource("abcd1234", WithIdempotencyKey(key))
-}
-
-func TestSetContext(test *testing.T) {
-	t := &T{test}
-
-	ctx := context.TODO()
-
-	scenario := &Scenario{
-		T: t,
-		AssertRequest: func(req *http.Request) {
-			t.Assert(req.Context(), ctx, "Set Context")
-		},
-		MakeResponse: func(req *http.Request) *http.Response {
-			// default headers set, we may want to customize though
-			return mockResponse(req, 200, String(`{"id": "abcd1234"}`))
-		},
-	}
-	client := scenario.MockHTTPClient()
-
-	client.GetResource("abcd1234", WithContext(ctx))
 }

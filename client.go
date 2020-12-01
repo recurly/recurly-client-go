@@ -3,6 +3,7 @@ package recurly
 import (
 	"bytes"
 	"compress/gzip"
+	"context"
 	"crypto/tls"
 	"encoding/json"
 	"fmt"
@@ -110,14 +111,14 @@ func (c *Client) InterpolatePath(path string, params ...string) (string, error) 
 
 // HTTPCaller is the generic http interface used by the Client
 type HTTPCaller interface {
-	Call(method string, path string, body GenericParams, queryParams GenericParams, requestOptions optionsApplier, v interface{}) error
+	Call(ctx context.Context, method string, path string, body GenericParams, queryParams GenericParams, requestOptions optionsApplier, v interface{}) error
 }
 
 // Call sends a request to Recurly and parses the JSON response for the expected response type.
 // The RequestOptions have been added to replace the common features of the Params struct
 // (which is returned by genericParams.toParams()) to seperate concerns with payload/URL params
 // from configurations of the HTTP request (RequestOptions).
-func (c *Client) Call(method string, path string, body GenericParams, queryParams GenericParams, requestOptions optionsApplier, v interface{}) error {
+func (c *Client) Call(ctx context.Context, method string, path string, body GenericParams, queryParams GenericParams, requestOptions optionsApplier, v interface{}) error {
 	if !strings.HasPrefix(path, "/") {
 		path = fmt.Sprintf("%s/%s", c.baseURL, path)
 	} else {
@@ -131,7 +132,7 @@ func (c *Client) Call(method string, path string, body GenericParams, queryParam
 		params = body.toParams()
 	}
 
-	req, err := c.NewRequest(method, path, params, requestOptions)
+	req, err := c.NewRequest(ctx, method, path, params, requestOptions)
 	if err != nil {
 		return err
 	}
@@ -171,8 +172,8 @@ func BuildURL(requestURL string, genericParams GenericParams) string {
 // The RequestOptions have been added to replace the common features of the Params struct in
 // an attempt to seperate request payload information (Params.Data) from configurations of the
 // HTTP request (RequestOptions).
-func (c *Client) NewRequest(method string, requestURL string, params *Params, requestOptions optionsApplier) (*http.Request, error) {
-	req, err := http.NewRequest(method, requestURL, nil)
+func (c *Client) NewRequest(ctx context.Context, method string, requestURL string, params *Params, requestOptions optionsApplier) (*http.Request, error) {
+	req, err := http.NewRequestWithContext(ctx, method, requestURL, nil)
 	if err != nil {
 		return nil, err
 	}

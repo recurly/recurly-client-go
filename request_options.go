@@ -1,7 +1,6 @@
 package recurly
 
 import (
-	"context"
 	"net/http"
 )
 
@@ -11,15 +10,12 @@ type RequestOptions struct {
 	IdempotencyKey string `json:"-"`
 	// Header contains additional request headers for unique requests
 	Header http.Header `json:"-"`
-	// Context passed to the HTTP request for cancelling requests
-	Context context.Context `json:"-"`
 }
 
 func (o *RequestOptions) clone() *RequestOptions {
 	clone := &RequestOptions{}
 	clone.Header = o.Header.Clone()
 	clone.IdempotencyKey = o.IdempotencyKey
-	clone.Context = o.Context
 
 	return clone
 }
@@ -38,7 +34,6 @@ func RequestOptionsFromParams(p Params, opts ...Option) *RequestOptions {
 	o := &RequestOptions{}
 	o.Header = p.Header.Clone()
 	o.IdempotencyKey = p.IdempotencyKey
-	o.Context = p.Context
 
 	return o.ApplyOptions(opts...)
 }
@@ -50,13 +45,6 @@ func (o *RequestOptions) ApplyOptions(opts ...Option) *RequestOptions {
 		opt(cOpts)
 	}
 	return cOpts
-}
-
-// WithContext provides the capability to add a Context to an operation.
-func WithContext(ctx context.Context) Option {
-	return func(o *RequestOptions) {
-		o.Context = ctx
-	}
 }
 
 // WithHeader provides the capability to add custom headers to an operation.
@@ -88,8 +76,5 @@ func (o *RequestOptions) applyOptions(req *http.Request) *http.Request {
 		req.Header.Add("Idempotency-Key", o.IdempotencyKey)
 	}
 
-	if o.Context != nil {
-		req = req.WithContext(o.Context)
-	}
 	return req
 }
