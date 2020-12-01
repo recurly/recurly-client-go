@@ -5,6 +5,7 @@
 package recurly
 
 import (
+	"context"
 	"net/http"
 	"time"
 )
@@ -59,25 +60,27 @@ func (resource *userList) setResponse(res *ResponseMetadata) {
 
 // UserList allows you to paginate User objects
 type UserList struct {
-	client       HttpCaller
-	nextPagePath string
+	client         HTTPCaller
+	requestOptions *RequestOptions
+	nextPagePath   string
 
 	HasMore bool
 	Data    []User
 }
 
-func NewUserList(client HttpCaller, nextPagePath string) *UserList {
+func NewUserList(client HTTPCaller, nextPagePath string, requestOptions *RequestOptions) *UserList {
 	return &UserList{
-		client:       client,
-		nextPagePath: nextPagePath,
-		HasMore:      true,
+		client:         client,
+		requestOptions: requestOptions,
+		nextPagePath:   nextPagePath,
+		HasMore:        true,
 	}
 }
 
 // Fetch fetches the next page of data into the `Data` property
-func (list *UserList) Fetch() error {
+func (list *UserList) FetchWithContext(ctx context.Context) error {
 	resources := &userList{}
-	err := list.client.Call(http.MethodGet, list.nextPagePath, nil, resources)
+	err := list.client.Call(ctx, http.MethodGet, list.nextPagePath, nil, nil, list.requestOptions, resources)
 	if err != nil {
 		return err
 	}
@@ -88,13 +91,23 @@ func (list *UserList) Fetch() error {
 	return nil
 }
 
+// Fetch fetches the next page of data into the `Data` property
+func (list *UserList) Fetch() error {
+	return list.FetchWithContext(context.Background())
+}
+
 // Count returns the count of items on the server that match this pager
-func (list *UserList) Count() (*int64, error) {
+func (list *UserList) CountWithContext(ctx context.Context) (*int64, error) {
 	resources := &userList{}
-	err := list.client.Call(http.MethodHead, list.nextPagePath, nil, resources)
+	err := list.client.Call(ctx, http.MethodHead, list.nextPagePath, nil, nil, list.requestOptions, resources)
 	if err != nil {
 		return nil, err
 	}
 	resp := resources.GetResponse()
 	return resp.TotalRecords, nil
+}
+
+// Count returns the count of items on the server that match this pager
+func (list *UserList) Count() (*int64, error) {
+	return list.CountWithContext(context.Background())
 }

@@ -5,6 +5,7 @@
 package recurly
 
 import (
+	"context"
 	"net/http"
 	"time"
 )
@@ -93,25 +94,27 @@ func (resource *subscriptionChangePreviewList) setResponse(res *ResponseMetadata
 
 // SubscriptionChangePreviewList allows you to paginate SubscriptionChangePreview objects
 type SubscriptionChangePreviewList struct {
-	client       HttpCaller
-	nextPagePath string
+	client         HTTPCaller
+	requestOptions *RequestOptions
+	nextPagePath   string
 
 	HasMore bool
 	Data    []SubscriptionChangePreview
 }
 
-func NewSubscriptionChangePreviewList(client HttpCaller, nextPagePath string) *SubscriptionChangePreviewList {
+func NewSubscriptionChangePreviewList(client HTTPCaller, nextPagePath string, requestOptions *RequestOptions) *SubscriptionChangePreviewList {
 	return &SubscriptionChangePreviewList{
-		client:       client,
-		nextPagePath: nextPagePath,
-		HasMore:      true,
+		client:         client,
+		requestOptions: requestOptions,
+		nextPagePath:   nextPagePath,
+		HasMore:        true,
 	}
 }
 
 // Fetch fetches the next page of data into the `Data` property
-func (list *SubscriptionChangePreviewList) Fetch() error {
+func (list *SubscriptionChangePreviewList) FetchWithContext(ctx context.Context) error {
 	resources := &subscriptionChangePreviewList{}
-	err := list.client.Call(http.MethodGet, list.nextPagePath, nil, resources)
+	err := list.client.Call(ctx, http.MethodGet, list.nextPagePath, nil, nil, list.requestOptions, resources)
 	if err != nil {
 		return err
 	}
@@ -122,13 +125,23 @@ func (list *SubscriptionChangePreviewList) Fetch() error {
 	return nil
 }
 
+// Fetch fetches the next page of data into the `Data` property
+func (list *SubscriptionChangePreviewList) Fetch() error {
+	return list.FetchWithContext(context.Background())
+}
+
 // Count returns the count of items on the server that match this pager
-func (list *SubscriptionChangePreviewList) Count() (*int64, error) {
+func (list *SubscriptionChangePreviewList) CountWithContext(ctx context.Context) (*int64, error) {
 	resources := &subscriptionChangePreviewList{}
-	err := list.client.Call(http.MethodHead, list.nextPagePath, nil, resources)
+	err := list.client.Call(ctx, http.MethodHead, list.nextPagePath, nil, nil, list.requestOptions, resources)
 	if err != nil {
 		return nil, err
 	}
 	resp := resources.GetResponse()
 	return resp.TotalRecords, nil
+}
+
+// Count returns the count of items on the server that match this pager
+func (list *SubscriptionChangePreviewList) Count() (*int64, error) {
+	return list.CountWithContext(context.Background())
 }
