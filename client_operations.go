@@ -436,7 +436,8 @@ func (c *Client) ListSites(params *ListSitesParams, opts ...Option) (*SiteList, 
 
 // GetSite wraps GetSiteWithContext using the background context
 func (c *Client) GetSite(siteId string, opts ...Option) (*Site, error) {
-	return c.getSite(context.Background(), siteId, opts...)
+	ctx := context.Background()
+	return c.getSite(ctx, siteId, opts...)
 }
 
 // GetSiteWithContext Fetch a site
@@ -564,7 +565,8 @@ func (c *Client) ListAccounts(params *ListAccountsParams, opts ...Option) (*Acco
 
 // CreateAccount wraps CreateAccountWithContext using the background context
 func (c *Client) CreateAccount(body *AccountCreate, opts ...Option) (*Account, error) {
-	return c.createAccount(context.Background(), body, opts...)
+	ctx := context.Background()
+	return c.createAccount(ctx, body, opts...)
 }
 
 // CreateAccountWithContext Create an account
@@ -592,7 +594,8 @@ func (c *Client) createAccount(ctx context.Context, body *AccountCreate, opts ..
 
 // GetAccount wraps GetAccountWithContext using the background context
 func (c *Client) GetAccount(accountId string, opts ...Option) (*Account, error) {
-	return c.getAccount(context.Background(), accountId, opts...)
+	ctx := context.Background()
+	return c.getAccount(ctx, accountId, opts...)
 }
 
 // GetAccountWithContext Fetch an account
@@ -620,7 +623,8 @@ func (c *Client) getAccount(ctx context.Context, accountId string, opts ...Optio
 
 // UpdateAccount wraps UpdateAccountWithContext using the background context
 func (c *Client) UpdateAccount(accountId string, body *AccountUpdate, opts ...Option) (*Account, error) {
-	return c.updateAccount(context.Background(), accountId, body, opts...)
+	ctx := context.Background()
+	return c.updateAccount(ctx, accountId, body, opts...)
 }
 
 // UpdateAccountWithContext Modify an account
@@ -648,7 +652,8 @@ func (c *Client) updateAccount(ctx context.Context, accountId string, body *Acco
 
 // DeactivateAccount wraps DeactivateAccountWithContext using the background context
 func (c *Client) DeactivateAccount(accountId string, opts ...Option) (*Account, error) {
-	return c.deactivateAccount(context.Background(), accountId, opts...)
+	ctx := context.Background()
+	return c.deactivateAccount(ctx, accountId, opts...)
 }
 
 // DeactivateAccountWithContext Deactivate an account
@@ -676,7 +681,8 @@ func (c *Client) deactivateAccount(ctx context.Context, accountId string, opts .
 
 // GetAccountAcquisition wraps GetAccountAcquisitionWithContext using the background context
 func (c *Client) GetAccountAcquisition(accountId string, opts ...Option) (*AccountAcquisition, error) {
-	return c.getAccountAcquisition(context.Background(), accountId, opts...)
+	ctx := context.Background()
+	return c.getAccountAcquisition(ctx, accountId, opts...)
 }
 
 // GetAccountAcquisitionWithContext Fetch an account's acquisition data
@@ -704,7 +710,8 @@ func (c *Client) getAccountAcquisition(ctx context.Context, accountId string, op
 
 // UpdateAccountAcquisition wraps UpdateAccountAcquisitionWithContext using the background context
 func (c *Client) UpdateAccountAcquisition(accountId string, body *AccountAcquisitionUpdatable, opts ...Option) (*AccountAcquisition, error) {
-	return c.updateAccountAcquisition(context.Background(), accountId, body, opts...)
+	ctx := context.Background()
+	return c.updateAccountAcquisition(ctx, accountId, body, opts...)
 }
 
 // UpdateAccountAcquisitionWithContext Update an account's acquisition data
@@ -732,7 +739,8 @@ func (c *Client) updateAccountAcquisition(ctx context.Context, accountId string,
 
 // RemoveAccountAcquisition wraps RemoveAccountAcquisitionWithContext using the background context
 func (c *Client) RemoveAccountAcquisition(accountId string, opts ...Option) (*Empty, error) {
-	return c.removeAccountAcquisition(context.Background(), accountId, opts...)
+	ctx := context.Background()
+	return c.removeAccountAcquisition(ctx, accountId, opts...)
 }
 
 // RemoveAccountAcquisitionWithContext Remove an account's acquisition data
@@ -760,7 +768,8 @@ func (c *Client) removeAccountAcquisition(ctx context.Context, accountId string,
 
 // ReactivateAccount wraps ReactivateAccountWithContext using the background context
 func (c *Client) ReactivateAccount(accountId string, opts ...Option) (*Account, error) {
-	return c.reactivateAccount(context.Background(), accountId, opts...)
+	ctx := context.Background()
+	return c.reactivateAccount(ctx, accountId, opts...)
 }
 
 // ReactivateAccountWithContext Reactivate an inactive account
@@ -788,7 +797,8 @@ func (c *Client) reactivateAccount(ctx context.Context, accountId string, opts .
 
 // GetAccountBalance wraps GetAccountBalanceWithContext using the background context
 func (c *Client) GetAccountBalance(accountId string, opts ...Option) (*AccountBalance, error) {
-	return c.getAccountBalance(context.Background(), accountId, opts...)
+	ctx := context.Background()
+	return c.getAccountBalance(ctx, accountId, opts...)
 }
 
 // GetAccountBalanceWithContext Fetch an account's balance and past due status
@@ -816,7 +826,8 @@ func (c *Client) getAccountBalance(ctx context.Context, accountId string, opts .
 
 // GetBillingInfo wraps GetBillingInfoWithContext using the background context
 func (c *Client) GetBillingInfo(accountId string, opts ...Option) (*BillingInfo, error) {
-	return c.getBillingInfo(context.Background(), accountId, opts...)
+	ctx := context.Background()
+	return c.getBillingInfo(ctx, accountId, opts...)
 }
 
 // GetBillingInfoWithContext Fetch an account's billing information
@@ -844,7 +855,8 @@ func (c *Client) getBillingInfo(ctx context.Context, accountId string, opts ...O
 
 // UpdateBillingInfo wraps UpdateBillingInfoWithContext using the background context
 func (c *Client) UpdateBillingInfo(accountId string, body *BillingInfoCreate, opts ...Option) (*BillingInfo, error) {
-	return c.updateBillingInfo(context.Background(), accountId, body, opts...)
+	ctx := context.Background()
+	return c.updateBillingInfo(ctx, accountId, body, opts...)
 }
 
 // UpdateBillingInfoWithContext Set an account's billing information
@@ -872,7 +884,8 @@ func (c *Client) updateBillingInfo(ctx context.Context, accountId string, body *
 
 // RemoveBillingInfo wraps RemoveBillingInfoWithContext using the background context
 func (c *Client) RemoveBillingInfo(accountId string, opts ...Option) (*Empty, error) {
-	return c.removeBillingInfo(context.Background(), accountId, opts...)
+	ctx := context.Background()
+	return c.removeBillingInfo(ctx, accountId, opts...)
 }
 
 // RemoveBillingInfoWithContext Remove an account's billing information
@@ -964,7 +977,8 @@ func (c *Client) ListBillingInfos(accountId string, params *ListBillingInfosPara
 
 // CreateBillingInfo wraps CreateBillingInfoWithContext using the background context
 func (c *Client) CreateBillingInfo(accountId string, body *BillingInfoCreate, opts ...Option) (*BillingInfo, error) {
-	return c.createBillingInfo(context.Background(), accountId, body, opts...)
+	ctx := context.Background()
+	return c.createBillingInfo(ctx, accountId, body, opts...)
 }
 
 // CreateBillingInfoWithContext Set an account's billing information when the wallet feature is enabled
@@ -992,7 +1006,8 @@ func (c *Client) createBillingInfo(ctx context.Context, accountId string, body *
 
 // GetABillingInfo wraps GetABillingInfoWithContext using the background context
 func (c *Client) GetABillingInfo(accountId string, billingInfoId string, opts ...Option) (*BillingInfo, error) {
-	return c.getABillingInfo(context.Background(), accountId, billingInfoId, opts...)
+	ctx := context.Background()
+	return c.getABillingInfo(ctx, accountId, billingInfoId, opts...)
 }
 
 // GetABillingInfoWithContext Fetch a billing info
@@ -1020,7 +1035,8 @@ func (c *Client) getABillingInfo(ctx context.Context, accountId string, billingI
 
 // UpdateABillingInfo wraps UpdateABillingInfoWithContext using the background context
 func (c *Client) UpdateABillingInfo(accountId string, billingInfoId string, body *BillingInfoCreate, opts ...Option) (*BillingInfo, error) {
-	return c.updateABillingInfo(context.Background(), accountId, billingInfoId, body, opts...)
+	ctx := context.Background()
+	return c.updateABillingInfo(ctx, accountId, billingInfoId, body, opts...)
 }
 
 // UpdateABillingInfoWithContext Update an account's billing information
@@ -1048,7 +1064,8 @@ func (c *Client) updateABillingInfo(ctx context.Context, accountId string, billi
 
 // RemoveABillingInfo wraps RemoveABillingInfoWithContext using the background context
 func (c *Client) RemoveABillingInfo(accountId string, billingInfoId string, opts ...Option) (*Empty, error) {
-	return c.removeABillingInfo(context.Background(), accountId, billingInfoId, opts...)
+	ctx := context.Background()
+	return c.removeABillingInfo(ctx, accountId, billingInfoId, opts...)
 }
 
 // RemoveABillingInfoWithContext Remove an account's billing information
@@ -1154,7 +1171,8 @@ func (c *Client) ListActiveCouponRedemptions(accountId string, opts ...Option) (
 
 // CreateCouponRedemption wraps CreateCouponRedemptionWithContext using the background context
 func (c *Client) CreateCouponRedemption(accountId string, body *CouponRedemptionCreate, opts ...Option) (*CouponRedemption, error) {
-	return c.createCouponRedemption(context.Background(), accountId, body, opts...)
+	ctx := context.Background()
+	return c.createCouponRedemption(ctx, accountId, body, opts...)
 }
 
 // CreateCouponRedemptionWithContext Generate an active coupon redemption on an account
@@ -1182,7 +1200,8 @@ func (c *Client) createCouponRedemption(ctx context.Context, accountId string, b
 
 // RemoveCouponRedemption wraps RemoveCouponRedemptionWithContext using the background context
 func (c *Client) RemoveCouponRedemption(accountId string, opts ...Option) (*CouponRedemption, error) {
-	return c.removeCouponRedemption(context.Background(), accountId, opts...)
+	ctx := context.Background()
+	return c.removeCouponRedemption(ctx, accountId, opts...)
 }
 
 // RemoveCouponRedemptionWithContext Delete the active coupon redemption from an account
@@ -1362,7 +1381,8 @@ func (c *Client) ListAccountInvoices(accountId string, params *ListAccountInvoic
 
 // CreateInvoice wraps CreateInvoiceWithContext using the background context
 func (c *Client) CreateInvoice(accountId string, body *InvoiceCreate, opts ...Option) (*InvoiceCollection, error) {
-	return c.createInvoice(context.Background(), accountId, body, opts...)
+	ctx := context.Background()
+	return c.createInvoice(ctx, accountId, body, opts...)
 }
 
 // CreateInvoiceWithContext Create an invoice for pending line items
@@ -1390,7 +1410,8 @@ func (c *Client) createInvoice(ctx context.Context, accountId string, body *Invo
 
 // PreviewInvoice wraps PreviewInvoiceWithContext using the background context
 func (c *Client) PreviewInvoice(accountId string, body *InvoiceCreate, opts ...Option) (*InvoiceCollection, error) {
-	return c.previewInvoice(context.Background(), accountId, body, opts...)
+	ctx := context.Background()
+	return c.previewInvoice(ctx, accountId, body, opts...)
 }
 
 // PreviewInvoiceWithContext Preview new invoice for pending line items
@@ -1517,7 +1538,8 @@ func (c *Client) ListAccountLineItems(accountId string, params *ListAccountLineI
 
 // CreateLineItem wraps CreateLineItemWithContext using the background context
 func (c *Client) CreateLineItem(accountId string, body *LineItemCreate, opts ...Option) (*LineItem, error) {
-	return c.createLineItem(context.Background(), accountId, body, opts...)
+	ctx := context.Background()
+	return c.createLineItem(ctx, accountId, body, opts...)
 }
 
 // CreateLineItemWithContext Create a new line item for the account
@@ -1584,7 +1606,8 @@ func (c *Client) ListAccountNotes(accountId string, params *ListAccountNotesPara
 
 // GetAccountNote wraps GetAccountNoteWithContext using the background context
 func (c *Client) GetAccountNote(accountId string, accountNoteId string, opts ...Option) (*AccountNote, error) {
-	return c.getAccountNote(context.Background(), accountId, accountNoteId, opts...)
+	ctx := context.Background()
+	return c.getAccountNote(ctx, accountId, accountNoteId, opts...)
 }
 
 // GetAccountNoteWithContext Fetch an account note
@@ -1690,7 +1713,8 @@ func (c *Client) ListShippingAddresses(accountId string, params *ListShippingAdd
 
 // CreateShippingAddress wraps CreateShippingAddressWithContext using the background context
 func (c *Client) CreateShippingAddress(accountId string, body *ShippingAddressCreate, opts ...Option) (*ShippingAddress, error) {
-	return c.createShippingAddress(context.Background(), accountId, body, opts...)
+	ctx := context.Background()
+	return c.createShippingAddress(ctx, accountId, body, opts...)
 }
 
 // CreateShippingAddressWithContext Create a new shipping address for the account
@@ -1718,7 +1742,8 @@ func (c *Client) createShippingAddress(ctx context.Context, accountId string, bo
 
 // GetShippingAddress wraps GetShippingAddressWithContext using the background context
 func (c *Client) GetShippingAddress(accountId string, shippingAddressId string, opts ...Option) (*ShippingAddress, error) {
-	return c.getShippingAddress(context.Background(), accountId, shippingAddressId, opts...)
+	ctx := context.Background()
+	return c.getShippingAddress(ctx, accountId, shippingAddressId, opts...)
 }
 
 // GetShippingAddressWithContext Fetch an account's shipping address
@@ -1746,7 +1771,8 @@ func (c *Client) getShippingAddress(ctx context.Context, accountId string, shipp
 
 // UpdateShippingAddress wraps UpdateShippingAddressWithContext using the background context
 func (c *Client) UpdateShippingAddress(accountId string, shippingAddressId string, body *ShippingAddressUpdate, opts ...Option) (*ShippingAddress, error) {
-	return c.updateShippingAddress(context.Background(), accountId, shippingAddressId, body, opts...)
+	ctx := context.Background()
+	return c.updateShippingAddress(ctx, accountId, shippingAddressId, body, opts...)
 }
 
 // UpdateShippingAddressWithContext Update an account's shipping address
@@ -1774,7 +1800,8 @@ func (c *Client) updateShippingAddress(ctx context.Context, accountId string, sh
 
 // RemoveShippingAddress wraps RemoveShippingAddressWithContext using the background context
 func (c *Client) RemoveShippingAddress(accountId string, shippingAddressId string, opts ...Option) (*Empty, error) {
-	return c.removeShippingAddress(context.Background(), accountId, shippingAddressId, opts...)
+	ctx := context.Background()
+	return c.removeShippingAddress(ctx, accountId, shippingAddressId, opts...)
 }
 
 // RemoveShippingAddressWithContext Remove an account's shipping address
@@ -2238,7 +2265,8 @@ func (c *Client) ListCoupons(params *ListCouponsParams, opts ...Option) (*Coupon
 
 // CreateCoupon wraps CreateCouponWithContext using the background context
 func (c *Client) CreateCoupon(body *CouponCreate, opts ...Option) (*Coupon, error) {
-	return c.createCoupon(context.Background(), body, opts...)
+	ctx := context.Background()
+	return c.createCoupon(ctx, body, opts...)
 }
 
 // CreateCouponWithContext Create a new coupon
@@ -2266,7 +2294,8 @@ func (c *Client) createCoupon(ctx context.Context, body *CouponCreate, opts ...O
 
 // GetCoupon wraps GetCouponWithContext using the background context
 func (c *Client) GetCoupon(couponId string, opts ...Option) (*Coupon, error) {
-	return c.getCoupon(context.Background(), couponId, opts...)
+	ctx := context.Background()
+	return c.getCoupon(ctx, couponId, opts...)
 }
 
 // GetCouponWithContext Fetch a coupon
@@ -2294,7 +2323,8 @@ func (c *Client) getCoupon(ctx context.Context, couponId string, opts ...Option)
 
 // UpdateCoupon wraps UpdateCouponWithContext using the background context
 func (c *Client) UpdateCoupon(couponId string, body *CouponUpdate, opts ...Option) (*Coupon, error) {
-	return c.updateCoupon(context.Background(), couponId, body, opts...)
+	ctx := context.Background()
+	return c.updateCoupon(ctx, couponId, body, opts...)
 }
 
 // UpdateCouponWithContext Update an active coupon
@@ -2322,7 +2352,8 @@ func (c *Client) updateCoupon(ctx context.Context, couponId string, body *Coupon
 
 // DeactivateCoupon wraps DeactivateCouponWithContext using the background context
 func (c *Client) DeactivateCoupon(couponId string, opts ...Option) (*Coupon, error) {
-	return c.deactivateCoupon(context.Background(), couponId, opts...)
+	ctx := context.Background()
+	return c.deactivateCoupon(ctx, couponId, opts...)
 }
 
 // DeactivateCouponWithContext Expire a coupon
@@ -2350,7 +2381,8 @@ func (c *Client) deactivateCoupon(ctx context.Context, couponId string, opts ...
 
 // RestoreCoupon wraps RestoreCouponWithContext using the background context
 func (c *Client) RestoreCoupon(couponId string, body *CouponUpdate, opts ...Option) (*Coupon, error) {
-	return c.restoreCoupon(context.Background(), couponId, body, opts...)
+	ctx := context.Background()
+	return c.restoreCoupon(ctx, couponId, body, opts...)
 }
 
 // RestoreCouponWithContext Restore an inactive coupon
@@ -2519,7 +2551,8 @@ func (c *Client) ListCreditPayments(params *ListCreditPaymentsParams, opts ...Op
 
 // GetCreditPayment wraps GetCreditPaymentWithContext using the background context
 func (c *Client) GetCreditPayment(creditPaymentId string, opts ...Option) (*CreditPayment, error) {
-	return c.getCreditPayment(context.Background(), creditPaymentId, opts...)
+	ctx := context.Background()
+	return c.getCreditPayment(ctx, creditPaymentId, opts...)
 }
 
 // GetCreditPaymentWithContext Fetch a credit payment
@@ -2632,7 +2665,8 @@ func (c *Client) ListCustomFieldDefinitions(params *ListCustomFieldDefinitionsPa
 
 // GetCustomFieldDefinition wraps GetCustomFieldDefinitionWithContext using the background context
 func (c *Client) GetCustomFieldDefinition(customFieldDefinitionId string, opts ...Option) (*CustomFieldDefinition, error) {
-	return c.getCustomFieldDefinition(context.Background(), customFieldDefinitionId, opts...)
+	ctx := context.Background()
+	return c.getCustomFieldDefinition(ctx, customFieldDefinitionId, opts...)
 }
 
 // GetCustomFieldDefinitionWithContext Fetch an custom field definition
@@ -2745,7 +2779,8 @@ func (c *Client) ListItems(params *ListItemsParams, opts ...Option) (*ItemList, 
 
 // CreateItem wraps CreateItemWithContext using the background context
 func (c *Client) CreateItem(body *ItemCreate, opts ...Option) (*Item, error) {
-	return c.createItem(context.Background(), body, opts...)
+	ctx := context.Background()
+	return c.createItem(ctx, body, opts...)
 }
 
 // CreateItemWithContext Create a new item
@@ -2773,7 +2808,8 @@ func (c *Client) createItem(ctx context.Context, body *ItemCreate, opts ...Optio
 
 // GetItem wraps GetItemWithContext using the background context
 func (c *Client) GetItem(itemId string, opts ...Option) (*Item, error) {
-	return c.getItem(context.Background(), itemId, opts...)
+	ctx := context.Background()
+	return c.getItem(ctx, itemId, opts...)
 }
 
 // GetItemWithContext Fetch an item
@@ -2801,7 +2837,8 @@ func (c *Client) getItem(ctx context.Context, itemId string, opts ...Option) (*I
 
 // UpdateItem wraps UpdateItemWithContext using the background context
 func (c *Client) UpdateItem(itemId string, body *ItemUpdate, opts ...Option) (*Item, error) {
-	return c.updateItem(context.Background(), itemId, body, opts...)
+	ctx := context.Background()
+	return c.updateItem(ctx, itemId, body, opts...)
 }
 
 // UpdateItemWithContext Update an active item
@@ -2829,7 +2866,8 @@ func (c *Client) updateItem(ctx context.Context, itemId string, body *ItemUpdate
 
 // DeactivateItem wraps DeactivateItemWithContext using the background context
 func (c *Client) DeactivateItem(itemId string, opts ...Option) (*Item, error) {
-	return c.deactivateItem(context.Background(), itemId, opts...)
+	ctx := context.Background()
+	return c.deactivateItem(ctx, itemId, opts...)
 }
 
 // DeactivateItemWithContext Deactivate an item
@@ -2857,7 +2895,8 @@ func (c *Client) deactivateItem(ctx context.Context, itemId string, opts ...Opti
 
 // ReactivateItem wraps ReactivateItemWithContext using the background context
 func (c *Client) ReactivateItem(itemId string, opts ...Option) (*Item, error) {
-	return c.reactivateItem(context.Background(), itemId, opts...)
+	ctx := context.Background()
+	return c.reactivateItem(ctx, itemId, opts...)
 }
 
 // ReactivateItemWithContext Reactivate an inactive item
@@ -2970,7 +3009,8 @@ func (c *Client) ListMeasuredUnit(params *ListMeasuredUnitParams, opts ...Option
 
 // CreateMeasuredUnit wraps CreateMeasuredUnitWithContext using the background context
 func (c *Client) CreateMeasuredUnit(body *MeasuredUnitCreate, opts ...Option) (*MeasuredUnit, error) {
-	return c.createMeasuredUnit(context.Background(), body, opts...)
+	ctx := context.Background()
+	return c.createMeasuredUnit(ctx, body, opts...)
 }
 
 // CreateMeasuredUnitWithContext Create a new measured unit
@@ -2998,7 +3038,8 @@ func (c *Client) createMeasuredUnit(ctx context.Context, body *MeasuredUnitCreat
 
 // GetMeasuredUnit wraps GetMeasuredUnitWithContext using the background context
 func (c *Client) GetMeasuredUnit(measuredUnitId string, opts ...Option) (*MeasuredUnit, error) {
-	return c.getMeasuredUnit(context.Background(), measuredUnitId, opts...)
+	ctx := context.Background()
+	return c.getMeasuredUnit(ctx, measuredUnitId, opts...)
 }
 
 // GetMeasuredUnitWithContext Fetch a measured unit
@@ -3026,7 +3067,8 @@ func (c *Client) getMeasuredUnit(ctx context.Context, measuredUnitId string, opt
 
 // UpdateMeasuredUnit wraps UpdateMeasuredUnitWithContext using the background context
 func (c *Client) UpdateMeasuredUnit(measuredUnitId string, body *MeasuredUnitUpdate, opts ...Option) (*MeasuredUnit, error) {
-	return c.updateMeasuredUnit(context.Background(), measuredUnitId, body, opts...)
+	ctx := context.Background()
+	return c.updateMeasuredUnit(ctx, measuredUnitId, body, opts...)
 }
 
 // UpdateMeasuredUnitWithContext Update a measured unit
@@ -3054,7 +3096,8 @@ func (c *Client) updateMeasuredUnit(ctx context.Context, measuredUnitId string, 
 
 // RemoveMeasuredUnit wraps RemoveMeasuredUnitWithContext using the background context
 func (c *Client) RemoveMeasuredUnit(measuredUnitId string, opts ...Option) (*MeasuredUnit, error) {
-	return c.removeMeasuredUnit(context.Background(), measuredUnitId, opts...)
+	ctx := context.Background()
+	return c.removeMeasuredUnit(ctx, measuredUnitId, opts...)
 }
 
 // RemoveMeasuredUnitWithContext Remove a measured unit
@@ -3171,7 +3214,8 @@ func (c *Client) ListInvoices(params *ListInvoicesParams, opts ...Option) (*Invo
 
 // GetInvoice wraps GetInvoiceWithContext using the background context
 func (c *Client) GetInvoice(invoiceId string, opts ...Option) (*Invoice, error) {
-	return c.getInvoice(context.Background(), invoiceId, opts...)
+	ctx := context.Background()
+	return c.getInvoice(ctx, invoiceId, opts...)
 }
 
 // GetInvoiceWithContext Fetch an invoice
@@ -3199,7 +3243,8 @@ func (c *Client) getInvoice(ctx context.Context, invoiceId string, opts ...Optio
 
 // PutInvoice wraps PutInvoiceWithContext using the background context
 func (c *Client) PutInvoice(invoiceId string, body *InvoiceUpdatable, opts ...Option) (*Invoice, error) {
-	return c.putInvoice(context.Background(), invoiceId, body, opts...)
+	ctx := context.Background()
+	return c.putInvoice(ctx, invoiceId, body, opts...)
 }
 
 // PutInvoiceWithContext Update an invoice
@@ -3239,7 +3284,8 @@ func (list *CollectInvoiceParams) URLParams() []KeyValue {
 
 // CollectInvoice wraps CollectInvoiceWithContext using the background context
 func (c *Client) CollectInvoice(invoiceId string, params *CollectInvoiceParams, opts ...Option) (*Invoice, error) {
-	return c.collectInvoice(context.Background(), invoiceId, params, opts...)
+	ctx := context.Background()
+	return c.collectInvoice(ctx, invoiceId, params, opts...)
 }
 
 // CollectInvoiceWithContext Collect a pending or past due, automatic invoice
@@ -3267,7 +3313,8 @@ func (c *Client) collectInvoice(ctx context.Context, invoiceId string, params *C
 
 // FailInvoice wraps FailInvoiceWithContext using the background context
 func (c *Client) FailInvoice(invoiceId string, opts ...Option) (*Invoice, error) {
-	return c.failInvoice(context.Background(), invoiceId, opts...)
+	ctx := context.Background()
+	return c.failInvoice(ctx, invoiceId, opts...)
 }
 
 // FailInvoiceWithContext Mark an open invoice as failed
@@ -3295,7 +3342,8 @@ func (c *Client) failInvoice(ctx context.Context, invoiceId string, opts ...Opti
 
 // MarkInvoiceSuccessful wraps MarkInvoiceSuccessfulWithContext using the background context
 func (c *Client) MarkInvoiceSuccessful(invoiceId string, opts ...Option) (*Invoice, error) {
-	return c.markInvoiceSuccessful(context.Background(), invoiceId, opts...)
+	ctx := context.Background()
+	return c.markInvoiceSuccessful(ctx, invoiceId, opts...)
 }
 
 // MarkInvoiceSuccessfulWithContext Mark an open invoice as successful
@@ -3323,7 +3371,8 @@ func (c *Client) markInvoiceSuccessful(ctx context.Context, invoiceId string, op
 
 // ReopenInvoice wraps ReopenInvoiceWithContext using the background context
 func (c *Client) ReopenInvoice(invoiceId string, opts ...Option) (*Invoice, error) {
-	return c.reopenInvoice(context.Background(), invoiceId, opts...)
+	ctx := context.Background()
+	return c.reopenInvoice(ctx, invoiceId, opts...)
 }
 
 // ReopenInvoiceWithContext Reopen a closed, manual invoice
@@ -3351,7 +3400,8 @@ func (c *Client) reopenInvoice(ctx context.Context, invoiceId string, opts ...Op
 
 // VoidInvoice wraps VoidInvoiceWithContext using the background context
 func (c *Client) VoidInvoice(invoiceId string, opts ...Option) (*Invoice, error) {
-	return c.voidInvoice(context.Background(), invoiceId, opts...)
+	ctx := context.Background()
+	return c.voidInvoice(ctx, invoiceId, opts...)
 }
 
 // VoidInvoiceWithContext Void a credit invoice.
@@ -3379,7 +3429,8 @@ func (c *Client) voidInvoice(ctx context.Context, invoiceId string, opts ...Opti
 
 // RecordExternalTransaction wraps RecordExternalTransactionWithContext using the background context
 func (c *Client) RecordExternalTransaction(invoiceId string, body *ExternalTransaction, opts ...Option) (*Transaction, error) {
-	return c.recordExternalTransaction(context.Background(), invoiceId, body, opts...)
+	ctx := context.Background()
+	return c.recordExternalTransaction(ctx, invoiceId, body, opts...)
 }
 
 // RecordExternalTransactionWithContext Record an external payment for a manual invoices.
@@ -3584,7 +3635,8 @@ func (c *Client) ListRelatedInvoices(invoiceId string, opts ...Option) (*Invoice
 
 // RefundInvoice wraps RefundInvoiceWithContext using the background context
 func (c *Client) RefundInvoice(invoiceId string, body *InvoiceRefund, opts ...Option) (*Invoice, error) {
-	return c.refundInvoice(context.Background(), invoiceId, body, opts...)
+	ctx := context.Background()
+	return c.refundInvoice(ctx, invoiceId, body, opts...)
 }
 
 // RefundInvoiceWithContext Refund an invoice
@@ -3711,7 +3763,8 @@ func (c *Client) ListLineItems(params *ListLineItemsParams, opts ...Option) (*Li
 
 // GetLineItem wraps GetLineItemWithContext using the background context
 func (c *Client) GetLineItem(lineItemId string, opts ...Option) (*LineItem, error) {
-	return c.getLineItem(context.Background(), lineItemId, opts...)
+	ctx := context.Background()
+	return c.getLineItem(ctx, lineItemId, opts...)
 }
 
 // GetLineItemWithContext Fetch a line item
@@ -3739,7 +3792,8 @@ func (c *Client) getLineItem(ctx context.Context, lineItemId string, opts ...Opt
 
 // RemoveLineItem wraps RemoveLineItemWithContext using the background context
 func (c *Client) RemoveLineItem(lineItemId string, opts ...Option) (*Empty, error) {
-	return c.removeLineItem(context.Background(), lineItemId, opts...)
+	ctx := context.Background()
+	return c.removeLineItem(ctx, lineItemId, opts...)
 }
 
 // RemoveLineItemWithContext Delete an uninvoiced line item
@@ -3852,7 +3906,8 @@ func (c *Client) ListPlans(params *ListPlansParams, opts ...Option) (*PlanList, 
 
 // CreatePlan wraps CreatePlanWithContext using the background context
 func (c *Client) CreatePlan(body *PlanCreate, opts ...Option) (*Plan, error) {
-	return c.createPlan(context.Background(), body, opts...)
+	ctx := context.Background()
+	return c.createPlan(ctx, body, opts...)
 }
 
 // CreatePlanWithContext Create a plan
@@ -3880,7 +3935,8 @@ func (c *Client) createPlan(ctx context.Context, body *PlanCreate, opts ...Optio
 
 // GetPlan wraps GetPlanWithContext using the background context
 func (c *Client) GetPlan(planId string, opts ...Option) (*Plan, error) {
-	return c.getPlan(context.Background(), planId, opts...)
+	ctx := context.Background()
+	return c.getPlan(ctx, planId, opts...)
 }
 
 // GetPlanWithContext Fetch a plan
@@ -3908,7 +3964,8 @@ func (c *Client) getPlan(ctx context.Context, planId string, opts ...Option) (*P
 
 // UpdatePlan wraps UpdatePlanWithContext using the background context
 func (c *Client) UpdatePlan(planId string, body *PlanUpdate, opts ...Option) (*Plan, error) {
-	return c.updatePlan(context.Background(), planId, body, opts...)
+	ctx := context.Background()
+	return c.updatePlan(ctx, planId, body, opts...)
 }
 
 // UpdatePlanWithContext Update a plan
@@ -3936,7 +3993,8 @@ func (c *Client) updatePlan(ctx context.Context, planId string, body *PlanUpdate
 
 // RemovePlan wraps RemovePlanWithContext using the background context
 func (c *Client) RemovePlan(planId string, opts ...Option) (*Plan, error) {
-	return c.removePlan(context.Background(), planId, opts...)
+	ctx := context.Background()
+	return c.removePlan(ctx, planId, opts...)
 }
 
 // RemovePlanWithContext Remove a plan
@@ -4049,7 +4107,8 @@ func (c *Client) ListPlanAddOns(planId string, params *ListPlanAddOnsParams, opt
 
 // CreatePlanAddOn wraps CreatePlanAddOnWithContext using the background context
 func (c *Client) CreatePlanAddOn(planId string, body *AddOnCreate, opts ...Option) (*AddOn, error) {
-	return c.createPlanAddOn(context.Background(), planId, body, opts...)
+	ctx := context.Background()
+	return c.createPlanAddOn(ctx, planId, body, opts...)
 }
 
 // CreatePlanAddOnWithContext Create an add-on
@@ -4077,7 +4136,8 @@ func (c *Client) createPlanAddOn(ctx context.Context, planId string, body *AddOn
 
 // GetPlanAddOn wraps GetPlanAddOnWithContext using the background context
 func (c *Client) GetPlanAddOn(planId string, addOnId string, opts ...Option) (*AddOn, error) {
-	return c.getPlanAddOn(context.Background(), planId, addOnId, opts...)
+	ctx := context.Background()
+	return c.getPlanAddOn(ctx, planId, addOnId, opts...)
 }
 
 // GetPlanAddOnWithContext Fetch a plan's add-on
@@ -4105,7 +4165,8 @@ func (c *Client) getPlanAddOn(ctx context.Context, planId string, addOnId string
 
 // UpdatePlanAddOn wraps UpdatePlanAddOnWithContext using the background context
 func (c *Client) UpdatePlanAddOn(planId string, addOnId string, body *AddOnUpdate, opts ...Option) (*AddOn, error) {
-	return c.updatePlanAddOn(context.Background(), planId, addOnId, body, opts...)
+	ctx := context.Background()
+	return c.updatePlanAddOn(ctx, planId, addOnId, body, opts...)
 }
 
 // UpdatePlanAddOnWithContext Update an add-on
@@ -4133,7 +4194,8 @@ func (c *Client) updatePlanAddOn(ctx context.Context, planId string, addOnId str
 
 // RemovePlanAddOn wraps RemovePlanAddOnWithContext using the background context
 func (c *Client) RemovePlanAddOn(planId string, addOnId string, opts ...Option) (*AddOn, error) {
-	return c.removePlanAddOn(context.Background(), planId, addOnId, opts...)
+	ctx := context.Background()
+	return c.removePlanAddOn(ctx, planId, addOnId, opts...)
 }
 
 // RemovePlanAddOnWithContext Remove an add-on
@@ -4246,7 +4308,8 @@ func (c *Client) ListAddOns(params *ListAddOnsParams, opts ...Option) (*AddOnLis
 
 // GetAddOn wraps GetAddOnWithContext using the background context
 func (c *Client) GetAddOn(addOnId string, opts ...Option) (*AddOn, error) {
-	return c.getAddOn(context.Background(), addOnId, opts...)
+	ctx := context.Background()
+	return c.getAddOn(ctx, addOnId, opts...)
 }
 
 // GetAddOnWithContext Fetch an add-on
@@ -4352,7 +4415,8 @@ func (c *Client) ListShippingMethods(params *ListShippingMethodsParams, opts ...
 
 // CreateShippingMethod wraps CreateShippingMethodWithContext using the background context
 func (c *Client) CreateShippingMethod(body *ShippingMethodCreate, opts ...Option) (*ShippingMethod, error) {
-	return c.createShippingMethod(context.Background(), body, opts...)
+	ctx := context.Background()
+	return c.createShippingMethod(ctx, body, opts...)
 }
 
 // CreateShippingMethodWithContext Create a new shipping method
@@ -4380,7 +4444,8 @@ func (c *Client) createShippingMethod(ctx context.Context, body *ShippingMethodC
 
 // GetShippingMethod wraps GetShippingMethodWithContext using the background context
 func (c *Client) GetShippingMethod(shippingMethodId string, opts ...Option) (*ShippingMethod, error) {
-	return c.getShippingMethod(context.Background(), shippingMethodId, opts...)
+	ctx := context.Background()
+	return c.getShippingMethod(ctx, shippingMethodId, opts...)
 }
 
 // GetShippingMethodWithContext Fetch a shipping method
@@ -4408,7 +4473,8 @@ func (c *Client) getShippingMethod(ctx context.Context, shippingMethodId string,
 
 // UpdateShippingMethod wraps UpdateShippingMethodWithContext using the background context
 func (c *Client) UpdateShippingMethod(shippingMethodId string, body *ShippingMethodUpdate, opts ...Option) (*ShippingMethod, error) {
-	return c.updateShippingMethod(context.Background(), shippingMethodId, body, opts...)
+	ctx := context.Background()
+	return c.updateShippingMethod(ctx, shippingMethodId, body, opts...)
 }
 
 // UpdateShippingMethodWithContext Update an active Shipping Method
@@ -4436,7 +4502,8 @@ func (c *Client) updateShippingMethod(ctx context.Context, shippingMethodId stri
 
 // DeactivateShippingMethod wraps DeactivateShippingMethodWithContext using the background context
 func (c *Client) DeactivateShippingMethod(shippingMethodId string, opts ...Option) (*ShippingMethod, error) {
-	return c.deactivateShippingMethod(context.Background(), shippingMethodId, opts...)
+	ctx := context.Background()
+	return c.deactivateShippingMethod(ctx, shippingMethodId, opts...)
 }
 
 // DeactivateShippingMethodWithContext Deactivate a shipping method
@@ -4552,7 +4619,8 @@ func (c *Client) ListSubscriptions(params *ListSubscriptionsParams, opts ...Opti
 
 // CreateSubscription wraps CreateSubscriptionWithContext using the background context
 func (c *Client) CreateSubscription(body *SubscriptionCreate, opts ...Option) (*Subscription, error) {
-	return c.createSubscription(context.Background(), body, opts...)
+	ctx := context.Background()
+	return c.createSubscription(ctx, body, opts...)
 }
 
 // CreateSubscriptionWithContext Create a new subscription
@@ -4580,7 +4648,8 @@ func (c *Client) createSubscription(ctx context.Context, body *SubscriptionCreat
 
 // GetSubscription wraps GetSubscriptionWithContext using the background context
 func (c *Client) GetSubscription(subscriptionId string, opts ...Option) (*Subscription, error) {
-	return c.getSubscription(context.Background(), subscriptionId, opts...)
+	ctx := context.Background()
+	return c.getSubscription(ctx, subscriptionId, opts...)
 }
 
 // GetSubscriptionWithContext Fetch a subscription
@@ -4608,7 +4677,8 @@ func (c *Client) getSubscription(ctx context.Context, subscriptionId string, opt
 
 // ModifySubscription wraps ModifySubscriptionWithContext using the background context
 func (c *Client) ModifySubscription(subscriptionId string, body *SubscriptionUpdate, opts ...Option) (*Subscription, error) {
-	return c.modifySubscription(context.Background(), subscriptionId, body, opts...)
+	ctx := context.Background()
+	return c.modifySubscription(ctx, subscriptionId, body, opts...)
 }
 
 // ModifySubscriptionWithContext Modify a subscription
@@ -4657,7 +4727,8 @@ func (list *TerminateSubscriptionParams) URLParams() []KeyValue {
 
 // TerminateSubscription wraps TerminateSubscriptionWithContext using the background context
 func (c *Client) TerminateSubscription(subscriptionId string, params *TerminateSubscriptionParams, opts ...Option) (*Subscription, error) {
-	return c.terminateSubscription(context.Background(), subscriptionId, params, opts...)
+	ctx := context.Background()
+	return c.terminateSubscription(ctx, subscriptionId, params, opts...)
 }
 
 // TerminateSubscriptionWithContext Terminate a subscription
@@ -4697,7 +4768,8 @@ func (list *CancelSubscriptionParams) URLParams() []KeyValue {
 
 // CancelSubscription wraps CancelSubscriptionWithContext using the background context
 func (c *Client) CancelSubscription(subscriptionId string, params *CancelSubscriptionParams, opts ...Option) (*Subscription, error) {
-	return c.cancelSubscription(context.Background(), subscriptionId, params, opts...)
+	ctx := context.Background()
+	return c.cancelSubscription(ctx, subscriptionId, params, opts...)
 }
 
 // CancelSubscriptionWithContext Cancel a subscription
@@ -4725,7 +4797,8 @@ func (c *Client) cancelSubscription(ctx context.Context, subscriptionId string, 
 
 // ReactivateSubscription wraps ReactivateSubscriptionWithContext using the background context
 func (c *Client) ReactivateSubscription(subscriptionId string, opts ...Option) (*Subscription, error) {
-	return c.reactivateSubscription(context.Background(), subscriptionId, opts...)
+	ctx := context.Background()
+	return c.reactivateSubscription(ctx, subscriptionId, opts...)
 }
 
 // ReactivateSubscriptionWithContext Reactivate a canceled subscription
@@ -4753,7 +4826,8 @@ func (c *Client) reactivateSubscription(ctx context.Context, subscriptionId stri
 
 // PauseSubscription wraps PauseSubscriptionWithContext using the background context
 func (c *Client) PauseSubscription(subscriptionId string, body *SubscriptionPause, opts ...Option) (*Subscription, error) {
-	return c.pauseSubscription(context.Background(), subscriptionId, body, opts...)
+	ctx := context.Background()
+	return c.pauseSubscription(ctx, subscriptionId, body, opts...)
 }
 
 // PauseSubscriptionWithContext Pause subscription
@@ -4781,7 +4855,8 @@ func (c *Client) pauseSubscription(ctx context.Context, subscriptionId string, b
 
 // ResumeSubscription wraps ResumeSubscriptionWithContext using the background context
 func (c *Client) ResumeSubscription(subscriptionId string, opts ...Option) (*Subscription, error) {
-	return c.resumeSubscription(context.Background(), subscriptionId, opts...)
+	ctx := context.Background()
+	return c.resumeSubscription(ctx, subscriptionId, opts...)
 }
 
 // ResumeSubscriptionWithContext Resume subscription
@@ -4809,7 +4884,8 @@ func (c *Client) resumeSubscription(ctx context.Context, subscriptionId string, 
 
 // ConvertTrial wraps ConvertTrialWithContext using the background context
 func (c *Client) ConvertTrial(subscriptionId string, opts ...Option) (*Subscription, error) {
-	return c.convertTrial(context.Background(), subscriptionId, opts...)
+	ctx := context.Background()
+	return c.convertTrial(ctx, subscriptionId, opts...)
 }
 
 // ConvertTrialWithContext Convert trial subscription
@@ -4837,7 +4913,8 @@ func (c *Client) convertTrial(ctx context.Context, subscriptionId string, opts .
 
 // GetSubscriptionChange wraps GetSubscriptionChangeWithContext using the background context
 func (c *Client) GetSubscriptionChange(subscriptionId string, opts ...Option) (*SubscriptionChange, error) {
-	return c.getSubscriptionChange(context.Background(), subscriptionId, opts...)
+	ctx := context.Background()
+	return c.getSubscriptionChange(ctx, subscriptionId, opts...)
 }
 
 // GetSubscriptionChangeWithContext Fetch a subscription's pending change
@@ -4865,7 +4942,8 @@ func (c *Client) getSubscriptionChange(ctx context.Context, subscriptionId strin
 
 // CreateSubscriptionChange wraps CreateSubscriptionChangeWithContext using the background context
 func (c *Client) CreateSubscriptionChange(subscriptionId string, body *SubscriptionChangeCreate, opts ...Option) (*SubscriptionChange, error) {
-	return c.createSubscriptionChange(context.Background(), subscriptionId, body, opts...)
+	ctx := context.Background()
+	return c.createSubscriptionChange(ctx, subscriptionId, body, opts...)
 }
 
 // CreateSubscriptionChangeWithContext Create a new subscription change
@@ -4893,7 +4971,8 @@ func (c *Client) createSubscriptionChange(ctx context.Context, subscriptionId st
 
 // RemoveSubscriptionChange wraps RemoveSubscriptionChangeWithContext using the background context
 func (c *Client) RemoveSubscriptionChange(subscriptionId string, opts ...Option) (*Empty, error) {
-	return c.removeSubscriptionChange(context.Background(), subscriptionId, opts...)
+	ctx := context.Background()
+	return c.removeSubscriptionChange(ctx, subscriptionId, opts...)
 }
 
 // RemoveSubscriptionChangeWithContext Delete the pending subscription change
@@ -4921,7 +5000,8 @@ func (c *Client) removeSubscriptionChange(ctx context.Context, subscriptionId st
 
 // PreviewSubscriptionChange wraps PreviewSubscriptionChangeWithContext using the background context
 func (c *Client) PreviewSubscriptionChange(subscriptionId string, body *SubscriptionChangeCreate, opts ...Option) (*SubscriptionChange, error) {
-	return c.previewSubscriptionChange(context.Background(), subscriptionId, body, opts...)
+	ctx := context.Background()
+	return c.previewSubscriptionChange(ctx, subscriptionId, body, opts...)
 }
 
 // PreviewSubscriptionChangeWithContext Preview a new subscription change
@@ -5286,7 +5366,8 @@ func (c *Client) ListUsage(subscriptionId string, addOnId string, params *ListUs
 
 // CreateUsage wraps CreateUsageWithContext using the background context
 func (c *Client) CreateUsage(subscriptionId string, addOnId string, body *UsageCreate, opts ...Option) (*Usage, error) {
-	return c.createUsage(context.Background(), subscriptionId, addOnId, body, opts...)
+	ctx := context.Background()
+	return c.createUsage(ctx, subscriptionId, addOnId, body, opts...)
 }
 
 // CreateUsageWithContext Log a usage record on this subscription add-on
@@ -5314,7 +5395,8 @@ func (c *Client) createUsage(ctx context.Context, subscriptionId string, addOnId
 
 // GetUsage wraps GetUsageWithContext using the background context
 func (c *Client) GetUsage(usageId string, opts ...Option) (*Usage, error) {
-	return c.getUsage(context.Background(), usageId, opts...)
+	ctx := context.Background()
+	return c.getUsage(ctx, usageId, opts...)
 }
 
 // GetUsageWithContext Get a usage record
@@ -5342,7 +5424,8 @@ func (c *Client) getUsage(ctx context.Context, usageId string, opts ...Option) (
 
 // UpdateUsage wraps UpdateUsageWithContext using the background context
 func (c *Client) UpdateUsage(usageId string, body *UsageCreate, opts ...Option) (*Usage, error) {
-	return c.updateUsage(context.Background(), usageId, body, opts...)
+	ctx := context.Background()
+	return c.updateUsage(ctx, usageId, body, opts...)
 }
 
 // UpdateUsageWithContext Update a usage record
@@ -5370,7 +5453,8 @@ func (c *Client) updateUsage(ctx context.Context, usageId string, body *UsageCre
 
 // RemoveUsage wraps RemoveUsageWithContext using the background context
 func (c *Client) RemoveUsage(usageId string, opts ...Option) (*Empty, error) {
-	return c.removeUsage(context.Background(), usageId, opts...)
+	ctx := context.Background()
+	return c.removeUsage(ctx, usageId, opts...)
 }
 
 // RemoveUsageWithContext Delete a usage record.
@@ -5490,7 +5574,8 @@ func (c *Client) ListTransactions(params *ListTransactionsParams, opts ...Option
 
 // GetTransaction wraps GetTransactionWithContext using the background context
 func (c *Client) GetTransaction(transactionId string, opts ...Option) (*Transaction, error) {
-	return c.getTransaction(context.Background(), transactionId, opts...)
+	ctx := context.Background()
+	return c.getTransaction(ctx, transactionId, opts...)
 }
 
 // GetTransactionWithContext Fetch a transaction
@@ -5518,7 +5603,8 @@ func (c *Client) getTransaction(ctx context.Context, transactionId string, opts 
 
 // GetUniqueCouponCode wraps GetUniqueCouponCodeWithContext using the background context
 func (c *Client) GetUniqueCouponCode(uniqueCouponCodeId string, opts ...Option) (*UniqueCouponCode, error) {
-	return c.getUniqueCouponCode(context.Background(), uniqueCouponCodeId, opts...)
+	ctx := context.Background()
+	return c.getUniqueCouponCode(ctx, uniqueCouponCodeId, opts...)
 }
 
 // GetUniqueCouponCodeWithContext Fetch a unique coupon code
@@ -5546,7 +5632,8 @@ func (c *Client) getUniqueCouponCode(ctx context.Context, uniqueCouponCodeId str
 
 // DeactivateUniqueCouponCode wraps DeactivateUniqueCouponCodeWithContext using the background context
 func (c *Client) DeactivateUniqueCouponCode(uniqueCouponCodeId string, opts ...Option) (*UniqueCouponCode, error) {
-	return c.deactivateUniqueCouponCode(context.Background(), uniqueCouponCodeId, opts...)
+	ctx := context.Background()
+	return c.deactivateUniqueCouponCode(ctx, uniqueCouponCodeId, opts...)
 }
 
 // DeactivateUniqueCouponCodeWithContext Deactivate a unique coupon code
@@ -5574,7 +5661,8 @@ func (c *Client) deactivateUniqueCouponCode(ctx context.Context, uniqueCouponCod
 
 // ReactivateUniqueCouponCode wraps ReactivateUniqueCouponCodeWithContext using the background context
 func (c *Client) ReactivateUniqueCouponCode(uniqueCouponCodeId string, opts ...Option) (*UniqueCouponCode, error) {
-	return c.reactivateUniqueCouponCode(context.Background(), uniqueCouponCodeId, opts...)
+	ctx := context.Background()
+	return c.reactivateUniqueCouponCode(ctx, uniqueCouponCodeId, opts...)
 }
 
 // ReactivateUniqueCouponCodeWithContext Restore a unique coupon code
@@ -5602,7 +5690,8 @@ func (c *Client) reactivateUniqueCouponCode(ctx context.Context, uniqueCouponCod
 
 // CreatePurchase wraps CreatePurchaseWithContext using the background context
 func (c *Client) CreatePurchase(body *PurchaseCreate, opts ...Option) (*InvoiceCollection, error) {
-	return c.createPurchase(context.Background(), body, opts...)
+	ctx := context.Background()
+	return c.createPurchase(ctx, body, opts...)
 }
 
 // CreatePurchaseWithContext Create a new purchase
@@ -5630,7 +5719,8 @@ func (c *Client) createPurchase(ctx context.Context, body *PurchaseCreate, opts 
 
 // PreviewPurchase wraps PreviewPurchaseWithContext using the background context
 func (c *Client) PreviewPurchase(body *PurchaseCreate, opts ...Option) (*InvoiceCollection, error) {
-	return c.previewPurchase(context.Background(), body, opts...)
+	ctx := context.Background()
+	return c.previewPurchase(ctx, body, opts...)
 }
 
 // PreviewPurchaseWithContext Preview a new purchase
@@ -5658,7 +5748,8 @@ func (c *Client) previewPurchase(ctx context.Context, body *PurchaseCreate, opts
 
 // GetExportDates wraps GetExportDatesWithContext using the background context
 func (c *Client) GetExportDates(opts ...Option) (*ExportDates, error) {
-	return c.getExportDates(context.Background(), opts...)
+	ctx := context.Background()
+	return c.getExportDates(ctx, opts...)
 }
 
 // GetExportDatesWithContext List the dates that have an available export to download.
@@ -5686,7 +5777,8 @@ func (c *Client) getExportDates(ctx context.Context, opts ...Option) (*ExportDat
 
 // GetExportFiles wraps GetExportFilesWithContext using the background context
 func (c *Client) GetExportFiles(exportDate string, opts ...Option) (*ExportFiles, error) {
-	return c.getExportFiles(context.Background(), exportDate, opts...)
+	ctx := context.Background()
+	return c.getExportFiles(ctx, exportDate, opts...)
 }
 
 // GetExportFilesWithContext List of the export files that are available to download.
