@@ -1,7 +1,6 @@
 package recurly
 
 import (
-	"context"
 	"net/http"
 )
 
@@ -11,8 +10,6 @@ type RequestOptions struct {
 	IdempotencyKey string `json:"-"`
 	// Header contains additional request headers for unique requests
 	Header http.Header `json:"-"`
-	// Context passed to the HTTP request for cancelling requests
-	Context context.Context `json:"-"`
 }
 
 func (o *RequestOptions) clone() *RequestOptions {
