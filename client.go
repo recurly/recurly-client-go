@@ -119,6 +119,9 @@ type HTTPCaller interface {
 // (which is returned by genericParams.toParams()) to seperate concerns with payload/URL params
 // from configurations of the HTTP request (RequestOptions).
 func (c *Client) Call(ctx context.Context, method string, path string, body GenericParams, queryParams GenericParams, requestOptions optionsApplier, v interface{}) error {
+	if ctx == nil {
+		ctx = context.Background()
+	}
 	if !strings.HasPrefix(path, "/") {
 		path = fmt.Sprintf("%s/%s", c.baseURL, path)
 	} else {
