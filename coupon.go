@@ -5,6 +5,7 @@
 package recurly
 
 import (
+	"context"
 	"net/http"
 	"time"
 )
@@ -142,25 +143,27 @@ func (resource *couponList) setResponse(res *ResponseMetadata) {
 
 // CouponList allows you to paginate Coupon objects
 type CouponList struct {
-	client       HttpCaller
-	nextPagePath string
+	client         HTTPCaller
+	requestOptions *RequestOptions
+	nextPagePath   string
 
 	HasMore bool
 	Data    []Coupon
 }
 
-func NewCouponList(client HttpCaller, nextPagePath string) *CouponList {
+func NewCouponList(client HTTPCaller, nextPagePath string, requestOptions *RequestOptions) *CouponList {
 	return &CouponList{
-		client:       client,
-		nextPagePath: nextPagePath,
-		HasMore:      true,
+		client:         client,
+		requestOptions: requestOptions,
+		nextPagePath:   nextPagePath,
+		HasMore:        true,
 	}
 }
 
 // Fetch fetches the next page of data into the `Data` property
-func (list *CouponList) Fetch() error {
+func (list *CouponList) FetchWithContext(ctx context.Context) error {
 	resources := &couponList{}
-	err := list.client.Call(http.MethodGet, list.nextPagePath, nil, resources)
+	err := list.client.Call(ctx, http.MethodGet, list.nextPagePath, nil, nil, list.requestOptions, resources)
 	if err != nil {
 		return err
 	}
@@ -171,13 +174,23 @@ func (list *CouponList) Fetch() error {
 	return nil
 }
 
+// Fetch fetches the next page of data into the `Data` property
+func (list *CouponList) Fetch() error {
+	return list.FetchWithContext(context.Background())
+}
+
 // Count returns the count of items on the server that match this pager
-func (list *CouponList) Count() (*int64, error) {
+func (list *CouponList) CountWithContext(ctx context.Context) (*int64, error) {
 	resources := &couponList{}
-	err := list.client.Call(http.MethodHead, list.nextPagePath, nil, resources)
+	err := list.client.Call(ctx, http.MethodHead, list.nextPagePath, nil, nil, list.requestOptions, resources)
 	if err != nil {
 		return nil, err
 	}
 	resp := resources.GetResponse()
 	return resp.TotalRecords, nil
+}
+
+// Count returns the count of items on the server that match this pager
+func (list *CouponList) Count() (*int64, error) {
+	return list.CountWithContext(context.Background())
 }

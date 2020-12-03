@@ -5,6 +5,7 @@
 package recurly
 
 import (
+	"context"
 	"net/http"
 )
 
@@ -47,25 +48,27 @@ func (resource *addOnPricingList) setResponse(res *ResponseMetadata) {
 
 // AddOnPricingList allows you to paginate AddOnPricing objects
 type AddOnPricingList struct {
-	client       HttpCaller
-	nextPagePath string
+	client         HTTPCaller
+	requestOptions *RequestOptions
+	nextPagePath   string
 
 	HasMore bool
 	Data    []AddOnPricing
 }
 
-func NewAddOnPricingList(client HttpCaller, nextPagePath string) *AddOnPricingList {
+func NewAddOnPricingList(client HTTPCaller, nextPagePath string, requestOptions *RequestOptions) *AddOnPricingList {
 	return &AddOnPricingList{
-		client:       client,
-		nextPagePath: nextPagePath,
-		HasMore:      true,
+		client:         client,
+		requestOptions: requestOptions,
+		nextPagePath:   nextPagePath,
+		HasMore:        true,
 	}
 }
 
 // Fetch fetches the next page of data into the `Data` property
-func (list *AddOnPricingList) Fetch() error {
+func (list *AddOnPricingList) FetchWithContext(ctx context.Context) error {
 	resources := &addOnPricingList{}
-	err := list.client.Call(http.MethodGet, list.nextPagePath, nil, resources)
+	err := list.client.Call(ctx, http.MethodGet, list.nextPagePath, nil, nil, list.requestOptions, resources)
 	if err != nil {
 		return err
 	}
@@ -76,13 +79,23 @@ func (list *AddOnPricingList) Fetch() error {
 	return nil
 }
 
+// Fetch fetches the next page of data into the `Data` property
+func (list *AddOnPricingList) Fetch() error {
+	return list.FetchWithContext(context.Background())
+}
+
 // Count returns the count of items on the server that match this pager
-func (list *AddOnPricingList) Count() (*int64, error) {
+func (list *AddOnPricingList) CountWithContext(ctx context.Context) (*int64, error) {
 	resources := &addOnPricingList{}
-	err := list.client.Call(http.MethodHead, list.nextPagePath, nil, resources)
+	err := list.client.Call(ctx, http.MethodHead, list.nextPagePath, nil, nil, list.requestOptions, resources)
 	if err != nil {
 		return nil, err
 	}
 	resp := resources.GetResponse()
 	return resp.TotalRecords, nil
+}
+
+// Count returns the count of items on the server that match this pager
+func (list *AddOnPricingList) Count() (*int64, error) {
+	return list.CountWithContext(context.Background())
 }

@@ -5,6 +5,7 @@
 package recurly
 
 import (
+	"context"
 	"net/http"
 )
 
@@ -52,25 +53,27 @@ func (resource *settingsList) setResponse(res *ResponseMetadata) {
 
 // SettingsList allows you to paginate Settings objects
 type SettingsList struct {
-	client       HttpCaller
-	nextPagePath string
+	client         HTTPCaller
+	requestOptions *RequestOptions
+	nextPagePath   string
 
 	HasMore bool
 	Data    []Settings
 }
 
-func NewSettingsList(client HttpCaller, nextPagePath string) *SettingsList {
+func NewSettingsList(client HTTPCaller, nextPagePath string, requestOptions *RequestOptions) *SettingsList {
 	return &SettingsList{
-		client:       client,
-		nextPagePath: nextPagePath,
-		HasMore:      true,
+		client:         client,
+		requestOptions: requestOptions,
+		nextPagePath:   nextPagePath,
+		HasMore:        true,
 	}
 }
 
 // Fetch fetches the next page of data into the `Data` property
-func (list *SettingsList) Fetch() error {
+func (list *SettingsList) FetchWithContext(ctx context.Context) error {
 	resources := &settingsList{}
-	err := list.client.Call(http.MethodGet, list.nextPagePath, nil, resources)
+	err := list.client.Call(ctx, http.MethodGet, list.nextPagePath, nil, nil, list.requestOptions, resources)
 	if err != nil {
 		return err
 	}
@@ -81,13 +84,23 @@ func (list *SettingsList) Fetch() error {
 	return nil
 }
 
+// Fetch fetches the next page of data into the `Data` property
+func (list *SettingsList) Fetch() error {
+	return list.FetchWithContext(context.Background())
+}
+
 // Count returns the count of items on the server that match this pager
-func (list *SettingsList) Count() (*int64, error) {
+func (list *SettingsList) CountWithContext(ctx context.Context) (*int64, error) {
 	resources := &settingsList{}
-	err := list.client.Call(http.MethodHead, list.nextPagePath, nil, resources)
+	err := list.client.Call(ctx, http.MethodHead, list.nextPagePath, nil, nil, list.requestOptions, resources)
 	if err != nil {
 		return nil, err
 	}
 	resp := resources.GetResponse()
 	return resp.TotalRecords, nil
+}
+
+// Count returns the count of items on the server that match this pager
+func (list *SettingsList) Count() (*int64, error) {
+	return list.CountWithContext(context.Background())
 }

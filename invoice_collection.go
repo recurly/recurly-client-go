@@ -5,6 +5,7 @@
 package recurly
 
 import (
+	"context"
 	"net/http"
 )
 
@@ -49,25 +50,27 @@ func (resource *invoiceCollectionList) setResponse(res *ResponseMetadata) {
 
 // InvoiceCollectionList allows you to paginate InvoiceCollection objects
 type InvoiceCollectionList struct {
-	client       HttpCaller
-	nextPagePath string
+	client         HTTPCaller
+	requestOptions *RequestOptions
+	nextPagePath   string
 
 	HasMore bool
 	Data    []InvoiceCollection
 }
 
-func NewInvoiceCollectionList(client HttpCaller, nextPagePath string) *InvoiceCollectionList {
+func NewInvoiceCollectionList(client HTTPCaller, nextPagePath string, requestOptions *RequestOptions) *InvoiceCollectionList {
 	return &InvoiceCollectionList{
-		client:       client,
-		nextPagePath: nextPagePath,
-		HasMore:      true,
+		client:         client,
+		requestOptions: requestOptions,
+		nextPagePath:   nextPagePath,
+		HasMore:        true,
 	}
 }
 
 // Fetch fetches the next page of data into the `Data` property
-func (list *InvoiceCollectionList) Fetch() error {
+func (list *InvoiceCollectionList) FetchWithContext(ctx context.Context) error {
 	resources := &invoiceCollectionList{}
-	err := list.client.Call(http.MethodGet, list.nextPagePath, nil, resources)
+	err := list.client.Call(ctx, http.MethodGet, list.nextPagePath, nil, nil, list.requestOptions, resources)
 	if err != nil {
 		return err
 	}
@@ -78,13 +81,23 @@ func (list *InvoiceCollectionList) Fetch() error {
 	return nil
 }
 
+// Fetch fetches the next page of data into the `Data` property
+func (list *InvoiceCollectionList) Fetch() error {
+	return list.FetchWithContext(context.Background())
+}
+
 // Count returns the count of items on the server that match this pager
-func (list *InvoiceCollectionList) Count() (*int64, error) {
+func (list *InvoiceCollectionList) CountWithContext(ctx context.Context) (*int64, error) {
 	resources := &invoiceCollectionList{}
-	err := list.client.Call(http.MethodHead, list.nextPagePath, nil, resources)
+	err := list.client.Call(ctx, http.MethodHead, list.nextPagePath, nil, nil, list.requestOptions, resources)
 	if err != nil {
 		return nil, err
 	}
 	resp := resources.GetResponse()
 	return resp.TotalRecords, nil
+}
+
+// Count returns the count of items on the server that match this pager
+func (list *InvoiceCollectionList) Count() (*int64, error) {
+	return list.CountWithContext(context.Background())
 }
