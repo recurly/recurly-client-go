@@ -19,6 +19,9 @@ type SubscriptionCreate struct {
 
 	Account *AccountCreate `json:"account,omitempty"`
 
+	// The `billing_info_id` is the value that represents a specific billing info for an end customer. When `billing_info_id` is used to assign billing info to the subscription, all future billing events for the subscription will bill to the specified billing info.
+	BillingInfoId *string `json:"billing_info_id,omitempty"`
+
 	// Create a shipping address on the account and assign it to the subscription.
 	Shipping *SubscriptionShippingCreate `json:"shipping,omitempty"`
 
