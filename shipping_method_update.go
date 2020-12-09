@@ -7,7 +7,6 @@ package recurly
 import ()
 
 type ShippingMethodUpdate struct {
-	Params `json:"-"`
 
 	// The internal name used identify the shipping method.
 	Code *string `json:"code,omitempty"`
@@ -29,13 +28,4 @@ type ShippingMethodUpdate struct {
 	// - `FR010200` – Delivery by Company Vehicle After Passage of Title
 	// - `NT` – Non-Taxable
 	TaxCode *string `json:"tax_code,omitempty"`
-}
-
-func (attr *ShippingMethodUpdate) toParams() *Params {
-	return &Params{
-		IdempotencyKey: attr.IdempotencyKey,
-		Header:         attr.Header,
-		Context:        attr.Context,
-		Data:           attr,
-	}
 }

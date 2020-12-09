@@ -7,7 +7,6 @@ package recurly
 import ()
 
 type AccountCreate struct {
-	Params `json:"-"`
 
 	// The unique identifier of the account. This cannot be changed once the account is created.
 	Code *string `json:"code,omitempty"`
@@ -61,13 +60,4 @@ type AccountCreate struct {
 
 	// The custom fields will only be altered when they are included in a request. Sending an empty array will not remove any existing values. To remove a field send the name with a null or empty value.
 	CustomFields []CustomFieldCreate `json:"custom_fields,omitempty"`
-}
-
-func (attr *AccountCreate) toParams() *Params {
-	return &Params{
-		IdempotencyKey: attr.IdempotencyKey,
-		Header:         attr.Header,
-		Context:        attr.Context,
-		Data:           attr,
-	}
 }

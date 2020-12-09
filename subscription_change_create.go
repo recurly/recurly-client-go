@@ -7,7 +7,6 @@ package recurly
 import ()
 
 type SubscriptionChangeCreate struct {
-	Params `json:"-"`
 
 	// The timeframe parameter controls when the upgrade or downgrade takes place. The subscription change can occur now, when the subscription is next billed, or when the subscription term ends. Generally, if you're performing an upgrade, you will want the change to occur immediately (now). If you're performing a downgrade, you should set the timeframe to `term_end` or `bill_date` so the change takes effect at a scheduled billing date. The `renewal` timeframe option is accepted as an alias for `term_end`.
 	Timeframe *string `json:"timeframe,omitempty"`
@@ -64,13 +63,4 @@ type SubscriptionChangeCreate struct {
 
 	// An optional type designation for the payment gateway transaction created by this request. Supports 'moto' value, which is the acronym for mail order and telephone transactions.
 	TransactionType *string `json:"transaction_type,omitempty"`
-}
-
-func (attr *SubscriptionChangeCreate) toParams() *Params {
-	return &Params{
-		IdempotencyKey: attr.IdempotencyKey,
-		Header:         attr.Header,
-		Context:        attr.Context,
-		Data:           attr,
-	}
 }

@@ -7,7 +7,6 @@ package recurly
 import ()
 
 type InvoiceCreate struct {
-	Params `json:"-"`
 
 	// 3-letter ISO 4217 currency code.
 	Currency *string `json:"currency,omitempty"`
@@ -32,13 +31,4 @@ type InvoiceCreate struct {
 
 	// VAT Reverse Charge Notes only appear if you have EU VAT enabled or are using your own Avalara AvaTax account and the customer is in the EU, has a VAT number, and is in a different country than your own. This will default to the VAT Reverse Charge Notes text specified on the Tax Settings page in your Recurly admin, unless custom notes were created with the original subscription.
 	VatReverseChargeNotes *string `json:"vat_reverse_charge_notes,omitempty"`
-}
-
-func (attr *InvoiceCreate) toParams() *Params {
-	return &Params{
-		IdempotencyKey: attr.IdempotencyKey,
-		Header:         attr.Header,
-		Context:        attr.Context,
-		Data:           attr,
-	}
 }

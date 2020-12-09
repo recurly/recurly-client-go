@@ -7,7 +7,6 @@ package recurly
 import ()
 
 type PlanUpdate struct {
-	Params `json:"-"`
 
 	// Plan ID
 	Id *string `json:"id,omitempty"`
@@ -73,13 +72,4 @@ type PlanUpdate struct {
 	// If `true`, items can be assigned as add-ons to individual subscription add-ons.
 	// If `false`, only plan add-ons can be used.
 	AllowAnyItemOnSubscriptions *bool `json:"allow_any_item_on_subscriptions,omitempty"`
-}
-
-func (attr *PlanUpdate) toParams() *Params {
-	return &Params{
-		IdempotencyKey: attr.IdempotencyKey,
-		Header:         attr.Header,
-		Context:        attr.Context,
-		Data:           attr,
-	}
 }

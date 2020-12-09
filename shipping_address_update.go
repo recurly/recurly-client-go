@@ -7,7 +7,6 @@ package recurly
 import ()
 
 type ShippingAddressUpdate struct {
-	Params `json:"-"`
 
 	// Shipping Address ID
 	Id *string `json:"id,omitempty"`
@@ -40,13 +39,4 @@ type ShippingAddressUpdate struct {
 
 	// Country, 2-letter ISO code.
 	Country *string `json:"country,omitempty"`
-}
-
-func (attr *ShippingAddressUpdate) toParams() *Params {
-	return &Params{
-		IdempotencyKey: attr.IdempotencyKey,
-		Header:         attr.Header,
-		Context:        attr.Context,
-		Data:           attr,
-	}
 }

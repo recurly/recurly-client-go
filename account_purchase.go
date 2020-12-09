@@ -7,7 +7,6 @@ package recurly
 import ()
 
 type AccountPurchase struct {
-	Params `json:"-"`
 
 	// Optional, but if present allows an existing account to be used and updated as part of the purchase.
 	Id *string `json:"id,omitempty"`
@@ -62,13 +61,4 @@ type AccountPurchase struct {
 
 	// The custom fields will only be altered when they are included in a request. Sending an empty array will not remove any existing values. To remove a field send the name with a null or empty value.
 	CustomFields []CustomFieldCreate `json:"custom_fields,omitempty"`
-}
-
-func (attr *AccountPurchase) toParams() *Params {
-	return &Params{
-		IdempotencyKey: attr.IdempotencyKey,
-		Header:         attr.Header,
-		Context:        attr.Context,
-		Data:           attr,
-	}
 }

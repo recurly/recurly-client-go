@@ -9,7 +9,6 @@ import (
 )
 
 type SubscriptionCreate struct {
-	Params `json:"-"`
 
 	// You must provide either a `plan_code` or `plan_id`. If both are provided the `plan_id` will be used.
 	PlanCode *string `json:"plan_code,omitempty"`
@@ -81,13 +80,4 @@ type SubscriptionCreate struct {
 
 	// An optional type designation for the payment gateway transaction created by this request. Supports 'moto' value, which is the acronym for mail order and telephone transactions.
 	TransactionType *string `json:"transaction_type,omitempty"`
-}
-
-func (attr *SubscriptionCreate) toParams() *Params {
-	return &Params{
-		IdempotencyKey: attr.IdempotencyKey,
-		Header:         attr.Header,
-		Context:        attr.Context,
-		Data:           attr,
-	}
 }

@@ -7,7 +7,6 @@ package recurly
 import ()
 
 type InvoiceUpdatable struct {
-	Params `json:"-"`
 
 	// This identifies the PO number associated with the invoice. Not editable for credit invoices.
 	PoNumber *string `json:"po_number,omitempty"`
@@ -25,13 +24,4 @@ type InvoiceUpdatable struct {
 	NetTerms *int `json:"net_terms,omitempty"`
 
 	Address *InvoiceAddressCreate `json:"address,omitempty"`
-}
-
-func (attr *InvoiceUpdatable) toParams() *Params {
-	return &Params{
-		IdempotencyKey: attr.IdempotencyKey,
-		Header:         attr.Header,
-		Context:        attr.Context,
-		Data:           attr,
-	}
 }

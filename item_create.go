@@ -7,7 +7,6 @@ package recurly
 import ()
 
 type ItemCreate struct {
-	Params `json:"-"`
 
 	// Unique code to identify the item.
 	Code *string `json:"code,omitempty"`
@@ -44,13 +43,4 @@ type ItemCreate struct {
 
 	// Item Pricing
 	Currencies []PricingCreate `json:"currencies,omitempty"`
-}
-
-func (attr *ItemCreate) toParams() *Params {
-	return &Params{
-		IdempotencyKey: attr.IdempotencyKey,
-		Header:         attr.Header,
-		Context:        attr.Context,
-		Data:           attr,
-	}
 }

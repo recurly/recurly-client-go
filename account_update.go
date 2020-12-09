@@ -7,7 +7,6 @@ package recurly
 import ()
 
 type AccountUpdate struct {
-	Params `json:"-"`
 
 	// A secondary value for the account.
 	Username *string `json:"username,omitempty"`
@@ -54,13 +53,4 @@ type AccountUpdate struct {
 
 	// The custom fields will only be altered when they are included in a request. Sending an empty array will not remove any existing values. To remove a field send the name with a null or empty value.
 	CustomFields []CustomFieldCreate `json:"custom_fields,omitempty"`
-}
-
-func (attr *AccountUpdate) toParams() *Params {
-	return &Params{
-		IdempotencyKey: attr.IdempotencyKey,
-		Header:         attr.Header,
-		Context:        attr.Context,
-		Data:           attr,
-	}
 }

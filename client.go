@@ -3,6 +3,7 @@ package recurly
 import (
 	"bytes"
 	"compress/gzip"
+	"context"
 	"crypto/tls"
 	"encoding/json"
 	"fmt"
@@ -11,7 +12,6 @@ import (
 	"net"
 	"net/http"
 	"net/url"
-	"reflect"
 	"regexp"
 	"runtime"
 	"strings"
@@ -112,7 +112,7 @@ func validatePathParameters(params []string) error {
 	return nil
 }
 
-// Takes an OpenAPI-style path such as "/accounts/{account_id}/shipping_addresses/{shipping_address_id}"
+// InterpolatePath takes an OpenAPI-style path such as "/accounts/{account_id}/shipping_addresses/{shipping_address_id}"
 // and a list of string arguments to fill the template, and it returns the interpolated path
 func (c *Client) InterpolatePath(path string, params ...string) (string, error) {
 	err := validatePathParameters(params)
@@ -128,27 +128,25 @@ func (c *Client) InterpolatePath(path string, params ...string) (string, error) 
 	return fmt.Sprintf(template, encodedParams...), nil
 }
 
-// HttpCaller is the generic http interface used by the Client
-type HttpCaller interface {
-	Call(method string, path string, genericParams GenericParams, v interface{}) error
+// HTTPCaller is the generic http interface used by the Client
+type HTTPCaller interface {
+	Call(ctx context.Context, method string, path string, body interface{}, queryParams QueryParams, requestOptions optionsApplier, v interface{}) error
 }
 
-// Call sends a request to Recurly and parses the JSON response for the expected response type
-func (c *Client) Call(method string, path string, genericParams GenericParams, v interface{}) error {
+// Call sends a request to Recurly API and parses the JSON response for the expected response type.
+func (c *Client) Call(ctx context.Context, method string, path string, body interface{}, queryParams QueryParams, requestOptions optionsApplier, v interface{}) error {
+	if ctx == nil {
+		ctx = context.Background()
+	}
 	if !strings.HasPrefix(path, "/") {
 		path = fmt.Sprintf("%s/%s", c.baseURL, path)
 	} else {
 		path = fmt.Sprintf("%s%s", c.baseURL, path)
 	}
 
-	path = BuildUrl(path, genericParams)
+	path = BuildURL(path, queryParams)
 
-	var params *Params
-	if genericParams != nil && !reflect.ValueOf(genericParams).IsNil() { // test if the interface is nil
-		params = genericParams.toParams()
-	}
-
-	req, err := c.NewRequest(method, path, params)
+	req, err := c.NewHTTPRequest(ctx, method, path, body, requestOptions)
 	if err != nil {
 		return err
 	}
@@ -156,15 +154,10 @@ func (c *Client) Call(method string, path string, genericParams GenericParams, v
 	return c.Do(req, v)
 }
 
-// Append URL parameters
-func BuildUrl(requestURL string, genericParams GenericParams) string {
-	var params *Params
-	if genericParams != nil && !reflect.ValueOf(genericParams).IsNil() { // test if the interface is nil
-		params = genericParams.toParams()
-	}
-
-	if params != nil {
-		if keyValues := params.URLParams(); len(keyValues) > 0 {
+// BuildURL will append query string parameters
+func BuildURL(requestURL string, queryParams QueryParams) string {
+	if queryParams != nil {
+		if keyValues := queryParams.URLParams(); len(keyValues) > 0 {
 			var buf bytes.Buffer
 			buf.WriteString(requestURL)
 			buf.WriteByte('?')
@@ -184,44 +177,31 @@ func BuildUrl(requestURL string, genericParams GenericParams) string {
 	return requestURL
 }
 
-// NewRequest generates an http.Request for the API client to submit to Recurly.
-func (c *Client) NewRequest(method string, requestURL string, params *Params) (*http.Request, error) {
-	req, err := http.NewRequest(method, requestURL, nil)
+// NewHTTPRequest generates an http.Request for the client to submit to Recurly API.
+func (c *Client) NewHTTPRequest(ctx context.Context, method string, requestURL string, body interface{}, requestOptions optionsApplier) (*http.Request, error) {
+	req, err := http.NewRequestWithContext(ctx, method, requestURL, nil)
 	if err != nil {
 		return nil, err
 	}
 
-	req.Header.Add("Accept", acceptVersion)
+	req = requestOptions.applyOptions(req)
+
+	// Set required headers after custom headers so that they aren't accidentally overwritten.
+	req.Header.Set("Accept", acceptVersion)
 	req.Header.Set("Accept-Encoding", "gzip")
-	req.Header.Add("Content-Type", "application/json; charset=utf-8")
-	req.Header.Add("User-Agent", userAgent)
+	req.Header.Set("Content-Type", "application/json; charset=utf-8")
+	req.Header.Set("User-Agent", userAgent)
 	req.SetBasicAuth(c.apiKey, "")
 
-	if params != nil {
-		// TODO: generate an idempotency key if missing?
-		if params.IdempotencyKey != "" {
-			req.Header.Add("Idempotency-Key", params.IdempotencyKey)
+	if body != nil && method != http.MethodGet {
+		data, err := json.Marshal(body)
+		if err != nil {
+			c.Log.Errorf("Failed to marshal data to JSON payload: %v", err)
+			return nil, err
 		}
-		for key, v := range params.Header {
-			for _, value := range v {
-				req.Header.Set(key, value)
-			}
-		}
-
-		if params.Data != nil && method != http.MethodGet {
-			data, err := json.Marshal(params.Data)
-			if err != nil {
-				c.Log.Errorf("Failed to marshal data to JSON payload: %v", err)
-				return nil, err
-			}
-			req.Body = ioutil.NopCloser(bytes.NewBuffer(data))
-			if c.Log.IsLevel(LevelDebug) {
-				fmt.Println("Request Body: ", req.Body)
-			}
-		}
-
-		if params.Context != nil {
-			req = req.WithContext(params.Context)
+		req.Body = ioutil.NopCloser(bytes.NewBuffer(data))
+		if c.Log.IsLevel(LevelDebug) {
+			fmt.Println("Request Body: ", req.Body)
 		}
 	}
 

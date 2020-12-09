@@ -7,8 +7,6 @@ package recurly
 import ()
 
 type ShippingAddressCreate struct {
-	Params `json:"-"`
-
 	Nickname *string `json:"nickname,omitempty"`
 
 	FirstName *string `json:"first_name,omitempty"`
@@ -37,13 +35,4 @@ type ShippingAddressCreate struct {
 
 	// Country, 2-letter ISO code.
 	Country *string `json:"country,omitempty"`
-}
-
-func (attr *ShippingAddressCreate) toParams() *Params {
-	return &Params{
-		IdempotencyKey: attr.IdempotencyKey,
-		Header:         attr.Header,
-		Context:        attr.Context,
-		Data:           attr,
-	}
 }

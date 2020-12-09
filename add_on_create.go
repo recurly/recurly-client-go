@@ -7,7 +7,6 @@ package recurly
 import ()
 
 type AddOnCreate struct {
-	Params `json:"-"`
 
 	// Unique code to identify an item. Available when the `Credit Invoices` and `Subscription Billing Terms` features are enabled. If `item_id` and `item_code` are both present, `item_id` will be used.
 	ItemCode *string `json:"item_code,omitempty"`
@@ -84,13 +83,4 @@ type AddOnCreate struct {
 	// the desired `currencies`. There must be one tier with an `ending_quantity`
 	// of 999999999 which is the default if not provided.
 	Tiers []TierCreate `json:"tiers,omitempty"`
-}
-
-func (attr *AddOnCreate) toParams() *Params {
-	return &Params{
-		IdempotencyKey: attr.IdempotencyKey,
-		Header:         attr.Header,
-		Context:        attr.Context,
-		Data:           attr,
-	}
 }

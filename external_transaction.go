@@ -9,7 +9,6 @@ import (
 )
 
 type ExternalTransaction struct {
-	Params `json:"-"`
 
 	// Payment method used for external transaction.
 	PaymentMethod *string `json:"payment_method,omitempty"`
@@ -22,13 +21,4 @@ type ExternalTransaction struct {
 
 	// Datetime that the external payment was collected. Defaults to current datetime.
 	CollectedAt *time.Time `json:"collected_at,omitempty"`
-}
-
-func (attr *ExternalTransaction) toParams() *Params {
-	return &Params{
-		IdempotencyKey: attr.IdempotencyKey,
-		Header:         attr.Header,
-		Context:        attr.Context,
-		Data:           attr,
-	}
 }

@@ -7,7 +7,6 @@ package recurly
 import ()
 
 type AddOnUpdate struct {
-	Params `json:"-"`
 
 	// Add-on ID
 	Id *string `json:"id,omitempty"`
@@ -60,13 +59,4 @@ type AddOnUpdate struct {
 	// the desired `currencies`. There must be one tier with an `ending_quantity`
 	// of 999999999 which is the default if not provided.
 	Tiers []TierCreate `json:"tiers,omitempty"`
-}
-
-func (attr *AddOnUpdate) toParams() *Params {
-	return &Params{
-		IdempotencyKey: attr.IdempotencyKey,
-		Header:         attr.Header,
-		Context:        attr.Context,
-		Data:           attr,
-	}
 }

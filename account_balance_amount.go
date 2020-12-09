@@ -5,6 +5,7 @@
 package recurly
 
 import (
+	"context"
 	"net/http"
 )
 
@@ -47,25 +48,27 @@ func (resource *accountBalanceAmountList) setResponse(res *ResponseMetadata) {
 
 // AccountBalanceAmountList allows you to paginate AccountBalanceAmount objects
 type AccountBalanceAmountList struct {
-	client       HttpCaller
-	nextPagePath string
+	client         HTTPCaller
+	requestOptions *RequestOptions
+	nextPagePath   string
 
 	HasMore bool
 	Data    []AccountBalanceAmount
 }
 
-func NewAccountBalanceAmountList(client HttpCaller, nextPagePath string) *AccountBalanceAmountList {
+func NewAccountBalanceAmountList(client HTTPCaller, nextPagePath string, requestOptions *RequestOptions) *AccountBalanceAmountList {
 	return &AccountBalanceAmountList{
-		client:       client,
-		nextPagePath: nextPagePath,
-		HasMore:      true,
+		client:         client,
+		requestOptions: requestOptions,
+		nextPagePath:   nextPagePath,
+		HasMore:        true,
 	}
 }
 
 // Fetch fetches the next page of data into the `Data` property
-func (list *AccountBalanceAmountList) Fetch() error {
+func (list *AccountBalanceAmountList) FetchWithContext(ctx context.Context) error {
 	resources := &accountBalanceAmountList{}
-	err := list.client.Call(http.MethodGet, list.nextPagePath, nil, resources)
+	err := list.client.Call(ctx, http.MethodGet, list.nextPagePath, nil, nil, list.requestOptions, resources)
 	if err != nil {
 		return err
 	}
@@ -76,13 +79,23 @@ func (list *AccountBalanceAmountList) Fetch() error {
 	return nil
 }
 
+// Fetch fetches the next page of data into the `Data` property
+func (list *AccountBalanceAmountList) Fetch() error {
+	return list.FetchWithContext(context.Background())
+}
+
 // Count returns the count of items on the server that match this pager
-func (list *AccountBalanceAmountList) Count() (*int64, error) {
+func (list *AccountBalanceAmountList) CountWithContext(ctx context.Context) (*int64, error) {
 	resources := &accountBalanceAmountList{}
-	err := list.client.Call(http.MethodHead, list.nextPagePath, nil, resources)
+	err := list.client.Call(ctx, http.MethodHead, list.nextPagePath, nil, nil, list.requestOptions, resources)
 	if err != nil {
 		return nil, err
 	}
 	resp := resources.GetResponse()
 	return resp.TotalRecords, nil
+}
+
+// Count returns the count of items on the server that match this pager
+func (list *AccountBalanceAmountList) Count() (*int64, error) {
+	return list.CountWithContext(context.Background())
 }

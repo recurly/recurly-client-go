@@ -7,7 +7,6 @@ package recurly
 import ()
 
 type CouponUpdate struct {
-	Params `json:"-"`
 
 	// The internal name for the coupon.
 	Name *string `json:"name,omitempty"`
@@ -26,13 +25,4 @@ type CouponUpdate struct {
 
 	// The date and time the coupon will expire and can no longer be redeemed. Time is always 11:59:59, the end-of-day Pacific time.
 	RedeemByDate *string `json:"redeem_by_date,omitempty"`
-}
-
-func (attr *CouponUpdate) toParams() *Params {
-	return &Params{
-		IdempotencyKey: attr.IdempotencyKey,
-		Header:         attr.Header,
-		Context:        attr.Context,
-		Data:           attr,
-	}
 }

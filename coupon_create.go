@@ -7,7 +7,6 @@ package recurly
 import ()
 
 type CouponCreate struct {
-	Params `json:"-"`
 
 	// The internal name for the coupon.
 	Name *string `json:"name,omitempty"`
@@ -95,13 +94,4 @@ type CouponCreate struct {
 
 	// Whether the discount is for all eligible charges on the account, or only a specific subscription.
 	RedemptionResource *string `json:"redemption_resource,omitempty"`
-}
-
-func (attr *CouponCreate) toParams() *Params {
-	return &Params{
-		IdempotencyKey: attr.IdempotencyKey,
-		Header:         attr.Header,
-		Context:        attr.Context,
-		Data:           attr,
-	}
 }
