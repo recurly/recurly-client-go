@@ -1,8 +1,21 @@
 # Changelog
 
-## [v3.11.0](https://github.com/recurly/recurly-client-go/tree/HEAD)
+## [v3.12.0](https://github.com/recurly/recurly-client-go/tree/HEAD)
 
-[Full Changelog](https://github.com/recurly/recurly-client-go/compare/v3.10.0...HEAD)
+[Full Changelog](https://github.com/recurly/recurly-client-go/compare/v3.11.0...HEAD)
+
+**Implemented enhancements:**
+
+- Latest Changes for 2019-10-10 [\#74](https://github.com/recurly/recurly-client-go/pull/74) ([douglasmiller](https://github.com/douglasmiller))
+- Adding Context and RequestOptions support [\#69](https://github.com/recurly/recurly-client-go/pull/69) ([douglasmiller](https://github.com/douglasmiller))
+
+**Merged pull requests:**
+
+- Release 3.12.0 [\#75](https://github.com/recurly/recurly-client-go/pull/75) ([douglasmiller](https://github.com/douglasmiller))
+
+## [v3.11.0](https://github.com/recurly/recurly-client-go/tree/v3.11.0) (2020-11-24)
+
+[Full Changelog](https://github.com/recurly/recurly-client-go/compare/v3.10.0...v3.11.0)
 
 **Implemented enhancements:**
 
