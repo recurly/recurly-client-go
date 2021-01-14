@@ -1259,7 +1259,7 @@ func (c *Client) CreateCouponRedemption(accountId string, body *CouponRedemption
 	return c.createCouponRedemption(ctx, accountId, body, opts...)
 }
 
-// CreateCouponRedemptionWithContext Generate an active coupon redemption on an account
+// CreateCouponRedemptionWithContext Generate an active coupon redemption on an account or subscription
 //
 // API Documentation: https://developers.recurly.com/api/v2019-10-10#operation/create_coupon_redemption
 //

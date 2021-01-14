@@ -14,6 +14,9 @@ type CouponRedemptionCreate struct {
 
 	// 3-letter ISO 4217 currency code.
 	Currency *string `json:"currency,omitempty"`
+
+	// Subscription ID
+	SubscriptionId *string `json:"subscription_id,omitempty"`
 }
 
 func (attr *CouponRedemptionCreate) toParams() *Params {
