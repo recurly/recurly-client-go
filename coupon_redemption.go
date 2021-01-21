@@ -22,6 +22,9 @@ type CouponRedemption struct {
 	// The Account on which the coupon was applied.
 	Account AccountMini `json:"account,omitempty"`
 
+	// Subscription ID
+	SubscriptionId string `json:"subscription_id,omitempty"`
+
 	Coupon Coupon `json:"coupon,omitempty"`
 
 	// Coupon Redemption state
