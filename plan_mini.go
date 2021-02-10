@@ -57,9 +57,18 @@ type PlanMiniList struct {
 	client         HTTPCaller
 	requestOptions *RequestOptions
 	nextPagePath   string
+	hasMore        bool
+	data           []PlanMini
+}
 
-	HasMore bool
-	Data    []PlanMini
+type PlanMiniLister interface {
+	Fetch() error
+	FetchWithContext(ctx context.Context) error
+	Count() (*int64, error)
+	CountWithContext(ctx context.Context) (*int64, error)
+	Data() []PlanMini
+	HasMore() bool
+	Next() string
 }
 
 func NewPlanMiniList(client HTTPCaller, nextPagePath string, requestOptions *RequestOptions) *PlanMiniList {
@@ -67,8 +76,20 @@ func NewPlanMiniList(client HTTPCaller, nextPagePath string, requestOptions *Req
 		client:         client,
 		requestOptions: requestOptions,
 		nextPagePath:   nextPagePath,
-		HasMore:        true,
+		hasMore:        true,
 	}
+}
+
+func (list *PlanMiniList) HasMore() bool {
+	return list.hasMore
+}
+
+func (list *PlanMiniList) Next() string {
+	return list.nextPagePath
+}
+
+func (list *PlanMiniList) Data() []PlanMini {
+	return list.data
 }
 
 // Fetch fetches the next page of data into the `Data` property
@@ -80,8 +101,8 @@ func (list *PlanMiniList) FetchWithContext(ctx context.Context) error {
 	}
 	// copy over properties from the response
 	list.nextPagePath = resources.Next
-	list.HasMore = resources.HasMore
-	list.Data = resources.Data
+	list.hasMore = resources.HasMore
+	list.data = resources.Data
 	return nil
 }
 

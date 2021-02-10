@@ -63,9 +63,18 @@ type UserList struct {
 	client         HTTPCaller
 	requestOptions *RequestOptions
 	nextPagePath   string
+	hasMore        bool
+	data           []User
+}
 
-	HasMore bool
-	Data    []User
+type UserLister interface {
+	Fetch() error
+	FetchWithContext(ctx context.Context) error
+	Count() (*int64, error)
+	CountWithContext(ctx context.Context) (*int64, error)
+	Data() []User
+	HasMore() bool
+	Next() string
 }
 
 func NewUserList(client HTTPCaller, nextPagePath string, requestOptions *RequestOptions) *UserList {
@@ -73,8 +82,20 @@ func NewUserList(client HTTPCaller, nextPagePath string, requestOptions *Request
 		client:         client,
 		requestOptions: requestOptions,
 		nextPagePath:   nextPagePath,
-		HasMore:        true,
+		hasMore:        true,
 	}
+}
+
+func (list *UserList) HasMore() bool {
+	return list.hasMore
+}
+
+func (list *UserList) Next() string {
+	return list.nextPagePath
+}
+
+func (list *UserList) Data() []User {
+	return list.data
 }
 
 // Fetch fetches the next page of data into the `Data` property
@@ -86,8 +107,8 @@ func (list *UserList) FetchWithContext(ctx context.Context) error {
 	}
 	// copy over properties from the response
 	list.nextPagePath = resources.Next
-	list.HasMore = resources.HasMore
-	list.Data = resources.Data
+	list.hasMore = resources.HasMore
+	list.data = resources.Data
 	return nil
 }
 

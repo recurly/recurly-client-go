@@ -100,9 +100,18 @@ type ItemList struct {
 	client         HTTPCaller
 	requestOptions *RequestOptions
 	nextPagePath   string
+	hasMore        bool
+	data           []Item
+}
 
-	HasMore bool
-	Data    []Item
+type ItemLister interface {
+	Fetch() error
+	FetchWithContext(ctx context.Context) error
+	Count() (*int64, error)
+	CountWithContext(ctx context.Context) (*int64, error)
+	Data() []Item
+	HasMore() bool
+	Next() string
 }
 
 func NewItemList(client HTTPCaller, nextPagePath string, requestOptions *RequestOptions) *ItemList {
@@ -110,8 +119,20 @@ func NewItemList(client HTTPCaller, nextPagePath string, requestOptions *Request
 		client:         client,
 		requestOptions: requestOptions,
 		nextPagePath:   nextPagePath,
-		HasMore:        true,
+		hasMore:        true,
 	}
+}
+
+func (list *ItemList) HasMore() bool {
+	return list.hasMore
+}
+
+func (list *ItemList) Next() string {
+	return list.nextPagePath
+}
+
+func (list *ItemList) Data() []Item {
+	return list.data
 }
 
 // Fetch fetches the next page of data into the `Data` property
@@ -123,8 +144,8 @@ func (list *ItemList) FetchWithContext(ctx context.Context) error {
 	}
 	// copy over properties from the response
 	list.nextPagePath = resources.Next
-	list.HasMore = resources.HasMore
-	list.Data = resources.Data
+	list.hasMore = resources.HasMore
+	list.data = resources.Data
 	return nil
 }
 

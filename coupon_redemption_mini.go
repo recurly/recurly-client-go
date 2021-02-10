@@ -63,9 +63,18 @@ type CouponRedemptionMiniList struct {
 	client         HTTPCaller
 	requestOptions *RequestOptions
 	nextPagePath   string
+	hasMore        bool
+	data           []CouponRedemptionMini
+}
 
-	HasMore bool
-	Data    []CouponRedemptionMini
+type CouponRedemptionMiniLister interface {
+	Fetch() error
+	FetchWithContext(ctx context.Context) error
+	Count() (*int64, error)
+	CountWithContext(ctx context.Context) (*int64, error)
+	Data() []CouponRedemptionMini
+	HasMore() bool
+	Next() string
 }
 
 func NewCouponRedemptionMiniList(client HTTPCaller, nextPagePath string, requestOptions *RequestOptions) *CouponRedemptionMiniList {
@@ -73,8 +82,20 @@ func NewCouponRedemptionMiniList(client HTTPCaller, nextPagePath string, request
 		client:         client,
 		requestOptions: requestOptions,
 		nextPagePath:   nextPagePath,
-		HasMore:        true,
+		hasMore:        true,
 	}
+}
+
+func (list *CouponRedemptionMiniList) HasMore() bool {
+	return list.hasMore
+}
+
+func (list *CouponRedemptionMiniList) Next() string {
+	return list.nextPagePath
+}
+
+func (list *CouponRedemptionMiniList) Data() []CouponRedemptionMini {
+	return list.data
 }
 
 // Fetch fetches the next page of data into the `Data` property
@@ -86,8 +107,8 @@ func (list *CouponRedemptionMiniList) FetchWithContext(ctx context.Context) erro
 	}
 	// copy over properties from the response
 	list.nextPagePath = resources.Next
-	list.HasMore = resources.HasMore
-	list.Data = resources.Data
+	list.hasMore = resources.HasMore
+	list.data = resources.Data
 	return nil
 }
 

@@ -54,9 +54,18 @@ type FraudInfoList struct {
 	client         HTTPCaller
 	requestOptions *RequestOptions
 	nextPagePath   string
+	hasMore        bool
+	data           []FraudInfo
+}
 
-	HasMore bool
-	Data    []FraudInfo
+type FraudInfoLister interface {
+	Fetch() error
+	FetchWithContext(ctx context.Context) error
+	Count() (*int64, error)
+	CountWithContext(ctx context.Context) (*int64, error)
+	Data() []FraudInfo
+	HasMore() bool
+	Next() string
 }
 
 func NewFraudInfoList(client HTTPCaller, nextPagePath string, requestOptions *RequestOptions) *FraudInfoList {
@@ -64,8 +73,20 @@ func NewFraudInfoList(client HTTPCaller, nextPagePath string, requestOptions *Re
 		client:         client,
 		requestOptions: requestOptions,
 		nextPagePath:   nextPagePath,
-		HasMore:        true,
+		hasMore:        true,
 	}
+}
+
+func (list *FraudInfoList) HasMore() bool {
+	return list.hasMore
+}
+
+func (list *FraudInfoList) Next() string {
+	return list.nextPagePath
+}
+
+func (list *FraudInfoList) Data() []FraudInfo {
+	return list.data
 }
 
 // Fetch fetches the next page of data into the `Data` property
@@ -77,8 +98,8 @@ func (list *FraudInfoList) FetchWithContext(ctx context.Context) error {
 	}
 	// copy over properties from the response
 	list.nextPagePath = resources.Next
-	list.HasMore = resources.HasMore
-	list.Data = resources.Data
+	list.hasMore = resources.HasMore
+	list.data = resources.Data
 	return nil
 }
 

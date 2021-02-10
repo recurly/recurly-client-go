@@ -73,9 +73,18 @@ type MeasuredUnitList struct {
 	client         HTTPCaller
 	requestOptions *RequestOptions
 	nextPagePath   string
+	hasMore        bool
+	data           []MeasuredUnit
+}
 
-	HasMore bool
-	Data    []MeasuredUnit
+type MeasuredUnitLister interface {
+	Fetch() error
+	FetchWithContext(ctx context.Context) error
+	Count() (*int64, error)
+	CountWithContext(ctx context.Context) (*int64, error)
+	Data() []MeasuredUnit
+	HasMore() bool
+	Next() string
 }
 
 func NewMeasuredUnitList(client HTTPCaller, nextPagePath string, requestOptions *RequestOptions) *MeasuredUnitList {
@@ -83,8 +92,20 @@ func NewMeasuredUnitList(client HTTPCaller, nextPagePath string, requestOptions 
 		client:         client,
 		requestOptions: requestOptions,
 		nextPagePath:   nextPagePath,
-		HasMore:        true,
+		hasMore:        true,
 	}
+}
+
+func (list *MeasuredUnitList) HasMore() bool {
+	return list.hasMore
+}
+
+func (list *MeasuredUnitList) Next() string {
+	return list.nextPagePath
+}
+
+func (list *MeasuredUnitList) Data() []MeasuredUnit {
+	return list.data
 }
 
 // Fetch fetches the next page of data into the `Data` property
@@ -96,8 +117,8 @@ func (list *MeasuredUnitList) FetchWithContext(ctx context.Context) error {
 	}
 	// copy over properties from the response
 	list.nextPagePath = resources.Next
-	list.HasMore = resources.HasMore
-	list.Data = resources.Data
+	list.hasMore = resources.HasMore
+	list.data = resources.Data
 	return nil
 }
 

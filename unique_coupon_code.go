@@ -76,9 +76,18 @@ type UniqueCouponCodeList struct {
 	client         HTTPCaller
 	requestOptions *RequestOptions
 	nextPagePath   string
+	hasMore        bool
+	data           []UniqueCouponCode
+}
 
-	HasMore bool
-	Data    []UniqueCouponCode
+type UniqueCouponCodeLister interface {
+	Fetch() error
+	FetchWithContext(ctx context.Context) error
+	Count() (*int64, error)
+	CountWithContext(ctx context.Context) (*int64, error)
+	Data() []UniqueCouponCode
+	HasMore() bool
+	Next() string
 }
 
 func NewUniqueCouponCodeList(client HTTPCaller, nextPagePath string, requestOptions *RequestOptions) *UniqueCouponCodeList {
@@ -86,8 +95,20 @@ func NewUniqueCouponCodeList(client HTTPCaller, nextPagePath string, requestOpti
 		client:         client,
 		requestOptions: requestOptions,
 		nextPagePath:   nextPagePath,
-		HasMore:        true,
+		hasMore:        true,
 	}
+}
+
+func (list *UniqueCouponCodeList) HasMore() bool {
+	return list.hasMore
+}
+
+func (list *UniqueCouponCodeList) Next() string {
+	return list.nextPagePath
+}
+
+func (list *UniqueCouponCodeList) Data() []UniqueCouponCode {
+	return list.data
 }
 
 // Fetch fetches the next page of data into the `Data` property
@@ -99,8 +120,8 @@ func (list *UniqueCouponCodeList) FetchWithContext(ctx context.Context) error {
 	}
 	// copy over properties from the response
 	list.nextPagePath = resources.Next
-	list.HasMore = resources.HasMore
-	list.Data = resources.Data
+	list.hasMore = resources.HasMore
+	list.data = resources.Data
 	return nil
 }
 

@@ -47,9 +47,18 @@ type BinaryFileList struct {
 	client         HTTPCaller
 	requestOptions *RequestOptions
 	nextPagePath   string
+	hasMore        bool
+	data           []BinaryFile
+}
 
-	HasMore bool
-	Data    []BinaryFile
+type BinaryFileLister interface {
+	Fetch() error
+	FetchWithContext(ctx context.Context) error
+	Count() (*int64, error)
+	CountWithContext(ctx context.Context) (*int64, error)
+	Data() []BinaryFile
+	HasMore() bool
+	Next() string
 }
 
 func NewBinaryFileList(client HTTPCaller, nextPagePath string, requestOptions *RequestOptions) *BinaryFileList {
@@ -57,8 +66,20 @@ func NewBinaryFileList(client HTTPCaller, nextPagePath string, requestOptions *R
 		client:         client,
 		requestOptions: requestOptions,
 		nextPagePath:   nextPagePath,
-		HasMore:        true,
+		hasMore:        true,
 	}
+}
+
+func (list *BinaryFileList) HasMore() bool {
+	return list.hasMore
+}
+
+func (list *BinaryFileList) Next() string {
+	return list.nextPagePath
+}
+
+func (list *BinaryFileList) Data() []BinaryFile {
+	return list.data
 }
 
 // Fetch fetches the next page of data into the `Data` property
@@ -70,8 +91,8 @@ func (list *BinaryFileList) FetchWithContext(ctx context.Context) error {
 	}
 	// copy over properties from the response
 	list.nextPagePath = resources.Next
-	list.HasMore = resources.HasMore
-	list.Data = resources.Data
+	list.hasMore = resources.HasMore
+	list.data = resources.Data
 	return nil
 }
 

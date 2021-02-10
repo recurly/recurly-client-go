@@ -56,9 +56,18 @@ type SettingsList struct {
 	client         HTTPCaller
 	requestOptions *RequestOptions
 	nextPagePath   string
+	hasMore        bool
+	data           []Settings
+}
 
-	HasMore bool
-	Data    []Settings
+type SettingsLister interface {
+	Fetch() error
+	FetchWithContext(ctx context.Context) error
+	Count() (*int64, error)
+	CountWithContext(ctx context.Context) (*int64, error)
+	Data() []Settings
+	HasMore() bool
+	Next() string
 }
 
 func NewSettingsList(client HTTPCaller, nextPagePath string, requestOptions *RequestOptions) *SettingsList {
@@ -66,8 +75,20 @@ func NewSettingsList(client HTTPCaller, nextPagePath string, requestOptions *Req
 		client:         client,
 		requestOptions: requestOptions,
 		nextPagePath:   nextPagePath,
-		HasMore:        true,
+		hasMore:        true,
 	}
+}
+
+func (list *SettingsList) HasMore() bool {
+	return list.hasMore
+}
+
+func (list *SettingsList) Next() string {
+	return list.nextPagePath
+}
+
+func (list *SettingsList) Data() []Settings {
+	return list.data
 }
 
 // Fetch fetches the next page of data into the `Data` property
@@ -79,8 +100,8 @@ func (list *SettingsList) FetchWithContext(ctx context.Context) error {
 	}
 	// copy over properties from the response
 	list.nextPagePath = resources.Next
-	list.HasMore = resources.HasMore
-	list.Data = resources.Data
+	list.hasMore = resources.HasMore
+	list.data = resources.Data
 	return nil
 }
 

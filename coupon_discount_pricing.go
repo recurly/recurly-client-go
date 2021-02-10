@@ -51,9 +51,18 @@ type CouponDiscountPricingList struct {
 	client         HTTPCaller
 	requestOptions *RequestOptions
 	nextPagePath   string
+	hasMore        bool
+	data           []CouponDiscountPricing
+}
 
-	HasMore bool
-	Data    []CouponDiscountPricing
+type CouponDiscountPricingLister interface {
+	Fetch() error
+	FetchWithContext(ctx context.Context) error
+	Count() (*int64, error)
+	CountWithContext(ctx context.Context) (*int64, error)
+	Data() []CouponDiscountPricing
+	HasMore() bool
+	Next() string
 }
 
 func NewCouponDiscountPricingList(client HTTPCaller, nextPagePath string, requestOptions *RequestOptions) *CouponDiscountPricingList {
@@ -61,8 +70,20 @@ func NewCouponDiscountPricingList(client HTTPCaller, nextPagePath string, reques
 		client:         client,
 		requestOptions: requestOptions,
 		nextPagePath:   nextPagePath,
-		HasMore:        true,
+		hasMore:        true,
 	}
+}
+
+func (list *CouponDiscountPricingList) HasMore() bool {
+	return list.hasMore
+}
+
+func (list *CouponDiscountPricingList) Next() string {
+	return list.nextPagePath
+}
+
+func (list *CouponDiscountPricingList) Data() []CouponDiscountPricing {
+	return list.data
 }
 
 // Fetch fetches the next page of data into the `Data` property
@@ -74,8 +95,8 @@ func (list *CouponDiscountPricingList) FetchWithContext(ctx context.Context) err
 	}
 	// copy over properties from the response
 	list.nextPagePath = resources.Next
-	list.HasMore = resources.HasMore
-	list.Data = resources.Data
+	list.hasMore = resources.HasMore
+	list.data = resources.Data
 	return nil
 }
 

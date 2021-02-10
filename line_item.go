@@ -190,9 +190,18 @@ type LineItemList struct {
 	client         HTTPCaller
 	requestOptions *RequestOptions
 	nextPagePath   string
+	hasMore        bool
+	data           []LineItem
+}
 
-	HasMore bool
-	Data    []LineItem
+type LineItemLister interface {
+	Fetch() error
+	FetchWithContext(ctx context.Context) error
+	Count() (*int64, error)
+	CountWithContext(ctx context.Context) (*int64, error)
+	Data() []LineItem
+	HasMore() bool
+	Next() string
 }
 
 func NewLineItemList(client HTTPCaller, nextPagePath string, requestOptions *RequestOptions) *LineItemList {
@@ -200,8 +209,20 @@ func NewLineItemList(client HTTPCaller, nextPagePath string, requestOptions *Req
 		client:         client,
 		requestOptions: requestOptions,
 		nextPagePath:   nextPagePath,
-		HasMore:        true,
+		hasMore:        true,
 	}
+}
+
+func (list *LineItemList) HasMore() bool {
+	return list.hasMore
+}
+
+func (list *LineItemList) Next() string {
+	return list.nextPagePath
+}
+
+func (list *LineItemList) Data() []LineItem {
+	return list.data
 }
 
 // Fetch fetches the next page of data into the `Data` property
@@ -213,8 +234,8 @@ func (list *LineItemList) FetchWithContext(ctx context.Context) error {
 	}
 	// copy over properties from the response
 	list.nextPagePath = resources.Next
-	list.HasMore = resources.HasMore
-	list.Data = resources.Data
+	list.hasMore = resources.HasMore
+	list.data = resources.Data
 	return nil
 }
 
