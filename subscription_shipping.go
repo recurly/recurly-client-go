@@ -55,9 +55,18 @@ type SubscriptionShippingList struct {
 	client         HTTPCaller
 	requestOptions *RequestOptions
 	nextPagePath   string
+	hasMore        bool
+	data           []SubscriptionShipping
+}
 
-	HasMore bool
-	Data    []SubscriptionShipping
+type SubscriptionShippingLister interface {
+	Fetch() error
+	FetchWithContext(ctx context.Context) error
+	Count() (*int64, error)
+	CountWithContext(ctx context.Context) (*int64, error)
+	Data() []SubscriptionShipping
+	HasMore() bool
+	Next() string
 }
 
 func NewSubscriptionShippingList(client HTTPCaller, nextPagePath string, requestOptions *RequestOptions) *SubscriptionShippingList {
@@ -65,8 +74,20 @@ func NewSubscriptionShippingList(client HTTPCaller, nextPagePath string, request
 		client:         client,
 		requestOptions: requestOptions,
 		nextPagePath:   nextPagePath,
-		HasMore:        true,
+		hasMore:        true,
 	}
+}
+
+func (list *SubscriptionShippingList) HasMore() bool {
+	return list.hasMore
+}
+
+func (list *SubscriptionShippingList) Next() string {
+	return list.nextPagePath
+}
+
+func (list *SubscriptionShippingList) Data() []SubscriptionShipping {
+	return list.data
 }
 
 // Fetch fetches the next page of data into the `Data` property
@@ -78,8 +99,8 @@ func (list *SubscriptionShippingList) FetchWithContext(ctx context.Context) erro
 	}
 	// copy over properties from the response
 	list.nextPagePath = resources.Next
-	list.HasMore = resources.HasMore
-	list.Data = resources.Data
+	list.hasMore = resources.HasMore
+	list.data = resources.Data
 	return nil
 }
 

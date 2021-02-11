@@ -54,9 +54,18 @@ type TransactionPaymentGatewayList struct {
 	client         HTTPCaller
 	requestOptions *RequestOptions
 	nextPagePath   string
+	hasMore        bool
+	data           []TransactionPaymentGateway
+}
 
-	HasMore bool
-	Data    []TransactionPaymentGateway
+type TransactionPaymentGatewayLister interface {
+	Fetch() error
+	FetchWithContext(ctx context.Context) error
+	Count() (*int64, error)
+	CountWithContext(ctx context.Context) (*int64, error)
+	Data() []TransactionPaymentGateway
+	HasMore() bool
+	Next() string
 }
 
 func NewTransactionPaymentGatewayList(client HTTPCaller, nextPagePath string, requestOptions *RequestOptions) *TransactionPaymentGatewayList {
@@ -64,8 +73,20 @@ func NewTransactionPaymentGatewayList(client HTTPCaller, nextPagePath string, re
 		client:         client,
 		requestOptions: requestOptions,
 		nextPagePath:   nextPagePath,
-		HasMore:        true,
+		hasMore:        true,
 	}
+}
+
+func (list *TransactionPaymentGatewayList) HasMore() bool {
+	return list.hasMore
+}
+
+func (list *TransactionPaymentGatewayList) Next() string {
+	return list.nextPagePath
+}
+
+func (list *TransactionPaymentGatewayList) Data() []TransactionPaymentGateway {
+	return list.data
 }
 
 // Fetch fetches the next page of data into the `Data` property
@@ -77,8 +98,8 @@ func (list *TransactionPaymentGatewayList) FetchWithContext(ctx context.Context)
 	}
 	// copy over properties from the response
 	list.nextPagePath = resources.Next
-	list.HasMore = resources.HasMore
-	list.Data = resources.Data
+	list.hasMore = resources.HasMore
+	list.data = resources.Data
 	return nil
 }
 

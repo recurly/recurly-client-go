@@ -18,12 +18,12 @@ const (
 )
 
 type ClientInterface interface {
-	ListSites(params *ListSitesParams, opts ...Option) (*SiteList, error)
+	ListSites(params *ListSitesParams, opts ...Option) (SiteLister, error)
 
 	GetSite(siteId string, opts ...Option) (*Site, error)
 	GetSiteWithContext(ctx context.Context, siteId string, opts ...Option) (*Site, error)
 
-	ListAccounts(params *ListAccountsParams, opts ...Option) (*AccountList, error)
+	ListAccounts(params *ListAccountsParams, opts ...Option) (AccountLister, error)
 
 	CreateAccount(body *AccountCreate, opts ...Option) (*Account, error)
 	CreateAccountWithContext(ctx context.Context, body *AccountCreate, opts ...Option) (*Account, error)
@@ -61,7 +61,7 @@ type ClientInterface interface {
 	RemoveBillingInfo(accountId string, opts ...Option) (*Empty, error)
 	RemoveBillingInfoWithContext(ctx context.Context, accountId string, opts ...Option) (*Empty, error)
 
-	ListBillingInfos(accountId string, params *ListBillingInfosParams, opts ...Option) (*BillingInfoList, error)
+	ListBillingInfos(accountId string, params *ListBillingInfosParams, opts ...Option) (BillingInfoLister, error)
 
 	CreateBillingInfo(accountId string, body *BillingInfoCreate, opts ...Option) (*BillingInfo, error)
 	CreateBillingInfoWithContext(ctx context.Context, accountId string, body *BillingInfoCreate, opts ...Option) (*BillingInfo, error)
@@ -75,9 +75,9 @@ type ClientInterface interface {
 	RemoveABillingInfo(accountId string, billingInfoId string, opts ...Option) (*Empty, error)
 	RemoveABillingInfoWithContext(ctx context.Context, accountId string, billingInfoId string, opts ...Option) (*Empty, error)
 
-	ListAccountCouponRedemptions(accountId string, params *ListAccountCouponRedemptionsParams, opts ...Option) (*CouponRedemptionList, error)
+	ListAccountCouponRedemptions(accountId string, params *ListAccountCouponRedemptionsParams, opts ...Option) (CouponRedemptionLister, error)
 
-	ListActiveCouponRedemptions(accountId string, opts ...Option) (*CouponRedemptionList, error)
+	ListActiveCouponRedemptions(accountId string, opts ...Option) (CouponRedemptionLister, error)
 
 	CreateCouponRedemption(accountId string, body *CouponRedemptionCreate, opts ...Option) (*CouponRedemption, error)
 	CreateCouponRedemptionWithContext(ctx context.Context, accountId string, body *CouponRedemptionCreate, opts ...Option) (*CouponRedemption, error)
@@ -85,9 +85,9 @@ type ClientInterface interface {
 	RemoveCouponRedemption(accountId string, opts ...Option) (*CouponRedemption, error)
 	RemoveCouponRedemptionWithContext(ctx context.Context, accountId string, opts ...Option) (*CouponRedemption, error)
 
-	ListAccountCreditPayments(accountId string, params *ListAccountCreditPaymentsParams, opts ...Option) (*CreditPaymentList, error)
+	ListAccountCreditPayments(accountId string, params *ListAccountCreditPaymentsParams, opts ...Option) (CreditPaymentLister, error)
 
-	ListAccountInvoices(accountId string, params *ListAccountInvoicesParams, opts ...Option) (*InvoiceList, error)
+	ListAccountInvoices(accountId string, params *ListAccountInvoicesParams, opts ...Option) (InvoiceLister, error)
 
 	CreateInvoice(accountId string, body *InvoiceCreate, opts ...Option) (*InvoiceCollection, error)
 	CreateInvoiceWithContext(ctx context.Context, accountId string, body *InvoiceCreate, opts ...Option) (*InvoiceCollection, error)
@@ -95,17 +95,17 @@ type ClientInterface interface {
 	PreviewInvoice(accountId string, body *InvoiceCreate, opts ...Option) (*InvoiceCollection, error)
 	PreviewInvoiceWithContext(ctx context.Context, accountId string, body *InvoiceCreate, opts ...Option) (*InvoiceCollection, error)
 
-	ListAccountLineItems(accountId string, params *ListAccountLineItemsParams, opts ...Option) (*LineItemList, error)
+	ListAccountLineItems(accountId string, params *ListAccountLineItemsParams, opts ...Option) (LineItemLister, error)
 
 	CreateLineItem(accountId string, body *LineItemCreate, opts ...Option) (*LineItem, error)
 	CreateLineItemWithContext(ctx context.Context, accountId string, body *LineItemCreate, opts ...Option) (*LineItem, error)
 
-	ListAccountNotes(accountId string, params *ListAccountNotesParams, opts ...Option) (*AccountNoteList, error)
+	ListAccountNotes(accountId string, params *ListAccountNotesParams, opts ...Option) (AccountNoteLister, error)
 
 	GetAccountNote(accountId string, accountNoteId string, opts ...Option) (*AccountNote, error)
 	GetAccountNoteWithContext(ctx context.Context, accountId string, accountNoteId string, opts ...Option) (*AccountNote, error)
 
-	ListShippingAddresses(accountId string, params *ListShippingAddressesParams, opts ...Option) (*ShippingAddressList, error)
+	ListShippingAddresses(accountId string, params *ListShippingAddressesParams, opts ...Option) (ShippingAddressLister, error)
 
 	CreateShippingAddress(accountId string, body *ShippingAddressCreate, opts ...Option) (*ShippingAddress, error)
 	CreateShippingAddressWithContext(ctx context.Context, accountId string, body *ShippingAddressCreate, opts ...Option) (*ShippingAddress, error)
@@ -119,15 +119,15 @@ type ClientInterface interface {
 	RemoveShippingAddress(accountId string, shippingAddressId string, opts ...Option) (*Empty, error)
 	RemoveShippingAddressWithContext(ctx context.Context, accountId string, shippingAddressId string, opts ...Option) (*Empty, error)
 
-	ListAccountSubscriptions(accountId string, params *ListAccountSubscriptionsParams, opts ...Option) (*SubscriptionList, error)
+	ListAccountSubscriptions(accountId string, params *ListAccountSubscriptionsParams, opts ...Option) (SubscriptionLister, error)
 
-	ListAccountTransactions(accountId string, params *ListAccountTransactionsParams, opts ...Option) (*TransactionList, error)
+	ListAccountTransactions(accountId string, params *ListAccountTransactionsParams, opts ...Option) (TransactionLister, error)
 
-	ListChildAccounts(accountId string, params *ListChildAccountsParams, opts ...Option) (*AccountList, error)
+	ListChildAccounts(accountId string, params *ListChildAccountsParams, opts ...Option) (AccountLister, error)
 
-	ListAccountAcquisition(params *ListAccountAcquisitionParams, opts ...Option) (*AccountAcquisitionList, error)
+	ListAccountAcquisition(params *ListAccountAcquisitionParams, opts ...Option) (AccountAcquisitionLister, error)
 
-	ListCoupons(params *ListCouponsParams, opts ...Option) (*CouponList, error)
+	ListCoupons(params *ListCouponsParams, opts ...Option) (CouponLister, error)
 
 	CreateCoupon(body *CouponCreate, opts ...Option) (*Coupon, error)
 	CreateCouponWithContext(ctx context.Context, body *CouponCreate, opts ...Option) (*Coupon, error)
@@ -144,19 +144,19 @@ type ClientInterface interface {
 	RestoreCoupon(couponId string, body *CouponUpdate, opts ...Option) (*Coupon, error)
 	RestoreCouponWithContext(ctx context.Context, couponId string, body *CouponUpdate, opts ...Option) (*Coupon, error)
 
-	ListUniqueCouponCodes(couponId string, params *ListUniqueCouponCodesParams, opts ...Option) (*UniqueCouponCodeList, error)
+	ListUniqueCouponCodes(couponId string, params *ListUniqueCouponCodesParams, opts ...Option) (UniqueCouponCodeLister, error)
 
-	ListCreditPayments(params *ListCreditPaymentsParams, opts ...Option) (*CreditPaymentList, error)
+	ListCreditPayments(params *ListCreditPaymentsParams, opts ...Option) (CreditPaymentLister, error)
 
 	GetCreditPayment(creditPaymentId string, opts ...Option) (*CreditPayment, error)
 	GetCreditPaymentWithContext(ctx context.Context, creditPaymentId string, opts ...Option) (*CreditPayment, error)
 
-	ListCustomFieldDefinitions(params *ListCustomFieldDefinitionsParams, opts ...Option) (*CustomFieldDefinitionList, error)
+	ListCustomFieldDefinitions(params *ListCustomFieldDefinitionsParams, opts ...Option) (CustomFieldDefinitionLister, error)
 
 	GetCustomFieldDefinition(customFieldDefinitionId string, opts ...Option) (*CustomFieldDefinition, error)
 	GetCustomFieldDefinitionWithContext(ctx context.Context, customFieldDefinitionId string, opts ...Option) (*CustomFieldDefinition, error)
 
-	ListItems(params *ListItemsParams, opts ...Option) (*ItemList, error)
+	ListItems(params *ListItemsParams, opts ...Option) (ItemLister, error)
 
 	CreateItem(body *ItemCreate, opts ...Option) (*Item, error)
 	CreateItemWithContext(ctx context.Context, body *ItemCreate, opts ...Option) (*Item, error)
@@ -173,7 +173,7 @@ type ClientInterface interface {
 	ReactivateItem(itemId string, opts ...Option) (*Item, error)
 	ReactivateItemWithContext(ctx context.Context, itemId string, opts ...Option) (*Item, error)
 
-	ListMeasuredUnit(params *ListMeasuredUnitParams, opts ...Option) (*MeasuredUnitList, error)
+	ListMeasuredUnit(params *ListMeasuredUnitParams, opts ...Option) (MeasuredUnitLister, error)
 
 	CreateMeasuredUnit(body *MeasuredUnitCreate, opts ...Option) (*MeasuredUnit, error)
 	CreateMeasuredUnitWithContext(ctx context.Context, body *MeasuredUnitCreate, opts ...Option) (*MeasuredUnit, error)
@@ -187,7 +187,7 @@ type ClientInterface interface {
 	RemoveMeasuredUnit(measuredUnitId string, opts ...Option) (*MeasuredUnit, error)
 	RemoveMeasuredUnitWithContext(ctx context.Context, measuredUnitId string, opts ...Option) (*MeasuredUnit, error)
 
-	ListInvoices(params *ListInvoicesParams, opts ...Option) (*InvoiceList, error)
+	ListInvoices(params *ListInvoicesParams, opts ...Option) (InvoiceLister, error)
 
 	GetInvoice(invoiceId string, opts ...Option) (*Invoice, error)
 	GetInvoiceWithContext(ctx context.Context, invoiceId string, opts ...Option) (*Invoice, error)
@@ -213,16 +213,16 @@ type ClientInterface interface {
 	RecordExternalTransaction(invoiceId string, body *ExternalTransaction, opts ...Option) (*Transaction, error)
 	RecordExternalTransactionWithContext(ctx context.Context, invoiceId string, body *ExternalTransaction, opts ...Option) (*Transaction, error)
 
-	ListInvoiceLineItems(invoiceId string, params *ListInvoiceLineItemsParams, opts ...Option) (*LineItemList, error)
+	ListInvoiceLineItems(invoiceId string, params *ListInvoiceLineItemsParams, opts ...Option) (LineItemLister, error)
 
-	ListInvoiceCouponRedemptions(invoiceId string, params *ListInvoiceCouponRedemptionsParams, opts ...Option) (*CouponRedemptionList, error)
+	ListInvoiceCouponRedemptions(invoiceId string, params *ListInvoiceCouponRedemptionsParams, opts ...Option) (CouponRedemptionLister, error)
 
-	ListRelatedInvoices(invoiceId string, opts ...Option) (*InvoiceList, error)
+	ListRelatedInvoices(invoiceId string, opts ...Option) (InvoiceLister, error)
 
 	RefundInvoice(invoiceId string, body *InvoiceRefund, opts ...Option) (*Invoice, error)
 	RefundInvoiceWithContext(ctx context.Context, invoiceId string, body *InvoiceRefund, opts ...Option) (*Invoice, error)
 
-	ListLineItems(params *ListLineItemsParams, opts ...Option) (*LineItemList, error)
+	ListLineItems(params *ListLineItemsParams, opts ...Option) (LineItemLister, error)
 
 	GetLineItem(lineItemId string, opts ...Option) (*LineItem, error)
 	GetLineItemWithContext(ctx context.Context, lineItemId string, opts ...Option) (*LineItem, error)
@@ -230,7 +230,7 @@ type ClientInterface interface {
 	RemoveLineItem(lineItemId string, opts ...Option) (*Empty, error)
 	RemoveLineItemWithContext(ctx context.Context, lineItemId string, opts ...Option) (*Empty, error)
 
-	ListPlans(params *ListPlansParams, opts ...Option) (*PlanList, error)
+	ListPlans(params *ListPlansParams, opts ...Option) (PlanLister, error)
 
 	CreatePlan(body *PlanCreate, opts ...Option) (*Plan, error)
 	CreatePlanWithContext(ctx context.Context, body *PlanCreate, opts ...Option) (*Plan, error)
@@ -244,7 +244,7 @@ type ClientInterface interface {
 	RemovePlan(planId string, opts ...Option) (*Plan, error)
 	RemovePlanWithContext(ctx context.Context, planId string, opts ...Option) (*Plan, error)
 
-	ListPlanAddOns(planId string, params *ListPlanAddOnsParams, opts ...Option) (*AddOnList, error)
+	ListPlanAddOns(planId string, params *ListPlanAddOnsParams, opts ...Option) (AddOnLister, error)
 
 	CreatePlanAddOn(planId string, body *AddOnCreate, opts ...Option) (*AddOn, error)
 	CreatePlanAddOnWithContext(ctx context.Context, planId string, body *AddOnCreate, opts ...Option) (*AddOn, error)
@@ -258,12 +258,12 @@ type ClientInterface interface {
 	RemovePlanAddOn(planId string, addOnId string, opts ...Option) (*AddOn, error)
 	RemovePlanAddOnWithContext(ctx context.Context, planId string, addOnId string, opts ...Option) (*AddOn, error)
 
-	ListAddOns(params *ListAddOnsParams, opts ...Option) (*AddOnList, error)
+	ListAddOns(params *ListAddOnsParams, opts ...Option) (AddOnLister, error)
 
 	GetAddOn(addOnId string, opts ...Option) (*AddOn, error)
 	GetAddOnWithContext(ctx context.Context, addOnId string, opts ...Option) (*AddOn, error)
 
-	ListShippingMethods(params *ListShippingMethodsParams, opts ...Option) (*ShippingMethodList, error)
+	ListShippingMethods(params *ListShippingMethodsParams, opts ...Option) (ShippingMethodLister, error)
 
 	CreateShippingMethod(body *ShippingMethodCreate, opts ...Option) (*ShippingMethod, error)
 	CreateShippingMethodWithContext(ctx context.Context, body *ShippingMethodCreate, opts ...Option) (*ShippingMethod, error)
@@ -277,7 +277,7 @@ type ClientInterface interface {
 	DeactivateShippingMethod(shippingMethodId string, opts ...Option) (*ShippingMethod, error)
 	DeactivateShippingMethodWithContext(ctx context.Context, shippingMethodId string, opts ...Option) (*ShippingMethod, error)
 
-	ListSubscriptions(params *ListSubscriptionsParams, opts ...Option) (*SubscriptionList, error)
+	ListSubscriptions(params *ListSubscriptionsParams, opts ...Option) (SubscriptionLister, error)
 
 	CreateSubscription(body *SubscriptionCreate, opts ...Option) (*Subscription, error)
 	CreateSubscriptionWithContext(ctx context.Context, body *SubscriptionCreate, opts ...Option) (*Subscription, error)
@@ -318,13 +318,13 @@ type ClientInterface interface {
 	PreviewSubscriptionChange(subscriptionId string, body *SubscriptionChangeCreate, opts ...Option) (*SubscriptionChange, error)
 	PreviewSubscriptionChangeWithContext(ctx context.Context, subscriptionId string, body *SubscriptionChangeCreate, opts ...Option) (*SubscriptionChange, error)
 
-	ListSubscriptionInvoices(subscriptionId string, params *ListSubscriptionInvoicesParams, opts ...Option) (*InvoiceList, error)
+	ListSubscriptionInvoices(subscriptionId string, params *ListSubscriptionInvoicesParams, opts ...Option) (InvoiceLister, error)
 
-	ListSubscriptionLineItems(subscriptionId string, params *ListSubscriptionLineItemsParams, opts ...Option) (*LineItemList, error)
+	ListSubscriptionLineItems(subscriptionId string, params *ListSubscriptionLineItemsParams, opts ...Option) (LineItemLister, error)
 
-	ListSubscriptionCouponRedemptions(subscriptionId string, params *ListSubscriptionCouponRedemptionsParams, opts ...Option) (*CouponRedemptionList, error)
+	ListSubscriptionCouponRedemptions(subscriptionId string, params *ListSubscriptionCouponRedemptionsParams, opts ...Option) (CouponRedemptionLister, error)
 
-	ListUsage(subscriptionId string, addOnId string, params *ListUsageParams, opts ...Option) (*UsageList, error)
+	ListUsage(subscriptionId string, addOnId string, params *ListUsageParams, opts ...Option) (UsageLister, error)
 
 	CreateUsage(subscriptionId string, addOnId string, body *UsageCreate, opts ...Option) (*Usage, error)
 	CreateUsageWithContext(ctx context.Context, subscriptionId string, addOnId string, body *UsageCreate, opts ...Option) (*Usage, error)
@@ -338,7 +338,7 @@ type ClientInterface interface {
 	RemoveUsage(usageId string, opts ...Option) (*Empty, error)
 	RemoveUsageWithContext(ctx context.Context, usageId string, opts ...Option) (*Empty, error)
 
-	ListTransactions(params *ListTransactionsParams, opts ...Option) (*TransactionList, error)
+	ListTransactions(params *ListTransactionsParams, opts ...Option) (TransactionLister, error)
 
 	GetTransaction(transactionId string, opts ...Option) (*Transaction, error)
 	GetTransactionWithContext(ctx context.Context, transactionId string, opts ...Option) (*Transaction, error)
@@ -424,7 +424,7 @@ func (list *ListSitesParams) URLParams() []KeyValue {
 // API Documentation: https://developers.recurly.com/api/v2020-01-01#operation/list_sites
 //
 // Returns: A list of sites.
-func (c *Client) ListSites(params *ListSitesParams, opts ...Option) (*SiteList, error) {
+func (c *Client) ListSites(params *ListSitesParams, opts ...Option) (SiteLister, error) {
 	path, err := c.InterpolatePath("/sites")
 	if err != nil {
 		return nil, err
@@ -553,7 +553,7 @@ func (list *ListAccountsParams) URLParams() []KeyValue {
 // API Documentation: https://developers.recurly.com/api/v2020-01-01#operation/list_accounts
 //
 // Returns: A list of the site's accounts.
-func (c *Client) ListAccounts(params *ListAccountsParams, opts ...Option) (*AccountList, error) {
+func (c *Client) ListAccounts(params *ListAccountsParams, opts ...Option) (AccountLister, error) {
 	path, err := c.InterpolatePath("/accounts")
 	if err != nil {
 		return nil, err
@@ -965,7 +965,7 @@ func (list *ListBillingInfosParams) URLParams() []KeyValue {
 // API Documentation: https://developers.recurly.com/api/v2020-01-01#operation/list_billing_infos
 //
 // Returns: A list of the the billing information for an account's
-func (c *Client) ListBillingInfos(accountId string, params *ListBillingInfosParams, opts ...Option) (*BillingInfoList, error) {
+func (c *Client) ListBillingInfos(accountId string, params *ListBillingInfosParams, opts ...Option) (BillingInfoLister, error) {
 	path, err := c.InterpolatePath("/accounts/{account_id}/billing_infos", accountId)
 	if err != nil {
 		return nil, err
@@ -1145,7 +1145,7 @@ func (list *ListAccountCouponRedemptionsParams) URLParams() []KeyValue {
 // API Documentation: https://developers.recurly.com/api/v2020-01-01#operation/list_account_coupon_redemptions
 //
 // Returns: A list of the the coupon redemptions on an account.
-func (c *Client) ListAccountCouponRedemptions(accountId string, params *ListAccountCouponRedemptionsParams, opts ...Option) (*CouponRedemptionList, error) {
+func (c *Client) ListAccountCouponRedemptions(accountId string, params *ListAccountCouponRedemptionsParams, opts ...Option) (CouponRedemptionLister, error) {
 	path, err := c.InterpolatePath("/accounts/{account_id}/coupon_redemptions", accountId)
 	if err != nil {
 		return nil, err
@@ -1160,7 +1160,7 @@ func (c *Client) ListAccountCouponRedemptions(accountId string, params *ListAcco
 // API Documentation: https://developers.recurly.com/api/v2020-01-01#operation/list_active_coupon_redemptions
 //
 // Returns: Active coupon redemptions on an account.
-func (c *Client) ListActiveCouponRedemptions(accountId string, opts ...Option) (*CouponRedemptionList, error) {
+func (c *Client) ListActiveCouponRedemptions(accountId string, opts ...Option) (CouponRedemptionLister, error) {
 	path, err := c.InterpolatePath("/accounts/{account_id}/coupon_redemptions/active", accountId)
 	if err != nil {
 		return nil, err
@@ -1280,7 +1280,7 @@ func (list *ListAccountCreditPaymentsParams) URLParams() []KeyValue {
 // API Documentation: https://developers.recurly.com/api/v2020-01-01#operation/list_account_credit_payments
 //
 // Returns: A list of the account's credit payments.
-func (c *Client) ListAccountCreditPayments(accountId string, params *ListAccountCreditPaymentsParams, opts ...Option) (*CreditPaymentList, error) {
+func (c *Client) ListAccountCreditPayments(accountId string, params *ListAccountCreditPaymentsParams, opts ...Option) (CreditPaymentLister, error) {
 	path, err := c.InterpolatePath("/accounts/{account_id}/credit_payments", accountId)
 	if err != nil {
 		return nil, err
@@ -1369,7 +1369,7 @@ func (list *ListAccountInvoicesParams) URLParams() []KeyValue {
 // API Documentation: https://developers.recurly.com/api/v2020-01-01#operation/list_account_invoices
 //
 // Returns: A list of the account's invoices.
-func (c *Client) ListAccountInvoices(accountId string, params *ListAccountInvoicesParams, opts ...Option) (*InvoiceList, error) {
+func (c *Client) ListAccountInvoices(accountId string, params *ListAccountInvoicesParams, opts ...Option) (InvoiceLister, error) {
 	path, err := c.InterpolatePath("/accounts/{account_id}/invoices", accountId)
 	if err != nil {
 		return nil, err
@@ -1526,7 +1526,7 @@ func (list *ListAccountLineItemsParams) URLParams() []KeyValue {
 // API Documentation: https://developers.recurly.com/api/v2020-01-01#operation/list_account_line_items
 //
 // Returns: A list of the account's line items.
-func (c *Client) ListAccountLineItems(accountId string, params *ListAccountLineItemsParams, opts ...Option) (*LineItemList, error) {
+func (c *Client) ListAccountLineItems(accountId string, params *ListAccountLineItemsParams, opts ...Option) (LineItemLister, error) {
 	path, err := c.InterpolatePath("/accounts/{account_id}/line_items", accountId)
 	if err != nil {
 		return nil, err
@@ -1594,7 +1594,7 @@ func (list *ListAccountNotesParams) URLParams() []KeyValue {
 // API Documentation: https://developers.recurly.com/api/v2020-01-01#operation/list_account_notes
 //
 // Returns: A list of an account's notes.
-func (c *Client) ListAccountNotes(accountId string, params *ListAccountNotesParams, opts ...Option) (*AccountNoteList, error) {
+func (c *Client) ListAccountNotes(accountId string, params *ListAccountNotesParams, opts ...Option) (AccountNoteLister, error) {
 	path, err := c.InterpolatePath("/accounts/{account_id}/notes", accountId)
 	if err != nil {
 		return nil, err
@@ -1701,7 +1701,7 @@ func (list *ListShippingAddressesParams) URLParams() []KeyValue {
 // API Documentation: https://developers.recurly.com/api/v2020-01-01#operation/list_shipping_addresses
 //
 // Returns: A list of an account's shipping addresses.
-func (c *Client) ListShippingAddresses(accountId string, params *ListShippingAddressesParams, opts ...Option) (*ShippingAddressList, error) {
+func (c *Client) ListShippingAddresses(accountId string, params *ListShippingAddressesParams, opts ...Option) (ShippingAddressLister, error) {
 	path, err := c.InterpolatePath("/accounts/{account_id}/shipping_addresses", accountId)
 	if err != nil {
 		return nil, err
@@ -1905,7 +1905,7 @@ func (list *ListAccountSubscriptionsParams) URLParams() []KeyValue {
 // API Documentation: https://developers.recurly.com/api/v2020-01-01#operation/list_account_subscriptions
 //
 // Returns: A list of the account's subscriptions.
-func (c *Client) ListAccountSubscriptions(accountId string, params *ListAccountSubscriptionsParams, opts ...Option) (*SubscriptionList, error) {
+func (c *Client) ListAccountSubscriptions(accountId string, params *ListAccountSubscriptionsParams, opts ...Option) (SubscriptionLister, error) {
 	path, err := c.InterpolatePath("/accounts/{account_id}/subscriptions", accountId)
 	if err != nil {
 		return nil, err
@@ -1997,7 +1997,7 @@ func (list *ListAccountTransactionsParams) URLParams() []KeyValue {
 // API Documentation: https://developers.recurly.com/api/v2020-01-01#operation/list_account_transactions
 //
 // Returns: A list of the account's transactions.
-func (c *Client) ListAccountTransactions(accountId string, params *ListAccountTransactionsParams, opts ...Option) (*TransactionList, error) {
+func (c *Client) ListAccountTransactions(accountId string, params *ListAccountTransactionsParams, opts ...Option) (TransactionLister, error) {
 	path, err := c.InterpolatePath("/accounts/{account_id}/transactions", accountId)
 	if err != nil {
 		return nil, err
@@ -2097,7 +2097,7 @@ func (list *ListChildAccountsParams) URLParams() []KeyValue {
 // API Documentation: https://developers.recurly.com/api/v2020-01-01#operation/list_child_accounts
 //
 // Returns: A list of an account's child accounts.
-func (c *Client) ListChildAccounts(accountId string, params *ListChildAccountsParams, opts ...Option) (*AccountList, error) {
+func (c *Client) ListChildAccounts(accountId string, params *ListChildAccountsParams, opts ...Option) (AccountLister, error) {
 	path, err := c.InterpolatePath("/accounts/{account_id}/accounts", accountId)
 	if err != nil {
 		return nil, err
@@ -2175,7 +2175,7 @@ func (list *ListAccountAcquisitionParams) URLParams() []KeyValue {
 // API Documentation: https://developers.recurly.com/api/v2020-01-01#operation/list_account_acquisition
 //
 // Returns: A list of the site's account acquisition data.
-func (c *Client) ListAccountAcquisition(params *ListAccountAcquisitionParams, opts ...Option) (*AccountAcquisitionList, error) {
+func (c *Client) ListAccountAcquisition(params *ListAccountAcquisitionParams, opts ...Option) (AccountAcquisitionLister, error) {
 	path, err := c.InterpolatePath("/acquisitions")
 	if err != nil {
 		return nil, err
@@ -2253,7 +2253,7 @@ func (list *ListCouponsParams) URLParams() []KeyValue {
 // API Documentation: https://developers.recurly.com/api/v2020-01-01#operation/list_coupons
 //
 // Returns: A list of the site's coupons.
-func (c *Client) ListCoupons(params *ListCouponsParams, opts ...Option) (*CouponList, error) {
+func (c *Client) ListCoupons(params *ListCouponsParams, opts ...Option) (CouponLister, error) {
 	path, err := c.InterpolatePath("/coupons")
 	if err != nil {
 		return nil, err
@@ -2476,7 +2476,7 @@ func (list *ListUniqueCouponCodesParams) URLParams() []KeyValue {
 // API Documentation: https://developers.recurly.com/api/v2020-01-01#operation/list_unique_coupon_codes
 //
 // Returns: A list of unique coupon codes that were generated
-func (c *Client) ListUniqueCouponCodes(couponId string, params *ListUniqueCouponCodesParams, opts ...Option) (*UniqueCouponCodeList, error) {
+func (c *Client) ListUniqueCouponCodes(couponId string, params *ListUniqueCouponCodesParams, opts ...Option) (UniqueCouponCodeLister, error) {
 	path, err := c.InterpolatePath("/coupons/{coupon_id}/unique_coupon_codes", couponId)
 	if err != nil {
 		return nil, err
@@ -2539,7 +2539,7 @@ func (list *ListCreditPaymentsParams) URLParams() []KeyValue {
 // API Documentation: https://developers.recurly.com/api/v2020-01-01#operation/list_credit_payments
 //
 // Returns: A list of the site's credit payments.
-func (c *Client) ListCreditPayments(params *ListCreditPaymentsParams, opts ...Option) (*CreditPaymentList, error) {
+func (c *Client) ListCreditPayments(params *ListCreditPaymentsParams, opts ...Option) (CreditPaymentLister, error) {
 	path, err := c.InterpolatePath("/credit_payments")
 	if err != nil {
 		return nil, err
@@ -2653,7 +2653,7 @@ func (list *ListCustomFieldDefinitionsParams) URLParams() []KeyValue {
 // API Documentation: https://developers.recurly.com/api/v2020-01-01#operation/list_custom_field_definitions
 //
 // Returns: A list of the site's custom field definitions.
-func (c *Client) ListCustomFieldDefinitions(params *ListCustomFieldDefinitionsParams, opts ...Option) (*CustomFieldDefinitionList, error) {
+func (c *Client) ListCustomFieldDefinitions(params *ListCustomFieldDefinitionsParams, opts ...Option) (CustomFieldDefinitionLister, error) {
 	path, err := c.InterpolatePath("/custom_field_definitions")
 	if err != nil {
 		return nil, err
@@ -2767,7 +2767,7 @@ func (list *ListItemsParams) URLParams() []KeyValue {
 // API Documentation: https://developers.recurly.com/api/v2020-01-01#operation/list_items
 //
 // Returns: A list of the site's items.
-func (c *Client) ListItems(params *ListItemsParams, opts ...Option) (*ItemList, error) {
+func (c *Client) ListItems(params *ListItemsParams, opts ...Option) (ItemLister, error) {
 	path, err := c.InterpolatePath("/items")
 	if err != nil {
 		return nil, err
@@ -2997,7 +2997,7 @@ func (list *ListMeasuredUnitParams) URLParams() []KeyValue {
 // API Documentation: https://developers.recurly.com/api/v2020-01-01#operation/list_measured_unit
 //
 // Returns: A list of the site's measured units.
-func (c *Client) ListMeasuredUnit(params *ListMeasuredUnitParams, opts ...Option) (*MeasuredUnitList, error) {
+func (c *Client) ListMeasuredUnit(params *ListMeasuredUnitParams, opts ...Option) (MeasuredUnitLister, error) {
 	path, err := c.InterpolatePath("/measured_units")
 	if err != nil {
 		return nil, err
@@ -3202,7 +3202,7 @@ func (list *ListInvoicesParams) URLParams() []KeyValue {
 // API Documentation: https://developers.recurly.com/api/v2020-01-01#operation/list_invoices
 //
 // Returns: A list of the site's invoices.
-func (c *Client) ListInvoices(params *ListInvoicesParams, opts ...Option) (*InvoiceList, error) {
+func (c *Client) ListInvoices(params *ListInvoicesParams, opts ...Option) (InvoiceLister, error) {
 	path, err := c.InterpolatePath("/invoices")
 	if err != nil {
 		return nil, err
@@ -3545,7 +3545,7 @@ func (list *ListInvoiceLineItemsParams) URLParams() []KeyValue {
 // API Documentation: https://developers.recurly.com/api/v2020-01-01#operation/list_invoice_line_items
 //
 // Returns: A list of the invoice's line items.
-func (c *Client) ListInvoiceLineItems(invoiceId string, params *ListInvoiceLineItemsParams, opts ...Option) (*LineItemList, error) {
+func (c *Client) ListInvoiceLineItems(invoiceId string, params *ListInvoiceLineItemsParams, opts ...Option) (LineItemLister, error) {
 	path, err := c.InterpolatePath("/invoices/{invoice_id}/line_items", invoiceId)
 	if err != nil {
 		return nil, err
@@ -3609,7 +3609,7 @@ func (list *ListInvoiceCouponRedemptionsParams) URLParams() []KeyValue {
 // API Documentation: https://developers.recurly.com/api/v2020-01-01#operation/list_invoice_coupon_redemptions
 //
 // Returns: A list of the the coupon redemptions associated with the invoice.
-func (c *Client) ListInvoiceCouponRedemptions(invoiceId string, params *ListInvoiceCouponRedemptionsParams, opts ...Option) (*CouponRedemptionList, error) {
+func (c *Client) ListInvoiceCouponRedemptions(invoiceId string, params *ListInvoiceCouponRedemptionsParams, opts ...Option) (CouponRedemptionLister, error) {
 	path, err := c.InterpolatePath("/invoices/{invoice_id}/coupon_redemptions", invoiceId)
 	if err != nil {
 		return nil, err
@@ -3624,7 +3624,7 @@ func (c *Client) ListInvoiceCouponRedemptions(invoiceId string, params *ListInvo
 // API Documentation: https://developers.recurly.com/api/v2020-01-01#operation/list_related_invoices
 //
 // Returns: A list of the credit or charge invoices associated with the invoice.
-func (c *Client) ListRelatedInvoices(invoiceId string, opts ...Option) (*InvoiceList, error) {
+func (c *Client) ListRelatedInvoices(invoiceId string, opts ...Option) (InvoiceLister, error) {
 	path, err := c.InterpolatePath("/invoices/{invoice_id}/related_invoices", invoiceId)
 	if err != nil {
 		return nil, err
@@ -3751,7 +3751,7 @@ func (list *ListLineItemsParams) URLParams() []KeyValue {
 // API Documentation: https://developers.recurly.com/api/v2020-01-01#operation/list_line_items
 //
 // Returns: A list of the site's line items.
-func (c *Client) ListLineItems(params *ListLineItemsParams, opts ...Option) (*LineItemList, error) {
+func (c *Client) ListLineItems(params *ListLineItemsParams, opts ...Option) (LineItemLister, error) {
 	path, err := c.InterpolatePath("/line_items")
 	if err != nil {
 		return nil, err
@@ -3894,7 +3894,7 @@ func (list *ListPlansParams) URLParams() []KeyValue {
 // API Documentation: https://developers.recurly.com/api/v2020-01-01#operation/list_plans
 //
 // Returns: A list of plans.
-func (c *Client) ListPlans(params *ListPlansParams, opts ...Option) (*PlanList, error) {
+func (c *Client) ListPlans(params *ListPlansParams, opts ...Option) (PlanLister, error) {
 	path, err := c.InterpolatePath("/plans")
 	if err != nil {
 		return nil, err
@@ -4095,7 +4095,7 @@ func (list *ListPlanAddOnsParams) URLParams() []KeyValue {
 // API Documentation: https://developers.recurly.com/api/v2020-01-01#operation/list_plan_add_ons
 //
 // Returns: A list of add-ons.
-func (c *Client) ListPlanAddOns(planId string, params *ListPlanAddOnsParams, opts ...Option) (*AddOnList, error) {
+func (c *Client) ListPlanAddOns(planId string, params *ListPlanAddOnsParams, opts ...Option) (AddOnLister, error) {
 	path, err := c.InterpolatePath("/plans/{plan_id}/add_ons", planId)
 	if err != nil {
 		return nil, err
@@ -4296,7 +4296,7 @@ func (list *ListAddOnsParams) URLParams() []KeyValue {
 // API Documentation: https://developers.recurly.com/api/v2020-01-01#operation/list_add_ons
 //
 // Returns: A list of add-ons.
-func (c *Client) ListAddOns(params *ListAddOnsParams, opts ...Option) (*AddOnList, error) {
+func (c *Client) ListAddOns(params *ListAddOnsParams, opts ...Option) (AddOnLister, error) {
 	path, err := c.InterpolatePath("/add_ons")
 	if err != nil {
 		return nil, err
@@ -4403,7 +4403,7 @@ func (list *ListShippingMethodsParams) URLParams() []KeyValue {
 // API Documentation: https://developers.recurly.com/api/v2020-01-01#operation/list_shipping_methods
 //
 // Returns: A list of the site's shipping methods.
-func (c *Client) ListShippingMethods(params *ListShippingMethodsParams, opts ...Option) (*ShippingMethodList, error) {
+func (c *Client) ListShippingMethods(params *ListShippingMethodsParams, opts ...Option) (ShippingMethodLister, error) {
 	path, err := c.InterpolatePath("/shipping_methods")
 	if err != nil {
 		return nil, err
@@ -4607,7 +4607,7 @@ func (list *ListSubscriptionsParams) URLParams() []KeyValue {
 // API Documentation: https://developers.recurly.com/api/v2020-01-01#operation/list_subscriptions
 //
 // Returns: A list of the site's subscriptions.
-func (c *Client) ListSubscriptions(params *ListSubscriptionsParams, opts ...Option) (*SubscriptionList, error) {
+func (c *Client) ListSubscriptions(params *ListSubscriptionsParams, opts ...Option) (SubscriptionLister, error) {
 	path, err := c.InterpolatePath("/subscriptions")
 	if err != nil {
 		return nil, err
@@ -5106,7 +5106,7 @@ func (list *ListSubscriptionInvoicesParams) URLParams() []KeyValue {
 // API Documentation: https://developers.recurly.com/api/v2020-01-01#operation/list_subscription_invoices
 //
 // Returns: A list of the subscription's invoices.
-func (c *Client) ListSubscriptionInvoices(subscriptionId string, params *ListSubscriptionInvoicesParams, opts ...Option) (*InvoiceList, error) {
+func (c *Client) ListSubscriptionInvoices(subscriptionId string, params *ListSubscriptionInvoicesParams, opts ...Option) (InvoiceLister, error) {
 	path, err := c.InterpolatePath("/subscriptions/{subscription_id}/invoices", subscriptionId)
 	if err != nil {
 		return nil, err
@@ -5205,7 +5205,7 @@ func (list *ListSubscriptionLineItemsParams) URLParams() []KeyValue {
 // API Documentation: https://developers.recurly.com/api/v2020-01-01#operation/list_subscription_line_items
 //
 // Returns: A list of the subscription's line items.
-func (c *Client) ListSubscriptionLineItems(subscriptionId string, params *ListSubscriptionLineItemsParams, opts ...Option) (*LineItemList, error) {
+func (c *Client) ListSubscriptionLineItems(subscriptionId string, params *ListSubscriptionLineItemsParams, opts ...Option) (LineItemLister, error) {
 	path, err := c.InterpolatePath("/subscriptions/{subscription_id}/line_items", subscriptionId)
 	if err != nil {
 		return nil, err
@@ -5269,7 +5269,7 @@ func (list *ListSubscriptionCouponRedemptionsParams) URLParams() []KeyValue {
 // API Documentation: https://developers.recurly.com/api/v2020-01-01#operation/list_subscription_coupon_redemptions
 //
 // Returns: A list of the the coupon redemptions on a subscription.
-func (c *Client) ListSubscriptionCouponRedemptions(subscriptionId string, params *ListSubscriptionCouponRedemptionsParams, opts ...Option) (*CouponRedemptionList, error) {
+func (c *Client) ListSubscriptionCouponRedemptions(subscriptionId string, params *ListSubscriptionCouponRedemptionsParams, opts ...Option) (CouponRedemptionLister, error) {
 	path, err := c.InterpolatePath("/subscriptions/{subscription_id}/coupon_redemptions", subscriptionId)
 	if err != nil {
 		return nil, err
@@ -5354,7 +5354,7 @@ func (list *ListUsageParams) URLParams() []KeyValue {
 // API Documentation: https://developers.recurly.com/api/v2020-01-01#operation/list_usage
 //
 // Returns: A list of the subscription add-on's usage records.
-func (c *Client) ListUsage(subscriptionId string, addOnId string, params *ListUsageParams, opts ...Option) (*UsageList, error) {
+func (c *Client) ListUsage(subscriptionId string, addOnId string, params *ListUsageParams, opts ...Option) (UsageLister, error) {
 	path, err := c.InterpolatePath("/subscriptions/{subscription_id}/add_ons/{add_on_id}/usage", subscriptionId, addOnId)
 	if err != nil {
 		return nil, err
@@ -5562,7 +5562,7 @@ func (list *ListTransactionsParams) URLParams() []KeyValue {
 // API Documentation: https://developers.recurly.com/api/v2020-01-01#operation/list_transactions
 //
 // Returns: A list of the site's transactions.
-func (c *Client) ListTransactions(params *ListTransactionsParams, opts ...Option) (*TransactionList, error) {
+func (c *Client) ListTransactions(params *ListTransactionsParams, opts ...Option) (TransactionLister, error) {
 	path, err := c.InterpolatePath("/transactions")
 	if err != nil {
 		return nil, err

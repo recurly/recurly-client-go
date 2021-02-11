@@ -51,9 +51,18 @@ type TierList struct {
 	client         HTTPCaller
 	requestOptions *RequestOptions
 	nextPagePath   string
+	hasMore        bool
+	data           []Tier
+}
 
-	HasMore bool
-	Data    []Tier
+type TierLister interface {
+	Fetch() error
+	FetchWithContext(ctx context.Context) error
+	Count() (*int64, error)
+	CountWithContext(ctx context.Context) (*int64, error)
+	Data() []Tier
+	HasMore() bool
+	Next() string
 }
 
 func NewTierList(client HTTPCaller, nextPagePath string, requestOptions *RequestOptions) *TierList {
@@ -61,8 +70,20 @@ func NewTierList(client HTTPCaller, nextPagePath string, requestOptions *Request
 		client:         client,
 		requestOptions: requestOptions,
 		nextPagePath:   nextPagePath,
-		HasMore:        true,
+		hasMore:        true,
 	}
+}
+
+func (list *TierList) HasMore() bool {
+	return list.hasMore
+}
+
+func (list *TierList) Next() string {
+	return list.nextPagePath
+}
+
+func (list *TierList) Data() []Tier {
+	return list.data
 }
 
 // Fetch fetches the next page of data into the `Data` property
@@ -74,8 +95,8 @@ func (list *TierList) FetchWithContext(ctx context.Context) error {
 	}
 	// copy over properties from the response
 	list.nextPagePath = resources.Next
-	list.HasMore = resources.HasMore
-	list.Data = resources.Data
+	list.hasMore = resources.HasMore
+	list.data = resources.Data
 	return nil
 }
 

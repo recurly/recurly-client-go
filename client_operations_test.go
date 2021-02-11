@@ -95,10 +95,10 @@ func TestListAccounts(test *testing.T) {
 	t.Assert(err, nil, "Error not expected")
 	accounts.Fetch()
 
-	t.Assert(accounts.Data[0].Id, "abcd1234", "list.Data[0].Id")
-	t.Assert(accounts.Data[1].FirstName, "juniper", "list.Data[1].FirstName")
-	t.Assert(accounts.HasMore, true, "list.HasMore")
-	t.Assert(accounts.nextPagePath, "/accounts?cursor=efgh5678%3A1588803986.0&limit=1&order=desc&sort=created_at", "accounts.nextPagePath")
+	t.Assert(accounts.Data()[0].Id, "abcd1234", "list.Data[0].Id")
+	t.Assert(accounts.Data()[1].FirstName, "juniper", "list.Data[1].FirstName")
+	t.Assert(accounts.HasMore(), true, "list.HasMore")
+	t.Assert(accounts.Next(), "/accounts?cursor=efgh5678%3A1588803986.0&limit=1&order=desc&sort=created_at", "accounts.nextPagePath")
 }
 
 func TestListAccountsWithContext(test *testing.T) {
@@ -142,10 +142,10 @@ func TestListAccountsWithContext(test *testing.T) {
 	t.Assert(err, nil, "Error not expected")
 	accounts.FetchWithContext(ctx)
 
-	t.Assert(accounts.Data[0].Id, "abcd1234", "list.Data[0].Id")
-	t.Assert(accounts.Data[1].FirstName, "juniper", "list.Data[1].FirstName")
-	t.Assert(accounts.HasMore, true, "list.HasMore")
-	t.Assert(accounts.nextPagePath, "/accounts?cursor=efgh5678%3A1588803986.0&limit=1&order=desc&sort=created_at", "accounts.nextPagePath")
+	t.Assert(accounts.Data()[0].Id, "abcd1234", "list.Data[0].Id")
+	t.Assert(accounts.Data()[1].FirstName, "juniper", "list.Data[1].FirstName")
+	t.Assert(accounts.HasMore(), true, "list.HasMore")
+	t.Assert(accounts.Next(), "/accounts?cursor=efgh5678%3A1588803986.0&limit=1&order=desc&sort=created_at", "accounts.nextPagePath")
 }
 
 func TestCreateAccountWithNilContext(test *testing.T) {

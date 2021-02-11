@@ -66,9 +66,18 @@ type AccountMiniList struct {
 	client         HTTPCaller
 	requestOptions *RequestOptions
 	nextPagePath   string
+	hasMore        bool
+	data           []AccountMini
+}
 
-	HasMore bool
-	Data    []AccountMini
+type AccountMiniLister interface {
+	Fetch() error
+	FetchWithContext(ctx context.Context) error
+	Count() (*int64, error)
+	CountWithContext(ctx context.Context) (*int64, error)
+	Data() []AccountMini
+	HasMore() bool
+	Next() string
 }
 
 func NewAccountMiniList(client HTTPCaller, nextPagePath string, requestOptions *RequestOptions) *AccountMiniList {
@@ -76,8 +85,20 @@ func NewAccountMiniList(client HTTPCaller, nextPagePath string, requestOptions *
 		client:         client,
 		requestOptions: requestOptions,
 		nextPagePath:   nextPagePath,
-		HasMore:        true,
+		hasMore:        true,
 	}
+}
+
+func (list *AccountMiniList) HasMore() bool {
+	return list.hasMore
+}
+
+func (list *AccountMiniList) Next() string {
+	return list.nextPagePath
+}
+
+func (list *AccountMiniList) Data() []AccountMini {
+	return list.data
 }
 
 // Fetch fetches the next page of data into the `Data` property
@@ -89,8 +110,8 @@ func (list *AccountMiniList) FetchWithContext(ctx context.Context) error {
 	}
 	// copy over properties from the response
 	list.nextPagePath = resources.Next
-	list.HasMore = resources.HasMore
-	list.Data = resources.Data
+	list.hasMore = resources.HasMore
+	list.data = resources.Data
 	return nil
 }
 

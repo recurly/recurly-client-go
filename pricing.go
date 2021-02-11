@@ -51,9 +51,18 @@ type PricingList struct {
 	client         HTTPCaller
 	requestOptions *RequestOptions
 	nextPagePath   string
+	hasMore        bool
+	data           []Pricing
+}
 
-	HasMore bool
-	Data    []Pricing
+type PricingLister interface {
+	Fetch() error
+	FetchWithContext(ctx context.Context) error
+	Count() (*int64, error)
+	CountWithContext(ctx context.Context) (*int64, error)
+	Data() []Pricing
+	HasMore() bool
+	Next() string
 }
 
 func NewPricingList(client HTTPCaller, nextPagePath string, requestOptions *RequestOptions) *PricingList {
@@ -61,8 +70,20 @@ func NewPricingList(client HTTPCaller, nextPagePath string, requestOptions *Requ
 		client:         client,
 		requestOptions: requestOptions,
 		nextPagePath:   nextPagePath,
-		HasMore:        true,
+		hasMore:        true,
 	}
+}
+
+func (list *PricingList) HasMore() bool {
+	return list.hasMore
+}
+
+func (list *PricingList) Next() string {
+	return list.nextPagePath
+}
+
+func (list *PricingList) Data() []Pricing {
+	return list.data
 }
 
 // Fetch fetches the next page of data into the `Data` property
@@ -74,8 +95,8 @@ func (list *PricingList) FetchWithContext(ctx context.Context) error {
 	}
 	// copy over properties from the response
 	list.nextPagePath = resources.Next
-	list.HasMore = resources.HasMore
-	list.Data = resources.Data
+	list.hasMore = resources.HasMore
+	list.data = resources.Data
 	return nil
 }
 

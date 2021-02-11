@@ -51,9 +51,18 @@ type BillingInfoUpdatedByList struct {
 	client         HTTPCaller
 	requestOptions *RequestOptions
 	nextPagePath   string
+	hasMore        bool
+	data           []BillingInfoUpdatedBy
+}
 
-	HasMore bool
-	Data    []BillingInfoUpdatedBy
+type BillingInfoUpdatedByLister interface {
+	Fetch() error
+	FetchWithContext(ctx context.Context) error
+	Count() (*int64, error)
+	CountWithContext(ctx context.Context) (*int64, error)
+	Data() []BillingInfoUpdatedBy
+	HasMore() bool
+	Next() string
 }
 
 func NewBillingInfoUpdatedByList(client HTTPCaller, nextPagePath string, requestOptions *RequestOptions) *BillingInfoUpdatedByList {
@@ -61,8 +70,20 @@ func NewBillingInfoUpdatedByList(client HTTPCaller, nextPagePath string, request
 		client:         client,
 		requestOptions: requestOptions,
 		nextPagePath:   nextPagePath,
-		HasMore:        true,
+		hasMore:        true,
 	}
+}
+
+func (list *BillingInfoUpdatedByList) HasMore() bool {
+	return list.hasMore
+}
+
+func (list *BillingInfoUpdatedByList) Next() string {
+	return list.nextPagePath
+}
+
+func (list *BillingInfoUpdatedByList) Data() []BillingInfoUpdatedBy {
+	return list.data
 }
 
 // Fetch fetches the next page of data into the `Data` property
@@ -74,8 +95,8 @@ func (list *BillingInfoUpdatedByList) FetchWithContext(ctx context.Context) erro
 	}
 	// copy over properties from the response
 	list.nextPagePath = resources.Next
-	list.HasMore = resources.HasMore
-	list.Data = resources.Data
+	list.hasMore = resources.HasMore
+	list.data = resources.Data
 	return nil
 }
 
