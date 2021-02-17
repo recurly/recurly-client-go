@@ -61,7 +61,7 @@ func WithIdempotencyKey(k string) Option {
 	}
 }
 
-type optionsApplier interface {
+type OptionsApplier interface {
 	applyOptions(req *http.Request) *http.Request
 }
 
