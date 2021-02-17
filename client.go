@@ -130,11 +130,11 @@ func (c *Client) InterpolatePath(path string, params ...string) (string, error) 
 
 // HTTPCaller is the generic http interface used by the Client
 type HTTPCaller interface {
-	Call(ctx context.Context, method string, path string, body interface{}, queryParams QueryParams, requestOptions optionsApplier, v interface{}) error
+	Call(ctx context.Context, method string, path string, body interface{}, queryParams QueryParams, requestOptions OptionsApplier, v interface{}) error
 }
 
 // Call sends a request to Recurly API and parses the JSON response for the expected response type.
-func (c *Client) Call(ctx context.Context, method string, path string, body interface{}, queryParams QueryParams, requestOptions optionsApplier, v interface{}) error {
+func (c *Client) Call(ctx context.Context, method string, path string, body interface{}, queryParams QueryParams, requestOptions OptionsApplier, v interface{}) error {
 	if ctx == nil {
 		ctx = context.Background()
 	}
@@ -178,7 +178,7 @@ func BuildURL(requestURL string, queryParams QueryParams) string {
 }
 
 // NewHTTPRequest generates an http.Request for the client to submit to Recurly API.
-func (c *Client) NewHTTPRequest(ctx context.Context, method string, requestURL string, body interface{}, requestOptions optionsApplier) (*http.Request, error) {
+func (c *Client) NewHTTPRequest(ctx context.Context, method string, requestURL string, body interface{}, requestOptions OptionsApplier) (*http.Request, error) {
 	req, err := http.NewRequestWithContext(ctx, method, requestURL, nil)
 	if err != nil {
 		return nil, err
