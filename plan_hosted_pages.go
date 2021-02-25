@@ -61,6 +61,15 @@ type PlanHostedPagesList struct {
 	data           []PlanHostedPages
 }
 
+func NewPlanHostedPagesList(client HTTPCaller, nextPagePath string, requestOptions *RequestOptions) *PlanHostedPagesList {
+	return &PlanHostedPagesList{
+		client:         client,
+		requestOptions: requestOptions,
+		nextPagePath:   nextPagePath,
+		hasMore:        true,
+	}
+}
+
 type PlanHostedPagesLister interface {
 	Fetch() error
 	FetchWithContext(ctx context.Context) error
@@ -69,15 +78,6 @@ type PlanHostedPagesLister interface {
 	Data() []PlanHostedPages
 	HasMore() bool
 	Next() string
-}
-
-func NewPlanHostedPagesList(client HTTPCaller, nextPagePath string, requestOptions *RequestOptions) *PlanHostedPagesList {
-	return &PlanHostedPagesList{
-		client:         client,
-		requestOptions: requestOptions,
-		nextPagePath:   nextPagePath,
-		hasMore:        true,
-	}
 }
 
 func (list *PlanHostedPagesList) HasMore() bool {

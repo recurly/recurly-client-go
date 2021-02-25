@@ -61,6 +61,15 @@ type PlanMiniList struct {
 	data           []PlanMini
 }
 
+func NewPlanMiniList(client HTTPCaller, nextPagePath string, requestOptions *RequestOptions) *PlanMiniList {
+	return &PlanMiniList{
+		client:         client,
+		requestOptions: requestOptions,
+		nextPagePath:   nextPagePath,
+		hasMore:        true,
+	}
+}
+
 type PlanMiniLister interface {
 	Fetch() error
 	FetchWithContext(ctx context.Context) error
@@ -69,15 +78,6 @@ type PlanMiniLister interface {
 	Data() []PlanMini
 	HasMore() bool
 	Next() string
-}
-
-func NewPlanMiniList(client HTTPCaller, nextPagePath string, requestOptions *RequestOptions) *PlanMiniList {
-	return &PlanMiniList{
-		client:         client,
-		requestOptions: requestOptions,
-		nextPagePath:   nextPagePath,
-		hasMore:        true,
-	}
 }
 
 func (list *PlanMiniList) HasMore() bool {

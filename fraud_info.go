@@ -58,6 +58,15 @@ type FraudInfoList struct {
 	data           []FraudInfo
 }
 
+func NewFraudInfoList(client HTTPCaller, nextPagePath string, requestOptions *RequestOptions) *FraudInfoList {
+	return &FraudInfoList{
+		client:         client,
+		requestOptions: requestOptions,
+		nextPagePath:   nextPagePath,
+		hasMore:        true,
+	}
+}
+
 type FraudInfoLister interface {
 	Fetch() error
 	FetchWithContext(ctx context.Context) error
@@ -66,15 +75,6 @@ type FraudInfoLister interface {
 	Data() []FraudInfo
 	HasMore() bool
 	Next() string
-}
-
-func NewFraudInfoList(client HTTPCaller, nextPagePath string, requestOptions *RequestOptions) *FraudInfoList {
-	return &FraudInfoList{
-		client:         client,
-		requestOptions: requestOptions,
-		nextPagePath:   nextPagePath,
-		hasMore:        true,
-	}
 }
 
 func (list *FraudInfoList) HasMore() bool {

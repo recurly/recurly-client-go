@@ -134,6 +134,15 @@ type AccountList struct {
 	data           []Account
 }
 
+func NewAccountList(client HTTPCaller, nextPagePath string, requestOptions *RequestOptions) *AccountList {
+	return &AccountList{
+		client:         client,
+		requestOptions: requestOptions,
+		nextPagePath:   nextPagePath,
+		hasMore:        true,
+	}
+}
+
 type AccountLister interface {
 	Fetch() error
 	FetchWithContext(ctx context.Context) error
@@ -142,15 +151,6 @@ type AccountLister interface {
 	Data() []Account
 	HasMore() bool
 	Next() string
-}
-
-func NewAccountList(client HTTPCaller, nextPagePath string, requestOptions *RequestOptions) *AccountList {
-	return &AccountList{
-		client:         client,
-		requestOptions: requestOptions,
-		nextPagePath:   nextPagePath,
-		hasMore:        true,
-	}
 }
 
 func (list *AccountList) HasMore() bool {

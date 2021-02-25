@@ -86,6 +86,15 @@ type ShippingMethodList struct {
 	data           []ShippingMethod
 }
 
+func NewShippingMethodList(client HTTPCaller, nextPagePath string, requestOptions *RequestOptions) *ShippingMethodList {
+	return &ShippingMethodList{
+		client:         client,
+		requestOptions: requestOptions,
+		nextPagePath:   nextPagePath,
+		hasMore:        true,
+	}
+}
+
 type ShippingMethodLister interface {
 	Fetch() error
 	FetchWithContext(ctx context.Context) error
@@ -94,15 +103,6 @@ type ShippingMethodLister interface {
 	Data() []ShippingMethod
 	HasMore() bool
 	Next() string
-}
-
-func NewShippingMethodList(client HTTPCaller, nextPagePath string, requestOptions *RequestOptions) *ShippingMethodList {
-	return &ShippingMethodList{
-		client:         client,
-		requestOptions: requestOptions,
-		nextPagePath:   nextPagePath,
-		hasMore:        true,
-	}
 }
 
 func (list *ShippingMethodList) HasMore() bool {

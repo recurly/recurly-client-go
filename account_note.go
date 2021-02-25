@@ -63,6 +63,15 @@ type AccountNoteList struct {
 	data           []AccountNote
 }
 
+func NewAccountNoteList(client HTTPCaller, nextPagePath string, requestOptions *RequestOptions) *AccountNoteList {
+	return &AccountNoteList{
+		client:         client,
+		requestOptions: requestOptions,
+		nextPagePath:   nextPagePath,
+		hasMore:        true,
+	}
+}
+
 type AccountNoteLister interface {
 	Fetch() error
 	FetchWithContext(ctx context.Context) error
@@ -71,15 +80,6 @@ type AccountNoteLister interface {
 	Data() []AccountNote
 	HasMore() bool
 	Next() string
-}
-
-func NewAccountNoteList(client HTTPCaller, nextPagePath string, requestOptions *RequestOptions) *AccountNoteList {
-	return &AccountNoteList{
-		client:         client,
-		requestOptions: requestOptions,
-		nextPagePath:   nextPagePath,
-		hasMore:        true,
-	}
 }
 
 func (list *AccountNoteList) HasMore() bool {

@@ -176,6 +176,15 @@ type SubscriptionList struct {
 	data           []Subscription
 }
 
+func NewSubscriptionList(client HTTPCaller, nextPagePath string, requestOptions *RequestOptions) *SubscriptionList {
+	return &SubscriptionList{
+		client:         client,
+		requestOptions: requestOptions,
+		nextPagePath:   nextPagePath,
+		hasMore:        true,
+	}
+}
+
 type SubscriptionLister interface {
 	Fetch() error
 	FetchWithContext(ctx context.Context) error
@@ -184,15 +193,6 @@ type SubscriptionLister interface {
 	Data() []Subscription
 	HasMore() bool
 	Next() string
-}
-
-func NewSubscriptionList(client HTTPCaller, nextPagePath string, requestOptions *RequestOptions) *SubscriptionList {
-	return &SubscriptionList{
-		client:         client,
-		requestOptions: requestOptions,
-		nextPagePath:   nextPagePath,
-		hasMore:        true,
-	}
 }
 
 func (list *SubscriptionList) HasMore() bool {

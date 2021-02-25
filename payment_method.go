@@ -90,6 +90,15 @@ type PaymentMethodList struct {
 	data           []PaymentMethod
 }
 
+func NewPaymentMethodList(client HTTPCaller, nextPagePath string, requestOptions *RequestOptions) *PaymentMethodList {
+	return &PaymentMethodList{
+		client:         client,
+		requestOptions: requestOptions,
+		nextPagePath:   nextPagePath,
+		hasMore:        true,
+	}
+}
+
 type PaymentMethodLister interface {
 	Fetch() error
 	FetchWithContext(ctx context.Context) error
@@ -98,15 +107,6 @@ type PaymentMethodLister interface {
 	Data() []PaymentMethod
 	HasMore() bool
 	Next() string
-}
-
-func NewPaymentMethodList(client HTTPCaller, nextPagePath string, requestOptions *RequestOptions) *PaymentMethodList {
-	return &PaymentMethodList{
-		client:         client,
-		requestOptions: requestOptions,
-		nextPagePath:   nextPagePath,
-		hasMore:        true,
-	}
 }
 
 func (list *PaymentMethodList) HasMore() bool {

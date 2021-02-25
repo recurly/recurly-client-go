@@ -133,6 +133,15 @@ type PlanList struct {
 	data           []Plan
 }
 
+func NewPlanList(client HTTPCaller, nextPagePath string, requestOptions *RequestOptions) *PlanList {
+	return &PlanList{
+		client:         client,
+		requestOptions: requestOptions,
+		nextPagePath:   nextPagePath,
+		hasMore:        true,
+	}
+}
+
 type PlanLister interface {
 	Fetch() error
 	FetchWithContext(ctx context.Context) error
@@ -141,15 +150,6 @@ type PlanLister interface {
 	Data() []Plan
 	HasMore() bool
 	Next() string
-}
-
-func NewPlanList(client HTTPCaller, nextPagePath string, requestOptions *RequestOptions) *PlanList {
-	return &PlanList{
-		client:         client,
-		requestOptions: requestOptions,
-		nextPagePath:   nextPagePath,
-		hasMore:        true,
-	}
 }
 
 func (list *PlanList) HasMore() bool {

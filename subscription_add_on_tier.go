@@ -15,8 +15,12 @@ type SubscriptionAddOnTier struct {
 	// Ending quantity
 	EndingQuantity int `json:"ending_quantity,omitempty"`
 
-	// Unit amount
+	// Allows up to 2 decimal places. Optionally, override the tiers' default unit amount.
 	UnitAmount float64 `json:"unit_amount,omitempty"`
+
+	// Allows up to 9 decimal places.  Optionally, override tiers' default unit amount.
+	// If `unit_amount_decimal` is provided, `unit_amount` cannot be provided.
+	UnitAmountDecimal string `json:"unit_amount_decimal,omitempty"`
 }
 
 // GetResponse returns the ResponseMetadata that generated this resource
@@ -55,6 +59,15 @@ type SubscriptionAddOnTierList struct {
 	data           []SubscriptionAddOnTier
 }
 
+func NewSubscriptionAddOnTierList(client HTTPCaller, nextPagePath string, requestOptions *RequestOptions) *SubscriptionAddOnTierList {
+	return &SubscriptionAddOnTierList{
+		client:         client,
+		requestOptions: requestOptions,
+		nextPagePath:   nextPagePath,
+		hasMore:        true,
+	}
+}
+
 type SubscriptionAddOnTierLister interface {
 	Fetch() error
 	FetchWithContext(ctx context.Context) error
@@ -63,15 +76,6 @@ type SubscriptionAddOnTierLister interface {
 	Data() []SubscriptionAddOnTier
 	HasMore() bool
 	Next() string
-}
-
-func NewSubscriptionAddOnTierList(client HTTPCaller, nextPagePath string, requestOptions *RequestOptions) *SubscriptionAddOnTierList {
-	return &SubscriptionAddOnTierList{
-		client:         client,
-		requestOptions: requestOptions,
-		nextPagePath:   nextPagePath,
-		hasMore:        true,
-	}
 }
 
 func (list *SubscriptionAddOnTierList) HasMore() bool {

@@ -104,6 +104,9 @@ type LineItem struct {
 	// Positive amount for a charge, negative amount for a credit.
 	UnitAmount float64 `json:"unit_amount,omitempty"`
 
+	// Positive amount for a charge, negative amount for a credit.
+	UnitAmountDecimal string `json:"unit_amount_decimal,omitempty"`
+
 	// `quantity * unit_amount`
 	Subtotal float64 `json:"subtotal,omitempty"`
 
@@ -194,6 +197,15 @@ type LineItemList struct {
 	data           []LineItem
 }
 
+func NewLineItemList(client HTTPCaller, nextPagePath string, requestOptions *RequestOptions) *LineItemList {
+	return &LineItemList{
+		client:         client,
+		requestOptions: requestOptions,
+		nextPagePath:   nextPagePath,
+		hasMore:        true,
+	}
+}
+
 type LineItemLister interface {
 	Fetch() error
 	FetchWithContext(ctx context.Context) error
@@ -202,15 +214,6 @@ type LineItemLister interface {
 	Data() []LineItem
 	HasMore() bool
 	Next() string
-}
-
-func NewLineItemList(client HTTPCaller, nextPagePath string, requestOptions *RequestOptions) *LineItemList {
-	return &LineItemList{
-		client:         client,
-		requestOptions: requestOptions,
-		nextPagePath:   nextPagePath,
-		hasMore:        true,
-	}
 }
 
 func (list *LineItemList) HasMore() bool {

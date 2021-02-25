@@ -22,6 +22,9 @@ type CouponRedemption struct {
 	// The Account on which the coupon was applied.
 	Account AccountMini `json:"account,omitempty"`
 
+	// Subscription ID
+	SubscriptionId string `json:"subscription_id,omitempty"`
+
 	Coupon Coupon `json:"coupon,omitempty"`
 
 	// Coupon Redemption state
@@ -79,6 +82,15 @@ type CouponRedemptionList struct {
 	data           []CouponRedemption
 }
 
+func NewCouponRedemptionList(client HTTPCaller, nextPagePath string, requestOptions *RequestOptions) *CouponRedemptionList {
+	return &CouponRedemptionList{
+		client:         client,
+		requestOptions: requestOptions,
+		nextPagePath:   nextPagePath,
+		hasMore:        true,
+	}
+}
+
 type CouponRedemptionLister interface {
 	Fetch() error
 	FetchWithContext(ctx context.Context) error
@@ -87,15 +99,6 @@ type CouponRedemptionLister interface {
 	Data() []CouponRedemption
 	HasMore() bool
 	Next() string
-}
-
-func NewCouponRedemptionList(client HTTPCaller, nextPagePath string, requestOptions *RequestOptions) *CouponRedemptionList {
-	return &CouponRedemptionList{
-		client:         client,
-		requestOptions: requestOptions,
-		nextPagePath:   nextPagePath,
-		hasMore:        true,
-	}
 }
 
 func (list *CouponRedemptionList) HasMore() bool {

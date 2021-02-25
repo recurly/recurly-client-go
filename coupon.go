@@ -141,6 +141,15 @@ type CouponList struct {
 	data           []Coupon
 }
 
+func NewCouponList(client HTTPCaller, nextPagePath string, requestOptions *RequestOptions) *CouponList {
+	return &CouponList{
+		client:         client,
+		requestOptions: requestOptions,
+		nextPagePath:   nextPagePath,
+		hasMore:        true,
+	}
+}
+
 type CouponLister interface {
 	Fetch() error
 	FetchWithContext(ctx context.Context) error
@@ -149,15 +158,6 @@ type CouponLister interface {
 	Data() []Coupon
 	HasMore() bool
 	Next() string
-}
-
-func NewCouponList(client HTTPCaller, nextPagePath string, requestOptions *RequestOptions) *CouponList {
-	return &CouponList{
-		client:         client,
-		requestOptions: requestOptions,
-		nextPagePath:   nextPagePath,
-		hasMore:        true,
-	}
 }
 
 func (list *CouponList) HasMore() bool {

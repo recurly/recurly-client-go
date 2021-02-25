@@ -58,6 +58,15 @@ type TaxInfoList struct {
 	data           []TaxInfo
 }
 
+func NewTaxInfoList(client HTTPCaller, nextPagePath string, requestOptions *RequestOptions) *TaxInfoList {
+	return &TaxInfoList{
+		client:         client,
+		requestOptions: requestOptions,
+		nextPagePath:   nextPagePath,
+		hasMore:        true,
+	}
+}
+
 type TaxInfoLister interface {
 	Fetch() error
 	FetchWithContext(ctx context.Context) error
@@ -66,15 +75,6 @@ type TaxInfoLister interface {
 	Data() []TaxInfo
 	HasMore() bool
 	Next() string
-}
-
-func NewTaxInfoList(client HTTPCaller, nextPagePath string, requestOptions *RequestOptions) *TaxInfoList {
-	return &TaxInfoList{
-		client:         client,
-		requestOptions: requestOptions,
-		nextPagePath:   nextPagePath,
-		hasMore:        true,
-	}
 }
 
 func (list *TaxInfoList) HasMore() bool {

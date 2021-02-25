@@ -76,6 +76,15 @@ type AccountAcquisitionList struct {
 	data           []AccountAcquisition
 }
 
+func NewAccountAcquisitionList(client HTTPCaller, nextPagePath string, requestOptions *RequestOptions) *AccountAcquisitionList {
+	return &AccountAcquisitionList{
+		client:         client,
+		requestOptions: requestOptions,
+		nextPagePath:   nextPagePath,
+		hasMore:        true,
+	}
+}
+
 type AccountAcquisitionLister interface {
 	Fetch() error
 	FetchWithContext(ctx context.Context) error
@@ -84,15 +93,6 @@ type AccountAcquisitionLister interface {
 	Data() []AccountAcquisition
 	HasMore() bool
 	Next() string
-}
-
-func NewAccountAcquisitionList(client HTTPCaller, nextPagePath string, requestOptions *RequestOptions) *AccountAcquisitionList {
-	return &AccountAcquisitionList{
-		client:         client,
-		requestOptions: requestOptions,
-		nextPagePath:   nextPagePath,
-		hasMore:        true,
-	}
 }
 
 func (list *AccountAcquisitionList) HasMore() bool {

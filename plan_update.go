@@ -65,9 +65,6 @@ type PlanUpdate struct {
 	// Hosted pages settings
 	HostedPages *PlanHostedPagesCreate `json:"hosted_pages,omitempty"`
 
-	// Add Ons
-	AddOns []AddOnCreate `json:"add_ons,omitempty"`
-
 	// Used to determine whether items can be assigned as add-ons to individual subscriptions.
 	// If `true`, items can be assigned as add-ons to individual subscription add-ons.
 	// If `false`, only plan add-ons can be used.

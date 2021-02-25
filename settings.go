@@ -60,6 +60,15 @@ type SettingsList struct {
 	data           []Settings
 }
 
+func NewSettingsList(client HTTPCaller, nextPagePath string, requestOptions *RequestOptions) *SettingsList {
+	return &SettingsList{
+		client:         client,
+		requestOptions: requestOptions,
+		nextPagePath:   nextPagePath,
+		hasMore:        true,
+	}
+}
+
 type SettingsLister interface {
 	Fetch() error
 	FetchWithContext(ctx context.Context) error
@@ -68,15 +77,6 @@ type SettingsLister interface {
 	Data() []Settings
 	HasMore() bool
 	Next() string
-}
-
-func NewSettingsList(client HTTPCaller, nextPagePath string, requestOptions *RequestOptions) *SettingsList {
-	return &SettingsList{
-		client:         client,
-		requestOptions: requestOptions,
-		nextPagePath:   nextPagePath,
-		hasMore:        true,
-	}
 }
 
 func (list *SettingsList) HasMore() bool {

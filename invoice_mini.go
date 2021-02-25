@@ -64,6 +64,15 @@ type InvoiceMiniList struct {
 	data           []InvoiceMini
 }
 
+func NewInvoiceMiniList(client HTTPCaller, nextPagePath string, requestOptions *RequestOptions) *InvoiceMiniList {
+	return &InvoiceMiniList{
+		client:         client,
+		requestOptions: requestOptions,
+		nextPagePath:   nextPagePath,
+		hasMore:        true,
+	}
+}
+
 type InvoiceMiniLister interface {
 	Fetch() error
 	FetchWithContext(ctx context.Context) error
@@ -72,15 +81,6 @@ type InvoiceMiniLister interface {
 	Data() []InvoiceMini
 	HasMore() bool
 	Next() string
-}
-
-func NewInvoiceMiniList(client HTTPCaller, nextPagePath string, requestOptions *RequestOptions) *InvoiceMiniList {
-	return &InvoiceMiniList{
-		client:         client,
-		requestOptions: requestOptions,
-		nextPagePath:   nextPagePath,
-		hasMore:        true,
-	}
 }
 
 func (list *InvoiceMiniList) HasMore() bool {

@@ -94,6 +94,15 @@ type ShippingAddressList struct {
 	data           []ShippingAddress
 }
 
+func NewShippingAddressList(client HTTPCaller, nextPagePath string, requestOptions *RequestOptions) *ShippingAddressList {
+	return &ShippingAddressList{
+		client:         client,
+		requestOptions: requestOptions,
+		nextPagePath:   nextPagePath,
+		hasMore:        true,
+	}
+}
+
 type ShippingAddressLister interface {
 	Fetch() error
 	FetchWithContext(ctx context.Context) error
@@ -102,15 +111,6 @@ type ShippingAddressLister interface {
 	Data() []ShippingAddress
 	HasMore() bool
 	Next() string
-}
-
-func NewShippingAddressList(client HTTPCaller, nextPagePath string, requestOptions *RequestOptions) *ShippingAddressList {
-	return &ShippingAddressList{
-		client:         client,
-		requestOptions: requestOptions,
-		nextPagePath:   nextPagePath,
-		hasMore:        true,
-	}
 }
 
 func (list *ShippingAddressList) HasMore() bool {

@@ -68,7 +68,7 @@ type AddOn struct {
 	Optional bool `json:"optional,omitempty"`
 
 	// Add-on pricing
-	Currencies []Pricing `json:"currencies,omitempty"`
+	Currencies []AddOnPricing `json:"currencies,omitempty"`
 
 	// Just the important parts.
 	Item ItemMini `json:"item,omitempty"`
@@ -131,6 +131,15 @@ type AddOnList struct {
 	data           []AddOn
 }
 
+func NewAddOnList(client HTTPCaller, nextPagePath string, requestOptions *RequestOptions) *AddOnList {
+	return &AddOnList{
+		client:         client,
+		requestOptions: requestOptions,
+		nextPagePath:   nextPagePath,
+		hasMore:        true,
+	}
+}
+
 type AddOnLister interface {
 	Fetch() error
 	FetchWithContext(ctx context.Context) error
@@ -139,15 +148,6 @@ type AddOnLister interface {
 	Data() []AddOn
 	HasMore() bool
 	Next() string
-}
-
-func NewAddOnList(client HTTPCaller, nextPagePath string, requestOptions *RequestOptions) *AddOnList {
-	return &AddOnList{
-		client:         client,
-		requestOptions: requestOptions,
-		nextPagePath:   nextPagePath,
-		hasMore:        true,
-	}
 }
 
 func (list *AddOnList) HasMore() bool {

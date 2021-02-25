@@ -75,6 +75,15 @@ type CouponMiniList struct {
 	data           []CouponMini
 }
 
+func NewCouponMiniList(client HTTPCaller, nextPagePath string, requestOptions *RequestOptions) *CouponMiniList {
+	return &CouponMiniList{
+		client:         client,
+		requestOptions: requestOptions,
+		nextPagePath:   nextPagePath,
+		hasMore:        true,
+	}
+}
+
 type CouponMiniLister interface {
 	Fetch() error
 	FetchWithContext(ctx context.Context) error
@@ -83,15 +92,6 @@ type CouponMiniLister interface {
 	Data() []CouponMini
 	HasMore() bool
 	Next() string
-}
-
-func NewCouponMiniList(client HTTPCaller, nextPagePath string, requestOptions *RequestOptions) *CouponMiniList {
-	return &CouponMiniList{
-		client:         client,
-		requestOptions: requestOptions,
-		nextPagePath:   nextPagePath,
-		hasMore:        true,
-	}
 }
 
 func (list *CouponMiniList) HasMore() bool {

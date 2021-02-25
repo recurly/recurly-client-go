@@ -16,7 +16,7 @@ type Tier struct {
 	EndingQuantity int `json:"ending_quantity,omitempty"`
 
 	// Tier pricing
-	Currencies []Pricing `json:"currencies,omitempty"`
+	Currencies []TierPricing `json:"currencies,omitempty"`
 }
 
 // GetResponse returns the ResponseMetadata that generated this resource
@@ -55,6 +55,15 @@ type TierList struct {
 	data           []Tier
 }
 
+func NewTierList(client HTTPCaller, nextPagePath string, requestOptions *RequestOptions) *TierList {
+	return &TierList{
+		client:         client,
+		requestOptions: requestOptions,
+		nextPagePath:   nextPagePath,
+		hasMore:        true,
+	}
+}
+
 type TierLister interface {
 	Fetch() error
 	FetchWithContext(ctx context.Context) error
@@ -63,15 +72,6 @@ type TierLister interface {
 	Data() []Tier
 	HasMore() bool
 	Next() string
-}
-
-func NewTierList(client HTTPCaller, nextPagePath string, requestOptions *RequestOptions) *TierList {
-	return &TierList{
-		client:         client,
-		requestOptions: requestOptions,
-		nextPagePath:   nextPagePath,
-		hasMore:        true,
-	}
 }
 
 func (list *TierList) HasMore() bool {

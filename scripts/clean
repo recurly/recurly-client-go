@@ -27,6 +27,7 @@ rm -f coupon_discount_trial.go
 rm -f credit_payment.go
 rm -f invoice_mini.go
 rm -f transaction.go
+rm -f address_with_name.go
 rm -f transaction_payment_gateway.go
 rm -f invoice.go
 rm -f invoice_address.go
@@ -44,6 +45,7 @@ rm -f subscription_change.go
 rm -f subscription_add_on.go
 rm -f add_on_mini.go
 rm -f subscription_add_on_tier.go
+rm -f unique_coupon_code_params.go
 rm -f unique_coupon_code.go
 rm -f custom_field_definition.go
 rm -f item.go
@@ -54,14 +56,16 @@ rm -f plan.go
 rm -f plan_pricing.go
 rm -f plan_hosted_pages.go
 rm -f add_on.go
+rm -f add_on_pricing.go
 rm -f tier.go
+rm -f tier_pricing.go
 rm -f shipping_method.go
 rm -f usage.go
 rm -f export_dates.go
 rm -f export_files.go
 rm -f export_file.go
 rm -f account_create.go
-rm -f account_acquisition_updatable.go
+rm -f account_acquisition_update.go
 rm -f account_acquisition_cost_create.go
 rm -f shipping_address_create.go
 rm -f address_create.go
@@ -81,7 +85,7 @@ rm -f pricing_create.go
 rm -f item_update.go
 rm -f measured_unit_create.go
 rm -f measured_unit_update.go
-rm -f invoice_updatable.go
+rm -f invoice_update.go
 rm -f invoice_address_create.go
 rm -f invoice_collect.go
 rm -f external_transaction.go
@@ -92,7 +96,9 @@ rm -f plan_create.go
 rm -f plan_pricing_create.go
 rm -f plan_hosted_pages_create.go
 rm -f add_on_create.go
+rm -f add_on_pricing_create.go
 rm -f tier_create.go
+rm -f tier_pricing_create.go
 rm -f plan_update.go
 rm -f add_on_update.go
 rm -f shipping_method_create.go

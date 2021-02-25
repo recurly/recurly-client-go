@@ -86,6 +86,15 @@ type BillingInfoList struct {
 	data           []BillingInfo
 }
 
+func NewBillingInfoList(client HTTPCaller, nextPagePath string, requestOptions *RequestOptions) *BillingInfoList {
+	return &BillingInfoList{
+		client:         client,
+		requestOptions: requestOptions,
+		nextPagePath:   nextPagePath,
+		hasMore:        true,
+	}
+}
+
 type BillingInfoLister interface {
 	Fetch() error
 	FetchWithContext(ctx context.Context) error
@@ -94,15 +103,6 @@ type BillingInfoLister interface {
 	Data() []BillingInfo
 	HasMore() bool
 	Next() string
-}
-
-func NewBillingInfoList(client HTTPCaller, nextPagePath string, requestOptions *RequestOptions) *BillingInfoList {
-	return &BillingInfoList{
-		client:         client,
-		requestOptions: requestOptions,
-		nextPagePath:   nextPagePath,
-		hasMore:        true,
-	}
 }
 
 func (list *BillingInfoList) HasMore() bool {

@@ -91,6 +91,15 @@ type CreditPaymentList struct {
 	data           []CreditPayment
 }
 
+func NewCreditPaymentList(client HTTPCaller, nextPagePath string, requestOptions *RequestOptions) *CreditPaymentList {
+	return &CreditPaymentList{
+		client:         client,
+		requestOptions: requestOptions,
+		nextPagePath:   nextPagePath,
+		hasMore:        true,
+	}
+}
+
 type CreditPaymentLister interface {
 	Fetch() error
 	FetchWithContext(ctx context.Context) error
@@ -99,15 +108,6 @@ type CreditPaymentLister interface {
 	Data() []CreditPayment
 	HasMore() bool
 	Next() string
-}
-
-func NewCreditPaymentList(client HTTPCaller, nextPagePath string, requestOptions *RequestOptions) *CreditPaymentList {
-	return &CreditPaymentList{
-		client:         client,
-		requestOptions: requestOptions,
-		nextPagePath:   nextPagePath,
-		hasMore:        true,
-	}
 }
 
 func (list *CreditPaymentList) HasMore() bool {

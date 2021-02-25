@@ -6,7 +6,7 @@ package recurly
 
 import ()
 
-type InvoiceUpdatable struct {
+type InvoiceUpdate struct {
 
 	// This identifies the PO number associated with the invoice. Not editable for credit invoices.
 	PoNumber *string `json:"po_number,omitempty"`

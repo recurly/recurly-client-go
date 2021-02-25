@@ -12,12 +12,6 @@ import (
 type Address struct {
 	recurlyResponse *ResponseMetadata
 
-	// First name
-	FirstName string `json:"first_name,omitempty"`
-
-	// Last name
-	LastName string `json:"last_name,omitempty"`
-
 	// Phone number
 	Phone string `json:"phone,omitempty"`
 
@@ -76,6 +70,15 @@ type AddressList struct {
 	data           []Address
 }
 
+func NewAddressList(client HTTPCaller, nextPagePath string, requestOptions *RequestOptions) *AddressList {
+	return &AddressList{
+		client:         client,
+		requestOptions: requestOptions,
+		nextPagePath:   nextPagePath,
+		hasMore:        true,
+	}
+}
+
 type AddressLister interface {
 	Fetch() error
 	FetchWithContext(ctx context.Context) error
@@ -84,15 +87,6 @@ type AddressLister interface {
 	Data() []Address
 	HasMore() bool
 	Next() string
-}
-
-func NewAddressList(client HTTPCaller, nextPagePath string, requestOptions *RequestOptions) *AddressList {
-	return &AddressList{
-		client:         client,
-		requestOptions: requestOptions,
-		nextPagePath:   nextPagePath,
-		hasMore:        true,
-	}
 }
 
 func (list *AddressList) HasMore() bool {

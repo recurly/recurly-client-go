@@ -95,7 +95,11 @@ type Invoice struct {
 	// This will default to the Customer Notes text specified on the Invoice Settings. Specify custom notes to add or override Customer Notes.
 	CustomerNotes string `json:"customer_notes,omitempty"`
 
-	LineItems LineItem `json:"line_items,omitempty"`
+	// Line Items
+	LineItems []LineItem `json:"line_items,omitempty"`
+
+	// Identifies if the invoice has more line items than are returned in `line_items`. If `has_more_line_items` is `true`, then a request needs to be made to the `list_invoice_line_items` endpoint.
+	HasMoreLineItems bool `json:"has_more_line_items,omitempty"`
 
 	// Transactions
 	Transactions []Transaction `json:"transactions,omitempty"`
@@ -152,6 +156,15 @@ type InvoiceList struct {
 	data           []Invoice
 }
 
+func NewInvoiceList(client HTTPCaller, nextPagePath string, requestOptions *RequestOptions) *InvoiceList {
+	return &InvoiceList{
+		client:         client,
+		requestOptions: requestOptions,
+		nextPagePath:   nextPagePath,
+		hasMore:        true,
+	}
+}
+
 type InvoiceLister interface {
 	Fetch() error
 	FetchWithContext(ctx context.Context) error
@@ -160,15 +173,6 @@ type InvoiceLister interface {
 	Data() []Invoice
 	HasMore() bool
 	Next() string
-}
-
-func NewInvoiceList(client HTTPCaller, nextPagePath string, requestOptions *RequestOptions) *InvoiceList {
-	return &InvoiceList{
-		client:         client,
-		requestOptions: requestOptions,
-		nextPagePath:   nextPagePath,
-		hasMore:        true,
-	}
 }
 
 func (list *InvoiceList) HasMore() bool {

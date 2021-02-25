@@ -58,6 +58,15 @@ type TransactionPaymentGatewayList struct {
 	data           []TransactionPaymentGateway
 }
 
+func NewTransactionPaymentGatewayList(client HTTPCaller, nextPagePath string, requestOptions *RequestOptions) *TransactionPaymentGatewayList {
+	return &TransactionPaymentGatewayList{
+		client:         client,
+		requestOptions: requestOptions,
+		nextPagePath:   nextPagePath,
+		hasMore:        true,
+	}
+}
+
 type TransactionPaymentGatewayLister interface {
 	Fetch() error
 	FetchWithContext(ctx context.Context) error
@@ -66,15 +75,6 @@ type TransactionPaymentGatewayLister interface {
 	Data() []TransactionPaymentGateway
 	HasMore() bool
 	Next() string
-}
-
-func NewTransactionPaymentGatewayList(client HTTPCaller, nextPagePath string, requestOptions *RequestOptions) *TransactionPaymentGatewayList {
-	return &TransactionPaymentGatewayList{
-		client:         client,
-		requestOptions: requestOptions,
-		nextPagePath:   nextPagePath,
-		hasMore:        true,
-	}
 }
 
 func (list *TransactionPaymentGatewayList) HasMore() bool {

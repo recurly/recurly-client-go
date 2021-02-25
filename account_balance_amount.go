@@ -55,6 +55,15 @@ type AccountBalanceAmountList struct {
 	data           []AccountBalanceAmount
 }
 
+func NewAccountBalanceAmountList(client HTTPCaller, nextPagePath string, requestOptions *RequestOptions) *AccountBalanceAmountList {
+	return &AccountBalanceAmountList{
+		client:         client,
+		requestOptions: requestOptions,
+		nextPagePath:   nextPagePath,
+		hasMore:        true,
+	}
+}
+
 type AccountBalanceAmountLister interface {
 	Fetch() error
 	FetchWithContext(ctx context.Context) error
@@ -63,15 +72,6 @@ type AccountBalanceAmountLister interface {
 	Data() []AccountBalanceAmount
 	HasMore() bool
 	Next() string
-}
-
-func NewAccountBalanceAmountList(client HTTPCaller, nextPagePath string, requestOptions *RequestOptions) *AccountBalanceAmountList {
-	return &AccountBalanceAmountList{
-		client:         client,
-		requestOptions: requestOptions,
-		nextPagePath:   nextPagePath,
-		hasMore:        true,
-	}
 }
 
 func (list *AccountBalanceAmountList) HasMore() bool {

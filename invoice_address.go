@@ -18,12 +18,6 @@ type InvoiceAddress struct {
 	// Company
 	Company string `json:"company,omitempty"`
 
-	// First name
-	FirstName string `json:"first_name,omitempty"`
-
-	// Last name
-	LastName string `json:"last_name,omitempty"`
-
 	// Phone number
 	Phone string `json:"phone,omitempty"`
 
@@ -44,6 +38,12 @@ type InvoiceAddress struct {
 
 	// Country, 2-letter ISO code.
 	Country string `json:"country,omitempty"`
+
+	// First name
+	FirstName string `json:"first_name,omitempty"`
+
+	// Last name
+	LastName string `json:"last_name,omitempty"`
 }
 
 // GetResponse returns the ResponseMetadata that generated this resource
@@ -82,6 +82,15 @@ type InvoiceAddressList struct {
 	data           []InvoiceAddress
 }
 
+func NewInvoiceAddressList(client HTTPCaller, nextPagePath string, requestOptions *RequestOptions) *InvoiceAddressList {
+	return &InvoiceAddressList{
+		client:         client,
+		requestOptions: requestOptions,
+		nextPagePath:   nextPagePath,
+		hasMore:        true,
+	}
+}
+
 type InvoiceAddressLister interface {
 	Fetch() error
 	FetchWithContext(ctx context.Context) error
@@ -90,15 +99,6 @@ type InvoiceAddressLister interface {
 	Data() []InvoiceAddress
 	HasMore() bool
 	Next() string
-}
-
-func NewInvoiceAddressList(client HTTPCaller, nextPagePath string, requestOptions *RequestOptions) *InvoiceAddressList {
-	return &InvoiceAddressList{
-		client:         client,
-		requestOptions: requestOptions,
-		nextPagePath:   nextPagePath,
-		hasMore:        true,
-	}
 }
 
 func (list *InvoiceAddressList) HasMore() bool {

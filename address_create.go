@@ -8,12 +8,6 @@ import ()
 
 type AddressCreate struct {
 
-	// First name
-	FirstName *string `json:"first_name,omitempty"`
-
-	// Last name
-	LastName *string `json:"last_name,omitempty"`
-
 	// Phone number
 	Phone *string `json:"phone,omitempty"`
 

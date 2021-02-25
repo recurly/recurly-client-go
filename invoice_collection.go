@@ -57,6 +57,15 @@ type InvoiceCollectionList struct {
 	data           []InvoiceCollection
 }
 
+func NewInvoiceCollectionList(client HTTPCaller, nextPagePath string, requestOptions *RequestOptions) *InvoiceCollectionList {
+	return &InvoiceCollectionList{
+		client:         client,
+		requestOptions: requestOptions,
+		nextPagePath:   nextPagePath,
+		hasMore:        true,
+	}
+}
+
 type InvoiceCollectionLister interface {
 	Fetch() error
 	FetchWithContext(ctx context.Context) error
@@ -65,15 +74,6 @@ type InvoiceCollectionLister interface {
 	Data() []InvoiceCollection
 	HasMore() bool
 	Next() string
-}
-
-func NewInvoiceCollectionList(client HTTPCaller, nextPagePath string, requestOptions *RequestOptions) *InvoiceCollectionList {
-	return &InvoiceCollectionList{
-		client:         client,
-		requestOptions: requestOptions,
-		nextPagePath:   nextPagePath,
-		hasMore:        true,
-	}
 }
 
 func (list *InvoiceCollectionList) HasMore() bool {

@@ -28,8 +28,15 @@ type SubscriptionAddOnUpdate struct {
 	// Quantity
 	Quantity *int `json:"quantity,omitempty"`
 
-	// Optionally, override the add-on's default unit amount.
+	// Allows up to 2 decimal places. Optionally, override the add-on's default unit amount.
+	// If the plan add-on's `tier_type` is `tiered`, `volume`, or `stairstep`, then `unit_amount` cannot be provided.
 	UnitAmount *float64 `json:"unit_amount,omitempty"`
+
+	// Allows up to 9 decimal places. Optionally, override the add-on's default unit amount.
+	// If the plan add-on's `tier_type` is `tiered`, `volume`, or `stairstep`, then `unit_amount_decimal` cannot be provided.
+	// Only supported when the plan add-on's `add_on_type` = `usage`.
+	// If `unit_amount_decimal` is provided, `unit_amount` cannot be provided.
+	UnitAmountDecimal *string `json:"unit_amount_decimal,omitempty"`
 
 	// If the plan add-on's `tier_type` is `flat`, then `tiers` must be absent. The `tiers` object
 	// must include one to many tiers with `ending_quantity` and `unit_amount`.

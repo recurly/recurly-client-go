@@ -14,7 +14,7 @@ type AccountPurchase struct {
 	// The unique identifier of the account. This cannot be changed once the account is created.
 	Code *string `json:"code,omitempty"`
 
-	Acquisition *AccountAcquisitionUpdatable `json:"acquisition,omitempty"`
+	Acquisition *AccountAcquisitionUpdate `json:"acquisition,omitempty"`
 
 	// A secondary value for the account.
 	Username *string `json:"username,omitempty"`

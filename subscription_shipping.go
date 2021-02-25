@@ -59,6 +59,15 @@ type SubscriptionShippingList struct {
 	data           []SubscriptionShipping
 }
 
+func NewSubscriptionShippingList(client HTTPCaller, nextPagePath string, requestOptions *RequestOptions) *SubscriptionShippingList {
+	return &SubscriptionShippingList{
+		client:         client,
+		requestOptions: requestOptions,
+		nextPagePath:   nextPagePath,
+		hasMore:        true,
+	}
+}
+
 type SubscriptionShippingLister interface {
 	Fetch() error
 	FetchWithContext(ctx context.Context) error
@@ -67,15 +76,6 @@ type SubscriptionShippingLister interface {
 	Data() []SubscriptionShipping
 	HasMore() bool
 	Next() string
-}
-
-func NewSubscriptionShippingList(client HTTPCaller, nextPagePath string, requestOptions *RequestOptions) *SubscriptionShippingList {
-	return &SubscriptionShippingList{
-		client:         client,
-		requestOptions: requestOptions,
-		nextPagePath:   nextPagePath,
-		hasMore:        true,
-	}
 }
 
 func (list *SubscriptionShippingList) HasMore() bool {

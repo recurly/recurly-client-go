@@ -7,81 +7,77 @@ package recurly
 import (
 	"context"
 	"net/http"
-	"time"
 )
 
-type Site struct {
+type AddressWithName struct {
 	recurlyResponse *ResponseMetadata
 
-	// Site ID
-	Id string `json:"id,omitempty"`
+	// First name
+	FirstName string `json:"first_name,omitempty"`
 
-	// Object type
-	Object string `json:"object,omitempty"`
+	// Last name
+	LastName string `json:"last_name,omitempty"`
 
-	Subdomain string `json:"subdomain,omitempty"`
+	// Phone number
+	Phone string `json:"phone,omitempty"`
 
-	// This value is used to configure RecurlyJS to submit tokenized billing information.
-	PublicApiKey string `json:"public_api_key,omitempty"`
+	// Street 1
+	Street1 string `json:"street1,omitempty"`
 
-	// Mode
-	Mode string `json:"mode,omitempty"`
+	// Street 2
+	Street2 string `json:"street2,omitempty"`
 
-	Address Address `json:"address,omitempty"`
+	// City
+	City string `json:"city,omitempty"`
 
-	Settings Settings `json:"settings,omitempty"`
+	// State or province.
+	Region string `json:"region,omitempty"`
 
-	// A list of features enabled for the site.
-	Features []string `json:"features,omitempty"`
+	// Zip or postal code.
+	PostalCode string `json:"postal_code,omitempty"`
 
-	// Created at
-	CreatedAt time.Time `json:"created_at,omitempty"`
-
-	// Updated at
-	UpdatedAt time.Time `json:"updated_at,omitempty"`
-
-	// Deleted at
-	DeletedAt time.Time `json:"deleted_at,omitempty"`
+	// Country, 2-letter ISO code.
+	Country string `json:"country,omitempty"`
 }
 
 // GetResponse returns the ResponseMetadata that generated this resource
-func (resource *Site) GetResponse() *ResponseMetadata {
+func (resource *AddressWithName) GetResponse() *ResponseMetadata {
 	return resource.recurlyResponse
 }
 
 // setResponse sets the ResponseMetadata that generated this resource
-func (resource *Site) setResponse(res *ResponseMetadata) {
+func (resource *AddressWithName) setResponse(res *ResponseMetadata) {
 	resource.recurlyResponse = res
 }
 
 // internal struct for deserializing accounts
-type siteList struct {
+type addressWithNameList struct {
 	ListMetadata
-	Data            []Site `json:"data"`
+	Data            []AddressWithName `json:"data"`
 	recurlyResponse *ResponseMetadata
 }
 
 // GetResponse returns the ResponseMetadata that generated this resource
-func (resource *siteList) GetResponse() *ResponseMetadata {
+func (resource *addressWithNameList) GetResponse() *ResponseMetadata {
 	return resource.recurlyResponse
 }
 
 // setResponse sets the ResponseMetadata that generated this resource
-func (resource *siteList) setResponse(res *ResponseMetadata) {
+func (resource *addressWithNameList) setResponse(res *ResponseMetadata) {
 	resource.recurlyResponse = res
 }
 
-// SiteList allows you to paginate Site objects
-type SiteList struct {
+// AddressWithNameList allows you to paginate AddressWithName objects
+type AddressWithNameList struct {
 	client         HTTPCaller
 	requestOptions *RequestOptions
 	nextPagePath   string
 	hasMore        bool
-	data           []Site
+	data           []AddressWithName
 }
 
-func NewSiteList(client HTTPCaller, nextPagePath string, requestOptions *RequestOptions) *SiteList {
-	return &SiteList{
+func NewAddressWithNameList(client HTTPCaller, nextPagePath string, requestOptions *RequestOptions) *AddressWithNameList {
+	return &AddressWithNameList{
 		client:         client,
 		requestOptions: requestOptions,
 		nextPagePath:   nextPagePath,
@@ -89,31 +85,31 @@ func NewSiteList(client HTTPCaller, nextPagePath string, requestOptions *Request
 	}
 }
 
-type SiteLister interface {
+type AddressWithNameLister interface {
 	Fetch() error
 	FetchWithContext(ctx context.Context) error
 	Count() (*int64, error)
 	CountWithContext(ctx context.Context) (*int64, error)
-	Data() []Site
+	Data() []AddressWithName
 	HasMore() bool
 	Next() string
 }
 
-func (list *SiteList) HasMore() bool {
+func (list *AddressWithNameList) HasMore() bool {
 	return list.hasMore
 }
 
-func (list *SiteList) Next() string {
+func (list *AddressWithNameList) Next() string {
 	return list.nextPagePath
 }
 
-func (list *SiteList) Data() []Site {
+func (list *AddressWithNameList) Data() []AddressWithName {
 	return list.data
 }
 
 // Fetch fetches the next page of data into the `Data` property
-func (list *SiteList) FetchWithContext(ctx context.Context) error {
-	resources := &siteList{}
+func (list *AddressWithNameList) FetchWithContext(ctx context.Context) error {
+	resources := &addressWithNameList{}
 	err := list.client.Call(ctx, http.MethodGet, list.nextPagePath, nil, nil, list.requestOptions, resources)
 	if err != nil {
 		return err
@@ -126,13 +122,13 @@ func (list *SiteList) FetchWithContext(ctx context.Context) error {
 }
 
 // Fetch fetches the next page of data into the `Data` property
-func (list *SiteList) Fetch() error {
+func (list *AddressWithNameList) Fetch() error {
 	return list.FetchWithContext(context.Background())
 }
 
 // Count returns the count of items on the server that match this pager
-func (list *SiteList) CountWithContext(ctx context.Context) (*int64, error) {
-	resources := &siteList{}
+func (list *AddressWithNameList) CountWithContext(ctx context.Context) (*int64, error) {
+	resources := &addressWithNameList{}
 	err := list.client.Call(ctx, http.MethodHead, list.nextPagePath, nil, nil, list.requestOptions, resources)
 	if err != nil {
 		return nil, err
@@ -142,6 +138,6 @@ func (list *SiteList) CountWithContext(ctx context.Context) (*int64, error) {
 }
 
 // Count returns the count of items on the server that match this pager
-func (list *SiteList) Count() (*int64, error) {
+func (list *AddressWithNameList) Count() (*int64, error) {
 	return list.CountWithContext(context.Background())
 }

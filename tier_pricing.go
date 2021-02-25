@@ -7,81 +7,60 @@ package recurly
 import (
 	"context"
 	"net/http"
-	"time"
 )
 
-type Site struct {
+type TierPricing struct {
 	recurlyResponse *ResponseMetadata
 
-	// Site ID
-	Id string `json:"id,omitempty"`
+	// 3-letter ISO 4217 currency code.
+	Currency string `json:"currency,omitempty"`
 
-	// Object type
-	Object string `json:"object,omitempty"`
+	// Allows up to 2 decimal places. Required unless `unit_amount_decimal` is provided.
+	UnitAmount float64 `json:"unit_amount,omitempty"`
 
-	Subdomain string `json:"subdomain,omitempty"`
-
-	// This value is used to configure RecurlyJS to submit tokenized billing information.
-	PublicApiKey string `json:"public_api_key,omitempty"`
-
-	// Mode
-	Mode string `json:"mode,omitempty"`
-
-	Address Address `json:"address,omitempty"`
-
-	Settings Settings `json:"settings,omitempty"`
-
-	// A list of features enabled for the site.
-	Features []string `json:"features,omitempty"`
-
-	// Created at
-	CreatedAt time.Time `json:"created_at,omitempty"`
-
-	// Updated at
-	UpdatedAt time.Time `json:"updated_at,omitempty"`
-
-	// Deleted at
-	DeletedAt time.Time `json:"deleted_at,omitempty"`
+	// Allows up to 9 decimal places. Only supported when `add_on_type` = `usage`.
+	// If `unit_amount_decimal` is provided, `unit_amount` cannot be provided.
+	UnitAmountDecimal string `json:"unit_amount_decimal,omitempty"`
 }
 
 // GetResponse returns the ResponseMetadata that generated this resource
-func (resource *Site) GetResponse() *ResponseMetadata {
+func (resource *TierPricing) GetResponse() *ResponseMetadata {
 	return resource.recurlyResponse
 }
 
 // setResponse sets the ResponseMetadata that generated this resource
-func (resource *Site) setResponse(res *ResponseMetadata) {
+func (resource *TierPricing) setResponse(res *ResponseMetadata) {
 	resource.recurlyResponse = res
 }
 
 // internal struct for deserializing accounts
-type siteList struct {
+type tierPricingList struct {
 	ListMetadata
-	Data            []Site `json:"data"`
+	Data            []TierPricing `json:"data"`
 	recurlyResponse *ResponseMetadata
 }
 
 // GetResponse returns the ResponseMetadata that generated this resource
-func (resource *siteList) GetResponse() *ResponseMetadata {
+func (resource *tierPricingList) GetResponse() *ResponseMetadata {
 	return resource.recurlyResponse
 }
 
 // setResponse sets the ResponseMetadata that generated this resource
-func (resource *siteList) setResponse(res *ResponseMetadata) {
+func (resource *tierPricingList) setResponse(res *ResponseMetadata) {
 	resource.recurlyResponse = res
 }
 
-// SiteList allows you to paginate Site objects
-type SiteList struct {
+// TierPricingList allows you to paginate TierPricing objects
+type TierPricingList struct {
 	client         HTTPCaller
 	requestOptions *RequestOptions
 	nextPagePath   string
 	hasMore        bool
-	data           []Site
+	data           []TierPricing
 }
 
-func NewSiteList(client HTTPCaller, nextPagePath string, requestOptions *RequestOptions) *SiteList {
-	return &SiteList{
+func NewTierPricingList(client HTTPCaller, nextPagePath string, requestOptions *RequestOptions) *TierPricingList {
+	return &TierPricingList{
 		client:         client,
 		requestOptions: requestOptions,
 		nextPagePath:   nextPagePath,
@@ -89,31 +68,31 @@ func NewSiteList(client HTTPCaller, nextPagePath string, requestOptions *Request
 	}
 }
 
-type SiteLister interface {
+type TierPricingLister interface {
 	Fetch() error
 	FetchWithContext(ctx context.Context) error
 	Count() (*int64, error)
 	CountWithContext(ctx context.Context) (*int64, error)
-	Data() []Site
+	Data() []TierPricing
 	HasMore() bool
 	Next() string
 }
 
-func (list *SiteList) HasMore() bool {
+func (list *TierPricingList) HasMore() bool {
 	return list.hasMore
 }
 
-func (list *SiteList) Next() string {
+func (list *TierPricingList) Next() string {
 	return list.nextPagePath
 }
 
-func (list *SiteList) Data() []Site {
+func (list *TierPricingList) Data() []TierPricing {
 	return list.data
 }
 
 // Fetch fetches the next page of data into the `Data` property
-func (list *SiteList) FetchWithContext(ctx context.Context) error {
-	resources := &siteList{}
+func (list *TierPricingList) FetchWithContext(ctx context.Context) error {
+	resources := &tierPricingList{}
 	err := list.client.Call(ctx, http.MethodGet, list.nextPagePath, nil, nil, list.requestOptions, resources)
 	if err != nil {
 		return err
@@ -126,13 +105,13 @@ func (list *SiteList) FetchWithContext(ctx context.Context) error {
 }
 
 // Fetch fetches the next page of data into the `Data` property
-func (list *SiteList) Fetch() error {
+func (list *TierPricingList) Fetch() error {
 	return list.FetchWithContext(context.Background())
 }
 
 // Count returns the count of items on the server that match this pager
-func (list *SiteList) CountWithContext(ctx context.Context) (*int64, error) {
-	resources := &siteList{}
+func (list *TierPricingList) CountWithContext(ctx context.Context) (*int64, error) {
+	resources := &tierPricingList{}
 	err := list.client.Call(ctx, http.MethodHead, list.nextPagePath, nil, nil, list.requestOptions, resources)
 	if err != nil {
 		return nil, err
@@ -142,6 +121,6 @@ func (list *SiteList) CountWithContext(ctx context.Context) (*int64, error) {
 }
 
 // Count returns the count of items on the server that match this pager
-func (list *SiteList) Count() (*int64, error) {
+func (list *TierPricingList) Count() (*int64, error) {
 	return list.CountWithContext(context.Background())
 }

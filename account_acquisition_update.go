@@ -6,7 +6,7 @@ package recurly
 
 import ()
 
-type AccountAcquisitionUpdatable struct {
+type AccountAcquisitionUpdate struct {
 
 	// Account balance
 	Cost *AccountAcquisitionCostCreate `json:"cost,omitempty"`

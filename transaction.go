@@ -62,7 +62,7 @@ type Transaction struct {
 	// Indicates if part or all of this transaction was refunded.
 	Refunded bool `json:"refunded,omitempty"`
 
-	BillingAddress Address `json:"billing_address,omitempty"`
+	BillingAddress AddressWithName `json:"billing_address,omitempty"`
 
 	// The method by which the payment was collected.
 	CollectionMethod string `json:"collection_method,omitempty"`
@@ -165,6 +165,15 @@ type TransactionList struct {
 	data           []Transaction
 }
 
+func NewTransactionList(client HTTPCaller, nextPagePath string, requestOptions *RequestOptions) *TransactionList {
+	return &TransactionList{
+		client:         client,
+		requestOptions: requestOptions,
+		nextPagePath:   nextPagePath,
+		hasMore:        true,
+	}
+}
+
 type TransactionLister interface {
 	Fetch() error
 	FetchWithContext(ctx context.Context) error
@@ -173,15 +182,6 @@ type TransactionLister interface {
 	Data() []Transaction
 	HasMore() bool
 	Next() string
-}
-
-func NewTransactionList(client HTTPCaller, nextPagePath string, requestOptions *RequestOptions) *TransactionList {
-	return &TransactionList{
-		client:         client,
-		requestOptions: requestOptions,
-		nextPagePath:   nextPagePath,
-		hasMore:        true,
-	}
 }
 
 func (list *TransactionList) HasMore() bool {

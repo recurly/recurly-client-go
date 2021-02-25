@@ -55,6 +55,15 @@ type AccountAcquisitionCostList struct {
 	data           []AccountAcquisitionCost
 }
 
+func NewAccountAcquisitionCostList(client HTTPCaller, nextPagePath string, requestOptions *RequestOptions) *AccountAcquisitionCostList {
+	return &AccountAcquisitionCostList{
+		client:         client,
+		requestOptions: requestOptions,
+		nextPagePath:   nextPagePath,
+		hasMore:        true,
+	}
+}
+
 type AccountAcquisitionCostLister interface {
 	Fetch() error
 	FetchWithContext(ctx context.Context) error
@@ -63,15 +72,6 @@ type AccountAcquisitionCostLister interface {
 	Data() []AccountAcquisitionCost
 	HasMore() bool
 	Next() string
-}
-
-func NewAccountAcquisitionCostList(client HTTPCaller, nextPagePath string, requestOptions *RequestOptions) *AccountAcquisitionCostList {
-	return &AccountAcquisitionCostList{
-		client:         client,
-		requestOptions: requestOptions,
-		nextPagePath:   nextPagePath,
-		hasMore:        true,
-	}
 }
 
 func (list *AccountAcquisitionCostList) HasMore() bool {

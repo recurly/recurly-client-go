@@ -58,6 +58,15 @@ type ExportFileList struct {
 	data           []ExportFile
 }
 
+func NewExportFileList(client HTTPCaller, nextPagePath string, requestOptions *RequestOptions) *ExportFileList {
+	return &ExportFileList{
+		client:         client,
+		requestOptions: requestOptions,
+		nextPagePath:   nextPagePath,
+		hasMore:        true,
+	}
+}
+
 type ExportFileLister interface {
 	Fetch() error
 	FetchWithContext(ctx context.Context) error
@@ -66,15 +75,6 @@ type ExportFileLister interface {
 	Data() []ExportFile
 	HasMore() bool
 	Next() string
-}
-
-func NewExportFileList(client HTTPCaller, nextPagePath string, requestOptions *RequestOptions) *ExportFileList {
-	return &ExportFileList{
-		client:         client,
-		requestOptions: requestOptions,
-		nextPagePath:   nextPagePath,
-		hasMore:        true,
-	}
 }
 
 func (list *ExportFileList) HasMore() bool {

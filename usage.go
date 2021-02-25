@@ -51,6 +51,9 @@ type Usage struct {
 	// Unit price
 	UnitAmount float64 `json:"unit_amount,omitempty"`
 
+	// Unit price that can optionally support a sub-cent value.
+	UnitAmountDecimal string `json:"unit_amount_decimal,omitempty"`
+
 	// When the usage record was billed on an invoice.
 	BilledAt time.Time `json:"billed_at,omitempty"`
 
@@ -97,6 +100,15 @@ type UsageList struct {
 	data           []Usage
 }
 
+func NewUsageList(client HTTPCaller, nextPagePath string, requestOptions *RequestOptions) *UsageList {
+	return &UsageList{
+		client:         client,
+		requestOptions: requestOptions,
+		nextPagePath:   nextPagePath,
+		hasMore:        true,
+	}
+}
+
 type UsageLister interface {
 	Fetch() error
 	FetchWithContext(ctx context.Context) error
@@ -105,15 +117,6 @@ type UsageLister interface {
 	Data() []Usage
 	HasMore() bool
 	Next() string
-}
-
-func NewUsageList(client HTTPCaller, nextPagePath string, requestOptions *RequestOptions) *UsageList {
-	return &UsageList{
-		client:         client,
-		requestOptions: requestOptions,
-		nextPagePath:   nextPagePath,
-		hasMore:        true,
-	}
 }
 
 func (list *UsageList) HasMore() bool {

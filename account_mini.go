@@ -70,6 +70,15 @@ type AccountMiniList struct {
 	data           []AccountMini
 }
 
+func NewAccountMiniList(client HTTPCaller, nextPagePath string, requestOptions *RequestOptions) *AccountMiniList {
+	return &AccountMiniList{
+		client:         client,
+		requestOptions: requestOptions,
+		nextPagePath:   nextPagePath,
+		hasMore:        true,
+	}
+}
+
 type AccountMiniLister interface {
 	Fetch() error
 	FetchWithContext(ctx context.Context) error
@@ -78,15 +87,6 @@ type AccountMiniLister interface {
 	Data() []AccountMini
 	HasMore() bool
 	Next() string
-}
-
-func NewAccountMiniList(client HTTPCaller, nextPagePath string, requestOptions *RequestOptions) *AccountMiniList {
-	return &AccountMiniList{
-		client:         client,
-		requestOptions: requestOptions,
-		nextPagePath:   nextPagePath,
-		hasMore:        true,
-	}
 }
 
 func (list *AccountMiniList) HasMore() bool {

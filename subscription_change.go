@@ -98,6 +98,15 @@ type SubscriptionChangeList struct {
 	data           []SubscriptionChange
 }
 
+func NewSubscriptionChangeList(client HTTPCaller, nextPagePath string, requestOptions *RequestOptions) *SubscriptionChangeList {
+	return &SubscriptionChangeList{
+		client:         client,
+		requestOptions: requestOptions,
+		nextPagePath:   nextPagePath,
+		hasMore:        true,
+	}
+}
+
 type SubscriptionChangeLister interface {
 	Fetch() error
 	FetchWithContext(ctx context.Context) error
@@ -106,15 +115,6 @@ type SubscriptionChangeLister interface {
 	Data() []SubscriptionChange
 	HasMore() bool
 	Next() string
-}
-
-func NewSubscriptionChangeList(client HTTPCaller, nextPagePath string, requestOptions *RequestOptions) *SubscriptionChangeList {
-	return &SubscriptionChangeList{
-		client:         client,
-		requestOptions: requestOptions,
-		nextPagePath:   nextPagePath,
-		hasMore:        true,
-	}
 }
 
 func (list *SubscriptionChangeList) HasMore() bool {

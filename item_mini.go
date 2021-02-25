@@ -67,6 +67,15 @@ type ItemMiniList struct {
 	data           []ItemMini
 }
 
+func NewItemMiniList(client HTTPCaller, nextPagePath string, requestOptions *RequestOptions) *ItemMiniList {
+	return &ItemMiniList{
+		client:         client,
+		requestOptions: requestOptions,
+		nextPagePath:   nextPagePath,
+		hasMore:        true,
+	}
+}
+
 type ItemMiniLister interface {
 	Fetch() error
 	FetchWithContext(ctx context.Context) error
@@ -75,15 +84,6 @@ type ItemMiniLister interface {
 	Data() []ItemMini
 	HasMore() bool
 	Next() string
-}
-
-func NewItemMiniList(client HTTPCaller, nextPagePath string, requestOptions *RequestOptions) *ItemMiniList {
-	return &ItemMiniList{
-		client:         client,
-		requestOptions: requestOptions,
-		nextPagePath:   nextPagePath,
-		hasMore:        true,
-	}
 }
 
 func (list *ItemMiniList) HasMore() bool {

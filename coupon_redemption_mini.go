@@ -67,6 +67,15 @@ type CouponRedemptionMiniList struct {
 	data           []CouponRedemptionMini
 }
 
+func NewCouponRedemptionMiniList(client HTTPCaller, nextPagePath string, requestOptions *RequestOptions) *CouponRedemptionMiniList {
+	return &CouponRedemptionMiniList{
+		client:         client,
+		requestOptions: requestOptions,
+		nextPagePath:   nextPagePath,
+		hasMore:        true,
+	}
+}
+
 type CouponRedemptionMiniLister interface {
 	Fetch() error
 	FetchWithContext(ctx context.Context) error
@@ -75,15 +84,6 @@ type CouponRedemptionMiniLister interface {
 	Data() []CouponRedemptionMini
 	HasMore() bool
 	Next() string
-}
-
-func NewCouponRedemptionMiniList(client HTTPCaller, nextPagePath string, requestOptions *RequestOptions) *CouponRedemptionMiniList {
-	return &CouponRedemptionMiniList{
-		client:         client,
-		requestOptions: requestOptions,
-		nextPagePath:   nextPagePath,
-		hasMore:        true,
-	}
 }
 
 func (list *CouponRedemptionMiniList) HasMore() bool {

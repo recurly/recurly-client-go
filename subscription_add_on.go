@@ -34,8 +34,11 @@ type SubscriptionAddOn struct {
 	// Add-on quantity
 	Quantity int `json:"quantity,omitempty"`
 
-	// This is priced in the subscription's currency.
+	// Supports up to 2 decimal places.
 	UnitAmount float64 `json:"unit_amount,omitempty"`
+
+	// Supports up to 9 decimal places.
+	UnitAmountDecimal string `json:"unit_amount_decimal,omitempty"`
 
 	// Revenue schedule type
 	RevenueScheduleType string `json:"revenue_schedule_type,omitempty"`
@@ -99,6 +102,15 @@ type SubscriptionAddOnList struct {
 	data           []SubscriptionAddOn
 }
 
+func NewSubscriptionAddOnList(client HTTPCaller, nextPagePath string, requestOptions *RequestOptions) *SubscriptionAddOnList {
+	return &SubscriptionAddOnList{
+		client:         client,
+		requestOptions: requestOptions,
+		nextPagePath:   nextPagePath,
+		hasMore:        true,
+	}
+}
+
 type SubscriptionAddOnLister interface {
 	Fetch() error
 	FetchWithContext(ctx context.Context) error
@@ -107,15 +119,6 @@ type SubscriptionAddOnLister interface {
 	Data() []SubscriptionAddOn
 	HasMore() bool
 	Next() string
-}
-
-func NewSubscriptionAddOnList(client HTTPCaller, nextPagePath string, requestOptions *RequestOptions) *SubscriptionAddOnList {
-	return &SubscriptionAddOnList{
-		client:         client,
-		requestOptions: requestOptions,
-		nextPagePath:   nextPagePath,
-		hasMore:        true,
-	}
 }
 
 func (list *SubscriptionAddOnList) HasMore() bool {

@@ -64,6 +64,12 @@ type BillingInfoCreate struct {
 	// The International Bank Account Number, up to 34 alphanumeric characters comprising a country code; two check digits; and a number that includes the domestic bank account number, branch identifier, and potential routing information
 	Iban *string `json:"iban,omitempty"`
 
+	// Tax identifier is required if adding a billing info that is a consumer card in Brazil. This would be the customer's CPF, CPF is a Brazilian tax identifier for all tax paying residents.
+	TaxIdentifier *string `json:"tax_identifier,omitempty"`
+
+	// this field and a value of 'cpf' are required if adding a billing info that is an elo or hipercard type in Brazil.
+	TaxIdentifierType *string `json:"tax_identifier_type,omitempty"`
+
 	// The `primary_payment_method` indicator is used to designate the primary billing info on the account. The first billing info created on an account will always become primary. Adding additional billing infos provides the flexibility to mark another billing info as primary, or adding additional non-primary billing infos. This can be accomplished by passing the `primary_payment_method` indicator. When adding billing infos via the billing_info and /accounts endpoints, this value is not permitted, and will return an error if provided.
 	PrimaryPaymentMethod *bool `json:"primary_payment_method,omitempty"`
 }

@@ -104,6 +104,15 @@ type ItemList struct {
 	data           []Item
 }
 
+func NewItemList(client HTTPCaller, nextPagePath string, requestOptions *RequestOptions) *ItemList {
+	return &ItemList{
+		client:         client,
+		requestOptions: requestOptions,
+		nextPagePath:   nextPagePath,
+		hasMore:        true,
+	}
+}
+
 type ItemLister interface {
 	Fetch() error
 	FetchWithContext(ctx context.Context) error
@@ -112,15 +121,6 @@ type ItemLister interface {
 	Data() []Item
 	HasMore() bool
 	Next() string
-}
-
-func NewItemList(client HTTPCaller, nextPagePath string, requestOptions *RequestOptions) *ItemList {
-	return &ItemList{
-		client:         client,
-		requestOptions: requestOptions,
-		nextPagePath:   nextPagePath,
-		hasMore:        true,
-	}
 }
 
 func (list *ItemList) HasMore() bool {

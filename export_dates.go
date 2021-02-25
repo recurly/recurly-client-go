@@ -55,6 +55,15 @@ type ExportDatesList struct {
 	data           []ExportDates
 }
 
+func NewExportDatesList(client HTTPCaller, nextPagePath string, requestOptions *RequestOptions) *ExportDatesList {
+	return &ExportDatesList{
+		client:         client,
+		requestOptions: requestOptions,
+		nextPagePath:   nextPagePath,
+		hasMore:        true,
+	}
+}
+
 type ExportDatesLister interface {
 	Fetch() error
 	FetchWithContext(ctx context.Context) error
@@ -63,15 +72,6 @@ type ExportDatesLister interface {
 	Data() []ExportDates
 	HasMore() bool
 	Next() string
-}
-
-func NewExportDatesList(client HTTPCaller, nextPagePath string, requestOptions *RequestOptions) *ExportDatesList {
-	return &ExportDatesList{
-		client:         client,
-		requestOptions: requestOptions,
-		nextPagePath:   nextPagePath,
-		hasMore:        true,
-	}
 }
 
 func (list *ExportDatesList) HasMore() bool {

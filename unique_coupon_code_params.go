@@ -10,78 +10,60 @@ import (
 	"time"
 )
 
-type Site struct {
+type UniqueCouponCodeParams struct {
 	recurlyResponse *ResponseMetadata
 
-	// Site ID
-	Id string `json:"id,omitempty"`
+	// The number of UniqueCouponCodes that will be generated
+	Limit int `json:"limit,omitempty"`
 
-	// Object type
-	Object string `json:"object,omitempty"`
+	// Sort order to list newly generated UniqueCouponCodes (should always be `asc`)
+	Order string `json:"order,omitempty"`
 
-	Subdomain string `json:"subdomain,omitempty"`
+	// Sort field to list newly generated UniqueCouponCodes (should always be `created_at`)
+	Sort string `json:"sort,omitempty"`
 
-	// This value is used to configure RecurlyJS to submit tokenized billing information.
-	PublicApiKey string `json:"public_api_key,omitempty"`
-
-	// Mode
-	Mode string `json:"mode,omitempty"`
-
-	Address Address `json:"address,omitempty"`
-
-	Settings Settings `json:"settings,omitempty"`
-
-	// A list of features enabled for the site.
-	Features []string `json:"features,omitempty"`
-
-	// Created at
-	CreatedAt time.Time `json:"created_at,omitempty"`
-
-	// Updated at
-	UpdatedAt time.Time `json:"updated_at,omitempty"`
-
-	// Deleted at
-	DeletedAt time.Time `json:"deleted_at,omitempty"`
+	// The date-time to be included when listing UniqueCouponCodes
+	BeginTime time.Time `json:"begin_time,omitempty"`
 }
 
 // GetResponse returns the ResponseMetadata that generated this resource
-func (resource *Site) GetResponse() *ResponseMetadata {
+func (resource *UniqueCouponCodeParams) GetResponse() *ResponseMetadata {
 	return resource.recurlyResponse
 }
 
 // setResponse sets the ResponseMetadata that generated this resource
-func (resource *Site) setResponse(res *ResponseMetadata) {
+func (resource *UniqueCouponCodeParams) setResponse(res *ResponseMetadata) {
 	resource.recurlyResponse = res
 }
 
 // internal struct for deserializing accounts
-type siteList struct {
+type uniqueCouponCodeParamsList struct {
 	ListMetadata
-	Data            []Site `json:"data"`
+	Data            []UniqueCouponCodeParams `json:"data"`
 	recurlyResponse *ResponseMetadata
 }
 
 // GetResponse returns the ResponseMetadata that generated this resource
-func (resource *siteList) GetResponse() *ResponseMetadata {
+func (resource *uniqueCouponCodeParamsList) GetResponse() *ResponseMetadata {
 	return resource.recurlyResponse
 }
 
 // setResponse sets the ResponseMetadata that generated this resource
-func (resource *siteList) setResponse(res *ResponseMetadata) {
+func (resource *uniqueCouponCodeParamsList) setResponse(res *ResponseMetadata) {
 	resource.recurlyResponse = res
 }
 
-// SiteList allows you to paginate Site objects
-type SiteList struct {
+// UniqueCouponCodeParamsList allows you to paginate UniqueCouponCodeParams objects
+type UniqueCouponCodeParamsList struct {
 	client         HTTPCaller
 	requestOptions *RequestOptions
 	nextPagePath   string
 	hasMore        bool
-	data           []Site
+	data           []UniqueCouponCodeParams
 }
 
-func NewSiteList(client HTTPCaller, nextPagePath string, requestOptions *RequestOptions) *SiteList {
-	return &SiteList{
+func NewUniqueCouponCodeParamsList(client HTTPCaller, nextPagePath string, requestOptions *RequestOptions) *UniqueCouponCodeParamsList {
+	return &UniqueCouponCodeParamsList{
 		client:         client,
 		requestOptions: requestOptions,
 		nextPagePath:   nextPagePath,
@@ -89,31 +71,31 @@ func NewSiteList(client HTTPCaller, nextPagePath string, requestOptions *Request
 	}
 }
 
-type SiteLister interface {
+type UniqueCouponCodeParamsLister interface {
 	Fetch() error
 	FetchWithContext(ctx context.Context) error
 	Count() (*int64, error)
 	CountWithContext(ctx context.Context) (*int64, error)
-	Data() []Site
+	Data() []UniqueCouponCodeParams
 	HasMore() bool
 	Next() string
 }
 
-func (list *SiteList) HasMore() bool {
+func (list *UniqueCouponCodeParamsList) HasMore() bool {
 	return list.hasMore
 }
 
-func (list *SiteList) Next() string {
+func (list *UniqueCouponCodeParamsList) Next() string {
 	return list.nextPagePath
 }
 
-func (list *SiteList) Data() []Site {
+func (list *UniqueCouponCodeParamsList) Data() []UniqueCouponCodeParams {
 	return list.data
 }
 
 // Fetch fetches the next page of data into the `Data` property
-func (list *SiteList) FetchWithContext(ctx context.Context) error {
-	resources := &siteList{}
+func (list *UniqueCouponCodeParamsList) FetchWithContext(ctx context.Context) error {
+	resources := &uniqueCouponCodeParamsList{}
 	err := list.client.Call(ctx, http.MethodGet, list.nextPagePath, nil, nil, list.requestOptions, resources)
 	if err != nil {
 		return err
@@ -126,13 +108,13 @@ func (list *SiteList) FetchWithContext(ctx context.Context) error {
 }
 
 // Fetch fetches the next page of data into the `Data` property
-func (list *SiteList) Fetch() error {
+func (list *UniqueCouponCodeParamsList) Fetch() error {
 	return list.FetchWithContext(context.Background())
 }
 
 // Count returns the count of items on the server that match this pager
-func (list *SiteList) CountWithContext(ctx context.Context) (*int64, error) {
-	resources := &siteList{}
+func (list *UniqueCouponCodeParamsList) CountWithContext(ctx context.Context) (*int64, error) {
+	resources := &uniqueCouponCodeParamsList{}
 	err := list.client.Call(ctx, http.MethodHead, list.nextPagePath, nil, nil, list.requestOptions, resources)
 	if err != nil {
 		return nil, err
@@ -142,6 +124,6 @@ func (list *SiteList) CountWithContext(ctx context.Context) (*int64, error) {
 }
 
 // Count returns the count of items on the server that match this pager
-func (list *SiteList) Count() (*int64, error) {
+func (list *UniqueCouponCodeParamsList) Count() (*int64, error) {
 	return list.CountWithContext(context.Background())
 }

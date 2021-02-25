@@ -82,6 +82,15 @@ type AddOnMiniList struct {
 	data           []AddOnMini
 }
 
+func NewAddOnMiniList(client HTTPCaller, nextPagePath string, requestOptions *RequestOptions) *AddOnMiniList {
+	return &AddOnMiniList{
+		client:         client,
+		requestOptions: requestOptions,
+		nextPagePath:   nextPagePath,
+		hasMore:        true,
+	}
+}
+
 type AddOnMiniLister interface {
 	Fetch() error
 	FetchWithContext(ctx context.Context) error
@@ -90,15 +99,6 @@ type AddOnMiniLister interface {
 	Data() []AddOnMini
 	HasMore() bool
 	Next() string
-}
-
-func NewAddOnMiniList(client HTTPCaller, nextPagePath string, requestOptions *RequestOptions) *AddOnMiniList {
-	return &AddOnMiniList{
-		client:         client,
-		requestOptions: requestOptions,
-		nextPagePath:   nextPagePath,
-		hasMore:        true,
-	}
 }
 
 func (list *AddOnMiniList) HasMore() bool {

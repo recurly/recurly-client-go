@@ -80,6 +80,15 @@ type UniqueCouponCodeList struct {
 	data           []UniqueCouponCode
 }
 
+func NewUniqueCouponCodeList(client HTTPCaller, nextPagePath string, requestOptions *RequestOptions) *UniqueCouponCodeList {
+	return &UniqueCouponCodeList{
+		client:         client,
+		requestOptions: requestOptions,
+		nextPagePath:   nextPagePath,
+		hasMore:        true,
+	}
+}
+
 type UniqueCouponCodeLister interface {
 	Fetch() error
 	FetchWithContext(ctx context.Context) error
@@ -88,15 +97,6 @@ type UniqueCouponCodeLister interface {
 	Data() []UniqueCouponCode
 	HasMore() bool
 	Next() string
-}
-
-func NewUniqueCouponCodeList(client HTTPCaller, nextPagePath string, requestOptions *RequestOptions) *UniqueCouponCodeList {
-	return &UniqueCouponCodeList{
-		client:         client,
-		requestOptions: requestOptions,
-		nextPagePath:   nextPagePath,
-		hasMore:        true,
-	}
 }
 
 func (list *UniqueCouponCodeList) HasMore() bool {

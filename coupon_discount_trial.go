@@ -55,6 +55,15 @@ type CouponDiscountTrialList struct {
 	data           []CouponDiscountTrial
 }
 
+func NewCouponDiscountTrialList(client HTTPCaller, nextPagePath string, requestOptions *RequestOptions) *CouponDiscountTrialList {
+	return &CouponDiscountTrialList{
+		client:         client,
+		requestOptions: requestOptions,
+		nextPagePath:   nextPagePath,
+		hasMore:        true,
+	}
+}
+
 type CouponDiscountTrialLister interface {
 	Fetch() error
 	FetchWithContext(ctx context.Context) error
@@ -63,15 +72,6 @@ type CouponDiscountTrialLister interface {
 	Data() []CouponDiscountTrial
 	HasMore() bool
 	Next() string
-}
-
-func NewCouponDiscountTrialList(client HTTPCaller, nextPagePath string, requestOptions *RequestOptions) *CouponDiscountTrialList {
-	return &CouponDiscountTrialList{
-		client:         client,
-		requestOptions: requestOptions,
-		nextPagePath:   nextPagePath,
-		hasMore:        true,
-	}
 }
 
 func (list *CouponDiscountTrialList) HasMore() bool {

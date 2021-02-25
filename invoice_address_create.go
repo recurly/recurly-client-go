@@ -14,12 +14,6 @@ type InvoiceAddressCreate struct {
 	// Company
 	Company *string `json:"company,omitempty"`
 
-	// First name
-	FirstName *string `json:"first_name,omitempty"`
-
-	// Last name
-	LastName *string `json:"last_name,omitempty"`
-
 	// Phone number
 	Phone *string `json:"phone,omitempty"`
 
@@ -40,4 +34,10 @@ type InvoiceAddressCreate struct {
 
 	// Country, 2-letter ISO code.
 	Country *string `json:"country,omitempty"`
+
+	// First name
+	FirstName *string `json:"first_name,omitempty"`
+
+	// Last name
+	LastName *string `json:"last_name,omitempty"`
 }

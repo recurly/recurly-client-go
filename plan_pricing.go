@@ -58,6 +58,15 @@ type PlanPricingList struct {
 	data           []PlanPricing
 }
 
+func NewPlanPricingList(client HTTPCaller, nextPagePath string, requestOptions *RequestOptions) *PlanPricingList {
+	return &PlanPricingList{
+		client:         client,
+		requestOptions: requestOptions,
+		nextPagePath:   nextPagePath,
+		hasMore:        true,
+	}
+}
+
 type PlanPricingLister interface {
 	Fetch() error
 	FetchWithContext(ctx context.Context) error
@@ -66,15 +75,6 @@ type PlanPricingLister interface {
 	Data() []PlanPricing
 	HasMore() bool
 	Next() string
-}
-
-func NewPlanPricingList(client HTTPCaller, nextPagePath string, requestOptions *RequestOptions) *PlanPricingList {
-	return &PlanPricingList{
-		client:         client,
-		requestOptions: requestOptions,
-		nextPagePath:   nextPagePath,
-		hasMore:        true,
-	}
 }
 
 func (list *PlanPricingList) HasMore() bool {

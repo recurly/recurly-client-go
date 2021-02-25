@@ -51,6 +51,15 @@ type BinaryFileList struct {
 	data           []BinaryFile
 }
 
+func NewBinaryFileList(client HTTPCaller, nextPagePath string, requestOptions *RequestOptions) *BinaryFileList {
+	return &BinaryFileList{
+		client:         client,
+		requestOptions: requestOptions,
+		nextPagePath:   nextPagePath,
+		hasMore:        true,
+	}
+}
+
 type BinaryFileLister interface {
 	Fetch() error
 	FetchWithContext(ctx context.Context) error
@@ -59,15 +68,6 @@ type BinaryFileLister interface {
 	Data() []BinaryFile
 	HasMore() bool
 	Next() string
-}
-
-func NewBinaryFileList(client HTTPCaller, nextPagePath string, requestOptions *RequestOptions) *BinaryFileList {
-	return &BinaryFileList{
-		client:         client,
-		requestOptions: requestOptions,
-		nextPagePath:   nextPagePath,
-		hasMore:        true,
-	}
 }
 
 func (list *BinaryFileList) HasMore() bool {

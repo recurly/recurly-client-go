@@ -51,8 +51,9 @@ type AddOnUpdate struct {
 	Optional *bool `json:"optional,omitempty"`
 
 	// If the add-on's `tier_type` is `tiered`, `volume`, or `stairstep`,
-	// then currencies must be absent
-	Currencies []PricingCreate `json:"currencies,omitempty"`
+	// then currencies must be absent. Must also be absent if `add_on_type` is
+	// `usage` and `usage_type` is `percentage`.
+	Currencies []AddOnPricingCreate `json:"currencies,omitempty"`
 
 	// If the tier_type is `flat`, then `tiers` must be absent. The `tiers` object
 	// must include one to many tiers with `ending_quantity` and `unit_amount` for

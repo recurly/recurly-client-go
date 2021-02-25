@@ -61,6 +61,15 @@ type ErrorMayHaveTransactionList struct {
 	data           []ErrorMayHaveTransaction
 }
 
+func NewErrorMayHaveTransactionList(client HTTPCaller, nextPagePath string, requestOptions *RequestOptions) *ErrorMayHaveTransactionList {
+	return &ErrorMayHaveTransactionList{
+		client:         client,
+		requestOptions: requestOptions,
+		nextPagePath:   nextPagePath,
+		hasMore:        true,
+	}
+}
+
 type ErrorMayHaveTransactionLister interface {
 	Fetch() error
 	FetchWithContext(ctx context.Context) error
@@ -69,15 +78,6 @@ type ErrorMayHaveTransactionLister interface {
 	Data() []ErrorMayHaveTransaction
 	HasMore() bool
 	Next() string
-}
-
-func NewErrorMayHaveTransactionList(client HTTPCaller, nextPagePath string, requestOptions *RequestOptions) *ErrorMayHaveTransactionList {
-	return &ErrorMayHaveTransactionList{
-		client:         client,
-		requestOptions: requestOptions,
-		nextPagePath:   nextPagePath,
-		hasMore:        true,
-	}
 }
 
 func (list *ErrorMayHaveTransactionList) HasMore() bool {

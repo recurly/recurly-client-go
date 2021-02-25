@@ -55,6 +55,15 @@ type CustomFieldList struct {
 	data           []CustomField
 }
 
+func NewCustomFieldList(client HTTPCaller, nextPagePath string, requestOptions *RequestOptions) *CustomFieldList {
+	return &CustomFieldList{
+		client:         client,
+		requestOptions: requestOptions,
+		nextPagePath:   nextPagePath,
+		hasMore:        true,
+	}
+}
+
 type CustomFieldLister interface {
 	Fetch() error
 	FetchWithContext(ctx context.Context) error
@@ -63,15 +72,6 @@ type CustomFieldLister interface {
 	Data() []CustomField
 	HasMore() bool
 	Next() string
-}
-
-func NewCustomFieldList(client HTTPCaller, nextPagePath string, requestOptions *RequestOptions) *CustomFieldList {
-	return &CustomFieldList{
-		client:         client,
-		requestOptions: requestOptions,
-		nextPagePath:   nextPagePath,
-		hasMore:        true,
-	}
 }
 
 func (list *CustomFieldList) HasMore() bool {

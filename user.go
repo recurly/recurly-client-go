@@ -67,6 +67,15 @@ type UserList struct {
 	data           []User
 }
 
+func NewUserList(client HTTPCaller, nextPagePath string, requestOptions *RequestOptions) *UserList {
+	return &UserList{
+		client:         client,
+		requestOptions: requestOptions,
+		nextPagePath:   nextPagePath,
+		hasMore:        true,
+	}
+}
+
 type UserLister interface {
 	Fetch() error
 	FetchWithContext(ctx context.Context) error
@@ -75,15 +84,6 @@ type UserLister interface {
 	Data() []User
 	HasMore() bool
 	Next() string
-}
-
-func NewUserList(client HTTPCaller, nextPagePath string, requestOptions *RequestOptions) *UserList {
-	return &UserList{
-		client:         client,
-		requestOptions: requestOptions,
-		nextPagePath:   nextPagePath,
-		hasMore:        true,
-	}
 }
 
 func (list *UserList) HasMore() bool {

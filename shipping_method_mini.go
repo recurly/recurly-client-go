@@ -61,6 +61,15 @@ type ShippingMethodMiniList struct {
 	data           []ShippingMethodMini
 }
 
+func NewShippingMethodMiniList(client HTTPCaller, nextPagePath string, requestOptions *RequestOptions) *ShippingMethodMiniList {
+	return &ShippingMethodMiniList{
+		client:         client,
+		requestOptions: requestOptions,
+		nextPagePath:   nextPagePath,
+		hasMore:        true,
+	}
+}
+
 type ShippingMethodMiniLister interface {
 	Fetch() error
 	FetchWithContext(ctx context.Context) error
@@ -69,15 +78,6 @@ type ShippingMethodMiniLister interface {
 	Data() []ShippingMethodMini
 	HasMore() bool
 	Next() string
-}
-
-func NewShippingMethodMiniList(client HTTPCaller, nextPagePath string, requestOptions *RequestOptions) *ShippingMethodMiniList {
-	return &ShippingMethodMiniList{
-		client:         client,
-		requestOptions: requestOptions,
-		nextPagePath:   nextPagePath,
-		hasMore:        true,
-	}
 }
 
 func (list *ShippingMethodMiniList) HasMore() bool {
