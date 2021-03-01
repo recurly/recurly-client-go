@@ -1,8 +1,100 @@
 # Changelog
 
-## [v3.10.0](https://github.com/recurly/recurly-client-go/tree/HEAD)
+## [v4.0.0](https://github.com/recurly/recurly-client-go/tree/v4.0.0) (2021-03-01)
 
-[Full Changelog](https://github.com/recurly/recurly-client-go/compare/v3.9.0...HEAD)
+[Full Changelog](https://github.com/recurly/recurly-client-go/compare/v3.13.0...v4.0.0)
+
+# Major Version Release
+
+The 4.x major version of the client pairs with the `v2021-02-25` API version. This version of the client and the API contain breaking changes that should be considered before upgrading your integration.
+
+## Breaking Changes in the API
+All changes to the core API are documented in the [Developer Portal changelog](https://developers.recurly.com/api/changelog.html#v2021-02-25---current-ga-version)
+
+## Breaking Changes in Client
+
+- Empty path parameters are now explicitly invalid and cause an error to be returned.  [#67] [#68]
+- `Params` has been removed in favor of `Context`/`RequestOptions`.  [#70]
+
+    ### 3.x
+    
+    ```go
+    headers := http.Header{"Accept-Language": []string{"fr"}}
+    
+    accountReq := &recurly.AccountCreate{
+	    Params: recurly.Params{
+		    Header: headers,
+	    },
+    }
+    
+    account, err := client.CreateAccount(accountReq)
+    ```
+    
+    ### 4.x
+    
+    ```go
+    headers := http.Header{"Accept-Language": []string{"fr"}}
+    
+    accountReq := &recurly.AccountCreate{}
+    
+    account, err := client.CreateAccount(accountReq, recurly.WithHeader(headers))
+    ```
+
+- List operations return a pager interface instead of struct.  [#80]
+
+    ### 3.x
+    
+    ```go
+    account, err := client.ListAccounts()
+
+    for accounts.HasMore {
+	    err := accounts.Fetch()
+	    for i, account := range accounts.Data {
+		    fmt.Printf("Account %3d", i)
+	    }
+    }
+    ```
+    
+    ### 4.x
+    
+    ```go
+    account, err := client.ListAccounts()
+    
+    for accounts.HasMore() {
+	    err := accounts.Fetch()
+	    for i, account := range accounts.Data() {
+		    fmt.Printf("Account %3d", i)
+	    }
+    }
+    ```
+
+**Implemented enhancements:**
+
+- FetchWithContext not exposed within ClientInterface [\#77](https://github.com/recurly/recurly-client-go/issues/77)
+
+**Merged pull requests:**
+
+- Release 4.0.0 [\#85](https://github.com/recurly/recurly-client-go/pull/85) ([douglasmiller](https://github.com/douglasmiller))
+- Updating changelog script and changelog generator config for 4.x release [\#82](https://github.com/recurly/recurly-client-go/pull/82) ([douglasmiller](https://github.com/douglasmiller))
+- Add pager interface [\#80](https://github.com/recurly/recurly-client-go/pull/80) ([jguidry-recurly](https://github.com/jguidry-recurly))
+- Adding options v4 [\#70](https://github.com/recurly/recurly-client-go/pull/70) ([douglasmiller](https://github.com/douglasmiller))
+- Validate path params [\#67](https://github.com/recurly/recurly-client-go/pull/67) ([douglasmiller](https://github.com/douglasmiller))
+
+## [v3.13.0](https://github.com/recurly/recurly-client-go/tree/v3.13.0) (2021-01-22)
+
+[Full Changelog](https://github.com/recurly/recurly-client-go/compare/v3.12.0...v3.13.0)
+
+## [v3.12.0](https://github.com/recurly/recurly-client-go/tree/v3.12.0) (2020-12-09)
+
+[Full Changelog](https://github.com/recurly/recurly-client-go/compare/v3.11.0...v3.12.0)
+
+## [v3.11.0](https://github.com/recurly/recurly-client-go/tree/v3.11.0) (2020-11-24)
+
+[Full Changelog](https://github.com/recurly/recurly-client-go/compare/v3.10.0...v3.11.0)
+
+## [v3.10.0](https://github.com/recurly/recurly-client-go/tree/v3.10.0) (2020-11-06)
+
+[Full Changelog](https://github.com/recurly/recurly-client-go/compare/v3.9.0...v3.10.0)
 
 **Implemented enhancements:**
 
