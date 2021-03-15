@@ -1,7 +1,7 @@
 user=recurly
 project=recurly-client-go
 unreleased=false
-exclude-labels=question,bug?,duplicate
+exclude-labels=internal,question,bug?,duplicate
 exclude-tags-regex=^[^3]+\..*
 issues-wo-labels=false
 verbose=false
