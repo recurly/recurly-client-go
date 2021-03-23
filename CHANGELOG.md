@@ -1,5 +1,15 @@
 # Changelog
 
+## [v4.0.1](https://github.com/recurly/recurly-client-go/tree/v4.0.1) (2021-03-23)
+
+[Full Changelog](https://github.com/recurly/recurly-client-go/compare/v4.0.0...v4.0.1)
+
+**Merged pull requests:**
+
+- Release 4.0.1 [\#91](https://github.com/recurly/recurly-client-go/pull/91) ([douglasmiller](https://github.com/douglasmiller))
+- Generated Latest Changes for v2021-02-25 [\#90](https://github.com/recurly/recurly-client-go/pull/90) ([recurly-integrations](https://github.com/recurly-integrations))
+- Export optionsApplier as OptionsApplier [\#81](https://github.com/recurly/recurly-client-go/pull/81) ([jguidry-recurly](https://github.com/jguidry-recurly))
+
 ## [v4.0.0](https://github.com/recurly/recurly-client-go/tree/v4.0.0) (2021-03-01)
 
 [Full Changelog](https://github.com/recurly/recurly-client-go/compare/v3.13.0...v4.0.0)
@@ -84,13 +94,40 @@ All changes to the core API are documented in the [Developer Portal changelog](h
 
 [Full Changelog](https://github.com/recurly/recurly-client-go/compare/v3.12.0...v3.13.0)
 
+**Implemented enhancements:**
+
+- Latest Changes for 2019-10-10 [\#76](https://github.com/recurly/recurly-client-go/pull/76) ([douglasmiller](https://github.com/douglasmiller))
+
+**Merged pull requests:**
+
+- Release 3.13.0 [\#78](https://github.com/recurly/recurly-client-go/pull/78) ([douglasmiller](https://github.com/douglasmiller))
+
 ## [v3.12.0](https://github.com/recurly/recurly-client-go/tree/v3.12.0) (2020-12-09)
 
 [Full Changelog](https://github.com/recurly/recurly-client-go/compare/v3.11.0...v3.12.0)
 
+**Implemented enhancements:**
+
+- Latest Changes for 2019-10-10 [\#74](https://github.com/recurly/recurly-client-go/pull/74) ([douglasmiller](https://github.com/douglasmiller))
+- Adding Context and RequestOptions support [\#69](https://github.com/recurly/recurly-client-go/pull/69) ([douglasmiller](https://github.com/douglasmiller))
+
+**Merged pull requests:**
+
+- Release 3.12.0 [\#75](https://github.com/recurly/recurly-client-go/pull/75) ([douglasmiller](https://github.com/douglasmiller))
+
 ## [v3.11.0](https://github.com/recurly/recurly-client-go/tree/v3.11.0) (2020-11-24)
 
 [Full Changelog](https://github.com/recurly/recurly-client-go/compare/v3.10.0...v3.11.0)
+
+**Implemented enhancements:**
+
+- Latest Changes for 2019-10-10 \(tax\_identifier / tax\_identifier\_type\) [\#72](https://github.com/recurly/recurly-client-go/pull/72) ([douglasmiller](https://github.com/douglasmiller))
+- Latest Changes for 2019-10-10 [\#71](https://github.com/recurly/recurly-client-go/pull/71) ([douglasmiller](https://github.com/douglasmiller))
+
+**Merged pull requests:**
+
+- Release 3.11.0 [\#73](https://github.com/recurly/recurly-client-go/pull/73) ([douglasmiller](https://github.com/douglasmiller))
+- Minor updates to facilitate 4.x changes [\#68](https://github.com/recurly/recurly-client-go/pull/68) ([douglasmiller](https://github.com/douglasmiller))
 
 ## [v3.10.0](https://github.com/recurly/recurly-client-go/tree/v3.10.0) (2020-11-06)
 
