@@ -1,25 +1,11 @@
 #!/usr/bin/env bash
+
 set -e
 
-# TODO this file could be gone
-RELEASED_LOG="/tmp/go-pending-changes.md"
-THIS_VERSION=$(./scripts/bump --this-version)
-# Go expects the `v` prefix
-THIS_VERSION="v$THIS_VERSION"
+# Usage
+#
+# ./release
+#
 
-# Generate the changelog with changes in this release
-./scripts/changelog --release-tag "$THIS_VERSION"
-git add CHANGELOG.md
-git commit -m "Update Changelog for Release $THIS_VERSION"
-git push origin master
+# NOOP
 
-# create release
-hub release create -c -F "$RELEASED_LOG" "$THIS_VERSION"
-
-# Copy-pasteable messages for announcments
-echo ":partygopher: Go $THIS_VERSION Released :partygopher:"
-echo "Release: https://github.com/recurly/recurly-client-go/releases/tag/$THIS_VERSION"
-echo "Changelog:"
-echo "\`\`\`"
-cat "$RELEASED_LOG"
-echo "\`\`\`"
