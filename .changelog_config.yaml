@@ -1,0 +1,11 @@
+---
+owner: recurly
+repo: recurly-client-go
+tag_matcher: ^v4\..*
+required_issue_labels:
+  - V4
+exclude_labels:
+  - bug?
+  - internal
+  - duplicate
+  - question
