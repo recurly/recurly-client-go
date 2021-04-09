@@ -59,6 +59,9 @@ type Transaction struct {
 	// Did this transaction complete successfully?
 	Success bool `json:"success,omitempty"`
 
+	// Indicates if the transaction was completed using a backup payment
+	BackupPaymentMethodUsed bool `json:"backup_payment_method_used,omitempty"`
+
 	// Indicates if part or all of this transaction was refunded.
 	Refunded bool `json:"refunded,omitempty"`
 

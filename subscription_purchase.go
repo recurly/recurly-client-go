@@ -16,7 +16,7 @@ type SubscriptionPurchase struct {
 	// Plan ID
 	PlanId *string `json:"plan_id,omitempty"`
 
-	// Override the unit amount of the subscription plan by setting this value in cents. If not provided, the subscription will inherit the price from the subscription plan for the provided currency.
+	// Override the unit amount of the subscription plan by setting this value. If not provided, the subscription will inherit the price from the subscription plan for the provided currency.
 	UnitAmount *float64 `json:"unit_amount,omitempty"`
 
 	// Optionally override the default quantity of 1.
