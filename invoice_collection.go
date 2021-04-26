@@ -53,9 +53,8 @@ type InvoiceCollectionList struct {
 	client         HTTPCaller
 	requestOptions *RequestOptions
 	nextPagePath   string
-
-	HasMore bool
-	Data    []InvoiceCollection
+	HasMore        bool
+	Data           []InvoiceCollection
 }
 
 func NewInvoiceCollectionList(client HTTPCaller, nextPagePath string, requestOptions *RequestOptions) *InvoiceCollectionList {

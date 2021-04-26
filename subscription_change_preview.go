@@ -97,9 +97,8 @@ type SubscriptionChangePreviewList struct {
 	client         HTTPCaller
 	requestOptions *RequestOptions
 	nextPagePath   string
-
-	HasMore bool
-	Data    []SubscriptionChangePreview
+	HasMore        bool
+	Data           []SubscriptionChangePreview
 }
 
 func NewSubscriptionChangePreviewList(client HTTPCaller, nextPagePath string, requestOptions *RequestOptions) *SubscriptionChangePreviewList {

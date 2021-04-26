@@ -54,9 +54,8 @@ type TaxInfoList struct {
 	client         HTTPCaller
 	requestOptions *RequestOptions
 	nextPagePath   string
-
-	HasMore bool
-	Data    []TaxInfo
+	HasMore        bool
+	Data           []TaxInfo
 }
 
 func NewTaxInfoList(client HTTPCaller, nextPagePath string, requestOptions *RequestOptions) *TaxInfoList {

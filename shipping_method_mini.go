@@ -57,9 +57,8 @@ type ShippingMethodMiniList struct {
 	client         HTTPCaller
 	requestOptions *RequestOptions
 	nextPagePath   string
-
-	HasMore bool
-	Data    []ShippingMethodMini
+	HasMore        bool
+	Data           []ShippingMethodMini
 }
 
 func NewShippingMethodMiniList(client HTTPCaller, nextPagePath string, requestOptions *RequestOptions) *ShippingMethodMiniList {

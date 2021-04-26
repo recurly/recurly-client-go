@@ -97,9 +97,8 @@ type SubscriptionChangeList struct {
 	client         HTTPCaller
 	requestOptions *RequestOptions
 	nextPagePath   string
-
-	HasMore bool
-	Data    []SubscriptionChange
+	HasMore        bool
+	Data           []SubscriptionChange
 }
 
 func NewSubscriptionChangeList(client HTTPCaller, nextPagePath string, requestOptions *RequestOptions) *SubscriptionChangeList {

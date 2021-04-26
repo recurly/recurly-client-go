@@ -90,9 +90,8 @@ type ShippingAddressList struct {
 	client         HTTPCaller
 	requestOptions *RequestOptions
 	nextPagePath   string
-
-	HasMore bool
-	Data    []ShippingAddress
+	HasMore        bool
+	Data           []ShippingAddress
 }
 
 func NewShippingAddressList(client HTTPCaller, nextPagePath string, requestOptions *RequestOptions) *ShippingAddressList {

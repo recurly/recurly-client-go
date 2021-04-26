@@ -91,9 +91,8 @@ type UsageList struct {
 	client         HTTPCaller
 	requestOptions *RequestOptions
 	nextPagePath   string
-
-	HasMore bool
-	Data    []Usage
+	HasMore        bool
+	Data           []Usage
 }
 
 func NewUsageList(client HTTPCaller, nextPagePath string, requestOptions *RequestOptions) *UsageList {

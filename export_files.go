@@ -50,9 +50,8 @@ type ExportFilesList struct {
 	client         HTTPCaller
 	requestOptions *RequestOptions
 	nextPagePath   string
-
-	HasMore bool
-	Data    []ExportFiles
+	HasMore        bool
+	Data           []ExportFiles
 }
 
 func NewExportFilesList(client HTTPCaller, nextPagePath string, requestOptions *RequestOptions) *ExportFilesList {

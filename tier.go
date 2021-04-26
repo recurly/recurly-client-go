@@ -51,9 +51,8 @@ type TierList struct {
 	client         HTTPCaller
 	requestOptions *RequestOptions
 	nextPagePath   string
-
-	HasMore bool
-	Data    []Tier
+	HasMore        bool
+	Data           []Tier
 }
 
 func NewTierList(client HTTPCaller, nextPagePath string, requestOptions *RequestOptions) *TierList {

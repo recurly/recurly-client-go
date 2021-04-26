@@ -57,9 +57,8 @@ type ErrorMayHaveTransactionList struct {
 	client         HTTPCaller
 	requestOptions *RequestOptions
 	nextPagePath   string
-
-	HasMore bool
-	Data    []ErrorMayHaveTransaction
+	HasMore        bool
+	Data           []ErrorMayHaveTransaction
 }
 
 func NewErrorMayHaveTransactionList(client HTTPCaller, nextPagePath string, requestOptions *RequestOptions) *ErrorMayHaveTransactionList {

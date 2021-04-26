@@ -51,9 +51,8 @@ type CustomFieldList struct {
 	client         HTTPCaller
 	requestOptions *RequestOptions
 	nextPagePath   string
-
-	HasMore bool
-	Data    []CustomField
+	HasMore        bool
+	Data           []CustomField
 }
 
 func NewCustomFieldList(client HTTPCaller, nextPagePath string, requestOptions *RequestOptions) *CustomFieldList {

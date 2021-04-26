@@ -190,9 +190,8 @@ type LineItemList struct {
 	client         HTTPCaller
 	requestOptions *RequestOptions
 	nextPagePath   string
-
-	HasMore bool
-	Data    []LineItem
+	HasMore        bool
+	Data           []LineItem
 }
 
 func NewLineItemList(client HTTPCaller, nextPagePath string, requestOptions *RequestOptions) *LineItemList {

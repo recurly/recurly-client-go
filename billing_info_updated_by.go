@@ -51,9 +51,8 @@ type BillingInfoUpdatedByList struct {
 	client         HTTPCaller
 	requestOptions *RequestOptions
 	nextPagePath   string
-
-	HasMore bool
-	Data    []BillingInfoUpdatedBy
+	HasMore        bool
+	Data           []BillingInfoUpdatedBy
 }
 
 func NewBillingInfoUpdatedByList(client HTTPCaller, nextPagePath string, requestOptions *RequestOptions) *BillingInfoUpdatedByList {

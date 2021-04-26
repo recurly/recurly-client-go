@@ -54,9 +54,8 @@ type FraudInfoList struct {
 	client         HTTPCaller
 	requestOptions *RequestOptions
 	nextPagePath   string
-
-	HasMore bool
-	Data    []FraudInfo
+	HasMore        bool
+	Data           []FraudInfo
 }
 
 func NewFraudInfoList(client HTTPCaller, nextPagePath string, requestOptions *RequestOptions) *FraudInfoList {

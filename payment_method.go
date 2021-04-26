@@ -86,9 +86,8 @@ type PaymentMethodList struct {
 	client         HTTPCaller
 	requestOptions *RequestOptions
 	nextPagePath   string
-
-	HasMore bool
-	Data    []PaymentMethod
+	HasMore        bool
+	Data           []PaymentMethod
 }
 
 func NewPaymentMethodList(client HTTPCaller, nextPagePath string, requestOptions *RequestOptions) *PaymentMethodList {

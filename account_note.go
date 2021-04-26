@@ -59,9 +59,8 @@ type AccountNoteList struct {
 	client         HTTPCaller
 	requestOptions *RequestOptions
 	nextPagePath   string
-
-	HasMore bool
-	Data    []AccountNote
+	HasMore        bool
+	Data           []AccountNote
 }
 
 func NewAccountNoteList(client HTTPCaller, nextPagePath string, requestOptions *RequestOptions) *AccountNoteList {

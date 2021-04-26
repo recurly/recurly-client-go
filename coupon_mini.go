@@ -71,9 +71,8 @@ type CouponMiniList struct {
 	client         HTTPCaller
 	requestOptions *RequestOptions
 	nextPagePath   string
-
-	HasMore bool
-	Data    []CouponMini
+	HasMore        bool
+	Data           []CouponMini
 }
 
 func NewCouponMiniList(client HTTPCaller, nextPagePath string, requestOptions *RequestOptions) *CouponMiniList {

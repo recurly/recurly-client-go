@@ -130,9 +130,8 @@ type AccountList struct {
 	client         HTTPCaller
 	requestOptions *RequestOptions
 	nextPagePath   string
-
-	HasMore bool
-	Data    []Account
+	HasMore        bool
+	Data           []Account
 }
 
 func NewAccountList(client HTTPCaller, nextPagePath string, requestOptions *RequestOptions) *AccountList {

@@ -54,9 +54,8 @@ type PlanPricingList struct {
 	client         HTTPCaller
 	requestOptions *RequestOptions
 	nextPagePath   string
-
-	HasMore bool
-	Data    []PlanPricing
+	HasMore        bool
+	Data           []PlanPricing
 }
 
 func NewPlanPricingList(client HTTPCaller, nextPagePath string, requestOptions *RequestOptions) *PlanPricingList {

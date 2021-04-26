@@ -56,9 +56,8 @@ type SettingsList struct {
 	client         HTTPCaller
 	requestOptions *RequestOptions
 	nextPagePath   string
-
-	HasMore bool
-	Data    []Settings
+	HasMore        bool
+	Data           []Settings
 }
 
 func NewSettingsList(client HTTPCaller, nextPagePath string, requestOptions *RequestOptions) *SettingsList {

@@ -78,9 +78,8 @@ type AddOnMiniList struct {
 	client         HTTPCaller
 	requestOptions *RequestOptions
 	nextPagePath   string
-
-	HasMore bool
-	Data    []AddOnMini
+	HasMore        bool
+	Data           []AddOnMini
 }
 
 func NewAddOnMiniList(client HTTPCaller, nextPagePath string, requestOptions *RequestOptions) *AddOnMiniList {

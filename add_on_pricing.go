@@ -51,9 +51,8 @@ type AddOnPricingList struct {
 	client         HTTPCaller
 	requestOptions *RequestOptions
 	nextPagePath   string
-
-	HasMore bool
-	Data    []AddOnPricing
+	HasMore        bool
+	Data           []AddOnPricing
 }
 
 func NewAddOnPricingList(client HTTPCaller, nextPagePath string, requestOptions *RequestOptions) *AddOnPricingList {
