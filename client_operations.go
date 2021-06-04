@@ -61,6 +61,9 @@ type ClientInterface interface {
 	RemoveBillingInfo(accountId string, opts ...Option) (*Empty, error)
 	RemoveBillingInfoWithContext(ctx context.Context, accountId string, opts ...Option) (*Empty, error)
 
+	VerifyBillingInfo(accountId string, params *VerifyBillingInfoParams, opts ...Option) (*Transaction, error)
+	VerifyBillingInfoWithContext(ctx context.Context, accountId string, params *VerifyBillingInfoParams, opts ...Option) (*Transaction, error)
+
 	ListBillingInfos(accountId string, params *ListBillingInfosParams, opts ...Option) (BillingInfoLister, error)
 
 	CreateBillingInfo(accountId string, body *BillingInfoCreate, opts ...Option) (*BillingInfo, error)
@@ -914,6 +917,47 @@ func (c *Client) removeBillingInfo(ctx context.Context, accountId string, opts .
 	return result, err
 }
 
+type VerifyBillingInfoParams struct {
+
+	// Body - The body of the request.
+	Body *BillingInfoVerify
+}
+
+func (list *VerifyBillingInfoParams) URLParams() []KeyValue {
+	var options []KeyValue
+
+	return options
+}
+
+// VerifyBillingInfo wraps VerifyBillingInfoWithContext using the background context
+func (c *Client) VerifyBillingInfo(accountId string, params *VerifyBillingInfoParams, opts ...Option) (*Transaction, error) {
+	ctx := context.Background()
+	return c.verifyBillingInfo(ctx, accountId, params, opts...)
+}
+
+// VerifyBillingInfoWithContext Verify an account's credit card billing information
+//
+// API Documentation: https://developers.recurly.com/api/v2021-02-25#operation/verify_billing_info
+//
+// Returns: Transaction information from verify.
+func (c *Client) VerifyBillingInfoWithContext(ctx context.Context, accountId string, params *VerifyBillingInfoParams, opts ...Option) (*Transaction, error) {
+	return c.verifyBillingInfo(ctx, accountId, params, opts...)
+}
+
+func (c *Client) verifyBillingInfo(ctx context.Context, accountId string, params *VerifyBillingInfoParams, opts ...Option) (*Transaction, error) {
+	path, err := c.InterpolatePath("/accounts/{account_id}/billing_info/verify", accountId)
+	if err != nil {
+		return nil, err
+	}
+	requestOptions := NewRequestOptions(opts...)
+	result := &Transaction{}
+	err = c.Call(ctx, http.MethodPost, path, nil, params, requestOptions, result)
+	if err != nil {
+		return nil, err
+	}
+	return result, err
+}
+
 type ListBillingInfosParams struct {
 
 	// Ids - Filter results by their IDs. Up to 200 IDs can be passed at once using
@@ -984,7 +1028,7 @@ func (c *Client) CreateBillingInfo(accountId string, body *BillingInfoCreate, op
 	return c.createBillingInfo(ctx, accountId, body, opts...)
 }
 
-// CreateBillingInfoWithContext Set an account's billing information when the wallet feature is enabled
+// CreateBillingInfoWithContext Add new billing information on an account
 //
 // API Documentation: https://developers.recurly.com/api/v2021-02-25#operation/create_billing_info
 //
