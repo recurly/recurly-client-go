@@ -46,6 +46,7 @@ rm -f subscription_change.go
 rm -f subscription_add_on.go
 rm -f add_on_mini.go
 rm -f subscription_add_on_tier.go
+rm -f subscription_change_billing_info.go
 rm -f unique_coupon_code_params.go
 rm -f unique_coupon_code.go
 rm -f custom_field_definition.go
