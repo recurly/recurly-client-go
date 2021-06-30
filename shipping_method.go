@@ -82,9 +82,8 @@ type ShippingMethodList struct {
 	client         HTTPCaller
 	requestOptions *RequestOptions
 	nextPagePath   string
-
-	HasMore bool
-	Data    []ShippingMethod
+	HasMore        bool
+	Data           []ShippingMethod
 }
 
 func NewShippingMethodList(client HTTPCaller, nextPagePath string, requestOptions *RequestOptions) *ShippingMethodList {

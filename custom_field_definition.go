@@ -80,9 +80,8 @@ type CustomFieldDefinitionList struct {
 	client         HTTPCaller
 	requestOptions *RequestOptions
 	nextPagePath   string
-
-	HasMore bool
-	Data    []CustomFieldDefinition
+	HasMore        bool
+	Data           []CustomFieldDefinition
 }
 
 func NewCustomFieldDefinitionList(client HTTPCaller, nextPagePath string, requestOptions *RequestOptions) *CustomFieldDefinitionList {

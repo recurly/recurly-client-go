@@ -72,9 +72,8 @@ type AccountAcquisitionList struct {
 	client         HTTPCaller
 	requestOptions *RequestOptions
 	nextPagePath   string
-
-	HasMore bool
-	Data    []AccountAcquisition
+	HasMore        bool
+	Data           []AccountAcquisition
 }
 
 func NewAccountAcquisitionList(client HTTPCaller, nextPagePath string, requestOptions *RequestOptions) *AccountAcquisitionList {

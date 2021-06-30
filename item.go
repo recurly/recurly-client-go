@@ -100,9 +100,8 @@ type ItemList struct {
 	client         HTTPCaller
 	requestOptions *RequestOptions
 	nextPagePath   string
-
-	HasMore bool
-	Data    []Item
+	HasMore        bool
+	Data           []Item
 }
 
 func NewItemList(client HTTPCaller, nextPagePath string, requestOptions *RequestOptions) *ItemList {

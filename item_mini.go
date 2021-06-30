@@ -63,9 +63,8 @@ type ItemMiniList struct {
 	client         HTTPCaller
 	requestOptions *RequestOptions
 	nextPagePath   string
-
-	HasMore bool
-	Data    []ItemMini
+	HasMore        bool
+	Data           []ItemMini
 }
 
 func NewItemMiniList(client HTTPCaller, nextPagePath string, requestOptions *RequestOptions) *ItemMiniList {

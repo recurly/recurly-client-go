@@ -56,9 +56,8 @@ type CouponDiscountList struct {
 	client         HTTPCaller
 	requestOptions *RequestOptions
 	nextPagePath   string
-
-	HasMore bool
-	Data    []CouponDiscount
+	HasMore        bool
+	Data           []CouponDiscount
 }
 
 func NewCouponDiscountList(client HTTPCaller, nextPagePath string, requestOptions *RequestOptions) *CouponDiscountList {

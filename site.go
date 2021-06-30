@@ -76,9 +76,8 @@ type SiteList struct {
 	client         HTTPCaller
 	requestOptions *RequestOptions
 	nextPagePath   string
-
-	HasMore bool
-	Data    []Site
+	HasMore        bool
+	Data           []Site
 }
 
 func NewSiteList(client HTTPCaller, nextPagePath string, requestOptions *RequestOptions) *SiteList {

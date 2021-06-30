@@ -73,9 +73,8 @@ type MeasuredUnitList struct {
 	client         HTTPCaller
 	requestOptions *RequestOptions
 	nextPagePath   string
-
-	HasMore bool
-	Data    []MeasuredUnit
+	HasMore        bool
+	Data           []MeasuredUnit
 }
 
 func NewMeasuredUnitList(client HTTPCaller, nextPagePath string, requestOptions *RequestOptions) *MeasuredUnitList {

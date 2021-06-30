@@ -72,9 +72,8 @@ type AddressList struct {
 	client         HTTPCaller
 	requestOptions *RequestOptions
 	nextPagePath   string
-
-	HasMore bool
-	Data    []Address
+	HasMore        bool
+	Data           []Address
 }
 
 func NewAddressList(client HTTPCaller, nextPagePath string, requestOptions *RequestOptions) *AddressList {

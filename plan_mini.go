@@ -57,9 +57,8 @@ type PlanMiniList struct {
 	client         HTTPCaller
 	requestOptions *RequestOptions
 	nextPagePath   string
-
-	HasMore bool
-	Data    []PlanMini
+	HasMore        bool
+	Data           []PlanMini
 }
 
 func NewPlanMiniList(client HTTPCaller, nextPagePath string, requestOptions *RequestOptions) *PlanMiniList {

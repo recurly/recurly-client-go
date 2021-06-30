@@ -55,9 +55,8 @@ type SubscriptionShippingList struct {
 	client         HTTPCaller
 	requestOptions *RequestOptions
 	nextPagePath   string
-
-	HasMore bool
-	Data    []SubscriptionShipping
+	HasMore        bool
+	Data           []SubscriptionShipping
 }
 
 func NewSubscriptionShippingList(client HTTPCaller, nextPagePath string, requestOptions *RequestOptions) *SubscriptionShippingList {

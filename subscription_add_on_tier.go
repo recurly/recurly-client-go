@@ -51,9 +51,8 @@ type SubscriptionAddOnTierList struct {
 	client         HTTPCaller
 	requestOptions *RequestOptions
 	nextPagePath   string
-
-	HasMore bool
-	Data    []SubscriptionAddOnTier
+	HasMore        bool
+	Data           []SubscriptionAddOnTier
 }
 
 func NewSubscriptionAddOnTierList(client HTTPCaller, nextPagePath string, requestOptions *RequestOptions) *SubscriptionAddOnTierList {

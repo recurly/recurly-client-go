@@ -78,9 +78,8 @@ type InvoiceAddressList struct {
 	client         HTTPCaller
 	requestOptions *RequestOptions
 	nextPagePath   string
-
-	HasMore bool
-	Data    []InvoiceAddress
+	HasMore        bool
+	Data           []InvoiceAddress
 }
 
 func NewInvoiceAddressList(client HTTPCaller, nextPagePath string, requestOptions *RequestOptions) *InvoiceAddressList {

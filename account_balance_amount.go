@@ -51,9 +51,8 @@ type AccountBalanceAmountList struct {
 	client         HTTPCaller
 	requestOptions *RequestOptions
 	nextPagePath   string
-
-	HasMore bool
-	Data    []AccountBalanceAmount
+	HasMore        bool
+	Data           []AccountBalanceAmount
 }
 
 func NewAccountBalanceAmountList(client HTTPCaller, nextPagePath string, requestOptions *RequestOptions) *AccountBalanceAmountList {

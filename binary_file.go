@@ -47,9 +47,8 @@ type BinaryFileList struct {
 	client         HTTPCaller
 	requestOptions *RequestOptions
 	nextPagePath   string
-
-	HasMore bool
-	Data    []BinaryFile
+	HasMore        bool
+	Data           []BinaryFile
 }
 
 func NewBinaryFileList(client HTTPCaller, nextPagePath string, requestOptions *RequestOptions) *BinaryFileList {

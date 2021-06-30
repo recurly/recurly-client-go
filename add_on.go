@@ -124,9 +124,8 @@ type AddOnList struct {
 	client         HTTPCaller
 	requestOptions *RequestOptions
 	nextPagePath   string
-
-	HasMore bool
-	Data    []AddOn
+	HasMore        bool
+	Data           []AddOn
 }
 
 func NewAddOnList(client HTTPCaller, nextPagePath string, requestOptions *RequestOptions) *AddOnList {

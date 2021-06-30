@@ -51,9 +51,8 @@ type ExportDatesList struct {
 	client         HTTPCaller
 	requestOptions *RequestOptions
 	nextPagePath   string
-
-	HasMore bool
-	Data    []ExportDates
+	HasMore        bool
+	Data           []ExportDates
 }
 
 func NewExportDatesList(client HTTPCaller, nextPagePath string, requestOptions *RequestOptions) *ExportDatesList {

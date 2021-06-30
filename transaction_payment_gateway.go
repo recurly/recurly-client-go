@@ -54,9 +54,8 @@ type TransactionPaymentGatewayList struct {
 	client         HTTPCaller
 	requestOptions *RequestOptions
 	nextPagePath   string
-
-	HasMore bool
-	Data    []TransactionPaymentGateway
+	HasMore        bool
+	Data           []TransactionPaymentGateway
 }
 
 func NewTransactionPaymentGatewayList(client HTTPCaller, nextPagePath string, requestOptions *RequestOptions) *TransactionPaymentGatewayList {

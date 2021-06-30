@@ -57,9 +57,8 @@ type PlanHostedPagesList struct {
 	client         HTTPCaller
 	requestOptions *RequestOptions
 	nextPagePath   string
-
-	HasMore bool
-	Data    []PlanHostedPages
+	HasMore        bool
+	Data           []PlanHostedPages
 }
 
 func NewPlanHostedPagesList(client HTTPCaller, nextPagePath string, requestOptions *RequestOptions) *PlanHostedPagesList {

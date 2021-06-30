@@ -78,9 +78,8 @@ type CouponRedemptionList struct {
 	client         HTTPCaller
 	requestOptions *RequestOptions
 	nextPagePath   string
-
-	HasMore bool
-	Data    []CouponRedemption
+	HasMore        bool
+	Data           []CouponRedemption
 }
 
 func NewCouponRedemptionList(client HTTPCaller, nextPagePath string, requestOptions *RequestOptions) *CouponRedemptionList {

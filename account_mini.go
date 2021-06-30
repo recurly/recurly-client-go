@@ -66,9 +66,8 @@ type AccountMiniList struct {
 	client         HTTPCaller
 	requestOptions *RequestOptions
 	nextPagePath   string
-
-	HasMore bool
-	Data    []AccountMini
+	HasMore        bool
+	Data           []AccountMini
 }
 
 func NewAccountMiniList(client HTTPCaller, nextPagePath string, requestOptions *RequestOptions) *AccountMiniList {

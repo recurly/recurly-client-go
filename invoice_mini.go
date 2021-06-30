@@ -60,9 +60,8 @@ type InvoiceMiniList struct {
 	client         HTTPCaller
 	requestOptions *RequestOptions
 	nextPagePath   string
-
-	HasMore bool
-	Data    []InvoiceMini
+	HasMore        bool
+	Data           []InvoiceMini
 }
 
 func NewInvoiceMiniList(client HTTPCaller, nextPagePath string, requestOptions *RequestOptions) *InvoiceMiniList {

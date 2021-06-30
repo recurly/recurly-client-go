@@ -51,9 +51,8 @@ type AccountAcquisitionCostList struct {
 	client         HTTPCaller
 	requestOptions *RequestOptions
 	nextPagePath   string
-
-	HasMore bool
-	Data    []AccountAcquisitionCost
+	HasMore        bool
+	Data           []AccountAcquisitionCost
 }
 
 func NewAccountAcquisitionCostList(client HTTPCaller, nextPagePath string, requestOptions *RequestOptions) *AccountAcquisitionCostList {
