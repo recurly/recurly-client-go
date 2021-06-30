@@ -78,7 +78,7 @@ type Transaction struct {
 	// - When the merchant enters billing information using the UI, no IP address is recorded.
 	IpAddressV4 string `json:"ip_address_v4,omitempty"`
 
-	// IP address's country
+	// Origin IP address country, 2-letter ISO 3166-1 alpha-2 code, if known by Recurly.
 	IpAddressCountry string `json:"ip_address_country,omitempty"`
 
 	// Status code

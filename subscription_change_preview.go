@@ -63,6 +63,9 @@ type SubscriptionChangePreview struct {
 
 	// Deleted at
 	DeletedAt time.Time `json:"deleted_at,omitempty"`
+
+	// Accept nested attributes for three_d_secure_action_result_token_id
+	BillingInfo SubscriptionChangeBillingInfo `json:"billing_info,omitempty"`
 }
 
 // GetResponse returns the ResponseMetadata that generated this resource

@@ -62,7 +62,7 @@ type Invoice struct {
 	// Total discounts applied to this invoice.
 	Discount float64 `json:"discount,omitempty"`
 
-	// The summation of charges, discounts, and credits, before tax.
+	// The summation of charges and credits, before discounts and taxes.
 	Subtotal float64 `json:"subtotal,omitempty"`
 
 	// The total tax on this invoice.
