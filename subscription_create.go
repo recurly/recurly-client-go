@@ -46,7 +46,7 @@ type SubscriptionCreate struct {
 	// The custom fields will only be altered when they are included in a request. Sending an empty array will not remove any existing values. To remove a field send the name with a null or empty value.
 	CustomFields []CustomFieldCreate `json:"custom_fields,omitempty"`
 
-	// If set, overrides the default trial behavior for the subscription. The date must be in the future.
+	// IIf set, overrides the default trial behavior for the subscription. When the current date time or a past date time is provided the subscription will begin with no trial phase (overriding any plan default trial). When a future date time is provided the subscription will begin with a trial phase ending at the specified date time.
 	TrialEndsAt *time.Time `json:"trial_ends_at,omitempty"`
 
 	// If set, the subscription will begin in the future on this date. The subscription will apply the setup fee and trial period, unless the plan has no trial.
