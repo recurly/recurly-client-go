@@ -128,6 +128,7 @@ func TestClientInjectsResponseMetadataIntoResource(test *testing.T) {
 	t.Assert(resp.RateLimit.Limit, 2000, "resp.RateLimit.Limit")
 	t.Assert(resp.RateLimit.Remaining, 1999, "resp.RateLimit.Remaining")
 	t.Assert(resp.Version, "recurly."+APIVersion, "resp.Version")
+	t.Assert(resp.IdempotencyPrior, true, "resp.IdempotencyPrior")
 
 	// check that the we inject the metadata into the Empty resource as well
 	scenario = &Scenario{

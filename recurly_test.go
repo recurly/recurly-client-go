@@ -84,6 +84,7 @@ func mockResponse(req *http.Request, statusCode int, body *string) *http.Respons
 	headers.Add("X-RateLimit-Reset", "1586203320")
 	headers.Add("X-Request-Id", "msy-1234")
 	headers.Add("Recurly-Total-Records", "100")
+	headers.Add("Idempotency-Prior", "true")
 	return &http.Response{
 		StatusCode: statusCode,
 		Body:       bodyReader(body),
