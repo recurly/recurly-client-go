@@ -35,6 +35,9 @@ type PaymentMethod struct {
 	// A token used in place of a credit card in order to perform transactions.
 	GatewayToken string `json:"gateway_token,omitempty"`
 
+	// The 2-letter ISO 3166-1 alpha-2 country code associated with the credit card BIN, if known by Recurly. Available on the BillingInfo object only. Available when the BIN country lookup feature is enabled.
+	CcBinCountry string `json:"cc_bin_country,omitempty"`
+
 	// An identifier for a specific payment gateway.
 	GatewayCode string `json:"gateway_code,omitempty"`
 

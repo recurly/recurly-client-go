@@ -15,7 +15,7 @@ type BillingInfoUpdatedBy struct {
 	// Customer's IP address when updating their billing information.
 	Ip string `json:"ip,omitempty"`
 
-	// Country of IP address, if known by Recurly.
+	// Country, 2-letter ISO 3166-1 alpha-2 code matching the origin IP address, if known by Recurly.
 	Country string `json:"country,omitempty"`
 }
 

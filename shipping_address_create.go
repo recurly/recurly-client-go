@@ -33,6 +33,6 @@ type ShippingAddressCreate struct {
 	// Zip or postal code.
 	PostalCode *string `json:"postal_code,omitempty"`
 
-	// Country, 2-letter ISO code.
+	// Country, 2-letter ISO 3166-1 alpha-2 code.
 	Country *string `json:"country,omitempty"`
 }
