@@ -21,6 +21,7 @@ type TaxInfo struct {
 	// Rate
 	Rate float64 `json:"rate,omitempty"`
 
+	// Provides additional tax details for Canadian Sales Tax when there is tax applied at both the country and province levels. This will only be populated for the Invoice response when fetching a single invoice and not for the InvoiceList or LineItem.
 	TaxDetails []TaxDetail `json:"tax_details,omitempty"`
 }
 

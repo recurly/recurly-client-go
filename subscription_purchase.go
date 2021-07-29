@@ -31,7 +31,7 @@ type SubscriptionPurchase struct {
 	// Create a shipping address on the account and assign it to the subscription.
 	Shipping *SubscriptionShippingPurchase `json:"shipping,omitempty"`
 
-	// If set, overrides the default trial behavior for the subscription. The date must be in the future.
+	// If set, overrides the default trial behavior for the subscription. When the current date time or a past date time is provided the subscription will begin with no trial phase (overriding any plan default trial). When a future date time is provided the subscription will begin with a trial phase ending at the specified date time.
 	TrialEndsAt *time.Time `json:"trial_ends_at,omitempty"`
 
 	// If set, the subscription will begin in the future on this date. The subscription will apply the setup fee and trial period, unless the plan has no trial.
