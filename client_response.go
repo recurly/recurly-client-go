@@ -5,6 +5,7 @@ import (
 	"net/http"
 	"net/url"
 	"strconv"
+	"strings"
 	"time"
 )
 
@@ -21,6 +22,8 @@ type RequestMetadata struct {
 type ResponseMetadata struct {
 	// Deprecated is true if the version or endpoint is now deprecated and should not be used.
 	Deprecated bool
+	// IdempotencyPrior todo.
+	IdempotencyPrior bool
 	// DeprecationDate indicates the version or endpoint will sunset and should not be used after this date.
 	DeprecationDate string
 	// RateLimit indicates the remaining API requests before the rate limit is exceeded.
@@ -45,14 +48,16 @@ func parseIntPtr(str string) *int64 {
 
 func parseResponseMetadata(res *http.Response) *ResponseMetadata {
 	deprecated := res.Header.Get("Recurly-Deprecated") == "TRUE"
+	idempotencyPrior := strings.ToLower(res.Header.Get("Idempotency-Prior")) == "true"
 	total := parseIntPtr(res.Header.Get("Recurly-Total-Records"))
 	return &ResponseMetadata{
-		Deprecated:      deprecated,
-		DeprecationDate: res.Header.Get("Recurly-Sunset-Date"),
-		RateLimit:       parseRateLimit(res),
-		StatusCode:      res.StatusCode,
-		Version:         res.Header.Get("Recurly-Version"),
-		TotalRecords:    total,
+		Deprecated:       deprecated,
+		IdempotencyPrior: idempotencyPrior,
+		DeprecationDate:  res.Header.Get("Recurly-Sunset-Date"),
+		RateLimit:        parseRateLimit(res),
+		StatusCode:       res.StatusCode,
+		Version:          res.Header.Get("Recurly-Version"),
+		TotalRecords:     total,
 		Request: RequestMetadata{
 			ID:     res.Header.Get("X-Request-Id"),
 			Method: res.Request.Method,
