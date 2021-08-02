@@ -1,5 +1,17 @@
 # Changelog
 
+## [v4.5.0](https://github.com/recurly/recurly-client-go/tree/v4.5.0) (2021-08-02)
+
+[Full Changelog](https://github.com/recurly/recurly-client-go/compare/v4.4.0...v4.5.0)
+
+
+**Merged Pull Requests**
+
+- Generated Latest Changes for v2021-02-25 [#110](https://github.com/recurly/recurly-client-go/pull/110) ([recurly-integrations](https://github.com/recurly-integrations))
+- feat: add Idempotency-Prior to ResponseMetadata [#106](https://github.com/recurly/recurly-client-go/pull/106) ([speza](https://github.com/speza))
+
+
+
 ## [v4.4.0](https://github.com/recurly/recurly-client-go/tree/v4.4.0) (2021-06-15)
 
 [Full Changelog](https://github.com/recurly/recurly-client-go/compare/v4.3.0...v4.4.0)
