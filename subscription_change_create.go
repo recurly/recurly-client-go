@@ -63,6 +63,8 @@ type SubscriptionChangeCreate struct {
 
 	// An optional type designation for the payment gateway transaction created by this request. Supports 'moto' value, which is the acronym for mail order and telephone transactions.
 	TransactionType *string `json:"transaction_type,omitempty"`
+
+	BillingInfo *SubscriptionChangeBillingInfoCreate `json:"billing_info,omitempty"`
 }
 
 func (attr *SubscriptionChangeCreate) toParams() *Params {

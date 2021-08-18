@@ -114,6 +114,7 @@ rm -f subscription_pause.go
 rm -f subscription_change_create.go
 rm -f subscription_change_shipping_create.go
 rm -f subscription_add_on_update.go
+rm -f subscription_change_billing_info_create.go
 rm -f usage_create.go
 rm -f purchase_create.go
 rm -f account_purchase.go
