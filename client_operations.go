@@ -310,6 +310,9 @@ type ClientInterface interface {
 	ConvertTrial(subscriptionId string, opts ...Option) (*Subscription, error)
 	ConvertTrialWithContext(ctx context.Context, subscriptionId string, opts ...Option) (*Subscription, error)
 
+	GetPreviewRenewal(subscriptionId string, opts ...Option) (*InvoiceCollection, error)
+	GetPreviewRenewalWithContext(ctx context.Context, subscriptionId string, opts ...Option) (*InvoiceCollection, error)
+
 	GetSubscriptionChange(subscriptionId string, opts ...Option) (*SubscriptionChange, error)
 	GetSubscriptionChangeWithContext(ctx context.Context, subscriptionId string, opts ...Option) (*SubscriptionChange, error)
 
@@ -5392,6 +5395,35 @@ func (c *Client) convertTrial(ctx context.Context, subscriptionId string, opts .
 	requestOptions := NewRequestOptions(opts...)
 	result := &Subscription{}
 	err = c.Call(ctx, http.MethodPut, path, nil, nil, requestOptions, result)
+	if err != nil {
+		return nil, err
+	}
+	return result, err
+}
+
+// GetPreviewRenewal wraps GetPreviewRenewalWithContext using the background context
+func (c *Client) GetPreviewRenewal(subscriptionId string, opts ...Option) (*InvoiceCollection, error) {
+	ctx := context.Background()
+	return c.getPreviewRenewal(ctx, subscriptionId, opts...)
+}
+
+// GetPreviewRenewalWithContext Fetch a preview of a subscription's renewal invoice(s)
+//
+// API Documentation: https://developers.recurly.com/api/v2019-10-10#operation/get_preview_renewal
+//
+// Returns: A preview of the subscription's renewal invoice(s).
+func (c *Client) GetPreviewRenewalWithContext(ctx context.Context, subscriptionId string, opts ...Option) (*InvoiceCollection, error) {
+	return c.getPreviewRenewal(ctx, subscriptionId, opts...)
+}
+
+func (c *Client) getPreviewRenewal(ctx context.Context, subscriptionId string, opts ...Option) (*InvoiceCollection, error) {
+	path, err := c.InterpolatePath("/subscriptions/{subscription_id}/preview_renewal", subscriptionId)
+	if err != nil {
+		// NOOP in 3.x client
+	}
+	requestOptions := NewRequestOptions(opts...)
+	result := &InvoiceCollection{}
+	err = c.Call(ctx, http.MethodGet, path, nil, nil, requestOptions, result)
 	if err != nil {
 		return nil, err
 	}
