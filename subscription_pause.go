@@ -8,6 +8,6 @@ import ()
 
 type SubscriptionPause struct {
 
-	// Number of billing cycles to pause the subscriptions.
+	// Number of billing cycles to pause the subscriptions. A value of 0 will cancel any pending pauses on the subscription.
 	RemainingPauseCycles *int `json:"remaining_pause_cycles,omitempty"`
 }
