@@ -1,5 +1,16 @@
 # Changelog
 
+## [v4.8.0](https://github.com/recurly/recurly-client-go/tree/v4.8.0) (2021-09-01)
+
+[Full Changelog](https://github.com/recurly/recurly-client-go/compare/v4.7.0...v4.8.0)
+
+
+**Merged Pull Requests**
+
+- Generated Latest Changes for v2021-02-25 (Dunning Campaigns feature) [#119](https://github.com/recurly/recurly-client-go/pull/119) ([recurly-integrations](https://github.com/recurly-integrations))
+
+
+
 ## [v4.7.0](https://github.com/recurly/recurly-client-go/tree/v4.7.0) (2021-08-19)
 
 [Full Changelog](https://github.com/recurly/recurly-client-go/compare/v4.6.0...v4.7.0)
