@@ -70,6 +70,9 @@ type PlanUpdate struct {
 	// If `true`, items can be assigned as add-ons to individual subscription add-ons.
 	// If `false`, only plan add-ons can be used.
 	AllowAnyItemOnSubscriptions *bool `json:"allow_any_item_on_subscriptions,omitempty"`
+
+	// Unique ID to identify a dunning campaign. Available when the Dunning Campaigns feature is enabled. Used to specify if a non-default dunning campaign should be assigned to this plan. For sites without multiple dunning campaigns enabled, the default dunning campaign will always be used.
+	DunningCampaignId *string `json:"dunning_campaign_id,omitempty"`
 }
 
 func (attr *PlanUpdate) toParams() *Params {
