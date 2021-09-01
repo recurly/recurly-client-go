@@ -7,9 +7,10 @@ package recurly
 import (
 	"context"
 	"net/http"
+	"time"
 )
 
-type AccountMini struct {
+type DunningCampaign struct {
 	recurlyResponse *ResponseMetadata
 
 	Id string `json:"id,omitempty"`
@@ -17,64 +18,69 @@ type AccountMini struct {
 	// Object type
 	Object string `json:"object,omitempty"`
 
-	// The unique identifier of the account.
+	// Campaign code.
 	Code string `json:"code,omitempty"`
 
-	// The email address used for communicating with this customer.
-	Email string `json:"email,omitempty"`
+	// Campaign name.
+	Name string `json:"name,omitempty"`
 
-	FirstName string `json:"first_name,omitempty"`
+	// Campaign description.
+	Description string `json:"description,omitempty"`
 
-	LastName string `json:"last_name,omitempty"`
+	// Whether or not this is the default campaign for accounts or plans without an assigned dunning campaign.
+	DefaultCampaign bool `json:"default_campaign,omitempty"`
 
-	Company string `json:"company,omitempty"`
+	// Dunning Cycle settings.
+	DunningCycles []DunningCycle `json:"dunning_cycles,omitempty"`
 
-	ParentAccountId string `json:"parent_account_id,omitempty"`
+	// When the current campaign was created in Recurly.
+	CreatedAt time.Time `json:"created_at,omitempty"`
 
-	BillTo string `json:"bill_to,omitempty"`
+	// When the current campaign was updated in Recurly.
+	UpdatedAt time.Time `json:"updated_at,omitempty"`
 
-	// Unique ID to identify a dunning campaign. Available when the Dunning Campaigns feature is enabled. Used to specify if a non-default dunning campaign should be assigned to this account. For sites without multiple dunning campaigns enabled, the default dunning campaign will always be used.
-	DunningCampaignId string `json:"dunning_campaign_id,omitempty"`
+	// When the current campaign was deleted in Recurly.
+	DeletedAt time.Time `json:"deleted_at,omitempty"`
 }
 
 // GetResponse returns the ResponseMetadata that generated this resource
-func (resource *AccountMini) GetResponse() *ResponseMetadata {
+func (resource *DunningCampaign) GetResponse() *ResponseMetadata {
 	return resource.recurlyResponse
 }
 
 // setResponse sets the ResponseMetadata that generated this resource
-func (resource *AccountMini) setResponse(res *ResponseMetadata) {
+func (resource *DunningCampaign) setResponse(res *ResponseMetadata) {
 	resource.recurlyResponse = res
 }
 
 // internal struct for deserializing accounts
-type accountMiniList struct {
+type dunningCampaignList struct {
 	ListMetadata
-	Data            []AccountMini `json:"data"`
+	Data            []DunningCampaign `json:"data"`
 	recurlyResponse *ResponseMetadata
 }
 
 // GetResponse returns the ResponseMetadata that generated this resource
-func (resource *accountMiniList) GetResponse() *ResponseMetadata {
+func (resource *dunningCampaignList) GetResponse() *ResponseMetadata {
 	return resource.recurlyResponse
 }
 
 // setResponse sets the ResponseMetadata that generated this resource
-func (resource *accountMiniList) setResponse(res *ResponseMetadata) {
+func (resource *dunningCampaignList) setResponse(res *ResponseMetadata) {
 	resource.recurlyResponse = res
 }
 
-// AccountMiniList allows you to paginate AccountMini objects
-type AccountMiniList struct {
+// DunningCampaignList allows you to paginate DunningCampaign objects
+type DunningCampaignList struct {
 	client         HTTPCaller
 	requestOptions *RequestOptions
 	nextPagePath   string
 	HasMore        bool
-	Data           []AccountMini
+	Data           []DunningCampaign
 }
 
-func NewAccountMiniList(client HTTPCaller, nextPagePath string, requestOptions *RequestOptions) *AccountMiniList {
-	return &AccountMiniList{
+func NewDunningCampaignList(client HTTPCaller, nextPagePath string, requestOptions *RequestOptions) *DunningCampaignList {
+	return &DunningCampaignList{
 		client:         client,
 		requestOptions: requestOptions,
 		nextPagePath:   nextPagePath,
@@ -83,8 +89,8 @@ func NewAccountMiniList(client HTTPCaller, nextPagePath string, requestOptions *
 }
 
 // Fetch fetches the next page of data into the `Data` property
-func (list *AccountMiniList) FetchWithContext(ctx context.Context) error {
-	resources := &accountMiniList{}
+func (list *DunningCampaignList) FetchWithContext(ctx context.Context) error {
+	resources := &dunningCampaignList{}
 	err := list.client.Call(ctx, http.MethodGet, list.nextPagePath, nil, nil, list.requestOptions, resources)
 	if err != nil {
 		return err
@@ -97,13 +103,13 @@ func (list *AccountMiniList) FetchWithContext(ctx context.Context) error {
 }
 
 // Fetch fetches the next page of data into the `Data` property
-func (list *AccountMiniList) Fetch() error {
+func (list *DunningCampaignList) Fetch() error {
 	return list.FetchWithContext(context.Background())
 }
 
 // Count returns the count of items on the server that match this pager
-func (list *AccountMiniList) CountWithContext(ctx context.Context) (*int64, error) {
-	resources := &accountMiniList{}
+func (list *DunningCampaignList) CountWithContext(ctx context.Context) (*int64, error) {
+	resources := &dunningCampaignList{}
 	err := list.client.Call(ctx, http.MethodHead, list.nextPagePath, nil, nil, list.requestOptions, resources)
 	if err != nil {
 		return nil, err
@@ -113,6 +119,6 @@ func (list *AccountMiniList) CountWithContext(ctx context.Context) (*int64, erro
 }
 
 // Count returns the count of items on the server that match this pager
-func (list *AccountMiniList) Count() (*int64, error) {
+func (list *DunningCampaignList) Count() (*int64, error) {
 	return list.CountWithContext(context.Background())
 }
