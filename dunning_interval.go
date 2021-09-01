@@ -9,72 +9,54 @@ import (
 	"net/http"
 )
 
-type AccountMini struct {
+type DunningInterval struct {
 	recurlyResponse *ResponseMetadata
 
-	Id string `json:"id,omitempty"`
+	// Number of days before sending the next email.
+	Days int `json:"days,omitempty"`
 
-	// Object type
-	Object string `json:"object,omitempty"`
-
-	// The unique identifier of the account.
-	Code string `json:"code,omitempty"`
-
-	// The email address used for communicating with this customer.
-	Email string `json:"email,omitempty"`
-
-	FirstName string `json:"first_name,omitempty"`
-
-	LastName string `json:"last_name,omitempty"`
-
-	Company string `json:"company,omitempty"`
-
-	ParentAccountId string `json:"parent_account_id,omitempty"`
-
-	BillTo string `json:"bill_to,omitempty"`
-
-	// Unique ID to identify a dunning campaign. Available when the Dunning Campaigns feature is enabled. Used to specify if a non-default dunning campaign should be assigned to this account. For sites without multiple dunning campaigns enabled, the default dunning campaign will always be used.
-	DunningCampaignId string `json:"dunning_campaign_id,omitempty"`
+	// Email template being used.
+	EmailTemplate string `json:"email_template,omitempty"`
 }
 
 // GetResponse returns the ResponseMetadata that generated this resource
-func (resource *AccountMini) GetResponse() *ResponseMetadata {
+func (resource *DunningInterval) GetResponse() *ResponseMetadata {
 	return resource.recurlyResponse
 }
 
 // setResponse sets the ResponseMetadata that generated this resource
-func (resource *AccountMini) setResponse(res *ResponseMetadata) {
+func (resource *DunningInterval) setResponse(res *ResponseMetadata) {
 	resource.recurlyResponse = res
 }
 
 // internal struct for deserializing accounts
-type accountMiniList struct {
+type dunningIntervalList struct {
 	ListMetadata
-	Data            []AccountMini `json:"data"`
+	Data            []DunningInterval `json:"data"`
 	recurlyResponse *ResponseMetadata
 }
 
 // GetResponse returns the ResponseMetadata that generated this resource
-func (resource *accountMiniList) GetResponse() *ResponseMetadata {
+func (resource *dunningIntervalList) GetResponse() *ResponseMetadata {
 	return resource.recurlyResponse
 }
 
 // setResponse sets the ResponseMetadata that generated this resource
-func (resource *accountMiniList) setResponse(res *ResponseMetadata) {
+func (resource *dunningIntervalList) setResponse(res *ResponseMetadata) {
 	resource.recurlyResponse = res
 }
 
-// AccountMiniList allows you to paginate AccountMini objects
-type AccountMiniList struct {
+// DunningIntervalList allows you to paginate DunningInterval objects
+type DunningIntervalList struct {
 	client         HTTPCaller
 	requestOptions *RequestOptions
 	nextPagePath   string
 	hasMore        bool
-	data           []AccountMini
+	data           []DunningInterval
 }
 
-func NewAccountMiniList(client HTTPCaller, nextPagePath string, requestOptions *RequestOptions) *AccountMiniList {
-	return &AccountMiniList{
+func NewDunningIntervalList(client HTTPCaller, nextPagePath string, requestOptions *RequestOptions) *DunningIntervalList {
+	return &DunningIntervalList{
 		client:         client,
 		requestOptions: requestOptions,
 		nextPagePath:   nextPagePath,
@@ -82,31 +64,31 @@ func NewAccountMiniList(client HTTPCaller, nextPagePath string, requestOptions *
 	}
 }
 
-type AccountMiniLister interface {
+type DunningIntervalLister interface {
 	Fetch() error
 	FetchWithContext(ctx context.Context) error
 	Count() (*int64, error)
 	CountWithContext(ctx context.Context) (*int64, error)
-	Data() []AccountMini
+	Data() []DunningInterval
 	HasMore() bool
 	Next() string
 }
 
-func (list *AccountMiniList) HasMore() bool {
+func (list *DunningIntervalList) HasMore() bool {
 	return list.hasMore
 }
 
-func (list *AccountMiniList) Next() string {
+func (list *DunningIntervalList) Next() string {
 	return list.nextPagePath
 }
 
-func (list *AccountMiniList) Data() []AccountMini {
+func (list *DunningIntervalList) Data() []DunningInterval {
 	return list.data
 }
 
 // Fetch fetches the next page of data into the `Data` property
-func (list *AccountMiniList) FetchWithContext(ctx context.Context) error {
-	resources := &accountMiniList{}
+func (list *DunningIntervalList) FetchWithContext(ctx context.Context) error {
+	resources := &dunningIntervalList{}
 	err := list.client.Call(ctx, http.MethodGet, list.nextPagePath, nil, nil, list.requestOptions, resources)
 	if err != nil {
 		return err
@@ -119,13 +101,13 @@ func (list *AccountMiniList) FetchWithContext(ctx context.Context) error {
 }
 
 // Fetch fetches the next page of data into the `Data` property
-func (list *AccountMiniList) Fetch() error {
+func (list *DunningIntervalList) Fetch() error {
 	return list.FetchWithContext(context.Background())
 }
 
 // Count returns the count of items on the server that match this pager
-func (list *AccountMiniList) CountWithContext(ctx context.Context) (*int64, error) {
-	resources := &accountMiniList{}
+func (list *DunningIntervalList) CountWithContext(ctx context.Context) (*int64, error) {
+	resources := &dunningIntervalList{}
 	err := list.client.Call(ctx, http.MethodHead, list.nextPagePath, nil, nil, list.requestOptions, resources)
 	if err != nil {
 		return nil, err
@@ -135,6 +117,6 @@ func (list *AccountMiniList) CountWithContext(ctx context.Context) (*int64, erro
 }
 
 // Count returns the count of items on the server that match this pager
-func (list *AccountMiniList) Count() (*int64, error) {
+func (list *DunningIntervalList) Count() (*int64, error) {
 	return list.CountWithContext(context.Background())
 }
