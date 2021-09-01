@@ -372,6 +372,14 @@ type ClientInterface interface {
 
 	GetExportFiles(exportDate string, opts ...Option) (*ExportFiles, error)
 	GetExportFilesWithContext(ctx context.Context, exportDate string, opts ...Option) (*ExportFiles, error)
+
+	ListDunningCampaigns(params *ListDunningCampaignsParams, opts ...Option) (DunningCampaignLister, error)
+
+	GetDunningCampaign(dunningCampaignId string, opts ...Option) (*DunningCampaign, error)
+	GetDunningCampaignWithContext(ctx context.Context, dunningCampaignId string, opts ...Option) (*DunningCampaign, error)
+
+	PutDunningCampaignBulkUpdate(body *DunningCampaignsBulkUpdate, opts ...Option) (*DunningCampaignsBulkUpdateResponse, error)
+	PutDunningCampaignBulkUpdateWithContext(ctx context.Context, body *DunningCampaignsBulkUpdate, opts ...Option) (*DunningCampaignsBulkUpdateResponse, error)
 }
 
 type ListSitesParams struct {
@@ -5920,6 +5928,97 @@ func (c *Client) getExportFiles(ctx context.Context, exportDate string, opts ...
 	requestOptions := NewRequestOptions(opts...)
 	result := &ExportFiles{}
 	err = c.Call(ctx, http.MethodGet, path, nil, nil, requestOptions, result)
+	if err != nil {
+		return nil, err
+	}
+	return result, err
+}
+
+type ListDunningCampaignsParams struct {
+
+	// Sort - Sort field. You *really* only want to sort by `updated_at` in ascending
+	// order. In descending order updated records will move behind the cursor and could
+	// prevent some records from being returned.
+	Sort *string
+}
+
+func (list *ListDunningCampaignsParams) URLParams() []KeyValue {
+	var options []KeyValue
+
+	if list.Sort != nil {
+		options = append(options, KeyValue{Key: "sort", Value: *list.Sort})
+	}
+
+	return options
+}
+
+// ListDunningCampaigns Show the dunning campaigns for a site
+//
+// API Documentation: https://developers.recurly.com/api/v2021-02-25#operation/list_dunning_campaigns
+//
+// Returns: A list of the the dunning_campaigns on an account.
+func (c *Client) ListDunningCampaigns(params *ListDunningCampaignsParams, opts ...Option) (DunningCampaignLister, error) {
+	path, err := c.InterpolatePath("/dunning_campaigns")
+	if err != nil {
+		return nil, err
+	}
+	requestOptions := NewRequestOptions(opts...)
+	path = BuildURL(path, params)
+	return NewDunningCampaignList(c, path, requestOptions), nil
+}
+
+// GetDunningCampaign wraps GetDunningCampaignWithContext using the background context
+func (c *Client) GetDunningCampaign(dunningCampaignId string, opts ...Option) (*DunningCampaign, error) {
+	ctx := context.Background()
+	return c.getDunningCampaign(ctx, dunningCampaignId, opts...)
+}
+
+// GetDunningCampaignWithContext Show the settings for a dunning campaign
+//
+// API Documentation: https://developers.recurly.com/api/v2021-02-25#operation/get_dunning_campaign
+//
+// Returns: Settings for a dunning campaign.
+func (c *Client) GetDunningCampaignWithContext(ctx context.Context, dunningCampaignId string, opts ...Option) (*DunningCampaign, error) {
+	return c.getDunningCampaign(ctx, dunningCampaignId, opts...)
+}
+
+func (c *Client) getDunningCampaign(ctx context.Context, dunningCampaignId string, opts ...Option) (*DunningCampaign, error) {
+	path, err := c.InterpolatePath("/dunning_campaigns/{dunning_campaign_id}", dunningCampaignId)
+	if err != nil {
+		return nil, err
+	}
+	requestOptions := NewRequestOptions(opts...)
+	result := &DunningCampaign{}
+	err = c.Call(ctx, http.MethodGet, path, nil, nil, requestOptions, result)
+	if err != nil {
+		return nil, err
+	}
+	return result, err
+}
+
+// PutDunningCampaignBulkUpdate wraps PutDunningCampaignBulkUpdateWithContext using the background context
+func (c *Client) PutDunningCampaignBulkUpdate(body *DunningCampaignsBulkUpdate, opts ...Option) (*DunningCampaignsBulkUpdateResponse, error) {
+	ctx := context.Background()
+	return c.putDunningCampaignBulkUpdate(ctx, body, opts...)
+}
+
+// PutDunningCampaignBulkUpdateWithContext Assign a dunning campaign to multiple plans
+//
+// API Documentation: https://developers.recurly.com/api/v2021-02-25#operation/put_dunning_campaign_bulk_update
+//
+// Returns: A list of updated plans.
+func (c *Client) PutDunningCampaignBulkUpdateWithContext(ctx context.Context, body *DunningCampaignsBulkUpdate, opts ...Option) (*DunningCampaignsBulkUpdateResponse, error) {
+	return c.putDunningCampaignBulkUpdate(ctx, body, opts...)
+}
+
+func (c *Client) putDunningCampaignBulkUpdate(ctx context.Context, body *DunningCampaignsBulkUpdate, opts ...Option) (*DunningCampaignsBulkUpdateResponse, error) {
+	path, err := c.InterpolatePath("/dunning_campaigns/{dunning_campaign_id}/bulk_update")
+	if err != nil {
+		return nil, err
+	}
+	requestOptions := NewRequestOptions(opts...)
+	result := &DunningCampaignsBulkUpdateResponse{}
+	err = c.Call(ctx, http.MethodPut, path, body, nil, requestOptions, result)
 	if err != nil {
 		return nil, err
 	}

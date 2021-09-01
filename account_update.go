@@ -47,6 +47,9 @@ type AccountUpdate struct {
 	// An optional type designation for the payment gateway transaction created by this request. Supports 'moto' value, which is the acronym for mail order and telephone transactions.
 	TransactionType *string `json:"transaction_type,omitempty"`
 
+	// Unique ID to identify a dunning campaign. Available when the Dunning Campaigns feature is enabled. Used to specify if a non-default dunning campaign should be assigned to this account. For sites without multiple dunning campaigns enabled, the default dunning campaign will always be used.
+	DunningCampaignId *string `json:"dunning_campaign_id,omitempty"`
+
 	Address *AddressCreate `json:"address,omitempty"`
 
 	BillingInfo *BillingInfoCreate `json:"billing_info,omitempty"`

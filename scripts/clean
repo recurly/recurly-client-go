@@ -66,6 +66,10 @@ rm -f usage.go
 rm -f export_dates.go
 rm -f export_files.go
 rm -f export_file.go
+rm -f dunning_campaign.go
+rm -f dunning_cycle.go
+rm -f dunning_interval.go
+rm -f dunning_campaigns_bulk_update_response.go
 rm -f account_create.go
 rm -f account_acquisition_update.go
 rm -f account_acquisition_cost_create.go
@@ -125,4 +129,5 @@ rm -f shipping_purchase.go
 rm -f shipping_fee_create.go
 rm -f subscription_purchase.go
 rm -f subscription_shipping_purchase.go
+rm -f dunning_campaigns_bulk_update.go
 
