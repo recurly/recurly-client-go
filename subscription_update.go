@@ -43,6 +43,9 @@ type SubscriptionUpdate struct {
 	// Integer representing the number of days after an invoice's creation that the invoice will become past due. If an invoice's net terms are set to '0', it is due 'On Receipt' and will become past due 24 hours after it’s created. If an invoice is due net 30, it will become past due at 31 days exactly.
 	NetTerms *int `json:"net_terms,omitempty"`
 
+	// If present, this subscription's transactions will use the payment gateway with this code.
+	GatewayCode *string `json:"gateway_code,omitempty"`
+
 	// Subscription shipping details
 	Shipping *SubscriptionShippingUpdate `json:"shipping,omitempty"`
 

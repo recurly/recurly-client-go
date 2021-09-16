@@ -16,4 +16,9 @@ type SubscriptionChangeShippingCreate struct {
 
 	// Assigns the subscription's shipping cost. If this is greater than zero then a `method_id` or `method_code` is required.
 	Amount *float64 `json:"amount,omitempty"`
+
+	// Assign a shipping address from the account's existing shipping addresses. If this and address are both present, address will take precedence.
+	AddressId *string `json:"address_id,omitempty"`
+
+	Address *ShippingAddressCreate `json:"address,omitempty"`
 }

@@ -97,6 +97,15 @@ type Subscription struct {
 	// Estimated total, before tax.
 	Subtotal float64 `json:"subtotal,omitempty"`
 
+	// Estimated tax
+	Tax float64 `json:"tax,omitempty"`
+
+	// Tax info
+	TaxInfo TaxInfo `json:"tax_info,omitempty"`
+
+	// Estimated total
+	Total float64 `json:"total,omitempty"`
+
 	// Collection method
 	CollectionMethod string `json:"collection_method,omitempty"`
 
@@ -135,6 +144,9 @@ type Subscription struct {
 
 	// Recurring subscriptions paid with ACH will have this attribute set. This timestamp is used for alerting customers to reauthorize in 3 years in accordance with NACHA rules. If a subscription becomes inactive or the billing info is no longer a bank account, this timestamp is cleared.
 	BankAccountAuthorizedAt time.Time `json:"bank_account_authorized_at,omitempty"`
+
+	// If present, this subscription's transactions will use the payment gateway with this code.
+	GatewayCode string `json:"gateway_code,omitempty"`
 
 	// Billing Info ID.
 	BillingInfoId string `json:"billing_info_id,omitempty"`
