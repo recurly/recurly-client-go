@@ -50,6 +50,9 @@ type LineItem struct {
 	// Account mini details
 	Account AccountMini `json:"account,omitempty"`
 
+	// The UUID of the account responsible for originating the line item.
+	BillForAccountId string `json:"bill_for_account_id,omitempty"`
+
 	// If the line item is a charge or credit for a subscription, this is its ID.
 	SubscriptionId string `json:"subscription_id,omitempty"`
 

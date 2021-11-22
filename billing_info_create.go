@@ -64,6 +64,24 @@ type BillingInfoCreate struct {
 	// The International Bank Account Number, up to 34 alphanumeric characters comprising a country code; two check digits; and a number that includes the domestic bank account number, branch identifier, and potential routing information
 	Iban *string `json:"iban,omitempty"`
 
+	// The name associated with the bank account (ACH, SEPA, Bacs only)
+	NameOnAccount *string `json:"name_on_account,omitempty"`
+
+	// The bank account number. (ACH, Bacs only)
+	AccountNumber *string `json:"account_number,omitempty"`
+
+	// The bank's rounting number. (ACH only)
+	RoutingNumber *string `json:"routing_number,omitempty"`
+
+	// Bank identifier code for UK based banks. Required for Bacs based billing infos. (Bacs only)
+	SortCode *string `json:"sort_code,omitempty"`
+
+	// The payment method type for a non-credit card based billing info. The value of `bacs` is the only accepted value (Bacs only)
+	Type *string `json:"type,omitempty"`
+
+	// The bank account type. (ACH only)
+	AccountType *string `json:"account_type,omitempty"`
+
 	// Tax identifier is required if adding a billing info that is a consumer card in Brazil or in Argentina. This would be the customer's CPF (Brazil) and CUIT (Argentina). CPF and CUIT are tax identifiers for all residents who pay taxes in Brazil and Argentina respectively.
 	TaxIdentifier *string `json:"tax_identifier,omitempty"`
 
