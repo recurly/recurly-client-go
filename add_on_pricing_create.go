@@ -17,4 +17,7 @@ type AddOnPricingCreate struct {
 	// Allows up to 9 decimal places. Only supported when `add_on_type` = `usage`.
 	// If `unit_amount_decimal` is provided, `unit_amount` cannot be provided.
 	UnitAmountDecimal *string `json:"unit_amount_decimal,omitempty"`
+
+	// Determines whether or not tax is included in the unit amount. The Tax Inclusive Pricing feature (separate from the Mixed Tax Pricing feature) must be enabled to use this flag.
+	TaxInclusive *bool `json:"tax_inclusive,omitempty"`
 }

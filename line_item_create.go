@@ -19,6 +19,9 @@ type LineItemCreate struct {
 	// `Item`'s `unit_amount`. If `item_code`/`item_id` is not present then `unit_amount` is required.
 	UnitAmount *float64 `json:"unit_amount,omitempty"`
 
+	// Determines whether or not tax is included in the unit amount. The Tax Inclusive Pricing feature (separate from the Mixed Tax Pricing feature) must be enabled to use this flag.
+	TaxInclusive *bool `json:"tax_inclusive,omitempty"`
+
 	// This number will be multiplied by the unit amount to compute the subtotal before any discounts or taxes.
 	Quantity *int `json:"quantity,omitempty"`
 

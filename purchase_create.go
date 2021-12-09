@@ -13,7 +13,7 @@ type PurchaseCreate struct {
 
 	Account *AccountPurchase `json:"account,omitempty"`
 
-	// The `billing_info_id` is the value that represents a specific billing info for an end customer. When `billing_info_id` is used to assign billing info to the subscription, all future billing events for the subscription will bill to the specified billing info.
+	// The `billing_info_id` is the value that represents a specific billing info for an end customer. When `billing_info_id` is used to assign billing info to the subscription, all future billing events for the subscription will bill to the specified billing info. `billing_info_id` can ONLY be used for sites utilizing the Wallet feature.
 	BillingInfoId *string `json:"billing_info_id,omitempty"`
 
 	// Must be set to manual in order to preview a purchase for an Account that does not have payment information associated with the Billing Info.

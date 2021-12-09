@@ -31,7 +31,7 @@ type Invoice struct {
 	// Account mini details
 	Account AccountMini `json:"account,omitempty"`
 
-	// The `billing_info_id` is the value that represents a specific billing info for an end customer. When `billing_info_id` is used to assign billing info to the subscription, all future billing events for the subscription will bill to the specified billing info.
+	// The `billing_info_id` is the value that represents a specific billing info for an end customer. When `billing_info_id` is used to assign billing info to the subscription, all future billing events for the subscription will bill to the specified billing info. `billing_info_id` can ONLY be used for sites utilizing the Wallet feature.
 	BillingInfoId string `json:"billing_info_id,omitempty"`
 
 	// If the invoice is charging or refunding for one or more subscriptions, these are their IDs.
