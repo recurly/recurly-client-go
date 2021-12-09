@@ -46,9 +46,12 @@ type SubscriptionUpdate struct {
 	// If present, this subscription's transactions will use the payment gateway with this code.
 	GatewayCode *string `json:"gateway_code,omitempty"`
 
+	// Determines whether or not tax is included in the unit amount. The Tax Inclusive Pricing feature (separate from the Mixed Tax Pricing feature) must be enabled to use this flag.
+	TaxInclusive *bool `json:"tax_inclusive,omitempty"`
+
 	// Subscription shipping details
 	Shipping *SubscriptionShippingUpdate `json:"shipping,omitempty"`
 
-	// The `billing_info_id` is the value that represents a specific billing info for an end customer. When `billing_info_id` is used to assign billing info to the subscription, all future billing events for the subscription will bill to the specified billing info.
+	// The `billing_info_id` is the value that represents a specific billing info for an end customer. When `billing_info_id` is used to assign billing info to the subscription, all future billing events for the subscription will bill to the specified billing info. `billing_info_id` can ONLY be used for sites utilizing the Wallet feature.
 	BillingInfoId *string `json:"billing_info_id,omitempty"`
 }
