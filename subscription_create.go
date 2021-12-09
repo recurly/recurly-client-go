@@ -19,7 +19,7 @@ type SubscriptionCreate struct {
 
 	Account *AccountCreate `json:"account,omitempty"`
 
-	// The `billing_info_id` is the value that represents a specific billing info for an end customer. When `billing_info_id` is used to assign billing info to the subscription, all future billing events for the subscription will bill to the specified billing info.
+	// The `billing_info_id` is the value that represents a specific billing info for an end customer. When `billing_info_id` is used to assign billing info to the subscription, all future billing events for the subscription will bill to the specified billing info. `billing_info_id` can ONLY be used for sites utilizing the Wallet feature.
 	BillingInfoId *string `json:"billing_info_id,omitempty"`
 
 	// Create a shipping address on the account and assign it to the subscription.
@@ -33,6 +33,9 @@ type SubscriptionCreate struct {
 
 	// Override the unit amount of the subscription plan by setting this value. If not provided, the subscription will inherit the price from the subscription plan for the provided currency.
 	UnitAmount *float64 `json:"unit_amount,omitempty"`
+
+	// Determines whether or not tax is included in the unit amount. The Tax Inclusive Pricing feature (separate from the Mixed Tax Pricing feature) must be enabled to use this flag.
+	TaxInclusive *bool `json:"tax_inclusive,omitempty"`
 
 	// Optionally override the default quantity of 1.
 	Quantity *int `json:"quantity,omitempty"`

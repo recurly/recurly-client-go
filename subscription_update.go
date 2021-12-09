@@ -44,10 +44,13 @@ type SubscriptionUpdate struct {
 	// Integer representing the number of days after an invoice's creation that the invoice will become past due. If an invoice's net terms are set to '0', it is due 'On Receipt' and will become past due 24 hours after it’s created. If an invoice is due net 30, it will become past due at 31 days exactly.
 	NetTerms *int `json:"net_terms,omitempty"`
 
+	// Determines whether or not tax is included in the unit amount. The Tax Inclusive Pricing feature (separate from the Mixed Tax Pricing feature) must be enabled to use this flag.
+	TaxInclusive *bool `json:"tax_inclusive,omitempty"`
+
 	// Subscription shipping details
 	Shipping *SubscriptionShippingUpdate `json:"shipping,omitempty"`
 
-	// The `billing_info_id` is the value that represents a specific billing info for an end customer. When `billing_info_id` is used to assign billing info to the subscription, all future billing events for the subscription will bill to the specified billing info.
+	// The `billing_info_id` is the value that represents a specific billing info for an end customer. When `billing_info_id` is used to assign billing info to the subscription, all future billing events for the subscription will bill to the specified billing info. `billing_info_id` can ONLY be used for sites utilizing the Wallet feature.
 	BillingInfoId *string `json:"billing_info_id,omitempty"`
 }
 

@@ -21,6 +21,9 @@ type SubscriptionChangeCreate struct {
 	// Optionally, sets custom pricing for the subscription, overriding the plan's default unit amount. The subscription's current currency will be used.
 	UnitAmount *float64 `json:"unit_amount,omitempty"`
 
+	// Determines whether or not tax is included in the unit amount. The Tax Inclusive Pricing feature (separate from the Mixed Tax Pricing feature) must be enabled to use this flag.
+	TaxInclusive *bool `json:"tax_inclusive,omitempty"`
+
 	// Optionally override the default quantity of 1.
 	Quantity *int `json:"quantity,omitempty"`
 
