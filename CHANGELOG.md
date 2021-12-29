@@ -1,5 +1,16 @@
 # Changelog
 
+## [v4.11.0](https://github.com/recurly/recurly-client-go/tree/v4.11.0) (2021-12-29)
+
+[Full Changelog](https://github.com/recurly/recurly-client-go/compare/v4.10.0...v4.11.0)
+
+
+**Merged Pull Requests**
+
+- Generated Latest Changes for v2021-02-25 (Tax Inclusive Pricing) [#130](https://github.com/recurly/recurly-client-go/pull/130) ([recurly-integrations](https://github.com/recurly-integrations))
+
+
+
 ## [v4.10.0](https://github.com/recurly/recurly-client-go/tree/v4.10.0) (2021-11-22)
 
 [Full Changelog](https://github.com/recurly/recurly-client-go/compare/v4.9.0...v4.10.0)
