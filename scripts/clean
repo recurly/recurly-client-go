@@ -11,6 +11,7 @@ rm -f payment_method.go
 rm -f fraud_info.go
 rm -f billing_info_updated_by.go
 rm -f custom_field.go
+rm -f account_invoice_template.go
 rm -f error_may_have_transaction.go
 rm -f account_acquisition.go
 rm -f account_acquisition_cost.go

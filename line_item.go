@@ -25,13 +25,13 @@ type LineItem struct {
 	// Charges are positive line items that debit the account. Credits are negative line items that credit the account.
 	Type string `json:"type,omitempty"`
 
-	// Unique code to identify an item. Available when the Credit Invoices and Subscription Billing Terms features are enabled.
+	// Unique code to identify an item. Available when the Credit Invoices feature is enabled.
 	ItemCode string `json:"item_code,omitempty"`
 
-	// System-generated unique identifier for an item. Available when the Credit Invoices and Subscription Billing Terms features are enabled.
+	// System-generated unique identifier for an item. Available when the Credit Invoices feature is enabled.
 	ItemId string `json:"item_id,omitempty"`
 
-	// Optional Stock Keeping Unit assigned to an item. Available when the Credit Invoices and Subscription Billing Terms features are enabled.
+	// Optional Stock Keeping Unit assigned to an item. Available when the Credit Invoices feature is enabled.
 	ExternalSku string `json:"external_sku,omitempty"`
 
 	// Revenue schedule type
