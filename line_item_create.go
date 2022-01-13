@@ -28,10 +28,10 @@ type LineItemCreate struct {
 	// Description that appears on the invoice. If `item_code`/`item_id` is part of the request then `description` must be absent.
 	Description *string `json:"description,omitempty"`
 
-	// Unique code to identify an item. Available when the Credit Invoices and Subscription Billing Terms features are enabled.
+	// Unique code to identify an item. Available when the Credit Invoices feature is enabled.
 	ItemCode *string `json:"item_code,omitempty"`
 
-	// System-generated unique identifier for an item. Available when the Credit Invoices and Subscription Billing Terms features are enabled.
+	// System-generated unique identifier for an item. Available when the Credit Invoices feature is enabled.
 	ItemId *string `json:"item_id,omitempty"`
 
 	// Revenue schedule type
