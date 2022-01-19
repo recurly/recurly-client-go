@@ -32,6 +32,13 @@ A client represents a connection to the Recurly API. Every call to the server ex
 client := recurly.NewClient("<apikey>")
 ```
 
+To access Recurly API in Europe, you will need to specify the EU Region in the `ClientOptions`.
+```go
+client := recurly.NewClientWithOptions("<apikey>", &recurly.ClientOptions{
+    region: recurly.EU
+})
+```
+
 ### Operations
 
 Every operation that can be performed against the API has a corresponding method in the Client struct. The [client_operations.go](client_operations.go) file implements these operations. This file also provides descriptions for each method and their returns. For example, to use the [get_account](https://developers.recurly.com/api/v2019-10-10/index.html#operation/get_account) endpoint, the `GetAccount` method can be called, as seen below. `GetAccount()` is used to fetch an account; it returns a pointer to the Account struct.

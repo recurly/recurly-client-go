@@ -16,6 +16,7 @@ import (
 	"runtime"
 	"strings"
 	"time"
+	"errors"
 )
 
 const (
@@ -27,9 +28,6 @@ var (
 	// A new client will use this value unless the API Key is explicitly set
 	// whe ncreating the client.
 	APIKey string
-
-	// APIHost is the base URL for Recurly API v3
-	APIHost = "https://v3.recurly.com"
 
 	defaultTransport = &http.Transport{
 		DialContext: (&net.Dialer{
@@ -60,6 +58,28 @@ var (
 	pathPattern    = regexp.MustCompile(`{[^}]+}`)
 )
 
+// Region specifies Recurly's data center geography for the connections
+type Region string
+
+const (
+    US = Region("us")
+    EU = Region("eu")
+)
+
+// ClientOptions for a new API Client
+type ClientOptions struct {
+    // Region connects to the given data center geography
+    Region Region
+}
+
+var (
+    // apiHosts maps the Region to the base URL
+    apiHosts = map[Region]string{
+        US: "https://v3.recurly.com",
+        EU: "https://v3.eu.recurly.com",
+    }
+)
+
 // Client submits API requests to Recurly
 type Client struct {
 	apiKey  string
@@ -70,29 +90,28 @@ type Client struct {
 }
 
 // NewClient returns a new API Client using the given APIKey
-func NewClient(apiKey string) *Client {
-	return &Client{
-		apiKey:     apiKey,
-		baseURL:    APIHost,
-		Log:        NewLogger(LevelWarn),
-		HTTPClient: defaultClient,
-	}
+func NewClient(apiKey string) (*Client, error) {
+    return NewClientWithOptions(apiKey, nil)
 }
 
-// newClient creates a new Recurly API Client
-func newClient(apiKey string, httpClient *http.Client) *Client {
-	if apiKey == "" {
-		apiKey = APIKey
-	}
-	if httpClient == nil {
-		httpClient = &http.Client{}
-	}
-	return &Client{
+// NewClientWithOptions creates a new client using the given options.
+func NewClientWithOptions(apiKey string, options *ClientOptions) (*Client, error) {
+    apiHost := apiHosts[US]
+    found := false
+
+    if options != nil {
+        apiHost, found = apiHosts[options.Region]
+        if !found {
+            return nil, errors.New("invalid region")
+        }
+    }
+
+ 	return &Client{
 		apiKey:     apiKey,
-		baseURL:    APIHost,
-		Log:        NewLogger(LevelDebug),
-		HTTPClient: httpClient,
-	}
+		baseURL:    apiHost,
+		Log:        NewLogger(LevelWarn),
+		HTTPClient: defaultClient,
+	}, nil
 }
 
 func validatePathParameters(params []string) error {

@@ -40,7 +40,7 @@ type Scenario struct {
 
 // This method on Scenario gives you a *recurly.Client
 // which implements the testing scenario
-func (s *Scenario) MockHTTPClient() *Client {
+func (s *Scenario) MockHTTPClient(options *ClientOptions) (*Client, error) {
 	roundTrip := func(req *http.Request) *http.Response {
 		// Check the request has the expected properties
 		s.AssertRequest(req)
@@ -56,14 +56,18 @@ func (s *Scenario) MockHTTPClient() *Client {
 		return s.MakeResponse(req)
 	}
 
-	client := newClient("APIKEY", &http.Client{
-		Transport: roundTripFunc(roundTrip),
-	})
+	client, err := NewClientWithOptions("APIKEY", options)
 
-	// override the loger to keep noise down
-	client.Log = NewLogger(LevelWarn)
+	if client != nil {
+        client.HTTPClient = &http.Client{
+            Transport: roundTripFunc(roundTrip),
+        }
 
-	return client
+        // override the loger to keep noise down
+        client.Log = NewLogger(LevelWarn)
+	}
+
+	return client, err
 }
 
 func bodyReader(body *string) io.ReadCloser {
