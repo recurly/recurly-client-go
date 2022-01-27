@@ -50,6 +50,9 @@ type AccountUpdate struct {
 	// Unique ID to identify a dunning campaign. Available when the Dunning Campaigns feature is enabled. Used to specify if a non-default dunning campaign should be assigned to this account. For sites without multiple dunning campaigns enabled, the default dunning campaign will always be used.
 	DunningCampaignId *string `json:"dunning_campaign_id,omitempty"`
 
+	// Unique ID to identify an invoice template.  Available when the Invoice Customization feature is enabled.  Used to specify which invoice template, if any, should be used to generate invoices for the account.
+	InvoiceTemplateId *string `json:"invoice_template_id,omitempty"`
+
 	Address *AddressCreate `json:"address,omitempty"`
 
 	BillingInfo *BillingInfoCreate `json:"billing_info,omitempty"`

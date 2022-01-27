@@ -162,6 +162,8 @@ type ClientInterface interface {
 	GetCustomFieldDefinition(customFieldDefinitionId string, opts ...Option) (*CustomFieldDefinition, error)
 	GetCustomFieldDefinitionWithContext(ctx context.Context, customFieldDefinitionId string, opts ...Option) (*CustomFieldDefinition, error)
 
+	ListInvoiceTemplateAccounts(invoiceTemplateId string, params *ListInvoiceTemplateAccountsParams, opts ...Option) (AccountLister, error)
+
 	ListItems(params *ListItemsParams, opts ...Option) (ItemLister, error)
 
 	CreateItem(body *ItemCreate, opts ...Option) (*Item, error)
@@ -2784,6 +2786,106 @@ func (c *Client) getCustomFieldDefinition(ctx context.Context, customFieldDefini
 		return nil, err
 	}
 	return result, err
+}
+
+type ListInvoiceTemplateAccountsParams struct {
+
+	// Ids - Filter results by their IDs. Up to 200 IDs can be passed at once using
+	// commas as separators, e.g. `ids=h1at4d57xlmy,gyqgg0d3v9n1,jrsm5b4yefg6`.
+	// **Important notes:**
+	// * The `ids` parameter cannot be used with any other ordering or filtering
+	//   parameters (`limit`, `order`, `sort`, `begin_time`, `end_time`, etc)
+	// * Invalid or unknown IDs will be ignored, so you should check that the
+	//   results correspond to your request.
+	// * Records are returned in an arbitrary order. Since results are all
+	//   returned at once you can sort the records yourself.
+	Ids []string
+
+	// Limit - Limit number of records 1-200.
+	Limit *int
+
+	// Order - Sort order.
+	Order *string
+
+	// Sort - Sort field. You *really* only want to sort by `updated_at` in ascending
+	// order. In descending order updated records will move behind the cursor and could
+	// prevent some records from being returned.
+	Sort *string
+
+	// BeginTime - Inclusively filter by begin_time when `sort=created_at` or `sort=updated_at`.
+	// **Note:** this value is an ISO8601 timestamp. A partial timestamp that does not include a time zone will default to UTC.
+	BeginTime *time.Time
+
+	// EndTime - Inclusively filter by end_time when `sort=created_at` or `sort=updated_at`.
+	// **Note:** this value is an ISO8601 timestamp. A partial timestamp that does not include a time zone will default to UTC.
+	EndTime *time.Time
+
+	// Email - Filter for accounts with this exact email address. A blank value will return accounts with both `null` and `""` email addresses. Note that multiple accounts can share one email address.
+	Email *string
+
+	// Subscriber - Filter for accounts with or without a subscription in the `active`,
+	// `canceled`, or `future` state.
+	Subscriber *bool
+
+	// PastDue - Filter for accounts with an invoice in the `past_due` state.
+	PastDue *string
+}
+
+func (list *ListInvoiceTemplateAccountsParams) URLParams() []KeyValue {
+	var options []KeyValue
+
+	if list.Ids != nil {
+		options = append(options, KeyValue{Key: "ids", Value: strings.Join(list.Ids, ",")})
+	}
+
+	if list.Limit != nil {
+		options = append(options, KeyValue{Key: "limit", Value: strconv.Itoa(*list.Limit)})
+	}
+
+	if list.Order != nil {
+		options = append(options, KeyValue{Key: "order", Value: *list.Order})
+	}
+
+	if list.Sort != nil {
+		options = append(options, KeyValue{Key: "sort", Value: *list.Sort})
+	}
+
+	if list.BeginTime != nil {
+		options = append(options, KeyValue{Key: "begin_time", Value: formatTime(*list.BeginTime)})
+	}
+
+	if list.EndTime != nil {
+		options = append(options, KeyValue{Key: "end_time", Value: formatTime(*list.EndTime)})
+	}
+
+	if list.Email != nil {
+		options = append(options, KeyValue{Key: "email", Value: *list.Email})
+	}
+
+	if list.Subscriber != nil {
+		options = append(options, KeyValue{Key: "subscriber", Value: strconv.FormatBool(*list.Subscriber)})
+	}
+
+	if list.PastDue != nil {
+		options = append(options, KeyValue{Key: "past_due", Value: *list.PastDue})
+	}
+
+	return options
+}
+
+// ListInvoiceTemplateAccounts List an invoice template's associated accounts
+//
+// API Documentation: https://developers.recurly.com/api/v2021-02-25#operation/list_invoice_template_accounts
+//
+// Returns: A list of an invoice template's associated accounts.
+func (c *Client) ListInvoiceTemplateAccounts(invoiceTemplateId string, params *ListInvoiceTemplateAccountsParams, opts ...Option) (AccountLister, error) {
+	path, err := c.InterpolatePath("/invoice_templates/{invoice_template_id}/accounts", invoiceTemplateId)
+	if err != nil {
+		return nil, err
+	}
+	requestOptions := NewRequestOptions(opts...)
+	path = BuildURL(path, params)
+	return NewAccountList(c, path, requestOptions), nil
 }
 
 type ListItemsParams struct {
