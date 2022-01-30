@@ -34,8 +34,8 @@ client := recurly.NewClient("<apikey>")
 
 To access Recurly API in Europe, you will need to specify the EU Region in the `ClientOptions`.
 ```go
-client := recurly.NewClientWithOptions("<apikey>", &recurly.ClientOptions{
-    region: recurly.EU
+client := recurly.NewClientWithOptions("<apikey>", recurly.ClientOptions{
+    Region: recurly.EU,
 })
 ```
 

@@ -40,7 +40,7 @@ type Scenario struct {
 
 // This method on Scenario gives you a *recurly.Client
 // which implements the testing scenario
-func (s *Scenario) MockHTTPClient(options *ClientOptions) (*Client, error) {
+func (s *Scenario) MockHTTPClient() *Client {
 	roundTrip := func(req *http.Request) *http.Response {
 		// Check the request has the expected properties
 		s.AssertRequest(req)
@@ -56,18 +56,44 @@ func (s *Scenario) MockHTTPClient(options *ClientOptions) (*Client, error) {
 		return s.MakeResponse(req)
 	}
 
-	client, err := NewClientWithOptions("APIKEY", options)
+	client := NewClient("APIKEY")
 
-	if client != nil {
-        client.HTTPClient = &http.Client{
-            Transport: roundTripFunc(roundTrip),
-        }
-
-        // override the loger to keep noise down
-        client.Log = NewLogger(LevelWarn)
+	client.HTTPClient = &http.Client{
+		Transport: roundTripFunc(roundTrip),
 	}
 
-	return client, err
+	// override the loger to keep noise down
+	client.Log = NewLogger(LevelWarn)
+
+	return client
+}
+
+func (s *Scenario) MockHTTPClientWithOptions(options ClientOptions) *Client {
+	roundTrip := func(req *http.Request) *http.Response {
+		// Check the request has the expected properties
+		s.AssertRequest(req)
+
+		// Assert the default headers on every request
+		expectedAccept := "application/vnd.recurly." + APIVersion
+		header := req.Header
+		s.T.Assert(header.Get("Accept"), expectedAccept, "Request Header \"Accept\"")
+		s.T.Assert(header.Get("Accept-Encoding"), "gzip", "Request Header \"Accept-Encoding\"")
+		s.T.Assert(header.Get("Content-Type"), "application/json; charset=utf-8", "Request Header \"Content-Type\"")
+
+		// Return the canned Response
+		return s.MakeResponse(req)
+	}
+
+	client := NewClientWithOptions("APIKEY", options)
+
+	client.HTTPClient = &http.Client{
+		Transport: roundTripFunc(roundTrip),
+	}
+
+	// override the loger to keep noise down
+	client.Log = NewLogger(LevelWarn)
+
+	return client
 }
 
 func bodyReader(body *string) io.ReadCloser {

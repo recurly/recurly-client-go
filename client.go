@@ -16,7 +16,6 @@ import (
 	"runtime"
 	"strings"
 	"time"
-	"errors"
 )
 
 const (
@@ -24,10 +23,8 @@ const (
 )
 
 var (
-	// APIKey contains the Recurly API key used for authenticating globally.
-	// A new client will use this value unless the API Key is explicitly set
-	// whe ncreating the client.
-	APIKey string
+	// APIHost is the base URL for Recurly API v3
+	APIHost string
 
 	defaultTransport = &http.Transport{
 		DialContext: (&net.Dialer{
@@ -52,32 +49,9 @@ var (
 		Transport: defaultTransport,
 	}
 
-	acceptVersion  = fmt.Sprintf("application/vnd.recurly.%s", APIVersion)
-	recurlyVersion = fmt.Sprintf("recurly.%s", APIVersion)
-	userAgent      = fmt.Sprintf("Recurly/%s; go %s", clientVersion, runtime.Version())
-	pathPattern    = regexp.MustCompile(`{[^}]+}`)
-)
-
-// Region specifies Recurly's data center geography for the connections
-type Region string
-
-const (
-    US = Region("us")
-    EU = Region("eu")
-)
-
-// ClientOptions for a new API Client
-type ClientOptions struct {
-    // Region connects to the given data center geography
-    Region Region
-}
-
-var (
-    // apiHosts maps the Region to the base URL
-    apiHosts = map[Region]string{
-        US: "https://v3.recurly.com",
-        EU: "https://v3.eu.recurly.com",
-    }
+	acceptVersion = fmt.Sprintf("application/vnd.recurly.%s", APIVersion)
+	userAgent     = fmt.Sprintf("Recurly/%s; go %s", clientVersion, runtime.Version())
+	pathPattern   = regexp.MustCompile(`{[^}]+}`)
 )
 
 // Client submits API requests to Recurly
@@ -89,29 +63,33 @@ type Client struct {
 	HTTPClient *http.Client
 }
 
+var (
+	// apiHosts maps the Region to the base URL
+	apiHosts = map[region]string{
+		US: "https://v3.recurly.com",
+		EU: "https://v3.eu.recurly.com",
+	}
+)
+
 // NewClient returns a new API Client using the given APIKey
-func NewClient(apiKey string) (*Client, error) {
-    return NewClientWithOptions(apiKey, nil)
+func NewClient(apiKey string) *Client {
+	return NewClientWithOptions(apiKey, ClientOptions{
+		Region: US,
+	})
 }
 
-// NewClientWithOptions creates a new client using the given options.
-func NewClientWithOptions(apiKey string, options *ClientOptions) (*Client, error) {
-    apiHost := apiHosts[US]
-    found := false
-
-    if options != nil {
-        apiHost, found = apiHosts[options.Region]
-        if !found {
-            return nil, errors.New("invalid region")
-        }
-    }
-
- 	return &Client{
+// NewClientWithOptions returns a new API Client using the given APIKey and options
+func NewClientWithOptions(apiKey string, options ClientOptions) *Client {
+	apiHost := APIHost
+	if apiHost == "" {
+		apiHost = apiHosts[options.Region]
+	}
+	return &Client{
 		apiKey:     apiKey,
 		baseURL:    apiHost,
 		Log:        NewLogger(LevelWarn),
 		HTTPClient: defaultClient,
-	}, nil
+	}
 }
 
 func validatePathParameters(params []string) error {

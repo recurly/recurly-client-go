@@ -20,68 +20,11 @@ func TestGetResource200(test *testing.T) {
 			return mockResponse(req, 200, String(`{"id": "abcd1234"}`))
 		},
 	}
-	client, err := scenario.MockHTTPClient(nil)
-	if err != nil {
-	    t.Fatalf("failed to initialize HTTP Client: %v", err)
-	}
+	client := scenario.MockHTTPClient()
 
 	resource, err := client.GetResource("abcd1234")
 	t.Assert(err, nil, "Error not expected")
 	t.Assert(resource.Id, "abcd1234", "resource.Id")
-}
-
-func TestBaseUrlInUSDataCenter(test *testing.T) {
-	t := &T{test}
-
-	scenario := &Scenario{
-		T: t,
-		AssertRequest: nil,
-		MakeResponse: nil,
-	}
-	client, err := scenario.MockHTTPClient(nil)
-	if err != nil {
-	    t.Fatalf("failed to initialize HTTP Client: %v", err)
-	}
-
-	t.Assert(client.baseURL, "https://v3.recurly.com", "Base URL")
-}
-
-func TestBaseUrlInEUDataCenter(test *testing.T) {
-	t := &T{test}
-
-	scenario := &Scenario{
-		T: t,
-		AssertRequest: nil,
-		MakeResponse: nil,
-	}
-
-	client, err := scenario.MockHTTPClient(&ClientOptions{
-	    Region: EU,
-	})
-	if err != nil {
-	    t.Fatalf("failed to initialize HTTP Client: %v", err)
-	}
-
-	t.Assert(client.baseURL, "https://v3.eu.recurly.com", "Base URL")
-}
-
-func TestBaseUrlInInvalidDataCenter(test *testing.T) {
-	t := &T{test}
-
-	scenario := &Scenario{
-		T: t,
-		AssertRequest: nil,
-		MakeResponse: nil,
-	}
-
-	client, err := scenario.MockHTTPClient(&ClientOptions{
-	    Region: Region("AS"),
-	})
-
-    if client != nil {
-        t.Error("Expected client to be nil")
-    }
-	t.Assert(err.Error(), "invalid region", "err.Error()")
 }
 
 func TestGetResource404(test *testing.T) {
@@ -97,10 +40,7 @@ func TestGetResource404(test *testing.T) {
 			return mockResponse(req, 404, String(body))
 		},
 	}
-	client, err := scenario.MockHTTPClient(nil)
-	if err != nil {
-	    t.Fatalf("failed to initialize HTTP Client: %v", err)
-	}
+	client := scenario.MockHTTPClient()
 
 	resource, err := client.GetResource("idontexist")
 	if resource != nil {
@@ -123,10 +63,7 @@ func TestCreateResource201(test *testing.T) {
 			return mockResponse(req, 201, String(body))
 		},
 	}
-	client, err := scenario.MockHTTPClient(nil)
-	if err != nil {
-	    t.Fatalf("failed to initialize HTTP Client: %v", err)
-	}
+	client := scenario.MockHTTPClient()
 
 	body := &ResourceCreate{
 		String: "hello world",
@@ -157,10 +94,7 @@ func TestCreateResource422(test *testing.T) {
 			return mockResponse(req, 422, String(body))
 		},
 	}
-	client, err := scenario.MockHTTPClient(nil)
-	if err != nil {
-	    t.Fatalf("failed to initialize HTTP Client: %v", err)
-	}
+	client := scenario.MockHTTPClient()
 
 	body := &ResourceCreate{
 		String: "hello world",
@@ -182,10 +116,7 @@ func TestClientInjectsResponseMetadataIntoResource(test *testing.T) {
 			return mockResponse(req, 200, String(`{"id": "abcd1234"}`))
 		},
 	}
-	client, err := scenario.MockHTTPClient(nil)
-	if err != nil {
-	    t.Fatalf("failed to initialize HTTP Client: %v", err)
-	}
+	client := scenario.MockHTTPClient()
 
 	resource, err := client.GetResource("abcd1234")
 	t.Assert(err, nil, "Error not expected")
@@ -207,10 +138,7 @@ func TestClientInjectsResponseMetadataIntoResource(test *testing.T) {
 			return mockResponse(req, 204, String(``))
 		},
 	}
-	client, err = scenario.MockHTTPClient(nil)
-	if err != nil {
-	    t.Fatalf("failed to initialize HTTP Client: %v", err)
-	}
+	client = scenario.MockHTTPClient()
 
 	empty, err := client.DeleteResource("abcd1234")
 
@@ -228,10 +156,7 @@ func TestHeadResource200(test *testing.T) {
 			return mockResponse(req, 200, nil)
 		},
 	}
-	client, err := scenario.MockHTTPClient(nil)
-	if err != nil {
-	    t.Fatalf("failed to initialize HTTP Client: %v", err)
-	}
+	client := scenario.MockHTTPClient()
 
 	resp, err := client.GetResourceMetadata("abcd1234")
 	t.Assert(err, nil, "Error not expected")
@@ -263,10 +188,7 @@ func TestEncodePathParameters(test *testing.T) {
 			return mockResponse(req, 200, String(`{"id": "abcd1234"}`))
 		},
 	}
-	client, err := scenario.MockHTTPClient(nil)
-	if err != nil {
-	    t.Fatalf("failed to initialize HTTP Client: %v", err)
-	}
+	client := scenario.MockHTTPClient()
 
 	resource, err := client.GetResource("/")
 	t.Assert(err, nil, "Error not expected")
@@ -288,10 +210,7 @@ func TestValidatePathParameters(test *testing.T) {
 			return mockResponse(req, 200, String(`{"id": "abcd1234"}`))
 		},
 	}
-	client, clientErr := scenario.MockHTTPClient(nil)
-	if clientErr != nil {
-	    t.Fatalf("failed to initialize HTTP Client: %v", clientErr)
-	}
+	client := scenario.MockHTTPClient()
 
 	_, err := client.GetResource("")
 	t.Assert(err.Error(), "Operation parameters cannot be empty strings.", "err.Error()")
@@ -313,10 +232,7 @@ func TestSetCustomHeader(test *testing.T) {
 			return mockResponse(req, 200, String(`{"id": "abcd1234"}`))
 		},
 	}
-	client, err := scenario.MockHTTPClient(nil)
-	if err != nil {
-	    t.Fatalf("failed to initialize HTTP Client: %v", err)
-	}
+	client := scenario.MockHTTPClient()
 
 	header := http.Header{hKey: []string{hVal}}
 	client.GetResource("abcd1234", WithHeader(header))
@@ -335,10 +251,7 @@ func TestPreserveInternalHeaders(test *testing.T) {
 			return mockResponse(req, 200, String(`{"id": "abcd1234"}`))
 		},
 	}
-	client, err := scenario.MockHTTPClient(nil)
-	if err != nil {
-	    t.Fatalf("failed to initialize HTTP Client: %v", err)
-	}
+	client := scenario.MockHTTPClient()
 
 	header := http.Header{"Content-Type": []string{"Custom-Value"}}
 	client.GetResource("abcd1234", WithHeader(header))
@@ -359,10 +272,35 @@ func TestSetIdempotencyKey(test *testing.T) {
 			return mockResponse(req, 200, String(`{"id": "abcd1234"}`))
 		},
 	}
-	client, err := scenario.MockHTTPClient(nil)
-	if err != nil {
-	    t.Fatalf("failed to initialize HTTP Client: %v", err)
-	}
+	client := scenario.MockHTTPClient()
 
 	client.GetResource("abcd1234", WithIdempotencyKey(key))
+}
+
+func TestBaseUrlDefaultsToUSDataCenter(test *testing.T) {
+	t := &T{test}
+
+	scenario := &Scenario{
+		T:             t,
+		AssertRequest: nil,
+		MakeResponse:  nil,
+	}
+	client := scenario.MockHTTPClient()
+
+	t.Assert(client.baseURL, "https://v3.recurly.com", "Base URL")
+}
+
+func TestBaseUrlInEUDataCenter(test *testing.T) {
+	t := &T{test}
+
+	scenario := &Scenario{
+		T:             t,
+		AssertRequest: nil,
+		MakeResponse:  nil,
+	}
+	client := scenario.MockHTTPClientWithOptions(ClientOptions{
+		Region: EU,
+	})
+
+	t.Assert(client.baseURL, "https://v3.eu.recurly.com", "Base URL")
 }

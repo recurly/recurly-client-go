@@ -20,10 +20,7 @@ func TestCreateAccount(test *testing.T) {
 			return mockResponse(req, 201, String(`{"id": "abcd1234"}`))
 		},
 	}
-	client, err := scenario.MockHTTPClient(nil)
-	if err != nil {
-	    t.Fatalf("failed to initialize HTTP Client: %v", err)
-	}
+	client := scenario.MockHTTPClient()
 
 	body := &AccountCreate{
 		Code: String("new_account"),
@@ -48,10 +45,7 @@ func TestCreateAccountWithContext(test *testing.T) {
 			return mockResponse(req, 201, String(`{"id": "abcd1234"}`))
 		},
 	}
-	client, err := scenario.MockHTTPClient(nil)
-	if err != nil {
-	    t.Fatalf("failed to initialize HTTP Client: %v", err)
-	}
+	client := scenario.MockHTTPClient()
 
 	body := &AccountCreate{
 		Code: String("new_account"),
@@ -90,10 +84,7 @@ func TestListAccounts(test *testing.T) {
 			}`))
 		},
 	}
-	client, err := scenario.MockHTTPClient(nil)
-	if err != nil {
-	    t.Fatalf("failed to initialize HTTP Client: %v", err)
-	}
+	client := scenario.MockHTTPClient()
 
 	params := &ListAccountsParams{
 		Sort:  String("created_at"),
@@ -140,10 +131,7 @@ func TestListAccountsWithContext(test *testing.T) {
 			}`))
 		},
 	}
-	client, err := scenario.MockHTTPClient(nil)
-	if err != nil {
-	    t.Fatalf("failed to initialize HTTP Client: %v", err)
-	}
+	client := scenario.MockHTTPClient()
 
 	params := &ListAccountsParams{
 		Sort:  String("created_at"),
@@ -174,10 +162,7 @@ func TestCreateAccountWithNilContext(test *testing.T) {
 			return mockResponse(req, 201, String(`{"id": "abcd1234"}`))
 		},
 	}
-	client, err := scenario.MockHTTPClient(nil)
-	if err != nil {
-	    t.Fatalf("failed to initialize HTTP Client: %v", err)
-	}
+	client := scenario.MockHTTPClient()
 
 	body := &AccountCreate{
 		Code: String("new_account"),
