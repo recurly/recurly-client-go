@@ -54,10 +54,9 @@ var (
 		Transport: defaultTransport,
 	}
 
-	acceptVersion  = fmt.Sprintf("application/vnd.recurly.%s", APIVersion)
-	recurlyVersion = fmt.Sprintf("recurly.%s", APIVersion)
-	userAgent      = fmt.Sprintf("Recurly/%s; go %s", clientVersion, runtime.Version())
-	pathPattern    = regexp.MustCompile(`{[^}]+}`)
+	acceptVersion = fmt.Sprintf("application/vnd.recurly.%s", APIVersion)
+	userAgent     = fmt.Sprintf("Recurly/%s; go %s", clientVersion, runtime.Version())
+	pathPattern   = regexp.MustCompile(`{[^}]+}`)
 )
 
 // Client submits API requests to Recurly

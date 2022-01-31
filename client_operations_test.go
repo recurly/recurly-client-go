@@ -26,13 +26,16 @@ func TestCreateAccount(test *testing.T) {
 		Code: String("new_account"),
 	}
 
-	account, _ := client.CreateAccount(body)
+	account, err := client.CreateAccount(body)
+	t.Assert(err, nil, "Error not expected")
 	t.Assert(account.Id, "abcd1234", "account.Id")
 }
 
 func TestCreateAccountWithContext(test *testing.T) {
 	t := &T{test}
-	ctx, _ := context.WithTimeout(context.Background(), 20*time.Second)
+	ctx, cancel := context.WithTimeout(context.Background(), 20*time.Second)
+	defer cancel()
+
 	scenario := &Scenario{
 		T: t,
 		AssertRequest: func(req *http.Request) {
@@ -51,7 +54,8 @@ func TestCreateAccountWithContext(test *testing.T) {
 		Code: String("new_account"),
 	}
 
-	account, _ := client.CreateAccountWithContext(ctx, body)
+	account, err := client.CreateAccountWithContext(ctx, body)
+	t.Assert(err, nil, "Error not expected")
 	t.Assert(account.Id, "abcd1234", "account.Id")
 }
 
@@ -71,12 +75,12 @@ func TestListAccounts(test *testing.T) {
 				"next": "/accounts?cursor=efgh5678%3A1588803986.0&limit=1&order=desc&sort=created_at",
 				"data": [
 					{
-						"id": "abcd1234", 
+						"id": "abcd1234",
 						"first_name": "marigold",
 						"last_name": "sunflower"
 					},
 					{
-						"id": "efgh5678", 
+						"id": "efgh5678",
 						"first_name": "juniper",
 						"last_name": "pinecone"
 					}
@@ -103,7 +107,9 @@ func TestListAccounts(test *testing.T) {
 
 func TestListAccountsWithContext(test *testing.T) {
 	t := &T{test}
-	ctx, _ := context.WithTimeout(context.Background(), 20*time.Second)
+	ctx, cancel := context.WithTimeout(context.Background(), 20*time.Second)
+	defer cancel()
+
 	scenario := &Scenario{
 		T: t,
 		AssertRequest: func(req *http.Request) {
@@ -118,12 +124,12 @@ func TestListAccountsWithContext(test *testing.T) {
 				"next": "/accounts?cursor=efgh5678%3A1588803986.0&limit=1&order=desc&sort=created_at",
 				"data": [
 					{
-						"id": "abcd1234", 
+						"id": "abcd1234",
 						"first_name": "marigold",
 						"last_name": "sunflower"
 					},
 					{
-						"id": "efgh5678", 
+						"id": "efgh5678",
 						"first_name": "juniper",
 						"last_name": "pinecone"
 					}
@@ -168,6 +174,7 @@ func TestCreateAccountWithNilContext(test *testing.T) {
 		Code: String("new_account"),
 	}
 
-	account, _ := client.CreateAccountWithContext(nil, body)
+	account, err := client.CreateAccountWithContext(context.Background(), body)
+	t.Assert(err, nil, "Error not expected")
 	t.Assert(account.Id, "abcd1234", "account.Id")
 }

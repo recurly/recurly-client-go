@@ -1,0 +1,13 @@
+all: build lint test vet
+
+build:
+	go build ./...
+
+lint:
+	staticcheck ./...
+
+test:
+	go test -race ./...
+
+vet:
+	go vet ./...

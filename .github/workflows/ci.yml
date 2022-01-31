@@ -1,0 +1,22 @@
+name: CI
+
+on:
+  push:
+    branches: [ master, v3-v2021-02-25 ]
+  pull_request:
+    branches: [ master, v3-v2021-02-25 ]
+
+jobs:
+  lint:
+    name: Lint
+
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@master
+
+      - name: lint
+        run: |
+          go get -u honnef.co/go/tools/cmd/staticcheck@latest &&
+          make lint &&
+          make vet
