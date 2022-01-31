@@ -1,5 +1,48 @@
 # Changelog
 
+## [v4.13.0](https://github.com/recurly/recurly-client-go/tree/v4.13.0) (2022-01-31)
+
+[Full Changelog](https://github.com/recurly/recurly-client-go/compare/v4.12.0...v4.13.0)
+
+A breaking change has been introduced in the 4.13.0 release. 
+
+While [adding support for the EU](https://github.com/recurly/recurly-client-go/pull/132), the `ClientOptions` struct and `NewClientWithOptions` function were added. Part of this process necessitated adding region validations to the `NewClient*` functions.
+
+When creating an instance of a `Client` with the existing `NewClient` function, you will need to handle the potential error response:
+
+Original:
+```go
+client := recurly.NewClient("<apikey>")
+```
+
+Updated:
+```go
+client, err := recurly.NewClient("<apikey>")
+if err != nil {
+  // Custom error condition handling
+}
+```
+
+Using the newly added `NewClientWithOptions`:
+```go
+client, err := recurly.NewClientWithOptions("<apikey>", recurly.ClientOptions{
+    Region: recurly.EU,
+})
+if err != nil {
+  // Custom error condition handling
+}
+```
+
+While we make every effort to support semantic versioning in our modules, we determined that this breaking change was necessary in the 4.x version of the client.
+
+
+**Merged Pull Requests**
+
+- Generated Latest Changes for v2021-02-25 [#136](https://github.com/recurly/recurly-client-go/pull/136) ([recurly-integrations](https://github.com/recurly-integrations))
+- Add region argument to client to connect in EU data center [#132](https://github.com/recurly/recurly-client-go/pull/132) ([FabricioCoutinho](https://github.com/FabricioCoutinho))
+
+
+
 ## [v4.12.0](https://github.com/recurly/recurly-client-go/tree/v4.12.0) (2022-01-28)
 
 [Full Changelog](https://github.com/recurly/recurly-client-go/compare/v4.11.0...v4.12.0)
