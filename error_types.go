@@ -13,6 +13,7 @@ const (
 	ErrorTypeServer                  = ErrorType("server_error")
 	ErrorTypeInternalServer          = ErrorType("internal_server_error")
 	ErrorTypeServiceNotAvailable     = ErrorType("service_not_available")
+	ErrorTypeTaxService              = ErrorType("tax_service_error")
 	ErrorTypeBadGateway              = ErrorType("bad_gateway")
 	ErrorTypeServiceUnavailable      = ErrorType("service_unavailable")
 	ErrorTypeTimeout                 = ErrorType("timeout")
