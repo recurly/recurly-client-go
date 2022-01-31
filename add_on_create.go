@@ -9,10 +9,10 @@ import ()
 type AddOnCreate struct {
 	Params `json:"-"`
 
-	// Unique code to identify an item. Avaliable when the `Credit Invoices` and `Subscription Billing Terms` features are enabled. If `item_id` and `item_code` are both present, `item_id` will be used.
+	// Unique code to identify an item. Avaliable when the `Credit Invoices` feature is enabled. If `item_id` and `item_code` are both present, `item_id` will be used.
 	ItemCode *string `json:"item_code,omitempty"`
 
-	// System-generated unique identifier for an item. Available when the `Credit Invoices` and `Subscription Billing Terms` features are enabled. If `item_id` and `item_code` are both present, `item_id` will be used.
+	// System-generated unique identifier for an item. Available when the `Credit Invoices` feature is enabled. If `item_id` and `item_code` are both present, `item_id` will be used.
 	ItemId *string `json:"item_id,omitempty"`
 
 	// The unique identifier for the add-on within its plan. If `item_code`/`item_id` is part of the request then `code` must be absent. If `item_code`/`item_id` is not present `code` is required.
