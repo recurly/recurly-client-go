@@ -23,13 +23,8 @@ const (
 )
 
 var (
-	// APIKey contains the Recurly API key used for authenticating globally.
-	// A new client will use this value unless the API Key is explicitly set
-	// whe ncreating the client.
-	APIKey string
-
 	// APIHost is the base URL for Recurly API v3
-	APIHost = "https://v3.recurly.com"
+	APIHost string
 
 	defaultTransport = &http.Transport{
 		DialContext: (&net.Dialer{
@@ -54,10 +49,9 @@ var (
 		Transport: defaultTransport,
 	}
 
-	acceptVersion  = fmt.Sprintf("application/vnd.recurly.%s", APIVersion)
-	recurlyVersion = fmt.Sprintf("recurly.%s", APIVersion)
-	userAgent      = fmt.Sprintf("Recurly/%s; go %s", clientVersion, runtime.Version())
-	pathPattern    = regexp.MustCompile(`{[^}]+}`)
+	acceptVersion = fmt.Sprintf("application/vnd.recurly.%s", APIVersion)
+	userAgent     = fmt.Sprintf("Recurly/%s; go %s", clientVersion, runtime.Version())
+	pathPattern   = regexp.MustCompile(`{[^}]+}`)
 )
 
 // Client submits API requests to Recurly
@@ -69,30 +63,38 @@ type Client struct {
 	HTTPClient *http.Client
 }
 
-// NewClient returns a new API Client using the given APIKey
-func NewClient(apiKey string) *Client {
-	return &Client{
-		apiKey:     apiKey,
-		baseURL:    APIHost,
-		Log:        NewLogger(LevelWarn),
-		HTTPClient: defaultClient,
+var (
+	// apiHosts maps the Region to the base URL
+	apiHosts = map[region]string{
+		US: "https://v3.recurly.com",
+		EU: "https://v3.eu.recurly.com",
 	}
+)
+
+// NewClient returns a new API Client using the given APIKey
+func NewClient(apiKey string) (*Client, error) {
+	return NewClientWithOptions(apiKey, ClientOptions{
+		Region: US,
+	})
 }
 
-// newClient creates a new Recurly API Client
-func newClient(apiKey string, httpClient *http.Client) *Client {
-	if apiKey == "" {
-		apiKey = APIKey
+// NewClientWithOptions returns a new API Client using the given APIKey and options
+func NewClientWithOptions(apiKey string, options ClientOptions) (*Client, error) {
+	apiHost := APIHost
+	if apiHost == "" {
+		found := false
+		apiHost, found = apiHosts[options.Region]
+		if !found {
+			return nil, fmt.Errorf("invalid region: %s", options.Region)
+		}
 	}
-	if httpClient == nil {
-		httpClient = &http.Client{}
-	}
+
 	return &Client{
 		apiKey:     apiKey,
-		baseURL:    APIHost,
-		Log:        NewLogger(LevelDebug),
-		HTTPClient: httpClient,
-	}
+		baseURL:    apiHost,
+		Log:        NewLogger(LevelWarn),
+		HTTPClient: defaultClient,
+	}, nil
 }
 
 func validatePathParameters(params []string) error {

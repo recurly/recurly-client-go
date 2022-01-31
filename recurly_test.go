@@ -56,14 +56,50 @@ func (s *Scenario) MockHTTPClient() *Client {
 		return s.MakeResponse(req)
 	}
 
-	client := newClient("APIKEY", &http.Client{
+	client, err := NewClient("APIKEY")
+	if err != nil {
+		s.T.Assert(err, nil, "Error not expected")
+	}
+
+	client.HTTPClient = &http.Client{
 		Transport: roundTripFunc(roundTrip),
-	})
+	}
 
 	// override the loger to keep noise down
 	client.Log = NewLogger(LevelWarn)
 
 	return client
+}
+
+func (s *Scenario) MockHTTPClientWithOptions(options ClientOptions) (*Client, error) {
+	roundTrip := func(req *http.Request) *http.Response {
+		// Check the request has the expected properties
+		s.AssertRequest(req)
+
+		// Assert the default headers on every request
+		expectedAccept := "application/vnd.recurly." + APIVersion
+		header := req.Header
+		s.T.Assert(header.Get("Accept"), expectedAccept, "Request Header \"Accept\"")
+		s.T.Assert(header.Get("Accept-Encoding"), "gzip", "Request Header \"Accept-Encoding\"")
+		s.T.Assert(header.Get("Content-Type"), "application/json; charset=utf-8", "Request Header \"Content-Type\"")
+
+		// Return the canned Response
+		return s.MakeResponse(req)
+	}
+
+	client, err := NewClientWithOptions("APIKEY", options)
+	if err != nil {
+		return nil, err
+	}
+
+	client.HTTPClient = &http.Client{
+		Transport: roundTripFunc(roundTrip),
+	}
+
+	// override the loger to keep noise down
+	client.Log = NewLogger(LevelWarn)
+
+	return client, nil
 }
 
 func bodyReader(body *string) io.ReadCloser {
