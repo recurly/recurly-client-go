@@ -56,7 +56,10 @@ func (s *Scenario) MockHTTPClient() *Client {
 		return s.MakeResponse(req)
 	}
 
-	client := NewClient("APIKEY")
+	client, err := NewClient("APIKEY")
+	if err != nil {
+		s.T.Assert(err, nil, "Error not expected")
+	}
 
 	client.HTTPClient = &http.Client{
 		Transport: roundTripFunc(roundTrip),
@@ -68,7 +71,7 @@ func (s *Scenario) MockHTTPClient() *Client {
 	return client
 }
 
-func (s *Scenario) MockHTTPClientWithOptions(options ClientOptions) *Client {
+func (s *Scenario) MockHTTPClientWithOptions(options ClientOptions) (*Client, error) {
 	roundTrip := func(req *http.Request) *http.Response {
 		// Check the request has the expected properties
 		s.AssertRequest(req)
@@ -84,7 +87,10 @@ func (s *Scenario) MockHTTPClientWithOptions(options ClientOptions) *Client {
 		return s.MakeResponse(req)
 	}
 
-	client := NewClientWithOptions("APIKEY", options)
+	client, err := NewClientWithOptions("APIKEY", options)
+	if err != nil {
+		return nil, err
+	}
 
 	client.HTTPClient = &http.Client{
 		Transport: roundTripFunc(roundTrip),
@@ -93,7 +99,7 @@ func (s *Scenario) MockHTTPClientWithOptions(options ClientOptions) *Client {
 	// override the loger to keep noise down
 	client.Log = NewLogger(LevelWarn)
 
-	return client
+	return client, nil
 }
 
 func bodyReader(body *string) io.ReadCloser {

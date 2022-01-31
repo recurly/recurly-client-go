@@ -298,9 +298,27 @@ func TestBaseUrlInEUDataCenter(test *testing.T) {
 		AssertRequest: nil,
 		MakeResponse:  nil,
 	}
-	client := scenario.MockHTTPClientWithOptions(ClientOptions{
+	client, err := scenario.MockHTTPClientWithOptions(ClientOptions{
 		Region: EU,
 	})
+	if err != nil {
+		t.Assert(err, nil, "Error not expected")
+	}
 
 	t.Assert(client.baseURL, "https://v3.eu.recurly.com", "Base URL")
+}
+
+func TestInvalidRegionError(test *testing.T) {
+	t := &T{test}
+
+	scenario := &Scenario{
+		T:             t,
+		AssertRequest: nil,
+		MakeResponse:  nil,
+	}
+	_, err := scenario.MockHTTPClientWithOptions(ClientOptions{
+		Region: region("invalid-region"),
+	})
+	t.Assert(err.Error(), "invalid region: invalid-region", "err.Error()")
+
 }

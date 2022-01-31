@@ -72,24 +72,29 @@ var (
 )
 
 // NewClient returns a new API Client using the given APIKey
-func NewClient(apiKey string) *Client {
+func NewClient(apiKey string) (*Client, error) {
 	return NewClientWithOptions(apiKey, ClientOptions{
 		Region: US,
 	})
 }
 
 // NewClientWithOptions returns a new API Client using the given APIKey and options
-func NewClientWithOptions(apiKey string, options ClientOptions) *Client {
+func NewClientWithOptions(apiKey string, options ClientOptions) (*Client, error) {
 	apiHost := APIHost
 	if apiHost == "" {
-		apiHost = apiHosts[options.Region]
+		found := false
+		apiHost, found = apiHosts[options.Region]
+		if !found {
+			return nil, fmt.Errorf("invalid region: %s", options.Region)
+		}
 	}
+
 	return &Client{
 		apiKey:     apiKey,
 		baseURL:    apiHost,
 		Log:        NewLogger(LevelWarn),
 		HTTPClient: defaultClient,
-	}
+	}, nil
 }
 
 func validatePathParameters(params []string) error {

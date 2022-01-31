@@ -29,14 +29,20 @@ import (
 A client represents a connection to the Recurly API. Every call to the server exists as a method on this struct. To initialize, you only need the private API key which can be obtained on the [API Credentials Page](https://app.recurly.com/go/integrations/api_keys).
 
 ```go
-client := recurly.NewClient("<apikey>")
+client, err := recurly.NewClient("<apikey>")
+if err != nil {
+  // Custom error condition handling
+}
 ```
 
 To access Recurly API in Europe, you will need to specify the EU Region in the `ClientOptions`.
 ```go
-client := recurly.NewClientWithOptions("<apikey>", recurly.ClientOptions{
+client, err := recurly.NewClientWithOptions("<apikey>", recurly.ClientOptions{
     Region: recurly.EU,
 })
+if err != nil {
+  // Custom error condition handling
+}
 ```
 
 ### Operations
