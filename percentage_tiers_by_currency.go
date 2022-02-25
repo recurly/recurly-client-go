@@ -9,62 +9,54 @@ import (
 	"net/http"
 )
 
-type SubscriptionAddOnTier struct {
+type PercentageTiersByCurrency struct {
 	recurlyResponse *ResponseMetadata
 
-	// Ending quantity
-	EndingQuantity int `json:"ending_quantity,omitempty"`
+	// 3-letter ISO 4217 currency code.
+	Currency string `json:"currency,omitempty"`
 
-	// Allows up to 2 decimal places. Optionally, override the tiers' default unit amount. If add-on's `add_on_type` is `usage` and `usage_type` is `percentage`, cannot be provided.
-	UnitAmount float64 `json:"unit_amount,omitempty"`
-
-	// Allows up to 9 decimal places.  Optionally, override tiers' default unit amount.
-	// If `unit_amount_decimal` is provided, `unit_amount` cannot be provided.
-	// If add-on's `add_on_type` is `usage` and `usage_type` is `percentage`, cannot be provided.
-	UnitAmountDecimal string `json:"unit_amount_decimal,omitempty"`
-
-	// This field is deprecated. Do not used it anymore for percentage tiers subscription add ons. Use the percentage_tiers object instead.
-	UsagePercentage string `json:"usage_percentage,omitempty"`
+	// Tiers
+	Tiers []PercentageTier `json:"tiers,omitempty"`
 }
 
 // GetResponse returns the ResponseMetadata that generated this resource
-func (resource *SubscriptionAddOnTier) GetResponse() *ResponseMetadata {
+func (resource *PercentageTiersByCurrency) GetResponse() *ResponseMetadata {
 	return resource.recurlyResponse
 }
 
 // setResponse sets the ResponseMetadata that generated this resource
-func (resource *SubscriptionAddOnTier) setResponse(res *ResponseMetadata) {
+func (resource *PercentageTiersByCurrency) setResponse(res *ResponseMetadata) {
 	resource.recurlyResponse = res
 }
 
 // internal struct for deserializing accounts
-type subscriptionAddOnTierList struct {
+type percentageTiersByCurrencyList struct {
 	ListMetadata
-	Data            []SubscriptionAddOnTier `json:"data"`
+	Data            []PercentageTiersByCurrency `json:"data"`
 	recurlyResponse *ResponseMetadata
 }
 
 // GetResponse returns the ResponseMetadata that generated this resource
-func (resource *subscriptionAddOnTierList) GetResponse() *ResponseMetadata {
+func (resource *percentageTiersByCurrencyList) GetResponse() *ResponseMetadata {
 	return resource.recurlyResponse
 }
 
 // setResponse sets the ResponseMetadata that generated this resource
-func (resource *subscriptionAddOnTierList) setResponse(res *ResponseMetadata) {
+func (resource *percentageTiersByCurrencyList) setResponse(res *ResponseMetadata) {
 	resource.recurlyResponse = res
 }
 
-// SubscriptionAddOnTierList allows you to paginate SubscriptionAddOnTier objects
-type SubscriptionAddOnTierList struct {
+// PercentageTiersByCurrencyList allows you to paginate PercentageTiersByCurrency objects
+type PercentageTiersByCurrencyList struct {
 	client         HTTPCaller
 	requestOptions *RequestOptions
 	nextPagePath   string
 	hasMore        bool
-	data           []SubscriptionAddOnTier
+	data           []PercentageTiersByCurrency
 }
 
-func NewSubscriptionAddOnTierList(client HTTPCaller, nextPagePath string, requestOptions *RequestOptions) *SubscriptionAddOnTierList {
-	return &SubscriptionAddOnTierList{
+func NewPercentageTiersByCurrencyList(client HTTPCaller, nextPagePath string, requestOptions *RequestOptions) *PercentageTiersByCurrencyList {
+	return &PercentageTiersByCurrencyList{
 		client:         client,
 		requestOptions: requestOptions,
 		nextPagePath:   nextPagePath,
@@ -72,31 +64,31 @@ func NewSubscriptionAddOnTierList(client HTTPCaller, nextPagePath string, reques
 	}
 }
 
-type SubscriptionAddOnTierLister interface {
+type PercentageTiersByCurrencyLister interface {
 	Fetch() error
 	FetchWithContext(ctx context.Context) error
 	Count() (*int64, error)
 	CountWithContext(ctx context.Context) (*int64, error)
-	Data() []SubscriptionAddOnTier
+	Data() []PercentageTiersByCurrency
 	HasMore() bool
 	Next() string
 }
 
-func (list *SubscriptionAddOnTierList) HasMore() bool {
+func (list *PercentageTiersByCurrencyList) HasMore() bool {
 	return list.hasMore
 }
 
-func (list *SubscriptionAddOnTierList) Next() string {
+func (list *PercentageTiersByCurrencyList) Next() string {
 	return list.nextPagePath
 }
 
-func (list *SubscriptionAddOnTierList) Data() []SubscriptionAddOnTier {
+func (list *PercentageTiersByCurrencyList) Data() []PercentageTiersByCurrency {
 	return list.data
 }
 
 // Fetch fetches the next page of data into the `Data` property
-func (list *SubscriptionAddOnTierList) FetchWithContext(ctx context.Context) error {
-	resources := &subscriptionAddOnTierList{}
+func (list *PercentageTiersByCurrencyList) FetchWithContext(ctx context.Context) error {
+	resources := &percentageTiersByCurrencyList{}
 	err := list.client.Call(ctx, http.MethodGet, list.nextPagePath, nil, nil, list.requestOptions, resources)
 	if err != nil {
 		return err
@@ -109,13 +101,13 @@ func (list *SubscriptionAddOnTierList) FetchWithContext(ctx context.Context) err
 }
 
 // Fetch fetches the next page of data into the `Data` property
-func (list *SubscriptionAddOnTierList) Fetch() error {
+func (list *PercentageTiersByCurrencyList) Fetch() error {
 	return list.FetchWithContext(context.Background())
 }
 
 // Count returns the count of items on the server that match this pager
-func (list *SubscriptionAddOnTierList) CountWithContext(ctx context.Context) (*int64, error) {
-	resources := &subscriptionAddOnTierList{}
+func (list *PercentageTiersByCurrencyList) CountWithContext(ctx context.Context) (*int64, error) {
+	resources := &percentageTiersByCurrencyList{}
 	err := list.client.Call(ctx, http.MethodHead, list.nextPagePath, nil, nil, list.requestOptions, resources)
 	if err != nil {
 		return nil, err
@@ -125,6 +117,6 @@ func (list *SubscriptionAddOnTierList) CountWithContext(ctx context.Context) (*i
 }
 
 // Count returns the count of items on the server that match this pager
-func (list *SubscriptionAddOnTierList) Count() (*int64, error) {
+func (list *PercentageTiersByCurrencyList) Count() (*int64, error) {
 	return list.CountWithContext(context.Background())
 }

@@ -9,54 +9,54 @@ import (
 	"net/http"
 )
 
-type AccountInvoiceTemplate struct {
+type PercentageTier struct {
 	recurlyResponse *ResponseMetadata
 
-	// Unique ID to identify the invoice template.
-	Id string `json:"id,omitempty"`
+	// Ending amount for the tier. Allows up to 2 decimal places. The last tier ending_amount is null.
+	EndingAmount float64 `json:"ending_amount,omitempty"`
 
-	// Template name
-	Name string `json:"name,omitempty"`
+	// Decimal usage percentage.
+	UsagePercentage string `json:"usage_percentage,omitempty"`
 }
 
 // GetResponse returns the ResponseMetadata that generated this resource
-func (resource *AccountInvoiceTemplate) GetResponse() *ResponseMetadata {
+func (resource *PercentageTier) GetResponse() *ResponseMetadata {
 	return resource.recurlyResponse
 }
 
 // setResponse sets the ResponseMetadata that generated this resource
-func (resource *AccountInvoiceTemplate) setResponse(res *ResponseMetadata) {
+func (resource *PercentageTier) setResponse(res *ResponseMetadata) {
 	resource.recurlyResponse = res
 }
 
 // internal struct for deserializing accounts
-type accountInvoiceTemplateList struct {
+type percentageTierList struct {
 	ListMetadata
-	Data            []AccountInvoiceTemplate `json:"data"`
+	Data            []PercentageTier `json:"data"`
 	recurlyResponse *ResponseMetadata
 }
 
 // GetResponse returns the ResponseMetadata that generated this resource
-func (resource *accountInvoiceTemplateList) GetResponse() *ResponseMetadata {
+func (resource *percentageTierList) GetResponse() *ResponseMetadata {
 	return resource.recurlyResponse
 }
 
 // setResponse sets the ResponseMetadata that generated this resource
-func (resource *accountInvoiceTemplateList) setResponse(res *ResponseMetadata) {
+func (resource *percentageTierList) setResponse(res *ResponseMetadata) {
 	resource.recurlyResponse = res
 }
 
-// AccountInvoiceTemplateList allows you to paginate AccountInvoiceTemplate objects
-type AccountInvoiceTemplateList struct {
+// PercentageTierList allows you to paginate PercentageTier objects
+type PercentageTierList struct {
 	client         HTTPCaller
 	requestOptions *RequestOptions
 	nextPagePath   string
 	hasMore        bool
-	data           []AccountInvoiceTemplate
+	data           []PercentageTier
 }
 
-func NewAccountInvoiceTemplateList(client HTTPCaller, nextPagePath string, requestOptions *RequestOptions) *AccountInvoiceTemplateList {
-	return &AccountInvoiceTemplateList{
+func NewPercentageTierList(client HTTPCaller, nextPagePath string, requestOptions *RequestOptions) *PercentageTierList {
+	return &PercentageTierList{
 		client:         client,
 		requestOptions: requestOptions,
 		nextPagePath:   nextPagePath,
@@ -64,31 +64,31 @@ func NewAccountInvoiceTemplateList(client HTTPCaller, nextPagePath string, reque
 	}
 }
 
-type AccountInvoiceTemplateLister interface {
+type PercentageTierLister interface {
 	Fetch() error
 	FetchWithContext(ctx context.Context) error
 	Count() (*int64, error)
 	CountWithContext(ctx context.Context) (*int64, error)
-	Data() []AccountInvoiceTemplate
+	Data() []PercentageTier
 	HasMore() bool
 	Next() string
 }
 
-func (list *AccountInvoiceTemplateList) HasMore() bool {
+func (list *PercentageTierList) HasMore() bool {
 	return list.hasMore
 }
 
-func (list *AccountInvoiceTemplateList) Next() string {
+func (list *PercentageTierList) Next() string {
 	return list.nextPagePath
 }
 
-func (list *AccountInvoiceTemplateList) Data() []AccountInvoiceTemplate {
+func (list *PercentageTierList) Data() []PercentageTier {
 	return list.data
 }
 
 // Fetch fetches the next page of data into the `Data` property
-func (list *AccountInvoiceTemplateList) FetchWithContext(ctx context.Context) error {
-	resources := &accountInvoiceTemplateList{}
+func (list *PercentageTierList) FetchWithContext(ctx context.Context) error {
+	resources := &percentageTierList{}
 	err := list.client.Call(ctx, http.MethodGet, list.nextPagePath, nil, nil, list.requestOptions, resources)
 	if err != nil {
 		return err
@@ -101,13 +101,13 @@ func (list *AccountInvoiceTemplateList) FetchWithContext(ctx context.Context) er
 }
 
 // Fetch fetches the next page of data into the `Data` property
-func (list *AccountInvoiceTemplateList) Fetch() error {
+func (list *PercentageTierList) Fetch() error {
 	return list.FetchWithContext(context.Background())
 }
 
 // Count returns the count of items on the server that match this pager
-func (list *AccountInvoiceTemplateList) CountWithContext(ctx context.Context) (*int64, error) {
-	resources := &accountInvoiceTemplateList{}
+func (list *PercentageTierList) CountWithContext(ctx context.Context) (*int64, error) {
+	resources := &percentageTierList{}
 	err := list.client.Call(ctx, http.MethodHead, list.nextPagePath, nil, nil, list.requestOptions, resources)
 	if err != nil {
 		return nil, err
@@ -117,6 +117,6 @@ func (list *AccountInvoiceTemplateList) CountWithContext(ctx context.Context) (*
 }
 
 // Count returns the count of items on the server that match this pager
-func (list *AccountInvoiceTemplateList) Count() (*int64, error) {
+func (list *PercentageTierList) Count() (*int64, error) {
 	return list.CountWithContext(context.Background())
 }

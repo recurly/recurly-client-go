@@ -11,7 +11,7 @@ type TierCreate struct {
 	// Ending quantity for the tier.  This represents a unit amount for unit-priced add ons, but for percentage type usage add ons, represents the site default currency in its minimum divisible unit.
 	EndingQuantity *int `json:"ending_quantity,omitempty"`
 
-	// Decimal usage percentage.
+	// This field is deprecated. Do not used it anymore for percentage tiers add ons. Use the percentage_tiers object instead.
 	UsagePercentage *string `json:"usage_percentage,omitempty"`
 
 	// Tier pricing

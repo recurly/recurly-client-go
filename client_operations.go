@@ -369,6 +369,9 @@ type ClientInterface interface {
 	PreviewPurchase(body *PurchaseCreate, opts ...Option) (*InvoiceCollection, error)
 	PreviewPurchaseWithContext(ctx context.Context, body *PurchaseCreate, opts ...Option) (*InvoiceCollection, error)
 
+	CreatePendingPurchase(body *PurchaseCreate, opts ...Option) (*InvoiceCollection, error)
+	CreatePendingPurchaseWithContext(ctx context.Context, body *PurchaseCreate, opts ...Option) (*InvoiceCollection, error)
+
 	GetExportDates(opts ...Option) (*ExportDates, error)
 	GetExportDatesWithContext(ctx context.Context, opts ...Option) (*ExportDates, error)
 
@@ -382,6 +385,11 @@ type ClientInterface interface {
 
 	PutDunningCampaignBulkUpdate(body *DunningCampaignsBulkUpdate, opts ...Option) (*DunningCampaignsBulkUpdateResponse, error)
 	PutDunningCampaignBulkUpdateWithContext(ctx context.Context, body *DunningCampaignsBulkUpdate, opts ...Option) (*DunningCampaignsBulkUpdateResponse, error)
+
+	ListInvoiceTemplates(params *ListInvoiceTemplatesParams, opts ...Option) (InvoiceTemplateLister, error)
+
+	GetInvoiceTemplate(invoiceTemplateId string, opts ...Option) (*InvoiceTemplate, error)
+	GetInvoiceTemplateWithContext(ctx context.Context, invoiceTemplateId string, opts ...Option) (*InvoiceTemplate, error)
 }
 
 type ListSitesParams struct {
@@ -5978,6 +5986,35 @@ func (c *Client) previewPurchase(ctx context.Context, body *PurchaseCreate, opts
 	return result, err
 }
 
+// CreatePendingPurchase wraps CreatePendingPurchaseWithContext using the background context
+func (c *Client) CreatePendingPurchase(body *PurchaseCreate, opts ...Option) (*InvoiceCollection, error) {
+	ctx := context.Background()
+	return c.createPendingPurchase(ctx, body, opts...)
+}
+
+// CreatePendingPurchaseWithContext Create a pending purchase
+//
+// API Documentation: https://developers.recurly.com/api/v2021-02-25#operation/create_pending_purchase
+//
+// Returns: Returns the pending invoice
+func (c *Client) CreatePendingPurchaseWithContext(ctx context.Context, body *PurchaseCreate, opts ...Option) (*InvoiceCollection, error) {
+	return c.createPendingPurchase(ctx, body, opts...)
+}
+
+func (c *Client) createPendingPurchase(ctx context.Context, body *PurchaseCreate, opts ...Option) (*InvoiceCollection, error) {
+	path, err := c.InterpolatePath("/purchases/pending")
+	if err != nil {
+		return nil, err
+	}
+	requestOptions := NewRequestOptions(opts...)
+	result := &InvoiceCollection{}
+	err = c.Call(ctx, http.MethodPost, path, body, nil, requestOptions, result)
+	if err != nil {
+		return nil, err
+	}
+	return result, err
+}
+
 // GetExportDates wraps GetExportDatesWithContext using the background context
 func (c *Client) GetExportDates(opts ...Option) (*ExportDates, error) {
 	ctx := context.Background()
@@ -6121,6 +6158,68 @@ func (c *Client) putDunningCampaignBulkUpdate(ctx context.Context, body *Dunning
 	requestOptions := NewRequestOptions(opts...)
 	result := &DunningCampaignsBulkUpdateResponse{}
 	err = c.Call(ctx, http.MethodPut, path, body, nil, requestOptions, result)
+	if err != nil {
+		return nil, err
+	}
+	return result, err
+}
+
+type ListInvoiceTemplatesParams struct {
+
+	// Sort - Sort field. You *really* only want to sort by `updated_at` in ascending
+	// order. In descending order updated records will move behind the cursor and could
+	// prevent some records from being returned.
+	Sort *string
+}
+
+func (list *ListInvoiceTemplatesParams) URLParams() []KeyValue {
+	var options []KeyValue
+
+	if list.Sort != nil {
+		options = append(options, KeyValue{Key: "sort", Value: *list.Sort})
+	}
+
+	return options
+}
+
+// ListInvoiceTemplates Show the invoice templates for a site
+//
+// API Documentation: https://developers.recurly.com/api/v2021-02-25#operation/list_invoice_templates
+//
+// Returns: A list of the the invoice templates on a site.
+func (c *Client) ListInvoiceTemplates(params *ListInvoiceTemplatesParams, opts ...Option) (InvoiceTemplateLister, error) {
+	path, err := c.InterpolatePath("/invoice_templates")
+	if err != nil {
+		return nil, err
+	}
+	requestOptions := NewRequestOptions(opts...)
+	path = BuildURL(path, params)
+	return NewInvoiceTemplateList(c, path, requestOptions), nil
+}
+
+// GetInvoiceTemplate wraps GetInvoiceTemplateWithContext using the background context
+func (c *Client) GetInvoiceTemplate(invoiceTemplateId string, opts ...Option) (*InvoiceTemplate, error) {
+	ctx := context.Background()
+	return c.getInvoiceTemplate(ctx, invoiceTemplateId, opts...)
+}
+
+// GetInvoiceTemplateWithContext Show the settings for an invoice template
+//
+// API Documentation: https://developers.recurly.com/api/v2021-02-25#operation/get_invoice_template
+//
+// Returns: Settings for an invoice template.
+func (c *Client) GetInvoiceTemplateWithContext(ctx context.Context, invoiceTemplateId string, opts ...Option) (*InvoiceTemplate, error) {
+	return c.getInvoiceTemplate(ctx, invoiceTemplateId, opts...)
+}
+
+func (c *Client) getInvoiceTemplate(ctx context.Context, invoiceTemplateId string, opts ...Option) (*InvoiceTemplate, error) {
+	path, err := c.InterpolatePath("/invoice_templates/{invoice_template_id}", invoiceTemplateId)
+	if err != nil {
+		return nil, err
+	}
+	requestOptions := NewRequestOptions(opts...)
+	result := &InvoiceTemplate{}
+	err = c.Call(ctx, http.MethodGet, path, nil, nil, requestOptions, result)
 	if err != nil {
 		return nil, err
 	}

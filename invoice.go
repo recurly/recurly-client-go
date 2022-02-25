@@ -16,6 +16,9 @@ type Invoice struct {
 	// Invoice ID
 	Id string `json:"id,omitempty"`
 
+	// Invoice UUID
+	Uuid string `json:"uuid,omitempty"`
+
 	// Object type
 	Object string `json:"object,omitempty"`
 
@@ -119,7 +122,7 @@ type Invoice struct {
 	// Date invoice was marked paid or failed.
 	ClosedAt time.Time `json:"closed_at,omitempty"`
 
-	// Unique ID to identify the dunning campaign used when dunning the invoice. Available when the Dunning Campaigns feature is enabled. For sites without multiple dunning campaigns enabled, this will always be the default dunning campaign.
+	// Unique ID to identify the dunning campaign used when dunning the invoice. For sites without multiple dunning campaigns enabled, this will always be the default dunning campaign.
 	DunningCampaignId string `json:"dunning_campaign_id,omitempty"`
 }
 

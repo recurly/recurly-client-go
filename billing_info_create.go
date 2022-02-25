@@ -93,4 +93,10 @@ type BillingInfoCreate struct {
 
 	// The `backup_payment_method` field is used to designate a billing info as a backup on the account that will be tried if the initial billing info used for an invoice is declined. All payment methods, including the billing info marked `primary_payment_method` can be set as a backup. An account can have a maximum of 1 backup, if a user sets a different payment method as a backup, the existing backup will no longer be marked as such.
 	BackupPaymentMethod *bool `json:"backup_payment_method,omitempty"`
+
+	// Use for Adyen HPP billing info.
+	ExternalHppType *string `json:"external_hpp_type,omitempty"`
+
+	// Use for Online Banking billing info.
+	OnlineBankingPaymentType *string `json:"online_banking_payment_type,omitempty"`
 }
