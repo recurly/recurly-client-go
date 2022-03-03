@@ -7,64 +7,68 @@ package recurly
 import (
 	"context"
 	"net/http"
+	"time"
 )
 
-type SubscriptionAddOnTier struct {
+type InvoiceTemplate struct {
 	recurlyResponse *ResponseMetadata
 
-	// Ending quantity
-	EndingQuantity int `json:"ending_quantity,omitempty"`
+	Id string `json:"id,omitempty"`
 
-	// Allows up to 2 decimal places. Optionally, override the tiers' default unit amount. If add-on's `add_on_type` is `usage` and `usage_type` is `percentage`, cannot be provided.
-	UnitAmount float64 `json:"unit_amount,omitempty"`
+	// Invoice template code.
+	Code string `json:"code,omitempty"`
 
-	// Allows up to 9 decimal places.  Optionally, override tiers' default unit amount.
-	// If `unit_amount_decimal` is provided, `unit_amount` cannot be provided.
-	// If add-on's `add_on_type` is `usage` and `usage_type` is `percentage`, cannot be provided.
-	UnitAmountDecimal string `json:"unit_amount_decimal,omitempty"`
+	// Invoice template name.
+	Name string `json:"name,omitempty"`
 
-	// This field is deprecated. Do not used it anymore for percentage tiers subscription add ons. Use the percentage_tiers object instead.
-	UsagePercentage string `json:"usage_percentage,omitempty"`
+	// Invoice template description.
+	Description string `json:"description,omitempty"`
+
+	// When the invoice template was created in Recurly.
+	CreatedAt time.Time `json:"created_at,omitempty"`
+
+	// When the invoice template was updated in Recurly.
+	UpdatedAt time.Time `json:"updated_at,omitempty"`
 }
 
 // GetResponse returns the ResponseMetadata that generated this resource
-func (resource *SubscriptionAddOnTier) GetResponse() *ResponseMetadata {
+func (resource *InvoiceTemplate) GetResponse() *ResponseMetadata {
 	return resource.recurlyResponse
 }
 
 // setResponse sets the ResponseMetadata that generated this resource
-func (resource *SubscriptionAddOnTier) setResponse(res *ResponseMetadata) {
+func (resource *InvoiceTemplate) setResponse(res *ResponseMetadata) {
 	resource.recurlyResponse = res
 }
 
 // internal struct for deserializing accounts
-type subscriptionAddOnTierList struct {
+type invoiceTemplateList struct {
 	ListMetadata
-	Data            []SubscriptionAddOnTier `json:"data"`
+	Data            []InvoiceTemplate `json:"data"`
 	recurlyResponse *ResponseMetadata
 }
 
 // GetResponse returns the ResponseMetadata that generated this resource
-func (resource *subscriptionAddOnTierList) GetResponse() *ResponseMetadata {
+func (resource *invoiceTemplateList) GetResponse() *ResponseMetadata {
 	return resource.recurlyResponse
 }
 
 // setResponse sets the ResponseMetadata that generated this resource
-func (resource *subscriptionAddOnTierList) setResponse(res *ResponseMetadata) {
+func (resource *invoiceTemplateList) setResponse(res *ResponseMetadata) {
 	resource.recurlyResponse = res
 }
 
-// SubscriptionAddOnTierList allows you to paginate SubscriptionAddOnTier objects
-type SubscriptionAddOnTierList struct {
+// InvoiceTemplateList allows you to paginate InvoiceTemplate objects
+type InvoiceTemplateList struct {
 	client         HTTPCaller
 	requestOptions *RequestOptions
 	nextPagePath   string
 	hasMore        bool
-	data           []SubscriptionAddOnTier
+	data           []InvoiceTemplate
 }
 
-func NewSubscriptionAddOnTierList(client HTTPCaller, nextPagePath string, requestOptions *RequestOptions) *SubscriptionAddOnTierList {
-	return &SubscriptionAddOnTierList{
+func NewInvoiceTemplateList(client HTTPCaller, nextPagePath string, requestOptions *RequestOptions) *InvoiceTemplateList {
+	return &InvoiceTemplateList{
 		client:         client,
 		requestOptions: requestOptions,
 		nextPagePath:   nextPagePath,
@@ -72,31 +76,31 @@ func NewSubscriptionAddOnTierList(client HTTPCaller, nextPagePath string, reques
 	}
 }
 
-type SubscriptionAddOnTierLister interface {
+type InvoiceTemplateLister interface {
 	Fetch() error
 	FetchWithContext(ctx context.Context) error
 	Count() (*int64, error)
 	CountWithContext(ctx context.Context) (*int64, error)
-	Data() []SubscriptionAddOnTier
+	Data() []InvoiceTemplate
 	HasMore() bool
 	Next() string
 }
 
-func (list *SubscriptionAddOnTierList) HasMore() bool {
+func (list *InvoiceTemplateList) HasMore() bool {
 	return list.hasMore
 }
 
-func (list *SubscriptionAddOnTierList) Next() string {
+func (list *InvoiceTemplateList) Next() string {
 	return list.nextPagePath
 }
 
-func (list *SubscriptionAddOnTierList) Data() []SubscriptionAddOnTier {
+func (list *InvoiceTemplateList) Data() []InvoiceTemplate {
 	return list.data
 }
 
 // Fetch fetches the next page of data into the `Data` property
-func (list *SubscriptionAddOnTierList) FetchWithContext(ctx context.Context) error {
-	resources := &subscriptionAddOnTierList{}
+func (list *InvoiceTemplateList) FetchWithContext(ctx context.Context) error {
+	resources := &invoiceTemplateList{}
 	err := list.client.Call(ctx, http.MethodGet, list.nextPagePath, nil, nil, list.requestOptions, resources)
 	if err != nil {
 		return err
@@ -109,13 +113,13 @@ func (list *SubscriptionAddOnTierList) FetchWithContext(ctx context.Context) err
 }
 
 // Fetch fetches the next page of data into the `Data` property
-func (list *SubscriptionAddOnTierList) Fetch() error {
+func (list *InvoiceTemplateList) Fetch() error {
 	return list.FetchWithContext(context.Background())
 }
 
 // Count returns the count of items on the server that match this pager
-func (list *SubscriptionAddOnTierList) CountWithContext(ctx context.Context) (*int64, error) {
-	resources := &subscriptionAddOnTierList{}
+func (list *InvoiceTemplateList) CountWithContext(ctx context.Context) (*int64, error) {
+	resources := &invoiceTemplateList{}
 	err := list.client.Call(ctx, http.MethodHead, list.nextPagePath, nil, nil, list.requestOptions, resources)
 	if err != nil {
 		return nil, err
@@ -125,6 +129,6 @@ func (list *SubscriptionAddOnTierList) CountWithContext(ctx context.Context) (*i
 }
 
 // Count returns the count of items on the server that match this pager
-func (list *SubscriptionAddOnTierList) Count() (*int64, error) {
+func (list *InvoiceTemplateList) Count() (*int64, error) {
 	return list.CountWithContext(context.Background())
 }

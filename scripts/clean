@@ -11,7 +11,6 @@ rm -f payment_method.go
 rm -f fraud_info.go
 rm -f billing_info_updated_by.go
 rm -f custom_field.go
-rm -f account_invoice_template.go
 rm -f error_may_have_transaction.go
 rm -f account_acquisition.go
 rm -f account_acquisition_cost.go
@@ -47,6 +46,7 @@ rm -f subscription_change.go
 rm -f subscription_add_on.go
 rm -f add_on_mini.go
 rm -f subscription_add_on_tier.go
+rm -f subscription_add_on_percentage_tier.go
 rm -f subscription_change_billing_info.go
 rm -f unique_coupon_code_params.go
 rm -f unique_coupon_code.go
@@ -62,6 +62,8 @@ rm -f add_on.go
 rm -f add_on_pricing.go
 rm -f tier.go
 rm -f tier_pricing.go
+rm -f percentage_tiers_by_currency.go
+rm -f percentage_tier.go
 rm -f shipping_method.go
 rm -f usage.go
 rm -f export_dates.go
@@ -71,6 +73,7 @@ rm -f dunning_campaign.go
 rm -f dunning_cycle.go
 rm -f dunning_interval.go
 rm -f dunning_campaigns_bulk_update_response.go
+rm -f invoice_template.go
 rm -f account_create.go
 rm -f account_acquisition_update.go
 rm -f account_acquisition_cost_create.go

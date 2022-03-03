@@ -82,6 +82,9 @@ type AddOn struct {
 	// Tiers
 	Tiers []Tier `json:"tiers,omitempty"`
 
+	// Percentage Tiers
+	PercentageTiers []PercentageTiersByCurrency `json:"percentage_tiers,omitempty"`
+
 	// Optional, stock keeping unit to link the item to other inventory systems.
 	ExternalSku string `json:"external_sku,omitempty"`
 
