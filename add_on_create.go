@@ -81,7 +81,12 @@ type AddOnCreate struct {
 
 	// If the tier_type is `flat`, then `tiers` must be absent. The `tiers` object
 	// must include one to many tiers with `ending_quantity` and `unit_amount` for
-	// the desired `currencies`, or alternatively, `usage_percentage` for usage percentage type usage add ons. There must be one tier with an `ending_quantity`
+	// the desired `currencies`. There must be one tier with an `ending_quantity`
 	// of 999999999 which is the default if not provided.
 	Tiers []TierCreate `json:"tiers,omitempty"`
+
+	// Array of objects which must have at least one set of tiers
+	// per currency and the currency code. The tier_type must be `volume` or `tiered`,
+	// if not, it must be absent. There must be one tier without ending_amount value.
+	PercentageTiers []PercentageTiersByCurrencyCreate `json:"percentage_tiers,omitempty"`
 }

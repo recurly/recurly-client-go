@@ -19,6 +19,6 @@ type SubscriptionAddOnTierCreate struct {
 	// If add-on's `add_on_type` is `usage` and `usage_type` is `percentage`, cannot be provided.
 	UnitAmountDecimal *string `json:"unit_amount_decimal,omitempty"`
 
-	// This field is deprecated. Do not used it anymore for percentage tiers subscription add ons. Use the percentage_tiers object instead.
+	// (deprecated) -- Use the percentage_tiers object instead.
 	UsagePercentage *string `json:"usage_percentage,omitempty"`
 }

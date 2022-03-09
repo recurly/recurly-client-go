@@ -12,10 +12,10 @@ import (
 type Tier struct {
 	recurlyResponse *ResponseMetadata
 
-	// Ending quantity for the tier.  This represents a unit amount for unit-priced add ons, but for percentage type usage add ons, represents the site default currency in its minimum divisible unit.
+	// Ending quantity for the tier.  This represents a unit amount for unit-priced add ons.
 	EndingQuantity int `json:"ending_quantity,omitempty"`
 
-	// This field is deprecated. Do not used it anymore for percentage tiers add ons. Use the percentage_tiers object instead.
+	// (deprecated) -- Use the percentage_tiers object instead.
 	UsagePercentage string `json:"usage_percentage,omitempty"`
 
 	// Tier pricing
