@@ -19,11 +19,11 @@ type SubscriptionPurchase struct {
 	// Override the unit amount of the subscription plan by setting this value. If not provided, the subscription will inherit the price from the subscription plan for the provided currency.
 	UnitAmount *float64 `json:"unit_amount,omitempty"`
 
-	// Determines whether or not tax is included in the unit amount. The Tax Inclusive Pricing feature (separate from the Mixed Tax Pricing feature) must be enabled to use this flag.
-	TaxInclusive *bool `json:"tax_inclusive,omitempty"`
-
 	// Optionally override the default quantity of 1.
 	Quantity *int `json:"quantity,omitempty"`
+
+	// Determines whether or not tax is included in the unit amount. The Tax Inclusive Pricing feature (separate from the Mixed Tax Pricing feature) must be enabled to use this flag.
+	TaxInclusive *bool `json:"tax_inclusive,omitempty"`
 
 	// Add-ons
 	AddOns []SubscriptionAddOnCreate `json:"add_ons,omitempty"`

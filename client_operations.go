@@ -14,7 +14,7 @@ import (
 
 const (
 	// APIVersion is the current Recurly API Version
-	APIVersion = "v2021-02-25"
+	APIVersion = "v2022-01-01"
 )
 
 type ClientInterface interface {
@@ -448,7 +448,7 @@ func (list *ListSitesParams) URLParams() []KeyValue {
 
 // ListSites List sites
 //
-// API Documentation: https://developers.recurly.com/api/v2021-02-25#operation/list_sites
+// API Documentation: https://developers.recurly.com/api/v2022-01-01#operation/list_sites
 //
 // Returns: A list of sites.
 func (c *Client) ListSites(params *ListSitesParams, opts ...Option) (SiteLister, error) {
@@ -469,7 +469,7 @@ func (c *Client) GetSite(siteId string, opts ...Option) (*Site, error) {
 
 // GetSiteWithContext Fetch a site
 //
-// API Documentation: https://developers.recurly.com/api/v2021-02-25#operation/get_site
+// API Documentation: https://developers.recurly.com/api/v2022-01-01#operation/get_site
 //
 // Returns: A site.
 func (c *Client) GetSiteWithContext(ctx context.Context, siteId string, opts ...Option) (*Site, error) {
@@ -577,7 +577,7 @@ func (list *ListAccountsParams) URLParams() []KeyValue {
 
 // ListAccounts List a site's accounts
 //
-// API Documentation: https://developers.recurly.com/api/v2021-02-25#operation/list_accounts
+// API Documentation: https://developers.recurly.com/api/v2022-01-01#operation/list_accounts
 //
 // Returns: A list of the site's accounts.
 func (c *Client) ListAccounts(params *ListAccountsParams, opts ...Option) (AccountLister, error) {
@@ -598,7 +598,7 @@ func (c *Client) CreateAccount(body *AccountCreate, opts ...Option) (*Account, e
 
 // CreateAccountWithContext Create an account
 //
-// API Documentation: https://developers.recurly.com/api/v2021-02-25#operation/create_account
+// API Documentation: https://developers.recurly.com/api/v2022-01-01#operation/create_account
 //
 // Returns: An account.
 func (c *Client) CreateAccountWithContext(ctx context.Context, body *AccountCreate, opts ...Option) (*Account, error) {
@@ -627,7 +627,7 @@ func (c *Client) GetAccount(accountId string, opts ...Option) (*Account, error) 
 
 // GetAccountWithContext Fetch an account
 //
-// API Documentation: https://developers.recurly.com/api/v2021-02-25#operation/get_account
+// API Documentation: https://developers.recurly.com/api/v2022-01-01#operation/get_account
 //
 // Returns: An account.
 func (c *Client) GetAccountWithContext(ctx context.Context, accountId string, opts ...Option) (*Account, error) {
@@ -656,7 +656,7 @@ func (c *Client) UpdateAccount(accountId string, body *AccountUpdate, opts ...Op
 
 // UpdateAccountWithContext Update an account
 //
-// API Documentation: https://developers.recurly.com/api/v2021-02-25#operation/update_account
+// API Documentation: https://developers.recurly.com/api/v2022-01-01#operation/update_account
 //
 // Returns: An account.
 func (c *Client) UpdateAccountWithContext(ctx context.Context, accountId string, body *AccountUpdate, opts ...Option) (*Account, error) {
@@ -685,7 +685,7 @@ func (c *Client) DeactivateAccount(accountId string, opts ...Option) (*Account, 
 
 // DeactivateAccountWithContext Deactivate an account
 //
-// API Documentation: https://developers.recurly.com/api/v2021-02-25#operation/deactivate_account
+// API Documentation: https://developers.recurly.com/api/v2022-01-01#operation/deactivate_account
 //
 // Returns: An account.
 func (c *Client) DeactivateAccountWithContext(ctx context.Context, accountId string, opts ...Option) (*Account, error) {
@@ -714,7 +714,7 @@ func (c *Client) GetAccountAcquisition(accountId string, opts ...Option) (*Accou
 
 // GetAccountAcquisitionWithContext Fetch an account's acquisition data
 //
-// API Documentation: https://developers.recurly.com/api/v2021-02-25#operation/get_account_acquisition
+// API Documentation: https://developers.recurly.com/api/v2022-01-01#operation/get_account_acquisition
 //
 // Returns: An account's acquisition data.
 func (c *Client) GetAccountAcquisitionWithContext(ctx context.Context, accountId string, opts ...Option) (*AccountAcquisition, error) {
@@ -743,7 +743,7 @@ func (c *Client) UpdateAccountAcquisition(accountId string, body *AccountAcquisi
 
 // UpdateAccountAcquisitionWithContext Update an account's acquisition data
 //
-// API Documentation: https://developers.recurly.com/api/v2021-02-25#operation/update_account_acquisition
+// API Documentation: https://developers.recurly.com/api/v2022-01-01#operation/update_account_acquisition
 //
 // Returns: An account's updated acquisition data.
 func (c *Client) UpdateAccountAcquisitionWithContext(ctx context.Context, accountId string, body *AccountAcquisitionUpdate, opts ...Option) (*AccountAcquisition, error) {
@@ -772,7 +772,7 @@ func (c *Client) RemoveAccountAcquisition(accountId string, opts ...Option) (*Em
 
 // RemoveAccountAcquisitionWithContext Remove an account's acquisition data
 //
-// API Documentation: https://developers.recurly.com/api/v2021-02-25#operation/remove_account_acquisition
+// API Documentation: https://developers.recurly.com/api/v2022-01-01#operation/remove_account_acquisition
 //
 // Returns: Acquisition data was succesfully deleted.
 func (c *Client) RemoveAccountAcquisitionWithContext(ctx context.Context, accountId string, opts ...Option) (*Empty, error) {
@@ -801,7 +801,7 @@ func (c *Client) ReactivateAccount(accountId string, opts ...Option) (*Account, 
 
 // ReactivateAccountWithContext Reactivate an inactive account
 //
-// API Documentation: https://developers.recurly.com/api/v2021-02-25#operation/reactivate_account
+// API Documentation: https://developers.recurly.com/api/v2022-01-01#operation/reactivate_account
 //
 // Returns: An account.
 func (c *Client) ReactivateAccountWithContext(ctx context.Context, accountId string, opts ...Option) (*Account, error) {
@@ -830,7 +830,7 @@ func (c *Client) GetAccountBalance(accountId string, opts ...Option) (*AccountBa
 
 // GetAccountBalanceWithContext Fetch an account's balance and past due status
 //
-// API Documentation: https://developers.recurly.com/api/v2021-02-25#operation/get_account_balance
+// API Documentation: https://developers.recurly.com/api/v2022-01-01#operation/get_account_balance
 //
 // Returns: An account's balance.
 func (c *Client) GetAccountBalanceWithContext(ctx context.Context, accountId string, opts ...Option) (*AccountBalance, error) {
@@ -859,7 +859,7 @@ func (c *Client) GetBillingInfo(accountId string, opts ...Option) (*BillingInfo,
 
 // GetBillingInfoWithContext Fetch an account's billing information
 //
-// API Documentation: https://developers.recurly.com/api/v2021-02-25#operation/get_billing_info
+// API Documentation: https://developers.recurly.com/api/v2022-01-01#operation/get_billing_info
 //
 // Returns: An account's billing information.
 func (c *Client) GetBillingInfoWithContext(ctx context.Context, accountId string, opts ...Option) (*BillingInfo, error) {
@@ -888,7 +888,7 @@ func (c *Client) UpdateBillingInfo(accountId string, body *BillingInfoCreate, op
 
 // UpdateBillingInfoWithContext Set an account's billing information
 //
-// API Documentation: https://developers.recurly.com/api/v2021-02-25#operation/update_billing_info
+// API Documentation: https://developers.recurly.com/api/v2022-01-01#operation/update_billing_info
 //
 // Returns: Updated billing information.
 func (c *Client) UpdateBillingInfoWithContext(ctx context.Context, accountId string, body *BillingInfoCreate, opts ...Option) (*BillingInfo, error) {
@@ -917,7 +917,7 @@ func (c *Client) RemoveBillingInfo(accountId string, opts ...Option) (*Empty, er
 
 // RemoveBillingInfoWithContext Remove an account's billing information
 //
-// API Documentation: https://developers.recurly.com/api/v2021-02-25#operation/remove_billing_info
+// API Documentation: https://developers.recurly.com/api/v2022-01-01#operation/remove_billing_info
 //
 // Returns: Billing information deleted
 func (c *Client) RemoveBillingInfoWithContext(ctx context.Context, accountId string, opts ...Option) (*Empty, error) {
@@ -958,7 +958,7 @@ func (c *Client) VerifyBillingInfo(accountId string, params *VerifyBillingInfoPa
 
 // VerifyBillingInfoWithContext Verify an account's credit card billing information
 //
-// API Documentation: https://developers.recurly.com/api/v2021-02-25#operation/verify_billing_info
+// API Documentation: https://developers.recurly.com/api/v2022-01-01#operation/verify_billing_info
 //
 // Returns: Transaction information from verify.
 func (c *Client) VerifyBillingInfoWithContext(ctx context.Context, accountId string, params *VerifyBillingInfoParams, opts ...Option) (*Transaction, error) {
@@ -1030,7 +1030,7 @@ func (list *ListBillingInfosParams) URLParams() []KeyValue {
 
 // ListBillingInfos Get the list of billing information associated with an account
 //
-// API Documentation: https://developers.recurly.com/api/v2021-02-25#operation/list_billing_infos
+// API Documentation: https://developers.recurly.com/api/v2022-01-01#operation/list_billing_infos
 //
 // Returns: A list of the the billing information for an account's
 func (c *Client) ListBillingInfos(accountId string, params *ListBillingInfosParams, opts ...Option) (BillingInfoLister, error) {
@@ -1051,7 +1051,7 @@ func (c *Client) CreateBillingInfo(accountId string, body *BillingInfoCreate, op
 
 // CreateBillingInfoWithContext Add new billing information on an account
 //
-// API Documentation: https://developers.recurly.com/api/v2021-02-25#operation/create_billing_info
+// API Documentation: https://developers.recurly.com/api/v2022-01-01#operation/create_billing_info
 //
 // Returns: Updated billing information.
 func (c *Client) CreateBillingInfoWithContext(ctx context.Context, accountId string, body *BillingInfoCreate, opts ...Option) (*BillingInfo, error) {
@@ -1080,7 +1080,7 @@ func (c *Client) GetABillingInfo(accountId string, billingInfoId string, opts ..
 
 // GetABillingInfoWithContext Fetch a billing info
 //
-// API Documentation: https://developers.recurly.com/api/v2021-02-25#operation/get_a_billing_info
+// API Documentation: https://developers.recurly.com/api/v2022-01-01#operation/get_a_billing_info
 //
 // Returns: A billing info.
 func (c *Client) GetABillingInfoWithContext(ctx context.Context, accountId string, billingInfoId string, opts ...Option) (*BillingInfo, error) {
@@ -1109,7 +1109,7 @@ func (c *Client) UpdateABillingInfo(accountId string, billingInfoId string, body
 
 // UpdateABillingInfoWithContext Update an account's billing information
 //
-// API Documentation: https://developers.recurly.com/api/v2021-02-25#operation/update_a_billing_info
+// API Documentation: https://developers.recurly.com/api/v2022-01-01#operation/update_a_billing_info
 //
 // Returns: Updated billing information.
 func (c *Client) UpdateABillingInfoWithContext(ctx context.Context, accountId string, billingInfoId string, body *BillingInfoCreate, opts ...Option) (*BillingInfo, error) {
@@ -1138,7 +1138,7 @@ func (c *Client) RemoveABillingInfo(accountId string, billingInfoId string, opts
 
 // RemoveABillingInfoWithContext Remove an account's billing information
 //
-// API Documentation: https://developers.recurly.com/api/v2021-02-25#operation/remove_a_billing_info
+// API Documentation: https://developers.recurly.com/api/v2022-01-01#operation/remove_a_billing_info
 //
 // Returns: Billing information deleted
 func (c *Client) RemoveABillingInfoWithContext(ctx context.Context, accountId string, billingInfoId string, opts ...Option) (*Empty, error) {
@@ -1217,7 +1217,7 @@ func (list *ListAccountCouponRedemptionsParams) URLParams() []KeyValue {
 
 // ListAccountCouponRedemptions Show the coupon redemptions for an account
 //
-// API Documentation: https://developers.recurly.com/api/v2021-02-25#operation/list_account_coupon_redemptions
+// API Documentation: https://developers.recurly.com/api/v2022-01-01#operation/list_account_coupon_redemptions
 //
 // Returns: A list of the the coupon redemptions on an account.
 func (c *Client) ListAccountCouponRedemptions(accountId string, params *ListAccountCouponRedemptionsParams, opts ...Option) (CouponRedemptionLister, error) {
@@ -1232,7 +1232,7 @@ func (c *Client) ListAccountCouponRedemptions(accountId string, params *ListAcco
 
 // ListActiveCouponRedemptions Show the coupon redemptions that are active on an account
 //
-// API Documentation: https://developers.recurly.com/api/v2021-02-25#operation/list_active_coupon_redemptions
+// API Documentation: https://developers.recurly.com/api/v2022-01-01#operation/list_active_coupon_redemptions
 //
 // Returns: Active coupon redemptions on an account.
 func (c *Client) ListActiveCouponRedemptions(accountId string, opts ...Option) (CouponRedemptionLister, error) {
@@ -1252,7 +1252,7 @@ func (c *Client) CreateCouponRedemption(accountId string, body *CouponRedemption
 
 // CreateCouponRedemptionWithContext Generate an active coupon redemption on an account or subscription
 //
-// API Documentation: https://developers.recurly.com/api/v2021-02-25#operation/create_coupon_redemption
+// API Documentation: https://developers.recurly.com/api/v2022-01-01#operation/create_coupon_redemption
 //
 // Returns: Returns the new coupon redemption.
 func (c *Client) CreateCouponRedemptionWithContext(ctx context.Context, accountId string, body *CouponRedemptionCreate, opts ...Option) (*CouponRedemption, error) {
@@ -1281,7 +1281,7 @@ func (c *Client) RemoveCouponRedemption(accountId string, opts ...Option) (*Coup
 
 // RemoveCouponRedemptionWithContext Delete the active coupon redemption from an account
 //
-// API Documentation: https://developers.recurly.com/api/v2021-02-25#operation/remove_coupon_redemption
+// API Documentation: https://developers.recurly.com/api/v2022-01-01#operation/remove_coupon_redemption
 //
 // Returns: Coupon redemption deleted.
 func (c *Client) RemoveCouponRedemptionWithContext(ctx context.Context, accountId string, opts ...Option) (*CouponRedemption, error) {
@@ -1352,7 +1352,7 @@ func (list *ListAccountCreditPaymentsParams) URLParams() []KeyValue {
 
 // ListAccountCreditPayments List an account's credit payments
 //
-// API Documentation: https://developers.recurly.com/api/v2021-02-25#operation/list_account_credit_payments
+// API Documentation: https://developers.recurly.com/api/v2022-01-01#operation/list_account_credit_payments
 //
 // Returns: A list of the account's credit payments.
 func (c *Client) ListAccountCreditPayments(accountId string, params *ListAccountCreditPaymentsParams, opts ...Option) (CreditPaymentLister, error) {
@@ -1441,7 +1441,7 @@ func (list *ListAccountInvoicesParams) URLParams() []KeyValue {
 
 // ListAccountInvoices List an account's invoices
 //
-// API Documentation: https://developers.recurly.com/api/v2021-02-25#operation/list_account_invoices
+// API Documentation: https://developers.recurly.com/api/v2022-01-01#operation/list_account_invoices
 //
 // Returns: A list of the account's invoices.
 func (c *Client) ListAccountInvoices(accountId string, params *ListAccountInvoicesParams, opts ...Option) (InvoiceLister, error) {
@@ -1462,7 +1462,7 @@ func (c *Client) CreateInvoice(accountId string, body *InvoiceCreate, opts ...Op
 
 // CreateInvoiceWithContext Create an invoice for pending line items
 //
-// API Documentation: https://developers.recurly.com/api/v2021-02-25#operation/create_invoice
+// API Documentation: https://developers.recurly.com/api/v2022-01-01#operation/create_invoice
 //
 // Returns: Returns the new invoices.
 func (c *Client) CreateInvoiceWithContext(ctx context.Context, accountId string, body *InvoiceCreate, opts ...Option) (*InvoiceCollection, error) {
@@ -1491,7 +1491,7 @@ func (c *Client) PreviewInvoice(accountId string, body *InvoiceCreate, opts ...O
 
 // PreviewInvoiceWithContext Preview new invoice for pending line items
 //
-// API Documentation: https://developers.recurly.com/api/v2021-02-25#operation/preview_invoice
+// API Documentation: https://developers.recurly.com/api/v2022-01-01#operation/preview_invoice
 //
 // Returns: Returns the invoice previews.
 func (c *Client) PreviewInvoiceWithContext(ctx context.Context, accountId string, body *InvoiceCreate, opts ...Option) (*InvoiceCollection, error) {
@@ -1598,7 +1598,7 @@ func (list *ListAccountLineItemsParams) URLParams() []KeyValue {
 
 // ListAccountLineItems List an account's line items
 //
-// API Documentation: https://developers.recurly.com/api/v2021-02-25#operation/list_account_line_items
+// API Documentation: https://developers.recurly.com/api/v2022-01-01#operation/list_account_line_items
 //
 // Returns: A list of the account's line items.
 func (c *Client) ListAccountLineItems(accountId string, params *ListAccountLineItemsParams, opts ...Option) (LineItemLister, error) {
@@ -1619,7 +1619,7 @@ func (c *Client) CreateLineItem(accountId string, body *LineItemCreate, opts ...
 
 // CreateLineItemWithContext Create a new line item for the account
 //
-// API Documentation: https://developers.recurly.com/api/v2021-02-25#operation/create_line_item
+// API Documentation: https://developers.recurly.com/api/v2022-01-01#operation/create_line_item
 //
 // Returns: Returns the new line item.
 func (c *Client) CreateLineItemWithContext(ctx context.Context, accountId string, body *LineItemCreate, opts ...Option) (*LineItem, error) {
@@ -1666,7 +1666,7 @@ func (list *ListAccountNotesParams) URLParams() []KeyValue {
 
 // ListAccountNotes Fetch a list of an account's notes
 //
-// API Documentation: https://developers.recurly.com/api/v2021-02-25#operation/list_account_notes
+// API Documentation: https://developers.recurly.com/api/v2022-01-01#operation/list_account_notes
 //
 // Returns: A list of an account's notes.
 func (c *Client) ListAccountNotes(accountId string, params *ListAccountNotesParams, opts ...Option) (AccountNoteLister, error) {
@@ -1687,7 +1687,7 @@ func (c *Client) GetAccountNote(accountId string, accountNoteId string, opts ...
 
 // GetAccountNoteWithContext Fetch an account note
 //
-// API Documentation: https://developers.recurly.com/api/v2021-02-25#operation/get_account_note
+// API Documentation: https://developers.recurly.com/api/v2022-01-01#operation/get_account_note
 //
 // Returns: An account note.
 func (c *Client) GetAccountNoteWithContext(ctx context.Context, accountId string, accountNoteId string, opts ...Option) (*AccountNote, error) {
@@ -1773,7 +1773,7 @@ func (list *ListShippingAddressesParams) URLParams() []KeyValue {
 
 // ListShippingAddresses Fetch a list of an account's shipping addresses
 //
-// API Documentation: https://developers.recurly.com/api/v2021-02-25#operation/list_shipping_addresses
+// API Documentation: https://developers.recurly.com/api/v2022-01-01#operation/list_shipping_addresses
 //
 // Returns: A list of an account's shipping addresses.
 func (c *Client) ListShippingAddresses(accountId string, params *ListShippingAddressesParams, opts ...Option) (ShippingAddressLister, error) {
@@ -1794,7 +1794,7 @@ func (c *Client) CreateShippingAddress(accountId string, body *ShippingAddressCr
 
 // CreateShippingAddressWithContext Create a new shipping address for the account
 //
-// API Documentation: https://developers.recurly.com/api/v2021-02-25#operation/create_shipping_address
+// API Documentation: https://developers.recurly.com/api/v2022-01-01#operation/create_shipping_address
 //
 // Returns: Returns the new shipping address.
 func (c *Client) CreateShippingAddressWithContext(ctx context.Context, accountId string, body *ShippingAddressCreate, opts ...Option) (*ShippingAddress, error) {
@@ -1823,7 +1823,7 @@ func (c *Client) GetShippingAddress(accountId string, shippingAddressId string, 
 
 // GetShippingAddressWithContext Fetch an account's shipping address
 //
-// API Documentation: https://developers.recurly.com/api/v2021-02-25#operation/get_shipping_address
+// API Documentation: https://developers.recurly.com/api/v2022-01-01#operation/get_shipping_address
 //
 // Returns: A shipping address.
 func (c *Client) GetShippingAddressWithContext(ctx context.Context, accountId string, shippingAddressId string, opts ...Option) (*ShippingAddress, error) {
@@ -1852,7 +1852,7 @@ func (c *Client) UpdateShippingAddress(accountId string, shippingAddressId strin
 
 // UpdateShippingAddressWithContext Update an account's shipping address
 //
-// API Documentation: https://developers.recurly.com/api/v2021-02-25#operation/update_shipping_address
+// API Documentation: https://developers.recurly.com/api/v2022-01-01#operation/update_shipping_address
 //
 // Returns: The updated shipping address.
 func (c *Client) UpdateShippingAddressWithContext(ctx context.Context, accountId string, shippingAddressId string, body *ShippingAddressUpdate, opts ...Option) (*ShippingAddress, error) {
@@ -1881,7 +1881,7 @@ func (c *Client) RemoveShippingAddress(accountId string, shippingAddressId strin
 
 // RemoveShippingAddressWithContext Remove an account's shipping address
 //
-// API Documentation: https://developers.recurly.com/api/v2021-02-25#operation/remove_shipping_address
+// API Documentation: https://developers.recurly.com/api/v2022-01-01#operation/remove_shipping_address
 //
 // Returns: Shipping address deleted.
 func (c *Client) RemoveShippingAddressWithContext(ctx context.Context, accountId string, shippingAddressId string, opts ...Option) (*Empty, error) {
@@ -1977,7 +1977,7 @@ func (list *ListAccountSubscriptionsParams) URLParams() []KeyValue {
 
 // ListAccountSubscriptions List an account's subscriptions
 //
-// API Documentation: https://developers.recurly.com/api/v2021-02-25#operation/list_account_subscriptions
+// API Documentation: https://developers.recurly.com/api/v2022-01-01#operation/list_account_subscriptions
 //
 // Returns: A list of the account's subscriptions.
 func (c *Client) ListAccountSubscriptions(accountId string, params *ListAccountSubscriptionsParams, opts ...Option) (SubscriptionLister, error) {
@@ -2069,7 +2069,7 @@ func (list *ListAccountTransactionsParams) URLParams() []KeyValue {
 
 // ListAccountTransactions List an account's transactions
 //
-// API Documentation: https://developers.recurly.com/api/v2021-02-25#operation/list_account_transactions
+// API Documentation: https://developers.recurly.com/api/v2022-01-01#operation/list_account_transactions
 //
 // Returns: A list of the account's transactions.
 func (c *Client) ListAccountTransactions(accountId string, params *ListAccountTransactionsParams, opts ...Option) (TransactionLister, error) {
@@ -2169,7 +2169,7 @@ func (list *ListChildAccountsParams) URLParams() []KeyValue {
 
 // ListChildAccounts List an account's child accounts
 //
-// API Documentation: https://developers.recurly.com/api/v2021-02-25#operation/list_child_accounts
+// API Documentation: https://developers.recurly.com/api/v2022-01-01#operation/list_child_accounts
 //
 // Returns: A list of an account's child accounts.
 func (c *Client) ListChildAccounts(accountId string, params *ListChildAccountsParams, opts ...Option) (AccountLister, error) {
@@ -2247,7 +2247,7 @@ func (list *ListAccountAcquisitionParams) URLParams() []KeyValue {
 
 // ListAccountAcquisition List a site's account acquisition data
 //
-// API Documentation: https://developers.recurly.com/api/v2021-02-25#operation/list_account_acquisition
+// API Documentation: https://developers.recurly.com/api/v2022-01-01#operation/list_account_acquisition
 //
 // Returns: A list of the site's account acquisition data.
 func (c *Client) ListAccountAcquisition(params *ListAccountAcquisitionParams, opts ...Option) (AccountAcquisitionLister, error) {
@@ -2325,7 +2325,7 @@ func (list *ListCouponsParams) URLParams() []KeyValue {
 
 // ListCoupons List a site's coupons
 //
-// API Documentation: https://developers.recurly.com/api/v2021-02-25#operation/list_coupons
+// API Documentation: https://developers.recurly.com/api/v2022-01-01#operation/list_coupons
 //
 // Returns: A list of the site's coupons.
 func (c *Client) ListCoupons(params *ListCouponsParams, opts ...Option) (CouponLister, error) {
@@ -2346,7 +2346,7 @@ func (c *Client) CreateCoupon(body *CouponCreate, opts ...Option) (*Coupon, erro
 
 // CreateCouponWithContext Create a new coupon
 //
-// API Documentation: https://developers.recurly.com/api/v2021-02-25#operation/create_coupon
+// API Documentation: https://developers.recurly.com/api/v2022-01-01#operation/create_coupon
 //
 // Returns: A new coupon.
 func (c *Client) CreateCouponWithContext(ctx context.Context, body *CouponCreate, opts ...Option) (*Coupon, error) {
@@ -2375,7 +2375,7 @@ func (c *Client) GetCoupon(couponId string, opts ...Option) (*Coupon, error) {
 
 // GetCouponWithContext Fetch a coupon
 //
-// API Documentation: https://developers.recurly.com/api/v2021-02-25#operation/get_coupon
+// API Documentation: https://developers.recurly.com/api/v2022-01-01#operation/get_coupon
 //
 // Returns: A coupon.
 func (c *Client) GetCouponWithContext(ctx context.Context, couponId string, opts ...Option) (*Coupon, error) {
@@ -2404,7 +2404,7 @@ func (c *Client) UpdateCoupon(couponId string, body *CouponUpdate, opts ...Optio
 
 // UpdateCouponWithContext Update an active coupon
 //
-// API Documentation: https://developers.recurly.com/api/v2021-02-25#operation/update_coupon
+// API Documentation: https://developers.recurly.com/api/v2022-01-01#operation/update_coupon
 //
 // Returns: The updated coupon.
 func (c *Client) UpdateCouponWithContext(ctx context.Context, couponId string, body *CouponUpdate, opts ...Option) (*Coupon, error) {
@@ -2433,7 +2433,7 @@ func (c *Client) DeactivateCoupon(couponId string, opts ...Option) (*Coupon, err
 
 // DeactivateCouponWithContext Expire a coupon
 //
-// API Documentation: https://developers.recurly.com/api/v2021-02-25#operation/deactivate_coupon
+// API Documentation: https://developers.recurly.com/api/v2022-01-01#operation/deactivate_coupon
 //
 // Returns: The expired Coupon
 func (c *Client) DeactivateCouponWithContext(ctx context.Context, couponId string, opts ...Option) (*Coupon, error) {
@@ -2462,7 +2462,7 @@ func (c *Client) GenerateUniqueCouponCodes(couponId string, body *CouponBulkCrea
 
 // GenerateUniqueCouponCodesWithContext Generate unique coupon codes
 //
-// API Documentation: https://developers.recurly.com/api/v2021-02-25#operation/generate_unique_coupon_codes
+// API Documentation: https://developers.recurly.com/api/v2022-01-01#operation/generate_unique_coupon_codes
 //
 // Returns: A set of parameters that can be passed to the `list_unique_coupon_codes` endpoint to obtain only the newly generated `UniqueCouponCodes`.
 func (c *Client) GenerateUniqueCouponCodesWithContext(ctx context.Context, couponId string, body *CouponBulkCreate, opts ...Option) (*UniqueCouponCodeParams, error) {
@@ -2491,7 +2491,7 @@ func (c *Client) RestoreCoupon(couponId string, body *CouponUpdate, opts ...Opti
 
 // RestoreCouponWithContext Restore an inactive coupon
 //
-// API Documentation: https://developers.recurly.com/api/v2021-02-25#operation/restore_coupon
+// API Documentation: https://developers.recurly.com/api/v2022-01-01#operation/restore_coupon
 //
 // Returns: The restored coupon.
 func (c *Client) RestoreCouponWithContext(ctx context.Context, couponId string, body *CouponUpdate, opts ...Option) (*Coupon, error) {
@@ -2577,7 +2577,7 @@ func (list *ListUniqueCouponCodesParams) URLParams() []KeyValue {
 
 // ListUniqueCouponCodes List unique coupon codes associated with a bulk coupon
 //
-// API Documentation: https://developers.recurly.com/api/v2021-02-25#operation/list_unique_coupon_codes
+// API Documentation: https://developers.recurly.com/api/v2022-01-01#operation/list_unique_coupon_codes
 //
 // Returns: A list of unique coupon codes that were generated
 func (c *Client) ListUniqueCouponCodes(couponId string, params *ListUniqueCouponCodesParams, opts ...Option) (UniqueCouponCodeLister, error) {
@@ -2640,7 +2640,7 @@ func (list *ListCreditPaymentsParams) URLParams() []KeyValue {
 
 // ListCreditPayments List a site's credit payments
 //
-// API Documentation: https://developers.recurly.com/api/v2021-02-25#operation/list_credit_payments
+// API Documentation: https://developers.recurly.com/api/v2022-01-01#operation/list_credit_payments
 //
 // Returns: A list of the site's credit payments.
 func (c *Client) ListCreditPayments(params *ListCreditPaymentsParams, opts ...Option) (CreditPaymentLister, error) {
@@ -2661,7 +2661,7 @@ func (c *Client) GetCreditPayment(creditPaymentId string, opts ...Option) (*Cred
 
 // GetCreditPaymentWithContext Fetch a credit payment
 //
-// API Documentation: https://developers.recurly.com/api/v2021-02-25#operation/get_credit_payment
+// API Documentation: https://developers.recurly.com/api/v2022-01-01#operation/get_credit_payment
 //
 // Returns: A credit payment.
 func (c *Client) GetCreditPaymentWithContext(ctx context.Context, creditPaymentId string, opts ...Option) (*CreditPayment, error) {
@@ -2754,7 +2754,7 @@ func (list *ListCustomFieldDefinitionsParams) URLParams() []KeyValue {
 
 // ListCustomFieldDefinitions List a site's custom field definitions
 //
-// API Documentation: https://developers.recurly.com/api/v2021-02-25#operation/list_custom_field_definitions
+// API Documentation: https://developers.recurly.com/api/v2022-01-01#operation/list_custom_field_definitions
 //
 // Returns: A list of the site's custom field definitions.
 func (c *Client) ListCustomFieldDefinitions(params *ListCustomFieldDefinitionsParams, opts ...Option) (CustomFieldDefinitionLister, error) {
@@ -2775,7 +2775,7 @@ func (c *Client) GetCustomFieldDefinition(customFieldDefinitionId string, opts .
 
 // GetCustomFieldDefinitionWithContext Fetch an custom field definition
 //
-// API Documentation: https://developers.recurly.com/api/v2021-02-25#operation/get_custom_field_definition
+// API Documentation: https://developers.recurly.com/api/v2022-01-01#operation/get_custom_field_definition
 //
 // Returns: An custom field definition.
 func (c *Client) GetCustomFieldDefinitionWithContext(ctx context.Context, customFieldDefinitionId string, opts ...Option) (*CustomFieldDefinition, error) {
@@ -2883,7 +2883,7 @@ func (list *ListInvoiceTemplateAccountsParams) URLParams() []KeyValue {
 
 // ListInvoiceTemplateAccounts List an invoice template's associated accounts
 //
-// API Documentation: https://developers.recurly.com/api/v2021-02-25#operation/list_invoice_template_accounts
+// API Documentation: https://developers.recurly.com/api/v2022-01-01#operation/list_invoice_template_accounts
 //
 // Returns: A list of an invoice template's associated accounts.
 func (c *Client) ListInvoiceTemplateAccounts(invoiceTemplateId string, params *ListInvoiceTemplateAccountsParams, opts ...Option) (AccountLister, error) {
@@ -2968,7 +2968,7 @@ func (list *ListItemsParams) URLParams() []KeyValue {
 
 // ListItems List a site's items
 //
-// API Documentation: https://developers.recurly.com/api/v2021-02-25#operation/list_items
+// API Documentation: https://developers.recurly.com/api/v2022-01-01#operation/list_items
 //
 // Returns: A list of the site's items.
 func (c *Client) ListItems(params *ListItemsParams, opts ...Option) (ItemLister, error) {
@@ -2989,7 +2989,7 @@ func (c *Client) CreateItem(body *ItemCreate, opts ...Option) (*Item, error) {
 
 // CreateItemWithContext Create a new item
 //
-// API Documentation: https://developers.recurly.com/api/v2021-02-25#operation/create_item
+// API Documentation: https://developers.recurly.com/api/v2022-01-01#operation/create_item
 //
 // Returns: A new item.
 func (c *Client) CreateItemWithContext(ctx context.Context, body *ItemCreate, opts ...Option) (*Item, error) {
@@ -3018,7 +3018,7 @@ func (c *Client) GetItem(itemId string, opts ...Option) (*Item, error) {
 
 // GetItemWithContext Fetch an item
 //
-// API Documentation: https://developers.recurly.com/api/v2021-02-25#operation/get_item
+// API Documentation: https://developers.recurly.com/api/v2022-01-01#operation/get_item
 //
 // Returns: An item.
 func (c *Client) GetItemWithContext(ctx context.Context, itemId string, opts ...Option) (*Item, error) {
@@ -3047,7 +3047,7 @@ func (c *Client) UpdateItem(itemId string, body *ItemUpdate, opts ...Option) (*I
 
 // UpdateItemWithContext Update an active item
 //
-// API Documentation: https://developers.recurly.com/api/v2021-02-25#operation/update_item
+// API Documentation: https://developers.recurly.com/api/v2022-01-01#operation/update_item
 //
 // Returns: The updated item.
 func (c *Client) UpdateItemWithContext(ctx context.Context, itemId string, body *ItemUpdate, opts ...Option) (*Item, error) {
@@ -3076,7 +3076,7 @@ func (c *Client) DeactivateItem(itemId string, opts ...Option) (*Item, error) {
 
 // DeactivateItemWithContext Deactivate an item
 //
-// API Documentation: https://developers.recurly.com/api/v2021-02-25#operation/deactivate_item
+// API Documentation: https://developers.recurly.com/api/v2022-01-01#operation/deactivate_item
 //
 // Returns: An item.
 func (c *Client) DeactivateItemWithContext(ctx context.Context, itemId string, opts ...Option) (*Item, error) {
@@ -3105,7 +3105,7 @@ func (c *Client) ReactivateItem(itemId string, opts ...Option) (*Item, error) {
 
 // ReactivateItemWithContext Reactivate an inactive item
 //
-// API Documentation: https://developers.recurly.com/api/v2021-02-25#operation/reactivate_item
+// API Documentation: https://developers.recurly.com/api/v2022-01-01#operation/reactivate_item
 //
 // Returns: An item.
 func (c *Client) ReactivateItemWithContext(ctx context.Context, itemId string, opts ...Option) (*Item, error) {
@@ -3198,7 +3198,7 @@ func (list *ListMeasuredUnitParams) URLParams() []KeyValue {
 
 // ListMeasuredUnit List a site's measured units
 //
-// API Documentation: https://developers.recurly.com/api/v2021-02-25#operation/list_measured_unit
+// API Documentation: https://developers.recurly.com/api/v2022-01-01#operation/list_measured_unit
 //
 // Returns: A list of the site's measured units.
 func (c *Client) ListMeasuredUnit(params *ListMeasuredUnitParams, opts ...Option) (MeasuredUnitLister, error) {
@@ -3219,7 +3219,7 @@ func (c *Client) CreateMeasuredUnit(body *MeasuredUnitCreate, opts ...Option) (*
 
 // CreateMeasuredUnitWithContext Create a new measured unit
 //
-// API Documentation: https://developers.recurly.com/api/v2021-02-25#operation/create_measured_unit
+// API Documentation: https://developers.recurly.com/api/v2022-01-01#operation/create_measured_unit
 //
 // Returns: A new measured unit.
 func (c *Client) CreateMeasuredUnitWithContext(ctx context.Context, body *MeasuredUnitCreate, opts ...Option) (*MeasuredUnit, error) {
@@ -3248,7 +3248,7 @@ func (c *Client) GetMeasuredUnit(measuredUnitId string, opts ...Option) (*Measur
 
 // GetMeasuredUnitWithContext Fetch a measured unit
 //
-// API Documentation: https://developers.recurly.com/api/v2021-02-25#operation/get_measured_unit
+// API Documentation: https://developers.recurly.com/api/v2022-01-01#operation/get_measured_unit
 //
 // Returns: An item.
 func (c *Client) GetMeasuredUnitWithContext(ctx context.Context, measuredUnitId string, opts ...Option) (*MeasuredUnit, error) {
@@ -3277,7 +3277,7 @@ func (c *Client) UpdateMeasuredUnit(measuredUnitId string, body *MeasuredUnitUpd
 
 // UpdateMeasuredUnitWithContext Update a measured unit
 //
-// API Documentation: https://developers.recurly.com/api/v2021-02-25#operation/update_measured_unit
+// API Documentation: https://developers.recurly.com/api/v2022-01-01#operation/update_measured_unit
 //
 // Returns: The updated measured_unit.
 func (c *Client) UpdateMeasuredUnitWithContext(ctx context.Context, measuredUnitId string, body *MeasuredUnitUpdate, opts ...Option) (*MeasuredUnit, error) {
@@ -3306,7 +3306,7 @@ func (c *Client) RemoveMeasuredUnit(measuredUnitId string, opts ...Option) (*Mea
 
 // RemoveMeasuredUnitWithContext Remove a measured unit
 //
-// API Documentation: https://developers.recurly.com/api/v2021-02-25#operation/remove_measured_unit
+// API Documentation: https://developers.recurly.com/api/v2022-01-01#operation/remove_measured_unit
 //
 // Returns: A measured unit.
 func (c *Client) RemoveMeasuredUnitWithContext(ctx context.Context, measuredUnitId string, opts ...Option) (*MeasuredUnit, error) {
@@ -3403,7 +3403,7 @@ func (list *ListInvoicesParams) URLParams() []KeyValue {
 
 // ListInvoices List a site's invoices
 //
-// API Documentation: https://developers.recurly.com/api/v2021-02-25#operation/list_invoices
+// API Documentation: https://developers.recurly.com/api/v2022-01-01#operation/list_invoices
 //
 // Returns: A list of the site's invoices.
 func (c *Client) ListInvoices(params *ListInvoicesParams, opts ...Option) (InvoiceLister, error) {
@@ -3424,7 +3424,7 @@ func (c *Client) GetInvoice(invoiceId string, opts ...Option) (*Invoice, error) 
 
 // GetInvoiceWithContext Fetch an invoice
 //
-// API Documentation: https://developers.recurly.com/api/v2021-02-25#operation/get_invoice
+// API Documentation: https://developers.recurly.com/api/v2022-01-01#operation/get_invoice
 //
 // Returns: An invoice.
 func (c *Client) GetInvoiceWithContext(ctx context.Context, invoiceId string, opts ...Option) (*Invoice, error) {
@@ -3453,7 +3453,7 @@ func (c *Client) UpdateInvoice(invoiceId string, body *InvoiceUpdate, opts ...Op
 
 // UpdateInvoiceWithContext Update an invoice
 //
-// API Documentation: https://developers.recurly.com/api/v2021-02-25#operation/update_invoice
+// API Documentation: https://developers.recurly.com/api/v2022-01-01#operation/update_invoice
 //
 // Returns: An invoice.
 func (c *Client) UpdateInvoiceWithContext(ctx context.Context, invoiceId string, body *InvoiceUpdate, opts ...Option) (*Invoice, error) {
@@ -3494,7 +3494,7 @@ func (c *Client) CollectInvoice(invoiceId string, params *CollectInvoiceParams, 
 
 // CollectInvoiceWithContext Collect a pending or past due, automatic invoice
 //
-// API Documentation: https://developers.recurly.com/api/v2021-02-25#operation/collect_invoice
+// API Documentation: https://developers.recurly.com/api/v2022-01-01#operation/collect_invoice
 //
 // Returns: The updated invoice.
 func (c *Client) CollectInvoiceWithContext(ctx context.Context, invoiceId string, params *CollectInvoiceParams, opts ...Option) (*Invoice, error) {
@@ -3523,7 +3523,7 @@ func (c *Client) MarkInvoiceFailed(invoiceId string, opts ...Option) (*Invoice, 
 
 // MarkInvoiceFailedWithContext Mark an open invoice as failed
 //
-// API Documentation: https://developers.recurly.com/api/v2021-02-25#operation/mark_invoice_failed
+// API Documentation: https://developers.recurly.com/api/v2022-01-01#operation/mark_invoice_failed
 //
 // Returns: The updated invoice.
 func (c *Client) MarkInvoiceFailedWithContext(ctx context.Context, invoiceId string, opts ...Option) (*Invoice, error) {
@@ -3552,7 +3552,7 @@ func (c *Client) MarkInvoiceSuccessful(invoiceId string, opts ...Option) (*Invoi
 
 // MarkInvoiceSuccessfulWithContext Mark an open invoice as successful
 //
-// API Documentation: https://developers.recurly.com/api/v2021-02-25#operation/mark_invoice_successful
+// API Documentation: https://developers.recurly.com/api/v2022-01-01#operation/mark_invoice_successful
 //
 // Returns: The updated invoice.
 func (c *Client) MarkInvoiceSuccessfulWithContext(ctx context.Context, invoiceId string, opts ...Option) (*Invoice, error) {
@@ -3581,7 +3581,7 @@ func (c *Client) ReopenInvoice(invoiceId string, opts ...Option) (*Invoice, erro
 
 // ReopenInvoiceWithContext Reopen a closed, manual invoice
 //
-// API Documentation: https://developers.recurly.com/api/v2021-02-25#operation/reopen_invoice
+// API Documentation: https://developers.recurly.com/api/v2022-01-01#operation/reopen_invoice
 //
 // Returns: The updated invoice.
 func (c *Client) ReopenInvoiceWithContext(ctx context.Context, invoiceId string, opts ...Option) (*Invoice, error) {
@@ -3610,7 +3610,7 @@ func (c *Client) VoidInvoice(invoiceId string, opts ...Option) (*Invoice, error)
 
 // VoidInvoiceWithContext Void a credit invoice.
 //
-// API Documentation: https://developers.recurly.com/api/v2021-02-25#operation/void_invoice
+// API Documentation: https://developers.recurly.com/api/v2022-01-01#operation/void_invoice
 //
 // Returns: The updated invoice.
 func (c *Client) VoidInvoiceWithContext(ctx context.Context, invoiceId string, opts ...Option) (*Invoice, error) {
@@ -3639,7 +3639,7 @@ func (c *Client) RecordExternalTransaction(invoiceId string, body *ExternalTrans
 
 // RecordExternalTransactionWithContext Record an external payment for a manual invoices.
 //
-// API Documentation: https://developers.recurly.com/api/v2021-02-25#operation/record_external_transaction
+// API Documentation: https://developers.recurly.com/api/v2022-01-01#operation/record_external_transaction
 //
 // Returns: The recorded transaction.
 func (c *Client) RecordExternalTransactionWithContext(ctx context.Context, invoiceId string, body *ExternalTransaction, opts ...Option) (*Transaction, error) {
@@ -3746,7 +3746,7 @@ func (list *ListInvoiceLineItemsParams) URLParams() []KeyValue {
 
 // ListInvoiceLineItems List an invoice's line items
 //
-// API Documentation: https://developers.recurly.com/api/v2021-02-25#operation/list_invoice_line_items
+// API Documentation: https://developers.recurly.com/api/v2022-01-01#operation/list_invoice_line_items
 //
 // Returns: A list of the invoice's line items.
 func (c *Client) ListInvoiceLineItems(invoiceId string, params *ListInvoiceLineItemsParams, opts ...Option) (LineItemLister, error) {
@@ -3810,7 +3810,7 @@ func (list *ListInvoiceCouponRedemptionsParams) URLParams() []KeyValue {
 
 // ListInvoiceCouponRedemptions Show the coupon redemptions applied to an invoice
 //
-// API Documentation: https://developers.recurly.com/api/v2021-02-25#operation/list_invoice_coupon_redemptions
+// API Documentation: https://developers.recurly.com/api/v2022-01-01#operation/list_invoice_coupon_redemptions
 //
 // Returns: A list of the the coupon redemptions associated with the invoice.
 func (c *Client) ListInvoiceCouponRedemptions(invoiceId string, params *ListInvoiceCouponRedemptionsParams, opts ...Option) (CouponRedemptionLister, error) {
@@ -3825,7 +3825,7 @@ func (c *Client) ListInvoiceCouponRedemptions(invoiceId string, params *ListInvo
 
 // ListRelatedInvoices List an invoice's related credit or charge invoices
 //
-// API Documentation: https://developers.recurly.com/api/v2021-02-25#operation/list_related_invoices
+// API Documentation: https://developers.recurly.com/api/v2022-01-01#operation/list_related_invoices
 //
 // Returns: A list of the credit or charge invoices associated with the invoice.
 func (c *Client) ListRelatedInvoices(invoiceId string, opts ...Option) (InvoiceLister, error) {
@@ -3845,7 +3845,7 @@ func (c *Client) RefundInvoice(invoiceId string, body *InvoiceRefund, opts ...Op
 
 // RefundInvoiceWithContext Refund an invoice
 //
-// API Documentation: https://developers.recurly.com/api/v2021-02-25#operation/refund_invoice
+// API Documentation: https://developers.recurly.com/api/v2022-01-01#operation/refund_invoice
 //
 // Returns: Returns the new credit invoice.
 func (c *Client) RefundInvoiceWithContext(ctx context.Context, invoiceId string, body *InvoiceRefund, opts ...Option) (*Invoice, error) {
@@ -3952,7 +3952,7 @@ func (list *ListLineItemsParams) URLParams() []KeyValue {
 
 // ListLineItems List a site's line items
 //
-// API Documentation: https://developers.recurly.com/api/v2021-02-25#operation/list_line_items
+// API Documentation: https://developers.recurly.com/api/v2022-01-01#operation/list_line_items
 //
 // Returns: A list of the site's line items.
 func (c *Client) ListLineItems(params *ListLineItemsParams, opts ...Option) (LineItemLister, error) {
@@ -3973,7 +3973,7 @@ func (c *Client) GetLineItem(lineItemId string, opts ...Option) (*LineItem, erro
 
 // GetLineItemWithContext Fetch a line item
 //
-// API Documentation: https://developers.recurly.com/api/v2021-02-25#operation/get_line_item
+// API Documentation: https://developers.recurly.com/api/v2022-01-01#operation/get_line_item
 //
 // Returns: A line item.
 func (c *Client) GetLineItemWithContext(ctx context.Context, lineItemId string, opts ...Option) (*LineItem, error) {
@@ -4002,7 +4002,7 @@ func (c *Client) RemoveLineItem(lineItemId string, opts ...Option) (*Empty, erro
 
 // RemoveLineItemWithContext Delete an uninvoiced line item
 //
-// API Documentation: https://developers.recurly.com/api/v2021-02-25#operation/remove_line_item
+// API Documentation: https://developers.recurly.com/api/v2022-01-01#operation/remove_line_item
 //
 // Returns: Line item deleted.
 func (c *Client) RemoveLineItemWithContext(ctx context.Context, lineItemId string, opts ...Option) (*Empty, error) {
@@ -4095,7 +4095,7 @@ func (list *ListPlansParams) URLParams() []KeyValue {
 
 // ListPlans List a site's plans
 //
-// API Documentation: https://developers.recurly.com/api/v2021-02-25#operation/list_plans
+// API Documentation: https://developers.recurly.com/api/v2022-01-01#operation/list_plans
 //
 // Returns: A list of plans.
 func (c *Client) ListPlans(params *ListPlansParams, opts ...Option) (PlanLister, error) {
@@ -4116,7 +4116,7 @@ func (c *Client) CreatePlan(body *PlanCreate, opts ...Option) (*Plan, error) {
 
 // CreatePlanWithContext Create a plan
 //
-// API Documentation: https://developers.recurly.com/api/v2021-02-25#operation/create_plan
+// API Documentation: https://developers.recurly.com/api/v2022-01-01#operation/create_plan
 //
 // Returns: A plan.
 func (c *Client) CreatePlanWithContext(ctx context.Context, body *PlanCreate, opts ...Option) (*Plan, error) {
@@ -4145,7 +4145,7 @@ func (c *Client) GetPlan(planId string, opts ...Option) (*Plan, error) {
 
 // GetPlanWithContext Fetch a plan
 //
-// API Documentation: https://developers.recurly.com/api/v2021-02-25#operation/get_plan
+// API Documentation: https://developers.recurly.com/api/v2022-01-01#operation/get_plan
 //
 // Returns: A plan.
 func (c *Client) GetPlanWithContext(ctx context.Context, planId string, opts ...Option) (*Plan, error) {
@@ -4174,7 +4174,7 @@ func (c *Client) UpdatePlan(planId string, body *PlanUpdate, opts ...Option) (*P
 
 // UpdatePlanWithContext Update a plan
 //
-// API Documentation: https://developers.recurly.com/api/v2021-02-25#operation/update_plan
+// API Documentation: https://developers.recurly.com/api/v2022-01-01#operation/update_plan
 //
 // Returns: A plan.
 func (c *Client) UpdatePlanWithContext(ctx context.Context, planId string, body *PlanUpdate, opts ...Option) (*Plan, error) {
@@ -4203,7 +4203,7 @@ func (c *Client) RemovePlan(planId string, opts ...Option) (*Plan, error) {
 
 // RemovePlanWithContext Remove a plan
 //
-// API Documentation: https://developers.recurly.com/api/v2021-02-25#operation/remove_plan
+// API Documentation: https://developers.recurly.com/api/v2022-01-01#operation/remove_plan
 //
 // Returns: Plan deleted
 func (c *Client) RemovePlanWithContext(ctx context.Context, planId string, opts ...Option) (*Plan, error) {
@@ -4296,7 +4296,7 @@ func (list *ListPlanAddOnsParams) URLParams() []KeyValue {
 
 // ListPlanAddOns List a plan's add-ons
 //
-// API Documentation: https://developers.recurly.com/api/v2021-02-25#operation/list_plan_add_ons
+// API Documentation: https://developers.recurly.com/api/v2022-01-01#operation/list_plan_add_ons
 //
 // Returns: A list of add-ons.
 func (c *Client) ListPlanAddOns(planId string, params *ListPlanAddOnsParams, opts ...Option) (AddOnLister, error) {
@@ -4317,7 +4317,7 @@ func (c *Client) CreatePlanAddOn(planId string, body *AddOnCreate, opts ...Optio
 
 // CreatePlanAddOnWithContext Create an add-on
 //
-// API Documentation: https://developers.recurly.com/api/v2021-02-25#operation/create_plan_add_on
+// API Documentation: https://developers.recurly.com/api/v2022-01-01#operation/create_plan_add_on
 //
 // Returns: An add-on.
 func (c *Client) CreatePlanAddOnWithContext(ctx context.Context, planId string, body *AddOnCreate, opts ...Option) (*AddOn, error) {
@@ -4346,7 +4346,7 @@ func (c *Client) GetPlanAddOn(planId string, addOnId string, opts ...Option) (*A
 
 // GetPlanAddOnWithContext Fetch a plan's add-on
 //
-// API Documentation: https://developers.recurly.com/api/v2021-02-25#operation/get_plan_add_on
+// API Documentation: https://developers.recurly.com/api/v2022-01-01#operation/get_plan_add_on
 //
 // Returns: An add-on.
 func (c *Client) GetPlanAddOnWithContext(ctx context.Context, planId string, addOnId string, opts ...Option) (*AddOn, error) {
@@ -4375,7 +4375,7 @@ func (c *Client) UpdatePlanAddOn(planId string, addOnId string, body *AddOnUpdat
 
 // UpdatePlanAddOnWithContext Update an add-on
 //
-// API Documentation: https://developers.recurly.com/api/v2021-02-25#operation/update_plan_add_on
+// API Documentation: https://developers.recurly.com/api/v2022-01-01#operation/update_plan_add_on
 //
 // Returns: An add-on.
 func (c *Client) UpdatePlanAddOnWithContext(ctx context.Context, planId string, addOnId string, body *AddOnUpdate, opts ...Option) (*AddOn, error) {
@@ -4404,7 +4404,7 @@ func (c *Client) RemovePlanAddOn(planId string, addOnId string, opts ...Option) 
 
 // RemovePlanAddOnWithContext Remove an add-on
 //
-// API Documentation: https://developers.recurly.com/api/v2021-02-25#operation/remove_plan_add_on
+// API Documentation: https://developers.recurly.com/api/v2022-01-01#operation/remove_plan_add_on
 //
 // Returns: Add-on deleted
 func (c *Client) RemovePlanAddOnWithContext(ctx context.Context, planId string, addOnId string, opts ...Option) (*AddOn, error) {
@@ -4497,7 +4497,7 @@ func (list *ListAddOnsParams) URLParams() []KeyValue {
 
 // ListAddOns List a site's add-ons
 //
-// API Documentation: https://developers.recurly.com/api/v2021-02-25#operation/list_add_ons
+// API Documentation: https://developers.recurly.com/api/v2022-01-01#operation/list_add_ons
 //
 // Returns: A list of add-ons.
 func (c *Client) ListAddOns(params *ListAddOnsParams, opts ...Option) (AddOnLister, error) {
@@ -4518,7 +4518,7 @@ func (c *Client) GetAddOn(addOnId string, opts ...Option) (*AddOn, error) {
 
 // GetAddOnWithContext Fetch an add-on
 //
-// API Documentation: https://developers.recurly.com/api/v2021-02-25#operation/get_add_on
+// API Documentation: https://developers.recurly.com/api/v2022-01-01#operation/get_add_on
 //
 // Returns: An add-on.
 func (c *Client) GetAddOnWithContext(ctx context.Context, addOnId string, opts ...Option) (*AddOn, error) {
@@ -4604,7 +4604,7 @@ func (list *ListShippingMethodsParams) URLParams() []KeyValue {
 
 // ListShippingMethods List a site's shipping methods
 //
-// API Documentation: https://developers.recurly.com/api/v2021-02-25#operation/list_shipping_methods
+// API Documentation: https://developers.recurly.com/api/v2022-01-01#operation/list_shipping_methods
 //
 // Returns: A list of the site's shipping methods.
 func (c *Client) ListShippingMethods(params *ListShippingMethodsParams, opts ...Option) (ShippingMethodLister, error) {
@@ -4625,7 +4625,7 @@ func (c *Client) CreateShippingMethod(body *ShippingMethodCreate, opts ...Option
 
 // CreateShippingMethodWithContext Create a new shipping method
 //
-// API Documentation: https://developers.recurly.com/api/v2021-02-25#operation/create_shipping_method
+// API Documentation: https://developers.recurly.com/api/v2022-01-01#operation/create_shipping_method
 //
 // Returns: A new shipping method.
 func (c *Client) CreateShippingMethodWithContext(ctx context.Context, body *ShippingMethodCreate, opts ...Option) (*ShippingMethod, error) {
@@ -4654,7 +4654,7 @@ func (c *Client) GetShippingMethod(shippingMethodId string, opts ...Option) (*Sh
 
 // GetShippingMethodWithContext Fetch a shipping method
 //
-// API Documentation: https://developers.recurly.com/api/v2021-02-25#operation/get_shipping_method
+// API Documentation: https://developers.recurly.com/api/v2022-01-01#operation/get_shipping_method
 //
 // Returns: A shipping method.
 func (c *Client) GetShippingMethodWithContext(ctx context.Context, shippingMethodId string, opts ...Option) (*ShippingMethod, error) {
@@ -4683,7 +4683,7 @@ func (c *Client) UpdateShippingMethod(shippingMethodId string, body *ShippingMet
 
 // UpdateShippingMethodWithContext Update an active Shipping Method
 //
-// API Documentation: https://developers.recurly.com/api/v2021-02-25#operation/update_shipping_method
+// API Documentation: https://developers.recurly.com/api/v2022-01-01#operation/update_shipping_method
 //
 // Returns: The updated shipping method.
 func (c *Client) UpdateShippingMethodWithContext(ctx context.Context, shippingMethodId string, body *ShippingMethodUpdate, opts ...Option) (*ShippingMethod, error) {
@@ -4712,7 +4712,7 @@ func (c *Client) DeactivateShippingMethod(shippingMethodId string, opts ...Optio
 
 // DeactivateShippingMethodWithContext Deactivate a shipping method
 //
-// API Documentation: https://developers.recurly.com/api/v2021-02-25#operation/deactivate_shipping_method
+// API Documentation: https://developers.recurly.com/api/v2022-01-01#operation/deactivate_shipping_method
 //
 // Returns: A shipping method.
 func (c *Client) DeactivateShippingMethodWithContext(ctx context.Context, shippingMethodId string, opts ...Option) (*ShippingMethod, error) {
@@ -4808,7 +4808,7 @@ func (list *ListSubscriptionsParams) URLParams() []KeyValue {
 
 // ListSubscriptions List a site's subscriptions
 //
-// API Documentation: https://developers.recurly.com/api/v2021-02-25#operation/list_subscriptions
+// API Documentation: https://developers.recurly.com/api/v2022-01-01#operation/list_subscriptions
 //
 // Returns: A list of the site's subscriptions.
 func (c *Client) ListSubscriptions(params *ListSubscriptionsParams, opts ...Option) (SubscriptionLister, error) {
@@ -4829,7 +4829,7 @@ func (c *Client) CreateSubscription(body *SubscriptionCreate, opts ...Option) (*
 
 // CreateSubscriptionWithContext Create a new subscription
 //
-// API Documentation: https://developers.recurly.com/api/v2021-02-25#operation/create_subscription
+// API Documentation: https://developers.recurly.com/api/v2022-01-01#operation/create_subscription
 //
 // Returns: A subscription.
 func (c *Client) CreateSubscriptionWithContext(ctx context.Context, body *SubscriptionCreate, opts ...Option) (*Subscription, error) {
@@ -4858,7 +4858,7 @@ func (c *Client) GetSubscription(subscriptionId string, opts ...Option) (*Subscr
 
 // GetSubscriptionWithContext Fetch a subscription
 //
-// API Documentation: https://developers.recurly.com/api/v2021-02-25#operation/get_subscription
+// API Documentation: https://developers.recurly.com/api/v2022-01-01#operation/get_subscription
 //
 // Returns: A subscription.
 func (c *Client) GetSubscriptionWithContext(ctx context.Context, subscriptionId string, opts ...Option) (*Subscription, error) {
@@ -4887,7 +4887,7 @@ func (c *Client) UpdateSubscription(subscriptionId string, body *SubscriptionUpd
 
 // UpdateSubscriptionWithContext Update a subscription
 //
-// API Documentation: https://developers.recurly.com/api/v2021-02-25#operation/update_subscription
+// API Documentation: https://developers.recurly.com/api/v2022-01-01#operation/update_subscription
 //
 // Returns: A subscription.
 func (c *Client) UpdateSubscriptionWithContext(ctx context.Context, subscriptionId string, body *SubscriptionUpdate, opts ...Option) (*Subscription, error) {
@@ -4944,7 +4944,7 @@ func (c *Client) TerminateSubscription(subscriptionId string, params *TerminateS
 
 // TerminateSubscriptionWithContext Terminate a subscription
 //
-// API Documentation: https://developers.recurly.com/api/v2021-02-25#operation/terminate_subscription
+// API Documentation: https://developers.recurly.com/api/v2022-01-01#operation/terminate_subscription
 //
 // Returns: An expired subscription.
 func (c *Client) TerminateSubscriptionWithContext(ctx context.Context, subscriptionId string, params *TerminateSubscriptionParams, opts ...Option) (*Subscription, error) {
@@ -4985,7 +4985,7 @@ func (c *Client) CancelSubscription(subscriptionId string, params *CancelSubscri
 
 // CancelSubscriptionWithContext Cancel a subscription
 //
-// API Documentation: https://developers.recurly.com/api/v2021-02-25#operation/cancel_subscription
+// API Documentation: https://developers.recurly.com/api/v2022-01-01#operation/cancel_subscription
 //
 // Returns: A canceled or failed subscription.
 func (c *Client) CancelSubscriptionWithContext(ctx context.Context, subscriptionId string, params *CancelSubscriptionParams, opts ...Option) (*Subscription, error) {
@@ -5014,7 +5014,7 @@ func (c *Client) ReactivateSubscription(subscriptionId string, opts ...Option) (
 
 // ReactivateSubscriptionWithContext Reactivate a canceled subscription
 //
-// API Documentation: https://developers.recurly.com/api/v2021-02-25#operation/reactivate_subscription
+// API Documentation: https://developers.recurly.com/api/v2022-01-01#operation/reactivate_subscription
 //
 // Returns: An active subscription.
 func (c *Client) ReactivateSubscriptionWithContext(ctx context.Context, subscriptionId string, opts ...Option) (*Subscription, error) {
@@ -5043,7 +5043,7 @@ func (c *Client) PauseSubscription(subscriptionId string, body *SubscriptionPaus
 
 // PauseSubscriptionWithContext Pause subscription
 //
-// API Documentation: https://developers.recurly.com/api/v2021-02-25#operation/pause_subscription
+// API Documentation: https://developers.recurly.com/api/v2022-01-01#operation/pause_subscription
 //
 // Returns: A subscription.
 func (c *Client) PauseSubscriptionWithContext(ctx context.Context, subscriptionId string, body *SubscriptionPause, opts ...Option) (*Subscription, error) {
@@ -5072,7 +5072,7 @@ func (c *Client) ResumeSubscription(subscriptionId string, opts ...Option) (*Sub
 
 // ResumeSubscriptionWithContext Resume subscription
 //
-// API Documentation: https://developers.recurly.com/api/v2021-02-25#operation/resume_subscription
+// API Documentation: https://developers.recurly.com/api/v2022-01-01#operation/resume_subscription
 //
 // Returns: A subscription.
 func (c *Client) ResumeSubscriptionWithContext(ctx context.Context, subscriptionId string, opts ...Option) (*Subscription, error) {
@@ -5101,7 +5101,7 @@ func (c *Client) ConvertTrial(subscriptionId string, opts ...Option) (*Subscript
 
 // ConvertTrialWithContext Convert trial subscription
 //
-// API Documentation: https://developers.recurly.com/api/v2021-02-25#operation/convert_trial
+// API Documentation: https://developers.recurly.com/api/v2022-01-01#operation/convert_trial
 //
 // Returns: A subscription.
 func (c *Client) ConvertTrialWithContext(ctx context.Context, subscriptionId string, opts ...Option) (*Subscription, error) {
@@ -5130,7 +5130,7 @@ func (c *Client) GetPreviewRenewal(subscriptionId string, opts ...Option) (*Invo
 
 // GetPreviewRenewalWithContext Fetch a preview of a subscription's renewal invoice(s)
 //
-// API Documentation: https://developers.recurly.com/api/v2021-02-25#operation/get_preview_renewal
+// API Documentation: https://developers.recurly.com/api/v2022-01-01#operation/get_preview_renewal
 //
 // Returns: A preview of the subscription's renewal invoice(s).
 func (c *Client) GetPreviewRenewalWithContext(ctx context.Context, subscriptionId string, opts ...Option) (*InvoiceCollection, error) {
@@ -5159,7 +5159,7 @@ func (c *Client) GetSubscriptionChange(subscriptionId string, opts ...Option) (*
 
 // GetSubscriptionChangeWithContext Fetch a subscription's pending change
 //
-// API Documentation: https://developers.recurly.com/api/v2021-02-25#operation/get_subscription_change
+// API Documentation: https://developers.recurly.com/api/v2022-01-01#operation/get_subscription_change
 //
 // Returns: A subscription's pending change.
 func (c *Client) GetSubscriptionChangeWithContext(ctx context.Context, subscriptionId string, opts ...Option) (*SubscriptionChange, error) {
@@ -5188,7 +5188,7 @@ func (c *Client) CreateSubscriptionChange(subscriptionId string, body *Subscript
 
 // CreateSubscriptionChangeWithContext Create a new subscription change
 //
-// API Documentation: https://developers.recurly.com/api/v2021-02-25#operation/create_subscription_change
+// API Documentation: https://developers.recurly.com/api/v2022-01-01#operation/create_subscription_change
 //
 // Returns: A subscription change.
 func (c *Client) CreateSubscriptionChangeWithContext(ctx context.Context, subscriptionId string, body *SubscriptionChangeCreate, opts ...Option) (*SubscriptionChange, error) {
@@ -5217,7 +5217,7 @@ func (c *Client) RemoveSubscriptionChange(subscriptionId string, opts ...Option)
 
 // RemoveSubscriptionChangeWithContext Delete the pending subscription change
 //
-// API Documentation: https://developers.recurly.com/api/v2021-02-25#operation/remove_subscription_change
+// API Documentation: https://developers.recurly.com/api/v2022-01-01#operation/remove_subscription_change
 //
 // Returns: Subscription change was deleted.
 func (c *Client) RemoveSubscriptionChangeWithContext(ctx context.Context, subscriptionId string, opts ...Option) (*Empty, error) {
@@ -5246,7 +5246,7 @@ func (c *Client) PreviewSubscriptionChange(subscriptionId string, body *Subscrip
 
 // PreviewSubscriptionChangeWithContext Preview a new subscription change
 //
-// API Documentation: https://developers.recurly.com/api/v2021-02-25#operation/preview_subscription_change
+// API Documentation: https://developers.recurly.com/api/v2022-01-01#operation/preview_subscription_change
 //
 // Returns: A subscription change.
 func (c *Client) PreviewSubscriptionChangeWithContext(ctx context.Context, subscriptionId string, body *SubscriptionChangeCreate, opts ...Option) (*SubscriptionChange, error) {
@@ -5343,7 +5343,7 @@ func (list *ListSubscriptionInvoicesParams) URLParams() []KeyValue {
 
 // ListSubscriptionInvoices List a subscription's invoices
 //
-// API Documentation: https://developers.recurly.com/api/v2021-02-25#operation/list_subscription_invoices
+// API Documentation: https://developers.recurly.com/api/v2022-01-01#operation/list_subscription_invoices
 //
 // Returns: A list of the subscription's invoices.
 func (c *Client) ListSubscriptionInvoices(subscriptionId string, params *ListSubscriptionInvoicesParams, opts ...Option) (InvoiceLister, error) {
@@ -5442,7 +5442,7 @@ func (list *ListSubscriptionLineItemsParams) URLParams() []KeyValue {
 
 // ListSubscriptionLineItems List a subscription's line items
 //
-// API Documentation: https://developers.recurly.com/api/v2021-02-25#operation/list_subscription_line_items
+// API Documentation: https://developers.recurly.com/api/v2022-01-01#operation/list_subscription_line_items
 //
 // Returns: A list of the subscription's line items.
 func (c *Client) ListSubscriptionLineItems(subscriptionId string, params *ListSubscriptionLineItemsParams, opts ...Option) (LineItemLister, error) {
@@ -5506,7 +5506,7 @@ func (list *ListSubscriptionCouponRedemptionsParams) URLParams() []KeyValue {
 
 // ListSubscriptionCouponRedemptions Show the coupon redemptions for a subscription
 //
-// API Documentation: https://developers.recurly.com/api/v2021-02-25#operation/list_subscription_coupon_redemptions
+// API Documentation: https://developers.recurly.com/api/v2022-01-01#operation/list_subscription_coupon_redemptions
 //
 // Returns: A list of the the coupon redemptions on a subscription.
 func (c *Client) ListSubscriptionCouponRedemptions(subscriptionId string, params *ListSubscriptionCouponRedemptionsParams, opts ...Option) (CouponRedemptionLister, error) {
@@ -5591,7 +5591,7 @@ func (list *ListUsageParams) URLParams() []KeyValue {
 
 // ListUsage List a subscription add-on's usage records
 //
-// API Documentation: https://developers.recurly.com/api/v2021-02-25#operation/list_usage
+// API Documentation: https://developers.recurly.com/api/v2022-01-01#operation/list_usage
 //
 // Returns: A list of the subscription add-on's usage records.
 func (c *Client) ListUsage(subscriptionId string, addOnId string, params *ListUsageParams, opts ...Option) (UsageLister, error) {
@@ -5612,7 +5612,7 @@ func (c *Client) CreateUsage(subscriptionId string, addOnId string, body *UsageC
 
 // CreateUsageWithContext Log a usage record on this subscription add-on
 //
-// API Documentation: https://developers.recurly.com/api/v2021-02-25#operation/create_usage
+// API Documentation: https://developers.recurly.com/api/v2022-01-01#operation/create_usage
 //
 // Returns: The created usage record.
 func (c *Client) CreateUsageWithContext(ctx context.Context, subscriptionId string, addOnId string, body *UsageCreate, opts ...Option) (*Usage, error) {
@@ -5641,7 +5641,7 @@ func (c *Client) GetUsage(usageId string, opts ...Option) (*Usage, error) {
 
 // GetUsageWithContext Get a usage record
 //
-// API Documentation: https://developers.recurly.com/api/v2021-02-25#operation/get_usage
+// API Documentation: https://developers.recurly.com/api/v2022-01-01#operation/get_usage
 //
 // Returns: The usage record.
 func (c *Client) GetUsageWithContext(ctx context.Context, usageId string, opts ...Option) (*Usage, error) {
@@ -5670,7 +5670,7 @@ func (c *Client) UpdateUsage(usageId string, body *UsageCreate, opts ...Option) 
 
 // UpdateUsageWithContext Update a usage record
 //
-// API Documentation: https://developers.recurly.com/api/v2021-02-25#operation/update_usage
+// API Documentation: https://developers.recurly.com/api/v2022-01-01#operation/update_usage
 //
 // Returns: The updated usage record.
 func (c *Client) UpdateUsageWithContext(ctx context.Context, usageId string, body *UsageCreate, opts ...Option) (*Usage, error) {
@@ -5699,7 +5699,7 @@ func (c *Client) RemoveUsage(usageId string, opts ...Option) (*Empty, error) {
 
 // RemoveUsageWithContext Delete a usage record.
 //
-// API Documentation: https://developers.recurly.com/api/v2021-02-25#operation/remove_usage
+// API Documentation: https://developers.recurly.com/api/v2022-01-01#operation/remove_usage
 //
 // Returns: Usage was successfully deleted.
 func (c *Client) RemoveUsageWithContext(ctx context.Context, usageId string, opts ...Option) (*Empty, error) {
@@ -5799,7 +5799,7 @@ func (list *ListTransactionsParams) URLParams() []KeyValue {
 
 // ListTransactions List a site's transactions
 //
-// API Documentation: https://developers.recurly.com/api/v2021-02-25#operation/list_transactions
+// API Documentation: https://developers.recurly.com/api/v2022-01-01#operation/list_transactions
 //
 // Returns: A list of the site's transactions.
 func (c *Client) ListTransactions(params *ListTransactionsParams, opts ...Option) (TransactionLister, error) {
@@ -5820,7 +5820,7 @@ func (c *Client) GetTransaction(transactionId string, opts ...Option) (*Transact
 
 // GetTransactionWithContext Fetch a transaction
 //
-// API Documentation: https://developers.recurly.com/api/v2021-02-25#operation/get_transaction
+// API Documentation: https://developers.recurly.com/api/v2022-01-01#operation/get_transaction
 //
 // Returns: A transaction.
 func (c *Client) GetTransactionWithContext(ctx context.Context, transactionId string, opts ...Option) (*Transaction, error) {
@@ -5849,7 +5849,7 @@ func (c *Client) GetUniqueCouponCode(uniqueCouponCodeId string, opts ...Option) 
 
 // GetUniqueCouponCodeWithContext Fetch a unique coupon code
 //
-// API Documentation: https://developers.recurly.com/api/v2021-02-25#operation/get_unique_coupon_code
+// API Documentation: https://developers.recurly.com/api/v2022-01-01#operation/get_unique_coupon_code
 //
 // Returns: A unique coupon code.
 func (c *Client) GetUniqueCouponCodeWithContext(ctx context.Context, uniqueCouponCodeId string, opts ...Option) (*UniqueCouponCode, error) {
@@ -5878,7 +5878,7 @@ func (c *Client) DeactivateUniqueCouponCode(uniqueCouponCodeId string, opts ...O
 
 // DeactivateUniqueCouponCodeWithContext Deactivate a unique coupon code
 //
-// API Documentation: https://developers.recurly.com/api/v2021-02-25#operation/deactivate_unique_coupon_code
+// API Documentation: https://developers.recurly.com/api/v2022-01-01#operation/deactivate_unique_coupon_code
 //
 // Returns: A unique coupon code.
 func (c *Client) DeactivateUniqueCouponCodeWithContext(ctx context.Context, uniqueCouponCodeId string, opts ...Option) (*UniqueCouponCode, error) {
@@ -5907,7 +5907,7 @@ func (c *Client) ReactivateUniqueCouponCode(uniqueCouponCodeId string, opts ...O
 
 // ReactivateUniqueCouponCodeWithContext Restore a unique coupon code
 //
-// API Documentation: https://developers.recurly.com/api/v2021-02-25#operation/reactivate_unique_coupon_code
+// API Documentation: https://developers.recurly.com/api/v2022-01-01#operation/reactivate_unique_coupon_code
 //
 // Returns: A unique coupon code.
 func (c *Client) ReactivateUniqueCouponCodeWithContext(ctx context.Context, uniqueCouponCodeId string, opts ...Option) (*UniqueCouponCode, error) {
@@ -5936,7 +5936,7 @@ func (c *Client) CreatePurchase(body *PurchaseCreate, opts ...Option) (*InvoiceC
 
 // CreatePurchaseWithContext Create a new purchase
 //
-// API Documentation: https://developers.recurly.com/api/v2021-02-25#operation/create_purchase
+// API Documentation: https://developers.recurly.com/api/v2022-01-01#operation/create_purchase
 //
 // Returns: Returns the new invoices
 func (c *Client) CreatePurchaseWithContext(ctx context.Context, body *PurchaseCreate, opts ...Option) (*InvoiceCollection, error) {
@@ -5965,7 +5965,7 @@ func (c *Client) PreviewPurchase(body *PurchaseCreate, opts ...Option) (*Invoice
 
 // PreviewPurchaseWithContext Preview a new purchase
 //
-// API Documentation: https://developers.recurly.com/api/v2021-02-25#operation/preview_purchase
+// API Documentation: https://developers.recurly.com/api/v2022-01-01#operation/preview_purchase
 //
 // Returns: Returns preview of the new invoices
 func (c *Client) PreviewPurchaseWithContext(ctx context.Context, body *PurchaseCreate, opts ...Option) (*InvoiceCollection, error) {
@@ -5994,7 +5994,7 @@ func (c *Client) CreatePendingPurchase(body *PurchaseCreate, opts ...Option) (*I
 
 // CreatePendingPurchaseWithContext Create a pending purchase
 //
-// API Documentation: https://developers.recurly.com/api/v2021-02-25#operation/create_pending_purchase
+// API Documentation: https://developers.recurly.com/api/v2022-01-01#operation/create_pending_purchase
 //
 // Returns: Returns the pending invoice
 func (c *Client) CreatePendingPurchaseWithContext(ctx context.Context, body *PurchaseCreate, opts ...Option) (*InvoiceCollection, error) {
@@ -6023,7 +6023,7 @@ func (c *Client) GetExportDates(opts ...Option) (*ExportDates, error) {
 
 // GetExportDatesWithContext List the dates that have an available export to download.
 //
-// API Documentation: https://developers.recurly.com/api/v2021-02-25#operation/get_export_dates
+// API Documentation: https://developers.recurly.com/api/v2022-01-01#operation/get_export_dates
 //
 // Returns: Returns a list of dates.
 func (c *Client) GetExportDatesWithContext(ctx context.Context, opts ...Option) (*ExportDates, error) {
@@ -6052,7 +6052,7 @@ func (c *Client) GetExportFiles(exportDate string, opts ...Option) (*ExportFiles
 
 // GetExportFilesWithContext List of the export files that are available to download.
 //
-// API Documentation: https://developers.recurly.com/api/v2021-02-25#operation/get_export_files
+// API Documentation: https://developers.recurly.com/api/v2022-01-01#operation/get_export_files
 //
 // Returns: Returns a list of export files to download.
 func (c *Client) GetExportFilesWithContext(ctx context.Context, exportDate string, opts ...Option) (*ExportFiles, error) {
@@ -6093,7 +6093,7 @@ func (list *ListDunningCampaignsParams) URLParams() []KeyValue {
 
 // ListDunningCampaigns Show the dunning campaigns for a site
 //
-// API Documentation: https://developers.recurly.com/api/v2021-02-25#operation/list_dunning_campaigns
+// API Documentation: https://developers.recurly.com/api/v2022-01-01#operation/list_dunning_campaigns
 //
 // Returns: A list of the the dunning_campaigns on an account.
 func (c *Client) ListDunningCampaigns(params *ListDunningCampaignsParams, opts ...Option) (DunningCampaignLister, error) {
@@ -6114,7 +6114,7 @@ func (c *Client) GetDunningCampaign(dunningCampaignId string, opts ...Option) (*
 
 // GetDunningCampaignWithContext Show the settings for a dunning campaign
 //
-// API Documentation: https://developers.recurly.com/api/v2021-02-25#operation/get_dunning_campaign
+// API Documentation: https://developers.recurly.com/api/v2022-01-01#operation/get_dunning_campaign
 //
 // Returns: Settings for a dunning campaign.
 func (c *Client) GetDunningCampaignWithContext(ctx context.Context, dunningCampaignId string, opts ...Option) (*DunningCampaign, error) {
@@ -6143,7 +6143,7 @@ func (c *Client) PutDunningCampaignBulkUpdate(body *DunningCampaignsBulkUpdate, 
 
 // PutDunningCampaignBulkUpdateWithContext Assign a dunning campaign to multiple plans
 //
-// API Documentation: https://developers.recurly.com/api/v2021-02-25#operation/put_dunning_campaign_bulk_update
+// API Documentation: https://developers.recurly.com/api/v2022-01-01#operation/put_dunning_campaign_bulk_update
 //
 // Returns: A list of updated plans.
 func (c *Client) PutDunningCampaignBulkUpdateWithContext(ctx context.Context, body *DunningCampaignsBulkUpdate, opts ...Option) (*DunningCampaignsBulkUpdateResponse, error) {
@@ -6184,7 +6184,7 @@ func (list *ListInvoiceTemplatesParams) URLParams() []KeyValue {
 
 // ListInvoiceTemplates Show the invoice templates for a site
 //
-// API Documentation: https://developers.recurly.com/api/v2021-02-25#operation/list_invoice_templates
+// API Documentation: https://developers.recurly.com/api/v2022-01-01#operation/list_invoice_templates
 //
 // Returns: A list of the the invoice templates on a site.
 func (c *Client) ListInvoiceTemplates(params *ListInvoiceTemplatesParams, opts ...Option) (InvoiceTemplateLister, error) {
@@ -6205,7 +6205,7 @@ func (c *Client) GetInvoiceTemplate(invoiceTemplateId string, opts ...Option) (*
 
 // GetInvoiceTemplateWithContext Show the settings for an invoice template
 //
-// API Documentation: https://developers.recurly.com/api/v2021-02-25#operation/get_invoice_template
+// API Documentation: https://developers.recurly.com/api/v2022-01-01#operation/get_invoice_template
 //
 // Returns: Settings for an invoice template.
 func (c *Client) GetInvoiceTemplateWithContext(ctx context.Context, invoiceTemplateId string, opts ...Option) (*InvoiceTemplate, error) {
