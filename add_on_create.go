@@ -8,7 +8,7 @@ import ()
 
 type AddOnCreate struct {
 
-	// Unique code to identify an item. Available when the `Credit Invoices` feature are enabled. If `item_id` and `item_code` are both present, `item_id` will be used.
+	// Unique code to identify an item. Available when the `Credit Invoices` feature is enabled. If `item_id` and `item_code` are both present, `item_id` will be used.
 	ItemCode *string `json:"item_code,omitempty"`
 
 	// System-generated unique identifier for an item. Available when the `Credit Invoices` feature is enabled. If `item_id` and `item_code` are both present, `item_id` will be used.
@@ -28,8 +28,8 @@ type AddOnCreate struct {
 	// overview of how to configure usage add-ons.
 	UsageType *string `json:"usage_type,omitempty"`
 
-	// The percentage taken of the monetary amount of usage tracked. This can be up to 4 decimal places. A value between 0.0 and 100.0. Required if `add_on_type` is usage, `tier_type` is `flat` and `usage_type` is percentage. Must be omitted otherwise.
-	UsagePercentage *float64 `json:"usage_percentage,omitempty"`
+	// The percentage taken of the monetary amount of usage tracked. This can be up to 4 decimal places represented as a string. A value between 0.0 and 100.0. Required if `add_on_type` is usage, `tier_type` is `flat` and `usage_type` is percentage. Must be omitted otherwise.
+	UsagePercentage *string `json:"usage_percentage,omitempty"`
 
 	// System-generated unique identifier for a measured unit to be associated with the add-on. Either `measured_unit_id` or `measured_unit_name` are required when `add_on_type` is `usage`. If `measured_unit_id` and `measured_unit_name` are both present, `measured_unit_id` will be used.
 	MeasuredUnitId *string `json:"measured_unit_id,omitempty"`
@@ -81,7 +81,12 @@ type AddOnCreate struct {
 
 	// If the tier_type is `flat`, then `tiers` must be absent. The `tiers` object
 	// must include one to many tiers with `ending_quantity` and `unit_amount` for
-	// the desired `currencies`, or alternatively, `usage_percentage` for usage percentage type usage add ons. There must be one tier with an `ending_quantity`
+	// the desired `currencies`. There must be one tier with an `ending_quantity`
 	// of 999999999 which is the default if not provided.
 	Tiers []TierCreate `json:"tiers,omitempty"`
+
+	// Array of objects which must have at least one set of tiers
+	// per currency and the currency code. The tier_type must be `volume` or `tiered`,
+	// if not, it must be absent. There must be one tier without ending_amount value.
+	PercentageTiers []PercentageTiersByCurrencyCreate `json:"percentage_tiers,omitempty"`
 }

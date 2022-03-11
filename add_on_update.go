@@ -17,8 +17,8 @@ type AddOnUpdate struct {
 	// Describes your add-on and will appear in subscribers' invoices. If an `Item` is associated to the `AddOn` then `name` must be absent.
 	Name *string `json:"name,omitempty"`
 
-	// The percentage taken of the monetary amount of usage tracked. This can be up to 4 decimal places. A value between 0.0 and 100.0. Required if `add_on_type` is usage, `tier_type` is `flat` and `usage_type` is percentage. Must be omitted otherwise.
-	UsagePercentage *float64 `json:"usage_percentage,omitempty"`
+	// The percentage taken of the monetary amount of usage tracked. This can be up to 4 decimal places represented as a string. A value between 0.0 and 100.0. Required if `add_on_type` is usage, `tier_type` is `flat` and `usage_type` is percentage. Must be omitted otherwise.
+	UsagePercentage *string `json:"usage_percentage,omitempty"`
 
 	// System-generated unique identifier for a measured unit to be associated with the add-on. Either `measured_unit_id` or `measured_unit_name` are required when `add_on_type` is `usage`. If `measured_unit_id` and `measured_unit_name` are both present, `measured_unit_id` will be used.
 	MeasuredUnitId *string `json:"measured_unit_id,omitempty"`
@@ -57,7 +57,12 @@ type AddOnUpdate struct {
 
 	// If the tier_type is `flat`, then `tiers` must be absent. The `tiers` object
 	// must include one to many tiers with `ending_quantity` and `unit_amount` for
-	// the desired `currencies`, or alternatively, `usage_percentage` for usage percentage type usage add ons. There must be one tier with an `ending_quantity`
-	// of 999999999 which is the default if not provided.
+	// the desired `currencies`. There must be one tier without an `ending_quantity` value
+	// that represents the final tier.
 	Tiers []TierCreate `json:"tiers,omitempty"`
+
+	// `percentage_tiers` is an array of objects, which must have the set of tiers
+	// per currency and the currency code. The tier_type must be `volume` or `tiered`,
+	// if not, it must be absent.
+	PercentageTiers []PercentageTiersByCurrencyCreate `json:"percentage_tiers,omitempty"`
 }

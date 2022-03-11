@@ -48,6 +48,7 @@ rm -f add_on_mini.go
 rm -f subscription_add_on_tier.go
 rm -f subscription_add_on_percentage_tier.go
 rm -f subscription_change_billing_info.go
+rm -f subscription_ramp_interval_response.go
 rm -f unique_coupon_code_params.go
 rm -f unique_coupon_code.go
 rm -f custom_field_definition.go
@@ -110,6 +111,8 @@ rm -f add_on_create.go
 rm -f add_on_pricing_create.go
 rm -f tier_create.go
 rm -f tier_pricing_create.go
+rm -f percentage_tiers_by_currency_create.go
+rm -f percentage_tier_create.go
 rm -f plan_update.go
 rm -f add_on_update.go
 rm -f shipping_method_create.go
@@ -118,6 +121,7 @@ rm -f subscription_create.go
 rm -f subscription_shipping_create.go
 rm -f subscription_add_on_create.go
 rm -f subscription_add_on_tier_create.go
+rm -f subscription_add_on_percentage_tier_create.go
 rm -f subscription_update.go
 rm -f subscription_shipping_update.go
 rm -f subscription_cancel.go
@@ -126,6 +130,7 @@ rm -f subscription_change_create.go
 rm -f subscription_change_shipping_create.go
 rm -f subscription_add_on_update.go
 rm -f subscription_change_billing_info_create.go
+rm -f subscription_ramp_interval.go
 rm -f usage_create.go
 rm -f purchase_create.go
 rm -f account_purchase.go

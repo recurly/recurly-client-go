@@ -6,11 +6,11 @@ package recurly
 
 import ()
 
-type TierCreate struct {
+type PercentageTierCreate struct {
 
-	// Ending quantity for the tier.  This represents a unit amount for unit-priced add ons.
-	EndingQuantity *int `json:"ending_quantity,omitempty"`
+	// Ending amount for the tier. Allows up to 2 decimal places. The last tier ending_amount is null.
+	EndingAmount *float64 `json:"ending_amount,omitempty"`
 
-	// Tier pricing
-	Currencies []TierPricingCreate `json:"currencies,omitempty"`
+	// Decimal usage percentage.
+	UsagePercentage *string `json:"usage_percentage,omitempty"`
 }
