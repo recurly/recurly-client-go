@@ -6,11 +6,11 @@ package recurly
 
 import ()
 
-type TierCreate struct {
+type PercentageTiersByCurrencyCreate struct {
 
-	// Ending quantity for the tier.  This represents a unit amount for unit-priced add ons.
-	EndingQuantity *int `json:"ending_quantity,omitempty"`
+	// 3-letter ISO 4217 currency code.
+	Currency *string `json:"currency,omitempty"`
 
-	// Tier pricing
-	Currencies []TierPricingCreate `json:"currencies,omitempty"`
+	// Tiers
+	Tiers []PercentageTierCreate `json:"tiers,omitempty"`
 }

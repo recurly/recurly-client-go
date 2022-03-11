@@ -46,9 +46,6 @@ type SubscriptionUpdate struct {
 	// If present, this subscription's transactions will use the payment gateway with this code.
 	GatewayCode *string `json:"gateway_code,omitempty"`
 
-	// Determines whether or not tax is included in the unit amount. The Tax Inclusive Pricing feature (separate from the Mixed Tax Pricing feature) must be enabled to use this flag.
-	TaxInclusive *bool `json:"tax_inclusive,omitempty"`
-
 	// Subscription shipping details
 	Shipping *SubscriptionShippingUpdate `json:"shipping,omitempty"`
 

@@ -50,11 +50,13 @@ type SubscriptionAddOn struct {
 	TierType string `json:"tier_type,omitempty"`
 
 	// If tiers are provided in the request, all existing tiers on the Subscription Add-on will be
-	// removed and replaced by the tiers in the request.
+	// removed and replaced by the tiers in the request. If add_on.tier_type is tiered or volume and
+	// add_on.usage_type is percentage use percentage_tiers instead.
 	Tiers []SubscriptionAddOnTier `json:"tiers,omitempty"`
 
 	// If percentage tiers are provided in the request, all existing percentage tiers on the Subscription Add-on will be
-	// removed and replaced by the percentage tiers in the request.
+	// removed and replaced by the percentage tiers in the request. Use only if add_on.tier_type is tiered or volume and
+	// add_on.usage_type is percentage.
 	PercentageTiers []SubscriptionAddOnPercentageTier `json:"percentage_tiers,omitempty"`
 
 	// The percentage taken of the monetary amount of usage tracked. This can be up to 4 decimal places. A value between 0.0 and 100.0. Required if add_on_type is usage and usage_type is percentage.
