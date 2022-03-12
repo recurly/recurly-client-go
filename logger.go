@@ -90,6 +90,7 @@ func (log *Logger) stdOut(v ...interface{}) {
 	}
 }
 
+//lint:ignore U1000 TODO: should `Error` call stdErr instead of stdOut?
 func (log *Logger) stdErr(v ...interface{}) {
 	if log.StdErr != nil {
 		log.StdErr.Print(v...)

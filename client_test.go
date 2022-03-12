@@ -141,6 +141,9 @@ func TestClientInjectsResponseMetadataIntoResource(test *testing.T) {
 	client = scenario.MockHTTPClient()
 
 	empty, err := client.DeleteResource("abcd1234")
+	if err != nil {
+		t.Errorf("DeleteResource returned err: %v", err)
+	}
 
 	resp = empty.GetResponse()
 	t.Assert(resp.Request.ID, "msy-1234", "resp.Request.ID")
