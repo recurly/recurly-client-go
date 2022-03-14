@@ -110,6 +110,8 @@ rm -f add_on_create.go
 rm -f add_on_pricing_create.go
 rm -f tier_create.go
 rm -f tier_pricing_create.go
+rm -f percentage_tiers_by_currency_create.go
+rm -f percentage_tier_create.go
 rm -f plan_update.go
 rm -f add_on_update.go
 rm -f shipping_method_create.go
@@ -118,6 +120,7 @@ rm -f subscription_create.go
 rm -f subscription_shipping_create.go
 rm -f subscription_add_on_create.go
 rm -f subscription_add_on_tier_create.go
+rm -f subscription_add_on_percentage_tier_create.go
 rm -f subscription_update.go
 rm -f subscription_shipping_update.go
 rm -f subscription_cancel.go
