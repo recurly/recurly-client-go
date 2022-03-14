@@ -33,8 +33,11 @@ type Usage struct {
 	// to configure quantity-based pricing models.
 	TierType string `json:"tier_type,omitempty"`
 
-	// The tiers and prices of the subscription based on the usage_timestamp. If tier_type = flat, tiers = null
+	// The tiers and prices of the subscription based on the usage_timestamp. If tier_type = flat, tiers = []
 	Tiers []SubscriptionAddOnTier `json:"tiers,omitempty"`
+
+	// The percentage tiers of the subscription based on the usage_timestamp. If tier_type = flat, percentage_tiers = []
+	PercentageTiers []SubscriptionAddOnPercentageTier `json:"percentage_tiers,omitempty"`
 
 	// The ID of the measured unit associated with the add-on the usage record is for.
 	MeasuredUnitId string `json:"measured_unit_id,omitempty"`
