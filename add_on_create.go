@@ -79,6 +79,11 @@ type AddOnCreate struct {
 	// to configure quantity-based pricing models.
 	TierType *string `json:"tier_type,omitempty"`
 
+	// The time at which usage totals are reset for billing purposes.
+	// Allows for `tiered` add-ons to accumulate usage over the course of multiple
+	// billing periods.
+	UsageTimeframe *string `json:"usage_timeframe,omitempty"`
+
 	// If the tier_type is `flat`, then `tiers` must be absent. The `tiers` object
 	// must include one to many tiers with `ending_quantity` and `unit_amount` for
 	// the desired `currencies`. There must be one tier without an `ending_quantity` value
