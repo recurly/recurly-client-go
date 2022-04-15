@@ -49,6 +49,9 @@ type SubscriptionAddOn struct {
 	// to configure quantity-based pricing models.
 	TierType string `json:"tier_type,omitempty"`
 
+	// The time at which usage totals are reset for billing purposes.
+	UsageTimeframe string `json:"usage_timeframe,omitempty"`
+
 	// If tiers are provided in the request, all existing tiers on the Subscription Add-on will be
 	// removed and replaced by the tiers in the request. If add_on.tier_type is tiered or volume and
 	// add_on.usage_type is percentage use percentage_tiers instead.

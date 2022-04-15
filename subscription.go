@@ -150,6 +150,9 @@ type Subscription struct {
 
 	// Billing Info ID.
 	BillingInfoId string `json:"billing_info_id,omitempty"`
+
+	// The invoice ID of the latest invoice created for an active subscription.
+	ActiveInvoiceId string `json:"active_invoice_id,omitempty"`
 }
 
 // GetResponse returns the ResponseMetadata that generated this resource
