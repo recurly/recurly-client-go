@@ -59,7 +59,7 @@ type PlanUpdate struct {
 	// `true` exempts tax on the plan, `false` applies tax on the plan.
 	TaxExempt *bool `json:"tax_exempt,omitempty"`
 
-	// Pricing
+	// Optional when the pricing model is 'ramp'.
 	Currencies []PlanPricingCreate `json:"currencies,omitempty"`
 
 	// Hosted pages settings
