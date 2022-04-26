@@ -12,11 +12,8 @@ import (
 type Tier struct {
 	recurlyResponse *ResponseMetadata
 
-	// Ending quantity for the tier.  This represents a unit amount for unit-priced add ons. Must be left empty if it is the final tier.
+	// Ending quantity for the tier. This represents a unit amount for unit-priced add ons. Must be left empty if it is the final tier.
 	EndingQuantity int `json:"ending_quantity,omitempty"`
-
-	// (deprecated) -- Use the percentage_tiers object instead.
-	UsagePercentage string `json:"usage_percentage,omitempty"`
 
 	// Tier pricing
 	Currencies []TierPricing `json:"currencies,omitempty"`

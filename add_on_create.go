@@ -8,7 +8,7 @@ import ()
 
 type AddOnCreate struct {
 
-	// Unique code to identify an item. Available when the `Credit Invoices` feature are enabled. If `item_id` and `item_code` are both present, `item_id` will be used.
+	// Unique code to identify an item. Available when the `Credit Invoices` feature is enabled. If `item_id` and `item_code` are both present, `item_id` will be used.
 	ItemCode *string `json:"item_code,omitempty"`
 
 	// System-generated unique identifier for an item. Available when the `Credit Invoices` feature is enabled. If `item_id` and `item_code` are both present, `item_id` will be used.
@@ -28,8 +28,8 @@ type AddOnCreate struct {
 	// overview of how to configure usage add-ons.
 	UsageType *string `json:"usage_type,omitempty"`
 
-	// The percentage taken of the monetary amount of usage tracked. This can be up to 4 decimal places. A value between 0.0 and 100.0. Required if `add_on_type` is usage, `tier_type` is `flat` and `usage_type` is percentage. Must be omitted otherwise.
-	UsagePercentage *float64 `json:"usage_percentage,omitempty"`
+	// The percentage taken of the monetary amount of usage tracked. This can be up to 4 decimal places represented as a string. A value between 0.0 and 100.0. Required if `add_on_type` is usage, `tier_type` is `flat` and `usage_type` is percentage. Must be omitted otherwise.
+	UsagePercentage *string `json:"usage_percentage,omitempty"`
 
 	// System-generated unique identifier for a measured unit to be associated with the add-on. Either `measured_unit_id` or `measured_unit_name` are required when `add_on_type` is `usage`. If `measured_unit_id` and `measured_unit_name` are both present, `measured_unit_id` will be used.
 	MeasuredUnitId *string `json:"measured_unit_id,omitempty"`
