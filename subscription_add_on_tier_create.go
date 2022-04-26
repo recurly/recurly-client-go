@@ -8,7 +8,7 @@ import ()
 
 type SubscriptionAddOnTierCreate struct {
 
-	// Ending quantity
+	// Ending quantity for the tier.  This represents a unit amount for unit-priced add ons. Must be left empty if it is the final tier.
 	EndingQuantity *int `json:"ending_quantity,omitempty"`
 
 	// Allows up to 2 decimal places. Optionally, override the tiers' default unit amount.

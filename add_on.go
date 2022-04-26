@@ -79,6 +79,9 @@ type AddOn struct {
 	// to configure quantity-based pricing models.
 	TierType string `json:"tier_type,omitempty"`
 
+	// The time at which usage totals are reset for billing purposes.
+	UsageTimeframe string `json:"usage_timeframe,omitempty"`
+
 	// Tiers
 	Tiers []Tier `json:"tiers,omitempty"`
 
