@@ -40,7 +40,8 @@ type SubscriptionAddOnUpdate struct {
 
 	// If the plan add-on's `tier_type` is `flat`, then `tiers` must be absent. The `tiers` object
 	// must include one to many tiers with `ending_quantity` and `unit_amount`.
-	// There must be one tier without an `ending_quantity` value which represents the final tier.
+	// There must be one tier without an `ending_quantity` value
+	// which represents the final tier.
 	Tiers []SubscriptionAddOnTierCreate `json:"tiers,omitempty"`
 
 	// If percentage tiers are provided in the request, all existing percentage tiers on the Subscription Add-on will be

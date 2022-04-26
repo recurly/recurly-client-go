@@ -31,9 +31,6 @@ type SubscriptionChange struct {
 	// Unit amount
 	UnitAmount float64 `json:"unit_amount,omitempty"`
 
-	// Determines whether or not tax is included in the unit amount. The Tax Inclusive Pricing feature (separate from the Mixed Tax Pricing feature) must be enabled to use this flag.
-	TaxInclusive bool `json:"tax_inclusive,omitempty"`
-
 	// Subscription quantity
 	Quantity int `json:"quantity,omitempty"`
 
@@ -66,6 +63,9 @@ type SubscriptionChange struct {
 
 	// Accept nested attributes for three_d_secure_action_result_token_id
 	BillingInfo SubscriptionChangeBillingInfo `json:"billing_info,omitempty"`
+
+	// Ramp Intervals
+	RampIntervals []SubscriptionRampIntervalResponse `json:"ramp_intervals,omitempty"`
 }
 
 // GetResponse returns the ResponseMetadata that generated this resource

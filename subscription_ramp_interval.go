@@ -6,11 +6,11 @@ package recurly
 
 import ()
 
-type TierCreate struct {
+type SubscriptionRampInterval struct {
 
-	// Ending quantity for the tier. This represents a unit amount for unit-priced add ons. Must be left empty if it is the final tier.
-	EndingQuantity *int `json:"ending_quantity,omitempty"`
+	// Represents how many billing cycles are included in a ramp interval.
+	StartingBillingCycle *int `json:"starting_billing_cycle,omitempty"`
 
-	// Tier pricing
-	Currencies []TierPricingCreate `json:"currencies,omitempty"`
+	// Represents the price for the ramp interval.
+	UnitAmount *int `json:"unit_amount,omitempty"`
 }

@@ -37,8 +37,8 @@ type AddOn struct {
 	// Type of usage, returns usage type if `add_on_type` is `usage`.
 	UsageType string `json:"usage_type,omitempty"`
 
-	// The percentage taken of the monetary amount of usage tracked. This can be up to 4 decimal places. A value between 0.0 and 100.0.
-	UsagePercentage float64 `json:"usage_percentage,omitempty"`
+	// The percentage taken of the monetary amount of usage tracked. This can be up to 4 decimal places. A value between 0.0 and 100.0, represented as a string.
+	UsagePercentage string `json:"usage_percentage,omitempty"`
 
 	// System-generated unique identifier for an measured unit associated with the add-on.
 	MeasuredUnitId string `json:"measured_unit_id,omitempty"`
