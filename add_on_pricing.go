@@ -22,7 +22,7 @@ type AddOnPricing struct {
 	// If `unit_amount_decimal` is provided, `unit_amount` cannot be provided.
 	UnitAmountDecimal string `json:"unit_amount_decimal,omitempty"`
 
-	// Determines whether or not tax is included in the unit amount. The Tax Inclusive Pricing feature (separate from the Mixed Tax Pricing feature) must be enabled to use this flag.
+	// This field is deprecated. Please do not use it.
 	TaxInclusive bool `json:"tax_inclusive,omitempty"`
 }
 

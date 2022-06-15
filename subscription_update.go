@@ -46,7 +46,7 @@ type SubscriptionUpdate struct {
 	// If present, this subscription's transactions will use the payment gateway with this code.
 	GatewayCode *string `json:"gateway_code,omitempty"`
 
-	// This field is deprecated. Do not use it anymore to update a subscription's tax inclusivity. Use the POST subscription change route instead.
+	// This field is deprecated. Please do not use it.
 	TaxInclusive *bool `json:"tax_inclusive,omitempty"`
 
 	// Subscription shipping details
