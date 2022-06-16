@@ -21,7 +21,7 @@ type PlanPricing struct {
 	// Unit price
 	UnitAmount float64 `json:"unit_amount,omitempty"`
 
-	// Determines whether or not tax is included in the unit amount. The Tax Inclusive Pricing feature (separate from the Mixed Tax Pricing feature) must be enabled to use this flag.
+	// This field is deprecated. Please do not use it.
 	TaxInclusive bool `json:"tax_inclusive,omitempty"`
 }
 

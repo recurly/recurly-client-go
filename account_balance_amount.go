@@ -17,6 +17,9 @@ type AccountBalanceAmount struct {
 
 	// Total amount the account is past due.
 	Amount float64 `json:"amount,omitempty"`
+
+	// Total amount for the prepayment credit invoices in a `processing` state on the account.
+	ProcessingPrepaymentAmount float64 `json:"processing_prepayment_amount,omitempty"`
 }
 
 // GetResponse returns the ResponseMetadata that generated this resource
