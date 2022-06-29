@@ -99,4 +99,6 @@ type BillingInfoCreate struct {
 
 	// Use for Online Banking billing info.
 	OnlineBankingPaymentType *string `json:"online_banking_payment_type,omitempty"`
+
+	CardType *string `json:"card_type,omitempty"`
 }
