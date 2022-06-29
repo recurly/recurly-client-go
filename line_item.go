@@ -110,6 +110,9 @@ type LineItem struct {
 	// Positive amount for a charge, negative amount for a credit.
 	UnitAmountDecimal string `json:"unit_amount_decimal,omitempty"`
 
+	// Determines whether or not tax is included in the unit amount. The Tax Inclusive Pricing feature (separate from the Mixed Tax Pricing feature) must be enabled to utilize this flag.
+	TaxInclusive bool `json:"tax_inclusive,omitempty"`
+
 	// `quantity * unit_amount`
 	Subtotal float64 `json:"subtotal,omitempty"`
 
