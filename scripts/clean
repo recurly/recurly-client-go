@@ -46,6 +46,7 @@ rm -f subscription_add_on.go
 rm -f add_on_mini.go
 rm -f subscription_add_on_tier.go
 rm -f subscription_change_billing_info.go
+rm -f subscription_ramp_interval_response.go
 rm -f unique_coupon_code.go
 rm -f custom_field_definition.go
 rm -f item.go
@@ -53,6 +54,8 @@ rm -f pricing.go
 rm -f measured_unit.go
 rm -f binary_file.go
 rm -f plan.go
+rm -f plan_ramp_interval.go
+rm -f plan_ramp_pricing.go
 rm -f plan_pricing.go
 rm -f plan_hosted_pages.go
 rm -f add_on.go
@@ -98,6 +101,8 @@ rm -f invoice_refund.go
 rm -f line_item_refund.go
 rm -f external_refund.go
 rm -f plan_create.go
+rm -f plan_ramp_interval_create.go
+rm -f plan_ramp_pricing_create.go
 rm -f plan_pricing_create.go
 rm -f plan_hosted_pages_create.go
 rm -f add_on_create.go
@@ -111,6 +116,7 @@ rm -f subscription_create.go
 rm -f subscription_shipping_create.go
 rm -f subscription_add_on_create.go
 rm -f subscription_add_on_tier_create.go
+rm -f subscription_ramp_interval.go
 rm -f subscription_update.go
 rm -f subscription_shipping_update.go
 rm -f subscription_cancel.go

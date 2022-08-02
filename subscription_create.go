@@ -67,6 +67,9 @@ type SubscriptionCreate struct {
 	// Whether the subscription renews at the end of its term.
 	AutoRenew *bool `json:"auto_renew,omitempty"`
 
+	// The new set of ramp intervals for the subscription.
+	RampIntervals []SubscriptionRampInterval `json:"ramp_intervals,omitempty"`
+
 	// Revenue schedule type
 	RevenueScheduleType *string `json:"revenue_schedule_type,omitempty"`
 
