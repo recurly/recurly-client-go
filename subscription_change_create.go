@@ -68,4 +68,7 @@ type SubscriptionChangeCreate struct {
 	TransactionType *string `json:"transaction_type,omitempty"`
 
 	BillingInfo *SubscriptionChangeBillingInfoCreate `json:"billing_info,omitempty"`
+
+	// The new set of ramp intervals for the subscription.
+	RampIntervals []SubscriptionRampInterval `json:"ramp_intervals,omitempty"`
 }

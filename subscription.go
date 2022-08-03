@@ -70,6 +70,9 @@ type Subscription struct {
 	// Whether the subscription renews at the end of its term.
 	AutoRenew bool `json:"auto_renew,omitempty"`
 
+	// The ramp intervals representing the pricing schedule for the subscription.
+	RampIntervals []SubscriptionRampIntervalResponse `json:"ramp_intervals,omitempty"`
+
 	// Null unless subscription is paused or will pause at the end of the current billing period.
 	PausedAt time.Time `json:"paused_at,omitempty"`
 

@@ -52,6 +52,14 @@ type Plan struct {
 	// Subscriptions will automatically inherit this value once they are active. If `auto_renew` is `true`, then a subscription will automatically renew its term at renewal. If `auto_renew` is `false`, then a subscription will expire at the end of its term. `auto_renew` can be overridden on the subscription record itself.
 	AutoRenew bool `json:"auto_renew,omitempty"`
 
+	// A fixed pricing model has the same price for each billing period.
+	// A ramp pricing model defines a set of Ramp Intervals, where a subscription changes price on
+	// a specified cadence of billing periods. The price change could be an increase or decrease.
+	PricingModel string `json:"pricing_model,omitempty"`
+
+	// Ramp Intervals
+	RampIntervals []PlanRampInterval `json:"ramp_intervals,omitempty"`
+
 	// Revenue schedule type
 	RevenueScheduleType string `json:"revenue_schedule_type,omitempty"`
 
