@@ -69,6 +69,9 @@ type SubscriptionChange struct {
 
 	// Accept nested attributes for three_d_secure_action_result_token_id
 	BillingInfo SubscriptionChangeBillingInfo `json:"billing_info,omitempty"`
+
+	// The ramp intervals representing the pricing schedule for the subscription.
+	RampIntervals []SubscriptionRampIntervalResponse `json:"ramp_intervals,omitempty"`
 }
 
 // GetResponse returns the ResponseMetadata that generated this resource
