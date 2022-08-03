@@ -55,6 +55,9 @@ type PaymentMethod struct {
 
 	// The bank name of this routing number.
 	RoutingNumberBank string `json:"routing_number_bank,omitempty"`
+
+	// Username of the associated payment method. Currently only associated with Venmo.
+	Username string `json:"username,omitempty"`
 }
 
 // GetResponse returns the ResponseMetadata that generated this resource
