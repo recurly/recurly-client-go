@@ -383,8 +383,8 @@ type ClientInterface interface {
 	GetDunningCampaign(dunningCampaignId string, opts ...Option) (*DunningCampaign, error)
 	GetDunningCampaignWithContext(ctx context.Context, dunningCampaignId string, opts ...Option) (*DunningCampaign, error)
 
-	PutDunningCampaignBulkUpdate(body *DunningCampaignsBulkUpdate, opts ...Option) (*DunningCampaignsBulkUpdateResponse, error)
-	PutDunningCampaignBulkUpdateWithContext(ctx context.Context, body *DunningCampaignsBulkUpdate, opts ...Option) (*DunningCampaignsBulkUpdateResponse, error)
+	PutDunningCampaignBulkUpdate(dunningCampaignId string, body *DunningCampaignsBulkUpdate, opts ...Option) (*DunningCampaignsBulkUpdateResponse, error)
+	PutDunningCampaignBulkUpdateWithContext(ctx context.Context, dunningCampaignId string, body *DunningCampaignsBulkUpdate, opts ...Option) (*DunningCampaignsBulkUpdateResponse, error)
 
 	ListInvoiceTemplates(params *ListInvoiceTemplatesParams, opts ...Option) (InvoiceTemplateLister, error)
 
@@ -6136,9 +6136,9 @@ func (c *Client) getDunningCampaign(ctx context.Context, dunningCampaignId strin
 }
 
 // PutDunningCampaignBulkUpdate wraps PutDunningCampaignBulkUpdateWithContext using the background context
-func (c *Client) PutDunningCampaignBulkUpdate(body *DunningCampaignsBulkUpdate, opts ...Option) (*DunningCampaignsBulkUpdateResponse, error) {
+func (c *Client) PutDunningCampaignBulkUpdate(dunningCampaignId string, body *DunningCampaignsBulkUpdate, opts ...Option) (*DunningCampaignsBulkUpdateResponse, error) {
 	ctx := context.Background()
-	return c.putDunningCampaignBulkUpdate(ctx, body, opts...)
+	return c.putDunningCampaignBulkUpdate(ctx, dunningCampaignId, body, opts...)
 }
 
 // PutDunningCampaignBulkUpdateWithContext Assign a dunning campaign to multiple plans
@@ -6146,12 +6146,12 @@ func (c *Client) PutDunningCampaignBulkUpdate(body *DunningCampaignsBulkUpdate, 
 // API Documentation: https://developers.recurly.com/api/v2021-02-25#operation/put_dunning_campaign_bulk_update
 //
 // Returns: A list of updated plans.
-func (c *Client) PutDunningCampaignBulkUpdateWithContext(ctx context.Context, body *DunningCampaignsBulkUpdate, opts ...Option) (*DunningCampaignsBulkUpdateResponse, error) {
-	return c.putDunningCampaignBulkUpdate(ctx, body, opts...)
+func (c *Client) PutDunningCampaignBulkUpdateWithContext(ctx context.Context, dunningCampaignId string, body *DunningCampaignsBulkUpdate, opts ...Option) (*DunningCampaignsBulkUpdateResponse, error) {
+	return c.putDunningCampaignBulkUpdate(ctx, dunningCampaignId, body, opts...)
 }
 
-func (c *Client) putDunningCampaignBulkUpdate(ctx context.Context, body *DunningCampaignsBulkUpdate, opts ...Option) (*DunningCampaignsBulkUpdateResponse, error) {
-	path, err := c.InterpolatePath("/dunning_campaigns/{dunning_campaign_id}/bulk_update")
+func (c *Client) putDunningCampaignBulkUpdate(ctx context.Context, dunningCampaignId string, body *DunningCampaignsBulkUpdate, opts ...Option) (*DunningCampaignsBulkUpdateResponse, error) {
+	path, err := c.InterpolatePath("/dunning_campaigns/{dunning_campaign_id}/bulk_update", dunningCampaignId)
 	if err != nil {
 		return nil, err
 	}
