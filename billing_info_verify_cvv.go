@@ -6,11 +6,8 @@ package recurly
 
 import ()
 
-type PlanRampIntervalCreate struct {
+type BillingInfoVerifyCVV struct {
 
-	// Represents the billing cycle where a ramp interval starts.
-	StartingBillingCycle *int `json:"starting_billing_cycle,omitempty"`
-
-	// Represents the price for the ramp interval.
-	Currencies []PlanRampPricingCreate `json:"currencies,omitempty"`
+	// Unique security code for a credit card.
+	VerificationValue *string `json:"verification_value,omitempty"`
 }

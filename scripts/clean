@@ -86,6 +86,7 @@ rm -f billing_info_create.go
 rm -f custom_field_create.go
 rm -f account_update.go
 rm -f billing_info_verify.go
+rm -f billing_info_verify_cvv.go
 rm -f coupon_redemption_create.go
 rm -f invoice_create.go
 rm -f line_item_create.go
