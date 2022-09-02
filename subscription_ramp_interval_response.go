@@ -12,7 +12,7 @@ import (
 type SubscriptionRampIntervalResponse struct {
 	recurlyResponse *ResponseMetadata
 
-	// Represents how many billing cycles are included in a ramp interval.
+	// Represents the billing cycle where a ramp interval starts.
 	StartingBillingCycle int `json:"starting_billing_cycle,omitempty"`
 
 	// Represents how many billing cycles are left in a ramp interval.
