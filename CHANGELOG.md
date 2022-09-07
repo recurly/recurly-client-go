@@ -1,5 +1,17 @@
 # Changelog
 
+## [v4.21.0](https://github.com/recurly/recurly-client-go/tree/v4.21.0) (2022-09-07)
+
+[Full Changelog](https://github.com/recurly/recurly-client-go/compare/v4.20.0...v4.21.0)
+
+
+**Merged Pull Requests**
+
+- Generated Latest Changes for v2021-02-25 [#162](https://github.com/recurly/recurly-client-go/pull/162) ([recurly-integrations](https://github.com/recurly-integrations))
+- Fixes bug with PutDunningCampaignBulkUpdate(WithContext) [#160](https://github.com/recurly/recurly-client-go/pull/160) ([recurly-integrations](https://github.com/recurly-integrations))
+
+
+
 ## [v4.20.0](https://github.com/recurly/recurly-client-go/tree/v4.20.0) (2022-08-03)
 
 [Full Changelog](https://github.com/recurly/recurly-client-go/compare/v4.19.0...v4.20.0)
