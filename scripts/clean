@@ -86,6 +86,7 @@ rm -f billing_info_create.go
 rm -f custom_field_create.go
 rm -f account_update.go
 rm -f billing_info_verify.go
+rm -f billing_info_verify_cvv.go
 rm -f coupon_redemption_create.go
 rm -f invoice_create.go
 rm -f line_item_create.go
@@ -126,6 +127,7 @@ rm -f subscription_shipping_create.go
 rm -f subscription_add_on_create.go
 rm -f subscription_add_on_tier_create.go
 rm -f subscription_add_on_percentage_tier_create.go
+rm -f subscription_ramp_interval.go
 rm -f subscription_update.go
 rm -f subscription_shipping_update.go
 rm -f subscription_cancel.go
@@ -134,7 +136,6 @@ rm -f subscription_change_create.go
 rm -f subscription_change_shipping_create.go
 rm -f subscription_add_on_update.go
 rm -f subscription_change_billing_info_create.go
-rm -f subscription_ramp_interval.go
 rm -f usage_create.go
 rm -f purchase_create.go
 rm -f account_purchase.go

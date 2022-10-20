@@ -55,6 +55,6 @@ type SubscriptionPurchase struct {
 	// Revenue schedule type
 	RevenueScheduleType *string `json:"revenue_schedule_type,omitempty"`
 
-	// Ramp Intervals
+	// The new set of ramp intervals for the subscription.
 	RampIntervals []SubscriptionRampInterval `json:"ramp_intervals,omitempty"`
 }

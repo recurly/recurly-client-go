@@ -70,6 +70,9 @@ type Subscription struct {
 	// Whether the subscription renews at the end of its term.
 	AutoRenew bool `json:"auto_renew,omitempty"`
 
+	// The ramp intervals representing the pricing schedule for the subscription.
+	RampIntervals []SubscriptionRampIntervalResponse `json:"ramp_intervals,omitempty"`
+
 	// Null unless subscription is paused or will pause at the end of the current billing period.
 	PausedAt time.Time `json:"paused_at,omitempty"`
 
@@ -84,6 +87,9 @@ type Subscription struct {
 
 	// Subscription unit price
 	UnitAmount float64 `json:"unit_amount,omitempty"`
+
+	// Determines whether or not tax is included in the unit amount. The Tax Inclusive Pricing feature (separate from the Mixed Tax Pricing feature) must be enabled to utilize this flag.
+	TaxInclusive bool `json:"tax_inclusive,omitempty"`
 
 	// Subscription quantity
 	Quantity int `json:"quantity,omitempty"`

@@ -104,11 +104,17 @@ type LineItem struct {
 	// This number will be multiplied by the unit amount to compute the subtotal before any discounts or taxes.
 	Quantity int `json:"quantity,omitempty"`
 
+	// A floating-point alternative to Quantity. If this value is present, it will be used in place of Quantity for calculations, and Quantity will be the rounded integer value of this number. This field supports up to 9 decimal places. The Decimal Quantity feature must be enabled to utilize this field.
+	QuantityDecimal string `json:"quantity_decimal,omitempty"`
+
 	// Positive amount for a charge, negative amount for a credit.
 	UnitAmount float64 `json:"unit_amount,omitempty"`
 
 	// Positive amount for a charge, negative amount for a credit.
 	UnitAmountDecimal string `json:"unit_amount_decimal,omitempty"`
+
+	// Determines whether or not tax is included in the unit amount. The Tax Inclusive Pricing feature (separate from the Mixed Tax Pricing feature) must be enabled to utilize this flag.
+	TaxInclusive bool `json:"tax_inclusive,omitempty"`
 
 	// `quantity * unit_amount`
 	Subtotal float64 `json:"subtotal,omitempty"`
@@ -145,6 +151,9 @@ type LineItem struct {
 
 	// For refund charges, the quantity being refunded. For non-refund charges, the total quantity refunded (possibly over multiple refunds).
 	RefundedQuantity int `json:"refunded_quantity,omitempty"`
+
+	// A floating-point alternative to Refunded Quantity. For refund charges, the quantity being refunded. For non-refund charges, the total quantity refunded (possibly over multiple refunds). The Decimal Quantity feature must be enabled to utilize this field.
+	RefundedQuantityDecimal string `json:"refunded_quantity_decimal,omitempty"`
 
 	// The amount of credit from this line item that was applied to the invoice.
 	CreditApplied float64 `json:"credit_applied,omitempty"`
