@@ -9,7 +9,7 @@ import ()
 type PlanRampIntervalCreate struct {
 	Params `json:"-"`
 
-	// Represents the first billing cycle of a ramp.
+	// Represents the billing cycle where a ramp interval starts.
 	StartingBillingCycle *int `json:"starting_billing_cycle,omitempty"`
 
 	// Represents the price for the ramp interval.
