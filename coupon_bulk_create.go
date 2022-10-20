@@ -4,10 +4,17 @@
 // need and we will usher them to the appropriate places.
 package recurly
 
-import ()
+import (
+)
 
 type CouponBulkCreate struct {
+  
 
-	// The quantity of unique coupon codes to generate
-	NumberOfUniqueCodes *int `json:"number_of_unique_codes,omitempty"`
+  
+        // The quantity of unique coupon codes to generate
+        NumberOfUniqueCodes *int `json:"number_of_unique_codes,omitempty"`
+
+  
 }
+
+

@@ -5,38 +5,47 @@
 package recurly
 
 import (
-	"context"
-	"net/http"
+        "net/http"
+        "context"
 )
 
 type AccountBalanceAmount struct {
-	recurlyResponse *ResponseMetadata
+  recurlyResponse *ResponseMetadata
 
-	// 3-letter ISO 4217 currency code.
-	Currency string `json:"currency,omitempty"`
+  
+        // 3-letter ISO 4217 currency code.
+        Currency string `json:"currency,omitempty"`
 
-	// Total amount the account is past due.
-	Amount float64 `json:"amount,omitempty"`
+  
+        // Total amount the account is past due.
+        Amount float64 `json:"amount,omitempty"`
 
-	// Total amount for the prepayment credit invoices in a `processing` state on the account.
-	ProcessingPrepaymentAmount float64 `json:"processing_prepayment_amount,omitempty"`
+  
+        // Total amount for the prepayment credit invoices in a `processing` state on the account.
+        ProcessingPrepaymentAmount float64 `json:"processing_prepayment_amount,omitempty"`
+
+  
 }
 
 // GetResponse returns the ResponseMetadata that generated this resource
 func (resource *AccountBalanceAmount) GetResponse() *ResponseMetadata {
-	return resource.recurlyResponse
+  return resource.recurlyResponse
 }
 
 // setResponse sets the ResponseMetadata that generated this resource
 func (resource *AccountBalanceAmount) setResponse(res *ResponseMetadata) {
-	resource.recurlyResponse = res
+  resource.recurlyResponse = res
 }
+
+
+
+
 
 // internal struct for deserializing accounts
 type accountBalanceAmountList struct {
 	ListMetadata
-	Data            []AccountBalanceAmount `json:"data"`
-	recurlyResponse *ResponseMetadata
+  Data []AccountBalanceAmount `json:"data"`
+  recurlyResponse *ResponseMetadata
 }
 
 // GetResponse returns the ResponseMetadata that generated this resource
@@ -49,45 +58,50 @@ func (resource *accountBalanceAmountList) setResponse(res *ResponseMetadata) {
 	resource.recurlyResponse = res
 }
 
+
+
+
 // AccountBalanceAmountList allows you to paginate AccountBalanceAmount objects
 type AccountBalanceAmountList struct {
-	client         HTTPCaller
-	requestOptions *RequestOptions
-	nextPagePath   string
-	hasMore        bool
-	data           []AccountBalanceAmount
+  client         HTTPCaller
+  requestOptions *RequestOptions
+  nextPagePath   string
+  hasMore bool
+  data    []AccountBalanceAmount
 }
 
 func NewAccountBalanceAmountList(client HTTPCaller, nextPagePath string, requestOptions *RequestOptions) *AccountBalanceAmountList {
-	return &AccountBalanceAmountList{
-		client:         client,
-		requestOptions: requestOptions,
-		nextPagePath:   nextPagePath,
-		hasMore:        true,
-	}
+  return &AccountBalanceAmountList{
+    client:       client,
+    requestOptions: requestOptions,
+    nextPagePath: nextPagePath,
+    hasMore:      true,
+  }
 }
+
 
 type AccountBalanceAmountLister interface {
-	Fetch() error
-	FetchWithContext(ctx context.Context) error
-	Count() (*int64, error)
-	CountWithContext(ctx context.Context) (*int64, error)
-	Data() []AccountBalanceAmount
-	HasMore() bool
-	Next() string
+  Fetch() error
+  FetchWithContext(ctx context.Context) error
+  Count() (*int64, error)
+  CountWithContext(ctx context.Context) (*int64, error)
+  Data()    []AccountBalanceAmount
+  HasMore() bool
+  Next() string
 }
 
-func (list *AccountBalanceAmountList) HasMore() bool {
-	return list.hasMore
+func (list  *AccountBalanceAmountList) HasMore() bool {
+    return list.hasMore
 }
 
-func (list *AccountBalanceAmountList) Next() string {
-	return list.nextPagePath
+func (list  *AccountBalanceAmountList) Next() string {
+    return list.nextPagePath
 }
 
 func (list *AccountBalanceAmountList) Data() []AccountBalanceAmount {
-	return list.data
+    return list.data
 }
+
 
 // Fetch fetches the next page of data into the `Data` property
 func (list *AccountBalanceAmountList) FetchWithContext(ctx context.Context) error {
@@ -96,16 +110,16 @@ func (list *AccountBalanceAmountList) FetchWithContext(ctx context.Context) erro
 	if err != nil {
 		return err
 	}
-	// copy over properties from the response
-	list.nextPagePath = resources.Next
+  // copy over properties from the response
+  list.nextPagePath = resources.Next
 	list.hasMore = resources.HasMore
 	list.data = resources.Data
-	return nil
+  return nil
 }
 
 // Fetch fetches the next page of data into the `Data` property
 func (list *AccountBalanceAmountList) Fetch() error {
-	return list.FetchWithContext(context.Background())
+  return list.FetchWithContext(context.Background())
 }
 
 // Count returns the count of items on the server that match this pager
@@ -121,5 +135,5 @@ func (list *AccountBalanceAmountList) CountWithContext(ctx context.Context) (*in
 
 // Count returns the count of items on the server that match this pager
 func (list *AccountBalanceAmountList) Count() (*int64, error) {
-	return list.CountWithContext(context.Background())
+  return list.CountWithContext(context.Background())
 }

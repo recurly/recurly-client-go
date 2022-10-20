@@ -4,13 +4,21 @@
 // need and we will usher them to the appropriate places.
 package recurly
 
-import ()
+import (
+)
 
 type CouponPricing struct {
+  
 
-	// 3-letter ISO 4217 currency code.
-	Currency *string `json:"currency,omitempty"`
+  
+        // 3-letter ISO 4217 currency code.
+        Currency *string `json:"currency,omitempty"`
 
-	// The fixed discount (in dollars) for the corresponding currency.
-	Discount *float64 `json:"discount,omitempty"`
+  
+        // The fixed discount (in dollars) for the corresponding currency.
+        Discount *float64 `json:"discount,omitempty"`
+
+  
 }
+
+

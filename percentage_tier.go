@@ -5,36 +5,44 @@
 package recurly
 
 import (
-	"context"
-	"net/http"
+        "net/http"
+        "context"
 )
 
 type PercentageTier struct {
-	recurlyResponse *ResponseMetadata
+  recurlyResponse *ResponseMetadata
 
-	// Ending amount for the tier. Allows up to 2 decimal places. Must be left empty if it is the final tier.
-	EndingAmount float64 `json:"ending_amount,omitempty"`
+  
+        // Ending amount for the tier. Allows up to 2 decimal places. Must be left empty if it is the final tier.
+        EndingAmount float64 `json:"ending_amount,omitempty"`
 
-	// The percentage taken of the monetary amount of usage tracked.
-	// This can be up to 4 decimal places represented as a string.
-	UsagePercentage string `json:"usage_percentage,omitempty"`
+  
+        // The percentage taken of the monetary amount of usage tracked.
+ // This can be up to 4 decimal places represented as a string.
+        UsagePercentage string `json:"usage_percentage,omitempty"`
+
+  
 }
 
 // GetResponse returns the ResponseMetadata that generated this resource
 func (resource *PercentageTier) GetResponse() *ResponseMetadata {
-	return resource.recurlyResponse
+  return resource.recurlyResponse
 }
 
 // setResponse sets the ResponseMetadata that generated this resource
 func (resource *PercentageTier) setResponse(res *ResponseMetadata) {
-	resource.recurlyResponse = res
+  resource.recurlyResponse = res
 }
+
+
+
+
 
 // internal struct for deserializing accounts
 type percentageTierList struct {
 	ListMetadata
-	Data            []PercentageTier `json:"data"`
-	recurlyResponse *ResponseMetadata
+  Data []PercentageTier `json:"data"`
+  recurlyResponse *ResponseMetadata
 }
 
 // GetResponse returns the ResponseMetadata that generated this resource
@@ -47,45 +55,50 @@ func (resource *percentageTierList) setResponse(res *ResponseMetadata) {
 	resource.recurlyResponse = res
 }
 
+
+
+
 // PercentageTierList allows you to paginate PercentageTier objects
 type PercentageTierList struct {
-	client         HTTPCaller
-	requestOptions *RequestOptions
-	nextPagePath   string
-	hasMore        bool
-	data           []PercentageTier
+  client         HTTPCaller
+  requestOptions *RequestOptions
+  nextPagePath   string
+  hasMore bool
+  data    []PercentageTier
 }
 
 func NewPercentageTierList(client HTTPCaller, nextPagePath string, requestOptions *RequestOptions) *PercentageTierList {
-	return &PercentageTierList{
-		client:         client,
-		requestOptions: requestOptions,
-		nextPagePath:   nextPagePath,
-		hasMore:        true,
-	}
+  return &PercentageTierList{
+    client:       client,
+    requestOptions: requestOptions,
+    nextPagePath: nextPagePath,
+    hasMore:      true,
+  }
 }
+
 
 type PercentageTierLister interface {
-	Fetch() error
-	FetchWithContext(ctx context.Context) error
-	Count() (*int64, error)
-	CountWithContext(ctx context.Context) (*int64, error)
-	Data() []PercentageTier
-	HasMore() bool
-	Next() string
+  Fetch() error
+  FetchWithContext(ctx context.Context) error
+  Count() (*int64, error)
+  CountWithContext(ctx context.Context) (*int64, error)
+  Data()    []PercentageTier
+  HasMore() bool
+  Next() string
 }
 
-func (list *PercentageTierList) HasMore() bool {
-	return list.hasMore
+func (list  *PercentageTierList) HasMore() bool {
+    return list.hasMore
 }
 
-func (list *PercentageTierList) Next() string {
-	return list.nextPagePath
+func (list  *PercentageTierList) Next() string {
+    return list.nextPagePath
 }
 
 func (list *PercentageTierList) Data() []PercentageTier {
-	return list.data
+    return list.data
 }
+
 
 // Fetch fetches the next page of data into the `Data` property
 func (list *PercentageTierList) FetchWithContext(ctx context.Context) error {
@@ -94,16 +107,16 @@ func (list *PercentageTierList) FetchWithContext(ctx context.Context) error {
 	if err != nil {
 		return err
 	}
-	// copy over properties from the response
-	list.nextPagePath = resources.Next
+  // copy over properties from the response
+  list.nextPagePath = resources.Next
 	list.hasMore = resources.HasMore
 	list.data = resources.Data
-	return nil
+  return nil
 }
 
 // Fetch fetches the next page of data into the `Data` property
 func (list *PercentageTierList) Fetch() error {
-	return list.FetchWithContext(context.Background())
+  return list.FetchWithContext(context.Background())
 }
 
 // Count returns the count of items on the server that match this pager
@@ -119,5 +132,5 @@ func (list *PercentageTierList) CountWithContext(ctx context.Context) (*int64, e
 
 // Count returns the count of items on the server that match this pager
 func (list *PercentageTierList) Count() (*int64, error) {
-	return list.CountWithContext(context.Background())
+  return list.CountWithContext(context.Background())
 }

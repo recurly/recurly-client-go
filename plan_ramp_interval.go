@@ -5,35 +5,43 @@
 package recurly
 
 import (
-	"context"
-	"net/http"
+        "net/http"
+        "context"
 )
 
 type PlanRampInterval struct {
-	recurlyResponse *ResponseMetadata
+  recurlyResponse *ResponseMetadata
 
-	// Represents the billing cycle where a ramp interval starts.
-	StartingBillingCycle int `json:"starting_billing_cycle,omitempty"`
+  
+        // Represents the billing cycle where a ramp interval starts.
+        StartingBillingCycle int `json:"starting_billing_cycle,omitempty"`
 
-	// Represents the price for the ramp interval.
-	Currencies []PlanRampPricing `json:"currencies,omitempty"`
+  
+        // Represents the price for the ramp interval.
+        Currencies []PlanRampPricing `json:"currencies,omitempty"`
+
+  
 }
 
 // GetResponse returns the ResponseMetadata that generated this resource
 func (resource *PlanRampInterval) GetResponse() *ResponseMetadata {
-	return resource.recurlyResponse
+  return resource.recurlyResponse
 }
 
 // setResponse sets the ResponseMetadata that generated this resource
 func (resource *PlanRampInterval) setResponse(res *ResponseMetadata) {
-	resource.recurlyResponse = res
+  resource.recurlyResponse = res
 }
+
+
+
+
 
 // internal struct for deserializing accounts
 type planRampIntervalList struct {
 	ListMetadata
-	Data            []PlanRampInterval `json:"data"`
-	recurlyResponse *ResponseMetadata
+  Data []PlanRampInterval `json:"data"`
+  recurlyResponse *ResponseMetadata
 }
 
 // GetResponse returns the ResponseMetadata that generated this resource
@@ -46,45 +54,50 @@ func (resource *planRampIntervalList) setResponse(res *ResponseMetadata) {
 	resource.recurlyResponse = res
 }
 
+
+
+
 // PlanRampIntervalList allows you to paginate PlanRampInterval objects
 type PlanRampIntervalList struct {
-	client         HTTPCaller
-	requestOptions *RequestOptions
-	nextPagePath   string
-	hasMore        bool
-	data           []PlanRampInterval
+  client         HTTPCaller
+  requestOptions *RequestOptions
+  nextPagePath   string
+  hasMore bool
+  data    []PlanRampInterval
 }
 
 func NewPlanRampIntervalList(client HTTPCaller, nextPagePath string, requestOptions *RequestOptions) *PlanRampIntervalList {
-	return &PlanRampIntervalList{
-		client:         client,
-		requestOptions: requestOptions,
-		nextPagePath:   nextPagePath,
-		hasMore:        true,
-	}
+  return &PlanRampIntervalList{
+    client:       client,
+    requestOptions: requestOptions,
+    nextPagePath: nextPagePath,
+    hasMore:      true,
+  }
 }
+
 
 type PlanRampIntervalLister interface {
-	Fetch() error
-	FetchWithContext(ctx context.Context) error
-	Count() (*int64, error)
-	CountWithContext(ctx context.Context) (*int64, error)
-	Data() []PlanRampInterval
-	HasMore() bool
-	Next() string
+  Fetch() error
+  FetchWithContext(ctx context.Context) error
+  Count() (*int64, error)
+  CountWithContext(ctx context.Context) (*int64, error)
+  Data()    []PlanRampInterval
+  HasMore() bool
+  Next() string
 }
 
-func (list *PlanRampIntervalList) HasMore() bool {
-	return list.hasMore
+func (list  *PlanRampIntervalList) HasMore() bool {
+    return list.hasMore
 }
 
-func (list *PlanRampIntervalList) Next() string {
-	return list.nextPagePath
+func (list  *PlanRampIntervalList) Next() string {
+    return list.nextPagePath
 }
 
 func (list *PlanRampIntervalList) Data() []PlanRampInterval {
-	return list.data
+    return list.data
 }
+
 
 // Fetch fetches the next page of data into the `Data` property
 func (list *PlanRampIntervalList) FetchWithContext(ctx context.Context) error {
@@ -93,16 +106,16 @@ func (list *PlanRampIntervalList) FetchWithContext(ctx context.Context) error {
 	if err != nil {
 		return err
 	}
-	// copy over properties from the response
-	list.nextPagePath = resources.Next
+  // copy over properties from the response
+  list.nextPagePath = resources.Next
 	list.hasMore = resources.HasMore
 	list.data = resources.Data
-	return nil
+  return nil
 }
 
 // Fetch fetches the next page of data into the `Data` property
 func (list *PlanRampIntervalList) Fetch() error {
-	return list.FetchWithContext(context.Background())
+  return list.FetchWithContext(context.Background())
 }
 
 // Count returns the count of items on the server that match this pager
@@ -118,5 +131,5 @@ func (list *PlanRampIntervalList) CountWithContext(ctx context.Context) (*int64,
 
 // Count returns the count of items on the server that match this pager
 func (list *PlanRampIntervalList) Count() (*int64, error) {
-	return list.CountWithContext(context.Background())
+  return list.CountWithContext(context.Background())
 }

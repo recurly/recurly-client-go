@@ -4,17 +4,26 @@
 // need and we will usher them to the appropriate places.
 package recurly
 
-import ()
+import (
+)
 
 type LineItemRefund struct {
+  
 
-	// Line item ID
-	Id *string `json:"id,omitempty"`
+  
+        // Line item ID
+        Id *string `json:"id,omitempty"`
 
-	// Line item quantity to be refunded.
-	Quantity *int `json:"quantity,omitempty"`
+  
+        // Line item quantity to be refunded.
+        Quantity *int `json:"quantity,omitempty"`
 
-	// Set to `true` if the line item should be prorated; set to `false` if not.
-	// This can only be used on line items that have a start and end date.
-	Prorate *bool `json:"prorate,omitempty"`
+  
+        // Set to `true` if the line item should be prorated; set to `false` if not.
+ // This can only be used on line items that have a start and end date.
+        Prorate *bool `json:"prorate,omitempty"`
+
+  
 }
+
+

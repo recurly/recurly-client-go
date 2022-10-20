@@ -5,35 +5,43 @@
 package recurly
 
 import (
-	"context"
-	"net/http"
+        "net/http"
+        "context"
 )
 
 type ExportDates struct {
-	recurlyResponse *ResponseMetadata
+  recurlyResponse *ResponseMetadata
 
-	// Object type
-	Object string `json:"object,omitempty"`
+  
+        // Object type
+        Object string `json:"object,omitempty"`
 
-	// An array of dates that have available exports.
-	Dates []string `json:"dates,omitempty"`
+  
+        // An array of dates that have available exports.
+        Dates []string `json:"dates,omitempty"`
+
+  
 }
 
 // GetResponse returns the ResponseMetadata that generated this resource
 func (resource *ExportDates) GetResponse() *ResponseMetadata {
-	return resource.recurlyResponse
+  return resource.recurlyResponse
 }
 
 // setResponse sets the ResponseMetadata that generated this resource
 func (resource *ExportDates) setResponse(res *ResponseMetadata) {
-	resource.recurlyResponse = res
+  resource.recurlyResponse = res
 }
+
+
+
+
 
 // internal struct for deserializing accounts
 type exportDatesList struct {
 	ListMetadata
-	Data            []ExportDates `json:"data"`
-	recurlyResponse *ResponseMetadata
+  Data []ExportDates `json:"data"`
+  recurlyResponse *ResponseMetadata
 }
 
 // GetResponse returns the ResponseMetadata that generated this resource
@@ -46,45 +54,50 @@ func (resource *exportDatesList) setResponse(res *ResponseMetadata) {
 	resource.recurlyResponse = res
 }
 
+
+
+
 // ExportDatesList allows you to paginate ExportDates objects
 type ExportDatesList struct {
-	client         HTTPCaller
-	requestOptions *RequestOptions
-	nextPagePath   string
-	hasMore        bool
-	data           []ExportDates
+  client         HTTPCaller
+  requestOptions *RequestOptions
+  nextPagePath   string
+  hasMore bool
+  data    []ExportDates
 }
 
 func NewExportDatesList(client HTTPCaller, nextPagePath string, requestOptions *RequestOptions) *ExportDatesList {
-	return &ExportDatesList{
-		client:         client,
-		requestOptions: requestOptions,
-		nextPagePath:   nextPagePath,
-		hasMore:        true,
-	}
+  return &ExportDatesList{
+    client:       client,
+    requestOptions: requestOptions,
+    nextPagePath: nextPagePath,
+    hasMore:      true,
+  }
 }
+
 
 type ExportDatesLister interface {
-	Fetch() error
-	FetchWithContext(ctx context.Context) error
-	Count() (*int64, error)
-	CountWithContext(ctx context.Context) (*int64, error)
-	Data() []ExportDates
-	HasMore() bool
-	Next() string
+  Fetch() error
+  FetchWithContext(ctx context.Context) error
+  Count() (*int64, error)
+  CountWithContext(ctx context.Context) (*int64, error)
+  Data()    []ExportDates
+  HasMore() bool
+  Next() string
 }
 
-func (list *ExportDatesList) HasMore() bool {
-	return list.hasMore
+func (list  *ExportDatesList) HasMore() bool {
+    return list.hasMore
 }
 
-func (list *ExportDatesList) Next() string {
-	return list.nextPagePath
+func (list  *ExportDatesList) Next() string {
+    return list.nextPagePath
 }
 
 func (list *ExportDatesList) Data() []ExportDates {
-	return list.data
+    return list.data
 }
+
 
 // Fetch fetches the next page of data into the `Data` property
 func (list *ExportDatesList) FetchWithContext(ctx context.Context) error {
@@ -93,16 +106,16 @@ func (list *ExportDatesList) FetchWithContext(ctx context.Context) error {
 	if err != nil {
 		return err
 	}
-	// copy over properties from the response
-	list.nextPagePath = resources.Next
+  // copy over properties from the response
+  list.nextPagePath = resources.Next
 	list.hasMore = resources.HasMore
 	list.data = resources.Data
-	return nil
+  return nil
 }
 
 // Fetch fetches the next page of data into the `Data` property
 func (list *ExportDatesList) Fetch() error {
-	return list.FetchWithContext(context.Background())
+  return list.FetchWithContext(context.Background())
 }
 
 // Count returns the count of items on the server that match this pager
@@ -118,5 +131,5 @@ func (list *ExportDatesList) CountWithContext(ctx context.Context) (*int64, erro
 
 // Count returns the count of items on the server that match this pager
 func (list *ExportDatesList) Count() (*int64, error) {
-	return list.CountWithContext(context.Background())
+  return list.CountWithContext(context.Background())
 }

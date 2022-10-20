@@ -5,120 +5,158 @@
 package recurly
 
 import (
-	"context"
-	"net/http"
-	"time"
+        "net/http"
+        "context"
+        "time"
 )
 
 type Account struct {
-	recurlyResponse *ResponseMetadata
+  recurlyResponse *ResponseMetadata
 
-	Id string `json:"id,omitempty"`
+  
+        Id string `json:"id,omitempty"`
 
-	// Object type
-	Object string `json:"object,omitempty"`
+  
+        // Object type
+        Object string `json:"object,omitempty"`
 
-	// Accounts can be either active or inactive.
-	State string `json:"state,omitempty"`
+  
+        // Accounts can be either active or inactive.
+        State string `json:"state,omitempty"`
 
-	// The unique token for automatically logging the account in to the hosted management pages. You may automatically log the user into their hosted management pages by directing the user to: `https://{subdomain}.recurly.com/account/{hosted_login_token}`.
-	HostedLoginToken string `json:"hosted_login_token,omitempty"`
+  
+        // The unique token for automatically logging the account in to the hosted management pages. You may automatically log the user into their hosted management pages by directing the user to: `https://{subdomain}.recurly.com/account/{hosted_login_token}`.
+        HostedLoginToken string `json:"hosted_login_token,omitempty"`
 
-	// The shipping addresses on the account.
-	ShippingAddresses []ShippingAddress `json:"shipping_addresses,omitempty"`
+  
+        // The shipping addresses on the account.
+        ShippingAddresses []ShippingAddress `json:"shipping_addresses,omitempty"`
 
-	// Indicates if the account has a subscription that is either active, canceled, future, or paused.
-	HasLiveSubscription bool `json:"has_live_subscription,omitempty"`
+  
+        // Indicates if the account has a subscription that is either active, canceled, future, or paused.
+        HasLiveSubscription bool `json:"has_live_subscription,omitempty"`
 
-	// Indicates if the account has an active subscription.
-	HasActiveSubscription bool `json:"has_active_subscription,omitempty"`
+  
+        // Indicates if the account has an active subscription.
+        HasActiveSubscription bool `json:"has_active_subscription,omitempty"`
 
-	// Indicates if the account has a future subscription.
-	HasFutureSubscription bool `json:"has_future_subscription,omitempty"`
+  
+        // Indicates if the account has a future subscription.
+        HasFutureSubscription bool `json:"has_future_subscription,omitempty"`
 
-	// Indicates if the account has a canceled subscription.
-	HasCanceledSubscription bool `json:"has_canceled_subscription,omitempty"`
+  
+        // Indicates if the account has a canceled subscription.
+        HasCanceledSubscription bool `json:"has_canceled_subscription,omitempty"`
 
-	// Indicates if the account has a paused subscription.
-	HasPausedSubscription bool `json:"has_paused_subscription,omitempty"`
+  
+        // Indicates if the account has a paused subscription.
+        HasPausedSubscription bool `json:"has_paused_subscription,omitempty"`
 
-	// Indicates if the account has a past due invoice.
-	HasPastDueInvoice bool `json:"has_past_due_invoice,omitempty"`
+  
+        // Indicates if the account has a past due invoice.
+        HasPastDueInvoice bool `json:"has_past_due_invoice,omitempty"`
 
-	// When the account was created.
-	CreatedAt time.Time `json:"created_at,omitempty"`
+  
+        // When the account was created.
+        CreatedAt time.Time `json:"created_at,omitempty"`
 
-	// When the account was last changed.
-	UpdatedAt time.Time `json:"updated_at,omitempty"`
+  
+        // When the account was last changed.
+        UpdatedAt time.Time `json:"updated_at,omitempty"`
 
-	// If present, when the account was last marked inactive.
-	DeletedAt time.Time `json:"deleted_at,omitempty"`
+  
+        // If present, when the account was last marked inactive.
+        DeletedAt time.Time `json:"deleted_at,omitempty"`
 
-	// The unique identifier of the account. This cannot be changed once the account is created.
-	Code string `json:"code,omitempty"`
+  
+        // The unique identifier of the account. This cannot be changed once the account is created.
+        Code string `json:"code,omitempty"`
 
-	// A secondary value for the account.
-	Username string `json:"username,omitempty"`
+  
+        // A secondary value for the account.
+        Username string `json:"username,omitempty"`
 
-	// The email address used for communicating with this customer. The customer will also use this email address to log into your hosted account management pages. This value does not need to be unique.
-	Email string `json:"email,omitempty"`
+  
+        // The email address used for communicating with this customer. The customer will also use this email address to log into your hosted account management pages. This value does not need to be unique.
+        Email string `json:"email,omitempty"`
 
-	// Used to determine the language and locale of emails sent on behalf of the merchant to the customer.
-	PreferredLocale string `json:"preferred_locale,omitempty"`
+  
+        // Used to determine the language and locale of emails sent on behalf of the merchant to the customer.
+        PreferredLocale string `json:"preferred_locale,omitempty"`
 
-	// Additional email address that should receive account correspondence. These should be separated only by commas. These CC emails will receive all emails that the `email` field also receives.
-	CcEmails string `json:"cc_emails,omitempty"`
+  
+        // Additional email address that should receive account correspondence. These should be separated only by commas. These CC emails will receive all emails that the `email` field also receives.
+        CcEmails string `json:"cc_emails,omitempty"`
 
-	FirstName string `json:"first_name,omitempty"`
+  
+        FirstName string `json:"first_name,omitempty"`
 
-	LastName string `json:"last_name,omitempty"`
+  
+        LastName string `json:"last_name,omitempty"`
 
-	Company string `json:"company,omitempty"`
+  
+        Company string `json:"company,omitempty"`
 
-	// The VAT number of the account (to avoid having the VAT applied). This is only used for manually collected invoices.
-	VatNumber string `json:"vat_number,omitempty"`
+  
+        // The VAT number of the account (to avoid having the VAT applied). This is only used for manually collected invoices.
+        VatNumber string `json:"vat_number,omitempty"`
 
-	// The tax status of the account. `true` exempts tax on the account, `false` applies tax on the account.
-	TaxExempt bool `json:"tax_exempt,omitempty"`
+  
+        // The tax status of the account. `true` exempts tax on the account, `false` applies tax on the account.
+        TaxExempt bool `json:"tax_exempt,omitempty"`
 
-	// The tax exemption certificate number for the account. If the merchant has an integration for the Vertex tax provider, this optional value will be sent in any tax calculation requests for the account.
-	ExemptionCertificate string `json:"exemption_certificate,omitempty"`
+  
+        // The tax exemption certificate number for the account. If the merchant has an integration for the Vertex tax provider, this optional value will be sent in any tax calculation requests for the account.
+        ExemptionCertificate string `json:"exemption_certificate,omitempty"`
 
-	// The UUID of the parent account associated with this account.
-	ParentAccountId string `json:"parent_account_id,omitempty"`
+  
+        // The UUID of the parent account associated with this account.
+        ParentAccountId string `json:"parent_account_id,omitempty"`
 
-	// An enumerable describing the billing behavior of the account, specifically whether the account is self-paying or will rely on the parent account to pay.
-	BillTo string `json:"bill_to,omitempty"`
+  
+        // An enumerable describing the billing behavior of the account, specifically whether the account is self-paying or will rely on the parent account to pay.
+        BillTo string `json:"bill_to,omitempty"`
 
-	// Unique ID to identify a dunning campaign. Used to specify if a non-default dunning campaign should be assigned to this account. For sites without multiple dunning campaigns enabled, the default dunning campaign will always be used.
-	DunningCampaignId string `json:"dunning_campaign_id,omitempty"`
+  
+        // Unique ID to identify a dunning campaign. Used to specify if a non-default dunning campaign should be assigned to this account. For sites without multiple dunning campaigns enabled, the default dunning campaign will always be used.
+        DunningCampaignId string `json:"dunning_campaign_id,omitempty"`
 
-	// Unique ID to identify an invoice template. Available when the site is on a Pro or Enterprise plan. Used to specify if a non-default invoice template will be used to generate invoices for the account. For sites without multiple invoice templates enabled, the default template will always be used.
-	InvoiceTemplateId string `json:"invoice_template_id,omitempty"`
+  
+        // Unique ID to identify an invoice template. Available when the site is on a Pro or Enterprise plan. Used to specify if a non-default invoice template will be used to generate invoices for the account. For sites without multiple invoice templates enabled, the default template will always be used.
+        InvoiceTemplateId string `json:"invoice_template_id,omitempty"`
 
-	Address Address `json:"address,omitempty"`
+  
+        Address Address `json:"address,omitempty"`
 
-	BillingInfo BillingInfo `json:"billing_info,omitempty"`
+  
+        BillingInfo BillingInfo `json:"billing_info,omitempty"`
 
-	// The custom fields will only be altered when they are included in a request. Sending an empty array will not remove any existing values. To remove a field send the name with a null or empty value.
-	CustomFields []CustomField `json:"custom_fields,omitempty"`
+  
+        // The custom fields will only be altered when they are included in a request. Sending an empty array will not remove any existing values. To remove a field send the name with a null or empty value.
+        CustomFields []CustomField `json:"custom_fields,omitempty"`
+
+  
 }
 
 // GetResponse returns the ResponseMetadata that generated this resource
 func (resource *Account) GetResponse() *ResponseMetadata {
-	return resource.recurlyResponse
+  return resource.recurlyResponse
 }
 
 // setResponse sets the ResponseMetadata that generated this resource
 func (resource *Account) setResponse(res *ResponseMetadata) {
-	resource.recurlyResponse = res
+  resource.recurlyResponse = res
 }
+
+
+
+
 
 // internal struct for deserializing accounts
 type accountList struct {
 	ListMetadata
-	Data            []Account `json:"data"`
-	recurlyResponse *ResponseMetadata
+  Data []Account `json:"data"`
+  recurlyResponse *ResponseMetadata
 }
 
 // GetResponse returns the ResponseMetadata that generated this resource
@@ -131,45 +169,50 @@ func (resource *accountList) setResponse(res *ResponseMetadata) {
 	resource.recurlyResponse = res
 }
 
+
+
+
 // AccountList allows you to paginate Account objects
 type AccountList struct {
-	client         HTTPCaller
-	requestOptions *RequestOptions
-	nextPagePath   string
-	hasMore        bool
-	data           []Account
+  client         HTTPCaller
+  requestOptions *RequestOptions
+  nextPagePath   string
+  hasMore bool
+  data    []Account
 }
 
 func NewAccountList(client HTTPCaller, nextPagePath string, requestOptions *RequestOptions) *AccountList {
-	return &AccountList{
-		client:         client,
-		requestOptions: requestOptions,
-		nextPagePath:   nextPagePath,
-		hasMore:        true,
-	}
+  return &AccountList{
+    client:       client,
+    requestOptions: requestOptions,
+    nextPagePath: nextPagePath,
+    hasMore:      true,
+  }
 }
+
 
 type AccountLister interface {
-	Fetch() error
-	FetchWithContext(ctx context.Context) error
-	Count() (*int64, error)
-	CountWithContext(ctx context.Context) (*int64, error)
-	Data() []Account
-	HasMore() bool
-	Next() string
+  Fetch() error
+  FetchWithContext(ctx context.Context) error
+  Count() (*int64, error)
+  CountWithContext(ctx context.Context) (*int64, error)
+  Data()    []Account
+  HasMore() bool
+  Next() string
 }
 
-func (list *AccountList) HasMore() bool {
-	return list.hasMore
+func (list  *AccountList) HasMore() bool {
+    return list.hasMore
 }
 
-func (list *AccountList) Next() string {
-	return list.nextPagePath
+func (list  *AccountList) Next() string {
+    return list.nextPagePath
 }
 
 func (list *AccountList) Data() []Account {
-	return list.data
+    return list.data
 }
+
 
 // Fetch fetches the next page of data into the `Data` property
 func (list *AccountList) FetchWithContext(ctx context.Context) error {
@@ -178,16 +221,16 @@ func (list *AccountList) FetchWithContext(ctx context.Context) error {
 	if err != nil {
 		return err
 	}
-	// copy over properties from the response
-	list.nextPagePath = resources.Next
+  // copy over properties from the response
+  list.nextPagePath = resources.Next
 	list.hasMore = resources.HasMore
 	list.data = resources.Data
-	return nil
+  return nil
 }
 
 // Fetch fetches the next page of data into the `Data` property
 func (list *AccountList) Fetch() error {
-	return list.FetchWithContext(context.Background())
+  return list.FetchWithContext(context.Background())
 }
 
 // Count returns the count of items on the server that match this pager
@@ -203,5 +246,5 @@ func (list *AccountList) CountWithContext(ctx context.Context) (*int64, error) {
 
 // Count returns the count of items on the server that match this pager
 func (list *AccountList) Count() (*int64, error) {
-	return list.CountWithContext(context.Background())
+  return list.CountWithContext(context.Background())
 }

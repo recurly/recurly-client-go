@@ -4,13 +4,21 @@
 // need and we will usher them to the appropriate places.
 package recurly
 
-import ()
+import (
+)
 
 type CustomFieldCreate struct {
+  
 
-	// Fields must be created in the UI before values can be assigned to them.
-	Name *string `json:"name,omitempty"`
+  
+        // Fields must be created in the UI before values can be assigned to them.
+        Name *string `json:"name,omitempty"`
 
-	// Any values that resemble a credit card number or security code (CVV/CVC) will be rejected.
-	Value *string `json:"value,omitempty"`
+  
+        // Any values that resemble a credit card number or security code (CVV/CVC) will be rejected.
+        Value *string `json:"value,omitempty"`
+
+  
 }
+
+

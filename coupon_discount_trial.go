@@ -5,35 +5,43 @@
 package recurly
 
 import (
-	"context"
-	"net/http"
+        "net/http"
+        "context"
 )
 
 type CouponDiscountTrial struct {
-	recurlyResponse *ResponseMetadata
+  recurlyResponse *ResponseMetadata
 
-	// Temporal unit of the free trial
-	Unit string `json:"unit,omitempty"`
+  
+        // Temporal unit of the free trial
+        Unit string `json:"unit,omitempty"`
 
-	// Trial length measured in the units specified by the sibling `unit` property
-	Length int `json:"length,omitempty"`
+  
+        // Trial length measured in the units specified by the sibling `unit` property
+        Length int `json:"length,omitempty"`
+
+  
 }
 
 // GetResponse returns the ResponseMetadata that generated this resource
 func (resource *CouponDiscountTrial) GetResponse() *ResponseMetadata {
-	return resource.recurlyResponse
+  return resource.recurlyResponse
 }
 
 // setResponse sets the ResponseMetadata that generated this resource
 func (resource *CouponDiscountTrial) setResponse(res *ResponseMetadata) {
-	resource.recurlyResponse = res
+  resource.recurlyResponse = res
 }
+
+
+
+
 
 // internal struct for deserializing accounts
 type couponDiscountTrialList struct {
 	ListMetadata
-	Data            []CouponDiscountTrial `json:"data"`
-	recurlyResponse *ResponseMetadata
+  Data []CouponDiscountTrial `json:"data"`
+  recurlyResponse *ResponseMetadata
 }
 
 // GetResponse returns the ResponseMetadata that generated this resource
@@ -46,45 +54,50 @@ func (resource *couponDiscountTrialList) setResponse(res *ResponseMetadata) {
 	resource.recurlyResponse = res
 }
 
+
+
+
 // CouponDiscountTrialList allows you to paginate CouponDiscountTrial objects
 type CouponDiscountTrialList struct {
-	client         HTTPCaller
-	requestOptions *RequestOptions
-	nextPagePath   string
-	hasMore        bool
-	data           []CouponDiscountTrial
+  client         HTTPCaller
+  requestOptions *RequestOptions
+  nextPagePath   string
+  hasMore bool
+  data    []CouponDiscountTrial
 }
 
 func NewCouponDiscountTrialList(client HTTPCaller, nextPagePath string, requestOptions *RequestOptions) *CouponDiscountTrialList {
-	return &CouponDiscountTrialList{
-		client:         client,
-		requestOptions: requestOptions,
-		nextPagePath:   nextPagePath,
-		hasMore:        true,
-	}
+  return &CouponDiscountTrialList{
+    client:       client,
+    requestOptions: requestOptions,
+    nextPagePath: nextPagePath,
+    hasMore:      true,
+  }
 }
+
 
 type CouponDiscountTrialLister interface {
-	Fetch() error
-	FetchWithContext(ctx context.Context) error
-	Count() (*int64, error)
-	CountWithContext(ctx context.Context) (*int64, error)
-	Data() []CouponDiscountTrial
-	HasMore() bool
-	Next() string
+  Fetch() error
+  FetchWithContext(ctx context.Context) error
+  Count() (*int64, error)
+  CountWithContext(ctx context.Context) (*int64, error)
+  Data()    []CouponDiscountTrial
+  HasMore() bool
+  Next() string
 }
 
-func (list *CouponDiscountTrialList) HasMore() bool {
-	return list.hasMore
+func (list  *CouponDiscountTrialList) HasMore() bool {
+    return list.hasMore
 }
 
-func (list *CouponDiscountTrialList) Next() string {
-	return list.nextPagePath
+func (list  *CouponDiscountTrialList) Next() string {
+    return list.nextPagePath
 }
 
 func (list *CouponDiscountTrialList) Data() []CouponDiscountTrial {
-	return list.data
+    return list.data
 }
+
 
 // Fetch fetches the next page of data into the `Data` property
 func (list *CouponDiscountTrialList) FetchWithContext(ctx context.Context) error {
@@ -93,16 +106,16 @@ func (list *CouponDiscountTrialList) FetchWithContext(ctx context.Context) error
 	if err != nil {
 		return err
 	}
-	// copy over properties from the response
-	list.nextPagePath = resources.Next
+  // copy over properties from the response
+  list.nextPagePath = resources.Next
 	list.hasMore = resources.HasMore
 	list.data = resources.Data
-	return nil
+  return nil
 }
 
 // Fetch fetches the next page of data into the `Data` property
 func (list *CouponDiscountTrialList) Fetch() error {
-	return list.FetchWithContext(context.Background())
+  return list.FetchWithContext(context.Background())
 }
 
 // Count returns the count of items on the server that match this pager
@@ -118,5 +131,5 @@ func (list *CouponDiscountTrialList) CountWithContext(ctx context.Context) (*int
 
 // Count returns the count of items on the server that match this pager
 func (list *CouponDiscountTrialList) Count() (*int64, error) {
-	return list.CountWithContext(context.Background())
+  return list.CountWithContext(context.Background())
 }

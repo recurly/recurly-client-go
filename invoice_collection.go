@@ -5,37 +5,46 @@
 package recurly
 
 import (
-	"context"
-	"net/http"
+        "net/http"
+        "context"
 )
 
 type InvoiceCollection struct {
-	recurlyResponse *ResponseMetadata
+  recurlyResponse *ResponseMetadata
 
-	// Object type
-	Object string `json:"object,omitempty"`
+  
+        // Object type
+        Object string `json:"object,omitempty"`
 
-	ChargeInvoice Invoice `json:"charge_invoice,omitempty"`
+  
+        ChargeInvoice Invoice `json:"charge_invoice,omitempty"`
 
-	// Credit invoices
-	CreditInvoices []Invoice `json:"credit_invoices,omitempty"`
+  
+        // Credit invoices
+        CreditInvoices []Invoice `json:"credit_invoices,omitempty"`
+
+  
 }
 
 // GetResponse returns the ResponseMetadata that generated this resource
 func (resource *InvoiceCollection) GetResponse() *ResponseMetadata {
-	return resource.recurlyResponse
+  return resource.recurlyResponse
 }
 
 // setResponse sets the ResponseMetadata that generated this resource
 func (resource *InvoiceCollection) setResponse(res *ResponseMetadata) {
-	resource.recurlyResponse = res
+  resource.recurlyResponse = res
 }
+
+
+
+
 
 // internal struct for deserializing accounts
 type invoiceCollectionList struct {
 	ListMetadata
-	Data            []InvoiceCollection `json:"data"`
-	recurlyResponse *ResponseMetadata
+  Data []InvoiceCollection `json:"data"`
+  recurlyResponse *ResponseMetadata
 }
 
 // GetResponse returns the ResponseMetadata that generated this resource
@@ -48,45 +57,50 @@ func (resource *invoiceCollectionList) setResponse(res *ResponseMetadata) {
 	resource.recurlyResponse = res
 }
 
+
+
+
 // InvoiceCollectionList allows you to paginate InvoiceCollection objects
 type InvoiceCollectionList struct {
-	client         HTTPCaller
-	requestOptions *RequestOptions
-	nextPagePath   string
-	hasMore        bool
-	data           []InvoiceCollection
+  client         HTTPCaller
+  requestOptions *RequestOptions
+  nextPagePath   string
+  hasMore bool
+  data    []InvoiceCollection
 }
 
 func NewInvoiceCollectionList(client HTTPCaller, nextPagePath string, requestOptions *RequestOptions) *InvoiceCollectionList {
-	return &InvoiceCollectionList{
-		client:         client,
-		requestOptions: requestOptions,
-		nextPagePath:   nextPagePath,
-		hasMore:        true,
-	}
+  return &InvoiceCollectionList{
+    client:       client,
+    requestOptions: requestOptions,
+    nextPagePath: nextPagePath,
+    hasMore:      true,
+  }
 }
+
 
 type InvoiceCollectionLister interface {
-	Fetch() error
-	FetchWithContext(ctx context.Context) error
-	Count() (*int64, error)
-	CountWithContext(ctx context.Context) (*int64, error)
-	Data() []InvoiceCollection
-	HasMore() bool
-	Next() string
+  Fetch() error
+  FetchWithContext(ctx context.Context) error
+  Count() (*int64, error)
+  CountWithContext(ctx context.Context) (*int64, error)
+  Data()    []InvoiceCollection
+  HasMore() bool
+  Next() string
 }
 
-func (list *InvoiceCollectionList) HasMore() bool {
-	return list.hasMore
+func (list  *InvoiceCollectionList) HasMore() bool {
+    return list.hasMore
 }
 
-func (list *InvoiceCollectionList) Next() string {
-	return list.nextPagePath
+func (list  *InvoiceCollectionList) Next() string {
+    return list.nextPagePath
 }
 
 func (list *InvoiceCollectionList) Data() []InvoiceCollection {
-	return list.data
+    return list.data
 }
+
 
 // Fetch fetches the next page of data into the `Data` property
 func (list *InvoiceCollectionList) FetchWithContext(ctx context.Context) error {
@@ -95,16 +109,16 @@ func (list *InvoiceCollectionList) FetchWithContext(ctx context.Context) error {
 	if err != nil {
 		return err
 	}
-	// copy over properties from the response
-	list.nextPagePath = resources.Next
+  // copy over properties from the response
+  list.nextPagePath = resources.Next
 	list.hasMore = resources.HasMore
 	list.data = resources.Data
-	return nil
+  return nil
 }
 
 // Fetch fetches the next page of data into the `Data` property
 func (list *InvoiceCollectionList) Fetch() error {
-	return list.FetchWithContext(context.Background())
+  return list.FetchWithContext(context.Background())
 }
 
 // Count returns the count of items on the server that match this pager
@@ -120,5 +134,5 @@ func (list *InvoiceCollectionList) CountWithContext(ctx context.Context) (*int64
 
 // Count returns the count of items on the server that match this pager
 func (list *InvoiceCollectionList) Count() (*int64, error) {
-	return list.CountWithContext(context.Background())
+  return list.CountWithContext(context.Background())
 }

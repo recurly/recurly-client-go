@@ -5,43 +5,55 @@
 package recurly
 
 import (
-	"context"
-	"net/http"
-	"time"
+        "net/http"
+        "context"
+        "time"
 )
 
 type AccountNote struct {
-	recurlyResponse *ResponseMetadata
+  recurlyResponse *ResponseMetadata
 
-	Id string `json:"id,omitempty"`
+  
+        Id string `json:"id,omitempty"`
 
-	// Object type
-	Object string `json:"object,omitempty"`
+  
+        // Object type
+        Object string `json:"object,omitempty"`
 
-	AccountId string `json:"account_id,omitempty"`
+  
+        AccountId string `json:"account_id,omitempty"`
 
-	User User `json:"user,omitempty"`
+  
+        User User `json:"user,omitempty"`
 
-	Message string `json:"message,omitempty"`
+  
+        Message string `json:"message,omitempty"`
 
-	CreatedAt time.Time `json:"created_at,omitempty"`
+  
+        CreatedAt time.Time `json:"created_at,omitempty"`
+
+  
 }
 
 // GetResponse returns the ResponseMetadata that generated this resource
 func (resource *AccountNote) GetResponse() *ResponseMetadata {
-	return resource.recurlyResponse
+  return resource.recurlyResponse
 }
 
 // setResponse sets the ResponseMetadata that generated this resource
 func (resource *AccountNote) setResponse(res *ResponseMetadata) {
-	resource.recurlyResponse = res
+  resource.recurlyResponse = res
 }
+
+
+
+
 
 // internal struct for deserializing accounts
 type accountNoteList struct {
 	ListMetadata
-	Data            []AccountNote `json:"data"`
-	recurlyResponse *ResponseMetadata
+  Data []AccountNote `json:"data"`
+  recurlyResponse *ResponseMetadata
 }
 
 // GetResponse returns the ResponseMetadata that generated this resource
@@ -54,45 +66,50 @@ func (resource *accountNoteList) setResponse(res *ResponseMetadata) {
 	resource.recurlyResponse = res
 }
 
+
+
+
 // AccountNoteList allows you to paginate AccountNote objects
 type AccountNoteList struct {
-	client         HTTPCaller
-	requestOptions *RequestOptions
-	nextPagePath   string
-	hasMore        bool
-	data           []AccountNote
+  client         HTTPCaller
+  requestOptions *RequestOptions
+  nextPagePath   string
+  hasMore bool
+  data    []AccountNote
 }
 
 func NewAccountNoteList(client HTTPCaller, nextPagePath string, requestOptions *RequestOptions) *AccountNoteList {
-	return &AccountNoteList{
-		client:         client,
-		requestOptions: requestOptions,
-		nextPagePath:   nextPagePath,
-		hasMore:        true,
-	}
+  return &AccountNoteList{
+    client:       client,
+    requestOptions: requestOptions,
+    nextPagePath: nextPagePath,
+    hasMore:      true,
+  }
 }
+
 
 type AccountNoteLister interface {
-	Fetch() error
-	FetchWithContext(ctx context.Context) error
-	Count() (*int64, error)
-	CountWithContext(ctx context.Context) (*int64, error)
-	Data() []AccountNote
-	HasMore() bool
-	Next() string
+  Fetch() error
+  FetchWithContext(ctx context.Context) error
+  Count() (*int64, error)
+  CountWithContext(ctx context.Context) (*int64, error)
+  Data()    []AccountNote
+  HasMore() bool
+  Next() string
 }
 
-func (list *AccountNoteList) HasMore() bool {
-	return list.hasMore
+func (list  *AccountNoteList) HasMore() bool {
+    return list.hasMore
 }
 
-func (list *AccountNoteList) Next() string {
-	return list.nextPagePath
+func (list  *AccountNoteList) Next() string {
+    return list.nextPagePath
 }
 
 func (list *AccountNoteList) Data() []AccountNote {
-	return list.data
+    return list.data
 }
+
 
 // Fetch fetches the next page of data into the `Data` property
 func (list *AccountNoteList) FetchWithContext(ctx context.Context) error {
@@ -101,16 +118,16 @@ func (list *AccountNoteList) FetchWithContext(ctx context.Context) error {
 	if err != nil {
 		return err
 	}
-	// copy over properties from the response
-	list.nextPagePath = resources.Next
+  // copy over properties from the response
+  list.nextPagePath = resources.Next
 	list.hasMore = resources.HasMore
 	list.data = resources.Data
-	return nil
+  return nil
 }
 
 // Fetch fetches the next page of data into the `Data` property
 func (list *AccountNoteList) Fetch() error {
-	return list.FetchWithContext(context.Background())
+  return list.FetchWithContext(context.Background())
 }
 
 // Count returns the count of items on the server that match this pager
@@ -126,5 +143,5 @@ func (list *AccountNoteList) CountWithContext(ctx context.Context) (*int64, erro
 
 // Count returns the count of items on the server that match this pager
 func (list *AccountNoteList) Count() (*int64, error) {
-	return list.CountWithContext(context.Background())
+  return list.CountWithContext(context.Background())
 }

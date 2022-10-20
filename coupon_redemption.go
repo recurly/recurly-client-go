@@ -5,62 +5,79 @@
 package recurly
 
 import (
-	"context"
-	"net/http"
-	"time"
+        "net/http"
+        "context"
+        "time"
 )
 
 type CouponRedemption struct {
-	recurlyResponse *ResponseMetadata
+  recurlyResponse *ResponseMetadata
 
-	// Coupon Redemption ID
-	Id string `json:"id,omitempty"`
+  
+        // Coupon Redemption ID
+        Id string `json:"id,omitempty"`
 
-	// Will always be `coupon`.
-	Object string `json:"object,omitempty"`
+  
+        // Will always be `coupon`.
+        Object string `json:"object,omitempty"`
 
-	// The Account on which the coupon was applied.
-	Account AccountMini `json:"account,omitempty"`
+  
+        // The Account on which the coupon was applied.
+        Account AccountMini `json:"account,omitempty"`
 
-	// Subscription ID
-	SubscriptionId string `json:"subscription_id,omitempty"`
+  
+        // Subscription ID
+        SubscriptionId string `json:"subscription_id,omitempty"`
 
-	Coupon Coupon `json:"coupon,omitempty"`
+  
+        Coupon Coupon `json:"coupon,omitempty"`
 
-	// Coupon Redemption state
-	State string `json:"state,omitempty"`
+  
+        // Coupon Redemption state
+        State string `json:"state,omitempty"`
 
-	// 3-letter ISO 4217 currency code.
-	Currency string `json:"currency,omitempty"`
+  
+        // 3-letter ISO 4217 currency code.
+        Currency string `json:"currency,omitempty"`
 
-	// The amount that was discounted upon the application of the coupon, formatted with the currency.
-	Discounted float64 `json:"discounted,omitempty"`
+  
+        // The amount that was discounted upon the application of the coupon, formatted with the currency.
+        Discounted float64 `json:"discounted,omitempty"`
 
-	// Created at
-	CreatedAt time.Time `json:"created_at,omitempty"`
+  
+        // Created at
+        CreatedAt time.Time `json:"created_at,omitempty"`
 
-	// Last updated at
-	UpdatedAt time.Time `json:"updated_at,omitempty"`
+  
+        // Last updated at
+        UpdatedAt time.Time `json:"updated_at,omitempty"`
 
-	// The date and time the redemption was removed from the account (un-redeemed).
-	RemovedAt time.Time `json:"removed_at,omitempty"`
+  
+        // The date and time the redemption was removed from the account (un-redeemed).
+        RemovedAt time.Time `json:"removed_at,omitempty"`
+
+  
 }
 
 // GetResponse returns the ResponseMetadata that generated this resource
 func (resource *CouponRedemption) GetResponse() *ResponseMetadata {
-	return resource.recurlyResponse
+  return resource.recurlyResponse
 }
 
 // setResponse sets the ResponseMetadata that generated this resource
 func (resource *CouponRedemption) setResponse(res *ResponseMetadata) {
-	resource.recurlyResponse = res
+  resource.recurlyResponse = res
 }
+
+
+
+
 
 // internal struct for deserializing accounts
 type couponRedemptionList struct {
 	ListMetadata
-	Data            []CouponRedemption `json:"data"`
-	recurlyResponse *ResponseMetadata
+  Data []CouponRedemption `json:"data"`
+  recurlyResponse *ResponseMetadata
 }
 
 // GetResponse returns the ResponseMetadata that generated this resource
@@ -73,45 +90,50 @@ func (resource *couponRedemptionList) setResponse(res *ResponseMetadata) {
 	resource.recurlyResponse = res
 }
 
+
+
+
 // CouponRedemptionList allows you to paginate CouponRedemption objects
 type CouponRedemptionList struct {
-	client         HTTPCaller
-	requestOptions *RequestOptions
-	nextPagePath   string
-	hasMore        bool
-	data           []CouponRedemption
+  client         HTTPCaller
+  requestOptions *RequestOptions
+  nextPagePath   string
+  hasMore bool
+  data    []CouponRedemption
 }
 
 func NewCouponRedemptionList(client HTTPCaller, nextPagePath string, requestOptions *RequestOptions) *CouponRedemptionList {
-	return &CouponRedemptionList{
-		client:         client,
-		requestOptions: requestOptions,
-		nextPagePath:   nextPagePath,
-		hasMore:        true,
-	}
+  return &CouponRedemptionList{
+    client:       client,
+    requestOptions: requestOptions,
+    nextPagePath: nextPagePath,
+    hasMore:      true,
+  }
 }
+
 
 type CouponRedemptionLister interface {
-	Fetch() error
-	FetchWithContext(ctx context.Context) error
-	Count() (*int64, error)
-	CountWithContext(ctx context.Context) (*int64, error)
-	Data() []CouponRedemption
-	HasMore() bool
-	Next() string
+  Fetch() error
+  FetchWithContext(ctx context.Context) error
+  Count() (*int64, error)
+  CountWithContext(ctx context.Context) (*int64, error)
+  Data()    []CouponRedemption
+  HasMore() bool
+  Next() string
 }
 
-func (list *CouponRedemptionList) HasMore() bool {
-	return list.hasMore
+func (list  *CouponRedemptionList) HasMore() bool {
+    return list.hasMore
 }
 
-func (list *CouponRedemptionList) Next() string {
-	return list.nextPagePath
+func (list  *CouponRedemptionList) Next() string {
+    return list.nextPagePath
 }
 
 func (list *CouponRedemptionList) Data() []CouponRedemption {
-	return list.data
+    return list.data
 }
+
 
 // Fetch fetches the next page of data into the `Data` property
 func (list *CouponRedemptionList) FetchWithContext(ctx context.Context) error {
@@ -120,16 +142,16 @@ func (list *CouponRedemptionList) FetchWithContext(ctx context.Context) error {
 	if err != nil {
 		return err
 	}
-	// copy over properties from the response
-	list.nextPagePath = resources.Next
+  // copy over properties from the response
+  list.nextPagePath = resources.Next
 	list.hasMore = resources.HasMore
 	list.data = resources.Data
-	return nil
+  return nil
 }
 
 // Fetch fetches the next page of data into the `Data` property
 func (list *CouponRedemptionList) Fetch() error {
-	return list.FetchWithContext(context.Background())
+  return list.FetchWithContext(context.Background())
 }
 
 // Count returns the count of items on the server that match this pager
@@ -145,5 +167,5 @@ func (list *CouponRedemptionList) CountWithContext(ctx context.Context) (*int64,
 
 // Count returns the count of items on the server that match this pager
 func (list *CouponRedemptionList) Count() (*int64, error) {
-	return list.CountWithContext(context.Background())
+  return list.CountWithContext(context.Background())
 }

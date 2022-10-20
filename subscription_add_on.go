@@ -5,93 +5,116 @@
 package recurly
 
 import (
-	"context"
-	"net/http"
-	"time"
+        "net/http"
+        "context"
+        "time"
 )
 
 type SubscriptionAddOn struct {
-	recurlyResponse *ResponseMetadata
+  recurlyResponse *ResponseMetadata
 
-	// Subscription Add-on ID
-	Id string `json:"id,omitempty"`
+  
+        // Subscription Add-on ID
+        Id string `json:"id,omitempty"`
 
-	// Object type
-	Object string `json:"object,omitempty"`
+  
+        // Object type
+        Object string `json:"object,omitempty"`
 
-	// Subscription ID
-	SubscriptionId string `json:"subscription_id,omitempty"`
+  
+        // Subscription ID
+        SubscriptionId string `json:"subscription_id,omitempty"`
 
-	// Just the important parts.
-	AddOn AddOnMini `json:"add_on,omitempty"`
+  
+        // Just the important parts.
+        AddOn AddOnMini `json:"add_on,omitempty"`
 
-	// Used to determine where the associated add-on data is pulled from. If this value is set to
-	// `plan_add_on` or left blank, then add-on data will be pulled from the plan's add-ons. If the associated
-	// `plan` has `allow_any_item_on_subscriptions` set to `true` and this field is set to `item`, then
-	// the associated add-on data will be pulled from the site's item catalog.
-	AddOnSource string `json:"add_on_source,omitempty"`
+  
+        // Used to determine where the associated add-on data is pulled from. If this value is set to
+ // `plan_add_on` or left blank, then add-on data will be pulled from the plan's add-ons. If the associated
+ // `plan` has `allow_any_item_on_subscriptions` set to `true` and this field is set to `item`, then
+ // the associated add-on data will be pulled from the site's item catalog.
+        AddOnSource string `json:"add_on_source,omitempty"`
 
-	// Add-on quantity
-	Quantity int `json:"quantity,omitempty"`
+  
+        // Add-on quantity
+        Quantity int `json:"quantity,omitempty"`
 
-	// Supports up to 2 decimal places.
-	UnitAmount float64 `json:"unit_amount,omitempty"`
+  
+        // Supports up to 2 decimal places.
+        UnitAmount float64 `json:"unit_amount,omitempty"`
 
-	// Supports up to 9 decimal places.
-	UnitAmountDecimal string `json:"unit_amount_decimal,omitempty"`
+  
+        // Supports up to 9 decimal places.
+        UnitAmountDecimal string `json:"unit_amount_decimal,omitempty"`
 
-	// Revenue schedule type
-	RevenueScheduleType string `json:"revenue_schedule_type,omitempty"`
+  
+        // Revenue schedule type
+        RevenueScheduleType string `json:"revenue_schedule_type,omitempty"`
 
-	// The pricing model for the add-on.  For more information,
-	// [click here](https://docs.recurly.com/docs/billing-models#section-quantity-based). See our
-	// [Guide](https://developers.recurly.com/guides/item-addon-guide.html) for an overview of how
-	// to configure quantity-based pricing models.
-	TierType string `json:"tier_type,omitempty"`
+  
+        // The pricing model for the add-on.  For more information,
+ // [click here](https://docs.recurly.com/docs/billing-models#section-quantity-based). See our
+ // [Guide](https://developers.recurly.com/guides/item-addon-guide.html) for an overview of how
+ // to configure quantity-based pricing models.
+        TierType string `json:"tier_type,omitempty"`
 
-	// The time at which usage totals are reset for billing purposes.
-	UsageTimeframe string `json:"usage_timeframe,omitempty"`
+  
+        // The time at which usage totals are reset for billing purposes.
+        UsageTimeframe string `json:"usage_timeframe,omitempty"`
 
-	// If tiers are provided in the request, all existing tiers on the Subscription Add-on will be
-	// removed and replaced by the tiers in the request. If add_on.tier_type is tiered or volume and
-	// add_on.usage_type is percentage use percentage_tiers instead.
-	// There must be one tier without an `ending_quantity` value which represents the final tier.
-	Tiers []SubscriptionAddOnTier `json:"tiers,omitempty"`
+  
+        // If tiers are provided in the request, all existing tiers on the Subscription Add-on will be
+ // removed and replaced by the tiers in the request. If add_on.tier_type is tiered or volume and
+ // add_on.usage_type is percentage use percentage_tiers instead. 
+ // There must be one tier without an `ending_quantity` value which represents the final tier.
+        Tiers []SubscriptionAddOnTier `json:"tiers,omitempty"`
 
-	// If percentage tiers are provided in the request, all existing percentage tiers on the Subscription Add-on will be
-	// removed and replaced by the percentage tiers in the request. Use only if add_on.tier_type is tiered or volume and
-	// add_on.usage_type is percentage.
-	// There must be one tier without an `ending_amount` value which represents the final tier.
-	PercentageTiers []SubscriptionAddOnPercentageTier `json:"percentage_tiers,omitempty"`
+  
+        // If percentage tiers are provided in the request, all existing percentage tiers on the Subscription Add-on will be
+ // removed and replaced by the percentage tiers in the request. Use only if add_on.tier_type is tiered or volume and
+ // add_on.usage_type is percentage.
+ // There must be one tier without an `ending_amount` value which represents the final tier.
+        PercentageTiers []SubscriptionAddOnPercentageTier `json:"percentage_tiers,omitempty"`
 
-	// The percentage taken of the monetary amount of usage tracked. This can be up to 4 decimal places. A value between 0.0 and 100.0. Required if add_on_type is usage and usage_type is percentage.
-	UsagePercentage float64 `json:"usage_percentage,omitempty"`
+  
+        // The percentage taken of the monetary amount of usage tracked. This can be up to 4 decimal places. A value between 0.0 and 100.0. Required if add_on_type is usage and usage_type is percentage.
+        UsagePercentage float64 `json:"usage_percentage,omitempty"`
 
-	// Created at
-	CreatedAt time.Time `json:"created_at,omitempty"`
+  
+        // Created at
+        CreatedAt time.Time `json:"created_at,omitempty"`
 
-	// Updated at
-	UpdatedAt time.Time `json:"updated_at,omitempty"`
+  
+        // Updated at
+        UpdatedAt time.Time `json:"updated_at,omitempty"`
 
-	// Expired at
-	ExpiredAt time.Time `json:"expired_at,omitempty"`
+  
+        // Expired at
+        ExpiredAt time.Time `json:"expired_at,omitempty"`
+
+  
 }
 
 // GetResponse returns the ResponseMetadata that generated this resource
 func (resource *SubscriptionAddOn) GetResponse() *ResponseMetadata {
-	return resource.recurlyResponse
+  return resource.recurlyResponse
 }
 
 // setResponse sets the ResponseMetadata that generated this resource
 func (resource *SubscriptionAddOn) setResponse(res *ResponseMetadata) {
-	resource.recurlyResponse = res
+  resource.recurlyResponse = res
 }
+
+
+
+
 
 // internal struct for deserializing accounts
 type subscriptionAddOnList struct {
 	ListMetadata
-	Data            []SubscriptionAddOn `json:"data"`
-	recurlyResponse *ResponseMetadata
+  Data []SubscriptionAddOn `json:"data"`
+  recurlyResponse *ResponseMetadata
 }
 
 // GetResponse returns the ResponseMetadata that generated this resource
@@ -104,45 +127,50 @@ func (resource *subscriptionAddOnList) setResponse(res *ResponseMetadata) {
 	resource.recurlyResponse = res
 }
 
+
+
+
 // SubscriptionAddOnList allows you to paginate SubscriptionAddOn objects
 type SubscriptionAddOnList struct {
-	client         HTTPCaller
-	requestOptions *RequestOptions
-	nextPagePath   string
-	hasMore        bool
-	data           []SubscriptionAddOn
+  client         HTTPCaller
+  requestOptions *RequestOptions
+  nextPagePath   string
+  hasMore bool
+  data    []SubscriptionAddOn
 }
 
 func NewSubscriptionAddOnList(client HTTPCaller, nextPagePath string, requestOptions *RequestOptions) *SubscriptionAddOnList {
-	return &SubscriptionAddOnList{
-		client:         client,
-		requestOptions: requestOptions,
-		nextPagePath:   nextPagePath,
-		hasMore:        true,
-	}
+  return &SubscriptionAddOnList{
+    client:       client,
+    requestOptions: requestOptions,
+    nextPagePath: nextPagePath,
+    hasMore:      true,
+  }
 }
+
 
 type SubscriptionAddOnLister interface {
-	Fetch() error
-	FetchWithContext(ctx context.Context) error
-	Count() (*int64, error)
-	CountWithContext(ctx context.Context) (*int64, error)
-	Data() []SubscriptionAddOn
-	HasMore() bool
-	Next() string
+  Fetch() error
+  FetchWithContext(ctx context.Context) error
+  Count() (*int64, error)
+  CountWithContext(ctx context.Context) (*int64, error)
+  Data()    []SubscriptionAddOn
+  HasMore() bool
+  Next() string
 }
 
-func (list *SubscriptionAddOnList) HasMore() bool {
-	return list.hasMore
+func (list  *SubscriptionAddOnList) HasMore() bool {
+    return list.hasMore
 }
 
-func (list *SubscriptionAddOnList) Next() string {
-	return list.nextPagePath
+func (list  *SubscriptionAddOnList) Next() string {
+    return list.nextPagePath
 }
 
 func (list *SubscriptionAddOnList) Data() []SubscriptionAddOn {
-	return list.data
+    return list.data
 }
+
 
 // Fetch fetches the next page of data into the `Data` property
 func (list *SubscriptionAddOnList) FetchWithContext(ctx context.Context) error {
@@ -151,16 +179,16 @@ func (list *SubscriptionAddOnList) FetchWithContext(ctx context.Context) error {
 	if err != nil {
 		return err
 	}
-	// copy over properties from the response
-	list.nextPagePath = resources.Next
+  // copy over properties from the response
+  list.nextPagePath = resources.Next
 	list.hasMore = resources.HasMore
 	list.data = resources.Data
-	return nil
+  return nil
 }
 
 // Fetch fetches the next page of data into the `Data` property
 func (list *SubscriptionAddOnList) Fetch() error {
-	return list.FetchWithContext(context.Background())
+  return list.FetchWithContext(context.Background())
 }
 
 // Count returns the count of items on the server that match this pager
@@ -176,5 +204,5 @@ func (list *SubscriptionAddOnList) CountWithContext(ctx context.Context) (*int64
 
 // Count returns the count of items on the server that match this pager
 func (list *SubscriptionAddOnList) Count() (*int64, error) {
-	return list.CountWithContext(context.Background())
+  return list.CountWithContext(context.Background())
 }

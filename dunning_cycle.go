@@ -5,66 +5,84 @@
 package recurly
 
 import (
-	"context"
-	"net/http"
-	"time"
+        "net/http"
+        "context"
+        "time"
 )
 
 type DunningCycle struct {
-	recurlyResponse *ResponseMetadata
+  recurlyResponse *ResponseMetadata
 
-	// The type of invoice this cycle applies to.
-	Type string `json:"type,omitempty"`
+  
+        // The type of invoice this cycle applies to.
+        Type string `json:"type,omitempty"`
 
-	// Whether the dunning settings will be applied to manual trials. Only applies to trial cycles.
-	AppliesToManualTrial bool `json:"applies_to_manual_trial,omitempty"`
+  
+        // Whether the dunning settings will be applied to manual trials. Only applies to trial cycles.
+        AppliesToManualTrial bool `json:"applies_to_manual_trial,omitempty"`
 
-	// The number of days after a transaction failure before the first dunning email is sent.
-	FirstCommunicationInterval int `json:"first_communication_interval,omitempty"`
+  
+        // The number of days after a transaction failure before the first dunning email is sent.
+        FirstCommunicationInterval int `json:"first_communication_interval,omitempty"`
 
-	// Whether or not to send an extra email immediately to customers whose initial payment attempt fails with either a hard decline or invalid billing info.
-	SendImmediatelyOnHardDecline bool `json:"send_immediately_on_hard_decline,omitempty"`
+  
+        // Whether or not to send an extra email immediately to customers whose initial payment attempt fails with either a hard decline or invalid billing info.
+        SendImmediatelyOnHardDecline bool `json:"send_immediately_on_hard_decline,omitempty"`
 
-	// Dunning intervals.
-	Intervals []DunningInterval `json:"intervals,omitempty"`
+  
+        // Dunning intervals.
+        Intervals []DunningInterval `json:"intervals,omitempty"`
 
-	// Whether the subscription(s) should be cancelled at the end of the dunning cycle.
-	ExpireSubscription bool `json:"expire_subscription,omitempty"`
+  
+        // Whether the subscription(s) should be cancelled at the end of the dunning cycle.
+        ExpireSubscription bool `json:"expire_subscription,omitempty"`
 
-	// Whether the invoice should be failed at the end of the dunning cycle.
-	FailInvoice bool `json:"fail_invoice,omitempty"`
+  
+        // Whether the invoice should be failed at the end of the dunning cycle.
+        FailInvoice bool `json:"fail_invoice,omitempty"`
 
-	// The number of days between the first dunning email being sent and the end of the dunning cycle.
-	TotalDunningDays int `json:"total_dunning_days,omitempty"`
+  
+        // The number of days between the first dunning email being sent and the end of the dunning cycle.
+        TotalDunningDays int `json:"total_dunning_days,omitempty"`
 
-	// The number of days between a transaction failure and the end of the dunning cycle.
-	TotalRecyclingDays int `json:"total_recycling_days,omitempty"`
+  
+        // The number of days between a transaction failure and the end of the dunning cycle.
+        TotalRecyclingDays int `json:"total_recycling_days,omitempty"`
 
-	// Current campaign version.
-	Version int `json:"version,omitempty"`
+  
+        // Current campaign version.
+        Version int `json:"version,omitempty"`
 
-	// When the current settings were created in Recurly.
-	CreatedAt time.Time `json:"created_at,omitempty"`
+  
+        // When the current settings were created in Recurly.
+        CreatedAt time.Time `json:"created_at,omitempty"`
 
-	// When the current settings were updated in Recurly.
-	UpdatedAt time.Time `json:"updated_at,omitempty"`
+  
+        // When the current settings were updated in Recurly.
+        UpdatedAt time.Time `json:"updated_at,omitempty"`
+
+  
 }
 
 // GetResponse returns the ResponseMetadata that generated this resource
 func (resource *DunningCycle) GetResponse() *ResponseMetadata {
-	return resource.recurlyResponse
+  return resource.recurlyResponse
 }
 
 // setResponse sets the ResponseMetadata that generated this resource
 func (resource *DunningCycle) setResponse(res *ResponseMetadata) {
-	resource.recurlyResponse = res
+  resource.recurlyResponse = res
 }
+
+
+
+
 
 // internal struct for deserializing accounts
 type dunningCycleList struct {
 	ListMetadata
-	Data            []DunningCycle `json:"data"`
-	recurlyResponse *ResponseMetadata
+  Data []DunningCycle `json:"data"`
+  recurlyResponse *ResponseMetadata
 }
 
 // GetResponse returns the ResponseMetadata that generated this resource
@@ -77,45 +95,50 @@ func (resource *dunningCycleList) setResponse(res *ResponseMetadata) {
 	resource.recurlyResponse = res
 }
 
+
+
+
 // DunningCycleList allows you to paginate DunningCycle objects
 type DunningCycleList struct {
-	client         HTTPCaller
-	requestOptions *RequestOptions
-	nextPagePath   string
-	hasMore        bool
-	data           []DunningCycle
+  client         HTTPCaller
+  requestOptions *RequestOptions
+  nextPagePath   string
+  hasMore bool
+  data    []DunningCycle
 }
 
 func NewDunningCycleList(client HTTPCaller, nextPagePath string, requestOptions *RequestOptions) *DunningCycleList {
-	return &DunningCycleList{
-		client:         client,
-		requestOptions: requestOptions,
-		nextPagePath:   nextPagePath,
-		hasMore:        true,
-	}
+  return &DunningCycleList{
+    client:       client,
+    requestOptions: requestOptions,
+    nextPagePath: nextPagePath,
+    hasMore:      true,
+  }
 }
+
 
 type DunningCycleLister interface {
-	Fetch() error
-	FetchWithContext(ctx context.Context) error
-	Count() (*int64, error)
-	CountWithContext(ctx context.Context) (*int64, error)
-	Data() []DunningCycle
-	HasMore() bool
-	Next() string
+  Fetch() error
+  FetchWithContext(ctx context.Context) error
+  Count() (*int64, error)
+  CountWithContext(ctx context.Context) (*int64, error)
+  Data()    []DunningCycle
+  HasMore() bool
+  Next() string
 }
 
-func (list *DunningCycleList) HasMore() bool {
-	return list.hasMore
+func (list  *DunningCycleList) HasMore() bool {
+    return list.hasMore
 }
 
-func (list *DunningCycleList) Next() string {
-	return list.nextPagePath
+func (list  *DunningCycleList) Next() string {
+    return list.nextPagePath
 }
 
 func (list *DunningCycleList) Data() []DunningCycle {
-	return list.data
+    return list.data
 }
+
 
 // Fetch fetches the next page of data into the `Data` property
 func (list *DunningCycleList) FetchWithContext(ctx context.Context) error {
@@ -124,16 +147,16 @@ func (list *DunningCycleList) FetchWithContext(ctx context.Context) error {
 	if err != nil {
 		return err
 	}
-	// copy over properties from the response
-	list.nextPagePath = resources.Next
+  // copy over properties from the response
+  list.nextPagePath = resources.Next
 	list.hasMore = resources.HasMore
 	list.data = resources.Data
-	return nil
+  return nil
 }
 
 // Fetch fetches the next page of data into the `Data` property
 func (list *DunningCycleList) Fetch() error {
-	return list.FetchWithContext(context.Background())
+  return list.FetchWithContext(context.Background())
 }
 
 // Count returns the count of items on the server that match this pager
@@ -149,5 +172,5 @@ func (list *DunningCycleList) CountWithContext(ctx context.Context) (*int64, err
 
 // Count returns the count of items on the server that match this pager
 func (list *DunningCycleList) Count() (*int64, error) {
-	return list.CountWithContext(context.Background())
+  return list.CountWithContext(context.Background())
 }

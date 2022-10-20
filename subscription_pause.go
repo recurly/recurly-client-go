@@ -4,10 +4,17 @@
 // need and we will usher them to the appropriate places.
 package recurly
 
-import ()
+import (
+)
 
 type SubscriptionPause struct {
+  
 
-	// Number of billing cycles to pause the subscriptions. A value of 0 will cancel any pending pauses on the subscription.
-	RemainingPauseCycles *int `json:"remaining_pause_cycles,omitempty"`
+  
+        // Number of billing cycles to pause the subscriptions. A value of 0 will cancel any pending pauses on the subscription.
+        RemainingPauseCycles *int `json:"remaining_pause_cycles,omitempty"`
+
+  
 }
+
+

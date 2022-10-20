@@ -4,39 +4,59 @@
 // need and we will usher them to the appropriate places.
 package recurly
 
-import ()
+import (
+)
 
 type ShippingAddressUpdate struct {
+  
 
-	// Shipping Address ID
-	Id *string `json:"id,omitempty"`
+  
+        // Shipping Address ID
+        Id *string `json:"id,omitempty"`
 
-	Nickname *string `json:"nickname,omitempty"`
+  
+        Nickname *string `json:"nickname,omitempty"`
 
-	FirstName *string `json:"first_name,omitempty"`
+  
+        FirstName *string `json:"first_name,omitempty"`
 
-	LastName *string `json:"last_name,omitempty"`
+  
+        LastName *string `json:"last_name,omitempty"`
 
-	Company *string `json:"company,omitempty"`
+  
+        Company *string `json:"company,omitempty"`
 
-	Email *string `json:"email,omitempty"`
+  
+        Email *string `json:"email,omitempty"`
 
-	VatNumber *string `json:"vat_number,omitempty"`
+  
+        VatNumber *string `json:"vat_number,omitempty"`
 
-	Phone *string `json:"phone,omitempty"`
+  
+        Phone *string `json:"phone,omitempty"`
 
-	Street1 *string `json:"street1,omitempty"`
+  
+        Street1 *string `json:"street1,omitempty"`
 
-	Street2 *string `json:"street2,omitempty"`
+  
+        Street2 *string `json:"street2,omitempty"`
 
-	City *string `json:"city,omitempty"`
+  
+        City *string `json:"city,omitempty"`
 
-	// State or province.
-	Region *string `json:"region,omitempty"`
+  
+        // State or province.
+        Region *string `json:"region,omitempty"`
 
-	// Zip or postal code.
-	PostalCode *string `json:"postal_code,omitempty"`
+  
+        // Zip or postal code.
+        PostalCode *string `json:"postal_code,omitempty"`
 
-	// Country, 2-letter ISO 3166-1 alpha-2 code.
-	Country *string `json:"country,omitempty"`
+  
+        // Country, 2-letter ISO 3166-1 alpha-2 code.
+        Country *string `json:"country,omitempty"`
+
+  
 }
+
+

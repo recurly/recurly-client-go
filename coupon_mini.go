@@ -5,55 +5,69 @@
 package recurly
 
 import (
-	"context"
-	"net/http"
-	"time"
+        "net/http"
+        "context"
+        "time"
 )
 
 type CouponMini struct {
-	recurlyResponse *ResponseMetadata
+  recurlyResponse *ResponseMetadata
 
-	// Coupon ID
-	Id string `json:"id,omitempty"`
+  
+        // Coupon ID
+        Id string `json:"id,omitempty"`
 
-	// Object type
-	Object string `json:"object,omitempty"`
+  
+        // Object type
+        Object string `json:"object,omitempty"`
 
-	// The code the customer enters to redeem the coupon.
-	Code string `json:"code,omitempty"`
+  
+        // The code the customer enters to redeem the coupon.
+        Code string `json:"code,omitempty"`
 
-	// The internal name for the coupon.
-	Name string `json:"name,omitempty"`
+  
+        // The internal name for the coupon.
+        Name string `json:"name,omitempty"`
 
-	// Indicates if the coupon is redeemable, and if it is not, why.
-	State string `json:"state,omitempty"`
+  
+        // Indicates if the coupon is redeemable, and if it is not, why.
+        State string `json:"state,omitempty"`
 
-	// Details of the discount a coupon applies. Will contain a `type`
-	// property and one of the following properties: `percent`, `fixed`, `trial`.
-	Discount CouponDiscount `json:"discount,omitempty"`
+  
+        // Details of the discount a coupon applies. Will contain a `type`
+ // property and one of the following properties: `percent`, `fixed`, `trial`.
+        Discount CouponDiscount `json:"discount,omitempty"`
 
-	// Whether the coupon is "single_code" or "bulk". Bulk coupons will require a `unique_code_template` and will generate unique codes through the `/generate` endpoint.
-	CouponType string `json:"coupon_type,omitempty"`
+  
+        // Whether the coupon is "single_code" or "bulk". Bulk coupons will require a `unique_code_template` and will generate unique codes through the `/generate` endpoint.
+        CouponType string `json:"coupon_type,omitempty"`
 
-	// The date and time the coupon was expired early or reached its `max_redemptions`.
-	ExpiredAt time.Time `json:"expired_at,omitempty"`
+  
+        // The date and time the coupon was expired early or reached its `max_redemptions`.
+        ExpiredAt time.Time `json:"expired_at,omitempty"`
+
+  
 }
 
 // GetResponse returns the ResponseMetadata that generated this resource
 func (resource *CouponMini) GetResponse() *ResponseMetadata {
-	return resource.recurlyResponse
+  return resource.recurlyResponse
 }
 
 // setResponse sets the ResponseMetadata that generated this resource
 func (resource *CouponMini) setResponse(res *ResponseMetadata) {
-	resource.recurlyResponse = res
+  resource.recurlyResponse = res
 }
+
+
+
+
 
 // internal struct for deserializing accounts
 type couponMiniList struct {
 	ListMetadata
-	Data            []CouponMini `json:"data"`
-	recurlyResponse *ResponseMetadata
+  Data []CouponMini `json:"data"`
+  recurlyResponse *ResponseMetadata
 }
 
 // GetResponse returns the ResponseMetadata that generated this resource
@@ -66,45 +80,50 @@ func (resource *couponMiniList) setResponse(res *ResponseMetadata) {
 	resource.recurlyResponse = res
 }
 
+
+
+
 // CouponMiniList allows you to paginate CouponMini objects
 type CouponMiniList struct {
-	client         HTTPCaller
-	requestOptions *RequestOptions
-	nextPagePath   string
-	hasMore        bool
-	data           []CouponMini
+  client         HTTPCaller
+  requestOptions *RequestOptions
+  nextPagePath   string
+  hasMore bool
+  data    []CouponMini
 }
 
 func NewCouponMiniList(client HTTPCaller, nextPagePath string, requestOptions *RequestOptions) *CouponMiniList {
-	return &CouponMiniList{
-		client:         client,
-		requestOptions: requestOptions,
-		nextPagePath:   nextPagePath,
-		hasMore:        true,
-	}
+  return &CouponMiniList{
+    client:       client,
+    requestOptions: requestOptions,
+    nextPagePath: nextPagePath,
+    hasMore:      true,
+  }
 }
+
 
 type CouponMiniLister interface {
-	Fetch() error
-	FetchWithContext(ctx context.Context) error
-	Count() (*int64, error)
-	CountWithContext(ctx context.Context) (*int64, error)
-	Data() []CouponMini
-	HasMore() bool
-	Next() string
+  Fetch() error
+  FetchWithContext(ctx context.Context) error
+  Count() (*int64, error)
+  CountWithContext(ctx context.Context) (*int64, error)
+  Data()    []CouponMini
+  HasMore() bool
+  Next() string
 }
 
-func (list *CouponMiniList) HasMore() bool {
-	return list.hasMore
+func (list  *CouponMiniList) HasMore() bool {
+    return list.hasMore
 }
 
-func (list *CouponMiniList) Next() string {
-	return list.nextPagePath
+func (list  *CouponMiniList) Next() string {
+    return list.nextPagePath
 }
 
 func (list *CouponMiniList) Data() []CouponMini {
-	return list.data
+    return list.data
 }
+
 
 // Fetch fetches the next page of data into the `Data` property
 func (list *CouponMiniList) FetchWithContext(ctx context.Context) error {
@@ -113,16 +132,16 @@ func (list *CouponMiniList) FetchWithContext(ctx context.Context) error {
 	if err != nil {
 		return err
 	}
-	// copy over properties from the response
-	list.nextPagePath = resources.Next
+  // copy over properties from the response
+  list.nextPagePath = resources.Next
 	list.hasMore = resources.HasMore
 	list.data = resources.Data
-	return nil
+  return nil
 }
 
 // Fetch fetches the next page of data into the `Data` property
 func (list *CouponMiniList) Fetch() error {
-	return list.FetchWithContext(context.Background())
+  return list.FetchWithContext(context.Background())
 }
 
 // Count returns the count of items on the server that match this pager
@@ -138,5 +157,5 @@ func (list *CouponMiniList) CountWithContext(ctx context.Context) (*int64, error
 
 // Count returns the count of items on the server that match this pager
 func (list *CouponMiniList) Count() (*int64, error) {
-	return list.CountWithContext(context.Background())
+  return list.CountWithContext(context.Background())
 }

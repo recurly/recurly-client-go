@@ -4,15 +4,24 @@
 // need and we will usher them to the appropriate places.
 package recurly
 
-import ()
+import (
+)
 
 type SubscriptionShippingUpdate struct {
+  
 
-	// Object type
-	Object *string `json:"object,omitempty"`
+  
+        // Object type
+        Object *string `json:"object,omitempty"`
 
-	Address *ShippingAddressCreate `json:"address,omitempty"`
+  
+        Address *ShippingAddressCreate `json:"address,omitempty"`
 
-	// Assign a shipping address from the account's existing shipping addresses.
-	AddressId *string `json:"address_id,omitempty"`
+  
+        // Assign a shipping address from the account's existing shipping addresses.
+        AddressId *string `json:"address_id,omitempty"`
+
+  
 }
+
+

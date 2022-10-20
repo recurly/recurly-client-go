@@ -5,35 +5,43 @@
 package recurly
 
 import (
-	"context"
-	"net/http"
+        "net/http"
+        "context"
 )
 
 type CouponDiscountPricing struct {
-	recurlyResponse *ResponseMetadata
+  recurlyResponse *ResponseMetadata
 
-	// 3-letter ISO 4217 currency code.
-	Currency string `json:"currency,omitempty"`
+  
+        // 3-letter ISO 4217 currency code.
+        Currency string `json:"currency,omitempty"`
 
-	// Value of the fixed discount that this coupon applies.
-	Amount float64 `json:"amount,omitempty"`
+  
+        // Value of the fixed discount that this coupon applies.
+        Amount float64 `json:"amount,omitempty"`
+
+  
 }
 
 // GetResponse returns the ResponseMetadata that generated this resource
 func (resource *CouponDiscountPricing) GetResponse() *ResponseMetadata {
-	return resource.recurlyResponse
+  return resource.recurlyResponse
 }
 
 // setResponse sets the ResponseMetadata that generated this resource
 func (resource *CouponDiscountPricing) setResponse(res *ResponseMetadata) {
-	resource.recurlyResponse = res
+  resource.recurlyResponse = res
 }
+
+
+
+
 
 // internal struct for deserializing accounts
 type couponDiscountPricingList struct {
 	ListMetadata
-	Data            []CouponDiscountPricing `json:"data"`
-	recurlyResponse *ResponseMetadata
+  Data []CouponDiscountPricing `json:"data"`
+  recurlyResponse *ResponseMetadata
 }
 
 // GetResponse returns the ResponseMetadata that generated this resource
@@ -46,45 +54,50 @@ func (resource *couponDiscountPricingList) setResponse(res *ResponseMetadata) {
 	resource.recurlyResponse = res
 }
 
+
+
+
 // CouponDiscountPricingList allows you to paginate CouponDiscountPricing objects
 type CouponDiscountPricingList struct {
-	client         HTTPCaller
-	requestOptions *RequestOptions
-	nextPagePath   string
-	hasMore        bool
-	data           []CouponDiscountPricing
+  client         HTTPCaller
+  requestOptions *RequestOptions
+  nextPagePath   string
+  hasMore bool
+  data    []CouponDiscountPricing
 }
 
 func NewCouponDiscountPricingList(client HTTPCaller, nextPagePath string, requestOptions *RequestOptions) *CouponDiscountPricingList {
-	return &CouponDiscountPricingList{
-		client:         client,
-		requestOptions: requestOptions,
-		nextPagePath:   nextPagePath,
-		hasMore:        true,
-	}
+  return &CouponDiscountPricingList{
+    client:       client,
+    requestOptions: requestOptions,
+    nextPagePath: nextPagePath,
+    hasMore:      true,
+  }
 }
+
 
 type CouponDiscountPricingLister interface {
-	Fetch() error
-	FetchWithContext(ctx context.Context) error
-	Count() (*int64, error)
-	CountWithContext(ctx context.Context) (*int64, error)
-	Data() []CouponDiscountPricing
-	HasMore() bool
-	Next() string
+  Fetch() error
+  FetchWithContext(ctx context.Context) error
+  Count() (*int64, error)
+  CountWithContext(ctx context.Context) (*int64, error)
+  Data()    []CouponDiscountPricing
+  HasMore() bool
+  Next() string
 }
 
-func (list *CouponDiscountPricingList) HasMore() bool {
-	return list.hasMore
+func (list  *CouponDiscountPricingList) HasMore() bool {
+    return list.hasMore
 }
 
-func (list *CouponDiscountPricingList) Next() string {
-	return list.nextPagePath
+func (list  *CouponDiscountPricingList) Next() string {
+    return list.nextPagePath
 }
 
 func (list *CouponDiscountPricingList) Data() []CouponDiscountPricing {
-	return list.data
+    return list.data
 }
+
 
 // Fetch fetches the next page of data into the `Data` property
 func (list *CouponDiscountPricingList) FetchWithContext(ctx context.Context) error {
@@ -93,16 +106,16 @@ func (list *CouponDiscountPricingList) FetchWithContext(ctx context.Context) err
 	if err != nil {
 		return err
 	}
-	// copy over properties from the response
-	list.nextPagePath = resources.Next
+  // copy over properties from the response
+  list.nextPagePath = resources.Next
 	list.hasMore = resources.HasMore
 	list.data = resources.Data
-	return nil
+  return nil
 }
 
 // Fetch fetches the next page of data into the `Data` property
 func (list *CouponDiscountPricingList) Fetch() error {
-	return list.FetchWithContext(context.Background())
+  return list.FetchWithContext(context.Background())
 }
 
 // Count returns the count of items on the server that match this pager
@@ -118,5 +131,5 @@ func (list *CouponDiscountPricingList) CountWithContext(ctx context.Context) (*i
 
 // Count returns the count of items on the server that match this pager
 func (list *CouponDiscountPricingList) Count() (*int64, error) {
-	return list.CountWithContext(context.Background())
+  return list.CountWithContext(context.Background())
 }

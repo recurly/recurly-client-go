@@ -5,20 +5,29 @@
 package recurly
 
 import (
-	"time"
+        "time"
 )
 
 type ExternalTransaction struct {
+  
 
-	// Payment method used for external transaction.
-	PaymentMethod *string `json:"payment_method,omitempty"`
+  
+        // Payment method used for external transaction.
+        PaymentMethod *string `json:"payment_method,omitempty"`
 
-	// Used as the transaction's description.
-	Description *string `json:"description,omitempty"`
+  
+        // Used as the transaction's description.
+        Description *string `json:"description,omitempty"`
 
-	// The total amount of the transcaction. Cannot excceed the invoice total.
-	Amount *float64 `json:"amount,omitempty"`
+  
+        // The total amount of the transcaction. Cannot excceed the invoice total.
+        Amount *float64 `json:"amount,omitempty"`
 
-	// Datetime that the external payment was collected. Defaults to current datetime.
-	CollectedAt *time.Time `json:"collected_at,omitempty"`
+  
+        // Datetime that the external payment was collected. Defaults to current datetime.
+        CollectedAt *time.Time `json:"collected_at,omitempty"`
+
+  
 }
+
+

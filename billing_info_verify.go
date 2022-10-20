@@ -4,10 +4,17 @@
 // need and we will usher them to the appropriate places.
 package recurly
 
-import ()
+import (
+)
 
 type BillingInfoVerify struct {
+  
 
-	// An identifier for a specific payment gateway.
-	GatewayCode *string `json:"gateway_code,omitempty"`
+  
+        // An identifier for a specific payment gateway.
+        GatewayCode *string `json:"gateway_code,omitempty"`
+
+  
 }
+
+

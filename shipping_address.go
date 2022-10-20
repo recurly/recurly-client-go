@@ -5,74 +5,98 @@
 package recurly
 
 import (
-	"context"
-	"net/http"
-	"time"
+        "net/http"
+        "context"
+        "time"
 )
 
 type ShippingAddress struct {
-	recurlyResponse *ResponseMetadata
+  recurlyResponse *ResponseMetadata
 
-	// Shipping Address ID
-	Id string `json:"id,omitempty"`
+  
+        // Shipping Address ID
+        Id string `json:"id,omitempty"`
 
-	// Object type
-	Object string `json:"object,omitempty"`
+  
+        // Object type
+        Object string `json:"object,omitempty"`
 
-	// Account ID
-	AccountId string `json:"account_id,omitempty"`
+  
+        // Account ID
+        AccountId string `json:"account_id,omitempty"`
 
-	Nickname string `json:"nickname,omitempty"`
+  
+        Nickname string `json:"nickname,omitempty"`
 
-	FirstName string `json:"first_name,omitempty"`
+  
+        FirstName string `json:"first_name,omitempty"`
 
-	LastName string `json:"last_name,omitempty"`
+  
+        LastName string `json:"last_name,omitempty"`
 
-	Company string `json:"company,omitempty"`
+  
+        Company string `json:"company,omitempty"`
 
-	Email string `json:"email,omitempty"`
+  
+        Email string `json:"email,omitempty"`
 
-	VatNumber string `json:"vat_number,omitempty"`
+  
+        VatNumber string `json:"vat_number,omitempty"`
 
-	Phone string `json:"phone,omitempty"`
+  
+        Phone string `json:"phone,omitempty"`
 
-	Street1 string `json:"street1,omitempty"`
+  
+        Street1 string `json:"street1,omitempty"`
 
-	Street2 string `json:"street2,omitempty"`
+  
+        Street2 string `json:"street2,omitempty"`
 
-	City string `json:"city,omitempty"`
+  
+        City string `json:"city,omitempty"`
 
-	// State or province.
-	Region string `json:"region,omitempty"`
+  
+        // State or province.
+        Region string `json:"region,omitempty"`
 
-	// Zip or postal code.
-	PostalCode string `json:"postal_code,omitempty"`
+  
+        // Zip or postal code.
+        PostalCode string `json:"postal_code,omitempty"`
 
-	// Country, 2-letter ISO 3166-1 alpha-2 code.
-	Country string `json:"country,omitempty"`
+  
+        // Country, 2-letter ISO 3166-1 alpha-2 code.
+        Country string `json:"country,omitempty"`
 
-	// Created at
-	CreatedAt time.Time `json:"created_at,omitempty"`
+  
+        // Created at
+        CreatedAt time.Time `json:"created_at,omitempty"`
 
-	// Updated at
-	UpdatedAt time.Time `json:"updated_at,omitempty"`
+  
+        // Updated at
+        UpdatedAt time.Time `json:"updated_at,omitempty"`
+
+  
 }
 
 // GetResponse returns the ResponseMetadata that generated this resource
 func (resource *ShippingAddress) GetResponse() *ResponseMetadata {
-	return resource.recurlyResponse
+  return resource.recurlyResponse
 }
 
 // setResponse sets the ResponseMetadata that generated this resource
 func (resource *ShippingAddress) setResponse(res *ResponseMetadata) {
-	resource.recurlyResponse = res
+  resource.recurlyResponse = res
 }
+
+
+
+
 
 // internal struct for deserializing accounts
 type shippingAddressList struct {
 	ListMetadata
-	Data            []ShippingAddress `json:"data"`
-	recurlyResponse *ResponseMetadata
+  Data []ShippingAddress `json:"data"`
+  recurlyResponse *ResponseMetadata
 }
 
 // GetResponse returns the ResponseMetadata that generated this resource
@@ -85,45 +109,50 @@ func (resource *shippingAddressList) setResponse(res *ResponseMetadata) {
 	resource.recurlyResponse = res
 }
 
+
+
+
 // ShippingAddressList allows you to paginate ShippingAddress objects
 type ShippingAddressList struct {
-	client         HTTPCaller
-	requestOptions *RequestOptions
-	nextPagePath   string
-	hasMore        bool
-	data           []ShippingAddress
+  client         HTTPCaller
+  requestOptions *RequestOptions
+  nextPagePath   string
+  hasMore bool
+  data    []ShippingAddress
 }
 
 func NewShippingAddressList(client HTTPCaller, nextPagePath string, requestOptions *RequestOptions) *ShippingAddressList {
-	return &ShippingAddressList{
-		client:         client,
-		requestOptions: requestOptions,
-		nextPagePath:   nextPagePath,
-		hasMore:        true,
-	}
+  return &ShippingAddressList{
+    client:       client,
+    requestOptions: requestOptions,
+    nextPagePath: nextPagePath,
+    hasMore:      true,
+  }
 }
+
 
 type ShippingAddressLister interface {
-	Fetch() error
-	FetchWithContext(ctx context.Context) error
-	Count() (*int64, error)
-	CountWithContext(ctx context.Context) (*int64, error)
-	Data() []ShippingAddress
-	HasMore() bool
-	Next() string
+  Fetch() error
+  FetchWithContext(ctx context.Context) error
+  Count() (*int64, error)
+  CountWithContext(ctx context.Context) (*int64, error)
+  Data()    []ShippingAddress
+  HasMore() bool
+  Next() string
 }
 
-func (list *ShippingAddressList) HasMore() bool {
-	return list.hasMore
+func (list  *ShippingAddressList) HasMore() bool {
+    return list.hasMore
 }
 
-func (list *ShippingAddressList) Next() string {
-	return list.nextPagePath
+func (list  *ShippingAddressList) Next() string {
+    return list.nextPagePath
 }
 
 func (list *ShippingAddressList) Data() []ShippingAddress {
-	return list.data
+    return list.data
 }
+
 
 // Fetch fetches the next page of data into the `Data` property
 func (list *ShippingAddressList) FetchWithContext(ctx context.Context) error {
@@ -132,16 +161,16 @@ func (list *ShippingAddressList) FetchWithContext(ctx context.Context) error {
 	if err != nil {
 		return err
 	}
-	// copy over properties from the response
-	list.nextPagePath = resources.Next
+  // copy over properties from the response
+  list.nextPagePath = resources.Next
 	list.hasMore = resources.HasMore
 	list.data = resources.Data
-	return nil
+  return nil
 }
 
 // Fetch fetches the next page of data into the `Data` property
 func (list *ShippingAddressList) Fetch() error {
-	return list.FetchWithContext(context.Background())
+  return list.FetchWithContext(context.Background())
 }
 
 // Count returns the count of items on the server that match this pager
@@ -157,5 +186,5 @@ func (list *ShippingAddressList) CountWithContext(ctx context.Context) (*int64, 
 
 // Count returns the count of items on the server that match this pager
 func (list *ShippingAddressList) Count() (*int64, error) {
-	return list.CountWithContext(context.Background())
+  return list.CountWithContext(context.Background())
 }

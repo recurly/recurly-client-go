@@ -4,16 +4,25 @@
 // need and we will usher them to the appropriate places.
 package recurly
 
-import ()
+import (
+)
 
 type PricingCreate struct {
+  
 
-	// 3-letter ISO 4217 currency code.
-	Currency *string `json:"currency,omitempty"`
+  
+        // 3-letter ISO 4217 currency code.
+        Currency *string `json:"currency,omitempty"`
 
-	// Unit price
-	UnitAmount *float64 `json:"unit_amount,omitempty"`
+  
+        // Unit price
+        UnitAmount *float64 `json:"unit_amount,omitempty"`
 
-	// This field is deprecated. Please do not use it.
-	TaxInclusive *bool `json:"tax_inclusive,omitempty"`
+  
+        // This field is deprecated. Please do not use it.
+        TaxInclusive *bool `json:"tax_inclusive,omitempty"`
+
+  
 }
+
+

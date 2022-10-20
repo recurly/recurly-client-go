@@ -4,10 +4,17 @@
 // need and we will usher them to the appropriate places.
 package recurly
 
-import ()
+import (
+)
 
 type BillingInfoVerifyCVV struct {
+  
 
-	// Unique security code for a credit card.
-	VerificationValue *string `json:"verification_value,omitempty"`
+  
+        // Unique security code for a credit card.
+        VerificationValue *string `json:"verification_value,omitempty"`
+
+  
 }
+
+

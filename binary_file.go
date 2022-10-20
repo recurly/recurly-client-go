@@ -5,31 +5,38 @@
 package recurly
 
 import (
-	"context"
-	"net/http"
+        "net/http"
+        "context"
 )
 
 type BinaryFile struct {
-	recurlyResponse *ResponseMetadata
+  recurlyResponse *ResponseMetadata
 
-	Data string `json:"data,omitempty"`
+  
+        Data string `json:"data,omitempty"`
+
+  
 }
 
 // GetResponse returns the ResponseMetadata that generated this resource
 func (resource *BinaryFile) GetResponse() *ResponseMetadata {
-	return resource.recurlyResponse
+  return resource.recurlyResponse
 }
 
 // setResponse sets the ResponseMetadata that generated this resource
 func (resource *BinaryFile) setResponse(res *ResponseMetadata) {
-	resource.recurlyResponse = res
+  resource.recurlyResponse = res
 }
+
+
+
+
 
 // internal struct for deserializing accounts
 type binaryFileList struct {
 	ListMetadata
-	Data            []BinaryFile `json:"data"`
-	recurlyResponse *ResponseMetadata
+  Data []BinaryFile `json:"data"`
+  recurlyResponse *ResponseMetadata
 }
 
 // GetResponse returns the ResponseMetadata that generated this resource
@@ -42,45 +49,50 @@ func (resource *binaryFileList) setResponse(res *ResponseMetadata) {
 	resource.recurlyResponse = res
 }
 
+
+
+
 // BinaryFileList allows you to paginate BinaryFile objects
 type BinaryFileList struct {
-	client         HTTPCaller
-	requestOptions *RequestOptions
-	nextPagePath   string
-	hasMore        bool
-	data           []BinaryFile
+  client         HTTPCaller
+  requestOptions *RequestOptions
+  nextPagePath   string
+  hasMore bool
+  data    []BinaryFile
 }
 
 func NewBinaryFileList(client HTTPCaller, nextPagePath string, requestOptions *RequestOptions) *BinaryFileList {
-	return &BinaryFileList{
-		client:         client,
-		requestOptions: requestOptions,
-		nextPagePath:   nextPagePath,
-		hasMore:        true,
-	}
+  return &BinaryFileList{
+    client:       client,
+    requestOptions: requestOptions,
+    nextPagePath: nextPagePath,
+    hasMore:      true,
+  }
 }
+
 
 type BinaryFileLister interface {
-	Fetch() error
-	FetchWithContext(ctx context.Context) error
-	Count() (*int64, error)
-	CountWithContext(ctx context.Context) (*int64, error)
-	Data() []BinaryFile
-	HasMore() bool
-	Next() string
+  Fetch() error
+  FetchWithContext(ctx context.Context) error
+  Count() (*int64, error)
+  CountWithContext(ctx context.Context) (*int64, error)
+  Data()    []BinaryFile
+  HasMore() bool
+  Next() string
 }
 
-func (list *BinaryFileList) HasMore() bool {
-	return list.hasMore
+func (list  *BinaryFileList) HasMore() bool {
+    return list.hasMore
 }
 
-func (list *BinaryFileList) Next() string {
-	return list.nextPagePath
+func (list  *BinaryFileList) Next() string {
+    return list.nextPagePath
 }
 
 func (list *BinaryFileList) Data() []BinaryFile {
-	return list.data
+    return list.data
 }
+
 
 // Fetch fetches the next page of data into the `Data` property
 func (list *BinaryFileList) FetchWithContext(ctx context.Context) error {
@@ -89,16 +101,16 @@ func (list *BinaryFileList) FetchWithContext(ctx context.Context) error {
 	if err != nil {
 		return err
 	}
-	// copy over properties from the response
-	list.nextPagePath = resources.Next
+  // copy over properties from the response
+  list.nextPagePath = resources.Next
 	list.hasMore = resources.HasMore
 	list.data = resources.Data
-	return nil
+  return nil
 }
 
 // Fetch fetches the next page of data into the `Data` property
 func (list *BinaryFileList) Fetch() error {
-	return list.FetchWithContext(context.Background())
+  return list.FetchWithContext(context.Background())
 }
 
 // Count returns the count of items on the server that match this pager
@@ -114,5 +126,5 @@ func (list *BinaryFileList) CountWithContext(ctx context.Context) (*int64, error
 
 // Count returns the count of items on the server that match this pager
 func (list *BinaryFileList) Count() (*int64, error) {
-	return list.CountWithContext(context.Background())
+  return list.CountWithContext(context.Background())
 }

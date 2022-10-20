@@ -5,62 +5,79 @@
 package recurly
 
 import (
-	"context"
-	"net/http"
+        "net/http"
+        "context"
 )
 
 type InvoiceAddress struct {
-	recurlyResponse *ResponseMetadata
+  recurlyResponse *ResponseMetadata
 
-	// Name on account
-	NameOnAccount string `json:"name_on_account,omitempty"`
+  
+        // Name on account
+        NameOnAccount string `json:"name_on_account,omitempty"`
 
-	// Company
-	Company string `json:"company,omitempty"`
+  
+        // Company
+        Company string `json:"company,omitempty"`
 
-	// Phone number
-	Phone string `json:"phone,omitempty"`
+  
+        // Phone number
+        Phone string `json:"phone,omitempty"`
 
-	// Street 1
-	Street1 string `json:"street1,omitempty"`
+  
+        // Street 1
+        Street1 string `json:"street1,omitempty"`
 
-	// Street 2
-	Street2 string `json:"street2,omitempty"`
+  
+        // Street 2
+        Street2 string `json:"street2,omitempty"`
 
-	// City
-	City string `json:"city,omitempty"`
+  
+        // City
+        City string `json:"city,omitempty"`
 
-	// State or province.
-	Region string `json:"region,omitempty"`
+  
+        // State or province.
+        Region string `json:"region,omitempty"`
 
-	// Zip or postal code.
-	PostalCode string `json:"postal_code,omitempty"`
+  
+        // Zip or postal code.
+        PostalCode string `json:"postal_code,omitempty"`
 
-	// Country, 2-letter ISO 3166-1 alpha-2 code.
-	Country string `json:"country,omitempty"`
+  
+        // Country, 2-letter ISO 3166-1 alpha-2 code.
+        Country string `json:"country,omitempty"`
 
-	// First name
-	FirstName string `json:"first_name,omitempty"`
+  
+        // First name
+        FirstName string `json:"first_name,omitempty"`
 
-	// Last name
-	LastName string `json:"last_name,omitempty"`
+  
+        // Last name
+        LastName string `json:"last_name,omitempty"`
+
+  
 }
 
 // GetResponse returns the ResponseMetadata that generated this resource
 func (resource *InvoiceAddress) GetResponse() *ResponseMetadata {
-	return resource.recurlyResponse
+  return resource.recurlyResponse
 }
 
 // setResponse sets the ResponseMetadata that generated this resource
 func (resource *InvoiceAddress) setResponse(res *ResponseMetadata) {
-	resource.recurlyResponse = res
+  resource.recurlyResponse = res
 }
+
+
+
+
 
 // internal struct for deserializing accounts
 type invoiceAddressList struct {
 	ListMetadata
-	Data            []InvoiceAddress `json:"data"`
-	recurlyResponse *ResponseMetadata
+  Data []InvoiceAddress `json:"data"`
+  recurlyResponse *ResponseMetadata
 }
 
 // GetResponse returns the ResponseMetadata that generated this resource
@@ -73,45 +90,50 @@ func (resource *invoiceAddressList) setResponse(res *ResponseMetadata) {
 	resource.recurlyResponse = res
 }
 
+
+
+
 // InvoiceAddressList allows you to paginate InvoiceAddress objects
 type InvoiceAddressList struct {
-	client         HTTPCaller
-	requestOptions *RequestOptions
-	nextPagePath   string
-	hasMore        bool
-	data           []InvoiceAddress
+  client         HTTPCaller
+  requestOptions *RequestOptions
+  nextPagePath   string
+  hasMore bool
+  data    []InvoiceAddress
 }
 
 func NewInvoiceAddressList(client HTTPCaller, nextPagePath string, requestOptions *RequestOptions) *InvoiceAddressList {
-	return &InvoiceAddressList{
-		client:         client,
-		requestOptions: requestOptions,
-		nextPagePath:   nextPagePath,
-		hasMore:        true,
-	}
+  return &InvoiceAddressList{
+    client:       client,
+    requestOptions: requestOptions,
+    nextPagePath: nextPagePath,
+    hasMore:      true,
+  }
 }
+
 
 type InvoiceAddressLister interface {
-	Fetch() error
-	FetchWithContext(ctx context.Context) error
-	Count() (*int64, error)
-	CountWithContext(ctx context.Context) (*int64, error)
-	Data() []InvoiceAddress
-	HasMore() bool
-	Next() string
+  Fetch() error
+  FetchWithContext(ctx context.Context) error
+  Count() (*int64, error)
+  CountWithContext(ctx context.Context) (*int64, error)
+  Data()    []InvoiceAddress
+  HasMore() bool
+  Next() string
 }
 
-func (list *InvoiceAddressList) HasMore() bool {
-	return list.hasMore
+func (list  *InvoiceAddressList) HasMore() bool {
+    return list.hasMore
 }
 
-func (list *InvoiceAddressList) Next() string {
-	return list.nextPagePath
+func (list  *InvoiceAddressList) Next() string {
+    return list.nextPagePath
 }
 
 func (list *InvoiceAddressList) Data() []InvoiceAddress {
-	return list.data
+    return list.data
 }
+
 
 // Fetch fetches the next page of data into the `Data` property
 func (list *InvoiceAddressList) FetchWithContext(ctx context.Context) error {
@@ -120,16 +142,16 @@ func (list *InvoiceAddressList) FetchWithContext(ctx context.Context) error {
 	if err != nil {
 		return err
 	}
-	// copy over properties from the response
-	list.nextPagePath = resources.Next
+  // copy over properties from the response
+  list.nextPagePath = resources.Next
 	list.hasMore = resources.HasMore
 	list.data = resources.Data
-	return nil
+  return nil
 }
 
 // Fetch fetches the next page of data into the `Data` property
 func (list *InvoiceAddressList) Fetch() error {
-	return list.FetchWithContext(context.Background())
+  return list.FetchWithContext(context.Background())
 }
 
 // Count returns the count of items on the server that match this pager
@@ -145,5 +167,5 @@ func (list *InvoiceAddressList) CountWithContext(ctx context.Context) (*int64, e
 
 // Count returns the count of items on the server that match this pager
 func (list *InvoiceAddressList) Count() (*int64, error) {
-	return list.CountWithContext(context.Background())
+  return list.CountWithContext(context.Background())
 }

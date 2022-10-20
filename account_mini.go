@@ -5,53 +5,69 @@
 package recurly
 
 import (
-	"context"
-	"net/http"
+        "net/http"
+        "context"
 )
 
 type AccountMini struct {
-	recurlyResponse *ResponseMetadata
+  recurlyResponse *ResponseMetadata
 
-	Id string `json:"id,omitempty"`
+  
+        Id string `json:"id,omitempty"`
 
-	// Object type
-	Object string `json:"object,omitempty"`
+  
+        // Object type
+        Object string `json:"object,omitempty"`
 
-	// The unique identifier of the account.
-	Code string `json:"code,omitempty"`
+  
+        // The unique identifier of the account.
+        Code string `json:"code,omitempty"`
 
-	// The email address used for communicating with this customer.
-	Email string `json:"email,omitempty"`
+  
+        // The email address used for communicating with this customer.
+        Email string `json:"email,omitempty"`
 
-	FirstName string `json:"first_name,omitempty"`
+  
+        FirstName string `json:"first_name,omitempty"`
 
-	LastName string `json:"last_name,omitempty"`
+  
+        LastName string `json:"last_name,omitempty"`
 
-	Company string `json:"company,omitempty"`
+  
+        Company string `json:"company,omitempty"`
 
-	ParentAccountId string `json:"parent_account_id,omitempty"`
+  
+        ParentAccountId string `json:"parent_account_id,omitempty"`
 
-	BillTo string `json:"bill_to,omitempty"`
+  
+        BillTo string `json:"bill_to,omitempty"`
 
-	// Unique ID to identify a dunning campaign. Used to specify if a non-default dunning campaign should be assigned to this account. For sites without multiple dunning campaigns enabled, the default dunning campaign will always be used.
-	DunningCampaignId string `json:"dunning_campaign_id,omitempty"`
+  
+        // Unique ID to identify a dunning campaign. Used to specify if a non-default dunning campaign should be assigned to this account. For sites without multiple dunning campaigns enabled, the default dunning campaign will always be used.
+        DunningCampaignId string `json:"dunning_campaign_id,omitempty"`
+
+  
 }
 
 // GetResponse returns the ResponseMetadata that generated this resource
 func (resource *AccountMini) GetResponse() *ResponseMetadata {
-	return resource.recurlyResponse
+  return resource.recurlyResponse
 }
 
 // setResponse sets the ResponseMetadata that generated this resource
 func (resource *AccountMini) setResponse(res *ResponseMetadata) {
-	resource.recurlyResponse = res
+  resource.recurlyResponse = res
 }
+
+
+
+
 
 // internal struct for deserializing accounts
 type accountMiniList struct {
 	ListMetadata
-	Data            []AccountMini `json:"data"`
-	recurlyResponse *ResponseMetadata
+  Data []AccountMini `json:"data"`
+  recurlyResponse *ResponseMetadata
 }
 
 // GetResponse returns the ResponseMetadata that generated this resource
@@ -64,45 +80,50 @@ func (resource *accountMiniList) setResponse(res *ResponseMetadata) {
 	resource.recurlyResponse = res
 }
 
+
+
+
 // AccountMiniList allows you to paginate AccountMini objects
 type AccountMiniList struct {
-	client         HTTPCaller
-	requestOptions *RequestOptions
-	nextPagePath   string
-	hasMore        bool
-	data           []AccountMini
+  client         HTTPCaller
+  requestOptions *RequestOptions
+  nextPagePath   string
+  hasMore bool
+  data    []AccountMini
 }
 
 func NewAccountMiniList(client HTTPCaller, nextPagePath string, requestOptions *RequestOptions) *AccountMiniList {
-	return &AccountMiniList{
-		client:         client,
-		requestOptions: requestOptions,
-		nextPagePath:   nextPagePath,
-		hasMore:        true,
-	}
+  return &AccountMiniList{
+    client:       client,
+    requestOptions: requestOptions,
+    nextPagePath: nextPagePath,
+    hasMore:      true,
+  }
 }
+
 
 type AccountMiniLister interface {
-	Fetch() error
-	FetchWithContext(ctx context.Context) error
-	Count() (*int64, error)
-	CountWithContext(ctx context.Context) (*int64, error)
-	Data() []AccountMini
-	HasMore() bool
-	Next() string
+  Fetch() error
+  FetchWithContext(ctx context.Context) error
+  Count() (*int64, error)
+  CountWithContext(ctx context.Context) (*int64, error)
+  Data()    []AccountMini
+  HasMore() bool
+  Next() string
 }
 
-func (list *AccountMiniList) HasMore() bool {
-	return list.hasMore
+func (list  *AccountMiniList) HasMore() bool {
+    return list.hasMore
 }
 
-func (list *AccountMiniList) Next() string {
-	return list.nextPagePath
+func (list  *AccountMiniList) Next() string {
+    return list.nextPagePath
 }
 
 func (list *AccountMiniList) Data() []AccountMini {
-	return list.data
+    return list.data
 }
+
 
 // Fetch fetches the next page of data into the `Data` property
 func (list *AccountMiniList) FetchWithContext(ctx context.Context) error {
@@ -111,16 +132,16 @@ func (list *AccountMiniList) FetchWithContext(ctx context.Context) error {
 	if err != nil {
 		return err
 	}
-	// copy over properties from the response
-	list.nextPagePath = resources.Next
+  // copy over properties from the response
+  list.nextPagePath = resources.Next
 	list.hasMore = resources.HasMore
 	list.data = resources.Data
-	return nil
+  return nil
 }
 
 // Fetch fetches the next page of data into the `Data` property
 func (list *AccountMiniList) Fetch() error {
-	return list.FetchWithContext(context.Background())
+  return list.FetchWithContext(context.Background())
 }
 
 // Count returns the count of items on the server that match this pager
@@ -136,5 +157,5 @@ func (list *AccountMiniList) CountWithContext(ctx context.Context) (*int64, erro
 
 // Count returns the count of items on the server that match this pager
 func (list *AccountMiniList) Count() (*int64, error) {
-	return list.CountWithContext(context.Background())
+  return list.CountWithContext(context.Background())
 }

@@ -5,56 +5,71 @@
 package recurly
 
 import (
-	"context"
-	"net/http"
+        "net/http"
+        "context"
 )
 
 type AddressWithName struct {
-	recurlyResponse *ResponseMetadata
+  recurlyResponse *ResponseMetadata
 
-	// First name
-	FirstName string `json:"first_name,omitempty"`
+  
+        // First name
+        FirstName string `json:"first_name,omitempty"`
 
-	// Last name
-	LastName string `json:"last_name,omitempty"`
+  
+        // Last name
+        LastName string `json:"last_name,omitempty"`
 
-	// Phone number
-	Phone string `json:"phone,omitempty"`
+  
+        // Phone number
+        Phone string `json:"phone,omitempty"`
 
-	// Street 1
-	Street1 string `json:"street1,omitempty"`
+  
+        // Street 1
+        Street1 string `json:"street1,omitempty"`
 
-	// Street 2
-	Street2 string `json:"street2,omitempty"`
+  
+        // Street 2
+        Street2 string `json:"street2,omitempty"`
 
-	// City
-	City string `json:"city,omitempty"`
+  
+        // City
+        City string `json:"city,omitempty"`
 
-	// State or province.
-	Region string `json:"region,omitempty"`
+  
+        // State or province.
+        Region string `json:"region,omitempty"`
 
-	// Zip or postal code.
-	PostalCode string `json:"postal_code,omitempty"`
+  
+        // Zip or postal code.
+        PostalCode string `json:"postal_code,omitempty"`
 
-	// Country, 2-letter ISO 3166-1 alpha-2 code.
-	Country string `json:"country,omitempty"`
+  
+        // Country, 2-letter ISO 3166-1 alpha-2 code.
+        Country string `json:"country,omitempty"`
+
+  
 }
 
 // GetResponse returns the ResponseMetadata that generated this resource
 func (resource *AddressWithName) GetResponse() *ResponseMetadata {
-	return resource.recurlyResponse
+  return resource.recurlyResponse
 }
 
 // setResponse sets the ResponseMetadata that generated this resource
 func (resource *AddressWithName) setResponse(res *ResponseMetadata) {
-	resource.recurlyResponse = res
+  resource.recurlyResponse = res
 }
+
+
+
+
 
 // internal struct for deserializing accounts
 type addressWithNameList struct {
 	ListMetadata
-	Data            []AddressWithName `json:"data"`
-	recurlyResponse *ResponseMetadata
+  Data []AddressWithName `json:"data"`
+  recurlyResponse *ResponseMetadata
 }
 
 // GetResponse returns the ResponseMetadata that generated this resource
@@ -67,45 +82,50 @@ func (resource *addressWithNameList) setResponse(res *ResponseMetadata) {
 	resource.recurlyResponse = res
 }
 
+
+
+
 // AddressWithNameList allows you to paginate AddressWithName objects
 type AddressWithNameList struct {
-	client         HTTPCaller
-	requestOptions *RequestOptions
-	nextPagePath   string
-	hasMore        bool
-	data           []AddressWithName
+  client         HTTPCaller
+  requestOptions *RequestOptions
+  nextPagePath   string
+  hasMore bool
+  data    []AddressWithName
 }
 
 func NewAddressWithNameList(client HTTPCaller, nextPagePath string, requestOptions *RequestOptions) *AddressWithNameList {
-	return &AddressWithNameList{
-		client:         client,
-		requestOptions: requestOptions,
-		nextPagePath:   nextPagePath,
-		hasMore:        true,
-	}
+  return &AddressWithNameList{
+    client:       client,
+    requestOptions: requestOptions,
+    nextPagePath: nextPagePath,
+    hasMore:      true,
+  }
 }
+
 
 type AddressWithNameLister interface {
-	Fetch() error
-	FetchWithContext(ctx context.Context) error
-	Count() (*int64, error)
-	CountWithContext(ctx context.Context) (*int64, error)
-	Data() []AddressWithName
-	HasMore() bool
-	Next() string
+  Fetch() error
+  FetchWithContext(ctx context.Context) error
+  Count() (*int64, error)
+  CountWithContext(ctx context.Context) (*int64, error)
+  Data()    []AddressWithName
+  HasMore() bool
+  Next() string
 }
 
-func (list *AddressWithNameList) HasMore() bool {
-	return list.hasMore
+func (list  *AddressWithNameList) HasMore() bool {
+    return list.hasMore
 }
 
-func (list *AddressWithNameList) Next() string {
-	return list.nextPagePath
+func (list  *AddressWithNameList) Next() string {
+    return list.nextPagePath
 }
 
 func (list *AddressWithNameList) Data() []AddressWithName {
-	return list.data
+    return list.data
 }
+
 
 // Fetch fetches the next page of data into the `Data` property
 func (list *AddressWithNameList) FetchWithContext(ctx context.Context) error {
@@ -114,16 +134,16 @@ func (list *AddressWithNameList) FetchWithContext(ctx context.Context) error {
 	if err != nil {
 		return err
 	}
-	// copy over properties from the response
-	list.nextPagePath = resources.Next
+  // copy over properties from the response
+  list.nextPagePath = resources.Next
 	list.hasMore = resources.HasMore
 	list.data = resources.Data
-	return nil
+  return nil
 }
 
 // Fetch fetches the next page of data into the `Data` property
 func (list *AddressWithNameList) Fetch() error {
-	return list.FetchWithContext(context.Background())
+  return list.FetchWithContext(context.Background())
 }
 
 // Count returns the count of items on the server that match this pager
@@ -139,5 +159,5 @@ func (list *AddressWithNameList) CountWithContext(ctx context.Context) (*int64, 
 
 // Count returns the count of items on the server that match this pager
 func (list *AddressWithNameList) Count() (*int64, error) {
-	return list.CountWithContext(context.Background())
+  return list.CountWithContext(context.Background())
 }

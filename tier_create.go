@@ -4,16 +4,25 @@
 // need and we will usher them to the appropriate places.
 package recurly
 
-import ()
+import (
+)
 
 type TierCreate struct {
+  
 
-	// Ending quantity for the tier.  This represents a unit amount for unit-priced add ons. Must be left empty if it is the final tier.
-	EndingQuantity *int `json:"ending_quantity,omitempty"`
+  
+        // Ending quantity for the tier.  This represents a unit amount for unit-priced add ons. Must be left empty if it is the final tier.
+        EndingQuantity *int `json:"ending_quantity,omitempty"`
 
-	// (deprecated) -- Use the percentage_tiers object instead.
-	UsagePercentage *string `json:"usage_percentage,omitempty"`
+  
+        // (deprecated) -- Use the percentage_tiers object instead.
+        UsagePercentage *string `json:"usage_percentage,omitempty"`
 
-	// Tier pricing
-	Currencies []TierPricingCreate `json:"currencies,omitempty"`
+  
+        // Tier pricing
+        Currencies []TierPricingCreate `json:"currencies,omitempty"`
+
+  
 }
+
+

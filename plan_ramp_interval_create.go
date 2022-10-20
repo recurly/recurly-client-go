@@ -4,13 +4,21 @@
 // need and we will usher them to the appropriate places.
 package recurly
 
-import ()
+import (
+)
 
 type PlanRampIntervalCreate struct {
+  
 
-	// Represents the billing cycle where a ramp interval starts.
-	StartingBillingCycle *int `json:"starting_billing_cycle,omitempty"`
+  
+        // Represents the billing cycle where a ramp interval starts.
+        StartingBillingCycle *int `json:"starting_billing_cycle,omitempty"`
 
-	// Represents the price for the ramp interval.
-	Currencies []PlanRampPricingCreate `json:"currencies,omitempty"`
+  
+        // Represents the price for the ramp interval.
+        Currencies []PlanRampPricingCreate `json:"currencies,omitempty"`
+
+  
 }
+
+

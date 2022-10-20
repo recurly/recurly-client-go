@@ -4,19 +4,29 @@
 // need and we will usher them to the appropriate places.
 package recurly
 
-import ()
+import (
+)
 
 type AccountAcquisitionUpdate struct {
+  
 
-	// Account balance
-	Cost *AccountAcquisitionCostCreate `json:"cost,omitempty"`
+  
+        // Account balance
+        Cost *AccountAcquisitionCostCreate `json:"cost,omitempty"`
 
-	// The channel through which the account was acquired.
-	Channel *string `json:"channel,omitempty"`
+  
+        // The channel through which the account was acquired.
+        Channel *string `json:"channel,omitempty"`
 
-	// An arbitrary subchannel string representing a distinction/subcategory within a broader channel.
-	Subchannel *string `json:"subchannel,omitempty"`
+  
+        // An arbitrary subchannel string representing a distinction/subcategory within a broader channel.
+        Subchannel *string `json:"subchannel,omitempty"`
 
-	// An arbitrary identifier for the marketing campaign that led to the acquisition of this account.
-	Campaign *string `json:"campaign,omitempty"`
+  
+        // An arbitrary identifier for the marketing campaign that led to the acquisition of this account.
+        Campaign *string `json:"campaign,omitempty"`
+
+  
 }
+
+

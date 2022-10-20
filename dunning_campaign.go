@@ -5,59 +5,75 @@
 package recurly
 
 import (
-	"context"
-	"net/http"
-	"time"
+        "net/http"
+        "context"
+        "time"
 )
 
 type DunningCampaign struct {
-	recurlyResponse *ResponseMetadata
+  recurlyResponse *ResponseMetadata
 
-	Id string `json:"id,omitempty"`
+  
+        Id string `json:"id,omitempty"`
 
-	// Object type
-	Object string `json:"object,omitempty"`
+  
+        // Object type
+        Object string `json:"object,omitempty"`
 
-	// Campaign code.
-	Code string `json:"code,omitempty"`
+  
+        // Campaign code.
+        Code string `json:"code,omitempty"`
 
-	// Campaign name.
-	Name string `json:"name,omitempty"`
+  
+        // Campaign name.
+        Name string `json:"name,omitempty"`
 
-	// Campaign description.
-	Description string `json:"description,omitempty"`
+  
+        // Campaign description.
+        Description string `json:"description,omitempty"`
 
-	// Whether or not this is the default campaign for accounts or plans without an assigned dunning campaign.
-	DefaultCampaign bool `json:"default_campaign,omitempty"`
+  
+        // Whether or not this is the default campaign for accounts or plans without an assigned dunning campaign.
+        DefaultCampaign bool `json:"default_campaign,omitempty"`
 
-	// Dunning Cycle settings.
-	DunningCycles []DunningCycle `json:"dunning_cycles,omitempty"`
+  
+        // Dunning Cycle settings.
+        DunningCycles []DunningCycle `json:"dunning_cycles,omitempty"`
 
-	// When the current campaign was created in Recurly.
-	CreatedAt time.Time `json:"created_at,omitempty"`
+  
+        // When the current campaign was created in Recurly.
+        CreatedAt time.Time `json:"created_at,omitempty"`
 
-	// When the current campaign was updated in Recurly.
-	UpdatedAt time.Time `json:"updated_at,omitempty"`
+  
+        // When the current campaign was updated in Recurly.
+        UpdatedAt time.Time `json:"updated_at,omitempty"`
 
-	// When the current campaign was deleted in Recurly.
-	DeletedAt time.Time `json:"deleted_at,omitempty"`
+  
+        // When the current campaign was deleted in Recurly.
+        DeletedAt time.Time `json:"deleted_at,omitempty"`
+
+  
 }
 
 // GetResponse returns the ResponseMetadata that generated this resource
 func (resource *DunningCampaign) GetResponse() *ResponseMetadata {
-	return resource.recurlyResponse
+  return resource.recurlyResponse
 }
 
 // setResponse sets the ResponseMetadata that generated this resource
 func (resource *DunningCampaign) setResponse(res *ResponseMetadata) {
-	resource.recurlyResponse = res
+  resource.recurlyResponse = res
 }
+
+
+
+
 
 // internal struct for deserializing accounts
 type dunningCampaignList struct {
 	ListMetadata
-	Data            []DunningCampaign `json:"data"`
-	recurlyResponse *ResponseMetadata
+  Data []DunningCampaign `json:"data"`
+  recurlyResponse *ResponseMetadata
 }
 
 // GetResponse returns the ResponseMetadata that generated this resource
@@ -70,45 +86,50 @@ func (resource *dunningCampaignList) setResponse(res *ResponseMetadata) {
 	resource.recurlyResponse = res
 }
 
+
+
+
 // DunningCampaignList allows you to paginate DunningCampaign objects
 type DunningCampaignList struct {
-	client         HTTPCaller
-	requestOptions *RequestOptions
-	nextPagePath   string
-	hasMore        bool
-	data           []DunningCampaign
+  client         HTTPCaller
+  requestOptions *RequestOptions
+  nextPagePath   string
+  hasMore bool
+  data    []DunningCampaign
 }
 
 func NewDunningCampaignList(client HTTPCaller, nextPagePath string, requestOptions *RequestOptions) *DunningCampaignList {
-	return &DunningCampaignList{
-		client:         client,
-		requestOptions: requestOptions,
-		nextPagePath:   nextPagePath,
-		hasMore:        true,
-	}
+  return &DunningCampaignList{
+    client:       client,
+    requestOptions: requestOptions,
+    nextPagePath: nextPagePath,
+    hasMore:      true,
+  }
 }
+
 
 type DunningCampaignLister interface {
-	Fetch() error
-	FetchWithContext(ctx context.Context) error
-	Count() (*int64, error)
-	CountWithContext(ctx context.Context) (*int64, error)
-	Data() []DunningCampaign
-	HasMore() bool
-	Next() string
+  Fetch() error
+  FetchWithContext(ctx context.Context) error
+  Count() (*int64, error)
+  CountWithContext(ctx context.Context) (*int64, error)
+  Data()    []DunningCampaign
+  HasMore() bool
+  Next() string
 }
 
-func (list *DunningCampaignList) HasMore() bool {
-	return list.hasMore
+func (list  *DunningCampaignList) HasMore() bool {
+    return list.hasMore
 }
 
-func (list *DunningCampaignList) Next() string {
-	return list.nextPagePath
+func (list  *DunningCampaignList) Next() string {
+    return list.nextPagePath
 }
 
 func (list *DunningCampaignList) Data() []DunningCampaign {
-	return list.data
+    return list.data
 }
+
 
 // Fetch fetches the next page of data into the `Data` property
 func (list *DunningCampaignList) FetchWithContext(ctx context.Context) error {
@@ -117,16 +138,16 @@ func (list *DunningCampaignList) FetchWithContext(ctx context.Context) error {
 	if err != nil {
 		return err
 	}
-	// copy over properties from the response
-	list.nextPagePath = resources.Next
+  // copy over properties from the response
+  list.nextPagePath = resources.Next
 	list.hasMore = resources.HasMore
 	list.data = resources.Data
-	return nil
+  return nil
 }
 
 // Fetch fetches the next page of data into the `Data` property
 func (list *DunningCampaignList) Fetch() error {
-	return list.FetchWithContext(context.Background())
+  return list.FetchWithContext(context.Background())
 }
 
 // Count returns the count of items on the server that match this pager
@@ -142,5 +163,5 @@ func (list *DunningCampaignList) CountWithContext(ctx context.Context) (*int64, 
 
 // Count returns the count of items on the server that match this pager
 func (list *DunningCampaignList) Count() (*int64, error) {
-	return list.CountWithContext(context.Background())
+  return list.CountWithContext(context.Background())
 }

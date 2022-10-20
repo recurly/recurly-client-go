@@ -5,56 +5,71 @@
 package recurly
 
 import (
-	"context"
-	"net/http"
-	"time"
+        "net/http"
+        "context"
+        "time"
 )
 
 type AccountAcquisition struct {
-	recurlyResponse *ResponseMetadata
+  recurlyResponse *ResponseMetadata
 
-	// Account balance
-	Cost AccountAcquisitionCost `json:"cost,omitempty"`
+  
+        // Account balance
+        Cost AccountAcquisitionCost `json:"cost,omitempty"`
 
-	// The channel through which the account was acquired.
-	Channel string `json:"channel,omitempty"`
+  
+        // The channel through which the account was acquired.
+        Channel string `json:"channel,omitempty"`
 
-	// An arbitrary subchannel string representing a distinction/subcategory within a broader channel.
-	Subchannel string `json:"subchannel,omitempty"`
+  
+        // An arbitrary subchannel string representing a distinction/subcategory within a broader channel.
+        Subchannel string `json:"subchannel,omitempty"`
 
-	// An arbitrary identifier for the marketing campaign that led to the acquisition of this account.
-	Campaign string `json:"campaign,omitempty"`
+  
+        // An arbitrary identifier for the marketing campaign that led to the acquisition of this account.
+        Campaign string `json:"campaign,omitempty"`
 
-	Id string `json:"id,omitempty"`
+  
+        Id string `json:"id,omitempty"`
 
-	// Object type
-	Object string `json:"object,omitempty"`
+  
+        // Object type
+        Object string `json:"object,omitempty"`
 
-	// Account mini details
-	Account AccountMini `json:"account,omitempty"`
+  
+        // Account mini details
+        Account AccountMini `json:"account,omitempty"`
 
-	// When the account acquisition data was created.
-	CreatedAt time.Time `json:"created_at,omitempty"`
+  
+        // When the account acquisition data was created.
+        CreatedAt time.Time `json:"created_at,omitempty"`
 
-	// When the account acquisition data was last changed.
-	UpdatedAt time.Time `json:"updated_at,omitempty"`
+  
+        // When the account acquisition data was last changed.
+        UpdatedAt time.Time `json:"updated_at,omitempty"`
+
+  
 }
 
 // GetResponse returns the ResponseMetadata that generated this resource
 func (resource *AccountAcquisition) GetResponse() *ResponseMetadata {
-	return resource.recurlyResponse
+  return resource.recurlyResponse
 }
 
 // setResponse sets the ResponseMetadata that generated this resource
 func (resource *AccountAcquisition) setResponse(res *ResponseMetadata) {
-	resource.recurlyResponse = res
+  resource.recurlyResponse = res
 }
+
+
+
+
 
 // internal struct for deserializing accounts
 type accountAcquisitionList struct {
 	ListMetadata
-	Data            []AccountAcquisition `json:"data"`
-	recurlyResponse *ResponseMetadata
+  Data []AccountAcquisition `json:"data"`
+  recurlyResponse *ResponseMetadata
 }
 
 // GetResponse returns the ResponseMetadata that generated this resource
@@ -67,45 +82,50 @@ func (resource *accountAcquisitionList) setResponse(res *ResponseMetadata) {
 	resource.recurlyResponse = res
 }
 
+
+
+
 // AccountAcquisitionList allows you to paginate AccountAcquisition objects
 type AccountAcquisitionList struct {
-	client         HTTPCaller
-	requestOptions *RequestOptions
-	nextPagePath   string
-	hasMore        bool
-	data           []AccountAcquisition
+  client         HTTPCaller
+  requestOptions *RequestOptions
+  nextPagePath   string
+  hasMore bool
+  data    []AccountAcquisition
 }
 
 func NewAccountAcquisitionList(client HTTPCaller, nextPagePath string, requestOptions *RequestOptions) *AccountAcquisitionList {
-	return &AccountAcquisitionList{
-		client:         client,
-		requestOptions: requestOptions,
-		nextPagePath:   nextPagePath,
-		hasMore:        true,
-	}
+  return &AccountAcquisitionList{
+    client:       client,
+    requestOptions: requestOptions,
+    nextPagePath: nextPagePath,
+    hasMore:      true,
+  }
 }
+
 
 type AccountAcquisitionLister interface {
-	Fetch() error
-	FetchWithContext(ctx context.Context) error
-	Count() (*int64, error)
-	CountWithContext(ctx context.Context) (*int64, error)
-	Data() []AccountAcquisition
-	HasMore() bool
-	Next() string
+  Fetch() error
+  FetchWithContext(ctx context.Context) error
+  Count() (*int64, error)
+  CountWithContext(ctx context.Context) (*int64, error)
+  Data()    []AccountAcquisition
+  HasMore() bool
+  Next() string
 }
 
-func (list *AccountAcquisitionList) HasMore() bool {
-	return list.hasMore
+func (list  *AccountAcquisitionList) HasMore() bool {
+    return list.hasMore
 }
 
-func (list *AccountAcquisitionList) Next() string {
-	return list.nextPagePath
+func (list  *AccountAcquisitionList) Next() string {
+    return list.nextPagePath
 }
 
 func (list *AccountAcquisitionList) Data() []AccountAcquisition {
-	return list.data
+    return list.data
 }
+
 
 // Fetch fetches the next page of data into the `Data` property
 func (list *AccountAcquisitionList) FetchWithContext(ctx context.Context) error {
@@ -114,16 +134,16 @@ func (list *AccountAcquisitionList) FetchWithContext(ctx context.Context) error 
 	if err != nil {
 		return err
 	}
-	// copy over properties from the response
-	list.nextPagePath = resources.Next
+  // copy over properties from the response
+  list.nextPagePath = resources.Next
 	list.hasMore = resources.HasMore
 	list.data = resources.Data
-	return nil
+  return nil
 }
 
 // Fetch fetches the next page of data into the `Data` property
 func (list *AccountAcquisitionList) Fetch() error {
-	return list.FetchWithContext(context.Background())
+  return list.FetchWithContext(context.Background())
 }
 
 // Count returns the count of items on the server that match this pager
@@ -139,5 +159,5 @@ func (list *AccountAcquisitionList) CountWithContext(ctx context.Context) (*int6
 
 // Count returns the count of items on the server that match this pager
 func (list *AccountAcquisitionList) Count() (*int64, error) {
-	return list.CountWithContext(context.Background())
+  return list.CountWithContext(context.Background())
 }

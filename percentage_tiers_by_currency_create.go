@@ -4,13 +4,21 @@
 // need and we will usher them to the appropriate places.
 package recurly
 
-import ()
+import (
+)
 
 type PercentageTiersByCurrencyCreate struct {
+  
 
-	// 3-letter ISO 4217 currency code.
-	Currency *string `json:"currency,omitempty"`
+  
+        // 3-letter ISO 4217 currency code.
+        Currency *string `json:"currency,omitempty"`
 
-	// Tiers
-	Tiers []PercentageTierCreate `json:"tiers,omitempty"`
+  
+        // Tiers
+        Tiers []PercentageTierCreate `json:"tiers,omitempty"`
+
+  
 }
+
+

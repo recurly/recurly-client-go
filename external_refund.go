@@ -5,17 +5,25 @@
 package recurly
 
 import (
-	"time"
+        "time"
 )
 
 type ExternalRefund struct {
+  
 
-	// Payment method used for external refund transaction.
-	PaymentMethod *string `json:"payment_method,omitempty"`
+  
+        // Payment method used for external refund transaction.
+        PaymentMethod *string `json:"payment_method,omitempty"`
 
-	// Used as the refund transactions' description.
-	Description *string `json:"description,omitempty"`
+  
+        // Used as the refund transactions' description.
+        Description *string `json:"description,omitempty"`
 
-	// Date the external refund payment was made. Defaults to the current date-time.
-	RefundedAt *time.Time `json:"refunded_at,omitempty"`
+  
+        // Date the external refund payment was made. Defaults to the current date-time.
+        RefundedAt *time.Time `json:"refunded_at,omitempty"`
+
+  
 }
+
+

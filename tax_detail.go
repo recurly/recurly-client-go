@@ -5,41 +5,51 @@
 package recurly
 
 import (
-	"context"
-	"net/http"
+        "net/http"
+        "context"
 )
 
 type TaxDetail struct {
-	recurlyResponse *ResponseMetadata
+  recurlyResponse *ResponseMetadata
 
-	// Provides the tax type for the region. For Canadian Sales Tax, this will be GST, HST, QST or PST.
-	Type string `json:"type,omitempty"`
+  
+        // Provides the tax type for the region. For Canadian Sales Tax, this will be GST, HST, QST or PST.
+        Type string `json:"type,omitempty"`
 
-	// Provides the tax region applied on an invoice. For Canadian Sales Tax, this will be either the 2 letter province code or country code.
-	Region string `json:"region,omitempty"`
+  
+        // Provides the tax region applied on an invoice. For Canadian Sales Tax, this will be either the 2 letter province code or country code.
+        Region string `json:"region,omitempty"`
 
-	// Provides the tax rate for the region.
-	Rate float64 `json:"rate,omitempty"`
+  
+        // Provides the tax rate for the region.
+        Rate float64 `json:"rate,omitempty"`
 
-	// The total tax applied for this tax type.
-	Tax float64 `json:"tax,omitempty"`
+  
+        // The total tax applied for this tax type.
+        Tax float64 `json:"tax,omitempty"`
+
+  
 }
 
 // GetResponse returns the ResponseMetadata that generated this resource
 func (resource *TaxDetail) GetResponse() *ResponseMetadata {
-	return resource.recurlyResponse
+  return resource.recurlyResponse
 }
 
 // setResponse sets the ResponseMetadata that generated this resource
 func (resource *TaxDetail) setResponse(res *ResponseMetadata) {
-	resource.recurlyResponse = res
+  resource.recurlyResponse = res
 }
+
+
+
+
 
 // internal struct for deserializing accounts
 type taxDetailList struct {
 	ListMetadata
-	Data            []TaxDetail `json:"data"`
-	recurlyResponse *ResponseMetadata
+  Data []TaxDetail `json:"data"`
+  recurlyResponse *ResponseMetadata
 }
 
 // GetResponse returns the ResponseMetadata that generated this resource
@@ -52,45 +62,50 @@ func (resource *taxDetailList) setResponse(res *ResponseMetadata) {
 	resource.recurlyResponse = res
 }
 
+
+
+
 // TaxDetailList allows you to paginate TaxDetail objects
 type TaxDetailList struct {
-	client         HTTPCaller
-	requestOptions *RequestOptions
-	nextPagePath   string
-	hasMore        bool
-	data           []TaxDetail
+  client         HTTPCaller
+  requestOptions *RequestOptions
+  nextPagePath   string
+  hasMore bool
+  data    []TaxDetail
 }
 
 func NewTaxDetailList(client HTTPCaller, nextPagePath string, requestOptions *RequestOptions) *TaxDetailList {
-	return &TaxDetailList{
-		client:         client,
-		requestOptions: requestOptions,
-		nextPagePath:   nextPagePath,
-		hasMore:        true,
-	}
+  return &TaxDetailList{
+    client:       client,
+    requestOptions: requestOptions,
+    nextPagePath: nextPagePath,
+    hasMore:      true,
+  }
 }
+
 
 type TaxDetailLister interface {
-	Fetch() error
-	FetchWithContext(ctx context.Context) error
-	Count() (*int64, error)
-	CountWithContext(ctx context.Context) (*int64, error)
-	Data() []TaxDetail
-	HasMore() bool
-	Next() string
+  Fetch() error
+  FetchWithContext(ctx context.Context) error
+  Count() (*int64, error)
+  CountWithContext(ctx context.Context) (*int64, error)
+  Data()    []TaxDetail
+  HasMore() bool
+  Next() string
 }
 
-func (list *TaxDetailList) HasMore() bool {
-	return list.hasMore
+func (list  *TaxDetailList) HasMore() bool {
+    return list.hasMore
 }
 
-func (list *TaxDetailList) Next() string {
-	return list.nextPagePath
+func (list  *TaxDetailList) Next() string {
+    return list.nextPagePath
 }
 
 func (list *TaxDetailList) Data() []TaxDetail {
-	return list.data
+    return list.data
 }
+
 
 // Fetch fetches the next page of data into the `Data` property
 func (list *TaxDetailList) FetchWithContext(ctx context.Context) error {
@@ -99,16 +114,16 @@ func (list *TaxDetailList) FetchWithContext(ctx context.Context) error {
 	if err != nil {
 		return err
 	}
-	// copy over properties from the response
-	list.nextPagePath = resources.Next
+  // copy over properties from the response
+  list.nextPagePath = resources.Next
 	list.hasMore = resources.HasMore
 	list.data = resources.Data
-	return nil
+  return nil
 }
 
 // Fetch fetches the next page of data into the `Data` property
 func (list *TaxDetailList) Fetch() error {
-	return list.FetchWithContext(context.Background())
+  return list.FetchWithContext(context.Background())
 }
 
 // Count returns the count of items on the server that match this pager
@@ -124,5 +139,5 @@ func (list *TaxDetailList) CountWithContext(ctx context.Context) (*int64, error)
 
 // Count returns the count of items on the server that match this pager
 func (list *TaxDetailList) Count() (*int64, error) {
-	return list.CountWithContext(context.Background())
+  return list.CountWithContext(context.Background())
 }

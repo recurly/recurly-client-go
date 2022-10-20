@@ -4,16 +4,25 @@
 // need and we will usher them to the appropriate places.
 package recurly
 
-import ()
+import (
+)
 
 type SubscriptionShippingPurchase struct {
+  
 
-	// The id of the shipping method used to deliver the subscription. If `method_id` and `method_code` are both present, `method_id` will be used.
-	MethodId *string `json:"method_id,omitempty"`
+  
+        // The id of the shipping method used to deliver the subscription. If `method_id` and `method_code` are both present, `method_id` will be used.
+        MethodId *string `json:"method_id,omitempty"`
 
-	// The code of the shipping method used to deliver the subscription. If `method_id` and `method_code` are both present, `method_id` will be used.
-	MethodCode *string `json:"method_code,omitempty"`
+  
+        // The code of the shipping method used to deliver the subscription. If `method_id` and `method_code` are both present, `method_id` will be used.
+        MethodCode *string `json:"method_code,omitempty"`
 
-	// Assigns the subscription's shipping cost. If this is greater than zero then a `method_id` or `method_code` is required.
-	Amount *float64 `json:"amount,omitempty"`
+  
+        // Assigns the subscription's shipping cost. If this is greater than zero then a `method_id` or `method_code` is required.
+        Amount *float64 `json:"amount,omitempty"`
+
+  
 }
+
+

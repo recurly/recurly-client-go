@@ -4,13 +4,21 @@
 // need and we will usher them to the appropriate places.
 package recurly
 
-import ()
+import (
+)
 
 type DunningCampaignsBulkUpdate struct {
+  
 
-	// List of `plan_codes` associated with the Plans for which the dunning campaign should be updated. Required unless `plan_ids` is present.
-	PlanCodes []string `json:"plan_codes,omitempty"`
+  
+        // List of `plan_codes` associated with the Plans for which the dunning campaign should be updated. Required unless `plan_ids` is present.
+        PlanCodes []string `json:"plan_codes,omitempty"`
 
-	// List of `plan_ids` associated with the Plans for which the dunning campaign should be updated. Required unless `plan_codes` is present.
-	PlanIds []string `json:"plan_ids,omitempty"`
+  
+        // List of `plan_ids` associated with the Plans for which the dunning campaign should be updated. Required unless `plan_codes` is present.
+        PlanIds []string `json:"plan_ids,omitempty"`
+
+  
 }
+
+

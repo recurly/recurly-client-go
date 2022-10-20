@@ -5,76 +5,98 @@
 package recurly
 
 import (
-	"context"
-	"net/http"
+        "net/http"
+        "context"
 )
 
 type PaymentMethod struct {
-	recurlyResponse *ResponseMetadata
+  recurlyResponse *ResponseMetadata
 
-	Object string `json:"object,omitempty"`
+  
+        Object string `json:"object,omitempty"`
 
-	// Visa, MasterCard, American Express, Discover, JCB, etc.
-	CardType string `json:"card_type,omitempty"`
+  
+        // Visa, MasterCard, American Express, Discover, JCB, etc.
+        CardType string `json:"card_type,omitempty"`
 
-	// Credit card number's first six digits.
-	FirstSix string `json:"first_six,omitempty"`
+  
+        // Credit card number's first six digits.
+        FirstSix string `json:"first_six,omitempty"`
 
-	// Credit card number's last four digits. Will refer to bank account if payment method is ACH.
-	LastFour string `json:"last_four,omitempty"`
+  
+        // Credit card number's last four digits. Will refer to bank account if payment method is ACH.
+        LastFour string `json:"last_four,omitempty"`
 
-	// The IBAN bank account's last two digits.
-	LastTwo string `json:"last_two,omitempty"`
+  
+        // The IBAN bank account's last two digits.
+        LastTwo string `json:"last_two,omitempty"`
 
-	// Expiration month.
-	ExpMonth int `json:"exp_month,omitempty"`
+  
+        // Expiration month.
+        ExpMonth int `json:"exp_month,omitempty"`
 
-	// Expiration year.
-	ExpYear int `json:"exp_year,omitempty"`
+  
+        // Expiration year.
+        ExpYear int `json:"exp_year,omitempty"`
 
-	// A token used in place of a credit card in order to perform transactions.
-	GatewayToken string `json:"gateway_token,omitempty"`
+  
+        // A token used in place of a credit card in order to perform transactions.
+        GatewayToken string `json:"gateway_token,omitempty"`
 
-	// The 2-letter ISO 3166-1 alpha-2 country code associated with the credit card BIN, if known by Recurly. Available on the BillingInfo object only. Available when the BIN country lookup feature is enabled.
-	CcBinCountry string `json:"cc_bin_country,omitempty"`
+  
+        // The 2-letter ISO 3166-1 alpha-2 country code associated with the credit card BIN, if known by Recurly. Available on the BillingInfo object only. Available when the BIN country lookup feature is enabled.
+        CcBinCountry string `json:"cc_bin_country,omitempty"`
 
-	// An identifier for a specific payment gateway.
-	GatewayCode string `json:"gateway_code,omitempty"`
+  
+        // An identifier for a specific payment gateway.
+        GatewayCode string `json:"gateway_code,omitempty"`
 
-	// Billing Agreement identifier. Only present for Amazon or Paypal payment methods.
-	BillingAgreementId string `json:"billing_agreement_id,omitempty"`
+  
+        // Billing Agreement identifier. Only present for Amazon or Paypal payment methods.
+        BillingAgreementId string `json:"billing_agreement_id,omitempty"`
 
-	// The name associated with the bank account.
-	NameOnAccount string `json:"name_on_account,omitempty"`
+  
+        // The name associated with the bank account.
+        NameOnAccount string `json:"name_on_account,omitempty"`
 
-	// The bank account type. Only present for ACH payment methods.
-	AccountType string `json:"account_type,omitempty"`
+  
+        // The bank account type. Only present for ACH payment methods.
+        AccountType string `json:"account_type,omitempty"`
 
-	// The bank account's routing number. Only present for ACH payment methods.
-	RoutingNumber string `json:"routing_number,omitempty"`
+  
+        // The bank account's routing number. Only present for ACH payment methods.
+        RoutingNumber string `json:"routing_number,omitempty"`
 
-	// The bank name of this routing number.
-	RoutingNumberBank string `json:"routing_number_bank,omitempty"`
+  
+        // The bank name of this routing number.
+        RoutingNumberBank string `json:"routing_number_bank,omitempty"`
 
-	// Username of the associated payment method. Currently only associated with Venmo.
-	Username string `json:"username,omitempty"`
+  
+        // Username of the associated payment method. Currently only associated with Venmo.
+        Username string `json:"username,omitempty"`
+
+  
 }
 
 // GetResponse returns the ResponseMetadata that generated this resource
 func (resource *PaymentMethod) GetResponse() *ResponseMetadata {
-	return resource.recurlyResponse
+  return resource.recurlyResponse
 }
 
 // setResponse sets the ResponseMetadata that generated this resource
 func (resource *PaymentMethod) setResponse(res *ResponseMetadata) {
-	resource.recurlyResponse = res
+  resource.recurlyResponse = res
 }
+
+
+
+
 
 // internal struct for deserializing accounts
 type paymentMethodList struct {
 	ListMetadata
-	Data            []PaymentMethod `json:"data"`
-	recurlyResponse *ResponseMetadata
+  Data []PaymentMethod `json:"data"`
+  recurlyResponse *ResponseMetadata
 }
 
 // GetResponse returns the ResponseMetadata that generated this resource
@@ -87,45 +109,50 @@ func (resource *paymentMethodList) setResponse(res *ResponseMetadata) {
 	resource.recurlyResponse = res
 }
 
+
+
+
 // PaymentMethodList allows you to paginate PaymentMethod objects
 type PaymentMethodList struct {
-	client         HTTPCaller
-	requestOptions *RequestOptions
-	nextPagePath   string
-	hasMore        bool
-	data           []PaymentMethod
+  client         HTTPCaller
+  requestOptions *RequestOptions
+  nextPagePath   string
+  hasMore bool
+  data    []PaymentMethod
 }
 
 func NewPaymentMethodList(client HTTPCaller, nextPagePath string, requestOptions *RequestOptions) *PaymentMethodList {
-	return &PaymentMethodList{
-		client:         client,
-		requestOptions: requestOptions,
-		nextPagePath:   nextPagePath,
-		hasMore:        true,
-	}
+  return &PaymentMethodList{
+    client:       client,
+    requestOptions: requestOptions,
+    nextPagePath: nextPagePath,
+    hasMore:      true,
+  }
 }
+
 
 type PaymentMethodLister interface {
-	Fetch() error
-	FetchWithContext(ctx context.Context) error
-	Count() (*int64, error)
-	CountWithContext(ctx context.Context) (*int64, error)
-	Data() []PaymentMethod
-	HasMore() bool
-	Next() string
+  Fetch() error
+  FetchWithContext(ctx context.Context) error
+  Count() (*int64, error)
+  CountWithContext(ctx context.Context) (*int64, error)
+  Data()    []PaymentMethod
+  HasMore() bool
+  Next() string
 }
 
-func (list *PaymentMethodList) HasMore() bool {
-	return list.hasMore
+func (list  *PaymentMethodList) HasMore() bool {
+    return list.hasMore
 }
 
-func (list *PaymentMethodList) Next() string {
-	return list.nextPagePath
+func (list  *PaymentMethodList) Next() string {
+    return list.nextPagePath
 }
 
 func (list *PaymentMethodList) Data() []PaymentMethod {
-	return list.data
+    return list.data
 }
+
 
 // Fetch fetches the next page of data into the `Data` property
 func (list *PaymentMethodList) FetchWithContext(ctx context.Context) error {
@@ -134,16 +161,16 @@ func (list *PaymentMethodList) FetchWithContext(ctx context.Context) error {
 	if err != nil {
 		return err
 	}
-	// copy over properties from the response
-	list.nextPagePath = resources.Next
+  // copy over properties from the response
+  list.nextPagePath = resources.Next
 	list.hasMore = resources.HasMore
 	list.data = resources.Data
-	return nil
+  return nil
 }
 
 // Fetch fetches the next page of data into the `Data` property
 func (list *PaymentMethodList) Fetch() error {
-	return list.FetchWithContext(context.Background())
+  return list.FetchWithContext(context.Background())
 }
 
 // Count returns the count of items on the server that match this pager
@@ -159,5 +186,5 @@ func (list *PaymentMethodList) CountWithContext(ctx context.Context) (*int64, er
 
 // Count returns the count of items on the server that match this pager
 func (list *PaymentMethodList) Count() (*int64, error) {
-	return list.CountWithContext(context.Background())
+  return list.CountWithContext(context.Background())
 }

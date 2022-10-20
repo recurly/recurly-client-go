@@ -4,10 +4,17 @@
 // need and we will usher them to the appropriate places.
 package recurly
 
-import ()
+import (
+)
 
 type SubscriptionCancel struct {
+  
 
-	// The timeframe parameter controls when the expiration takes place. The `bill_date` timeframe causes the subscription to expire when the subscription is scheduled to bill next. The `term_end` timeframe causes the subscription to continue to bill until the end of the subscription term, then expire.
-	Timeframe *string `json:"timeframe,omitempty"`
+  
+        // The timeframe parameter controls when the expiration takes place. The `bill_date` timeframe causes the subscription to expire when the subscription is scheduled to bill next. The `term_end` timeframe causes the subscription to continue to bill until the end of the subscription term, then expire.
+        Timeframe *string `json:"timeframe,omitempty"`
+
+  
 }
+
+

@@ -4,13 +4,21 @@
 // need and we will usher them to the appropriate places.
 package recurly
 
-import ()
+import (
+)
 
 type AccountAcquisitionCostCreate struct {
+  
 
-	// 3-letter ISO 4217 currency code.
-	Currency *string `json:"currency,omitempty"`
+  
+        // 3-letter ISO 4217 currency code.
+        Currency *string `json:"currency,omitempty"`
 
-	// The amount of the corresponding currency used to acquire the account.
-	Amount *float64 `json:"amount,omitempty"`
+  
+        // The amount of the corresponding currency used to acquire the account.
+        Amount *float64 `json:"amount,omitempty"`
+
+  
 }
+
+

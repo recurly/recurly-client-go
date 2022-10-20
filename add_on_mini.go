@@ -5,62 +5,79 @@
 package recurly
 
 import (
-	"context"
-	"net/http"
+        "net/http"
+        "context"
 )
 
 type AddOnMini struct {
-	recurlyResponse *ResponseMetadata
+  recurlyResponse *ResponseMetadata
 
-	// Add-on ID
-	Id string `json:"id,omitempty"`
+  
+        // Add-on ID
+        Id string `json:"id,omitempty"`
 
-	// Object type
-	Object string `json:"object,omitempty"`
+  
+        // Object type
+        Object string `json:"object,omitempty"`
 
-	// The unique identifier for the add-on within its plan.
-	Code string `json:"code,omitempty"`
+  
+        // The unique identifier for the add-on within its plan.
+        Code string `json:"code,omitempty"`
 
-	// Describes your add-on and will appear in subscribers' invoices.
-	Name string `json:"name,omitempty"`
+  
+        // Describes your add-on and will appear in subscribers' invoices.
+        Name string `json:"name,omitempty"`
 
-	// Whether the add-on type is fixed, or usage-based.
-	AddOnType string `json:"add_on_type,omitempty"`
+  
+        // Whether the add-on type is fixed, or usage-based.
+        AddOnType string `json:"add_on_type,omitempty"`
 
-	// Type of usage, returns usage type if `add_on_type` is `usage`.
-	UsageType string `json:"usage_type,omitempty"`
+  
+        // Type of usage, returns usage type if `add_on_type` is `usage`.
+        UsageType string `json:"usage_type,omitempty"`
 
-	// The percentage taken of the monetary amount of usage tracked. This can be up to 4 decimal places. A value between 0.0 and 100.0.
-	UsagePercentage float64 `json:"usage_percentage,omitempty"`
+  
+        // The percentage taken of the monetary amount of usage tracked. This can be up to 4 decimal places. A value between 0.0 and 100.0.
+        UsagePercentage float64 `json:"usage_percentage,omitempty"`
 
-	// System-generated unique identifier for an measured unit associated with the add-on.
-	MeasuredUnitId string `json:"measured_unit_id,omitempty"`
+  
+        // System-generated unique identifier for an measured unit associated with the add-on.
+        MeasuredUnitId string `json:"measured_unit_id,omitempty"`
 
-	// Item ID
-	ItemId string `json:"item_id,omitempty"`
+  
+        // Item ID
+        ItemId string `json:"item_id,omitempty"`
 
-	// Optional, stock keeping unit to link the item to other inventory systems.
-	ExternalSku string `json:"external_sku,omitempty"`
+  
+        // Optional, stock keeping unit to link the item to other inventory systems.
+        ExternalSku string `json:"external_sku,omitempty"`
 
-	// Accounting code for invoice line items for this add-on. If no value is provided, it defaults to add-on's code.
-	AccountingCode string `json:"accounting_code,omitempty"`
+  
+        // Accounting code for invoice line items for this add-on. If no value is provided, it defaults to add-on's code.
+        AccountingCode string `json:"accounting_code,omitempty"`
+
+  
 }
 
 // GetResponse returns the ResponseMetadata that generated this resource
 func (resource *AddOnMini) GetResponse() *ResponseMetadata {
-	return resource.recurlyResponse
+  return resource.recurlyResponse
 }
 
 // setResponse sets the ResponseMetadata that generated this resource
 func (resource *AddOnMini) setResponse(res *ResponseMetadata) {
-	resource.recurlyResponse = res
+  resource.recurlyResponse = res
 }
+
+
+
+
 
 // internal struct for deserializing accounts
 type addOnMiniList struct {
 	ListMetadata
-	Data            []AddOnMini `json:"data"`
-	recurlyResponse *ResponseMetadata
+  Data []AddOnMini `json:"data"`
+  recurlyResponse *ResponseMetadata
 }
 
 // GetResponse returns the ResponseMetadata that generated this resource
@@ -73,45 +90,50 @@ func (resource *addOnMiniList) setResponse(res *ResponseMetadata) {
 	resource.recurlyResponse = res
 }
 
+
+
+
 // AddOnMiniList allows you to paginate AddOnMini objects
 type AddOnMiniList struct {
-	client         HTTPCaller
-	requestOptions *RequestOptions
-	nextPagePath   string
-	hasMore        bool
-	data           []AddOnMini
+  client         HTTPCaller
+  requestOptions *RequestOptions
+  nextPagePath   string
+  hasMore bool
+  data    []AddOnMini
 }
 
 func NewAddOnMiniList(client HTTPCaller, nextPagePath string, requestOptions *RequestOptions) *AddOnMiniList {
-	return &AddOnMiniList{
-		client:         client,
-		requestOptions: requestOptions,
-		nextPagePath:   nextPagePath,
-		hasMore:        true,
-	}
+  return &AddOnMiniList{
+    client:       client,
+    requestOptions: requestOptions,
+    nextPagePath: nextPagePath,
+    hasMore:      true,
+  }
 }
+
 
 type AddOnMiniLister interface {
-	Fetch() error
-	FetchWithContext(ctx context.Context) error
-	Count() (*int64, error)
-	CountWithContext(ctx context.Context) (*int64, error)
-	Data() []AddOnMini
-	HasMore() bool
-	Next() string
+  Fetch() error
+  FetchWithContext(ctx context.Context) error
+  Count() (*int64, error)
+  CountWithContext(ctx context.Context) (*int64, error)
+  Data()    []AddOnMini
+  HasMore() bool
+  Next() string
 }
 
-func (list *AddOnMiniList) HasMore() bool {
-	return list.hasMore
+func (list  *AddOnMiniList) HasMore() bool {
+    return list.hasMore
 }
 
-func (list *AddOnMiniList) Next() string {
-	return list.nextPagePath
+func (list  *AddOnMiniList) Next() string {
+    return list.nextPagePath
 }
 
 func (list *AddOnMiniList) Data() []AddOnMini {
-	return list.data
+    return list.data
 }
+
 
 // Fetch fetches the next page of data into the `Data` property
 func (list *AddOnMiniList) FetchWithContext(ctx context.Context) error {
@@ -120,16 +142,16 @@ func (list *AddOnMiniList) FetchWithContext(ctx context.Context) error {
 	if err != nil {
 		return err
 	}
-	// copy over properties from the response
-	list.nextPagePath = resources.Next
+  // copy over properties from the response
+  list.nextPagePath = resources.Next
 	list.hasMore = resources.HasMore
 	list.data = resources.Data
-	return nil
+  return nil
 }
 
 // Fetch fetches the next page of data into the `Data` property
 func (list *AddOnMiniList) Fetch() error {
-	return list.FetchWithContext(context.Background())
+  return list.FetchWithContext(context.Background())
 }
 
 // Count returns the count of items on the server that match this pager
@@ -145,5 +167,5 @@ func (list *AddOnMiniList) CountWithContext(ctx context.Context) (*int64, error)
 
 // Count returns the count of items on the server that match this pager
 func (list *AddOnMiniList) Count() (*int64, error) {
-	return list.CountWithContext(context.Background())
+  return list.CountWithContext(context.Background())
 }

@@ -4,16 +4,25 @@
 // need and we will usher them to the appropriate places.
 package recurly
 
-import ()
+import (
+)
 
 type CouponRedemptionCreate struct {
+  
 
-	// Coupon ID
-	CouponId *string `json:"coupon_id,omitempty"`
+  
+        // Coupon ID
+        CouponId *string `json:"coupon_id,omitempty"`
 
-	// 3-letter ISO 4217 currency code.
-	Currency *string `json:"currency,omitempty"`
+  
+        // 3-letter ISO 4217 currency code.
+        Currency *string `json:"currency,omitempty"`
 
-	// Subscription ID
-	SubscriptionId *string `json:"subscription_id,omitempty"`
+  
+        // Subscription ID
+        SubscriptionId *string `json:"subscription_id,omitempty"`
+
+  
 }
+
+

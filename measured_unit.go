@@ -5,57 +5,72 @@
 package recurly
 
 import (
-	"context"
-	"net/http"
-	"time"
+        "net/http"
+        "context"
+        "time"
 )
 
 type MeasuredUnit struct {
-	recurlyResponse *ResponseMetadata
+  recurlyResponse *ResponseMetadata
 
-	// Item ID
-	Id string `json:"id,omitempty"`
+  
+        // Item ID
+        Id string `json:"id,omitempty"`
 
-	// Object type
-	Object string `json:"object,omitempty"`
+  
+        // Object type
+        Object string `json:"object,omitempty"`
 
-	// Unique internal name of the measured unit on your site.
-	Name string `json:"name,omitempty"`
+  
+        // Unique internal name of the measured unit on your site.
+        Name string `json:"name,omitempty"`
 
-	// Display name for the measured unit. Can only contain spaces, underscores and must be alphanumeric.
-	DisplayName string `json:"display_name,omitempty"`
+  
+        // Display name for the measured unit. Can only contain spaces, underscores and must be alphanumeric.
+        DisplayName string `json:"display_name,omitempty"`
 
-	// The current state of the measured unit.
-	State string `json:"state,omitempty"`
+  
+        // The current state of the measured unit.
+        State string `json:"state,omitempty"`
 
-	// Optional internal description.
-	Description string `json:"description,omitempty"`
+  
+        // Optional internal description.
+        Description string `json:"description,omitempty"`
 
-	// Created at
-	CreatedAt time.Time `json:"created_at,omitempty"`
+  
+        // Created at
+        CreatedAt time.Time `json:"created_at,omitempty"`
 
-	// Last updated at
-	UpdatedAt time.Time `json:"updated_at,omitempty"`
+  
+        // Last updated at
+        UpdatedAt time.Time `json:"updated_at,omitempty"`
 
-	// Deleted at
-	DeletedAt time.Time `json:"deleted_at,omitempty"`
+  
+        // Deleted at
+        DeletedAt time.Time `json:"deleted_at,omitempty"`
+
+  
 }
 
 // GetResponse returns the ResponseMetadata that generated this resource
 func (resource *MeasuredUnit) GetResponse() *ResponseMetadata {
-	return resource.recurlyResponse
+  return resource.recurlyResponse
 }
 
 // setResponse sets the ResponseMetadata that generated this resource
 func (resource *MeasuredUnit) setResponse(res *ResponseMetadata) {
-	resource.recurlyResponse = res
+  resource.recurlyResponse = res
 }
+
+
+
+
 
 // internal struct for deserializing accounts
 type measuredUnitList struct {
 	ListMetadata
-	Data            []MeasuredUnit `json:"data"`
-	recurlyResponse *ResponseMetadata
+  Data []MeasuredUnit `json:"data"`
+  recurlyResponse *ResponseMetadata
 }
 
 // GetResponse returns the ResponseMetadata that generated this resource
@@ -68,45 +83,50 @@ func (resource *measuredUnitList) setResponse(res *ResponseMetadata) {
 	resource.recurlyResponse = res
 }
 
+
+
+
 // MeasuredUnitList allows you to paginate MeasuredUnit objects
 type MeasuredUnitList struct {
-	client         HTTPCaller
-	requestOptions *RequestOptions
-	nextPagePath   string
-	hasMore        bool
-	data           []MeasuredUnit
+  client         HTTPCaller
+  requestOptions *RequestOptions
+  nextPagePath   string
+  hasMore bool
+  data    []MeasuredUnit
 }
 
 func NewMeasuredUnitList(client HTTPCaller, nextPagePath string, requestOptions *RequestOptions) *MeasuredUnitList {
-	return &MeasuredUnitList{
-		client:         client,
-		requestOptions: requestOptions,
-		nextPagePath:   nextPagePath,
-		hasMore:        true,
-	}
+  return &MeasuredUnitList{
+    client:       client,
+    requestOptions: requestOptions,
+    nextPagePath: nextPagePath,
+    hasMore:      true,
+  }
 }
+
 
 type MeasuredUnitLister interface {
-	Fetch() error
-	FetchWithContext(ctx context.Context) error
-	Count() (*int64, error)
-	CountWithContext(ctx context.Context) (*int64, error)
-	Data() []MeasuredUnit
-	HasMore() bool
-	Next() string
+  Fetch() error
+  FetchWithContext(ctx context.Context) error
+  Count() (*int64, error)
+  CountWithContext(ctx context.Context) (*int64, error)
+  Data()    []MeasuredUnit
+  HasMore() bool
+  Next() string
 }
 
-func (list *MeasuredUnitList) HasMore() bool {
-	return list.hasMore
+func (list  *MeasuredUnitList) HasMore() bool {
+    return list.hasMore
 }
 
-func (list *MeasuredUnitList) Next() string {
-	return list.nextPagePath
+func (list  *MeasuredUnitList) Next() string {
+    return list.nextPagePath
 }
 
 func (list *MeasuredUnitList) Data() []MeasuredUnit {
-	return list.data
+    return list.data
 }
+
 
 // Fetch fetches the next page of data into the `Data` property
 func (list *MeasuredUnitList) FetchWithContext(ctx context.Context) error {
@@ -115,16 +135,16 @@ func (list *MeasuredUnitList) FetchWithContext(ctx context.Context) error {
 	if err != nil {
 		return err
 	}
-	// copy over properties from the response
-	list.nextPagePath = resources.Next
+  // copy over properties from the response
+  list.nextPagePath = resources.Next
 	list.hasMore = resources.HasMore
 	list.data = resources.Data
-	return nil
+  return nil
 }
 
 // Fetch fetches the next page of data into the `Data` property
 func (list *MeasuredUnitList) Fetch() error {
-	return list.FetchWithContext(context.Background())
+  return list.FetchWithContext(context.Background())
 }
 
 // Count returns the count of items on the server that match this pager
@@ -140,5 +160,5 @@ func (list *MeasuredUnitList) CountWithContext(ctx context.Context) (*int64, err
 
 // Count returns the count of items on the server that match this pager
 func (list *MeasuredUnitList) Count() (*int64, error) {
-	return list.CountWithContext(context.Background())
+  return list.CountWithContext(context.Background())
 }

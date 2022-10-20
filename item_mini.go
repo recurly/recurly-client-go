@@ -5,47 +5,59 @@
 package recurly
 
 import (
-	"context"
-	"net/http"
+        "net/http"
+        "context"
 )
 
 type ItemMini struct {
-	recurlyResponse *ResponseMetadata
+  recurlyResponse *ResponseMetadata
 
-	// Item ID
-	Id string `json:"id,omitempty"`
+  
+        // Item ID
+        Id string `json:"id,omitempty"`
 
-	// Object type
-	Object string `json:"object,omitempty"`
+  
+        // Object type
+        Object string `json:"object,omitempty"`
 
-	// Unique code to identify the item.
-	Code string `json:"code,omitempty"`
+  
+        // Unique code to identify the item.
+        Code string `json:"code,omitempty"`
 
-	// The current state of the item.
-	State string `json:"state,omitempty"`
+  
+        // The current state of the item.
+        State string `json:"state,omitempty"`
 
-	// This name describes your item and will appear on the invoice when it's purchased on a one time basis.
-	Name string `json:"name,omitempty"`
+  
+        // This name describes your item and will appear on the invoice when it's purchased on a one time basis.
+        Name string `json:"name,omitempty"`
 
-	// Optional, description.
-	Description string `json:"description,omitempty"`
+  
+        // Optional, description.
+        Description string `json:"description,omitempty"`
+
+  
 }
 
 // GetResponse returns the ResponseMetadata that generated this resource
 func (resource *ItemMini) GetResponse() *ResponseMetadata {
-	return resource.recurlyResponse
+  return resource.recurlyResponse
 }
 
 // setResponse sets the ResponseMetadata that generated this resource
 func (resource *ItemMini) setResponse(res *ResponseMetadata) {
-	resource.recurlyResponse = res
+  resource.recurlyResponse = res
 }
+
+
+
+
 
 // internal struct for deserializing accounts
 type itemMiniList struct {
 	ListMetadata
-	Data            []ItemMini `json:"data"`
-	recurlyResponse *ResponseMetadata
+  Data []ItemMini `json:"data"`
+  recurlyResponse *ResponseMetadata
 }
 
 // GetResponse returns the ResponseMetadata that generated this resource
@@ -58,45 +70,50 @@ func (resource *itemMiniList) setResponse(res *ResponseMetadata) {
 	resource.recurlyResponse = res
 }
 
+
+
+
 // ItemMiniList allows you to paginate ItemMini objects
 type ItemMiniList struct {
-	client         HTTPCaller
-	requestOptions *RequestOptions
-	nextPagePath   string
-	hasMore        bool
-	data           []ItemMini
+  client         HTTPCaller
+  requestOptions *RequestOptions
+  nextPagePath   string
+  hasMore bool
+  data    []ItemMini
 }
 
 func NewItemMiniList(client HTTPCaller, nextPagePath string, requestOptions *RequestOptions) *ItemMiniList {
-	return &ItemMiniList{
-		client:         client,
-		requestOptions: requestOptions,
-		nextPagePath:   nextPagePath,
-		hasMore:        true,
-	}
+  return &ItemMiniList{
+    client:       client,
+    requestOptions: requestOptions,
+    nextPagePath: nextPagePath,
+    hasMore:      true,
+  }
 }
+
 
 type ItemMiniLister interface {
-	Fetch() error
-	FetchWithContext(ctx context.Context) error
-	Count() (*int64, error)
-	CountWithContext(ctx context.Context) (*int64, error)
-	Data() []ItemMini
-	HasMore() bool
-	Next() string
+  Fetch() error
+  FetchWithContext(ctx context.Context) error
+  Count() (*int64, error)
+  CountWithContext(ctx context.Context) (*int64, error)
+  Data()    []ItemMini
+  HasMore() bool
+  Next() string
 }
 
-func (list *ItemMiniList) HasMore() bool {
-	return list.hasMore
+func (list  *ItemMiniList) HasMore() bool {
+    return list.hasMore
 }
 
-func (list *ItemMiniList) Next() string {
-	return list.nextPagePath
+func (list  *ItemMiniList) Next() string {
+    return list.nextPagePath
 }
 
 func (list *ItemMiniList) Data() []ItemMini {
-	return list.data
+    return list.data
 }
+
 
 // Fetch fetches the next page of data into the `Data` property
 func (list *ItemMiniList) FetchWithContext(ctx context.Context) error {
@@ -105,16 +122,16 @@ func (list *ItemMiniList) FetchWithContext(ctx context.Context) error {
 	if err != nil {
 		return err
 	}
-	// copy over properties from the response
-	list.nextPagePath = resources.Next
+  // copy over properties from the response
+  list.nextPagePath = resources.Next
 	list.hasMore = resources.HasMore
 	list.data = resources.Data
-	return nil
+  return nil
 }
 
 // Fetch fetches the next page of data into the `Data` property
 func (list *ItemMiniList) Fetch() error {
-	return list.FetchWithContext(context.Background())
+  return list.FetchWithContext(context.Background())
 }
 
 // Count returns the count of items on the server that match this pager
@@ -130,5 +147,5 @@ func (list *ItemMiniList) CountWithContext(ctx context.Context) (*int64, error) 
 
 // Count returns the count of items on the server that match this pager
 func (list *ItemMiniList) Count() (*int64, error) {
-	return list.CountWithContext(context.Background())
+  return list.CountWithContext(context.Background())
 }

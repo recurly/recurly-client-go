@@ -4,13 +4,21 @@
 // need and we will usher them to the appropriate places.
 package recurly
 
-import ()
+import (
+)
 
 type PlanRampPricingCreate struct {
+  
 
-	// 3-letter ISO 4217 currency code.
-	Currency *string `json:"currency,omitempty"`
+  
+        // 3-letter ISO 4217 currency code.
+        Currency *string `json:"currency,omitempty"`
 
-	// Represents the price for the Ramp Interval.
-	UnitAmount *float64 `json:"unit_amount,omitempty"`
+  
+        // Represents the price for the Ramp Interval.
+        UnitAmount *float64 `json:"unit_amount,omitempty"`
+
+  
 }
+
+

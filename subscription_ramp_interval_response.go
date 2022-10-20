@@ -5,38 +5,47 @@
 package recurly
 
 import (
-	"context"
-	"net/http"
+        "net/http"
+        "context"
 )
 
 type SubscriptionRampIntervalResponse struct {
-	recurlyResponse *ResponseMetadata
+  recurlyResponse *ResponseMetadata
 
-	// Represents the billing cycle where a ramp interval starts.
-	StartingBillingCycle int `json:"starting_billing_cycle,omitempty"`
+  
+        // Represents the billing cycle where a ramp interval starts.
+        StartingBillingCycle int `json:"starting_billing_cycle,omitempty"`
 
-	// Represents how many billing cycles are left in a ramp interval.
-	RemainingBillingCycles int `json:"remaining_billing_cycles,omitempty"`
+  
+        // Represents how many billing cycles are left in a ramp interval.
+        RemainingBillingCycles int `json:"remaining_billing_cycles,omitempty"`
 
-	// Represents the price for the ramp interval.
-	UnitAmount float64 `json:"unit_amount,omitempty"`
+  
+        // Represents the price for the ramp interval.
+        UnitAmount float64 `json:"unit_amount,omitempty"`
+
+  
 }
 
 // GetResponse returns the ResponseMetadata that generated this resource
 func (resource *SubscriptionRampIntervalResponse) GetResponse() *ResponseMetadata {
-	return resource.recurlyResponse
+  return resource.recurlyResponse
 }
 
 // setResponse sets the ResponseMetadata that generated this resource
 func (resource *SubscriptionRampIntervalResponse) setResponse(res *ResponseMetadata) {
-	resource.recurlyResponse = res
+  resource.recurlyResponse = res
 }
+
+
+
+
 
 // internal struct for deserializing accounts
 type subscriptionRampIntervalResponseList struct {
 	ListMetadata
-	Data            []SubscriptionRampIntervalResponse `json:"data"`
-	recurlyResponse *ResponseMetadata
+  Data []SubscriptionRampIntervalResponse `json:"data"`
+  recurlyResponse *ResponseMetadata
 }
 
 // GetResponse returns the ResponseMetadata that generated this resource
@@ -49,45 +58,50 @@ func (resource *subscriptionRampIntervalResponseList) setResponse(res *ResponseM
 	resource.recurlyResponse = res
 }
 
+
+
+
 // SubscriptionRampIntervalResponseList allows you to paginate SubscriptionRampIntervalResponse objects
 type SubscriptionRampIntervalResponseList struct {
-	client         HTTPCaller
-	requestOptions *RequestOptions
-	nextPagePath   string
-	hasMore        bool
-	data           []SubscriptionRampIntervalResponse
+  client         HTTPCaller
+  requestOptions *RequestOptions
+  nextPagePath   string
+  hasMore bool
+  data    []SubscriptionRampIntervalResponse
 }
 
 func NewSubscriptionRampIntervalResponseList(client HTTPCaller, nextPagePath string, requestOptions *RequestOptions) *SubscriptionRampIntervalResponseList {
-	return &SubscriptionRampIntervalResponseList{
-		client:         client,
-		requestOptions: requestOptions,
-		nextPagePath:   nextPagePath,
-		hasMore:        true,
-	}
+  return &SubscriptionRampIntervalResponseList{
+    client:       client,
+    requestOptions: requestOptions,
+    nextPagePath: nextPagePath,
+    hasMore:      true,
+  }
 }
+
 
 type SubscriptionRampIntervalResponseLister interface {
-	Fetch() error
-	FetchWithContext(ctx context.Context) error
-	Count() (*int64, error)
-	CountWithContext(ctx context.Context) (*int64, error)
-	Data() []SubscriptionRampIntervalResponse
-	HasMore() bool
-	Next() string
+  Fetch() error
+  FetchWithContext(ctx context.Context) error
+  Count() (*int64, error)
+  CountWithContext(ctx context.Context) (*int64, error)
+  Data()    []SubscriptionRampIntervalResponse
+  HasMore() bool
+  Next() string
 }
 
-func (list *SubscriptionRampIntervalResponseList) HasMore() bool {
-	return list.hasMore
+func (list  *SubscriptionRampIntervalResponseList) HasMore() bool {
+    return list.hasMore
 }
 
-func (list *SubscriptionRampIntervalResponseList) Next() string {
-	return list.nextPagePath
+func (list  *SubscriptionRampIntervalResponseList) Next() string {
+    return list.nextPagePath
 }
 
 func (list *SubscriptionRampIntervalResponseList) Data() []SubscriptionRampIntervalResponse {
-	return list.data
+    return list.data
 }
+
 
 // Fetch fetches the next page of data into the `Data` property
 func (list *SubscriptionRampIntervalResponseList) FetchWithContext(ctx context.Context) error {
@@ -96,16 +110,16 @@ func (list *SubscriptionRampIntervalResponseList) FetchWithContext(ctx context.C
 	if err != nil {
 		return err
 	}
-	// copy over properties from the response
-	list.nextPagePath = resources.Next
+  // copy over properties from the response
+  list.nextPagePath = resources.Next
 	list.hasMore = resources.HasMore
 	list.data = resources.Data
-	return nil
+  return nil
 }
 
 // Fetch fetches the next page of data into the `Data` property
 func (list *SubscriptionRampIntervalResponseList) Fetch() error {
-	return list.FetchWithContext(context.Background())
+  return list.FetchWithContext(context.Background())
 }
 
 // Count returns the count of items on the server that match this pager
@@ -121,5 +135,5 @@ func (list *SubscriptionRampIntervalResponseList) CountWithContext(ctx context.C
 
 // Count returns the count of items on the server that match this pager
 func (list *SubscriptionRampIntervalResponseList) Count() (*int64, error) {
-	return list.CountWithContext(context.Background())
+  return list.CountWithContext(context.Background())
 }

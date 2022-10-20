@@ -5,121 +5,156 @@
 package recurly
 
 import (
-	"context"
-	"net/http"
-	"time"
+        "net/http"
+        "context"
+        "time"
 )
 
 type Coupon struct {
-	recurlyResponse *ResponseMetadata
+  recurlyResponse *ResponseMetadata
 
-	// Coupon ID
-	Id string `json:"id,omitempty"`
+  
+        // Coupon ID
+        Id string `json:"id,omitempty"`
 
-	// Object type
-	Object string `json:"object,omitempty"`
+  
+        // Object type
+        Object string `json:"object,omitempty"`
 
-	// The code the customer enters to redeem the coupon.
-	Code string `json:"code,omitempty"`
+  
+        // The code the customer enters to redeem the coupon.
+        Code string `json:"code,omitempty"`
 
-	// The internal name for the coupon.
-	Name string `json:"name,omitempty"`
+  
+        // The internal name for the coupon.
+        Name string `json:"name,omitempty"`
 
-	// Indicates if the coupon is redeemable, and if it is not, why.
-	State string `json:"state,omitempty"`
+  
+        // Indicates if the coupon is redeemable, and if it is not, why.
+        State string `json:"state,omitempty"`
 
-	// A maximum number of redemptions for the coupon. The coupon will expire when it hits its maximum redemptions.
-	MaxRedemptions int `json:"max_redemptions,omitempty"`
+  
+        // A maximum number of redemptions for the coupon. The coupon will expire when it hits its maximum redemptions.
+        MaxRedemptions int `json:"max_redemptions,omitempty"`
 
-	// Redemptions per account is the number of times a specific account can redeem the coupon. Set redemptions per account to `1` if you want to keep customers from gaming the system and getting more than one discount from the coupon campaign.
-	MaxRedemptionsPerAccount int `json:"max_redemptions_per_account,omitempty"`
+  
+        // Redemptions per account is the number of times a specific account can redeem the coupon. Set redemptions per account to `1` if you want to keep customers from gaming the system and getting more than one discount from the coupon campaign.
+        MaxRedemptionsPerAccount int `json:"max_redemptions_per_account,omitempty"`
 
-	// When this number reaches `max_redemptions` the coupon will no longer be redeemable.
-	UniqueCouponCodesCount int `json:"unique_coupon_codes_count,omitempty"`
+  
+        // When this number reaches `max_redemptions` the coupon will no longer be redeemable.
+        UniqueCouponCodesCount int `json:"unique_coupon_codes_count,omitempty"`
 
-	// On a bulk coupon, the template from which unique coupon codes are generated.
-	UniqueCodeTemplate string `json:"unique_code_template,omitempty"`
+  
+        // On a bulk coupon, the template from which unique coupon codes are generated.
+        UniqueCodeTemplate string `json:"unique_code_template,omitempty"`
 
-	// Will be populated when the Coupon being returned is a `UniqueCouponCode`.
-	UniqueCouponCode map[string]interface{} `json:"unique_coupon_code,omitempty"`
+  
+        // Will be populated when the Coupon being returned is a `UniqueCouponCode`.
+        UniqueCouponCode map[string]interface{} `json:"unique_coupon_code,omitempty"`
 
-	// - "single_use" coupons applies to the first invoice only.
-	// - "temporal" coupons will apply to invoices for the duration determined by the `temporal_unit` and `temporal_amount` attributes.
-	Duration string `json:"duration,omitempty"`
+  
+        // - "single_use" coupons applies to the first invoice only.
+ // - "temporal" coupons will apply to invoices for the duration determined by the `temporal_unit` and `temporal_amount` attributes.
+        Duration string `json:"duration,omitempty"`
 
-	// If `duration` is "temporal" than `temporal_amount` is an integer which is multiplied by `temporal_unit` to define the duration that the coupon will be applied to invoices for.
-	TemporalAmount int `json:"temporal_amount,omitempty"`
+  
+        // If `duration` is "temporal" than `temporal_amount` is an integer which is multiplied by `temporal_unit` to define the duration that the coupon will be applied to invoices for.
+        TemporalAmount int `json:"temporal_amount,omitempty"`
 
-	// If `duration` is "temporal" than `temporal_unit` is multiplied by `temporal_amount` to define the duration that the coupon will be applied to invoices for.
-	TemporalUnit string `json:"temporal_unit,omitempty"`
+  
+        // If `duration` is "temporal" than `temporal_unit` is multiplied by `temporal_amount` to define the duration that the coupon will be applied to invoices for.
+        TemporalUnit string `json:"temporal_unit,omitempty"`
 
-	// Description of the unit of time the coupon is for. Used with `free_trial_amount` to determine the duration of time the coupon is for.
-	FreeTrialUnit string `json:"free_trial_unit,omitempty"`
+  
+        // Description of the unit of time the coupon is for. Used with `free_trial_amount` to determine the duration of time the coupon is for.
+        FreeTrialUnit string `json:"free_trial_unit,omitempty"`
 
-	// Sets the duration of time the `free_trial_unit` is for.
-	FreeTrialAmount int `json:"free_trial_amount,omitempty"`
+  
+        // Sets the duration of time the `free_trial_unit` is for.
+        FreeTrialAmount int `json:"free_trial_amount,omitempty"`
 
-	// The coupon is valid for all plans if true. If false then `plans` will list the applicable plans.
-	AppliesToAllPlans bool `json:"applies_to_all_plans,omitempty"`
+  
+        // The coupon is valid for all plans if true. If false then `plans` will list the applicable plans.
+        AppliesToAllPlans bool `json:"applies_to_all_plans,omitempty"`
 
-	// The coupon is valid for all items if true. If false then `items`
-	// will list the applicable items.
-	AppliesToAllItems bool `json:"applies_to_all_items,omitempty"`
+  
+        // The coupon is valid for all items if true. If false then `items`
+ // will list the applicable items.
+        AppliesToAllItems bool `json:"applies_to_all_items,omitempty"`
 
-	// The coupon is valid for one-time, non-plan charges if true.
-	AppliesToNonPlanCharges bool `json:"applies_to_non_plan_charges,omitempty"`
+  
+        // The coupon is valid for one-time, non-plan charges if true.
+        AppliesToNonPlanCharges bool `json:"applies_to_non_plan_charges,omitempty"`
 
-	// A list of plans for which this coupon applies. This will be `null` if `applies_to_all_plans=true`.
-	Plans []PlanMini `json:"plans,omitempty"`
+  
+        // A list of plans for which this coupon applies. This will be `null` if `applies_to_all_plans=true`.
+        Plans []PlanMini `json:"plans,omitempty"`
 
-	// A list of items for which this coupon applies. This will be
-	// `null` if `applies_to_all_items=true`.
-	Items []ItemMini `json:"items,omitempty"`
+  
+        // A list of items for which this coupon applies. This will be
+ // `null` if `applies_to_all_items=true`.
+        Items []ItemMini `json:"items,omitempty"`
 
-	// Whether the discount is for all eligible charges on the account, or only a specific subscription.
-	RedemptionResource string `json:"redemption_resource,omitempty"`
+  
+        // Whether the discount is for all eligible charges on the account, or only a specific subscription.
+        RedemptionResource string `json:"redemption_resource,omitempty"`
 
-	// Details of the discount a coupon applies. Will contain a `type`
-	// property and one of the following properties: `percent`, `fixed`, `trial`.
-	Discount CouponDiscount `json:"discount,omitempty"`
+  
+        // Details of the discount a coupon applies. Will contain a `type`
+ // property and one of the following properties: `percent`, `fixed`, `trial`.
+        Discount CouponDiscount `json:"discount,omitempty"`
 
-	// Whether the coupon is "single_code" or "bulk". Bulk coupons will require a `unique_code_template` and will generate unique codes through the `/generate` endpoint.
-	CouponType string `json:"coupon_type,omitempty"`
+  
+        // Whether the coupon is "single_code" or "bulk". Bulk coupons will require a `unique_code_template` and will generate unique codes through the `/generate` endpoint.
+        CouponType string `json:"coupon_type,omitempty"`
 
-	// This description will show up when a customer redeems a coupon on your Hosted Payment Pages, or if you choose to show the description on your own checkout page.
-	HostedPageDescription string `json:"hosted_page_description,omitempty"`
+  
+        // This description will show up when a customer redeems a coupon on your Hosted Payment Pages, or if you choose to show the description on your own checkout page.
+        HostedPageDescription string `json:"hosted_page_description,omitempty"`
 
-	// Description of the coupon on the invoice.
-	InvoiceDescription string `json:"invoice_description,omitempty"`
+  
+        // Description of the coupon on the invoice.
+        InvoiceDescription string `json:"invoice_description,omitempty"`
 
-	// The date and time the coupon will expire and can no longer be redeemed. Time is always 11:59:59, the end-of-day Pacific time.
-	RedeemBy time.Time `json:"redeem_by,omitempty"`
+  
+        // The date and time the coupon will expire and can no longer be redeemed. Time is always 11:59:59, the end-of-day Pacific time.
+        RedeemBy time.Time `json:"redeem_by,omitempty"`
 
-	// Created at
-	CreatedAt time.Time `json:"created_at,omitempty"`
+  
+        // Created at
+        CreatedAt time.Time `json:"created_at,omitempty"`
 
-	// Last updated at
-	UpdatedAt time.Time `json:"updated_at,omitempty"`
+  
+        // Last updated at
+        UpdatedAt time.Time `json:"updated_at,omitempty"`
 
-	// The date and time the coupon was expired early or reached its `max_redemptions`.
-	ExpiredAt time.Time `json:"expired_at,omitempty"`
+  
+        // The date and time the coupon was expired early or reached its `max_redemptions`.
+        ExpiredAt time.Time `json:"expired_at,omitempty"`
+
+  
 }
 
 // GetResponse returns the ResponseMetadata that generated this resource
 func (resource *Coupon) GetResponse() *ResponseMetadata {
-	return resource.recurlyResponse
+  return resource.recurlyResponse
 }
 
 // setResponse sets the ResponseMetadata that generated this resource
 func (resource *Coupon) setResponse(res *ResponseMetadata) {
-	resource.recurlyResponse = res
+  resource.recurlyResponse = res
 }
+
+
+
+
 
 // internal struct for deserializing accounts
 type couponList struct {
 	ListMetadata
-	Data            []Coupon `json:"data"`
-	recurlyResponse *ResponseMetadata
+  Data []Coupon `json:"data"`
+  recurlyResponse *ResponseMetadata
 }
 
 // GetResponse returns the ResponseMetadata that generated this resource
@@ -132,45 +167,50 @@ func (resource *couponList) setResponse(res *ResponseMetadata) {
 	resource.recurlyResponse = res
 }
 
+
+
+
 // CouponList allows you to paginate Coupon objects
 type CouponList struct {
-	client         HTTPCaller
-	requestOptions *RequestOptions
-	nextPagePath   string
-	hasMore        bool
-	data           []Coupon
+  client         HTTPCaller
+  requestOptions *RequestOptions
+  nextPagePath   string
+  hasMore bool
+  data    []Coupon
 }
 
 func NewCouponList(client HTTPCaller, nextPagePath string, requestOptions *RequestOptions) *CouponList {
-	return &CouponList{
-		client:         client,
-		requestOptions: requestOptions,
-		nextPagePath:   nextPagePath,
-		hasMore:        true,
-	}
+  return &CouponList{
+    client:       client,
+    requestOptions: requestOptions,
+    nextPagePath: nextPagePath,
+    hasMore:      true,
+  }
 }
+
 
 type CouponLister interface {
-	Fetch() error
-	FetchWithContext(ctx context.Context) error
-	Count() (*int64, error)
-	CountWithContext(ctx context.Context) (*int64, error)
-	Data() []Coupon
-	HasMore() bool
-	Next() string
+  Fetch() error
+  FetchWithContext(ctx context.Context) error
+  Count() (*int64, error)
+  CountWithContext(ctx context.Context) (*int64, error)
+  Data()    []Coupon
+  HasMore() bool
+  Next() string
 }
 
-func (list *CouponList) HasMore() bool {
-	return list.hasMore
+func (list  *CouponList) HasMore() bool {
+    return list.hasMore
 }
 
-func (list *CouponList) Next() string {
-	return list.nextPagePath
+func (list  *CouponList) Next() string {
+    return list.nextPagePath
 }
 
 func (list *CouponList) Data() []Coupon {
-	return list.data
+    return list.data
 }
+
 
 // Fetch fetches the next page of data into the `Data` property
 func (list *CouponList) FetchWithContext(ctx context.Context) error {
@@ -179,16 +219,16 @@ func (list *CouponList) FetchWithContext(ctx context.Context) error {
 	if err != nil {
 		return err
 	}
-	// copy over properties from the response
-	list.nextPagePath = resources.Next
+  // copy over properties from the response
+  list.nextPagePath = resources.Next
 	list.hasMore = resources.HasMore
 	list.data = resources.Data
-	return nil
+  return nil
 }
 
 // Fetch fetches the next page of data into the `Data` property
 func (list *CouponList) Fetch() error {
-	return list.FetchWithContext(context.Background())
+  return list.FetchWithContext(context.Background())
 }
 
 // Count returns the count of items on the server that match this pager
@@ -204,5 +244,5 @@ func (list *CouponList) CountWithContext(ctx context.Context) (*int64, error) {
 
 // Count returns the count of items on the server that match this pager
 func (list *CouponList) Count() (*int64, error) {
-	return list.CountWithContext(context.Background())
+  return list.CountWithContext(context.Background())
 }

@@ -5,41 +5,51 @@
 package recurly
 
 import (
-	"context"
-	"net/http"
+        "net/http"
+        "context"
 )
 
 type PlanMini struct {
-	recurlyResponse *ResponseMetadata
+  recurlyResponse *ResponseMetadata
 
-	// Plan ID
-	Id string `json:"id,omitempty"`
+  
+        // Plan ID
+        Id string `json:"id,omitempty"`
 
-	// Object type
-	Object string `json:"object,omitempty"`
+  
+        // Object type
+        Object string `json:"object,omitempty"`
 
-	// Unique code to identify the plan. This is used in Hosted Payment Page URLs and in the invoice exports.
-	Code string `json:"code,omitempty"`
+  
+        // Unique code to identify the plan. This is used in Hosted Payment Page URLs and in the invoice exports.
+        Code string `json:"code,omitempty"`
 
-	// This name describes your plan and will appear on the Hosted Payment Page and the subscriber's invoice.
-	Name string `json:"name,omitempty"`
+  
+        // This name describes your plan and will appear on the Hosted Payment Page and the subscriber's invoice.
+        Name string `json:"name,omitempty"`
+
+  
 }
 
 // GetResponse returns the ResponseMetadata that generated this resource
 func (resource *PlanMini) GetResponse() *ResponseMetadata {
-	return resource.recurlyResponse
+  return resource.recurlyResponse
 }
 
 // setResponse sets the ResponseMetadata that generated this resource
 func (resource *PlanMini) setResponse(res *ResponseMetadata) {
-	resource.recurlyResponse = res
+  resource.recurlyResponse = res
 }
+
+
+
+
 
 // internal struct for deserializing accounts
 type planMiniList struct {
 	ListMetadata
-	Data            []PlanMini `json:"data"`
-	recurlyResponse *ResponseMetadata
+  Data []PlanMini `json:"data"`
+  recurlyResponse *ResponseMetadata
 }
 
 // GetResponse returns the ResponseMetadata that generated this resource
@@ -52,45 +62,50 @@ func (resource *planMiniList) setResponse(res *ResponseMetadata) {
 	resource.recurlyResponse = res
 }
 
+
+
+
 // PlanMiniList allows you to paginate PlanMini objects
 type PlanMiniList struct {
-	client         HTTPCaller
-	requestOptions *RequestOptions
-	nextPagePath   string
-	hasMore        bool
-	data           []PlanMini
+  client         HTTPCaller
+  requestOptions *RequestOptions
+  nextPagePath   string
+  hasMore bool
+  data    []PlanMini
 }
 
 func NewPlanMiniList(client HTTPCaller, nextPagePath string, requestOptions *RequestOptions) *PlanMiniList {
-	return &PlanMiniList{
-		client:         client,
-		requestOptions: requestOptions,
-		nextPagePath:   nextPagePath,
-		hasMore:        true,
-	}
+  return &PlanMiniList{
+    client:       client,
+    requestOptions: requestOptions,
+    nextPagePath: nextPagePath,
+    hasMore:      true,
+  }
 }
+
 
 type PlanMiniLister interface {
-	Fetch() error
-	FetchWithContext(ctx context.Context) error
-	Count() (*int64, error)
-	CountWithContext(ctx context.Context) (*int64, error)
-	Data() []PlanMini
-	HasMore() bool
-	Next() string
+  Fetch() error
+  FetchWithContext(ctx context.Context) error
+  Count() (*int64, error)
+  CountWithContext(ctx context.Context) (*int64, error)
+  Data()    []PlanMini
+  HasMore() bool
+  Next() string
 }
 
-func (list *PlanMiniList) HasMore() bool {
-	return list.hasMore
+func (list  *PlanMiniList) HasMore() bool {
+    return list.hasMore
 }
 
-func (list *PlanMiniList) Next() string {
-	return list.nextPagePath
+func (list  *PlanMiniList) Next() string {
+    return list.nextPagePath
 }
 
 func (list *PlanMiniList) Data() []PlanMini {
-	return list.data
+    return list.data
 }
+
 
 // Fetch fetches the next page of data into the `Data` property
 func (list *PlanMiniList) FetchWithContext(ctx context.Context) error {
@@ -99,16 +114,16 @@ func (list *PlanMiniList) FetchWithContext(ctx context.Context) error {
 	if err != nil {
 		return err
 	}
-	// copy over properties from the response
-	list.nextPagePath = resources.Next
+  // copy over properties from the response
+  list.nextPagePath = resources.Next
 	list.hasMore = resources.HasMore
 	list.data = resources.Data
-	return nil
+  return nil
 }
 
 // Fetch fetches the next page of data into the `Data` property
 func (list *PlanMiniList) Fetch() error {
-	return list.FetchWithContext(context.Background())
+  return list.FetchWithContext(context.Background())
 }
 
 // Count returns the count of items on the server that match this pager
@@ -124,5 +139,5 @@ func (list *PlanMiniList) CountWithContext(ctx context.Context) (*int64, error) 
 
 // Count returns the count of items on the server that match this pager
 func (list *PlanMiniList) Count() (*int64, error) {
-	return list.CountWithContext(context.Background())
+  return list.CountWithContext(context.Background())
 }

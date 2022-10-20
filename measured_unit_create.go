@@ -4,16 +4,25 @@
 // need and we will usher them to the appropriate places.
 package recurly
 
-import ()
+import (
+)
 
 type MeasuredUnitCreate struct {
+  
 
-	// Unique internal name of the measured unit on your site.
-	Name *string `json:"name,omitempty"`
+  
+        // Unique internal name of the measured unit on your site.
+        Name *string `json:"name,omitempty"`
 
-	// Display name for the measured unit.
-	DisplayName *string `json:"display_name,omitempty"`
+  
+        // Display name for the measured unit.
+        DisplayName *string `json:"display_name,omitempty"`
 
-	// Optional internal description.
-	Description *string `json:"description,omitempty"`
+  
+        // Optional internal description.
+        Description *string `json:"description,omitempty"`
+
+  
 }
+
+
