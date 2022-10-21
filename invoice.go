@@ -124,6 +124,12 @@ type Invoice struct {
 
 	// Unique ID to identify the dunning campaign used when dunning the invoice. For sites without multiple dunning campaigns enabled, this will always be the default dunning campaign.
 	DunningCampaignId string `json:"dunning_campaign_id,omitempty"`
+
+	// Number of times the event was sent.
+	DunningEventsSent int `json:"dunning_events_sent,omitempty"`
+
+	// Last communication attempt.
+	FinalDunningEvent bool `json:"final_dunning_event,omitempty"`
 }
 
 // GetResponse returns the ResponseMetadata that generated this resource
