@@ -9,7 +9,7 @@ import ()
 type SubscriptionRampInterval struct {
 	Params `json:"-"`
 
-	// Represents how many billing cycles are included in a ramp interval.
+	// Represents the billing cycle where a ramp interval starts.
 	StartingBillingCycle *int `json:"starting_billing_cycle,omitempty"`
 
 	// Represents the price for the ramp interval.
