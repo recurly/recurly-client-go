@@ -393,6 +393,8 @@ type ClientInterface interface {
 
 	GetInvoiceTemplate(invoiceTemplateId string, opts ...Option) (*InvoiceTemplate, error)
 	GetInvoiceTemplateWithContext(ctx context.Context, invoiceTemplateId string, opts ...Option) (*InvoiceTemplate, error)
+
+	ListEntitlements(accountId string, params *ListEntitlementsParams, opts ...Option) (EntitlementsLister, error)
 }
 
 type ListSitesParams struct {
@@ -6256,4 +6258,37 @@ func (c *Client) getInvoiceTemplate(ctx context.Context, invoiceTemplateId strin
 		return nil, err
 	}
 	return result, err
+}
+
+type ListEntitlementsParams struct {
+
+	// State - Filter the entitlements based on the state of the applicable subscription.
+	// - When `state=active`, `state=canceled`, `state=expired`, or `state=future`, subscriptions with states that match the query and only those subscriptions will be returned.
+	// - When no state is provided, subscriptions with active or canceled states will be returned.
+	State *string
+}
+
+func (list *ListEntitlementsParams) URLParams() []KeyValue {
+	var options []KeyValue
+
+	if list.State != nil {
+		options = append(options, KeyValue{Key: "state", Value: *list.State})
+	}
+
+	return options
+}
+
+// ListEntitlements Show all entitlements granted to an account
+//
+// API Documentation: https://developers.recurly.com/api/v2021-02-25#operation/list_entitlements
+//
+// Returns: A list of the entitlements granted to an account.
+func (c *Client) ListEntitlements(accountId string, params *ListEntitlementsParams, opts ...Option) (EntitlementsLister, error) {
+	path, err := c.InterpolatePath("/accounts/{account_id}/entitlements", accountId)
+	if err != nil {
+		return nil, err
+	}
+	requestOptions := NewRequestOptions(opts...)
+	path = BuildURL(path, params)
+	return NewEntitlementsList(c, path, requestOptions), nil
 }
