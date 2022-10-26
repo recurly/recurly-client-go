@@ -77,6 +77,10 @@ rm -f dunning_cycle.go
 rm -f dunning_interval.go
 rm -f dunning_campaigns_bulk_update_response.go
 rm -f invoice_template.go
+rm -f entitlements.go
+rm -f entitlement.go
+rm -f customer_permission.go
+rm -f granted_by.go
 rm -f account_create.go
 rm -f account_acquisition_update.go
 rm -f account_acquisition_cost_create.go
