@@ -60,6 +60,9 @@ type Plan struct {
 	// Ramp Intervals
 	RampIntervals []PlanRampInterval `json:"ramp_intervals,omitempty"`
 
+	// The custom fields will only be altered when they are included in a request. Sending an empty array will not remove any existing values. To remove a field send the name with a null or empty value.
+	CustomFields []CustomField `json:"custom_fields,omitempty"`
+
 	// Accounting code for invoice line items for the plan. If no value is provided, it defaults to plan's code.
 	AccountingCode string `json:"accounting_code,omitempty"`
 
