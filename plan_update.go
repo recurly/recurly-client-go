@@ -41,6 +41,9 @@ type PlanUpdate struct {
 	// Ramp Intervals
 	RampIntervals []PlanRampIntervalCreate `json:"ramp_intervals,omitempty"`
 
+	// The custom fields will only be altered when they are included in a request. Sending an empty array will not remove any existing values. To remove a field send the name with a null or empty value.
+	CustomFields []CustomFieldCreate `json:"custom_fields,omitempty"`
+
 	// Revenue schedule type
 	RevenueScheduleType *string `json:"revenue_schedule_type,omitempty"`
 
