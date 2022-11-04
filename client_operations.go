@@ -1249,7 +1249,7 @@ func (list *ListAccountCouponRedemptionsParams) URLParams() []KeyValue {
 	return options
 }
 
-// ListAccountCouponRedemptions Show the coupon redemptions for an account
+// ListAccountCouponRedemptions List the coupon redemptions for an account
 //
 // API Documentation: https://developers.recurly.com/api/v2021-02-25#operation/list_account_coupon_redemptions
 //
@@ -1264,7 +1264,7 @@ func (c *Client) ListAccountCouponRedemptions(accountId string, params *ListAcco
 	return NewCouponRedemptionList(c, path, requestOptions), nil
 }
 
-// ListActiveCouponRedemptions Show the coupon redemptions that are active on an account
+// ListActiveCouponRedemptions List the coupon redemptions that are active on an account
 //
 // API Documentation: https://developers.recurly.com/api/v2021-02-25#operation/list_active_coupon_redemptions
 //
@@ -1698,7 +1698,7 @@ func (list *ListAccountNotesParams) URLParams() []KeyValue {
 	return options
 }
 
-// ListAccountNotes Fetch a list of an account's notes
+// ListAccountNotes List an account's notes
 //
 // API Documentation: https://developers.recurly.com/api/v2021-02-25#operation/list_account_notes
 //
@@ -3842,7 +3842,7 @@ func (list *ListInvoiceCouponRedemptionsParams) URLParams() []KeyValue {
 	return options
 }
 
-// ListInvoiceCouponRedemptions Show the coupon redemptions applied to an invoice
+// ListInvoiceCouponRedemptions List the coupon redemptions applied to an invoice
 //
 // API Documentation: https://developers.recurly.com/api/v2021-02-25#operation/list_invoice_coupon_redemptions
 //
@@ -5538,7 +5538,7 @@ func (list *ListSubscriptionCouponRedemptionsParams) URLParams() []KeyValue {
 	return options
 }
 
-// ListSubscriptionCouponRedemptions Show the coupon redemptions for a subscription
+// ListSubscriptionCouponRedemptions List the coupon redemptions for a subscription
 //
 // API Documentation: https://developers.recurly.com/api/v2021-02-25#operation/list_subscription_coupon_redemptions
 //
@@ -6125,7 +6125,7 @@ func (list *ListDunningCampaignsParams) URLParams() []KeyValue {
 	return options
 }
 
-// ListDunningCampaigns Show the dunning campaigns for a site
+// ListDunningCampaigns List the dunning campaigns for a site
 //
 // API Documentation: https://developers.recurly.com/api/v2021-02-25#operation/list_dunning_campaigns
 //
@@ -6146,7 +6146,7 @@ func (c *Client) GetDunningCampaign(dunningCampaignId string, opts ...Option) (*
 	return c.getDunningCampaign(ctx, dunningCampaignId, opts...)
 }
 
-// GetDunningCampaignWithContext Show the settings for a dunning campaign
+// GetDunningCampaignWithContext Fetch a dunning campaign
 //
 // API Documentation: https://developers.recurly.com/api/v2021-02-25#operation/get_dunning_campaign
 //
@@ -6237,7 +6237,7 @@ func (c *Client) GetInvoiceTemplate(invoiceTemplateId string, opts ...Option) (*
 	return c.getInvoiceTemplate(ctx, invoiceTemplateId, opts...)
 }
 
-// GetInvoiceTemplateWithContext Show the settings for an invoice template
+// GetInvoiceTemplateWithContext Fetch an invoice template
 //
 // API Documentation: https://developers.recurly.com/api/v2021-02-25#operation/get_invoice_template
 //
@@ -6278,7 +6278,7 @@ func (list *ListEntitlementsParams) URLParams() []KeyValue {
 	return options
 }
 
-// ListEntitlements Show all entitlements granted to an account
+// ListEntitlements List entitlements granted to an account
 //
 // API Documentation: https://developers.recurly.com/api/v2021-02-25#operation/list_entitlements
 //
