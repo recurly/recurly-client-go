@@ -49,6 +49,9 @@ type SubscriptionAddOn struct {
 	// to configure quantity-based pricing models.
 	TierType string `json:"tier_type,omitempty"`
 
+	// The type of calculation to be employed for an add-on.  Cumulative billing will sum all usage records created in the current billing cycle.  Last-in-period billing will apply only the most recent usage record in the billing period.  If no value is specified, cumulative billing will be used.
+	UsageCalculationType string `json:"usage_calculation_type,omitempty"`
+
 	// The time at which usage totals are reset for billing purposes.
 	UsageTimeframe string `json:"usage_timeframe,omitempty"`
 

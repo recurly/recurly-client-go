@@ -198,6 +198,16 @@ type ClientInterface interface {
 	RemoveMeasuredUnit(measuredUnitId string, opts ...Option) (*MeasuredUnit, error)
 	RemoveMeasuredUnitWithContext(ctx context.Context, measuredUnitId string, opts ...Option) (*MeasuredUnit, error)
 
+	ListExternalProducts(params *ListExternalProductsParams, opts ...Option) (ExternalProductLister, error)
+
+	GetExternalProduct(externalProductId string, opts ...Option) (*ExternalProduct, error)
+	GetExternalProductWithContext(ctx context.Context, externalProductId string, opts ...Option) (*ExternalProduct, error)
+
+	ListExternalSubscriptions(params *ListExternalSubscriptionsParams, opts ...Option) (ExternalSubscriptionLister, error)
+
+	GetExternalSubscription(externalSubscriptionId string, opts ...Option) (*ExternalSubscription, error)
+	GetExternalSubscriptionWithContext(ctx context.Context, externalSubscriptionId string, opts ...Option) (*ExternalSubscription, error)
+
 	ListInvoices(params *ListInvoicesParams, opts ...Option) (InvoiceLister, error)
 
 	GetInvoice(invoiceId string, opts ...Option) (*Invoice, error)
@@ -395,6 +405,8 @@ type ClientInterface interface {
 	GetInvoiceTemplateWithContext(ctx context.Context, invoiceTemplateId string, opts ...Option) (*InvoiceTemplate, error)
 
 	ListEntitlements(accountId string, params *ListEntitlementsParams, opts ...Option) (EntitlementsLister, error)
+
+	ListAccountExternalSubscriptions(accountId string, params *ListAccountExternalSubscriptionsParams, opts ...Option) (ExternalSubscriptionLister, error)
 }
 
 type ListSitesParams struct {
@@ -3361,6 +3373,130 @@ func (c *Client) removeMeasuredUnit(ctx context.Context, measuredUnitId string, 
 	return result, err
 }
 
+type ListExternalProductsParams struct {
+
+	// Sort - Sort field. You *really* only want to sort by `updated_at` in ascending
+	// order. In descending order updated records will move behind the cursor and could
+	// prevent some records from being returned.
+	Sort *string
+}
+
+func (list *ListExternalProductsParams) URLParams() []KeyValue {
+	var options []KeyValue
+
+	if list.Sort != nil {
+		options = append(options, KeyValue{Key: "sort", Value: *list.Sort})
+	}
+
+	return options
+}
+
+// ListExternalProducts List a site's external products
+//
+// API Documentation: https://developers.recurly.com/api/v2021-02-25#operation/list_external_products
+//
+// Returns: A list of the the external_products on a site.
+func (c *Client) ListExternalProducts(params *ListExternalProductsParams, opts ...Option) (ExternalProductLister, error) {
+	path, err := c.InterpolatePath("/external_products")
+	if err != nil {
+		return nil, err
+	}
+	requestOptions := NewRequestOptions(opts...)
+	path = BuildURL(path, params)
+	return NewExternalProductList(c, path, requestOptions), nil
+}
+
+// GetExternalProduct wraps GetExternalProductWithContext using the background context
+func (c *Client) GetExternalProduct(externalProductId string, opts ...Option) (*ExternalProduct, error) {
+	ctx := context.Background()
+	return c.getExternalProduct(ctx, externalProductId, opts...)
+}
+
+// GetExternalProductWithContext Fetch an external product
+//
+// API Documentation: https://developers.recurly.com/api/v2021-02-25#operation/get_external_product
+//
+// Returns: Settings for an external product.
+func (c *Client) GetExternalProductWithContext(ctx context.Context, externalProductId string, opts ...Option) (*ExternalProduct, error) {
+	return c.getExternalProduct(ctx, externalProductId, opts...)
+}
+
+func (c *Client) getExternalProduct(ctx context.Context, externalProductId string, opts ...Option) (*ExternalProduct, error) {
+	path, err := c.InterpolatePath("/external_products/{external_product_id}", externalProductId)
+	if err != nil {
+		return nil, err
+	}
+	requestOptions := NewRequestOptions(opts...)
+	result := &ExternalProduct{}
+	err = c.Call(ctx, http.MethodGet, path, nil, nil, requestOptions, result)
+	if err != nil {
+		return nil, err
+	}
+	return result, err
+}
+
+type ListExternalSubscriptionsParams struct {
+
+	// Sort - Sort field. You *really* only want to sort by `updated_at` in ascending
+	// order. In descending order updated records will move behind the cursor and could
+	// prevent some records from being returned.
+	Sort *string
+}
+
+func (list *ListExternalSubscriptionsParams) URLParams() []KeyValue {
+	var options []KeyValue
+
+	if list.Sort != nil {
+		options = append(options, KeyValue{Key: "sort", Value: *list.Sort})
+	}
+
+	return options
+}
+
+// ListExternalSubscriptions List a site's external subscriptions
+//
+// API Documentation: https://developers.recurly.com/api/v2021-02-25#operation/list_external_subscriptions
+//
+// Returns: A list of the the external_subscriptions on a site.
+func (c *Client) ListExternalSubscriptions(params *ListExternalSubscriptionsParams, opts ...Option) (ExternalSubscriptionLister, error) {
+	path, err := c.InterpolatePath("/external_subscriptions")
+	if err != nil {
+		return nil, err
+	}
+	requestOptions := NewRequestOptions(opts...)
+	path = BuildURL(path, params)
+	return NewExternalSubscriptionList(c, path, requestOptions), nil
+}
+
+// GetExternalSubscription wraps GetExternalSubscriptionWithContext using the background context
+func (c *Client) GetExternalSubscription(externalSubscriptionId string, opts ...Option) (*ExternalSubscription, error) {
+	ctx := context.Background()
+	return c.getExternalSubscription(ctx, externalSubscriptionId, opts...)
+}
+
+// GetExternalSubscriptionWithContext Fetch an external subscription
+//
+// API Documentation: https://developers.recurly.com/api/v2021-02-25#operation/get_external_subscription
+//
+// Returns: Settings for an external subscription.
+func (c *Client) GetExternalSubscriptionWithContext(ctx context.Context, externalSubscriptionId string, opts ...Option) (*ExternalSubscription, error) {
+	return c.getExternalSubscription(ctx, externalSubscriptionId, opts...)
+}
+
+func (c *Client) getExternalSubscription(ctx context.Context, externalSubscriptionId string, opts ...Option) (*ExternalSubscription, error) {
+	path, err := c.InterpolatePath("/external_subscriptions/{external_subscription_id}", externalSubscriptionId)
+	if err != nil {
+		return nil, err
+	}
+	requestOptions := NewRequestOptions(opts...)
+	result := &ExternalSubscription{}
+	err = c.Call(ctx, http.MethodGet, path, nil, nil, requestOptions, result)
+	if err != nil {
+		return nil, err
+	}
+	return result, err
+}
+
 type ListInvoicesParams struct {
 
 	// Ids - Filter results by their IDs. Up to 200 IDs can be passed at once using
@@ -6291,4 +6427,37 @@ func (c *Client) ListEntitlements(accountId string, params *ListEntitlementsPara
 	requestOptions := NewRequestOptions(opts...)
 	path = BuildURL(path, params)
 	return NewEntitlementsList(c, path, requestOptions), nil
+}
+
+type ListAccountExternalSubscriptionsParams struct {
+
+	// Sort - Sort field. You *really* only want to sort by `updated_at` in ascending
+	// order. In descending order updated records will move behind the cursor and could
+	// prevent some records from being returned.
+	Sort *string
+}
+
+func (list *ListAccountExternalSubscriptionsParams) URLParams() []KeyValue {
+	var options []KeyValue
+
+	if list.Sort != nil {
+		options = append(options, KeyValue{Key: "sort", Value: *list.Sort})
+	}
+
+	return options
+}
+
+// ListAccountExternalSubscriptions List an account's external subscriptions
+//
+// API Documentation: https://developers.recurly.com/api/v2021-02-25#operation/list_account_external_subscriptions
+//
+// Returns: A list of the the external_subscriptions on an account.
+func (c *Client) ListAccountExternalSubscriptions(accountId string, params *ListAccountExternalSubscriptionsParams, opts ...Option) (ExternalSubscriptionLister, error) {
+	path, err := c.InterpolatePath("/accounts/{account_id}/external_subscriptions", accountId)
+	if err != nil {
+		return nil, err
+	}
+	requestOptions := NewRequestOptions(opts...)
+	path = BuildURL(path, params)
+	return NewExternalSubscriptionList(c, path, requestOptions), nil
 }
