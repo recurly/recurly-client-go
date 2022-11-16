@@ -216,6 +216,9 @@ type ClientInterface interface {
 	UpdateInvoice(invoiceId string, body *InvoiceUpdate, opts ...Option) (*Invoice, error)
 	UpdateInvoiceWithContext(ctx context.Context, invoiceId string, body *InvoiceUpdate, opts ...Option) (*Invoice, error)
 
+	ApplyCreditBalance(invoiceId string, opts ...Option) (*Invoice, error)
+	ApplyCreditBalanceWithContext(ctx context.Context, invoiceId string, opts ...Option) (*Invoice, error)
+
 	CollectInvoice(invoiceId string, params *CollectInvoiceParams, opts ...Option) (*Invoice, error)
 	CollectInvoiceWithContext(ctx context.Context, invoiceId string, params *CollectInvoiceParams, opts ...Option) (*Invoice, error)
 
@@ -3638,6 +3641,35 @@ func (c *Client) updateInvoice(ctx context.Context, invoiceId string, body *Invo
 	requestOptions := NewRequestOptions(opts...)
 	result := &Invoice{}
 	err = c.Call(ctx, http.MethodPut, path, body, nil, requestOptions, result)
+	if err != nil {
+		return nil, err
+	}
+	return result, err
+}
+
+// ApplyCreditBalance wraps ApplyCreditBalanceWithContext using the background context
+func (c *Client) ApplyCreditBalance(invoiceId string, opts ...Option) (*Invoice, error) {
+	ctx := context.Background()
+	return c.applyCreditBalance(ctx, invoiceId, opts...)
+}
+
+// ApplyCreditBalanceWithContext Apply available credit to a pending or past due charge invoice
+//
+// API Documentation: https://developers.recurly.com/api/v2021-02-25#operation/apply_credit_balance
+//
+// Returns: The updated invoice.
+func (c *Client) ApplyCreditBalanceWithContext(ctx context.Context, invoiceId string, opts ...Option) (*Invoice, error) {
+	return c.applyCreditBalance(ctx, invoiceId, opts...)
+}
+
+func (c *Client) applyCreditBalance(ctx context.Context, invoiceId string, opts ...Option) (*Invoice, error) {
+	path, err := c.InterpolatePath("/invoices/{invoice_id}/apply_credit_balance", invoiceId)
+	if err != nil {
+		return nil, err
+	}
+	requestOptions := NewRequestOptions(opts...)
+	result := &Invoice{}
+	err = c.Call(ctx, http.MethodPut, path, nil, nil, requestOptions, result)
 	if err != nil {
 		return nil, err
 	}
