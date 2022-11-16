@@ -20,6 +20,9 @@ type AccountBalanceAmount struct {
 
 	// Total amount for the prepayment credit invoices in a `processing` state on the account.
 	ProcessingPrepaymentAmount float64 `json:"processing_prepayment_amount,omitempty"`
+
+	// Total amount of the open balances on credit invoices for the account.
+	AvailableCreditAmount float64 `json:"available_credit_amount,omitempty"`
 }
 
 // GetResponse returns the ResponseMetadata that generated this resource
