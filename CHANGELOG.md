@@ -1,5 +1,17 @@
 # Changelog
 
+## [v3.18.0](https://github.com/recurly/recurly-client-go/tree/v3.18.0) (2022-11-17)
+
+[Full Changelog](https://github.com/recurly/recurly-client-go/compare/v3.17.0...v3.18.0)
+
+
+**Merged Pull Requests**
+
+- Generated Latest Changes for v2019-10-10 (Apply Credit Balance feature) [#174](https://github.com/recurly/recurly-client-go/pull/174) ([recurly-integrations](https://github.com/recurly-integrations))
+- Generated Latest Changes for v2019-10-10 [#171](https://github.com/recurly/recurly-client-go/pull/171) ([recurly-integrations](https://github.com/recurly-integrations))
+
+
+
 ## [v3.17.0](https://github.com/recurly/recurly-client-go/tree/v3.17.0) (2022-10-21)
 
 [Full Changelog](https://github.com/recurly/recurly-client-go/compare/v3.16.0...v3.17.0)
