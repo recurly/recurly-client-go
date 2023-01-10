@@ -25,6 +25,9 @@ type AccountCreate struct {
 	// Used to determine the language and locale of emails sent on behalf of the merchant to the customer. The list of locales is restricted to those the merchant has enabled on the site.
 	PreferredLocale *string `json:"preferred_locale,omitempty"`
 
+	// Used to determine the time zone of emails sent on behalf of the merchant to the customer. Must be a [supported IANA time zone name](https://docs.recurly.com/docs/email-time-zones-and-time-stamps#supported-api-iana-time-zone-names)
+	PreferredTimeZone *string `json:"preferred_time_zone,omitempty"`
+
 	// Additional email address that should receive account correspondence. These should be separated only by commas. These CC emails will receive all emails that the `email` field also receives.
 	CcEmails *string `json:"cc_emails,omitempty"`
 
