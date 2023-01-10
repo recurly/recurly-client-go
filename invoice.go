@@ -40,7 +40,7 @@ type Invoice struct {
 	// If the invoice is charging or refunding for one or more subscriptions, these are their IDs.
 	SubscriptionIds []string `json:"subscription_ids,omitempty"`
 
-	// On refund invoices, this value will exist and show the invoice ID of the purchase invoice the refund was created from.
+	// On refund invoices, this value will exist and show the invoice ID of the purchase invoice the refund was created from. This field is only populated for sites without the [Only Bill What Changed](https://docs.recurly.com/docs/only-bill-what-changed) feature enabled. Sites with Only Bill What Changed enabled should use the [related_invoices endpoint](https://recurly.com/developers/api/v2021-02-25/index.html#operation/list_related_invoices) to see purchase invoices refunded by this invoice.
 	PreviousInvoiceId string `json:"previous_invoice_id,omitempty"`
 
 	// If VAT taxation and the Country Invoice Sequencing feature are enabled, invoices will have country-specific invoice numbers for invoices billed to EU countries (ex: FR1001). Non-EU invoices will continue to use the site-level invoice number sequence.
