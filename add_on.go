@@ -88,7 +88,7 @@ type AddOn struct {
 	// Tiers
 	Tiers []Tier `json:"tiers,omitempty"`
 
-	// Percentage Tiers
+	// This feature is currently in development and requires approval and enablement, please contact support.
 	PercentageTiers []PercentageTiersByCurrency `json:"percentage_tiers,omitempty"`
 
 	// Optional, stock keeping unit to link the item to other inventory systems.

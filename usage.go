@@ -36,7 +36,7 @@ type Usage struct {
 	// The tiers and prices of the subscription based on the usage_timestamp. If tier_type = flat, tiers = []
 	Tiers []SubscriptionAddOnTier `json:"tiers,omitempty"`
 
-	// The percentage tiers of the subscription based on the usage_timestamp. If tier_type = flat, percentage_tiers = []
+	// The percentage tiers of the subscription based on the usage_timestamp. If tier_type = flat, percentage_tiers = []. This feature is currently in development and requires approval and enablement, please contact support.
 	PercentageTiers []SubscriptionAddOnPercentageTier `json:"percentage_tiers,omitempty"`
 
 	// The ID of the measured unit associated with the add-on the usage record is for.
