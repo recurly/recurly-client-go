@@ -1,5 +1,16 @@
 # Changelog
 
+## [v3.20.0](https://github.com/recurly/recurly-client-go/tree/v3.20.0) (2023-01-19)
+
+[Full Changelog](https://github.com/recurly/recurly-client-go/compare/v3.19.0...v3.20.0)
+
+
+**Merged Pull Requests**
+
+- Generated Latest Changes for v2019-10-10 (Custom Fields on Line Items) [#180](https://github.com/recurly/recurly-client-go/pull/180) ([recurly-integrations](https://github.com/recurly-integrations))
+
+
+
 ## [v3.19.0](https://github.com/recurly/recurly-client-go/tree/v3.19.0) (2023-01-11)
 
 [Full Changelog](https://github.com/recurly/recurly-client-go/compare/v3.18.0...v3.19.0)
