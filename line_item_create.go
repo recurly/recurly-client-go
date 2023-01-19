@@ -70,6 +70,9 @@ type LineItemCreate struct {
 
 	// If this date is provided, it indicates the end of a time range.
 	EndDate *time.Time `json:"end_date,omitempty"`
+
+	// The custom fields will only be altered when they are included in a request. Sending an empty array will not remove any existing values. To remove a field send the name with a null or empty value.
+	CustomFields []CustomFieldCreate `json:"custom_fields,omitempty"`
 }
 
 func (attr *LineItemCreate) toParams() *Params {

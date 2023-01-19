@@ -163,6 +163,9 @@ type LineItem struct {
 	// If this date is provided, it indicates the end of a time range.
 	EndDate time.Time `json:"end_date,omitempty"`
 
+	// The custom fields will only be altered when they are included in a request. Sending an empty array will not remove any existing values. To remove a field send the name with a null or empty value.
+	CustomFields []CustomField `json:"custom_fields,omitempty"`
+
 	// When the line item was created.
 	CreatedAt time.Time `json:"created_at,omitempty"`
 
