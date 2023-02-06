@@ -410,6 +410,20 @@ type ClientInterface interface {
 	ListEntitlements(accountId string, params *ListEntitlementsParams, opts ...Option) (EntitlementsLister, error)
 
 	ListAccountExternalSubscriptions(accountId string, params *ListAccountExternalSubscriptionsParams, opts ...Option) (ExternalSubscriptionLister, error)
+
+	ListGiftCards(opts ...Option) (GiftCardLister, error)
+
+	CreateGiftCard(body *GiftCardCreate, opts ...Option) (*GiftCard, error)
+	CreateGiftCardWithContext(ctx context.Context, body *GiftCardCreate, opts ...Option) (*GiftCard, error)
+
+	GetGiftCard(giftCardId string, opts ...Option) (*GiftCard, error)
+	GetGiftCardWithContext(ctx context.Context, giftCardId string, opts ...Option) (*GiftCard, error)
+
+	PreviewGiftCard(body *GiftCardCreate, opts ...Option) (*GiftCard, error)
+	PreviewGiftCardWithContext(ctx context.Context, body *GiftCardCreate, opts ...Option) (*GiftCard, error)
+
+	RedeemGiftCard(redemptionCode string, body *GiftCardRedeem, opts ...Option) (*GiftCard, error)
+	RedeemGiftCardWithContext(ctx context.Context, redemptionCode string, body *GiftCardRedeem, opts ...Option) (*GiftCard, error)
 }
 
 type ListSitesParams struct {
@@ -6492,4 +6506,134 @@ func (c *Client) ListAccountExternalSubscriptions(accountId string, params *List
 	requestOptions := NewRequestOptions(opts...)
 	path = BuildURL(path, params)
 	return NewExternalSubscriptionList(c, path, requestOptions), nil
+}
+
+// ListGiftCards List gift cards
+//
+// API Documentation: https://developers.recurly.com/api/v2021-02-25#operation/list_gift_cards
+//
+// Returns: List of all created gift cards on your site.
+func (c *Client) ListGiftCards(opts ...Option) (GiftCardLister, error) {
+	path, err := c.InterpolatePath("/gift_cards")
+	if err != nil {
+		return nil, err
+	}
+	requestOptions := NewRequestOptions(opts...)
+	return NewGiftCardList(c, path, requestOptions), nil
+}
+
+// CreateGiftCard wraps CreateGiftCardWithContext using the background context
+func (c *Client) CreateGiftCard(body *GiftCardCreate, opts ...Option) (*GiftCard, error) {
+	ctx := context.Background()
+	return c.createGiftCard(ctx, body, opts...)
+}
+
+// CreateGiftCardWithContext Create gift card
+//
+// API Documentation: https://developers.recurly.com/api/v2021-02-25#operation/create_gift_card
+//
+// Returns: Returns the gift card
+func (c *Client) CreateGiftCardWithContext(ctx context.Context, body *GiftCardCreate, opts ...Option) (*GiftCard, error) {
+	return c.createGiftCard(ctx, body, opts...)
+}
+
+func (c *Client) createGiftCard(ctx context.Context, body *GiftCardCreate, opts ...Option) (*GiftCard, error) {
+	path, err := c.InterpolatePath("/gift_cards")
+	if err != nil {
+		return nil, err
+	}
+	requestOptions := NewRequestOptions(opts...)
+	result := &GiftCard{}
+	err = c.Call(ctx, http.MethodPost, path, body, nil, requestOptions, result)
+	if err != nil {
+		return nil, err
+	}
+	return result, err
+}
+
+// GetGiftCard wraps GetGiftCardWithContext using the background context
+func (c *Client) GetGiftCard(giftCardId string, opts ...Option) (*GiftCard, error) {
+	ctx := context.Background()
+	return c.getGiftCard(ctx, giftCardId, opts...)
+}
+
+// GetGiftCardWithContext Fetch a gift card
+//
+// API Documentation: https://developers.recurly.com/api/v2021-02-25#operation/get_gift_card
+//
+// Returns: Gift card details
+func (c *Client) GetGiftCardWithContext(ctx context.Context, giftCardId string, opts ...Option) (*GiftCard, error) {
+	return c.getGiftCard(ctx, giftCardId, opts...)
+}
+
+func (c *Client) getGiftCard(ctx context.Context, giftCardId string, opts ...Option) (*GiftCard, error) {
+	path, err := c.InterpolatePath("/gift_cards/{gift_card_id}", giftCardId)
+	if err != nil {
+		return nil, err
+	}
+	requestOptions := NewRequestOptions(opts...)
+	result := &GiftCard{}
+	err = c.Call(ctx, http.MethodGet, path, nil, nil, requestOptions, result)
+	if err != nil {
+		return nil, err
+	}
+	return result, err
+}
+
+// PreviewGiftCard wraps PreviewGiftCardWithContext using the background context
+func (c *Client) PreviewGiftCard(body *GiftCardCreate, opts ...Option) (*GiftCard, error) {
+	ctx := context.Background()
+	return c.previewGiftCard(ctx, body, opts...)
+}
+
+// PreviewGiftCardWithContext Preview gift card
+//
+// API Documentation: https://developers.recurly.com/api/v2021-02-25#operation/preview_gift_card
+//
+// Returns: Returns the gift card
+func (c *Client) PreviewGiftCardWithContext(ctx context.Context, body *GiftCardCreate, opts ...Option) (*GiftCard, error) {
+	return c.previewGiftCard(ctx, body, opts...)
+}
+
+func (c *Client) previewGiftCard(ctx context.Context, body *GiftCardCreate, opts ...Option) (*GiftCard, error) {
+	path, err := c.InterpolatePath("/gift_cards/preview")
+	if err != nil {
+		return nil, err
+	}
+	requestOptions := NewRequestOptions(opts...)
+	result := &GiftCard{}
+	err = c.Call(ctx, http.MethodPost, path, body, nil, requestOptions, result)
+	if err != nil {
+		return nil, err
+	}
+	return result, err
+}
+
+// RedeemGiftCard wraps RedeemGiftCardWithContext using the background context
+func (c *Client) RedeemGiftCard(redemptionCode string, body *GiftCardRedeem, opts ...Option) (*GiftCard, error) {
+	ctx := context.Background()
+	return c.redeemGiftCard(ctx, redemptionCode, body, opts...)
+}
+
+// RedeemGiftCardWithContext Redeem gift card
+//
+// API Documentation: https://developers.recurly.com/api/v2021-02-25#operation/redeem_gift_card
+//
+// Returns: Redeems and returns the gift card
+func (c *Client) RedeemGiftCardWithContext(ctx context.Context, redemptionCode string, body *GiftCardRedeem, opts ...Option) (*GiftCard, error) {
+	return c.redeemGiftCard(ctx, redemptionCode, body, opts...)
+}
+
+func (c *Client) redeemGiftCard(ctx context.Context, redemptionCode string, body *GiftCardRedeem, opts ...Option) (*GiftCard, error) {
+	path, err := c.InterpolatePath("/gift_cards/{redemption_code}/redeem", redemptionCode)
+	if err != nil {
+		return nil, err
+	}
+	requestOptions := NewRequestOptions(opts...)
+	result := &GiftCard{}
+	err = c.Call(ctx, http.MethodPost, path, body, nil, requestOptions, result)
+	if err != nil {
+		return nil, err
+	}
+	return result, err
 }
