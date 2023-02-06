@@ -159,6 +159,12 @@ type Subscription struct {
 
 	// The invoice ID of the latest invoice created for an active subscription.
 	ActiveInvoiceId string `json:"active_invoice_id,omitempty"`
+
+	// Whether the subscription was started with a gift certificate.
+	StartedWithGift bool `json:"started_with_gift,omitempty"`
+
+	// When the subscription was converted from a gift card.
+	ConvertedAt time.Time `json:"converted_at,omitempty"`
 }
 
 // GetResponse returns the ResponseMetadata that generated this resource

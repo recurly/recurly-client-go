@@ -89,4 +89,7 @@ type SubscriptionCreate struct {
 
 	// An optional type designation for the payment gateway transaction created by this request. Supports 'moto' value, which is the acronym for mail order and telephone transactions.
 	TransactionType *string `json:"transaction_type,omitempty"`
+
+	// A gift card redemption code to be redeemed on the purchase invoice.
+	GiftCardRedemptionCode *string `json:"gift_card_redemption_code,omitempty"`
 }
