@@ -1,5 +1,16 @@
 # Changelog
 
+## [v4.29.0](https://github.com/recurly/recurly-client-go/tree/v4.29.0) (2023-02-07)
+
+[Full Changelog](https://github.com/recurly/recurly-client-go/compare/v4.28.0...v4.29.0)
+
+
+**Merged Pull Requests**
+
+- Generated Latest Changes for v2021-02-25 (GiftCard endpoints and new transaction error support) [#183](https://github.com/recurly/recurly-client-go/pull/183) ([recurly-integrations](https://github.com/recurly-integrations))
+
+
+
 ## [v4.28.0](https://github.com/recurly/recurly-client-go/tree/v4.28.0) (2023-01-19)
 
 [Full Changelog](https://github.com/recurly/recurly-client-go/compare/v4.27.0...v4.28.0)
