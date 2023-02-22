@@ -58,7 +58,6 @@ rm -f measured_unit.go
 rm -f external_product.go
 rm -f external_product_reference_mini.go
 rm -f external_subscription.go
-rm -f external_resource_mini.go
 rm -f binary_file.go
 rm -f plan.go
 rm -f plan_ramp_interval.go
