@@ -22,11 +22,11 @@ type ExternalSubscription struct {
 	// Account mini details
 	Account AccountMini `json:"account,omitempty"`
 
-	// External Resource mini details
-	ExternalResource ExternalResourceMini `json:"external_resource,omitempty"`
-
 	// External Product Reference details
 	ExternalProductReference ExternalProductReferenceMini `json:"external_product_reference,omitempty"`
+
+	// The id of the subscription in the external systems., I.e. Apple App Store or Google Play Store.
+	ExternalId string `json:"external_id,omitempty"`
 
 	// When a new billing event occurred on the external subscription in conjunction with a recent billing period, reactivation or upgrade/downgrade.
 	LastPurchased time.Time `json:"last_purchased,omitempty"`
@@ -39,6 +39,9 @@ type ExternalSubscription struct {
 
 	// An indication of the quantity of a subscribed item's quantity.
 	Quantity int `json:"quantity,omitempty"`
+
+	// External subscriptions can be active, canceled, expired, or future.
+	State string `json:"state,omitempty"`
 
 	// When the external subscription was activated in the external platform.
 	ActivatedAt time.Time `json:"activated_at,omitempty"`
