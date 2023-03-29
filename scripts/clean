@@ -29,6 +29,10 @@ rm -f coupon_discount.go
 rm -f coupon_discount_pricing.go
 rm -f coupon_discount_trial.go
 rm -f credit_payment.go
+rm -f external_invoice.go
+rm -f external_subscription.go
+rm -f external_product_reference_mini.go
+rm -f external_charge.go
 rm -f invoice.go
 rm -f invoice_address.go
 rm -f tax_info.go
@@ -56,8 +60,6 @@ rm -f item.go
 rm -f pricing.go
 rm -f measured_unit.go
 rm -f external_product.go
-rm -f external_product_reference_mini.go
-rm -f external_subscription.go
 rm -f binary_file.go
 rm -f plan.go
 rm -f plan_ramp_interval.go

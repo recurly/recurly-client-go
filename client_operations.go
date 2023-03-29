@@ -93,6 +93,8 @@ type ClientInterface interface {
 
 	ListAccountCreditPayments(accountId string, params *ListAccountCreditPaymentsParams, opts ...Option) (CreditPaymentLister, error)
 
+	ListAccountExternalInvoices(accountId string, params *ListAccountExternalInvoicesParams, opts ...Option) (ExternalInvoiceLister, error)
+
 	ListAccountInvoices(accountId string, params *ListAccountInvoicesParams, opts ...Option) (InvoiceLister, error)
 
 	CreateInvoice(accountId string, body *InvoiceCreate, opts ...Option) (*InvoiceCollection, error)
@@ -207,6 +209,8 @@ type ClientInterface interface {
 
 	GetExternalSubscription(externalSubscriptionId string, opts ...Option) (*ExternalSubscription, error)
 	GetExternalSubscriptionWithContext(ctx context.Context, externalSubscriptionId string, opts ...Option) (*ExternalSubscription, error)
+
+	ListExternalSubscriptionExternalInvoices(externalSubscriptionId string, params *ListExternalSubscriptionExternalInvoicesParams, opts ...Option) (ExternalInvoiceLister, error)
 
 	ListInvoices(params *ListInvoicesParams, opts ...Option) (InvoiceLister, error)
 
@@ -406,6 +410,11 @@ type ClientInterface interface {
 
 	GetInvoiceTemplate(invoiceTemplateId string, opts ...Option) (*InvoiceTemplate, error)
 	GetInvoiceTemplateWithContext(ctx context.Context, invoiceTemplateId string, opts ...Option) (*InvoiceTemplate, error)
+
+	ListExternalInvoices(params *ListExternalInvoicesParams, opts ...Option) (ExternalInvoiceLister, error)
+
+	ShowExternalInvoice(externalInvoiceId string, opts ...Option) (*ExternalInvoice, error)
+	ShowExternalInvoiceWithContext(ctx context.Context, externalInvoiceId string, opts ...Option) (*ExternalInvoice, error)
 
 	ListEntitlements(accountId string, params *ListEntitlementsParams, opts ...Option) (EntitlementsLister, error)
 
@@ -1426,6 +1435,53 @@ func (c *Client) ListAccountCreditPayments(accountId string, params *ListAccount
 	requestOptions := NewRequestOptions(opts...)
 	path = BuildURL(path, params)
 	return NewCreditPaymentList(c, path, requestOptions), nil
+}
+
+type ListAccountExternalInvoicesParams struct {
+
+	// Sort - Sort field. You *really* only want to sort by `updated_at` in ascending
+	// order. In descending order updated records will move behind the cursor and could
+	// prevent some records from being returned.
+	Sort *string
+
+	// Limit - Limit number of records 1-200.
+	Limit *int
+
+	// Order - Sort order.
+	Order *string
+}
+
+func (list *ListAccountExternalInvoicesParams) URLParams() []KeyValue {
+	var options []KeyValue
+
+	if list.Sort != nil {
+		options = append(options, KeyValue{Key: "sort", Value: *list.Sort})
+	}
+
+	if list.Limit != nil {
+		options = append(options, KeyValue{Key: "limit", Value: strconv.Itoa(*list.Limit)})
+	}
+
+	if list.Order != nil {
+		options = append(options, KeyValue{Key: "order", Value: *list.Order})
+	}
+
+	return options
+}
+
+// ListAccountExternalInvoices List the external invoices on an account
+//
+// API Documentation: https://developers.recurly.com/api/v2021-02-25#operation/list_account_external_invoices
+//
+// Returns: A list of the the external_invoices on an account.
+func (c *Client) ListAccountExternalInvoices(accountId string, params *ListAccountExternalInvoicesParams, opts ...Option) (ExternalInvoiceLister, error) {
+	path, err := c.InterpolatePath("/accounts/{account_id}/external_invoices", accountId)
+	if err != nil {
+		return nil, err
+	}
+	requestOptions := NewRequestOptions(opts...)
+	path = BuildURL(path, params)
+	return NewExternalInvoiceList(c, path, requestOptions), nil
 }
 
 type ListAccountInvoicesParams struct {
@@ -3512,6 +3568,53 @@ func (c *Client) getExternalSubscription(ctx context.Context, externalSubscripti
 		return nil, err
 	}
 	return result, err
+}
+
+type ListExternalSubscriptionExternalInvoicesParams struct {
+
+	// Sort - Sort field. You *really* only want to sort by `updated_at` in ascending
+	// order. In descending order updated records will move behind the cursor and could
+	// prevent some records from being returned.
+	Sort *string
+
+	// Limit - Limit number of records 1-200.
+	Limit *int
+
+	// Order - Sort order.
+	Order *string
+}
+
+func (list *ListExternalSubscriptionExternalInvoicesParams) URLParams() []KeyValue {
+	var options []KeyValue
+
+	if list.Sort != nil {
+		options = append(options, KeyValue{Key: "sort", Value: *list.Sort})
+	}
+
+	if list.Limit != nil {
+		options = append(options, KeyValue{Key: "limit", Value: strconv.Itoa(*list.Limit)})
+	}
+
+	if list.Order != nil {
+		options = append(options, KeyValue{Key: "order", Value: *list.Order})
+	}
+
+	return options
+}
+
+// ListExternalSubscriptionExternalInvoices List the external invoices on an external subscription
+//
+// API Documentation: https://developers.recurly.com/api/v2021-02-25#operation/list_external_subscription_external_invoices
+//
+// Returns: A list of the the external_invoices on a site.
+func (c *Client) ListExternalSubscriptionExternalInvoices(externalSubscriptionId string, params *ListExternalSubscriptionExternalInvoicesParams, opts ...Option) (ExternalInvoiceLister, error) {
+	path, err := c.InterpolatePath("/external_subscriptions/{external_subscription_id}/external_invoices", externalSubscriptionId)
+	if err != nil {
+		return nil, err
+	}
+	requestOptions := NewRequestOptions(opts...)
+	path = BuildURL(path, params)
+	return NewExternalInvoiceList(c, path, requestOptions), nil
 }
 
 type ListInvoicesParams struct {
@@ -6435,6 +6538,82 @@ func (c *Client) getInvoiceTemplate(ctx context.Context, invoiceTemplateId strin
 	}
 	requestOptions := NewRequestOptions(opts...)
 	result := &InvoiceTemplate{}
+	err = c.Call(ctx, http.MethodGet, path, nil, nil, requestOptions, result)
+	if err != nil {
+		return nil, err
+	}
+	return result, err
+}
+
+type ListExternalInvoicesParams struct {
+
+	// Sort - Sort field. You *really* only want to sort by `updated_at` in ascending
+	// order. In descending order updated records will move behind the cursor and could
+	// prevent some records from being returned.
+	Sort *string
+
+	// Limit - Limit number of records 1-200.
+	Limit *int
+
+	// Order - Sort order.
+	Order *string
+}
+
+func (list *ListExternalInvoicesParams) URLParams() []KeyValue {
+	var options []KeyValue
+
+	if list.Sort != nil {
+		options = append(options, KeyValue{Key: "sort", Value: *list.Sort})
+	}
+
+	if list.Limit != nil {
+		options = append(options, KeyValue{Key: "limit", Value: strconv.Itoa(*list.Limit)})
+	}
+
+	if list.Order != nil {
+		options = append(options, KeyValue{Key: "order", Value: *list.Order})
+	}
+
+	return options
+}
+
+// ListExternalInvoices List the external invoices on a site
+//
+// API Documentation: https://developers.recurly.com/api/v2021-02-25#operation/list_external_invoices
+//
+// Returns: A list of the the external_invoices on a site.
+func (c *Client) ListExternalInvoices(params *ListExternalInvoicesParams, opts ...Option) (ExternalInvoiceLister, error) {
+	path, err := c.InterpolatePath("/external_invoices")
+	if err != nil {
+		return nil, err
+	}
+	requestOptions := NewRequestOptions(opts...)
+	path = BuildURL(path, params)
+	return NewExternalInvoiceList(c, path, requestOptions), nil
+}
+
+// ShowExternalInvoice wraps ShowExternalInvoiceWithContext using the background context
+func (c *Client) ShowExternalInvoice(externalInvoiceId string, opts ...Option) (*ExternalInvoice, error) {
+	ctx := context.Background()
+	return c.showExternalInvoice(ctx, externalInvoiceId, opts...)
+}
+
+// ShowExternalInvoiceWithContext Fetch an external invoice
+//
+// API Documentation: https://developers.recurly.com/api/v2021-02-25#operation/show_external_invoice
+//
+// Returns: Returns the external invoice
+func (c *Client) ShowExternalInvoiceWithContext(ctx context.Context, externalInvoiceId string, opts ...Option) (*ExternalInvoice, error) {
+	return c.showExternalInvoice(ctx, externalInvoiceId, opts...)
+}
+
+func (c *Client) showExternalInvoice(ctx context.Context, externalInvoiceId string, opts ...Option) (*ExternalInvoice, error) {
+	path, err := c.InterpolatePath("/external_invoices/{external_invoice_id}", externalInvoiceId)
+	if err != nil {
+		return nil, err
+	}
+	requestOptions := NewRequestOptions(opts...)
+	result := &ExternalInvoice{}
 	err = c.Call(ctx, http.MethodGet, path, nil, nil, requestOptions, result)
 	if err != nil {
 		return nil, err
