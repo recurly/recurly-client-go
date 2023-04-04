@@ -31,7 +31,7 @@ type ExternalInvoice struct {
 	State string `json:"state,omitempty"`
 
 	// Total
-	Total float64 `json:"total,omitempty"`
+	Total string `json:"total,omitempty"`
 
 	// 3-letter ISO 4217 currency code.
 	Currency string `json:"currency,omitempty"`

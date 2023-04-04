@@ -34,6 +34,9 @@ type BillingInfoCreate struct {
 	// *STRONGLY RECOMMENDED*
 	Cvv *string `json:"cvv,omitempty"`
 
+	// 3-letter ISO 4217 currency code.
+	Currency *string `json:"currency,omitempty"`
+
 	// VAT number
 	VatNumber *string `json:"vat_number,omitempty"`
 
