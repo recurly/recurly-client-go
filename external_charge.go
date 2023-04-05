@@ -26,7 +26,7 @@ type ExternalCharge struct {
 	Currency string `json:"currency,omitempty"`
 
 	// Unit Amount
-	UnitAmount float64 `json:"unit_amount,omitempty"`
+	UnitAmount string `json:"unit_amount,omitempty"`
 
 	Quantity int `json:"quantity,omitempty"`
 
