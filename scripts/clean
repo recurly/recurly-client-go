@@ -6,6 +6,7 @@ rm -f address.go
 rm -f settings.go
 rm -f account.go
 rm -f shipping_address.go
+rm -f external_account_response.go
 rm -f billing_info.go
 rm -f payment_method.go
 rm -f fraud_info.go
@@ -29,6 +30,7 @@ rm -f coupon_discount.go
 rm -f coupon_discount_pricing.go
 rm -f coupon_discount_trial.go
 rm -f credit_payment.go
+rm -f external_account.go
 rm -f external_invoice.go
 rm -f external_subscription.go
 rm -f external_product_reference_mini.go
@@ -91,6 +93,7 @@ rm -f gift_card_delivery.go
 rm -f account_create.go
 rm -f account_acquisition_update.go
 rm -f account_acquisition_cost_create.go
+rm -f external_account_create.go
 rm -f shipping_address_create.go
 rm -f address_create.go
 rm -f billing_info_create.go

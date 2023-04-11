@@ -93,6 +93,20 @@ type ClientInterface interface {
 
 	ListAccountCreditPayments(accountId string, params *ListAccountCreditPaymentsParams, opts ...Option) (CreditPaymentLister, error)
 
+	ListAccountExternalAccount(accountId string, opts ...Option) (ExternalAccountLister, error)
+
+	CreateAccountExternalAccount(accountId string, body *ExternalAccount, opts ...Option) (*ExternalAccountResponse, error)
+	CreateAccountExternalAccountWithContext(ctx context.Context, accountId string, body *ExternalAccount, opts ...Option) (*ExternalAccountResponse, error)
+
+	GetAccountExternalAccount(accountId string, externalAccountId string, opts ...Option) (*ExternalAccountResponse, error)
+	GetAccountExternalAccountWithContext(ctx context.Context, accountId string, externalAccountId string, opts ...Option) (*ExternalAccountResponse, error)
+
+	UpdateAccountExternalAccount(accountId string, externalAccountId string, body *ExternalAccount, opts ...Option) (*ExternalAccountResponse, error)
+	UpdateAccountExternalAccountWithContext(ctx context.Context, accountId string, externalAccountId string, body *ExternalAccount, opts ...Option) (*ExternalAccountResponse, error)
+
+	Deleteaccountexternalaccount(accountId string, externalAccountId string, opts ...Option) (*ExternalAccountResponse, error)
+	DeleteaccountexternalaccountWithContext(ctx context.Context, accountId string, externalAccountId string, opts ...Option) (*ExternalAccountResponse, error)
+
 	ListAccountExternalInvoices(accountId string, params *ListAccountExternalInvoicesParams, opts ...Option) (ExternalInvoiceLister, error)
 
 	ListAccountInvoices(accountId string, params *ListAccountInvoicesParams, opts ...Option) (InvoiceLister, error)
@@ -1435,6 +1449,136 @@ func (c *Client) ListAccountCreditPayments(accountId string, params *ListAccount
 	requestOptions := NewRequestOptions(opts...)
 	path = BuildURL(path, params)
 	return NewCreditPaymentList(c, path, requestOptions), nil
+}
+
+// ListAccountExternalAccount List external accounts for an account
+//
+// API Documentation: https://developers.recurly.com/api/v2021-02-25#operation/list_account_external_account
+//
+// Returns: A list of external accounts on an account.
+func (c *Client) ListAccountExternalAccount(accountId string, opts ...Option) (ExternalAccountLister, error) {
+	path, err := c.InterpolatePath("/accounts/{account_id}/external_accounts", accountId)
+	if err != nil {
+		return nil, err
+	}
+	requestOptions := NewRequestOptions(opts...)
+	return NewExternalAccountList(c, path, requestOptions), nil
+}
+
+// CreateAccountExternalAccount wraps CreateAccountExternalAccountWithContext using the background context
+func (c *Client) CreateAccountExternalAccount(accountId string, body *ExternalAccount, opts ...Option) (*ExternalAccountResponse, error) {
+	ctx := context.Background()
+	return c.createAccountExternalAccount(ctx, accountId, body, opts...)
+}
+
+// CreateAccountExternalAccountWithContext Create an external account
+//
+// API Documentation: https://developers.recurly.com/api/v2021-02-25#operation/create_account_external_account
+//
+// Returns: A representation of the created external_account.
+func (c *Client) CreateAccountExternalAccountWithContext(ctx context.Context, accountId string, body *ExternalAccount, opts ...Option) (*ExternalAccountResponse, error) {
+	return c.createAccountExternalAccount(ctx, accountId, body, opts...)
+}
+
+func (c *Client) createAccountExternalAccount(ctx context.Context, accountId string, body *ExternalAccount, opts ...Option) (*ExternalAccountResponse, error) {
+	path, err := c.InterpolatePath("/accounts/{account_id}/external_accounts", accountId)
+	if err != nil {
+		return nil, err
+	}
+	requestOptions := NewRequestOptions(opts...)
+	result := &ExternalAccountResponse{}
+	err = c.Call(ctx, http.MethodPost, path, body, nil, requestOptions, result)
+	if err != nil {
+		return nil, err
+	}
+	return result, err
+}
+
+// GetAccountExternalAccount wraps GetAccountExternalAccountWithContext using the background context
+func (c *Client) GetAccountExternalAccount(accountId string, externalAccountId string, opts ...Option) (*ExternalAccountResponse, error) {
+	ctx := context.Background()
+	return c.getAccountExternalAccount(ctx, accountId, externalAccountId, opts...)
+}
+
+// GetAccountExternalAccountWithContext Get an external account for an account
+//
+// API Documentation: https://developers.recurly.com/api/v2021-02-25#operation/get_account_external_account
+//
+// Returns: A external account on an account.
+func (c *Client) GetAccountExternalAccountWithContext(ctx context.Context, accountId string, externalAccountId string, opts ...Option) (*ExternalAccountResponse, error) {
+	return c.getAccountExternalAccount(ctx, accountId, externalAccountId, opts...)
+}
+
+func (c *Client) getAccountExternalAccount(ctx context.Context, accountId string, externalAccountId string, opts ...Option) (*ExternalAccountResponse, error) {
+	path, err := c.InterpolatePath("/accounts/{account_id}/external_accounts/{external_account_id}", accountId, externalAccountId)
+	if err != nil {
+		return nil, err
+	}
+	requestOptions := NewRequestOptions(opts...)
+	result := &ExternalAccountResponse{}
+	err = c.Call(ctx, http.MethodGet, path, nil, nil, requestOptions, result)
+	if err != nil {
+		return nil, err
+	}
+	return result, err
+}
+
+// UpdateAccountExternalAccount wraps UpdateAccountExternalAccountWithContext using the background context
+func (c *Client) UpdateAccountExternalAccount(accountId string, externalAccountId string, body *ExternalAccount, opts ...Option) (*ExternalAccountResponse, error) {
+	ctx := context.Background()
+	return c.updateAccountExternalAccount(ctx, accountId, externalAccountId, body, opts...)
+}
+
+// UpdateAccountExternalAccountWithContext Update an external account
+//
+// API Documentation: https://developers.recurly.com/api/v2021-02-25#operation/update_account_external_account
+//
+// Returns: A representation of the updated external_account.
+func (c *Client) UpdateAccountExternalAccountWithContext(ctx context.Context, accountId string, externalAccountId string, body *ExternalAccount, opts ...Option) (*ExternalAccountResponse, error) {
+	return c.updateAccountExternalAccount(ctx, accountId, externalAccountId, body, opts...)
+}
+
+func (c *Client) updateAccountExternalAccount(ctx context.Context, accountId string, externalAccountId string, body *ExternalAccount, opts ...Option) (*ExternalAccountResponse, error) {
+	path, err := c.InterpolatePath("/accounts/{account_id}/external_accounts/{external_account_id}", accountId, externalAccountId)
+	if err != nil {
+		return nil, err
+	}
+	requestOptions := NewRequestOptions(opts...)
+	result := &ExternalAccountResponse{}
+	err = c.Call(ctx, http.MethodPut, path, body, nil, requestOptions, result)
+	if err != nil {
+		return nil, err
+	}
+	return result, err
+}
+
+// Deleteaccountexternalaccount wraps DeleteaccountexternalaccountWithContext using the background context
+func (c *Client) Deleteaccountexternalaccount(accountId string, externalAccountId string, opts ...Option) (*ExternalAccountResponse, error) {
+	ctx := context.Background()
+	return c.deleteaccountexternalaccount(ctx, accountId, externalAccountId, opts...)
+}
+
+// DeleteaccountexternalaccountWithContext Delete an external account for an account
+//
+// API Documentation: https://developers.recurly.com/api/v2021-02-25#operation/deleteAccountExternalAccount
+//
+// Returns: Successful Delete
+func (c *Client) DeleteaccountexternalaccountWithContext(ctx context.Context, accountId string, externalAccountId string, opts ...Option) (*ExternalAccountResponse, error) {
+	return c.deleteaccountexternalaccount(ctx, accountId, externalAccountId, opts...)
+}
+
+func (c *Client) deleteaccountexternalaccount(ctx context.Context, accountId string, externalAccountId string, opts ...Option) (*ExternalAccountResponse, error) {
+	path, err := c.InterpolatePath("/accounts/{account_id}/external_accounts/{external_account_id}", accountId, externalAccountId)
+	if err != nil {
+		return nil, err
+	}
+	requestOptions := NewRequestOptions(opts...)
+	result := &ExternalAccountResponse{}
+	err = c.Call(ctx, http.MethodDelete, path, nil, nil, requestOptions, result)
+	if err != nil {
+		return nil, err
+	}
+	return result, err
 }
 
 type ListAccountExternalInvoicesParams struct {
