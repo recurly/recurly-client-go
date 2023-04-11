@@ -13,6 +13,9 @@ type AccountCreate struct {
 
 	Acquisition *AccountAcquisitionUpdate `json:"acquisition,omitempty"`
 
+	// External Accounts
+	ExternalAccounts []ExternalAccountCreate `json:"external_accounts,omitempty"`
+
 	ShippingAddresses []ShippingAddressCreate `json:"shipping_addresses,omitempty"`
 
 	// A secondary value for the account.

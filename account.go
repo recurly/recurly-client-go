@@ -87,6 +87,9 @@ type Account struct {
 	// The tax exemption certificate number for the account. If the merchant has an integration for the Vertex tax provider, this optional value will be sent in any tax calculation requests for the account.
 	ExemptionCertificate string `json:"exemption_certificate,omitempty"`
 
+	// The external accounts belonging to this account
+	ExternalAccounts []ExternalAccount `json:"external_accounts,omitempty"`
+
 	// The UUID of the parent account associated with this account.
 	ParentAccountId string `json:"parent_account_id,omitempty"`
 
