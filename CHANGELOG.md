@@ -1,5 +1,16 @@
 # Changelog
 
+## [v4.34.0](https://github.com/recurly/recurly-client-go/tree/v4.34.0) (2023-04-26)
+
+[Full Changelog](https://github.com/recurly/recurly-client-go/compare/v4.33.0...v4.34.0)
+
+
+**Merged Pull Requests**
+
+- Generated Latest Changes for v2021-02-25 (UsedTaxService on Invoice) [#190](https://github.com/recurly/recurly-client-go/pull/190) ([recurly-integrations](https://github.com/recurly-integrations))
+
+
+
 ## [v4.33.0](https://github.com/recurly/recurly-client-go/tree/v4.33.0) (2023-04-13)
 
 [Full Changelog](https://github.com/recurly/recurly-client-go/compare/v4.32.0...v4.33.0)
