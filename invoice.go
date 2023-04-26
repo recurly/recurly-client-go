@@ -83,6 +83,9 @@ type Invoice struct {
 	// Tax info
 	TaxInfo TaxInfo `json:"tax_info,omitempty"`
 
+	// Will be `true` when the invoice had a successful response from the tax service and `false` when the invoice was not sent to tax service due to a lack of address or enabled jurisdiction or was processed without tax due to a non-blocking error returned from the tax service.
+	UsedTaxService bool `json:"used_tax_service,omitempty"`
+
 	// VAT registration number for the customer on this invoice. This will come from the VAT Number field in the Billing Info or the Account Info depending on your tax settings and the invoice collection method.
 	VatNumber string `json:"vat_number,omitempty"`
 

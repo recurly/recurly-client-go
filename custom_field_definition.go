@@ -30,6 +30,7 @@ type CustomFieldDefinition struct {
 	// - `read_only` - Users with the Customers role will be able to view this field's data via the admin UI, but
 	//   editing will only be available via the API.
 	// - `write` - Users with the Customers role will be able to view and edit this field's data via the admin UI.
+	// - `set_only` - Users with the Customers role will be able to set this field's data via the admin console.
 	UserAccess string `json:"user_access,omitempty"`
 
 	// Used to label the field when viewing and editing the field in Recurly's admin UI.
