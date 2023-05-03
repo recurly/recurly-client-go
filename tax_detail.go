@@ -12,10 +12,10 @@ import (
 type TaxDetail struct {
 	recurlyResponse *ResponseMetadata
 
-	// Provides the tax type for the region. For Canadian Sales Tax, this will be GST, HST, QST or PST.
+	// Provides the tax type for the region or type of Comminications tax when Avalara for Communications is enabled. For Canadian Sales Tax, this will be GST, HST, QST or PST.
 	Type string `json:"type,omitempty"`
 
-	// Provides the tax region applied on an invoice. For Canadian Sales Tax, this will be either the 2 letter province code or country code.
+	// Provides the tax region applied on an invoice. For Canadian Sales Tax, this will be either the 2 letter province code or country code. Not present when Avalara for Communications is enabled.
 	Region string `json:"region,omitempty"`
 
 	// Provides the tax rate for the region.
@@ -23,6 +23,15 @@ type TaxDetail struct {
 
 	// The total tax applied for this tax type.
 	Tax float64 `json:"tax,omitempty"`
+
+	// Provides the name of the Communications tax applied. Present only when Avalara for Communications is enabled.
+	Name string `json:"name,omitempty"`
+
+	// Provides the jurisdiction level for the Communications tax applied. Example values include city, state and federal. Present only when Avalara for Communications is enabled.
+	Level string `json:"level,omitempty"`
+
+	// Whether or not the line item is taxable. Only populated for a single LineItem fetch when Avalara for Communications is enabled.
+	Billable bool `json:"billable,omitempty"`
 }
 
 // GetResponse returns the ResponseMetadata that generated this resource
