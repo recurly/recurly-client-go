@@ -49,6 +49,9 @@ type BillingInfoCreate struct {
 	// An identifier for a specific payment gateway. Must be used in conjunction with `gateway_token`.
 	GatewayCode *string `json:"gateway_code,omitempty"`
 
+	// Additional attributes to send to the gateway.
+	GatewayAttributes *GatewayAttributesCreate `json:"gateway_attributes,omitempty"`
+
 	// Amazon billing agreement ID
 	AmazonBillingAgreementId *string `json:"amazon_billing_agreement_id,omitempty"`
 

@@ -41,6 +41,9 @@ type PaymentMethod struct {
 	// An identifier for a specific payment gateway.
 	GatewayCode string `json:"gateway_code,omitempty"`
 
+	// Gateway specific attributes associated with this PaymentMethod
+	GatewayAttributes GatewayAttributes `json:"gateway_attributes,omitempty"`
+
 	// Billing Agreement identifier. Only present for Amazon or Paypal payment methods.
 	BillingAgreementId string `json:"billing_agreement_id,omitempty"`
 
