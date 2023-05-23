@@ -216,8 +216,28 @@ type ClientInterface interface {
 
 	ListExternalProducts(params *ListExternalProductsParams, opts ...Option) (ExternalProductLister, error)
 
+	CreateExternalProduct(body *ExternalProductCreate, opts ...Option) (*ExternalProduct, error)
+	CreateExternalProductWithContext(ctx context.Context, body *ExternalProductCreate, opts ...Option) (*ExternalProduct, error)
+
 	GetExternalProduct(externalProductId string, opts ...Option) (*ExternalProduct, error)
 	GetExternalProductWithContext(ctx context.Context, externalProductId string, opts ...Option) (*ExternalProduct, error)
+
+	UpdateExternalProduct(externalProductId string, body *ExternalProductUpdate, opts ...Option) (*ExternalProduct, error)
+	UpdateExternalProductWithContext(ctx context.Context, externalProductId string, body *ExternalProductUpdate, opts ...Option) (*ExternalProduct, error)
+
+	DeactivateExternalProducts(externalProductId string, opts ...Option) (*ExternalProduct, error)
+	DeactivateExternalProductsWithContext(ctx context.Context, externalProductId string, opts ...Option) (*ExternalProduct, error)
+
+	ListExternalProductExternalProductReferences(externalProductId string, params *ListExternalProductExternalProductReferencesParams, opts ...Option) (ExternalProductReferenceCollectionLister, error)
+
+	CreateExternalProductExternalProductReference(externalProductId string, body *ExternalProductReferenceCreate, opts ...Option) (*ExternalProductReferenceMini, error)
+	CreateExternalProductExternalProductReferenceWithContext(ctx context.Context, externalProductId string, body *ExternalProductReferenceCreate, opts ...Option) (*ExternalProductReferenceMini, error)
+
+	GetExternalProductExternalProductReference(externalProductId string, externalProductReferenceId string, opts ...Option) (*ExternalProductReferenceMini, error)
+	GetExternalProductExternalProductReferenceWithContext(ctx context.Context, externalProductId string, externalProductReferenceId string, opts ...Option) (*ExternalProductReferenceMini, error)
+
+	DeactivateExternalProductExternalProductReference(externalProductId string, externalProductReferenceId string, opts ...Option) (*ExternalProductReferenceMini, error)
+	DeactivateExternalProductExternalProductReferenceWithContext(ctx context.Context, externalProductId string, externalProductReferenceId string, opts ...Option) (*ExternalProductReferenceMini, error)
 
 	ListExternalSubscriptions(params *ListExternalSubscriptionsParams, opts ...Option) (ExternalSubscriptionLister, error)
 
@@ -3623,6 +3643,35 @@ func (c *Client) ListExternalProducts(params *ListExternalProductsParams, opts .
 	return NewExternalProductList(c, path, requestOptions), nil
 }
 
+// CreateExternalProduct wraps CreateExternalProductWithContext using the background context
+func (c *Client) CreateExternalProduct(body *ExternalProductCreate, opts ...Option) (*ExternalProduct, error) {
+	ctx := context.Background()
+	return c.createExternalProduct(ctx, body, opts...)
+}
+
+// CreateExternalProductWithContext Create an external product
+//
+// API Documentation: https://developers.recurly.com/api/v2021-02-25#operation/create_external_product
+//
+// Returns: Returns the external product
+func (c *Client) CreateExternalProductWithContext(ctx context.Context, body *ExternalProductCreate, opts ...Option) (*ExternalProduct, error) {
+	return c.createExternalProduct(ctx, body, opts...)
+}
+
+func (c *Client) createExternalProduct(ctx context.Context, body *ExternalProductCreate, opts ...Option) (*ExternalProduct, error) {
+	path, err := c.InterpolatePath("/external_products")
+	if err != nil {
+		return nil, err
+	}
+	requestOptions := NewRequestOptions(opts...)
+	result := &ExternalProduct{}
+	err = c.Call(ctx, http.MethodPost, path, body, nil, requestOptions, result)
+	if err != nil {
+		return nil, err
+	}
+	return result, err
+}
+
 // GetExternalProduct wraps GetExternalProductWithContext using the background context
 func (c *Client) GetExternalProduct(externalProductId string, opts ...Option) (*ExternalProduct, error) {
 	ctx := context.Background()
@@ -3646,6 +3695,184 @@ func (c *Client) getExternalProduct(ctx context.Context, externalProductId strin
 	requestOptions := NewRequestOptions(opts...)
 	result := &ExternalProduct{}
 	err = c.Call(ctx, http.MethodGet, path, nil, nil, requestOptions, result)
+	if err != nil {
+		return nil, err
+	}
+	return result, err
+}
+
+// UpdateExternalProduct wraps UpdateExternalProductWithContext using the background context
+func (c *Client) UpdateExternalProduct(externalProductId string, body *ExternalProductUpdate, opts ...Option) (*ExternalProduct, error) {
+	ctx := context.Background()
+	return c.updateExternalProduct(ctx, externalProductId, body, opts...)
+}
+
+// UpdateExternalProductWithContext Update an external product
+//
+// API Documentation: https://developers.recurly.com/api/v2021-02-25#operation/update_external_product
+//
+// Returns: Settings for an external product.
+func (c *Client) UpdateExternalProductWithContext(ctx context.Context, externalProductId string, body *ExternalProductUpdate, opts ...Option) (*ExternalProduct, error) {
+	return c.updateExternalProduct(ctx, externalProductId, body, opts...)
+}
+
+func (c *Client) updateExternalProduct(ctx context.Context, externalProductId string, body *ExternalProductUpdate, opts ...Option) (*ExternalProduct, error) {
+	path, err := c.InterpolatePath("/external_products/{external_product_id}", externalProductId)
+	if err != nil {
+		return nil, err
+	}
+	requestOptions := NewRequestOptions(opts...)
+	result := &ExternalProduct{}
+	err = c.Call(ctx, http.MethodPut, path, body, nil, requestOptions, result)
+	if err != nil {
+		return nil, err
+	}
+	return result, err
+}
+
+// DeactivateExternalProducts wraps DeactivateExternalProductsWithContext using the background context
+func (c *Client) DeactivateExternalProducts(externalProductId string, opts ...Option) (*ExternalProduct, error) {
+	ctx := context.Background()
+	return c.deactivateExternalProducts(ctx, externalProductId, opts...)
+}
+
+// DeactivateExternalProductsWithContext Deactivate an external product
+//
+// API Documentation: https://developers.recurly.com/api/v2021-02-25#operation/deactivate_external_products
+//
+// Returns: Deactivated external product.
+func (c *Client) DeactivateExternalProductsWithContext(ctx context.Context, externalProductId string, opts ...Option) (*ExternalProduct, error) {
+	return c.deactivateExternalProducts(ctx, externalProductId, opts...)
+}
+
+func (c *Client) deactivateExternalProducts(ctx context.Context, externalProductId string, opts ...Option) (*ExternalProduct, error) {
+	path, err := c.InterpolatePath("/external_products/{external_product_id}", externalProductId)
+	if err != nil {
+		return nil, err
+	}
+	requestOptions := NewRequestOptions(opts...)
+	result := &ExternalProduct{}
+	err = c.Call(ctx, http.MethodDelete, path, nil, nil, requestOptions, result)
+	if err != nil {
+		return nil, err
+	}
+	return result, err
+}
+
+type ListExternalProductExternalProductReferencesParams struct {
+
+	// Sort - Sort field. You *really* only want to sort by `updated_at` in ascending
+	// order. In descending order updated records will move behind the cursor and could
+	// prevent some records from being returned.
+	Sort *string
+}
+
+func (list *ListExternalProductExternalProductReferencesParams) URLParams() []KeyValue {
+	var options []KeyValue
+
+	if list.Sort != nil {
+		options = append(options, KeyValue{Key: "sort", Value: *list.Sort})
+	}
+
+	return options
+}
+
+// ListExternalProductExternalProductReferences List the external product references for an external product
+//
+// API Documentation: https://developers.recurly.com/api/v2021-02-25#operation/list_external_product_external_product_references
+//
+// Returns: A list of the the external product references for an external product.
+func (c *Client) ListExternalProductExternalProductReferences(externalProductId string, params *ListExternalProductExternalProductReferencesParams, opts ...Option) (ExternalProductReferenceCollectionLister, error) {
+	path, err := c.InterpolatePath("/external_products/{external_product_id}/external_product_references", externalProductId)
+	if err != nil {
+		return nil, err
+	}
+	requestOptions := NewRequestOptions(opts...)
+	path = BuildURL(path, params)
+	return NewExternalProductReferenceCollectionList(c, path, requestOptions), nil
+}
+
+// CreateExternalProductExternalProductReference wraps CreateExternalProductExternalProductReferenceWithContext using the background context
+func (c *Client) CreateExternalProductExternalProductReference(externalProductId string, body *ExternalProductReferenceCreate, opts ...Option) (*ExternalProductReferenceMini, error) {
+	ctx := context.Background()
+	return c.createExternalProductExternalProductReference(ctx, externalProductId, body, opts...)
+}
+
+// CreateExternalProductExternalProductReferenceWithContext Create an external product reference on an external product
+//
+// API Documentation: https://developers.recurly.com/api/v2021-02-25#operation/create_external_product_external_product_reference
+//
+// Returns: Details for the external product reference.
+func (c *Client) CreateExternalProductExternalProductReferenceWithContext(ctx context.Context, externalProductId string, body *ExternalProductReferenceCreate, opts ...Option) (*ExternalProductReferenceMini, error) {
+	return c.createExternalProductExternalProductReference(ctx, externalProductId, body, opts...)
+}
+
+func (c *Client) createExternalProductExternalProductReference(ctx context.Context, externalProductId string, body *ExternalProductReferenceCreate, opts ...Option) (*ExternalProductReferenceMini, error) {
+	path, err := c.InterpolatePath("/external_products/{external_product_id}/external_product_references", externalProductId)
+	if err != nil {
+		return nil, err
+	}
+	requestOptions := NewRequestOptions(opts...)
+	result := &ExternalProductReferenceMini{}
+	err = c.Call(ctx, http.MethodPost, path, body, nil, requestOptions, result)
+	if err != nil {
+		return nil, err
+	}
+	return result, err
+}
+
+// GetExternalProductExternalProductReference wraps GetExternalProductExternalProductReferenceWithContext using the background context
+func (c *Client) GetExternalProductExternalProductReference(externalProductId string, externalProductReferenceId string, opts ...Option) (*ExternalProductReferenceMini, error) {
+	ctx := context.Background()
+	return c.getExternalProductExternalProductReference(ctx, externalProductId, externalProductReferenceId, opts...)
+}
+
+// GetExternalProductExternalProductReferenceWithContext Fetch an external product reference
+//
+// API Documentation: https://developers.recurly.com/api/v2021-02-25#operation/get_external_product_external_product_reference
+//
+// Returns: Details for an external product reference.
+func (c *Client) GetExternalProductExternalProductReferenceWithContext(ctx context.Context, externalProductId string, externalProductReferenceId string, opts ...Option) (*ExternalProductReferenceMini, error) {
+	return c.getExternalProductExternalProductReference(ctx, externalProductId, externalProductReferenceId, opts...)
+}
+
+func (c *Client) getExternalProductExternalProductReference(ctx context.Context, externalProductId string, externalProductReferenceId string, opts ...Option) (*ExternalProductReferenceMini, error) {
+	path, err := c.InterpolatePath("/external_products/{external_product_id}/external_product_references/{external_product_reference_id}", externalProductId, externalProductReferenceId)
+	if err != nil {
+		return nil, err
+	}
+	requestOptions := NewRequestOptions(opts...)
+	result := &ExternalProductReferenceMini{}
+	err = c.Call(ctx, http.MethodGet, path, nil, nil, requestOptions, result)
+	if err != nil {
+		return nil, err
+	}
+	return result, err
+}
+
+// DeactivateExternalProductExternalProductReference wraps DeactivateExternalProductExternalProductReferenceWithContext using the background context
+func (c *Client) DeactivateExternalProductExternalProductReference(externalProductId string, externalProductReferenceId string, opts ...Option) (*ExternalProductReferenceMini, error) {
+	ctx := context.Background()
+	return c.deactivateExternalProductExternalProductReference(ctx, externalProductId, externalProductReferenceId, opts...)
+}
+
+// DeactivateExternalProductExternalProductReferenceWithContext Deactivate an external product reference
+//
+// API Documentation: https://developers.recurly.com/api/v2021-02-25#operation/deactivate_external_product_external_product_reference
+//
+// Returns: Details for an external product reference.
+func (c *Client) DeactivateExternalProductExternalProductReferenceWithContext(ctx context.Context, externalProductId string, externalProductReferenceId string, opts ...Option) (*ExternalProductReferenceMini, error) {
+	return c.deactivateExternalProductExternalProductReference(ctx, externalProductId, externalProductReferenceId, opts...)
+}
+
+func (c *Client) deactivateExternalProductExternalProductReference(ctx context.Context, externalProductId string, externalProductReferenceId string, opts ...Option) (*ExternalProductReferenceMini, error) {
+	path, err := c.InterpolatePath("/external_products/{external_product_id}/external_product_references/{external_product_reference_id}", externalProductId, externalProductReferenceId)
+	if err != nil {
+		return nil, err
+	}
+	requestOptions := NewRequestOptions(opts...)
+	result := &ExternalProductReferenceMini{}
+	err = c.Call(ctx, http.MethodDelete, path, nil, nil, requestOptions, result)
 	if err != nil {
 		return nil, err
 	}
