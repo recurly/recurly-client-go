@@ -62,6 +62,7 @@ rm -f item.go
 rm -f pricing.go
 rm -f measured_unit.go
 rm -f external_product.go
+rm -f external_product_reference_collection.go
 rm -f binary_file.go
 rm -f plan.go
 rm -f plan_ramp_interval.go
@@ -116,6 +117,10 @@ rm -f pricing_create.go
 rm -f item_update.go
 rm -f measured_unit_create.go
 rm -f measured_unit_update.go
+rm -f external_product_create.go
+rm -f external_product_reference_base.go
+rm -f external_product_update.go
+rm -f external_product_reference_create.go
 rm -f invoice_update.go
 rm -f invoice_address_create.go
 rm -f invoice_collect.go
