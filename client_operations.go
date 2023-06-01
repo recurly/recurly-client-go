@@ -454,6 +454,11 @@ type ClientInterface interface {
 
 	ListAccountExternalSubscriptions(accountId string, params *ListAccountExternalSubscriptionsParams, opts ...Option) (ExternalSubscriptionLister, error)
 
+	GetBusinessEntity(businessEntityId string, opts ...Option) (*BusinessEntity, error)
+	GetBusinessEntityWithContext(ctx context.Context, businessEntityId string, opts ...Option) (*BusinessEntity, error)
+
+	ListBusinessEntities(opts ...Option) (BusinessEntityLister, error)
+
 	ListGiftCards(opts ...Option) (GiftCardLister, error)
 
 	CreateGiftCard(body *GiftCardCreate, opts ...Option) (*GiftCard, error)
@@ -467,6 +472,8 @@ type ClientInterface interface {
 
 	RedeemGiftCard(redemptionCode string, body *GiftCardRedeem, opts ...Option) (*GiftCard, error)
 	RedeemGiftCardWithContext(ctx context.Context, redemptionCode string, body *GiftCardRedeem, opts ...Option) (*GiftCard, error)
+
+	ListBusinessEntityInvoices(businessEntityId string, params *ListBusinessEntityInvoicesParams, opts ...Option) (InvoiceLister, error)
 }
 
 type ListSitesParams struct {
@@ -7058,6 +7065,49 @@ func (c *Client) ListAccountExternalSubscriptions(accountId string, params *List
 	return NewExternalSubscriptionList(c, path, requestOptions), nil
 }
 
+// GetBusinessEntity wraps GetBusinessEntityWithContext using the background context
+func (c *Client) GetBusinessEntity(businessEntityId string, opts ...Option) (*BusinessEntity, error) {
+	ctx := context.Background()
+	return c.getBusinessEntity(ctx, businessEntityId, opts...)
+}
+
+// GetBusinessEntityWithContext Fetch a business entity
+//
+// API Documentation: https://developers.recurly.com/api/v2021-02-25#operation/get_business_entity
+//
+// Returns: Business entity details
+func (c *Client) GetBusinessEntityWithContext(ctx context.Context, businessEntityId string, opts ...Option) (*BusinessEntity, error) {
+	return c.getBusinessEntity(ctx, businessEntityId, opts...)
+}
+
+func (c *Client) getBusinessEntity(ctx context.Context, businessEntityId string, opts ...Option) (*BusinessEntity, error) {
+	path, err := c.InterpolatePath("/business_entities/{business_entity_id}", businessEntityId)
+	if err != nil {
+		return nil, err
+	}
+	requestOptions := NewRequestOptions(opts...)
+	result := &BusinessEntity{}
+	err = c.Call(ctx, http.MethodGet, path, nil, nil, requestOptions, result)
+	if err != nil {
+		return nil, err
+	}
+	return result, err
+}
+
+// ListBusinessEntities List business entities
+//
+// API Documentation: https://developers.recurly.com/api/v2021-02-25#operation/list_business_entities
+//
+// Returns: List of all business entities on your site.
+func (c *Client) ListBusinessEntities(opts ...Option) (BusinessEntityLister, error) {
+	path, err := c.InterpolatePath("/business_entities")
+	if err != nil {
+		return nil, err
+	}
+	requestOptions := NewRequestOptions(opts...)
+	return NewBusinessEntityList(c, path, requestOptions), nil
+}
+
 // ListGiftCards List gift cards
 //
 // API Documentation: https://developers.recurly.com/api/v2021-02-25#operation/list_gift_cards
@@ -7186,4 +7236,93 @@ func (c *Client) redeemGiftCard(ctx context.Context, redemptionCode string, body
 		return nil, err
 	}
 	return result, err
+}
+
+type ListBusinessEntityInvoicesParams struct {
+
+	// Ids - Filter results by their IDs. Up to 200 IDs can be passed at once using
+	// commas as separators, e.g. `ids=h1at4d57xlmy,gyqgg0d3v9n1,jrsm5b4yefg6`.
+	// **Important notes:**
+	// * The `ids` parameter cannot be used with any other ordering or filtering
+	//   parameters (`limit`, `order`, `sort`, `begin_time`, `end_time`, etc)
+	// * Invalid or unknown IDs will be ignored, so you should check that the
+	//   results correspond to your request.
+	// * Records are returned in an arbitrary order. Since results are all
+	//   returned at once you can sort the records yourself.
+	Ids []string
+
+	// Limit - Limit number of records 1-200.
+	Limit *int
+
+	// Order - Sort order.
+	Order *string
+
+	// Sort - Sort field. You *really* only want to sort by `updated_at` in ascending
+	// order. In descending order updated records will move behind the cursor and could
+	// prevent some records from being returned.
+	Sort *string
+
+	// BeginTime - Inclusively filter by begin_time when `sort=created_at` or `sort=updated_at`.
+	// **Note:** this value is an ISO8601 timestamp. A partial timestamp that does not include a time zone will default to UTC.
+	BeginTime *time.Time
+
+	// EndTime - Inclusively filter by end_time when `sort=created_at` or `sort=updated_at`.
+	// **Note:** this value is an ISO8601 timestamp. A partial timestamp that does not include a time zone will default to UTC.
+	EndTime *time.Time
+
+	// Type - Filter by type when:
+	// - `type=charge`, only charge invoices will be returned.
+	// - `type=credit`, only credit invoices will be returned.
+	// - `type=non-legacy`, only charge and credit invoices will be returned.
+	// - `type=legacy`, only legacy invoices will be returned.
+	Type *string
+}
+
+func (list *ListBusinessEntityInvoicesParams) URLParams() []KeyValue {
+	var options []KeyValue
+
+	if list.Ids != nil {
+		options = append(options, KeyValue{Key: "ids", Value: strings.Join(list.Ids, ",")})
+	}
+
+	if list.Limit != nil {
+		options = append(options, KeyValue{Key: "limit", Value: strconv.Itoa(*list.Limit)})
+	}
+
+	if list.Order != nil {
+		options = append(options, KeyValue{Key: "order", Value: *list.Order})
+	}
+
+	if list.Sort != nil {
+		options = append(options, KeyValue{Key: "sort", Value: *list.Sort})
+	}
+
+	if list.BeginTime != nil {
+		options = append(options, KeyValue{Key: "begin_time", Value: formatTime(*list.BeginTime)})
+	}
+
+	if list.EndTime != nil {
+		options = append(options, KeyValue{Key: "end_time", Value: formatTime(*list.EndTime)})
+	}
+
+	if list.Type != nil {
+		options = append(options, KeyValue{Key: "type", Value: *list.Type})
+	}
+
+	return options
+}
+
+// ListBusinessEntityInvoices List a business entity's invoices
+//
+// API Documentation: https://developers.recurly.com/api/v2021-02-25#operation/list_business_entity_invoices
+//
+// Returns: A list of the business entity's invoices.
+func (c *Client) ListBusinessEntityInvoices(businessEntityId string, params *ListBusinessEntityInvoicesParams, opts ...Option) (InvoiceLister, error) {
+	path, err := c.InterpolatePath("/business_entities/{business_entity_id}/invoices", businessEntityId)
+	if err != nil {
+		return nil, err
+	}
+	requestOptions := NewRequestOptions(opts...)
+	path = BuildURL(path, params)
+	return NewInvoiceList(c, path, requestOptions), nil
 }

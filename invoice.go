@@ -133,6 +133,9 @@ type Invoice struct {
 
 	// Last communication attempt.
 	FinalDunningEvent bool `json:"final_dunning_event,omitempty"`
+
+	// Unique ID to identify the business entity assigned to the invoice. Available when the `Multiple Business Entities` feature is enabled.
+	BusinessEntityId string `json:"business_entity_id,omitempty"`
 }
 
 // GetResponse returns the ResponseMetadata that generated this resource

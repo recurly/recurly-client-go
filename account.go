@@ -63,6 +63,9 @@ type Account struct {
 	// The email address used for communicating with this customer. The customer will also use this email address to log into your hosted account management pages. This value does not need to be unique.
 	Email string `json:"email,omitempty"`
 
+	// Unique ID to identify the business entity assigned to the account. Available when the `Multiple Business Entities` feature is enabled.
+	OverrideBusinessEntityId string `json:"override_business_entity_id,omitempty"`
+
 	// Used to determine the language and locale of emails sent on behalf of the merchant to the customer.
 	PreferredLocale string `json:"preferred_locale,omitempty"`
 
