@@ -38,6 +38,9 @@ type AccountUpdate struct {
 	// The tax exemption certificate number for the account. If the merchant has an integration for the Vertex tax provider, this optional value will be sent in any tax calculation requests for the account.
 	ExemptionCertificate *string `json:"exemption_certificate,omitempty"`
 
+	// Unique ID to identify the business entity assigned to the account. Available when the `Multiple Business Entities` feature is enabled.
+	OverrideBusinessEntityId *string `json:"override_business_entity_id,omitempty"`
+
 	// The account code of the parent account to be associated with this account. Passing an empty value removes any existing parent association from this account. If both `parent_account_code` and `parent_account_id` are passed, the non-blank value in `parent_account_id` will be used. Only one level of parent child relationship is allowed. You cannot assign a parent account that itself has a parent account.
 	ParentAccountCode *string `json:"parent_account_code,omitempty"`
 
