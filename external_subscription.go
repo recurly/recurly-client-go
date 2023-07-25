@@ -34,20 +34,32 @@ type ExternalSubscription struct {
 	// An indication of whether or not the external subscription will auto-renew at the expiration date.
 	AutoRenew bool `json:"auto_renew,omitempty"`
 
+	// An indication of whether or not the external subscription is in a grace period.
+	InGracePeriod bool `json:"in_grace_period,omitempty"`
+
 	// Identifier of the app that generated the external subscription.
 	AppIdentifier string `json:"app_identifier,omitempty"`
 
 	// An indication of the quantity of a subscribed item's quantity.
 	Quantity int `json:"quantity,omitempty"`
 
-	// External subscriptions can be active, canceled, expired, or future.
+	// External subscriptions can be active, canceled, expired, or past_due.
 	State string `json:"state,omitempty"`
 
 	// When the external subscription was activated in the external platform.
 	ActivatedAt time.Time `json:"activated_at,omitempty"`
 
+	// When the external subscription was canceled in the external platform.
+	CanceledAt time.Time `json:"canceled_at,omitempty"`
+
 	// When the external subscription expires in the external platform.
 	ExpiresAt time.Time `json:"expires_at,omitempty"`
+
+	// When the external subscription trial period started in the external platform.
+	TrialStartedAt time.Time `json:"trial_started_at,omitempty"`
+
+	// When the external subscription trial period ends in the external platform.
+	TrialEndsAt time.Time `json:"trial_ends_at,omitempty"`
 
 	// When the external subscription was created in Recurly.
 	CreatedAt time.Time `json:"created_at,omitempty"`

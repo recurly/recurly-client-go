@@ -61,8 +61,18 @@ type SubscriptionChangeCreate struct {
 	// For manual invoicing, this identifies the PO number associated with the subscription.
 	PoNumber *string `json:"po_number,omitempty"`
 
-	// Integer representing the number of days after an invoice's creation that the invoice will become past due. If an invoice's net terms are set to '0', it is due 'On Receipt' and will become past due 24 hours after it’s created. If an invoice is due net 30, it will become past due at 31 days exactly.
+	// Integer normally paired with `Net Terms Type` and representing the number of days past
+	// the current date (for `net` Net Terms Type) or days after the last day of the current
+	// month (for `eom` Net Terms Type) that the invoice will become past due. During a subscription
+	// change, it's not necessary to provide both the `Net Terms Type` and `Net Terms` parameters.
+	// For more information please visit our docs page (https://docs.recurly.com/docs/manual-payments#section-collection-terms)
 	NetTerms *int `json:"net_terms,omitempty"`
+
+	// Optionally supplied string that may be either `net` or `eom` (end-of-month).
+	// When `net`, an invoice becomes past due the specified number of `Net Terms` days from the current date.
+	// When `eom` an invoice becomes past due the specified number of `Net Terms` days from the last day of the current month.
+	// This field is only available when the EOM Net Terms feature is enabled.
+	NetTermsType *string `json:"net_terms_type,omitempty"`
 
 	// An optional type designation for the payment gateway transaction created by this request. Supports 'moto' value, which is the acronym for mail order and telephone transactions.
 	TransactionType *string `json:"transaction_type,omitempty"`

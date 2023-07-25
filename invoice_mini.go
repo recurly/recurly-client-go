@@ -21,6 +21,9 @@ type InvoiceMini struct {
 	// Invoice number
 	Number string `json:"number,omitempty"`
 
+	// Unique ID to identify the business entity assigned to the invoice. Available when the `Multiple Business Entities` feature is enabled.
+	BusinessEntityId string `json:"business_entity_id,omitempty"`
+
 	// Invoice type
 	Type string `json:"type,omitempty"`
 
