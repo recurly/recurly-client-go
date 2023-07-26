@@ -1,5 +1,13 @@
 # Changelog
 
+## [v4.39.0](https://github.com/recurly/recurly-client-go/tree/v4.39.0) (2023-07-26)
+
+[Full Changelog](https://github.com/recurly/recurly-client-go/compare/v4.38.0...v4.39.0)
+
+
+
+
+
 ## [v4.38.0](https://github.com/recurly/recurly-client-go/tree/v4.38.0) (2023-06-01)
 
 [Full Changelog](https://github.com/recurly/recurly-client-go/compare/v4.37.0...v4.38.0)
