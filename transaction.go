@@ -130,6 +130,9 @@ type Transaction struct {
 
 	// Collected at, or if not collected yet, the time the transaction was created.
 	CollectedAt time.Time `json:"collected_at,omitempty"`
+
+	// Action result params to be used in Recurly-JS to complete a payment when using asynchronous payment methods, e.g., Boleto, iDEAL and Sofort.
+	ActionResult map[string]interface{} `json:"action_result,omitempty"`
 }
 
 // GetResponse returns the ResponseMetadata that generated this resource

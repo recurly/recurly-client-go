@@ -12,7 +12,7 @@ import (
 type GatewayAttributes struct {
 	recurlyResponse *ResponseMetadata
 
-	// Used by Adyen gateways. The Shopper Reference value used when the external token was created.
+	// Used by Adyen and Braintree gateways. For Adyen the Shopper Reference value used when the external token was created. For Braintree the PayPal PayerID is populated in the response.
 	AccountReference string `json:"account_reference,omitempty"`
 }
 
