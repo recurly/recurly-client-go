@@ -133,6 +133,9 @@ type Transaction struct {
 
 	// Action result params to be used in Recurly-JS to complete a payment when using asynchronous payment methods, e.g., Boleto, iDEAL and Sofort.
 	ActionResult map[string]interface{} `json:"action_result,omitempty"`
+
+	// VAT number for the customer on this transaction. If the customer's Billing Info country is BR or AR, then this will be their Tax Identifier. For all other countries this will come from the VAT Number field in the Billing Info.
+	VatNumber string `json:"vat_number,omitempty"`
 }
 
 // GetResponse returns the ResponseMetadata that generated this resource
