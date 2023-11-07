@@ -28,4 +28,7 @@ type AddressCreate struct {
 
 	// Country, 2-letter ISO 3166-1 alpha-2 code.
 	Country *string `json:"country,omitempty"`
+
+	// Code that represents a geographic entity (location or object). Only returned for Sling Vertex Integration
+	GeoCode *string `json:"geo_code,omitempty"`
 }

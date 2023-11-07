@@ -102,7 +102,7 @@ type Account struct {
 	// Unique ID to identify a dunning campaign. Used to specify if a non-default dunning campaign should be assigned to this account. For sites without multiple dunning campaigns enabled, the default dunning campaign will always be used.
 	DunningCampaignId string `json:"dunning_campaign_id,omitempty"`
 
-	// Unique ID to identify an invoice template. Available when the site is on a Pro or Enterprise plan. Used to specify if a non-default invoice template will be used to generate invoices for the account. For sites without multiple invoice templates enabled, the default template will always be used.
+	// Unique ID to identify an invoice template. Available when the site is on a Pro or Elite plan. Used to specify if a non-default invoice template will be used to generate invoices for the account. For sites without multiple invoice templates enabled, the default template will always be used.
 	InvoiceTemplateId string `json:"invoice_template_id,omitempty"`
 
 	Address Address `json:"address,omitempty"`
