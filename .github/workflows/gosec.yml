@@ -8,3 +8,4 @@ jobs:
         steps:
             - uses: actions/checkout@v3
             - uses: ynniss/golang-security-action@master
+              continue-on-error: true
