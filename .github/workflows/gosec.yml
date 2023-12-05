@@ -1,0 +1,10 @@
+name: Security check - Go Sec 
+
+on: [pull_request,  workflow_dispatch]
+
+jobs:
+    golang-security-action:
+        runs-on: ubuntu-latest
+        steps:
+            - uses: actions/checkout@v3
+            - uses: ynniss/golang-security-action@master

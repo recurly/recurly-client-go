@@ -1,0 +1,20 @@
+name: Security check - Go Nancy
+
+on: [pull_request,  workflow_dispatch]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Check out code into the Go module directory
+      uses: actions/checkout@v3
+
+    - name: Set up Go 1.x in order to write go.list file
+      uses: actions/setup-go@v3
+      with:
+        go-version: ^1.13
+    - name: WriteGoList
+      run: go list -json -m all > go.list
+
+    - name: Nancy
+      uses: sonatype-nexus-community/nancy-github-action@main
