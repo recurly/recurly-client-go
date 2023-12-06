@@ -1,5 +1,16 @@
 # Changelog
 
+## [v4.44.0](https://github.com/recurly/recurly-client-go/tree/v4.44.0) (2023-12-06)
+
+[Full Changelog](https://github.com/recurly/recurly-client-go/compare/v4.43.0...v4.44.0)
+
+
+**Merged Pull Requests**
+
+- Generated Latest Changes for v2021-02-25  (External Payment Phases) [#205](https://github.com/recurly/recurly-client-go/pull/205) ([recurly-integrations](https://github.com/recurly-integrations))
+
+
+
 ## [v4.43.0](https://github.com/recurly/recurly-client-go/tree/v4.43.0) (2023-11-07)
 
 [Full Changelog](https://github.com/recurly/recurly-client-go/compare/v4.42.0...v4.43.0)
