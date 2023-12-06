@@ -103,6 +103,9 @@ type SubscriptionCreate struct {
 	// This field is only available when the EOM Net Terms feature is enabled.
 	NetTermsType *string `json:"net_terms_type,omitempty"`
 
+	// If present, this subscription's transactions will use the payment gateway with this code.
+	GatewayCode *string `json:"gateway_code,omitempty"`
+
 	// An optional type designation for the payment gateway transaction created by this request. Supports 'moto' value, which is the acronym for mail order and telephone transactions.
 	TransactionType *string `json:"transaction_type,omitempty"`
 

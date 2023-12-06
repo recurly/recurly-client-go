@@ -140,7 +140,7 @@ type LineItem struct {
 	// Used by Avalara, Vertex, and Recurly’s EU VAT tax feature. The tax code values are specific to each tax system. If you are using Recurly’s EU VAT feature you can use `unknown`, `physical`, or `digital`.
 	TaxCode string `json:"tax_code,omitempty"`
 
-	// Tax info
+	// Only for merchants using Recurly's In-The-Box taxes.
 	TaxInfo TaxInfo `json:"tax_info,omitempty"`
 
 	// When a line item has been prorated, this is the rate of the proration. Proration rates were made available for line items created after March 30, 2017. For line items created prior to that date, the proration rate will be `null`, even if the line item was prorated.

@@ -99,7 +99,7 @@ type Invoice struct {
 	// The outstanding balance remaining on this invoice.
 	Balance float64 `json:"balance,omitempty"`
 
-	// Tax info
+	// Only for merchants using Recurly's In-The-Box taxes.
 	TaxInfo TaxInfo `json:"tax_info,omitempty"`
 
 	// Will be `true` when the invoice had a successful response from the tax service and `false` when the invoice was not sent to tax service due to a lack of address or enabled jurisdiction or was processed without tax due to a non-blocking error returned from the tax service.
