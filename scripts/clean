@@ -85,6 +85,7 @@ rm -f dunning_cycle.go
 rm -f dunning_interval.go
 rm -f dunning_campaigns_bulk_update_response.go
 rm -f invoice_template.go
+rm -f external_payment_phase.go
 rm -f entitlements.go
 rm -f entitlement.go
 rm -f customer_permission.go

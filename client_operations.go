@@ -450,6 +450,11 @@ type ClientInterface interface {
 	ShowExternalInvoice(externalInvoiceId string, opts ...Option) (*ExternalInvoice, error)
 	ShowExternalInvoiceWithContext(ctx context.Context, externalInvoiceId string, opts ...Option) (*ExternalInvoice, error)
 
+	ListExternalSubscriptionExternalPaymentPhases(externalSubscriptionId string, params *ListExternalSubscriptionExternalPaymentPhasesParams, opts ...Option) (ExternalPaymentPhaseLister, error)
+
+	GetExternalSubscriptionExternalPaymentPhase(externalSubscriptionId string, externalPaymentPhaseId string, opts ...Option) (*ExternalPaymentPhase, error)
+	GetExternalSubscriptionExternalPaymentPhaseWithContext(ctx context.Context, externalSubscriptionId string, externalPaymentPhaseId string, opts ...Option) (*ExternalPaymentPhase, error)
+
 	ListEntitlements(accountId string, params *ListEntitlementsParams, opts ...Option) (EntitlementsLister, error)
 
 	ListAccountExternalSubscriptions(accountId string, params *ListAccountExternalSubscriptionsParams, opts ...Option) (ExternalSubscriptionLister, error)
@@ -6992,6 +6997,82 @@ func (c *Client) showExternalInvoice(ctx context.Context, externalInvoiceId stri
 	}
 	requestOptions := NewRequestOptions(opts...)
 	result := &ExternalInvoice{}
+	err = c.Call(ctx, http.MethodGet, path, nil, nil, requestOptions, result)
+	if err != nil {
+		return nil, err
+	}
+	return result, err
+}
+
+type ListExternalSubscriptionExternalPaymentPhasesParams struct {
+
+	// Sort - Sort field. You *really* only want to sort by `updated_at` in ascending
+	// order. In descending order updated records will move behind the cursor and could
+	// prevent some records from being returned.
+	Sort *string
+
+	// Limit - Limit number of records 1-200.
+	Limit *int
+
+	// Order - Sort order.
+	Order *string
+}
+
+func (list *ListExternalSubscriptionExternalPaymentPhasesParams) URLParams() []KeyValue {
+	var options []KeyValue
+
+	if list.Sort != nil {
+		options = append(options, KeyValue{Key: "sort", Value: *list.Sort})
+	}
+
+	if list.Limit != nil {
+		options = append(options, KeyValue{Key: "limit", Value: strconv.Itoa(*list.Limit)})
+	}
+
+	if list.Order != nil {
+		options = append(options, KeyValue{Key: "order", Value: *list.Order})
+	}
+
+	return options
+}
+
+// ListExternalSubscriptionExternalPaymentPhases List the external payment phases on an external subscription
+//
+// API Documentation: https://developers.recurly.com/api/v2021-02-25#operation/list_external_subscription_external_payment_phases
+//
+// Returns: A list of the the external_payment_phases on a site.
+func (c *Client) ListExternalSubscriptionExternalPaymentPhases(externalSubscriptionId string, params *ListExternalSubscriptionExternalPaymentPhasesParams, opts ...Option) (ExternalPaymentPhaseLister, error) {
+	path, err := c.InterpolatePath("/external_subscriptions/{external_subscription_id}/external_payment_phases", externalSubscriptionId)
+	if err != nil {
+		return nil, err
+	}
+	requestOptions := NewRequestOptions(opts...)
+	path = BuildURL(path, params)
+	return NewExternalPaymentPhaseList(c, path, requestOptions), nil
+}
+
+// GetExternalSubscriptionExternalPaymentPhase wraps GetExternalSubscriptionExternalPaymentPhaseWithContext using the background context
+func (c *Client) GetExternalSubscriptionExternalPaymentPhase(externalSubscriptionId string, externalPaymentPhaseId string, opts ...Option) (*ExternalPaymentPhase, error) {
+	ctx := context.Background()
+	return c.getExternalSubscriptionExternalPaymentPhase(ctx, externalSubscriptionId, externalPaymentPhaseId, opts...)
+}
+
+// GetExternalSubscriptionExternalPaymentPhaseWithContext Fetch an external payment_phase
+//
+// API Documentation: https://developers.recurly.com/api/v2021-02-25#operation/get_external_subscription_external_payment_phase
+//
+// Returns: Details for an external payment_phase.
+func (c *Client) GetExternalSubscriptionExternalPaymentPhaseWithContext(ctx context.Context, externalSubscriptionId string, externalPaymentPhaseId string, opts ...Option) (*ExternalPaymentPhase, error) {
+	return c.getExternalSubscriptionExternalPaymentPhase(ctx, externalSubscriptionId, externalPaymentPhaseId, opts...)
+}
+
+func (c *Client) getExternalSubscriptionExternalPaymentPhase(ctx context.Context, externalSubscriptionId string, externalPaymentPhaseId string, opts ...Option) (*ExternalPaymentPhase, error) {
+	path, err := c.InterpolatePath("/external_subscriptions/{external_subscription_id}/external_payment_phases/{external_payment_phase_id}", externalSubscriptionId, externalPaymentPhaseId)
+	if err != nil {
+		return nil, err
+	}
+	requestOptions := NewRequestOptions(opts...)
+	result := &ExternalPaymentPhase{}
 	err = c.Call(ctx, http.MethodGet, path, nil, nil, requestOptions, result)
 	if err != nil {
 		return nil, err

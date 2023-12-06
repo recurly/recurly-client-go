@@ -103,10 +103,10 @@ type Subscription struct {
 	// Estimated total, before tax.
 	Subtotal float64 `json:"subtotal,omitempty"`
 
-	// Estimated tax
+	// Only for merchants using Recurly's In-The-Box taxes.
 	Tax float64 `json:"tax,omitempty"`
 
-	// Tax info
+	// Only for merchants using Recurly's In-The-Box taxes.
 	TaxInfo TaxInfo `json:"tax_info,omitempty"`
 
 	// Estimated total
