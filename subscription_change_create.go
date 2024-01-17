@@ -65,7 +65,8 @@ type SubscriptionChangeCreate struct {
 	// the current date (for `net` Net Terms Type) or days after the last day of the current
 	// month (for `eom` Net Terms Type) that the invoice will become past due. During a subscription
 	// change, it's not necessary to provide both the `Net Terms Type` and `Net Terms` parameters.
-	// For more information please visit our docs page (https://docs.recurly.com/docs/manual-payments#section-collection-terms)
+	// For more information on how net terms work with `manual` collection visit our docs page (https://docs.recurly.com/docs/manual-payments#section-collection-terms)
+	// or visit (https://docs.recurly.com/docs/automatic-invoicing-terms#section-collection-terms) for information about net terms using `automatic` collection.
 	NetTerms *int `json:"net_terms,omitempty"`
 
 	// Optionally supplied string that may be either `net` or `eom` (end-of-month).

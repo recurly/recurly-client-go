@@ -136,6 +136,9 @@ type Transaction struct {
 
 	// VAT number for the customer on this transaction. If the customer's Billing Info country is BR or AR, then this will be their Tax Identifier. For all other countries this will come from the VAT Number field in the Billing Info.
 	VatNumber string `json:"vat_number,omitempty"`
+
+	// Fraud information
+	FraudInfo TransactionFraudInfo `json:"fraud_info,omitempty"`
 }
 
 // GetResponse returns the ResponseMetadata that generated this resource

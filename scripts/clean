@@ -23,6 +23,8 @@ rm -f transaction.go
 rm -f invoice_mini.go
 rm -f address_with_name.go
 rm -f transaction_payment_gateway.go
+rm -f transaction_fraud_info.go
+rm -f fraud_risk_rule.go
 rm -f coupon_redemption.go
 rm -f coupon.go
 rm -f plan_mini.go
