@@ -14,6 +14,8 @@ rm -f fraud_info.go
 rm -f billing_info_updated_by.go
 rm -f custom_field.go
 rm -f error_may_have_transaction.go
+rm -f transaction_fraud_info.go
+rm -f fraud_risk_rule.go
 rm -f account_acquisition.go
 rm -f account_acquisition_cost.go
 rm -f account_mini.go
@@ -23,8 +25,6 @@ rm -f transaction.go
 rm -f invoice_mini.go
 rm -f address_with_name.go
 rm -f transaction_payment_gateway.go
-rm -f transaction_fraud_info.go
-rm -f fraud_risk_rule.go
 rm -f coupon_redemption.go
 rm -f coupon.go
 rm -f plan_mini.go
