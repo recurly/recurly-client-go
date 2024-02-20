@@ -1,5 +1,17 @@
 # Changelog
 
+## [v4.47.0](https://github.com/recurly/recurly-client-go/tree/v4.47.0) (2024-02-20)
+
+[Full Changelog](https://github.com/recurly/recurly-client-go/compare/v4.46.0...v4.47.0)
+
+
+**Merged Pull Requests**
+
+- Add invoice state param for v2021-02-25 [#209](https://github.com/recurly/recurly-client-go/pull/209) ([recurly-integrations](https://github.com/recurly-integrations))
+- Remove internal wiki link from codel config. [#208](https://github.com/recurly/recurly-client-go/pull/208) ([recurly-bearley](https://github.com/recurly-bearley))
+
+
+
 ## [v4.46.0](https://github.com/recurly/recurly-client-go/tree/v4.46.0) (2024-01-24)
 
 [Full Changelog](https://github.com/recurly/recurly-client-go/compare/v4.45.0...v4.46.0)
