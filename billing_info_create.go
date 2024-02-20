@@ -59,6 +59,9 @@ type BillingInfoCreate struct {
 	// PayPal billing agreement ID
 	PaypalBillingAgreementId *string `json:"paypal_billing_agreement_id,omitempty"`
 
+	// Roku's CIB if billing through Roku
+	RokuBillingAgreementId *string `json:"roku_billing_agreement_id,omitempty"`
+
 	// Fraud Session ID
 	FraudSessionId *string `json:"fraud_session_id,omitempty"`
 

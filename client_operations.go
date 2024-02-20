@@ -1466,6 +1466,9 @@ type ListAccountInvoicesParams struct {
 	//   returned at once you can sort the records yourself.
 	Ids []string
 
+	// State - Invoice state.
+	State *string
+
 	// Limit - Limit number of records 1-200.
 	Limit *int
 
@@ -1507,6 +1510,10 @@ func (list *ListAccountInvoicesParams) URLParams() []KeyValue {
 
 	if list.Ids != nil {
 		options = append(options, KeyValue{Key: "ids", Value: strings.Join(list.Ids, ",")})
+	}
+
+	if list.State != nil {
+		options = append(options, KeyValue{Key: "state", Value: *list.State})
 	}
 
 	if list.Limit != nil {
@@ -3475,6 +3482,9 @@ type ListInvoicesParams struct {
 	//   returned at once you can sort the records yourself.
 	Ids []string
 
+	// State - Invoice state.
+	State *string
+
 	// Limit - Limit number of records 1-200.
 	Limit *int
 
@@ -3516,6 +3526,10 @@ func (list *ListInvoicesParams) URLParams() []KeyValue {
 
 	if list.Ids != nil {
 		options = append(options, KeyValue{Key: "ids", Value: strings.Join(list.Ids, ",")})
+	}
+
+	if list.State != nil {
+		options = append(options, KeyValue{Key: "state", Value: *list.State})
 	}
 
 	if list.Limit != nil {
@@ -5606,6 +5620,9 @@ type ListSubscriptionInvoicesParams struct {
 	//   returned at once you can sort the records yourself.
 	Ids []string
 
+	// State - Invoice state.
+	State *string
+
 	// Limit - Limit number of records 1-200.
 	Limit *int
 
@@ -5647,6 +5664,10 @@ func (list *ListSubscriptionInvoicesParams) URLParams() []KeyValue {
 
 	if list.Ids != nil {
 		options = append(options, KeyValue{Key: "ids", Value: strings.Join(list.Ids, ",")})
+	}
+
+	if list.State != nil {
+		options = append(options, KeyValue{Key: "state", Value: *list.State})
 	}
 
 	if list.Limit != nil {
