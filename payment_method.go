@@ -44,6 +44,9 @@ type PaymentMethod struct {
 	// Gateway specific attributes associated with this PaymentMethod
 	GatewayAttributes GatewayAttributes `json:"gateway_attributes,omitempty"`
 
+	// Represents the card network preference associated with the billing info for dual badged cards. Must be a supported card network.
+	CardNetworkPreference string `json:"card_network_preference,omitempty"`
+
 	// Billing Agreement identifier. Only present for Amazon or Paypal payment methods.
 	BillingAgreementId string `json:"billing_agreement_id,omitempty"`
 

@@ -7,6 +7,7 @@ package recurly
 import (
 	"context"
 	"net/http"
+	"time"
 )
 
 type SubscriptionRampIntervalResponse struct {
@@ -17,6 +18,12 @@ type SubscriptionRampIntervalResponse struct {
 
 	// Represents how many billing cycles are left in a ramp interval.
 	RemainingBillingCycles int `json:"remaining_billing_cycles,omitempty"`
+
+	// Date the ramp interval starts
+	StartingOn time.Time `json:"starting_on,omitempty"`
+
+	// Date the ramp interval ends
+	EndingOn time.Time `json:"ending_on,omitempty"`
 
 	// Represents the price for the ramp interval.
 	UnitAmount int `json:"unit_amount,omitempty"`

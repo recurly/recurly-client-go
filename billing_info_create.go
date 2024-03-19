@@ -53,11 +53,17 @@ type BillingInfoCreate struct {
 	// Additional attributes to send to the gateway.
 	GatewayAttributes *GatewayAttributesCreate `json:"gateway_attributes,omitempty"`
 
+	// Represents the card network preference associated with the billing info for dual badged cards. Must be a supported card network.
+	CardNetworkPreference *string `json:"card_network_preference,omitempty"`
+
 	// Amazon billing agreement ID
 	AmazonBillingAgreementId *string `json:"amazon_billing_agreement_id,omitempty"`
 
 	// PayPal billing agreement ID
 	PaypalBillingAgreementId *string `json:"paypal_billing_agreement_id,omitempty"`
+
+	// Roku's CIB if billing through Roku
+	RokuBillingAgreementId *string `json:"roku_billing_agreement_id,omitempty"`
 
 	// Fraud Session ID
 	FraudSessionId *string `json:"fraud_session_id,omitempty"`
