@@ -61,6 +61,9 @@ type ExternalSubscription struct {
 	// When the external subscription trial period ends in the external platform.
 	TrialEndsAt time.Time `json:"trial_ends_at,omitempty"`
 
+	// An indication of whether or not the external subscription was purchased in a sandbox environment.
+	Test bool `json:"test,omitempty"`
+
 	// When the external subscription was created in Recurly.
 	CreatedAt time.Time `json:"created_at,omitempty"`
 
