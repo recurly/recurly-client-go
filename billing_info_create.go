@@ -110,4 +110,7 @@ type BillingInfoCreate struct {
 	OnlineBankingPaymentType *string `json:"online_banking_payment_type,omitempty"`
 
 	CardType *string `json:"card_type,omitempty"`
+
+	// Represents the card network preference associated with the billing info for dual badged cards. Must be a supported card network.
+	CardNetworkPreference *string `json:"card_network_preference,omitempty"`
 }
