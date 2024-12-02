@@ -87,6 +87,9 @@ type Plan struct {
 	// `true` exempts tax on the plan, `false` applies tax on the plan.
 	TaxExempt bool `json:"tax_exempt,omitempty"`
 
+	// Used by Vertex for tax calculations. Possible values are `sale`, `rental`, `lease`.
+	VertexTransactionType string `json:"vertex_transaction_type,omitempty"`
+
 	// Pricing
 	Currencies []PlanPricing `json:"currencies,omitempty"`
 
