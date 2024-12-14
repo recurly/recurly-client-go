@@ -6,11 +6,11 @@ package recurly
 
 import ()
 
-type ExternalAccountUpdate struct {
+type ExternalProductReferenceUpdate struct {
 
-	// Represents the account code for the external account.
-	ExternalAccountCode *string `json:"external_account_code,omitempty"`
+	// A code which associates the external product to a corresponding object or resource in an external platform like the Apple App Store or Google Play Store.
+	ReferenceCode *string `json:"reference_code,omitempty"`
 
 	// Represents the connection type. One of the connection types of your enabled App Connectors
-	ExternalConnectionType *string `json:"external_connection_type,omitempty"`
+	ExternalConnectionType *ExternalProductReferenceConnectionType `json:"external_connection_type,omitempty"`
 }

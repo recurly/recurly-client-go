@@ -11,6 +11,12 @@ type InvoiceCreate struct {
 	// 3-letter ISO 4217 currency code.
 	Currency *string `json:"currency,omitempty"`
 
+	// The `business_entity_id` is the value that represents a specific business entity for an end customer which will be assigned to the invoice. Available when the `Multiple Business Entities` feature is enabled. If both `business_entity_id` and `business_entity_code` are present, `business_entity_id` will be used.
+	BusinessEntityId *string `json:"business_entity_id,omitempty"`
+
+	// The `business_entity_code` is the value that represents a specific business entity for an end customer which will be assigned to the invoice. Available when the `Multiple Business Entities` feature is enabled. If both `business_entity_id` and `business_entity_code` are present, `business_entity_id` will be used.
+	BusinessEntityCode *string `json:"business_entity_code,omitempty"`
+
 	// An automatic invoice means a corresponding transaction is run using the account's billing information at the same time the invoice is created. Manual invoices are created without a corresponding transaction. The merchant must enter a manual payment transaction or have the customer pay the invoice with an automatic method, like credit card, PayPal, Amazon, or ACH bank payment.
 	CollectionMethod *string `json:"collection_method,omitempty"`
 

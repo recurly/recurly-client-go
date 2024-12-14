@@ -255,10 +255,16 @@ type ClientInterface interface {
 	DeactivateExternalProductExternalProductReference(externalProductId string, externalProductReferenceId string, opts ...Option) (*ExternalProductReferenceMini, error)
 	DeactivateExternalProductExternalProductReferenceWithContext(ctx context.Context, externalProductId string, externalProductReferenceId string, opts ...Option) (*ExternalProductReferenceMini, error)
 
+	CreateExternalSubscription(body *ExternalSubscriptionCreate, opts ...Option) (*ExternalSubscription, error)
+	CreateExternalSubscriptionWithContext(ctx context.Context, body *ExternalSubscriptionCreate, opts ...Option) (*ExternalSubscription, error)
+
 	ListExternalSubscriptions(params *ListExternalSubscriptionsParams, opts ...Option) (ExternalSubscriptionLister, error)
 
 	GetExternalSubscription(externalSubscriptionId string, opts ...Option) (*ExternalSubscription, error)
 	GetExternalSubscriptionWithContext(ctx context.Context, externalSubscriptionId string, opts ...Option) (*ExternalSubscription, error)
+
+	PutExternalSubscription(externalSubscriptionId string, params *PutExternalSubscriptionParams, opts ...Option) (*ExternalSubscription, error)
+	PutExternalSubscriptionWithContext(ctx context.Context, externalSubscriptionId string, params *PutExternalSubscriptionParams, opts ...Option) (*ExternalSubscription, error)
 
 	ListExternalSubscriptionExternalInvoices(externalSubscriptionId string, params *ListExternalSubscriptionExternalInvoicesParams, opts ...Option) (ExternalInvoiceLister, error)
 
@@ -4122,6 +4128,35 @@ func (c *Client) deactivateExternalProductExternalProductReference(ctx context.C
 	return result, err
 }
 
+// CreateExternalSubscription wraps CreateExternalSubscriptionWithContext using the background context
+func (c *Client) CreateExternalSubscription(body *ExternalSubscriptionCreate, opts ...Option) (*ExternalSubscription, error) {
+	ctx := context.Background()
+	return c.createExternalSubscription(ctx, body, opts...)
+}
+
+// CreateExternalSubscriptionWithContext Create an external subscription
+//
+// API Documentation: https://developers.recurly.com/api/v2021-02-25#operation/create_external_subscription
+//
+// Returns: Returns the external subscription
+func (c *Client) CreateExternalSubscriptionWithContext(ctx context.Context, body *ExternalSubscriptionCreate, opts ...Option) (*ExternalSubscription, error) {
+	return c.createExternalSubscription(ctx, body, opts...)
+}
+
+func (c *Client) createExternalSubscription(ctx context.Context, body *ExternalSubscriptionCreate, opts ...Option) (*ExternalSubscription, error) {
+	path, err := c.InterpolatePath("/external_subscriptions")
+	if err != nil {
+		return nil, err
+	}
+	requestOptions := NewRequestOptions(opts...)
+	result := &ExternalSubscription{}
+	err = c.Call(ctx, http.MethodPost, path, body, nil, requestOptions, result)
+	if err != nil {
+		return nil, err
+	}
+	return result, err
+}
+
 type ListExternalSubscriptionsParams struct {
 
 	// Sort - Sort field. You *really* only want to sort by `updated_at` in ascending
@@ -4140,7 +4175,7 @@ func (list *ListExternalSubscriptionsParams) URLParams() []KeyValue {
 	return options
 }
 
-// ListExternalSubscriptions List a site's external subscriptions
+// ListExternalSubscriptions List the external subscriptions on a site
 //
 // API Documentation: https://developers.recurly.com/api/v2021-02-25#operation/list_external_subscriptions
 //
@@ -4178,6 +4213,47 @@ func (c *Client) getExternalSubscription(ctx context.Context, externalSubscripti
 	requestOptions := NewRequestOptions(opts...)
 	result := &ExternalSubscription{}
 	err = c.Call(ctx, http.MethodGet, path, nil, nil, requestOptions, result)
+	if err != nil {
+		return nil, err
+	}
+	return result, err
+}
+
+type PutExternalSubscriptionParams struct {
+
+	// Body - The body of the request.
+	Body *ExternalSubscriptionUpdate
+}
+
+func (list *PutExternalSubscriptionParams) URLParams() []KeyValue {
+	var options []KeyValue
+
+	return options
+}
+
+// PutExternalSubscription wraps PutExternalSubscriptionWithContext using the background context
+func (c *Client) PutExternalSubscription(externalSubscriptionId string, params *PutExternalSubscriptionParams, opts ...Option) (*ExternalSubscription, error) {
+	ctx := context.Background()
+	return c.putExternalSubscription(ctx, externalSubscriptionId, params, opts...)
+}
+
+// PutExternalSubscriptionWithContext Update an external subscription
+//
+// API Documentation: https://developers.recurly.com/api/v2021-02-25#operation/put_external_subscription
+//
+// Returns: Settings for an external subscription.
+func (c *Client) PutExternalSubscriptionWithContext(ctx context.Context, externalSubscriptionId string, params *PutExternalSubscriptionParams, opts ...Option) (*ExternalSubscription, error) {
+	return c.putExternalSubscription(ctx, externalSubscriptionId, params, opts...)
+}
+
+func (c *Client) putExternalSubscription(ctx context.Context, externalSubscriptionId string, params *PutExternalSubscriptionParams, opts ...Option) (*ExternalSubscription, error) {
+	path, err := c.InterpolatePath("/external_subscriptions/{external_subscription_id}", externalSubscriptionId)
+	if err != nil {
+		return nil, err
+	}
+	requestOptions := NewRequestOptions(opts...)
+	result := &ExternalSubscription{}
+	err = c.Call(ctx, http.MethodPut, path, nil, params, requestOptions, result)
 	if err != nil {
 		return nil, err
 	}

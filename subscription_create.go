@@ -16,6 +16,12 @@ type SubscriptionCreate struct {
 	// You must provide either a `plan_code` or `plan_id`. If both are provided the `plan_id` will be used.
 	PlanId *string `json:"plan_id,omitempty"`
 
+	// The `business_entity_id` is the value that represents a specific business entity for an end customer. When `business_entity_id` is used to assign a business entity to the subscription, all future billing events for the subscription will bill to the specified business entity. Available when the `Multiple Business Entities` feature is enabled. If both `business_entity_id` and `business_entity_code` are present, `business_entity_id` will be used.
+	BusinessEntityId *string `json:"business_entity_id,omitempty"`
+
+	// The `business_entity_code` is the value that represents a specific business entity for an end customer. When `business_entity_code` is used to assign a business entity to the subscription, all future billing events for the subscription will bill to the specified business entity. Available when the `Multiple Business Entities` feature is enabled. If both `business_entity_id` and `business_entity_code` are present, `business_entity_id` will be used.
+	BusinessEntityCode *string `json:"business_entity_code,omitempty"`
+
 	Account *AccountCreate `json:"account,omitempty"`
 
 	// The `billing_info_id` is the value that represents a specific billing info for an end customer. When `billing_info_id` is used to assign billing info to the subscription, all future billing events for the subscription will bill to the specified billing info. `billing_info_id` can ONLY be used for sites utilizing the Wallet feature.
