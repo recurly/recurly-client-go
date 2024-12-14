@@ -52,6 +52,9 @@ type SubscriptionChange struct {
 	// Invoice Collection
 	InvoiceCollection InvoiceCollection `json:"invoice_collection,omitempty"`
 
+	// Business entity details
+	BusinessEntity BusinessEntityMini `json:"business_entity,omitempty"`
+
 	// The custom fields will only be altered when they are included in a request. Sending an empty array will not remove any existing values. To remove a field send the name with a null or empty value.
 	CustomFields []CustomField `json:"custom_fields,omitempty"`
 

@@ -11,6 +11,6 @@ type ExternalAccountCreate struct {
 	// Represents the account code for the external account.
 	ExternalAccountCode *string `json:"external_account_code,omitempty"`
 
-	// Represents the connection type. `AppleAppStore` or `GooglePlayStore`
+	// Represents the connection type. One of the connection types of your enabled App Connectors
 	ExternalConnectionType *string `json:"external_connection_type,omitempty"`
 }

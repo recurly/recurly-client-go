@@ -16,6 +16,12 @@ type PurchaseCreate struct {
 	// The `billing_info_id` is the value that represents a specific billing info for an end customer. When `billing_info_id` is used to assign billing info to the subscription, all future billing events for the subscription will bill to the specified billing info. `billing_info_id` can ONLY be used for sites utilizing the Wallet feature.
 	BillingInfoId *string `json:"billing_info_id,omitempty"`
 
+	// The `business_entity_id` is the value that represents a specific business entity for an end customer. When `business_entity_id` is used to assign a business entity to the subscription, all future billing events for the subscription will bill to the specified business entity. Available when the `Multiple Business Entities` feature is enabled. If both `business_entity_id` and `business_entity_code` are present, `business_entity_id` will be used.
+	BusinessEntityId *string `json:"business_entity_id,omitempty"`
+
+	// The `business_entity_code` is the value that represents a specific business entity for an end customer. When `business_entity_code` is used to assign a business entity to the subscription, all future billing events for the subscription will bill to the specified business entity. Available when the `Multiple Business Entities` feature is enabled. If both `business_entity_id` and `business_entity_code` are present, `business_entity_id` will be used.
+	BusinessEntityCode *string `json:"business_entity_code,omitempty"`
+
 	// Must be set to manual in order to preview a purchase for an Account that does not have payment information associated with the Billing Info.
 	CollectionMethod *string `json:"collection_method,omitempty"`
 
@@ -44,6 +50,9 @@ type PurchaseCreate struct {
 
 	// Terms and conditions to be put on the purchase invoice.
 	TermsAndConditions *string `json:"terms_and_conditions,omitempty"`
+
+	// (Transaction Data, Card on File) - Options for flagging transactions as Customer or Merchant Initiated Unscheduled.
+	Transaction *map[string]interface{} `json:"transaction,omitempty"`
 
 	// Customer notes
 	CustomerNotes *string `json:"customer_notes,omitempty"`

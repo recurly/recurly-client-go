@@ -177,6 +177,9 @@ type Subscription struct {
 	// The invoice ID of the latest invoice created for an active subscription.
 	ActiveInvoiceId string `json:"active_invoice_id,omitempty"`
 
+	// The ID of the business entity associated with the subscription. This will be `null` if the subscription relies on resolving the business entity during renewal.
+	BusinessEntityId string `json:"business_entity_id,omitempty"`
+
 	// Whether the subscription was started with a gift certificate.
 	StartedWithGift bool `json:"started_with_gift,omitempty"`
 

@@ -11,5 +11,6 @@ type ExternalProductReferenceCreate struct {
 	// A code which associates the external product to a corresponding object or resource in an external platform like the Apple App Store or Google Play Store.
 	ReferenceCode *string `json:"reference_code,omitempty"`
 
-	ExternalConnectionType *string `json:"external_connection_type,omitempty"`
+	// Represents the connection type. One of the connection types of your enabled App Connectors
+	ExternalConnectionType *ExternalProductReferenceConnectionType `json:"external_connection_type,omitempty"`
 }
