@@ -11,6 +11,7 @@ rm -f billing_info.go
 rm -f payment_method.go
 rm -f gateway_attributes.go
 rm -f fraud_info.go
+rm -f payment_gateway_references.go
 rm -f billing_info_updated_by.go
 rm -f custom_field.go
 rm -f error_may_have_transaction.go
@@ -105,6 +106,7 @@ rm -f external_account_create.go
 rm -f shipping_address_create.go
 rm -f address_create.go
 rm -f billing_info_create.go
+rm -f payment_gateway_references_create.go
 rm -f gateway_attributes_create.go
 rm -f custom_field_create.go
 rm -f account_update.go

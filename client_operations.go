@@ -2876,6 +2876,9 @@ type ListUniqueCouponCodesParams struct {
 	// EndTime - Inclusively filter by end_time when `sort=created_at` or `sort=updated_at`.
 	// **Note:** this value is an ISO8601 timestamp. A partial timestamp that does not include a time zone will default to UTC.
 	EndTime *time.Time
+
+	// Redeemed - Filter unique coupon codes by redemption status. `true` for redeemed, `false` for not redeemed.
+	Redeemed *string
 }
 
 func (list *ListUniqueCouponCodesParams) URLParams() []KeyValue {
@@ -2903,6 +2906,10 @@ func (list *ListUniqueCouponCodesParams) URLParams() []KeyValue {
 
 	if list.EndTime != nil {
 		options = append(options, KeyValue{Key: "end_time", Value: formatTime(*list.EndTime)})
+	}
+
+	if list.Redeemed != nil {
+		options = append(options, KeyValue{Key: "redeemed", Value: *list.Redeemed})
 	}
 
 	return options

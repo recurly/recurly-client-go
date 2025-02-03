@@ -46,8 +46,11 @@ type BillingInfoCreate struct {
 	// A token used in place of a credit card in order to perform transactions. Must be used in conjunction with `gateway_code`.
 	GatewayToken *string `json:"gateway_token,omitempty"`
 
-	// An identifier for a specific payment gateway. Must be used in conjunction with `gateway_token`.
+	// An identifier for a specific payment gateway.
 	GatewayCode *string `json:"gateway_code,omitempty"`
+
+	// Array of Payment Gateway References, each a reference to a third-party gateway object of varying types.
+	PaymentGatewayReferences []PaymentGatewayReferencesCreate `json:"payment_gateway_references,omitempty"`
 
 	// Additional attributes to send to the gateway.
 	GatewayAttributes *GatewayAttributesCreate `json:"gateway_attributes,omitempty"`

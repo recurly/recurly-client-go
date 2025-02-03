@@ -44,6 +44,9 @@ type BillingInfo struct {
 	// The `backup_payment_method` field is used to indicate a billing info as a backup on the account that will be tried if the initial billing info used for an invoice is declined.
 	BackupPaymentMethod bool `json:"backup_payment_method,omitempty"`
 
+	// Array of Payment Gateway References, each a reference to a third-party gateway object of varying types.
+	PaymentGatewayReferences []PaymentGatewayReferences `json:"payment_gateway_references,omitempty"`
+
 	// When the billing information was created.
 	CreatedAt time.Time `json:"created_at,omitempty"`
 
