@@ -8,6 +8,6 @@ import ()
 
 type CouponBulkCreate struct {
 
-	// The quantity of unique coupon codes to generate
+	// The quantity of unique coupon codes to generate. A bulk coupon can have up to 100,000 unique codes (or your site's configured limit).
 	NumberOfUniqueCodes *int `json:"number_of_unique_codes,omitempty"`
 }
