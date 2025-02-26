@@ -1,6 +1,6 @@
 name: CI
 on: [push]
-concurrency: 
+concurrency:
   group: ${{ github.ref }}
   cancel-in-progress: true
 jobs:
@@ -9,7 +9,7 @@ jobs:
     name: Go ${{ matrix.go }} tests
     strategy:
       matrix:
-        go: [1.13, 1.14, 1.15, 1.16, 1.17]
+        go: ["1.17", "1.18", "1.19", "1.20", "1.21", "1.22", "1.23", "1.24"]
     steps:
       - uses: actions/checkout@v3
       - name: Setup go
@@ -27,4 +27,3 @@ jobs:
       - name: Check build matrix status
         if: ${{ needs.build.result != 'success' }}
         run: exit 1
-
