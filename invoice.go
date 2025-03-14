@@ -88,6 +88,9 @@ type Invoice struct {
 	// The total tax on this invoice.
 	Tax float64 `json:"tax,omitempty"`
 
+	// Reference Only Currency Conversion
+	ReferenceOnlyCurrencyConversion ReferenceOnlyCurrencyConversion `json:"reference_only_currency_conversion,omitempty"`
+
 	// The final total on this invoice. The summation of invoice charges, discounts, credits, and tax.
 	Total float64 `json:"total,omitempty"`
 

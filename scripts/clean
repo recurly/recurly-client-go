@@ -41,6 +41,7 @@ rm -f external_payment_phase.go
 rm -f external_charge.go
 rm -f invoice.go
 rm -f invoice_address.go
+rm -f reference_only_currency_conversion.go
 rm -f tax_info.go
 rm -f tax_detail.go
 rm -f line_item.go
