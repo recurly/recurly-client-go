@@ -52,7 +52,7 @@ type SubscriptionCreate struct {
 	// IIf set, overrides the default trial behavior for the subscription. When the current date time or a past date time is provided the subscription will begin with no trial phase (overriding any plan default trial). When a future date time is provided the subscription will begin with a trial phase ending at the specified date time.
 	TrialEndsAt *time.Time `json:"trial_ends_at,omitempty"`
 
-	// If set, the subscription will begin in the future on this date. The subscription will apply the setup fee and trial period, unless the plan has no trial.
+	// If set, the subscription will begin on this specified date. The subscription will apply the setup fee and trial period, unless the plan has no trial.
 	StartsAt *time.Time `json:"starts_at,omitempty"`
 
 	// If present, this sets the date the subscription's next billing period will start (`current_period_ends_at`). This can be used to align the subscription’s billing to a specific day of the month. The initial invoice will be prorated for the period between the subscription's activation date and the billing period end date. Subsequent periods will be based off the plan interval. For a subscription with a trial period, this will change when the trial expires.
@@ -90,6 +90,9 @@ type SubscriptionCreate struct {
 
 	// An optional type designation for the payment gateway transaction created by this request. Supports 'moto' value, which is the acronym for mail order and telephone transactions.
 	TransactionType *string `json:"transaction_type,omitempty"`
+
+	// Optional field to be used only when needing to bypass the 60 second limit on creating subscriptions. Should only be used when creating subscriptions in bulk from the API.
+	Bulk *bool `json:"bulk,omitempty"`
 }
 
 func (attr *SubscriptionCreate) toParams() *Params {
