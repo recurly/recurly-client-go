@@ -138,6 +138,9 @@ rm -f external_subscription_create.go
 rm -f account_external_subscription.go
 rm -f external_subscription_update.go
 rm -f external_product_reference_update.go
+rm -f external_invoice_create.go
+rm -f external_charge_create.go
+rm -f external_payment_phase_base.go
 rm -f invoice_update.go
 rm -f invoice_address_create.go
 rm -f invoice_collect.go

@@ -116,4 +116,7 @@ type BillingInfoCreate struct {
 
 	// Represents the card network preference associated with the billing info for dual badged cards. Must be a supported card network.
 	CardNetworkPreference *string `json:"card_network_preference,omitempty"`
+
+	// Specifies a URL to which a consumer will be redirected upon completion of a redirect payment flow. Only redirect payment flows operating through Adyen Components will utilize this return URL.
+	ReturnUrl *string `json:"return_url,omitempty"`
 }
