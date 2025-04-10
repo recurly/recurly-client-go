@@ -268,6 +268,9 @@ type ClientInterface interface {
 
 	ListExternalSubscriptionExternalInvoices(externalSubscriptionId string, params *ListExternalSubscriptionExternalInvoicesParams, opts ...Option) (ExternalInvoiceLister, error)
 
+	CreateExternalInvoice(externalSubscriptionId string, body *ExternalInvoiceCreate, opts ...Option) (*ExternalInvoice, error)
+	CreateExternalInvoiceWithContext(ctx context.Context, externalSubscriptionId string, body *ExternalInvoiceCreate, opts ...Option) (*ExternalInvoice, error)
+
 	ListInvoices(params *ListInvoicesParams, opts ...Option) (InvoiceLister, error)
 
 	GetInvoice(invoiceId string, opts ...Option) (*Invoice, error)
@@ -4312,6 +4315,35 @@ func (c *Client) ListExternalSubscriptionExternalInvoices(externalSubscriptionId
 	requestOptions := NewRequestOptions(opts...)
 	path = BuildURL(path, params)
 	return NewExternalInvoiceList(c, path, requestOptions), nil
+}
+
+// CreateExternalInvoice wraps CreateExternalInvoiceWithContext using the background context
+func (c *Client) CreateExternalInvoice(externalSubscriptionId string, body *ExternalInvoiceCreate, opts ...Option) (*ExternalInvoice, error) {
+	ctx := context.Background()
+	return c.createExternalInvoice(ctx, externalSubscriptionId, body, opts...)
+}
+
+// CreateExternalInvoiceWithContext Create an external invoice
+//
+// API Documentation: https://developers.recurly.com/api/v2021-02-25#operation/create_external_invoice
+//
+// Returns: Returns the external invoice
+func (c *Client) CreateExternalInvoiceWithContext(ctx context.Context, externalSubscriptionId string, body *ExternalInvoiceCreate, opts ...Option) (*ExternalInvoice, error) {
+	return c.createExternalInvoice(ctx, externalSubscriptionId, body, opts...)
+}
+
+func (c *Client) createExternalInvoice(ctx context.Context, externalSubscriptionId string, body *ExternalInvoiceCreate, opts ...Option) (*ExternalInvoice, error) {
+	path, err := c.InterpolatePath("/external_subscriptions/{external_subscription_id}/external_invoices", externalSubscriptionId)
+	if err != nil {
+		return nil, err
+	}
+	requestOptions := NewRequestOptions(opts...)
+	result := &ExternalInvoice{}
+	err = c.Call(ctx, http.MethodPost, path, body, nil, requestOptions, result)
+	if err != nil {
+		return nil, err
+	}
+	return result, err
 }
 
 type ListInvoicesParams struct {
