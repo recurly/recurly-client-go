@@ -29,7 +29,7 @@ type Transaction struct {
 	Account AccountMini `json:"account,omitempty"`
 
 	// Must be sent for one-time transactions in order to provide context on which entity is submitting the transaction to ensure proper fraud checks are observed, such as 3DS. If the customer is in session, send `customer`. If this is a merchant initiated one-time transaction, send `merchant`.
-	Indicator string `json:"indicator,omitempty"`
+	Initiator string `json:"initiator,omitempty"`
 
 	// Invoice mini details
 	Invoice InvoiceMini `json:"invoice,omitempty"`
