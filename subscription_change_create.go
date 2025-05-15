@@ -36,7 +36,7 @@ type SubscriptionChangeCreate struct {
 	Shipping *SubscriptionChangeShippingCreate `json:"shipping,omitempty"`
 
 	// A list of coupon_codes to be redeemed on the subscription during the change. Only allowed if timeframe is now and you change something about the subscription that creates an invoice.
-	CouponCodes []string `json:"coupon_codes,omitempty"`
+	CouponCodes *[]string `json:"coupon_codes,omitempty"`
 
 	// If you provide a value for this field it will replace any
 	// existing add-ons. So, when adding or modifying an add-on, you need to
@@ -53,7 +53,7 @@ type SubscriptionChangeCreate struct {
 	//   current values of the plan add-on
 	// - Attributes passed in as part of the request will override either of the
 	//   above scenarios
-	AddOns []SubscriptionAddOnUpdate `json:"add_ons,omitempty"`
+	AddOns *[]SubscriptionAddOnUpdate `json:"add_ons,omitempty"`
 
 	// Collection method
 	CollectionMethod *string `json:"collection_method,omitempty"`
@@ -62,7 +62,7 @@ type SubscriptionChangeCreate struct {
 	RevenueScheduleType *string `json:"revenue_schedule_type,omitempty"`
 
 	// The custom fields will only be altered when they are included in a request. Sending an empty array will not remove any existing values. To remove a field send the name with a null or empty value.
-	CustomFields []CustomFieldCreate `json:"custom_fields,omitempty"`
+	CustomFields *[]CustomFieldCreate `json:"custom_fields,omitempty"`
 
 	// For manual invoicing, this identifies the PO number associated with the subscription.
 	PoNumber *string `json:"po_number,omitempty"`
@@ -86,7 +86,7 @@ type SubscriptionChangeCreate struct {
 	BillingInfo *SubscriptionChangeBillingInfoCreate `json:"billing_info,omitempty"`
 
 	// The new set of ramp intervals for the subscription.
-	RampIntervals []SubscriptionRampInterval `json:"ramp_intervals,omitempty"`
+	RampIntervals *[]SubscriptionRampInterval `json:"ramp_intervals,omitempty"`
 
 	// Allows you to control how any resulting charges and credits will be calculated and prorated.
 	ProrationSettings *ProrationSettings `json:"proration_settings,omitempty"`

@@ -89,7 +89,7 @@ type AddOnCreate struct {
 	// * If the add-on's `tier_type` is `tiered`, `volume`, or `stairstep`,
 	// then `currencies` must be absent.
 	// * Must be absent if `add_on_type` is `usage` and `usage_type` is `percentage`.
-	Currencies []AddOnPricingCreate `json:"currencies,omitempty"`
+	Currencies *[]AddOnPricingCreate `json:"currencies,omitempty"`
 
 	// The pricing model for the add-on.  For more information,
 	// [click here](https://docs.recurly.com/docs/billing-models#section-quantity-based). See our
@@ -106,12 +106,12 @@ type AddOnCreate struct {
 	// must include one to many tiers with `ending_quantity` and `unit_amount` for
 	// the desired `currencies`. There must be one tier without an `ending_quantity` value
 	// which represents the final tier.
-	Tiers []TierCreate `json:"tiers,omitempty"`
+	Tiers *[]TierCreate `json:"tiers,omitempty"`
 
 	// Array of objects which must have at least one set of tiers
 	// per currency and the currency code. The tier_type must be `volume` or `tiered`,
 	// if not, it must be absent. There must be one tier without an `ending_amount` value
 	// which represents the final tier. This feature is currently in development and
 	// requires approval and enablement, please contact support.
-	PercentageTiers []PercentageTiersByCurrencyCreate `json:"percentage_tiers,omitempty"`
+	PercentageTiers *[]PercentageTiersByCurrencyCreate `json:"percentage_tiers,omitempty"`
 }

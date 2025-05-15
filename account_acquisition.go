@@ -34,10 +34,10 @@ type AccountAcquisition struct {
 	Account AccountMini `json:"account,omitempty"`
 
 	// When the account acquisition data was created.
-	CreatedAt time.Time `json:"created_at,omitempty"`
+	CreatedAt *time.Time `json:"created_at,omitempty"`
 
 	// When the account acquisition data was last changed.
-	UpdatedAt time.Time `json:"updated_at,omitempty"`
+	UpdatedAt *time.Time `json:"updated_at,omitempty"`
 }
 
 // GetResponse returns the ResponseMetadata that generated this resource

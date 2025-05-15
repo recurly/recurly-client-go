@@ -12,5 +12,5 @@ type PlanRampIntervalCreate struct {
 	StartingBillingCycle *int `json:"starting_billing_cycle,omitempty"`
 
 	// Represents the price for the ramp interval.
-	Currencies []PlanRampPricingCreate `json:"currencies,omitempty"`
+	Currencies *[]PlanRampPricingCreate `json:"currencies,omitempty"`
 }

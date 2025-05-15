@@ -20,10 +20,10 @@ type SubscriptionRampIntervalResponse struct {
 	RemainingBillingCycles int `json:"remaining_billing_cycles,omitempty"`
 
 	// Date the ramp interval starts
-	StartingOn time.Time `json:"starting_on,omitempty"`
+	StartingOn *time.Time `json:"starting_on,omitempty"`
 
 	// Date the ramp interval ends
-	EndingOn time.Time `json:"ending_on,omitempty"`
+	EndingOn *time.Time `json:"ending_on,omitempty"`
 
 	// Represents the price for the ramp interval.
 	UnitAmount float64 `json:"unit_amount,omitempty"`

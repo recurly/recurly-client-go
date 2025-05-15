@@ -35,7 +35,7 @@ type ExternalSubscription struct {
 	Uuid string `json:"uuid,omitempty"`
 
 	// When a new billing event occurred on the external subscription in conjunction with a recent billing period, reactivation or upgrade/downgrade.
-	LastPurchased time.Time `json:"last_purchased,omitempty"`
+	LastPurchased *time.Time `json:"last_purchased,omitempty"`
 
 	// An indication of whether or not the external subscription will auto-renew at the expiration date.
 	AutoRenew bool `json:"auto_renew,omitempty"`
@@ -53,19 +53,19 @@ type ExternalSubscription struct {
 	State string `json:"state,omitempty"`
 
 	// When the external subscription was activated in the external platform.
-	ActivatedAt time.Time `json:"activated_at,omitempty"`
+	ActivatedAt *time.Time `json:"activated_at,omitempty"`
 
 	// When the external subscription was canceled in the external platform.
-	CanceledAt time.Time `json:"canceled_at,omitempty"`
+	CanceledAt *time.Time `json:"canceled_at,omitempty"`
 
 	// When the external subscription expires in the external platform.
-	ExpiresAt time.Time `json:"expires_at,omitempty"`
+	ExpiresAt *time.Time `json:"expires_at,omitempty"`
 
 	// When the external subscription trial period started in the external platform.
-	TrialStartedAt time.Time `json:"trial_started_at,omitempty"`
+	TrialStartedAt *time.Time `json:"trial_started_at,omitempty"`
 
 	// When the external subscription trial period ends in the external platform.
-	TrialEndsAt time.Time `json:"trial_ends_at,omitempty"`
+	TrialEndsAt *time.Time `json:"trial_ends_at,omitempty"`
 
 	// An indication of whether or not the external subscription was purchased in a sandbox environment.
 	Test bool `json:"test,omitempty"`
@@ -74,10 +74,10 @@ type ExternalSubscription struct {
 	Imported bool `json:"imported,omitempty"`
 
 	// When the external subscription was created in Recurly.
-	CreatedAt time.Time `json:"created_at,omitempty"`
+	CreatedAt *time.Time `json:"created_at,omitempty"`
 
 	// When the external subscription was updated in Recurly.
-	UpdatedAt time.Time `json:"updated_at,omitempty"`
+	UpdatedAt *time.Time `json:"updated_at,omitempty"`
 }
 
 // GetResponse returns the ResponseMetadata that generated this resource

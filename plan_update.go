@@ -39,10 +39,10 @@ type PlanUpdate struct {
 	AutoRenew *bool `json:"auto_renew,omitempty"`
 
 	// Ramp Intervals
-	RampIntervals []PlanRampIntervalCreate `json:"ramp_intervals,omitempty"`
+	RampIntervals *[]PlanRampIntervalCreate `json:"ramp_intervals,omitempty"`
 
 	// The custom fields will only be altered when they are included in a request. Sending an empty array will not remove any existing values. To remove a field send the name with a null or empty value.
-	CustomFields []CustomFieldCreate `json:"custom_fields,omitempty"`
+	CustomFields *[]CustomFieldCreate `json:"custom_fields,omitempty"`
 
 	// Revenue schedule type
 	RevenueScheduleType *string `json:"revenue_schedule_type,omitempty"`
@@ -99,7 +99,7 @@ type PlanUpdate struct {
 	VertexTransactionType *string `json:"vertex_transaction_type,omitempty"`
 
 	// Optional when the pricing model is 'ramp'.
-	Currencies []PlanPricingCreate `json:"currencies,omitempty"`
+	Currencies *[]PlanPricingCreate `json:"currencies,omitempty"`
 
 	// Hosted pages settings
 	HostedPages *PlanHostedPagesCreate `json:"hosted_pages,omitempty"`

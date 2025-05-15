@@ -54,8 +54,8 @@ type ItemCreate struct {
 	TaxExempt *bool `json:"tax_exempt,omitempty"`
 
 	// The custom fields will only be altered when they are included in a request. Sending an empty array will not remove any existing values. To remove a field send the name with a null or empty value.
-	CustomFields []CustomFieldCreate `json:"custom_fields,omitempty"`
+	CustomFields *[]CustomFieldCreate `json:"custom_fields,omitempty"`
 
 	// Item Pricing
-	Currencies []PricingCreate `json:"currencies,omitempty"`
+	Currencies *[]PricingCreate `json:"currencies,omitempty"`
 }

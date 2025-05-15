@@ -23,7 +23,7 @@ type UniqueCouponCodeParams struct {
 	Sort string `json:"sort,omitempty"`
 
 	// The date-time to be included when listing UniqueCouponCodes
-	BeginTime time.Time `json:"begin_time,omitempty"`
+	BeginTime *time.Time `json:"begin_time,omitempty"`
 }
 
 // GetResponse returns the ResponseMetadata that generated this resource

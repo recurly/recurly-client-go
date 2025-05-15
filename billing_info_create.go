@@ -50,7 +50,7 @@ type BillingInfoCreate struct {
 	GatewayCode *string `json:"gateway_code,omitempty"`
 
 	// Array of Payment Gateway References, each a reference to a third-party gateway object of varying types.
-	PaymentGatewayReferences []PaymentGatewayReferencesCreate `json:"payment_gateway_references,omitempty"`
+	PaymentGatewayReferences *[]PaymentGatewayReferencesCreate `json:"payment_gateway_references,omitempty"`
 
 	// Additional attributes to send to the gateway.
 	GatewayAttributes *GatewayAttributesCreate `json:"gateway_attributes,omitempty"`

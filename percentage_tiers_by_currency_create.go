@@ -12,5 +12,5 @@ type PercentageTiersByCurrencyCreate struct {
 	Currency *string `json:"currency,omitempty"`
 
 	// Tiers
-	Tiers []PercentageTierCreate `json:"tiers,omitempty"`
+	Tiers *[]PercentageTierCreate `json:"tiers,omitempty"`
 }

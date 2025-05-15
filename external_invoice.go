@@ -39,13 +39,13 @@ type ExternalInvoice struct {
 	LineItems []ExternalCharge `json:"line_items,omitempty"`
 
 	// When the invoice was created in the external platform.
-	PurchasedAt time.Time `json:"purchased_at,omitempty"`
+	PurchasedAt *time.Time `json:"purchased_at,omitempty"`
 
 	// When the external invoice was created in Recurly.
-	CreatedAt time.Time `json:"created_at,omitempty"`
+	CreatedAt *time.Time `json:"created_at,omitempty"`
 
 	// When the external invoice was updated in Recurly.
-	UpdatedAt time.Time `json:"updated_at,omitempty"`
+	UpdatedAt *time.Time `json:"updated_at,omitempty"`
 }
 
 // GetResponse returns the ResponseMetadata that generated this resource

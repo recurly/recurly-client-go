@@ -41,22 +41,22 @@ type Subscription struct {
 	PendingChange SubscriptionChange `json:"pending_change,omitempty"`
 
 	// Current billing period started at
-	CurrentPeriodStartedAt time.Time `json:"current_period_started_at,omitempty"`
+	CurrentPeriodStartedAt *time.Time `json:"current_period_started_at,omitempty"`
 
 	// Current billing period ends at
-	CurrentPeriodEndsAt time.Time `json:"current_period_ends_at,omitempty"`
+	CurrentPeriodEndsAt *time.Time `json:"current_period_ends_at,omitempty"`
 
 	// The start date of the term when the first billing period starts. The subscription term is the length of time that a customer will be committed to a subscription. A term can span multiple billing periods.
-	CurrentTermStartedAt time.Time `json:"current_term_started_at,omitempty"`
+	CurrentTermStartedAt *time.Time `json:"current_term_started_at,omitempty"`
 
 	// When the term ends. This is calculated by a plan's interval and `total_billing_cycles` in a term. Subscription changes with a `timeframe=renewal` will be applied on this date.
-	CurrentTermEndsAt time.Time `json:"current_term_ends_at,omitempty"`
+	CurrentTermEndsAt *time.Time `json:"current_term_ends_at,omitempty"`
 
 	// Trial period started at
-	TrialStartedAt time.Time `json:"trial_started_at,omitempty"`
+	TrialStartedAt *time.Time `json:"trial_started_at,omitempty"`
 
 	// Trial period ends at
-	TrialEndsAt time.Time `json:"trial_ends_at,omitempty"`
+	TrialEndsAt *time.Time `json:"trial_ends_at,omitempty"`
 
 	// The remaining billing cycles in the current term.
 	RemainingBillingCycles int `json:"remaining_billing_cycles,omitempty"`
@@ -74,7 +74,7 @@ type Subscription struct {
 	RampIntervals []SubscriptionRampIntervalResponse `json:"ramp_intervals,omitempty"`
 
 	// Null unless subscription is paused or will pause at the end of the current billing period.
-	PausedAt time.Time `json:"paused_at,omitempty"`
+	PausedAt *time.Time `json:"paused_at,omitempty"`
 
 	// Null unless subscription is paused or will pause at the end of the current billing period.
 	RemainingPauseCycles int `json:"remaining_pause_cycles,omitempty"`
@@ -151,22 +151,22 @@ type Subscription struct {
 	CustomFields []CustomField `json:"custom_fields,omitempty"`
 
 	// Created at
-	CreatedAt time.Time `json:"created_at,omitempty"`
+	CreatedAt *time.Time `json:"created_at,omitempty"`
 
 	// Last updated at
-	UpdatedAt time.Time `json:"updated_at,omitempty"`
+	UpdatedAt *time.Time `json:"updated_at,omitempty"`
 
 	// Activated at
-	ActivatedAt time.Time `json:"activated_at,omitempty"`
+	ActivatedAt *time.Time `json:"activated_at,omitempty"`
 
 	// Canceled at
-	CanceledAt time.Time `json:"canceled_at,omitempty"`
+	CanceledAt *time.Time `json:"canceled_at,omitempty"`
 
 	// Expires at
-	ExpiresAt time.Time `json:"expires_at,omitempty"`
+	ExpiresAt *time.Time `json:"expires_at,omitempty"`
 
 	// Recurring subscriptions paid with ACH will have this attribute set. This timestamp is used for alerting customers to reauthorize in 3 years in accordance with NACHA rules. If a subscription becomes inactive or the billing info is no longer a bank account, this timestamp is cleared.
-	BankAccountAuthorizedAt time.Time `json:"bank_account_authorized_at,omitempty"`
+	BankAccountAuthorizedAt *time.Time `json:"bank_account_authorized_at,omitempty"`
 
 	// If present, this subscription's transactions will use the payment gateway with this code.
 	GatewayCode string `json:"gateway_code,omitempty"`
@@ -184,7 +184,7 @@ type Subscription struct {
 	StartedWithGift bool `json:"started_with_gift,omitempty"`
 
 	// When the subscription was converted from a gift card.
-	ConvertedAt time.Time `json:"converted_at,omitempty"`
+	ConvertedAt *time.Time `json:"converted_at,omitempty"`
 
 	// Action result params to be used in Recurly-JS to complete a payment when using asynchronous payment methods, e.g., Boleto, iDEAL and Sofort.
 	ActionResult map[string]interface{} `json:"action_result,omitempty"`

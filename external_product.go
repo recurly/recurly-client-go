@@ -26,10 +26,10 @@ type ExternalProduct struct {
 	Plan PlanMini `json:"plan,omitempty"`
 
 	// When the external product was created in Recurly.
-	CreatedAt time.Time `json:"created_at,omitempty"`
+	CreatedAt *time.Time `json:"created_at,omitempty"`
 
 	// When the external product was updated in Recurly.
-	UpdatedAt time.Time `json:"updated_at,omitempty"`
+	UpdatedAt *time.Time `json:"updated_at,omitempty"`
 
 	// List of external product references of the external product.
 	ExternalProductReferences []ExternalProductReferenceMini `json:"external_product_references,omitempty"`

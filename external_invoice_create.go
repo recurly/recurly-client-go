@@ -23,7 +23,7 @@ type ExternalInvoiceCreate struct {
 	// When the invoice was created in the external platform.
 	PurchasedAt *time.Time `json:"purchased_at,omitempty"`
 
-	LineItems []ExternalChargeCreate `json:"line_items,omitempty"`
+	LineItems *[]ExternalChargeCreate `json:"line_items,omitempty"`
 
 	ExternalPaymentPhase *ExternalPaymentPhaseBase `json:"external_payment_phase,omitempty"`
 

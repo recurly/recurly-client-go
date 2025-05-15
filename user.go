@@ -26,9 +26,9 @@ type User struct {
 
 	TimeZone string `json:"time_zone,omitempty"`
 
-	CreatedAt time.Time `json:"created_at,omitempty"`
+	CreatedAt *time.Time `json:"created_at,omitempty"`
 
-	DeletedAt time.Time `json:"deleted_at,omitempty"`
+	DeletedAt *time.Time `json:"deleted_at,omitempty"`
 }
 
 // GetResponse returns the ResponseMetadata that generated this resource

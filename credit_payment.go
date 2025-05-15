@@ -46,13 +46,13 @@ type CreditPayment struct {
 	RefundTransaction Transaction `json:"refund_transaction,omitempty"`
 
 	// Created at
-	CreatedAt time.Time `json:"created_at,omitempty"`
+	CreatedAt *time.Time `json:"created_at,omitempty"`
 
 	// Last updated at
-	UpdatedAt time.Time `json:"updated_at,omitempty"`
+	UpdatedAt *time.Time `json:"updated_at,omitempty"`
 
 	// Voided at
-	VoidedAt time.Time `json:"voided_at,omitempty"`
+	VoidedAt *time.Time `json:"voided_at,omitempty"`
 }
 
 // GetResponse returns the ResponseMetadata that generated this resource

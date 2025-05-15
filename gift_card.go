@@ -65,19 +65,19 @@ type GiftCard struct {
 	RevenueGlAccountId string `json:"revenue_gl_account_id,omitempty"`
 
 	// Created at
-	CreatedAt time.Time `json:"created_at,omitempty"`
+	CreatedAt *time.Time `json:"created_at,omitempty"`
 
 	// Last updated at
-	UpdatedAt time.Time `json:"updated_at,omitempty"`
+	UpdatedAt *time.Time `json:"updated_at,omitempty"`
 
 	// When the gift card was sent to the recipient by Recurly via email, if method was email and the "Gift Card Delivery" email template was enabled. This will be empty for post delivery or email delivery where the email template was disabled.
-	DeliveredAt time.Time `json:"delivered_at,omitempty"`
+	DeliveredAt *time.Time `json:"delivered_at,omitempty"`
 
 	// When the gift card was redeemed by the recipient.
-	RedeemedAt time.Time `json:"redeemed_at,omitempty"`
+	RedeemedAt *time.Time `json:"redeemed_at,omitempty"`
 
 	// When the gift card was canceled.
-	CanceledAt time.Time `json:"canceled_at,omitempty"`
+	CanceledAt *time.Time `json:"canceled_at,omitempty"`
 }
 
 // GetResponse returns the ResponseMetadata that generated this resource

@@ -28,7 +28,7 @@ type CouponRedemptionMini struct {
 	Discounted float64 `json:"discounted,omitempty"`
 
 	// Created at
-	CreatedAt time.Time `json:"created_at,omitempty"`
+	CreatedAt *time.Time `json:"created_at,omitempty"`
 }
 
 // GetResponse returns the ResponseMetadata that generated this resource

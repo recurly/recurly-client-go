@@ -26,10 +26,10 @@ type ExternalProductReferenceMini struct {
 	ExternalConnectionType string `json:"external_connection_type,omitempty"`
 
 	// When the external product was created in Recurly.
-	CreatedAt time.Time `json:"created_at,omitempty"`
+	CreatedAt *time.Time `json:"created_at,omitempty"`
 
 	// When the external product was updated in Recurly.
-	UpdatedAt time.Time `json:"updated_at,omitempty"`
+	UpdatedAt *time.Time `json:"updated_at,omitempty"`
 }
 
 // GetResponse returns the ResponseMetadata that generated this resource
