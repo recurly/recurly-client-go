@@ -37,13 +37,13 @@ type CouponRedemption struct {
 	Discounted float64 `json:"discounted,omitempty"`
 
 	// Created at
-	CreatedAt time.Time `json:"created_at,omitempty"`
+	CreatedAt *time.Time `json:"created_at,omitempty"`
 
 	// Last updated at
-	UpdatedAt time.Time `json:"updated_at,omitempty"`
+	UpdatedAt *time.Time `json:"updated_at,omitempty"`
 
 	// The date and time the redemption was removed from the account (un-redeemed).
-	RemovedAt time.Time `json:"removed_at,omitempty"`
+	RemovedAt *time.Time `json:"removed_at,omitempty"`
 }
 
 // GetResponse returns the ResponseMetadata that generated this resource

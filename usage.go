@@ -43,10 +43,10 @@ type Usage struct {
 	MeasuredUnitId string `json:"measured_unit_id,omitempty"`
 
 	// When the usage was recorded in your system.
-	RecordingTimestamp time.Time `json:"recording_timestamp,omitempty"`
+	RecordingTimestamp *time.Time `json:"recording_timestamp,omitempty"`
 
 	// When the usage actually happened. This will define the line item dates this usage is billed under and is important for revenue recognition.
-	UsageTimestamp time.Time `json:"usage_timestamp,omitempty"`
+	UsageTimestamp *time.Time `json:"usage_timestamp,omitempty"`
 
 	// The percentage taken of the monetary amount of usage tracked. This can be up to 4 decimal places. A value between 0.0 and 100.0.
 	UsagePercentage float64 `json:"usage_percentage,omitempty"`
@@ -58,13 +58,13 @@ type Usage struct {
 	UnitAmountDecimal string `json:"unit_amount_decimal,omitempty"`
 
 	// When the usage record was billed on an invoice.
-	BilledAt time.Time `json:"billed_at,omitempty"`
+	BilledAt *time.Time `json:"billed_at,omitempty"`
 
 	// When the usage record was created in Recurly.
-	CreatedAt time.Time `json:"created_at,omitempty"`
+	CreatedAt *time.Time `json:"created_at,omitempty"`
 
 	// When the usage record was billed on an invoice.
-	UpdatedAt time.Time `json:"updated_at,omitempty"`
+	UpdatedAt *time.Time `json:"updated_at,omitempty"`
 }
 
 // GetResponse returns the ResponseMetadata that generated this resource

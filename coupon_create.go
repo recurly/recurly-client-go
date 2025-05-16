@@ -42,7 +42,7 @@ type CouponCreate struct {
 	FreeTrialAmount *int `json:"free_trial_amount,omitempty"`
 
 	// Fixed discount currencies by currency. Required if the coupon type is `fixed`. This parameter should contain the coupon discount values
-	Currencies []CouponPricing `json:"currencies,omitempty"`
+	Currencies *[]CouponPricing `json:"currencies,omitempty"`
 
 	// The coupon is valid for one-time, non-plan charges if true.
 	AppliesToNonPlanCharges *bool `json:"applies_to_non_plan_charges,omitempty"`
@@ -60,13 +60,13 @@ type CouponCreate struct {
 	// List of plan codes to which this coupon applies. Required
 	// if `applies_to_all_plans` is false. Overrides `applies_to_all_plans`
 	// when `applies_to_all_plans` is true.
-	PlanCodes []string `json:"plan_codes,omitempty"`
+	PlanCodes *[]string `json:"plan_codes,omitempty"`
 
 	// List of item codes to which this coupon applies. Sending
 	// `item_codes` is only permitted when `applies_to_all_items` is set to false.
 	// The following values are not permitted when `item_codes` is included:
 	// `free_trial_amount` and `free_trial_unit`.
-	ItemCodes []string `json:"item_codes,omitempty"`
+	ItemCodes *[]string `json:"item_codes,omitempty"`
 
 	// This field does not apply when the discount_type is `free_trial`.
 	// - "single_use" coupons applies to the first invoice only.

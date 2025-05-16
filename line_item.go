@@ -182,19 +182,19 @@ type LineItem struct {
 	ShippingAddress ShippingAddress `json:"shipping_address,omitempty"`
 
 	// If an end date is present, this is value indicates the beginning of a billing time range. If no end date is present it indicates billing for a specific date.
-	StartDate time.Time `json:"start_date,omitempty"`
+	StartDate *time.Time `json:"start_date,omitempty"`
 
 	// If this date is provided, it indicates the end of a time range.
-	EndDate time.Time `json:"end_date,omitempty"`
+	EndDate *time.Time `json:"end_date,omitempty"`
 
 	// The custom fields will only be altered when they are included in a request. Sending an empty array will not remove any existing values. To remove a field send the name with a null or empty value.
 	CustomFields []CustomField `json:"custom_fields,omitempty"`
 
 	// When the line item was created.
-	CreatedAt time.Time `json:"created_at,omitempty"`
+	CreatedAt *time.Time `json:"created_at,omitempty"`
 
 	// When the line item was last changed.
-	UpdatedAt time.Time `json:"updated_at,omitempty"`
+	UpdatedAt *time.Time `json:"updated_at,omitempty"`
 }
 
 // GetResponse returns the ResponseMetadata that generated this resource

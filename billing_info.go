@@ -48,10 +48,10 @@ type BillingInfo struct {
 	PaymentGatewayReferences []PaymentGatewayReferences `json:"payment_gateway_references,omitempty"`
 
 	// When the billing information was created.
-	CreatedAt time.Time `json:"created_at,omitempty"`
+	CreatedAt *time.Time `json:"created_at,omitempty"`
 
 	// When the billing information was last changed.
-	UpdatedAt time.Time `json:"updated_at,omitempty"`
+	UpdatedAt *time.Time `json:"updated_at,omitempty"`
 
 	UpdatedBy BillingInfoUpdatedBy `json:"updated_by,omitempty"`
 }

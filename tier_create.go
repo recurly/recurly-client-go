@@ -15,5 +15,5 @@ type TierCreate struct {
 	UsagePercentage *string `json:"usage_percentage,omitempty"`
 
 	// Tier pricing
-	Currencies []TierPricingCreate `json:"currencies,omitempty"`
+	Currencies *[]TierPricingCreate `json:"currencies,omitempty"`
 }

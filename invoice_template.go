@@ -25,10 +25,10 @@ type InvoiceTemplate struct {
 	Description string `json:"description,omitempty"`
 
 	// When the invoice template was created in Recurly.
-	CreatedAt time.Time `json:"created_at,omitempty"`
+	CreatedAt *time.Time `json:"created_at,omitempty"`
 
 	// When the invoice template was updated in Recurly.
-	UpdatedAt time.Time `json:"updated_at,omitempty"`
+	UpdatedAt *time.Time `json:"updated_at,omitempty"`
 }
 
 // GetResponse returns the ResponseMetadata that generated this resource

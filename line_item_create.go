@@ -80,7 +80,7 @@ type LineItemCreate struct {
 	Origin *string `json:"origin,omitempty"`
 
 	// The custom fields will only be altered when they are included in a request. Sending an empty array will not remove any existing values. To remove a field send the name with a null or empty value.
-	CustomFields []CustomFieldCreate `json:"custom_fields,omitempty"`
+	CustomFields *[]CustomFieldCreate `json:"custom_fields,omitempty"`
 
 	// If an end date is present, this is value indicates the beginning of a billing time range. If no end date is present it indicates billing for a specific date. Defaults to the current date-time.
 	StartDate *time.Time `json:"start_date,omitempty"`

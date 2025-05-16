@@ -22,10 +22,10 @@ type Entitlement struct {
 	GrantedBy []GrantedBy `json:"granted_by,omitempty"`
 
 	// Time object was created.
-	CreatedAt time.Time `json:"created_at,omitempty"`
+	CreatedAt *time.Time `json:"created_at,omitempty"`
 
 	// Time the object was last updated
-	UpdatedAt time.Time `json:"updated_at,omitempty"`
+	UpdatedAt *time.Time `json:"updated_at,omitempty"`
 }
 
 // GetResponse returns the ResponseMetadata that generated this resource

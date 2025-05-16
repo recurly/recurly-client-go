@@ -12,5 +12,5 @@ type SubscriptionRampInterval struct {
 	StartingBillingCycle *int `json:"starting_billing_cycle,omitempty"`
 
 	// Represents the price for the ramp interval.
-	UnitAmount *int `json:"unit_amount,omitempty"`
+	UnitAmount *float64 `json:"unit_amount,omitempty"`
 }

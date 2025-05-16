@@ -20,7 +20,7 @@ type GiftCardDelivery struct {
 	EmailAddress string `json:"email_address,omitempty"`
 
 	// When the gift card should be delivered to the recipient. If null, the gift card will be delivered immediately. If a datetime is provided, the delivery will be in an hourly window, rounding down. For example, 6:23 pm will be in the 6:00 pm hourly batch.
-	DeliverAt time.Time `json:"deliver_at,omitempty"`
+	DeliverAt *time.Time `json:"deliver_at,omitempty"`
 
 	// The first name of the recipient.
 	FirstName string `json:"first_name,omitempty"`

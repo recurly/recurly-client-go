@@ -46,13 +46,13 @@ type SubscriptionCreate struct {
 	Quantity *int `json:"quantity,omitempty"`
 
 	// Add-ons
-	AddOns []SubscriptionAddOnCreate `json:"add_ons,omitempty"`
+	AddOns *[]SubscriptionAddOnCreate `json:"add_ons,omitempty"`
 
 	// A list of coupon_codes to be redeemed on the subscription or account during the purchase.
-	CouponCodes []string `json:"coupon_codes,omitempty"`
+	CouponCodes *[]string `json:"coupon_codes,omitempty"`
 
 	// The custom fields will only be altered when they are included in a request. Sending an empty array will not remove any existing values. To remove a field send the name with a null or empty value.
-	CustomFields []CustomFieldCreate `json:"custom_fields,omitempty"`
+	CustomFields *[]CustomFieldCreate `json:"custom_fields,omitempty"`
 
 	// If set, overrides the default trial behavior for the subscription. When the current date time or a past date time is provided the subscription will begin with no trial phase (overriding any plan default trial). When a future date time is provided the subscription will begin with a trial phase ending at the specified date time.
 	TrialEndsAt *time.Time `json:"trial_ends_at,omitempty"`
@@ -73,7 +73,7 @@ type SubscriptionCreate struct {
 	AutoRenew *bool `json:"auto_renew,omitempty"`
 
 	// The new set of ramp intervals for the subscription.
-	RampIntervals []SubscriptionRampInterval `json:"ramp_intervals,omitempty"`
+	RampIntervals *[]SubscriptionRampInterval `json:"ramp_intervals,omitempty"`
 
 	// Revenue schedule type
 	RevenueScheduleType *string `json:"revenue_schedule_type,omitempty"`

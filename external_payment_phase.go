@@ -20,10 +20,10 @@ type ExternalPaymentPhase struct {
 	Object string `json:"object,omitempty"`
 
 	// Started At
-	StartedAt time.Time `json:"started_at,omitempty"`
+	StartedAt *time.Time `json:"started_at,omitempty"`
 
 	// Ends At
-	EndsAt time.Time `json:"ends_at,omitempty"`
+	EndsAt *time.Time `json:"ends_at,omitempty"`
 
 	// Starting Billing Period Index
 	StartingBillingPeriodIndex int `json:"starting_billing_period_index,omitempty"`
@@ -50,10 +50,10 @@ type ExternalPaymentPhase struct {
 	Currency string `json:"currency,omitempty"`
 
 	// When the external subscription was created in Recurly.
-	CreatedAt time.Time `json:"created_at,omitempty"`
+	CreatedAt *time.Time `json:"created_at,omitempty"`
 
 	// When the external subscription was updated in Recurly.
-	UpdatedAt time.Time `json:"updated_at,omitempty"`
+	UpdatedAt *time.Time `json:"updated_at,omitempty"`
 }
 
 // GetResponse returns the ResponseMetadata that generated this resource

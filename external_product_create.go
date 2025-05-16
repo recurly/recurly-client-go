@@ -15,5 +15,5 @@ type ExternalProductCreate struct {
 	PlanId *string `json:"plan_id,omitempty"`
 
 	// List of external product references of the external product.
-	ExternalProductReferences []ExternalProductReferenceBase `json:"external_product_references,omitempty"`
+	ExternalProductReferences *[]ExternalProductReferenceBase `json:"external_product_references,omitempty"`
 }

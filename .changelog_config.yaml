@@ -1,9 +1,9 @@
 ---
 owner: recurly
 repo: recurly-client-go
-tag_matcher: ^v4\..*
+tag_matcher: ^v5\..*
 required_issue_labels:
-  - V4
+  - V5
 exclude_labels:
   - bug?
   - internal

@@ -32,16 +32,16 @@ type UniqueCouponCode struct {
 	BulkCouponCode string `json:"bulk_coupon_code,omitempty"`
 
 	// Created at
-	CreatedAt time.Time `json:"created_at,omitempty"`
+	CreatedAt *time.Time `json:"created_at,omitempty"`
 
 	// Updated at
-	UpdatedAt time.Time `json:"updated_at,omitempty"`
+	UpdatedAt *time.Time `json:"updated_at,omitempty"`
 
 	// The date and time the unique coupon code was redeemed.
-	RedeemedAt time.Time `json:"redeemed_at,omitempty"`
+	RedeemedAt *time.Time `json:"redeemed_at,omitempty"`
 
 	// The date and time the coupon was expired early or reached its `max_redemptions`.
-	ExpiredAt time.Time `json:"expired_at,omitempty"`
+	ExpiredAt *time.Time `json:"expired_at,omitempty"`
 }
 
 // GetResponse returns the ResponseMetadata that generated this resource

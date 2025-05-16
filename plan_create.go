@@ -47,10 +47,10 @@ type PlanCreate struct {
 	PricingModel *string `json:"pricing_model,omitempty"`
 
 	// Ramp Intervals
-	RampIntervals []PlanRampIntervalCreate `json:"ramp_intervals,omitempty"`
+	RampIntervals *[]PlanRampIntervalCreate `json:"ramp_intervals,omitempty"`
 
 	// The custom fields will only be altered when they are included in a request. Sending an empty array will not remove any existing values. To remove a field send the name with a null or empty value.
-	CustomFields []CustomFieldCreate `json:"custom_fields,omitempty"`
+	CustomFields *[]CustomFieldCreate `json:"custom_fields,omitempty"`
 
 	// Revenue schedule type
 	RevenueScheduleType *string `json:"revenue_schedule_type,omitempty"`
@@ -107,13 +107,13 @@ type PlanCreate struct {
 	VertexTransactionType *string `json:"vertex_transaction_type,omitempty"`
 
 	// Pricing
-	Currencies []PlanPricingCreate `json:"currencies,omitempty"`
+	Currencies *[]PlanPricingCreate `json:"currencies,omitempty"`
 
 	// Hosted pages settings
 	HostedPages *PlanHostedPagesCreate `json:"hosted_pages,omitempty"`
 
 	// Add Ons
-	AddOns []AddOnCreate `json:"add_ons,omitempty"`
+	AddOns *[]AddOnCreate `json:"add_ons,omitempty"`
 
 	// Used to determine whether items can be assigned as add-ons to individual subscriptions.
 	// If `true`, items can be assigned as add-ons to individual subscription add-ons.

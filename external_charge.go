@@ -36,10 +36,10 @@ type ExternalCharge struct {
 	ExternalProductReference ExternalProductReferenceMini `json:"external_product_reference,omitempty"`
 
 	// When the external charge was created in Recurly.
-	CreatedAt time.Time `json:"created_at,omitempty"`
+	CreatedAt *time.Time `json:"created_at,omitempty"`
 
 	// When the external charge was updated in Recurly.
-	UpdatedAt time.Time `json:"updated_at,omitempty"`
+	UpdatedAt *time.Time `json:"updated_at,omitempty"`
 }
 
 // GetResponse returns the ResponseMetadata that generated this resource

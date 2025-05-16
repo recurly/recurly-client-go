@@ -26,10 +26,10 @@ type SubscriptionPurchase struct {
 	Quantity *int `json:"quantity,omitempty"`
 
 	// Add-ons
-	AddOns []SubscriptionAddOnCreate `json:"add_ons,omitempty"`
+	AddOns *[]SubscriptionAddOnCreate `json:"add_ons,omitempty"`
 
 	// The custom fields will only be altered when they are included in a request. Sending an empty array will not remove any existing values. To remove a field send the name with a null or empty value.
-	CustomFields []CustomFieldCreate `json:"custom_fields,omitempty"`
+	CustomFields *[]CustomFieldCreate `json:"custom_fields,omitempty"`
 
 	// Create a shipping address on the account and assign it to the subscription.
 	Shipping *SubscriptionShippingPurchase `json:"shipping,omitempty"`
@@ -56,7 +56,7 @@ type SubscriptionPurchase struct {
 	RevenueScheduleType *string `json:"revenue_schedule_type,omitempty"`
 
 	// The new set of ramp intervals for the subscription.
-	RampIntervals []SubscriptionRampInterval `json:"ramp_intervals,omitempty"`
+	RampIntervals *[]SubscriptionRampInterval `json:"ramp_intervals,omitempty"`
 
 	// Optional field to be used only when needing to bypass the 60 second limit on creating subscriptions. Should only be used when creating subscriptions in bulk from the API.
 	Bulk *bool `json:"bulk,omitempty"`
