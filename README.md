@@ -13,14 +13,14 @@ Documentation for the HTTP API and example code can be found [on our Developer H
 Install using `go get`:
 
 ```
-go get -u github.com/recurly/recurly-client-go/v4
+go get -u github.com/recurly/recurly-client-go/v5
 ```
 
 import with:
 
 ```go
 import (
-    "github.com/recurly/recurly-client-go/v4"
+    "github.com/recurly/recurly-client-go/v5"
 )
 ```
 
