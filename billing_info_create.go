@@ -55,7 +55,7 @@ type BillingInfoCreate struct {
 	// Additional attributes to send to the gateway.
 	GatewayAttributes *GatewayAttributesCreate `json:"gateway_attributes,omitempty"`
 
-	// Amazon billing agreement ID
+	// Only supported on Amazon V1. For Amazon V2, use token_id with Recurly.js.
 	AmazonBillingAgreementId *string `json:"amazon_billing_agreement_id,omitempty"`
 
 	// PayPal billing agreement ID

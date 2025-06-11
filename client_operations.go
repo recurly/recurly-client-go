@@ -81,6 +81,12 @@ type ClientInterface interface {
 	RemoveABillingInfo(accountId string, billingInfoId string, opts ...Option) (*Empty, error)
 	RemoveABillingInfoWithContext(ctx context.Context, accountId string, billingInfoId string, opts ...Option) (*Empty, error)
 
+	VerifyBillingInfos(accountId string, billingInfoId string, params *VerifyBillingInfosParams, opts ...Option) (*Transaction, error)
+	VerifyBillingInfosWithContext(ctx context.Context, accountId string, billingInfoId string, params *VerifyBillingInfosParams, opts ...Option) (*Transaction, error)
+
+	VerifyBillingInfosCvv(accountId string, billingInfoId string, body *BillingInfoVerifyCVV, opts ...Option) (*Transaction, error)
+	VerifyBillingInfosCvvWithContext(ctx context.Context, accountId string, billingInfoId string, body *BillingInfoVerifyCVV, opts ...Option) (*Transaction, error)
+
 	ListAccountCouponRedemptions(accountId string, params *ListAccountCouponRedemptionsParams, opts ...Option) (CouponRedemptionLister, error)
 
 	ListActiveCouponRedemptions(accountId string, opts ...Option) (CouponRedemptionLister, error)
@@ -1305,6 +1311,76 @@ func (c *Client) removeABillingInfo(ctx context.Context, accountId string, billi
 	requestOptions := NewRequestOptions(opts...)
 	result := &Empty{}
 	err = c.Call(ctx, http.MethodDelete, path, nil, nil, requestOptions, result)
+	if err != nil {
+		return nil, err
+	}
+	return result, err
+}
+
+type VerifyBillingInfosParams struct {
+
+	// Body - The body of the request.
+	Body *BillingInfoVerify
+}
+
+func (list *VerifyBillingInfosParams) URLParams() []KeyValue {
+	var options []KeyValue
+
+	return options
+}
+
+// VerifyBillingInfos wraps VerifyBillingInfosWithContext using the background context
+func (c *Client) VerifyBillingInfos(accountId string, billingInfoId string, params *VerifyBillingInfosParams, opts ...Option) (*Transaction, error) {
+	ctx := context.Background()
+	return c.verifyBillingInfos(ctx, accountId, billingInfoId, params, opts...)
+}
+
+// VerifyBillingInfosWithContext Verify a billing information's credit card
+//
+// API Documentation: https://developers.recurly.com/api/v2021-02-25#operation/verify_billing_infos
+//
+// Returns: Transaction information from verify.
+func (c *Client) VerifyBillingInfosWithContext(ctx context.Context, accountId string, billingInfoId string, params *VerifyBillingInfosParams, opts ...Option) (*Transaction, error) {
+	return c.verifyBillingInfos(ctx, accountId, billingInfoId, params, opts...)
+}
+
+func (c *Client) verifyBillingInfos(ctx context.Context, accountId string, billingInfoId string, params *VerifyBillingInfosParams, opts ...Option) (*Transaction, error) {
+	path, err := c.InterpolatePath("/accounts/{account_id}/billing_infos/{billing_info_id}/verify", accountId, billingInfoId)
+	if err != nil {
+		return nil, err
+	}
+	requestOptions := NewRequestOptions(opts...)
+	result := &Transaction{}
+	err = c.Call(ctx, http.MethodPost, path, nil, params, requestOptions, result)
+	if err != nil {
+		return nil, err
+	}
+	return result, err
+}
+
+// VerifyBillingInfosCvv wraps VerifyBillingInfosCvvWithContext using the background context
+func (c *Client) VerifyBillingInfosCvv(accountId string, billingInfoId string, body *BillingInfoVerifyCVV, opts ...Option) (*Transaction, error) {
+	ctx := context.Background()
+	return c.verifyBillingInfosCvv(ctx, accountId, billingInfoId, body, opts...)
+}
+
+// VerifyBillingInfosCvvWithContext Verify a billing information's credit card cvv
+//
+// API Documentation: https://developers.recurly.com/api/v2021-02-25#operation/verify_billing_infos_cvv
+//
+// Returns: Transaction information from verify.
+func (c *Client) VerifyBillingInfosCvvWithContext(ctx context.Context, accountId string, billingInfoId string, body *BillingInfoVerifyCVV, opts ...Option) (*Transaction, error) {
+	return c.verifyBillingInfosCvv(ctx, accountId, billingInfoId, body, opts...)
+}
+
+func (c *Client) verifyBillingInfosCvv(ctx context.Context, accountId string, billingInfoId string, body *BillingInfoVerifyCVV, opts ...Option) (*Transaction, error) {
+	path, err := c.InterpolatePath("/accounts/{account_id}/billing_infos/{billing_info_id}/verify_cvv", accountId, billingInfoId)
+	if err != nil {
+		return nil, err
+	}
+	requestOptions := NewRequestOptions(opts...)
+	result := &Transaction{}
+	err = c.Call(ctx, http.MethodPost, path, body, nil, requestOptions, result)
 	if err != nil {
 		return nil, err
 	}
