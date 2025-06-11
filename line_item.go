@@ -95,7 +95,7 @@ type LineItem struct {
 	// 3-letter ISO 4217 currency code.
 	Currency string `json:"currency,omitempty"`
 
-	// `(quantity * unit_amount) - (discount + tax)`
+	// `(quantity * unit_amount) - discount + tax`
 	Amount float64 `json:"amount,omitempty"`
 
 	// Description that appears on the invoice. For subscription related items this will be filled in automatically.
