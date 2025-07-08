@@ -4,7 +4,9 @@
 // need and we will usher them to the appropriate places.
 package recurly
 
-import ()
+import (
+	"time"
+)
 
 type AccountAcquisitionUpdate struct {
 
@@ -19,4 +21,7 @@ type AccountAcquisitionUpdate struct {
 
 	// An arbitrary identifier for the marketing campaign that led to the acquisition of this account.
 	Campaign *string `json:"campaign,omitempty"`
+
+	// Date the account was first created if different than the account.created_at. ie Importing accounts.
+	AcquiredAt *time.Time `json:"acquired_at,omitempty"`
 }

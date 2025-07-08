@@ -12,5 +12,5 @@ type ExternalProductReferenceUpdate struct {
 	ReferenceCode *string `json:"reference_code,omitempty"`
 
 	// Represents the connection type. One of the connection types of your enabled App Connectors
-	ExternalConnectionType *ExternalProductReferenceConnectionType `json:"external_connection_type,omitempty"`
+	ExternalConnectionType *string `json:"external_connection_type,omitempty"`
 }

@@ -4,7 +4,9 @@
 // need and we will usher them to the appropriate places.
 package recurly
 
-import ()
+import (
+	"time"
+)
 
 type SubscriptionShippingCreate struct {
 	Address *ShippingAddressCreate `json:"address,omitempty"`
@@ -20,4 +22,7 @@ type SubscriptionShippingCreate struct {
 
 	// Assigns the subscription's shipping cost. If this is greater than zero then a `method_id` or `method_code` is required.
 	Amount *float64 `json:"amount,omitempty"`
+
+	// The expected date of the first delivery for the subscription.
+	ExpectedFirstDeliveryAt *time.Time `json:"expected_first_delivery_at,omitempty"`
 }
