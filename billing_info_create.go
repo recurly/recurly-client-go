@@ -67,6 +67,9 @@ type BillingInfoCreate struct {
 	// Fraud Session ID
 	FraudSessionId *string `json:"fraud_session_id,omitempty"`
 
+	// The Adyen Risk Profile Reference ID is used to identify the risk profile for the payment method.
+	AdyenRiskProfileReferenceId *string `json:"adyen_risk_profile_reference_id,omitempty"`
+
 	// An optional type designation for the payment gateway transaction created by this request. Supports 'moto' value, which is the acronym for mail order and telephone transactions.
 	TransactionType *string `json:"transaction_type,omitempty"`
 
