@@ -40,6 +40,9 @@ type SubscriptionUpdate struct {
 	// For manual invoicing, this identifies the PO number associated with the subscription.
 	PoNumber *string `json:"po_number,omitempty"`
 
+	// The price segment ID, e.g. `e28zov4fw0v2`.
+	PriceSegmentId *string `json:"price_segment_id,omitempty"`
+
 	// Integer paired with `Net Terms Type` and representing the number
 	// of days past the current date (for `net` Net Terms Type) or days after
 	// the last day of the current month (for `eom` Net Terms Type) that the

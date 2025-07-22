@@ -9,57 +9,48 @@ import (
 	"net/http"
 )
 
-type PlanRampPricing struct {
+type UnitAmount struct {
 	recurlyResponse *ResponseMetadata
-
-	// 3-letter ISO 4217 currency code.
-	Currency string `json:"currency,omitempty"`
-
-	// Represents the price for the Ramp Interval.
-	UnitAmount float64 `json:"unit_amount,omitempty"`
-
-	// The price segment ID or code. For ID no prefix is used e.g. `e28zov4fw0v2`. For requests, the code can also be used. Use prefix `code-`, e.g. `code-gold`.
-	PriceSegmentId string `json:"price_segment_id,omitempty"`
 }
 
 // GetResponse returns the ResponseMetadata that generated this resource
-func (resource *PlanRampPricing) GetResponse() *ResponseMetadata {
+func (resource *UnitAmount) GetResponse() *ResponseMetadata {
 	return resource.recurlyResponse
 }
 
 // setResponse sets the ResponseMetadata that generated this resource
-func (resource *PlanRampPricing) setResponse(res *ResponseMetadata) {
+func (resource *UnitAmount) setResponse(res *ResponseMetadata) {
 	resource.recurlyResponse = res
 }
 
 // internal struct for deserializing accounts
-type planRampPricingList struct {
+type unitAmountList struct {
 	ListMetadata
-	Data            []PlanRampPricing `json:"data"`
+	Data            []UnitAmount `json:"data"`
 	recurlyResponse *ResponseMetadata
 }
 
 // GetResponse returns the ResponseMetadata that generated this resource
-func (resource *planRampPricingList) GetResponse() *ResponseMetadata {
+func (resource *unitAmountList) GetResponse() *ResponseMetadata {
 	return resource.recurlyResponse
 }
 
 // setResponse sets the ResponseMetadata that generated this resource
-func (resource *planRampPricingList) setResponse(res *ResponseMetadata) {
+func (resource *unitAmountList) setResponse(res *ResponseMetadata) {
 	resource.recurlyResponse = res
 }
 
-// PlanRampPricingList allows you to paginate PlanRampPricing objects
-type PlanRampPricingList struct {
+// UnitAmountList allows you to paginate UnitAmount objects
+type UnitAmountList struct {
 	client         HTTPCaller
 	requestOptions *RequestOptions
 	nextPagePath   string
 	hasMore        bool
-	data           []PlanRampPricing
+	data           []UnitAmount
 }
 
-func NewPlanRampPricingList(client HTTPCaller, nextPagePath string, requestOptions *RequestOptions) *PlanRampPricingList {
-	return &PlanRampPricingList{
+func NewUnitAmountList(client HTTPCaller, nextPagePath string, requestOptions *RequestOptions) *UnitAmountList {
+	return &UnitAmountList{
 		client:         client,
 		requestOptions: requestOptions,
 		nextPagePath:   nextPagePath,
@@ -67,31 +58,31 @@ func NewPlanRampPricingList(client HTTPCaller, nextPagePath string, requestOptio
 	}
 }
 
-type PlanRampPricingLister interface {
+type UnitAmountLister interface {
 	Fetch() error
 	FetchWithContext(ctx context.Context) error
 	Count() (*int64, error)
 	CountWithContext(ctx context.Context) (*int64, error)
-	Data() []PlanRampPricing
+	Data() []UnitAmount
 	HasMore() bool
 	Next() string
 }
 
-func (list *PlanRampPricingList) HasMore() bool {
+func (list *UnitAmountList) HasMore() bool {
 	return list.hasMore
 }
 
-func (list *PlanRampPricingList) Next() string {
+func (list *UnitAmountList) Next() string {
 	return list.nextPagePath
 }
 
-func (list *PlanRampPricingList) Data() []PlanRampPricing {
+func (list *UnitAmountList) Data() []UnitAmount {
 	return list.data
 }
 
 // Fetch fetches the next page of data into the `Data` property
-func (list *PlanRampPricingList) FetchWithContext(ctx context.Context) error {
-	resources := &planRampPricingList{}
+func (list *UnitAmountList) FetchWithContext(ctx context.Context) error {
+	resources := &unitAmountList{}
 	err := list.client.Call(ctx, http.MethodGet, list.nextPagePath, nil, nil, list.requestOptions, resources)
 	if err != nil {
 		return err
@@ -104,13 +95,13 @@ func (list *PlanRampPricingList) FetchWithContext(ctx context.Context) error {
 }
 
 // Fetch fetches the next page of data into the `Data` property
-func (list *PlanRampPricingList) Fetch() error {
+func (list *UnitAmountList) Fetch() error {
 	return list.FetchWithContext(context.Background())
 }
 
 // Count returns the count of items on the server that match this pager
-func (list *PlanRampPricingList) CountWithContext(ctx context.Context) (*int64, error) {
-	resources := &planRampPricingList{}
+func (list *UnitAmountList) CountWithContext(ctx context.Context) (*int64, error) {
+	resources := &unitAmountList{}
 	err := list.client.Call(ctx, http.MethodHead, list.nextPagePath, nil, nil, list.requestOptions, resources)
 	if err != nil {
 		return nil, err
@@ -120,6 +111,6 @@ func (list *PlanRampPricingList) CountWithContext(ctx context.Context) (*int64, 
 }
 
 // Count returns the count of items on the server that match this pager
-func (list *PlanRampPricingList) Count() (*int64, error) {
+func (list *UnitAmountList) Count() (*int64, error) {
 	return list.CountWithContext(context.Background())
 }

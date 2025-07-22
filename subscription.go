@@ -109,6 +109,9 @@ type Subscription struct {
 	// Only for merchants using Recurly's In-The-Box taxes.
 	TaxInfo TaxInfo `json:"tax_info,omitempty"`
 
+	// The price segment ID or code. For ID no prefix is used e.g. `e28zov4fw0v2`. For requests, the code can also be used. Use prefix `code-`, e.g. `code-gold`.
+	PriceSegmentId string `json:"price_segment_id,omitempty"`
+
 	// Estimated total
 	Total float64 `json:"total,omitempty"`
 

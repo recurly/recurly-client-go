@@ -6,13 +6,11 @@ package recurly
 
 import ()
 
-type PricingCreate struct {
+type PlanSetupPricingCreate struct {
 
 	// 3-letter ISO 4217 currency code.
 	Currency *string `json:"currency,omitempty"`
 
+	// Amount of one-time setup fee automatically charged at the beginning of a subscription billing cycle. For subscription plans with a trial, the setup fee will be charged at the time of signup. Setup fees do not increase with the quantity of a subscription plan.
 	UnitAmount *float64 `json:"unit_amount,omitempty"`
-
-	// This field is deprecated. Please do not use it.
-	TaxInclusive *bool `json:"tax_inclusive,omitempty"`
 }

@@ -9,57 +9,54 @@ import (
 	"net/http"
 )
 
-type PlanRampPricing struct {
+type PlanSetupPricing struct {
 	recurlyResponse *ResponseMetadata
 
 	// 3-letter ISO 4217 currency code.
 	Currency string `json:"currency,omitempty"`
 
-	// Represents the price for the Ramp Interval.
+	// Amount of one-time setup fee automatically charged at the beginning of a subscription billing cycle. For subscription plans with a trial, the setup fee will be charged at the time of signup. Setup fees do not increase with the quantity of a subscription plan.
 	UnitAmount float64 `json:"unit_amount,omitempty"`
-
-	// The price segment ID or code. For ID no prefix is used e.g. `e28zov4fw0v2`. For requests, the code can also be used. Use prefix `code-`, e.g. `code-gold`.
-	PriceSegmentId string `json:"price_segment_id,omitempty"`
 }
 
 // GetResponse returns the ResponseMetadata that generated this resource
-func (resource *PlanRampPricing) GetResponse() *ResponseMetadata {
+func (resource *PlanSetupPricing) GetResponse() *ResponseMetadata {
 	return resource.recurlyResponse
 }
 
 // setResponse sets the ResponseMetadata that generated this resource
-func (resource *PlanRampPricing) setResponse(res *ResponseMetadata) {
+func (resource *PlanSetupPricing) setResponse(res *ResponseMetadata) {
 	resource.recurlyResponse = res
 }
 
 // internal struct for deserializing accounts
-type planRampPricingList struct {
+type planSetupPricingList struct {
 	ListMetadata
-	Data            []PlanRampPricing `json:"data"`
+	Data            []PlanSetupPricing `json:"data"`
 	recurlyResponse *ResponseMetadata
 }
 
 // GetResponse returns the ResponseMetadata that generated this resource
-func (resource *planRampPricingList) GetResponse() *ResponseMetadata {
+func (resource *planSetupPricingList) GetResponse() *ResponseMetadata {
 	return resource.recurlyResponse
 }
 
 // setResponse sets the ResponseMetadata that generated this resource
-func (resource *planRampPricingList) setResponse(res *ResponseMetadata) {
+func (resource *planSetupPricingList) setResponse(res *ResponseMetadata) {
 	resource.recurlyResponse = res
 }
 
-// PlanRampPricingList allows you to paginate PlanRampPricing objects
-type PlanRampPricingList struct {
+// PlanSetupPricingList allows you to paginate PlanSetupPricing objects
+type PlanSetupPricingList struct {
 	client         HTTPCaller
 	requestOptions *RequestOptions
 	nextPagePath   string
 	hasMore        bool
-	data           []PlanRampPricing
+	data           []PlanSetupPricing
 }
 
-func NewPlanRampPricingList(client HTTPCaller, nextPagePath string, requestOptions *RequestOptions) *PlanRampPricingList {
-	return &PlanRampPricingList{
+func NewPlanSetupPricingList(client HTTPCaller, nextPagePath string, requestOptions *RequestOptions) *PlanSetupPricingList {
+	return &PlanSetupPricingList{
 		client:         client,
 		requestOptions: requestOptions,
 		nextPagePath:   nextPagePath,
@@ -67,31 +64,31 @@ func NewPlanRampPricingList(client HTTPCaller, nextPagePath string, requestOptio
 	}
 }
 
-type PlanRampPricingLister interface {
+type PlanSetupPricingLister interface {
 	Fetch() error
 	FetchWithContext(ctx context.Context) error
 	Count() (*int64, error)
 	CountWithContext(ctx context.Context) (*int64, error)
-	Data() []PlanRampPricing
+	Data() []PlanSetupPricing
 	HasMore() bool
 	Next() string
 }
 
-func (list *PlanRampPricingList) HasMore() bool {
+func (list *PlanSetupPricingList) HasMore() bool {
 	return list.hasMore
 }
 
-func (list *PlanRampPricingList) Next() string {
+func (list *PlanSetupPricingList) Next() string {
 	return list.nextPagePath
 }
 
-func (list *PlanRampPricingList) Data() []PlanRampPricing {
+func (list *PlanSetupPricingList) Data() []PlanSetupPricing {
 	return list.data
 }
 
 // Fetch fetches the next page of data into the `Data` property
-func (list *PlanRampPricingList) FetchWithContext(ctx context.Context) error {
-	resources := &planRampPricingList{}
+func (list *PlanSetupPricingList) FetchWithContext(ctx context.Context) error {
+	resources := &planSetupPricingList{}
 	err := list.client.Call(ctx, http.MethodGet, list.nextPagePath, nil, nil, list.requestOptions, resources)
 	if err != nil {
 		return err
@@ -104,13 +101,13 @@ func (list *PlanRampPricingList) FetchWithContext(ctx context.Context) error {
 }
 
 // Fetch fetches the next page of data into the `Data` property
-func (list *PlanRampPricingList) Fetch() error {
+func (list *PlanSetupPricingList) Fetch() error {
 	return list.FetchWithContext(context.Background())
 }
 
 // Count returns the count of items on the server that match this pager
-func (list *PlanRampPricingList) CountWithContext(ctx context.Context) (*int64, error) {
-	resources := &planRampPricingList{}
+func (list *PlanSetupPricingList) CountWithContext(ctx context.Context) (*int64, error) {
+	resources := &planSetupPricingList{}
 	err := list.client.Call(ctx, http.MethodHead, list.nextPagePath, nil, nil, list.requestOptions, resources)
 	if err != nil {
 		return nil, err
@@ -120,6 +117,6 @@ func (list *PlanRampPricingList) CountWithContext(ctx context.Context) (*int64, 
 }
 
 // Count returns the count of items on the server that match this pager
-func (list *PlanRampPricingList) Count() (*int64, error) {
+func (list *PlanSetupPricingList) Count() (*int64, error) {
 	return list.CountWithContext(context.Background())
 }
