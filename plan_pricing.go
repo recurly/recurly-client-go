@@ -15,11 +15,14 @@ type PlanPricing struct {
 	// 3-letter ISO 4217 currency code.
 	Currency string `json:"currency,omitempty"`
 
-	// Amount of one-time setup fee automatically charged at the beginning of a subscription billing cycle. For subscription plans with a trial, the setup fee will be charged at the time of signup. Setup fees do not increase with the quantity of a subscription plan.
+	// This field is deprecated, please use top level `setup_fees` instead. Amount of one-time setup fee automatically charged at the beginning of a subscription billing cycle. For subscription plans with a trial, the setup fee will be charged at the time of signup. Setup fees do not increase with the quantity of a subscription plan.
 	SetupFee float64 `json:"setup_fee,omitempty"`
 
-	// This field should not be sent when the pricing model is 'ramp'.
+	// This field should not be sent when the pricing model is `'ramp'`.
 	UnitAmount float64 `json:"unit_amount,omitempty"`
+
+	// The price segment ID or code. For ID no prefix is used e.g. `e28zov4fw0v2`. For requests, the code can also be used. Use prefix `code-`, e.g. `code-gold`.
+	PriceSegmentId string `json:"price_segment_id,omitempty"`
 
 	// This field is deprecated. Please do not use it.
 	TaxInclusive bool `json:"tax_inclusive,omitempty"`

@@ -15,7 +15,6 @@ type Pricing struct {
 	// 3-letter ISO 4217 currency code.
 	Currency string `json:"currency,omitempty"`
 
-	// Unit price
 	UnitAmount float64 `json:"unit_amount,omitempty"`
 
 	// This field is deprecated. Please do not use it.

@@ -351,6 +351,11 @@ type ClientInterface interface {
 	RemovePlanAddOn(planId string, addOnId string, opts ...Option) (*AddOn, error)
 	RemovePlanAddOnWithContext(ctx context.Context, planId string, addOnId string, opts ...Option) (*AddOn, error)
 
+	ListPriceSegments(params *ListPriceSegmentsParams, opts ...Option) (PriceSegmentLister, error)
+
+	GetPriceSegment(priceSegmentId string, opts ...Option) (*PriceSegment, error)
+	GetPriceSegmentWithContext(ctx context.Context, priceSegmentId string, opts ...Option) (*PriceSegment, error)
+
 	ListAddOns(params *ListAddOnsParams, opts ...Option) (AddOnLister, error)
 
 	GetAddOn(addOnId string, opts ...Option) (*AddOn, error)
@@ -5550,6 +5555,88 @@ func (c *Client) removePlanAddOn(ctx context.Context, planId string, addOnId str
 	requestOptions := NewRequestOptions(opts...)
 	result := &AddOn{}
 	err = c.Call(ctx, http.MethodDelete, path, nil, nil, requestOptions, result)
+	if err != nil {
+		return nil, err
+	}
+	return result, err
+}
+
+type ListPriceSegmentsParams struct {
+
+	// Ids - Filter results by their IDs. Up to 200 IDs can be passed at once using
+	// commas as separators, e.g. `ids=h1at4d57xlmy,gyqgg0d3v9n1,jrsm5b4yefg6`.
+	// **Important notes:**
+	// * The `ids` parameter cannot be used with any other ordering or filtering
+	//   parameters (`limit`, `order`, `sort`, `begin_time`, `end_time`, etc)
+	// * Invalid or unknown IDs will be ignored, so you should check that the
+	//   results correspond to your request.
+	// * Records are returned in an arbitrary order. Since results are all
+	//   returned at once you can sort the records yourself.
+	Ids *[]string
+
+	// Limit - Limit number of records 1-200.
+	Limit *int
+
+	// Order - Sort order.
+	Order *string
+}
+
+func (list *ListPriceSegmentsParams) URLParams() []KeyValue {
+	var options []KeyValue
+
+	if list.Ids != nil {
+		options = append(options, KeyValue{Key: "ids", Value: strings.Join(*list.Ids, ",")})
+	}
+
+	if list.Limit != nil {
+		options = append(options, KeyValue{Key: "limit", Value: strconv.Itoa(*list.Limit)})
+	}
+
+	if list.Order != nil {
+		options = append(options, KeyValue{Key: "order", Value: *list.Order})
+	}
+
+	return options
+}
+
+// ListPriceSegments List a site's price segments
+//
+// API Documentation: https://developers.recurly.com/api/v2021-02-25#operation/list_price_segments
+//
+// Returns: A list of price segments.
+func (c *Client) ListPriceSegments(params *ListPriceSegmentsParams, opts ...Option) (PriceSegmentLister, error) {
+	path, err := c.InterpolatePath("/price_segments")
+	if err != nil {
+		return nil, err
+	}
+	requestOptions := NewRequestOptions(opts...)
+	path = BuildURL(path, params)
+	return NewPriceSegmentList(c, path, requestOptions), nil
+}
+
+// GetPriceSegment wraps GetPriceSegmentWithContext using the background context
+func (c *Client) GetPriceSegment(priceSegmentId string, opts ...Option) (*PriceSegment, error) {
+	ctx := context.Background()
+	return c.getPriceSegment(ctx, priceSegmentId, opts...)
+}
+
+// GetPriceSegmentWithContext Fetch a price segment
+//
+// API Documentation: https://developers.recurly.com/api/v2021-02-25#operation/get_price_segment
+//
+// Returns: A price segment.
+func (c *Client) GetPriceSegmentWithContext(ctx context.Context, priceSegmentId string, opts ...Option) (*PriceSegment, error) {
+	return c.getPriceSegment(ctx, priceSegmentId, opts...)
+}
+
+func (c *Client) getPriceSegment(ctx context.Context, priceSegmentId string, opts ...Option) (*PriceSegment, error) {
+	path, err := c.InterpolatePath("/price_segments/{price_segment_id}", priceSegmentId)
+	if err != nil {
+		return nil, err
+	}
+	requestOptions := NewRequestOptions(opts...)
+	result := &PriceSegment{}
+	err = c.Call(ctx, http.MethodGet, path, nil, nil, requestOptions, result)
 	if err != nil {
 		return nil, err
 	}

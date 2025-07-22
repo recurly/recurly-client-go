@@ -19,6 +19,9 @@ type SubscriptionPurchase struct {
 	// Override the unit amount of the subscription plan by setting this value. If not provided, the subscription will inherit the price from the subscription plan for the provided currency.
 	UnitAmount *float64 `json:"unit_amount,omitempty"`
 
+	// The price segment ID or code. For ID no prefix is used e.g. `e28zov4fw0v2`. For requests, the code can also be used. Use prefix `code-`, e.g. `code-gold`.
+	PriceSegmentId *string `json:"price_segment_id,omitempty"`
+
 	// Determines whether or not tax is included in the unit amount. The Tax Inclusive Pricing feature (separate from the Mixed Tax Pricing feature) must be enabled to use this flag.
 	TaxInclusive *bool `json:"tax_inclusive,omitempty"`
 

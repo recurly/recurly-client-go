@@ -13,4 +13,7 @@ type PlanRampPricingCreate struct {
 
 	// Represents the price for the Ramp Interval.
 	UnitAmount *float64 `json:"unit_amount,omitempty"`
+
+	// The price segment ID or code. For ID no prefix is used e.g. `e28zov4fw0v2`. For requests, the code can also be used. Use prefix `code-`, e.g. `code-gold`.
+	PriceSegmentId *string `json:"price_segment_id,omitempty"`
 }
