@@ -73,9 +73,10 @@ rm -f external_product.go
 rm -f external_product_reference_collection.go
 rm -f binary_file.go
 rm -f plan.go
+rm -f plan_pricing.go
 rm -f plan_ramp_interval.go
 rm -f plan_ramp_pricing.go
-rm -f plan_pricing.go
+rm -f plan_setup_pricing.go
 rm -f plan_hosted_pages.go
 rm -f add_on.go
 rm -f add_on_pricing.go
@@ -83,6 +84,7 @@ rm -f tier.go
 rm -f tier_pricing.go
 rm -f percentage_tiers_by_currency.go
 rm -f percentage_tier.go
+rm -f price_segment.go
 rm -f shipping_method.go
 rm -f usage.go
 rm -f export_dates.go
@@ -131,7 +133,6 @@ rm -f measured_unit_create.go
 rm -f measured_unit_update.go
 rm -f external_product_create.go
 rm -f external_product_reference_base.go
-rm -f external_product_reference_connection_type.go
 rm -f external_product_update.go
 rm -f external_product_reference_create.go
 rm -f external_subscription_create.go
@@ -149,16 +150,17 @@ rm -f invoice_refund.go
 rm -f line_item_refund.go
 rm -f external_refund.go
 rm -f plan_create.go
+rm -f plan_pricing_create.go
 rm -f plan_ramp_interval_create.go
 rm -f plan_ramp_pricing_create.go
-rm -f plan_pricing_create.go
-rm -f plan_hosted_pages_create.go
+rm -f plan_setup_pricing_create.go
 rm -f add_on_create.go
 rm -f add_on_pricing_create.go
 rm -f tier_create.go
 rm -f tier_pricing_create.go
 rm -f percentage_tiers_by_currency_create.go
 rm -f percentage_tier_create.go
+rm -f plan_hosted_pages_create.go
 rm -f plan_update.go
 rm -f add_on_update.go
 rm -f shipping_method_create.go

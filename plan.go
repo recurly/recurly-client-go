@@ -22,20 +22,76 @@ type Plan struct {
 	// Unique code to identify the plan. This is used in Hosted Payment Page URLs and in the invoice exports.
 	Code string `json:"code,omitempty"`
 
-	// The current state of the plan.
-	State string `json:"state,omitempty"`
-
 	// This name describes your plan and will appear on the Hosted Payment Page and the subscriber's invoice.
 	Name string `json:"name,omitempty"`
 
-	// Optional description, not displayed.
-	Description string `json:"description,omitempty"`
+	// The current state of the plan.
+	State string `json:"state,omitempty"`
+
+	// A fixed pricing model has the same price for each billing period.
+	// A ramp pricing model defines a set of Ramp Intervals, where a subscription changes price on
+	// a specified cadence of billing periods. The price change could be an increase or decrease.
+	PricingModel string `json:"pricing_model,omitempty"`
+
+	// Present only when `pricing_model` is `'fixed'`.
+	Currencies []PlanPricing `json:"currencies,omitempty"`
+
+	// Ramp Intervals
+	RampIntervals []PlanRampInterval `json:"ramp_intervals,omitempty"`
+
+	// Setup Fees
+	SetupFees []PlanSetupPricing `json:"setup_fees,omitempty"`
 
 	// Unit for the plan's billing interval.
 	IntervalUnit string `json:"interval_unit,omitempty"`
 
 	// Length of the plan's billing interval in `interval_unit`.
 	IntervalLength int `json:"interval_length,omitempty"`
+
+	// Optional description, not displayed.
+	Description string `json:"description,omitempty"`
+
+	// Accounting code for invoice line items for the plan. If no value is provided, it defaults to plan's code.
+	AccountingCode string `json:"accounting_code,omitempty"`
+
+	// Revenue schedule type
+	RevenueScheduleType string `json:"revenue_schedule_type,omitempty"`
+
+	// The ID of a general ledger account. General ledger accounts are
+	// only accessible as a part of the Recurly RevRec Standard and
+	// Recurly RevRec Advanced features.
+	LiabilityGlAccountId string `json:"liability_gl_account_id,omitempty"`
+
+	// The ID of a general ledger account. General ledger accounts are
+	// only accessible as a part of the Recurly RevRec Standard and
+	// Recurly RevRec Advanced features.
+	RevenueGlAccountId string `json:"revenue_gl_account_id,omitempty"`
+
+	// The ID of a performance obligation. Performance obligations are
+	// only accessible as a part of the Recurly RevRec Standard and
+	// Recurly RevRec Advanced features.
+	PerformanceObligationId string `json:"performance_obligation_id,omitempty"`
+
+	// Accounting code for invoice line items for the plan's setup fee. If no value is provided, it defaults to plan's accounting code.
+	SetupFeeAccountingCode string `json:"setup_fee_accounting_code,omitempty"`
+
+	// Setup fee revenue schedule type
+	SetupFeeRevenueScheduleType string `json:"setup_fee_revenue_schedule_type,omitempty"`
+
+	// The ID of a general ledger account. General ledger accounts are
+	// only accessible as a part of the Recurly RevRec Standard and
+	// Recurly RevRec Advanced features.
+	SetupFeeLiabilityGlAccountId string `json:"setup_fee_liability_gl_account_id,omitempty"`
+
+	// The ID of a general ledger account. General ledger accounts are
+	// only accessible as a part of the Recurly RevRec Standard and
+	// Recurly RevRec Advanced features.
+	SetupFeeRevenueGlAccountId string `json:"setup_fee_revenue_gl_account_id,omitempty"`
+
+	// The ID of a performance obligation. Performance obligations are
+	// only accessible as a part of the Recurly RevRec Standard and
+	// Recurly RevRec Advanced features.
+	SetupFeePerformanceObligationId string `json:"setup_fee_performance_obligation_id,omitempty"`
 
 	// Units for the plan's trial period.
 	TrialUnit string `json:"trial_unit,omitempty"`
@@ -52,28 +108,8 @@ type Plan struct {
 	// Subscriptions will automatically inherit this value once they are active. If `auto_renew` is `true`, then a subscription will automatically renew its term at renewal. If `auto_renew` is `false`, then a subscription will expire at the end of its term. `auto_renew` can be overridden on the subscription record itself.
 	AutoRenew bool `json:"auto_renew,omitempty"`
 
-	// A fixed pricing model has the same price for each billing period.
-	// A ramp pricing model defines a set of Ramp Intervals, where a subscription changes price on
-	// a specified cadence of billing periods. The price change could be an increase or decrease.
-	PricingModel string `json:"pricing_model,omitempty"`
-
-	// Ramp Intervals
-	RampIntervals []PlanRampInterval `json:"ramp_intervals,omitempty"`
-
 	// The custom fields will only be altered when they are included in a request. Sending an empty array will not remove any existing values. To remove a field send the name with a null or empty value.
 	CustomFields []CustomField `json:"custom_fields,omitempty"`
-
-	// Revenue schedule type
-	RevenueScheduleType string `json:"revenue_schedule_type,omitempty"`
-
-	// Setup fee revenue schedule type
-	SetupFeeRevenueScheduleType string `json:"setup_fee_revenue_schedule_type,omitempty"`
-
-	// Accounting code for invoice line items for the plan. If no value is provided, it defaults to plan's code.
-	AccountingCode string `json:"accounting_code,omitempty"`
-
-	// Accounting code for invoice line items for the plan's setup fee. If no value is provided, it defaults to plan's accounting code.
-	SetupFeeAccountingCode string `json:"setup_fee_accounting_code,omitempty"`
 
 	// Used by Avalara for Communications taxes. The transaction type in combination with the service type describe how the plan is taxed. Refer to [the documentation](https://help.avalara.com/AvaTax_for_Communications/Tax_Calculation/AvaTax_for_Communications_Tax_Engine/Mapping_Resources/TM_00115_AFC_Modules_Corresponding_Transaction_Types) for more available t/s types.
 	AvalaraTransactionType int `json:"avalara_transaction_type,omitempty"`
@@ -89,9 +125,6 @@ type Plan struct {
 
 	// Used by Vertex for tax calculations. Possible values are `sale`, `rental`, `lease`.
 	VertexTransactionType string `json:"vertex_transaction_type,omitempty"`
-
-	// Pricing
-	Currencies []PlanPricing `json:"currencies,omitempty"`
 
 	// Hosted pages settings
 	HostedPages PlanHostedPages `json:"hosted_pages,omitempty"`

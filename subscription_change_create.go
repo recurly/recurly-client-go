@@ -23,6 +23,9 @@ type SubscriptionChangeCreate struct {
 	// The `business_entity_code` is the value that represents a specific business entity for an end customer. When `business_entity_code` is used to assign a business entity to the subscription, all future billing events for the subscription will bill to the specified business entity. Available when the `Multiple Business Entities` feature is enabled. If both `business_entity_id` and `business_entity_code` are present, `business_entity_id` will be used. Only allowed if the `timeframe` is not `now`.
 	BusinessEntityCode *string `json:"business_entity_code,omitempty"`
 
+	// The price segment ID, e.g. `e28zov4fw0v2`.
+	PriceSegmentId *string `json:"price_segment_id,omitempty"`
+
 	// Optionally, sets custom pricing for the subscription, overriding the plan's default unit amount. The subscription's current currency will be used.
 	UnitAmount *float64 `json:"unit_amount,omitempty"`
 
