@@ -63,4 +63,7 @@ type SubscriptionPurchase struct {
 
 	// Optional field to be used only when needing to bypass the 60 second limit on creating subscriptions. Should only be used when creating subscriptions in bulk from the API.
 	Bulk *bool `json:"bulk,omitempty"`
+
+	// Allows you to control how any resulting charges will be calculated and prorated.
+	ProrationSettings *SubscriptionCreateProrationSettings `json:"proration_settings,omitempty"`
 }

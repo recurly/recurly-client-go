@@ -76,6 +76,9 @@ type AddOn struct {
 	// Optional field used by Avalara, Vertex, and Recurly's In-the-Box tax solution to determine taxation rules. You can pass in specific tax codes using any of these tax integrations. For Recurly's In-the-Box tax offering you can also choose to instead use simple values of `unknown`, `physical`, or `digital` tax codes. If `item_code`/`item_id` is part of the request then `tax_code` must be absent.
 	TaxCode string `json:"tax_code,omitempty"`
 
+	// The Harmonized System (HS) code is an internationally standardized system of names and numbers to classify traded products. The HS code, sometimes called Commodity Code, is used by customs authorities around the world to identify products when assessing duties and taxes. The HS code may also be referred to as the tariff code or customs code. Values should contain only digits and decimals.
+	HarmonizedSystemCode string `json:"harmonized_system_code,omitempty"`
+
 	// Determines if the quantity field is displayed on the hosted pages for the add-on.
 	DisplayQuantity bool `json:"display_quantity,omitempty"`
 
