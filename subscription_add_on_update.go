@@ -36,7 +36,7 @@ type SubscriptionAddOnUpdate struct {
 	// must include one to many tiers with `ending_quantity` and `unit_amount`.
 	// There must be one tier with an `ending_quantity` of 999999999 which is the
 	// default if not provided.
-	Tiers []SubscriptionAddOnTierCreate `json:"tiers,omitempty"`
+	Tiers *[]SubscriptionAddOnTierCreate `json:"tiers,omitempty"`
 
 	// The percentage taken of the monetary amount of usage tracked. This can be up to 4 decimal places. A value between 0.0 and 100.0. Required if add_on_type is usage and usage_type is percentage.
 	UsagePercentage *float64 `json:"usage_percentage,omitempty"`

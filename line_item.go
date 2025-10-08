@@ -95,7 +95,7 @@ type LineItem struct {
 	// 3-letter ISO 4217 currency code.
 	Currency string `json:"currency,omitempty"`
 
-	// `(quantity * unit_amount) - (discount + tax)`
+	// `(quantity * unit_amount) - discount + tax`
 	Amount float64 `json:"amount,omitempty"`
 
 	// Description that appears on the invoice. For subscription related items this will be filled in automatically.
@@ -134,7 +134,7 @@ type LineItem struct {
 	// Used by Avalara for Communications taxes. The transaction type in combination with the service type describe how the line item is taxed. Refer to [the documentation](https://help.avalara.com/AvaTax_for_Communications/Tax_Calculation/AvaTax_for_Communications_Tax_Engine/Mapping_Resources/TM_00115_AFC_Modules_Corresponding_Transaction_Types) for more available t/s types.
 	AvalaraServiceType int `json:"avalara_service_type,omitempty"`
 
-	// Used by Avalara, Vertex, and Recurly’s EU VAT tax feature. The tax code values are specific to each tax system. If you are using Recurly’s EU VAT feature you can use `unknown`, `physical`, or `digital`.
+	// Optional field used by Avalara, Vertex, and Recurly's In-the-Box tax solution to determine taxation rules. You can pass in specific tax codes using any of these tax integrations. For Recurly's In-the-Box tax offering you can also choose to instead use simple values of `unknown`, `physical`, or `digital` tax codes.
 	TaxCode string `json:"tax_code,omitempty"`
 
 	// Tax info
@@ -158,19 +158,19 @@ type LineItem struct {
 	ShippingAddress ShippingAddress `json:"shipping_address,omitempty"`
 
 	// If an end date is present, this is value indicates the beginning of a billing time range. If no end date is present it indicates billing for a specific date.
-	StartDate time.Time `json:"start_date,omitempty"`
+	StartDate *time.Time `json:"start_date,omitempty"`
 
 	// If this date is provided, it indicates the end of a time range.
-	EndDate time.Time `json:"end_date,omitempty"`
+	EndDate *time.Time `json:"end_date,omitempty"`
 
 	// The custom fields will only be altered when they are included in a request. Sending an empty array will not remove any existing values. To remove a field send the name with a null or empty value.
 	CustomFields []CustomField `json:"custom_fields,omitempty"`
 
 	// When the line item was created.
-	CreatedAt time.Time `json:"created_at,omitempty"`
+	CreatedAt *time.Time `json:"created_at,omitempty"`
 
 	// When the line item was last changed.
-	UpdatedAt time.Time `json:"updated_at,omitempty"`
+	UpdatedAt *time.Time `json:"updated_at,omitempty"`
 }
 
 // GetResponse returns the ResponseMetadata that generated this resource

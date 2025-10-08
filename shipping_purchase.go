@@ -15,7 +15,7 @@ type ShippingPurchase struct {
 	Address *ShippingAddressCreate `json:"address,omitempty"`
 
 	// A list of shipping fees to be created as charges with the purchase.
-	Fees []ShippingFeeCreate `json:"fees,omitempty"`
+	Fees *[]ShippingFeeCreate `json:"fees,omitempty"`
 }
 
 func (attr *ShippingPurchase) toParams() *Params {

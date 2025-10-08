@@ -36,7 +36,7 @@ type CouponMini struct {
 	CouponType string `json:"coupon_type,omitempty"`
 
 	// The date and time the coupon was expired early or reached its `max_redemptions`.
-	ExpiredAt time.Time `json:"expired_at,omitempty"`
+	ExpiredAt *time.Time `json:"expired_at,omitempty"`
 }
 
 // GetResponse returns the ResponseMetadata that generated this resource

@@ -34,13 +34,13 @@ type DunningCampaign struct {
 	DunningCycles []DunningCycle `json:"dunning_cycles,omitempty"`
 
 	// When the current campaign was created in Recurly.
-	CreatedAt time.Time `json:"created_at,omitempty"`
+	CreatedAt *time.Time `json:"created_at,omitempty"`
 
 	// When the current campaign was updated in Recurly.
-	UpdatedAt time.Time `json:"updated_at,omitempty"`
+	UpdatedAt *time.Time `json:"updated_at,omitempty"`
 
 	// When the current campaign was deleted in Recurly.
-	DeletedAt time.Time `json:"deleted_at,omitempty"`
+	DeletedAt *time.Time `json:"deleted_at,omitempty"`
 }
 
 // GetResponse returns the ResponseMetadata that generated this resource

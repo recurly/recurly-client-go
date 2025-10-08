@@ -13,7 +13,7 @@ type TierCreate struct {
 	EndingQuantity *int `json:"ending_quantity,omitempty"`
 
 	// Tier pricing
-	Currencies []PricingCreate `json:"currencies,omitempty"`
+	Currencies *[]PricingCreate `json:"currencies,omitempty"`
 }
 
 func (attr *TierCreate) toParams() *Params {

@@ -93,7 +93,7 @@ type Coupon struct {
 	InvoiceDescription string `json:"invoice_description,omitempty"`
 
 	// The date and time the coupon will expire and can no longer be redeemed. Time is always 11:59:59, the end-of-day Pacific time.
-	RedeemBy time.Time `json:"redeem_by,omitempty"`
+	RedeemBy *time.Time `json:"redeem_by,omitempty"`
 
 	// The Coupon ID of the parent Bulk Coupon
 	BulkCouponId string `json:"bulk_coupon_id,omitempty"`
@@ -102,16 +102,16 @@ type Coupon struct {
 	BulkCouponCode string `json:"bulk_coupon_code,omitempty"`
 
 	// The date and time the unique coupon code was redeemed. This is only present for bulk coupons.
-	RedeemedAt time.Time `json:"redeemed_at,omitempty"`
+	RedeemedAt *time.Time `json:"redeemed_at,omitempty"`
 
 	// Created at
-	CreatedAt time.Time `json:"created_at,omitempty"`
+	CreatedAt *time.Time `json:"created_at,omitempty"`
 
 	// Last updated at
-	UpdatedAt time.Time `json:"updated_at,omitempty"`
+	UpdatedAt *time.Time `json:"updated_at,omitempty"`
 
 	// The date and time the coupon was expired early or reached its `max_redemptions`.
-	ExpiredAt time.Time `json:"expired_at,omitempty"`
+	ExpiredAt *time.Time `json:"expired_at,omitempty"`
 }
 
 // GetResponse returns the ResponseMetadata that generated this resource

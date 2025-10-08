@@ -39,7 +39,7 @@ type AddOnUpdate struct {
 	// Used by Avalara for Communications taxes. The transaction type in combination with the service type describe how the add-on is taxed. Refer to [the documentation](https://help.avalara.com/AvaTax_for_Communications/Tax_Calculation/AvaTax_for_Communications_Tax_Engine/Mapping_Resources/TM_00115_AFC_Modules_Corresponding_Transaction_Types) for more available t/s types. If an `Item` is associated to the `AddOn`, then the `avalara_service_type` must be absent.
 	AvalaraServiceType *int `json:"avalara_service_type,omitempty"`
 
-	// Optional field used by Avalara, Vertex, and Recurly's EU VAT tax feature to determine taxation rules. If you have your own AvaTax or Vertex account configured, use their tax codes to assign specific tax rules. If you are using Recurly's EU VAT feature, you can use values of `unknown`, `physical`, or `digital`. If an `Item` is associated to the `AddOn` then `tax code` must be absent.
+	// Optional field used by Avalara, Vertex, and Recurly's In-the-Box tax solution to determine taxation rules. You can pass in specific tax codes using any of these tax integrations. For Recurly's In-the-Box tax offering you can also choose to instead use simple values of `unknown`, `physical`, or `digital` tax codes. If an `Item` is associated to the `AddOn` then `tax_code` must be absent.
 	TaxCode *string `json:"tax_code,omitempty"`
 
 	// Determines if the quantity field is displayed on the hosted pages for the add-on.
@@ -54,13 +54,13 @@ type AddOnUpdate struct {
 	// If the add-on's `tier_type` is `tiered`, `volume` or `stairstep`,
 	// then `currencies` must be absent. Must also be absent if `add_on_type` is
 	// `usage` and `usage_type` is `percentage`.
-	Currencies []AddOnPricingCreate `json:"currencies,omitempty"`
+	Currencies *[]AddOnPricingCreate `json:"currencies,omitempty"`
 
 	// If the tier_type is `flat`, then `tiers` must be absent. The `tiers` object
 	// must include one to many tiers with `ending_quantity` and `unit_amount` for
 	// the desired `currencies`. There must be one tier with an `ending_quantity` of
 	// 999999999 which is the default if not provided.
-	Tiers []TierCreate `json:"tiers,omitempty"`
+	Tiers *[]TierCreate `json:"tiers,omitempty"`
 }
 
 func (attr *AddOnUpdate) toParams() *Params {

@@ -46,13 +46,13 @@ type Account struct {
 	HasPastDueInvoice bool `json:"has_past_due_invoice,omitempty"`
 
 	// When the account was created.
-	CreatedAt time.Time `json:"created_at,omitempty"`
+	CreatedAt *time.Time `json:"created_at,omitempty"`
 
 	// When the account was last changed.
-	UpdatedAt time.Time `json:"updated_at,omitempty"`
+	UpdatedAt *time.Time `json:"updated_at,omitempty"`
 
 	// If present, when the account was last marked inactive.
-	DeletedAt time.Time `json:"deleted_at,omitempty"`
+	DeletedAt *time.Time `json:"deleted_at,omitempty"`
 
 	// The unique identifier of the account. This cannot be changed once the account is created.
 	Code string `json:"code,omitempty"`

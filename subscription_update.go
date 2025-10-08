@@ -15,7 +15,7 @@ type SubscriptionUpdate struct {
 	CollectionMethod *string `json:"collection_method,omitempty"`
 
 	// The custom fields will only be altered when they are included in a request. Sending an empty array will not remove any existing values. To remove a field send the name with a null or empty value.
-	CustomFields []CustomFieldCreate `json:"custom_fields,omitempty"`
+	CustomFields *[]CustomFieldCreate `json:"custom_fields,omitempty"`
 
 	// The remaining billing cycles in the current term.
 	RemainingBillingCycles *int `json:"remaining_billing_cycles,omitempty"`

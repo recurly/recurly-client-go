@@ -65,6 +65,9 @@ type Invoice struct {
 	// The summation of charges and credits, before discounts and taxes.
 	Subtotal float64 `json:"subtotal,omitempty"`
 
+	// The summation of charges and credits, after discounts applied.
+	SubtotalAfterDiscount float64 `json:"subtotal_after_discount,omitempty"`
+
 	// The total tax on this invoice.
 	Tax float64 `json:"tax,omitempty"`
 
@@ -107,16 +110,16 @@ type Invoice struct {
 	CreditPayments []CreditPayment `json:"credit_payments,omitempty"`
 
 	// Created at
-	CreatedAt time.Time `json:"created_at,omitempty"`
+	CreatedAt *time.Time `json:"created_at,omitempty"`
 
 	// Last updated at
-	UpdatedAt time.Time `json:"updated_at,omitempty"`
+	UpdatedAt *time.Time `json:"updated_at,omitempty"`
 
 	// Date invoice is due. This is the date the net terms are reached.
-	DueAt time.Time `json:"due_at,omitempty"`
+	DueAt *time.Time `json:"due_at,omitempty"`
 
 	// Date invoice was marked paid or failed.
-	ClosedAt time.Time `json:"closed_at,omitempty"`
+	ClosedAt *time.Time `json:"closed_at,omitempty"`
 
 	// Unique ID to identify the dunning campaign used when dunning the invoice. For sites without multiple dunning campaigns enabled, this will always be the default dunning campaign.
 	DunningCampaignId string `json:"dunning_campaign_id,omitempty"`

@@ -41,7 +41,7 @@ type SubscriptionChangePreview struct {
 	Shipping SubscriptionShipping `json:"shipping,omitempty"`
 
 	// Activated at
-	ActivateAt time.Time `json:"activate_at,omitempty"`
+	ActivateAt *time.Time `json:"activate_at,omitempty"`
 
 	// Returns `true` if the subscription change is activated.
 	Activated bool `json:"activated,omitempty"`
@@ -59,13 +59,13 @@ type SubscriptionChangePreview struct {
 	CustomFields []CustomField `json:"custom_fields,omitempty"`
 
 	// Created at
-	CreatedAt time.Time `json:"created_at,omitempty"`
+	CreatedAt *time.Time `json:"created_at,omitempty"`
 
 	// Updated at
-	UpdatedAt time.Time `json:"updated_at,omitempty"`
+	UpdatedAt *time.Time `json:"updated_at,omitempty"`
 
 	// Deleted at
-	DeletedAt time.Time `json:"deleted_at,omitempty"`
+	DeletedAt *time.Time `json:"deleted_at,omitempty"`
 
 	// Accept nested attributes for three_d_secure_action_result_token_id
 	BillingInfo SubscriptionChangeBillingInfo `json:"billing_info,omitempty"`

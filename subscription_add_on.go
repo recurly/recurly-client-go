@@ -51,13 +51,13 @@ type SubscriptionAddOn struct {
 	UsagePercentage float64 `json:"usage_percentage,omitempty"`
 
 	// Created at
-	CreatedAt time.Time `json:"created_at,omitempty"`
+	CreatedAt *time.Time `json:"created_at,omitempty"`
 
 	// Updated at
-	UpdatedAt time.Time `json:"updated_at,omitempty"`
+	UpdatedAt *time.Time `json:"updated_at,omitempty"`
 
 	// Expired at
-	ExpiredAt time.Time `json:"expired_at,omitempty"`
+	ExpiredAt *time.Time `json:"expired_at,omitempty"`
 }
 
 // GetResponse returns the ResponseMetadata that generated this resource

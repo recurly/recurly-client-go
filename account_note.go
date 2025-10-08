@@ -24,7 +24,7 @@ type AccountNote struct {
 
 	Message string `json:"message,omitempty"`
 
-	CreatedAt time.Time `json:"created_at,omitempty"`
+	CreatedAt *time.Time `json:"created_at,omitempty"`
 }
 
 // GetResponse returns the ResponseMetadata that generated this resource

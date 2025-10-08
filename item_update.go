@@ -33,17 +33,17 @@ type ItemUpdate struct {
 	// Used by Avalara for Communications taxes. The transaction type in combination with the service type describe how the item is taxed. Refer to [the documentation](https://help.avalara.com/AvaTax_for_Communications/Tax_Calculation/AvaTax_for_Communications_Tax_Engine/Mapping_Resources/TM_00115_AFC_Modules_Corresponding_Transaction_Types) for more available t/s types.
 	AvalaraServiceType *int `json:"avalara_service_type,omitempty"`
 
-	// Used by Avalara, Vertex, and Recurly’s EU VAT tax feature. The tax code values are specific to each tax system. If you are using Recurly’s EU VAT feature you can use `unknown`, `physical`, or `digital`.
+	// Optional field used by Avalara, Vertex, and Recurly's In-the-Box tax solution to determine taxation rules. You can pass in specific tax codes using any of these tax integrations. For Recurly's In-the-Box tax offering you can also choose to instead use simple values of `unknown`, `physical`, or `digital` tax codes.
 	TaxCode *string `json:"tax_code,omitempty"`
 
 	// `true` exempts tax on the item, `false` applies tax on the item.
 	TaxExempt *bool `json:"tax_exempt,omitempty"`
 
 	// The custom fields will only be altered when they are included in a request. Sending an empty array will not remove any existing values. To remove a field send the name with a null or empty value.
-	CustomFields []CustomFieldCreate `json:"custom_fields,omitempty"`
+	CustomFields *[]CustomFieldCreate `json:"custom_fields,omitempty"`
 
 	// Item Pricing
-	Currencies []PricingCreate `json:"currencies,omitempty"`
+	Currencies *[]PricingCreate `json:"currencies,omitempty"`
 }
 
 func (attr *ItemUpdate) toParams() *Params {

@@ -120,16 +120,16 @@ type Transaction struct {
 	AvsCheck string `json:"avs_check,omitempty"`
 
 	// Created at
-	CreatedAt time.Time `json:"created_at,omitempty"`
+	CreatedAt *time.Time `json:"created_at,omitempty"`
 
 	// Updated at
-	UpdatedAt time.Time `json:"updated_at,omitempty"`
+	UpdatedAt *time.Time `json:"updated_at,omitempty"`
 
 	// Voided at
-	VoidedAt time.Time `json:"voided_at,omitempty"`
+	VoidedAt *time.Time `json:"voided_at,omitempty"`
 
 	// Collected at, or if not collected yet, the time the transaction was created.
-	CollectedAt time.Time `json:"collected_at,omitempty"`
+	CollectedAt *time.Time `json:"collected_at,omitempty"`
 }
 
 // GetResponse returns the ResponseMetadata that generated this resource

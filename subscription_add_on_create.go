@@ -31,7 +31,7 @@ type SubscriptionAddOnCreate struct {
 	// There must be one tier with an `ending_quantity` of 999999999 which is the
 	// default if not provided. See our [Guide](https://recurly.com/developers/guides/item-addon-guide.html)
 	// for an overview of how to configure quantity-based pricing models.
-	Tiers []SubscriptionAddOnTierCreate `json:"tiers,omitempty"`
+	Tiers *[]SubscriptionAddOnTierCreate `json:"tiers,omitempty"`
 
 	// The percentage taken of the monetary amount of usage tracked. This can be up to 4 decimal places. A value between 0.0 and 100.0. Required if `add_on_type` is usage and `usage_type` is percentage. Must be omitted otherwise. `usage_percentage` does not support tiers. See our [Guide](https://recurly.com/developers/guides/usage-based-billing-guide.html) for an overview of how to configure usage add-ons.
 	UsagePercentage *float64 `json:"usage_percentage,omitempty"`

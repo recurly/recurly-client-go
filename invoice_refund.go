@@ -17,7 +17,7 @@ type InvoiceRefund struct {
 	Amount *float64 `json:"amount,omitempty"`
 
 	// The line items to be refunded. This is required when `type=line_items`.
-	LineItems []LineItemRefund `json:"line_items,omitempty"`
+	LineItems *[]LineItemRefund `json:"line_items,omitempty"`
 
 	// Indicates how the invoice should be refunded when both a credit and transaction are present on the invoice:
 	// - `transaction_first` – Refunds the transaction first, then any amount is issued as credit back to the account. Default value when Credit Invoices feature is enabled.

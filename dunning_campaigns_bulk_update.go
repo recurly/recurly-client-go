@@ -10,10 +10,10 @@ type DunningCampaignsBulkUpdate struct {
 	Params `json:"-"`
 
 	// List of `plan_codes` associated with the Plans for which the dunning campaign should be updated. Required unless `plan_ids` is present.
-	PlanCodes []string `json:"plan_codes,omitempty"`
+	PlanCodes *[]string `json:"plan_codes,omitempty"`
 
 	// List of `plan_ids` associated with the Plans for which the dunning campaign should be updated. Required unless `plan_codes` is present.
-	PlanIds []string `json:"plan_ids,omitempty"`
+	PlanIds *[]string `json:"plan_ids,omitempty"`
 }
 
 func (attr *DunningCampaignsBulkUpdate) toParams() *Params {

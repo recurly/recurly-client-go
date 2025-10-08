@@ -44,13 +44,13 @@ type PurchaseCreate struct {
 	Shipping *ShippingPurchase `json:"shipping,omitempty"`
 
 	// A list of one time charges or credits to be created with the purchase.
-	LineItems []LineItemCreate `json:"line_items,omitempty"`
+	LineItems *[]LineItemCreate `json:"line_items,omitempty"`
 
 	// A list of subscriptions to be created with the purchase.
-	Subscriptions []SubscriptionPurchase `json:"subscriptions,omitempty"`
+	Subscriptions *[]SubscriptionPurchase `json:"subscriptions,omitempty"`
 
 	// A list of coupon_codes to be redeemed on the subscription or account during the purchase.
-	CouponCodes []string `json:"coupon_codes,omitempty"`
+	CouponCodes *[]string `json:"coupon_codes,omitempty"`
 
 	// A gift card redemption code to be redeemed on the purchase invoice.
 	GiftCardRedemptionCode *string `json:"gift_card_redemption_code,omitempty"`
