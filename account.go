@@ -114,6 +114,9 @@ type Account struct {
 
 	// The Avalara AvaTax value that can be passed to identify the customer type for tax purposes. The range of values can be A - R (more info at Avalara). Value is case-sensitive.
 	EntityUseCode string `json:"entity_use_code,omitempty"`
+
+	// The preferred billing date for the account. This date will be used as the billing date for when activating new subscriptions on the account.
+	BillDate *time.Time `json:"bill_date,omitempty"`
 }
 
 // GetResponse returns the ResponseMetadata that generated this resource

@@ -130,8 +130,14 @@ type ClientInterface interface {
 
 	ListAccountNotes(accountId string, params *ListAccountNotesParams, opts ...Option) (AccountNoteLister, error)
 
+	CreateAccountNote(accountId string, body *AccountNoteCreate, opts ...Option) (*AccountNote, error)
+	CreateAccountNoteWithContext(ctx context.Context, accountId string, body *AccountNoteCreate, opts ...Option) (*AccountNote, error)
+
 	GetAccountNote(accountId string, accountNoteId string, opts ...Option) (*AccountNote, error)
 	GetAccountNoteWithContext(ctx context.Context, accountId string, accountNoteId string, opts ...Option) (*AccountNote, error)
+
+	RemoveAccountNote(accountId string, accountNoteId string, opts ...Option) (*Empty, error)
+	RemoveAccountNoteWithContext(ctx context.Context, accountId string, accountNoteId string, opts ...Option) (*Empty, error)
 
 	ListShippingAddresses(accountId string, params *ListShippingAddressesParams, opts ...Option) (ShippingAddressLister, error)
 
@@ -2096,6 +2102,35 @@ func (c *Client) ListAccountNotes(accountId string, params *ListAccountNotesPara
 	return NewAccountNoteList(c, path, requestOptions), nil
 }
 
+// CreateAccountNote wraps CreateAccountNoteWithContext using the background context
+func (c *Client) CreateAccountNote(accountId string, body *AccountNoteCreate, opts ...Option) (*AccountNote, error) {
+	ctx := context.Background()
+	return c.createAccountNote(ctx, accountId, body, opts...)
+}
+
+// CreateAccountNoteWithContext Create an account note
+//
+// API Documentation: https://developers.recurly.com/api/v2021-02-25#operation/create_account_note
+//
+// Returns: An account note.
+func (c *Client) CreateAccountNoteWithContext(ctx context.Context, accountId string, body *AccountNoteCreate, opts ...Option) (*AccountNote, error) {
+	return c.createAccountNote(ctx, accountId, body, opts...)
+}
+
+func (c *Client) createAccountNote(ctx context.Context, accountId string, body *AccountNoteCreate, opts ...Option) (*AccountNote, error) {
+	path, err := c.InterpolatePath("/accounts/{account_id}/notes", accountId)
+	if err != nil {
+		return nil, err
+	}
+	requestOptions := NewRequestOptions(opts...)
+	result := &AccountNote{}
+	err = c.Call(ctx, http.MethodPost, path, body, nil, requestOptions, result)
+	if err != nil {
+		return nil, err
+	}
+	return result, err
+}
+
 // GetAccountNote wraps GetAccountNoteWithContext using the background context
 func (c *Client) GetAccountNote(accountId string, accountNoteId string, opts ...Option) (*AccountNote, error) {
 	ctx := context.Background()
@@ -2119,6 +2154,35 @@ func (c *Client) getAccountNote(ctx context.Context, accountId string, accountNo
 	requestOptions := NewRequestOptions(opts...)
 	result := &AccountNote{}
 	err = c.Call(ctx, http.MethodGet, path, nil, nil, requestOptions, result)
+	if err != nil {
+		return nil, err
+	}
+	return result, err
+}
+
+// RemoveAccountNote wraps RemoveAccountNoteWithContext using the background context
+func (c *Client) RemoveAccountNote(accountId string, accountNoteId string, opts ...Option) (*Empty, error) {
+	ctx := context.Background()
+	return c.removeAccountNote(ctx, accountId, accountNoteId, opts...)
+}
+
+// RemoveAccountNoteWithContext Delete an account note
+//
+// API Documentation: https://developers.recurly.com/api/v2021-02-25#operation/remove_account_note
+//
+// Returns: Account note deleted.
+func (c *Client) RemoveAccountNoteWithContext(ctx context.Context, accountId string, accountNoteId string, opts ...Option) (*Empty, error) {
+	return c.removeAccountNote(ctx, accountId, accountNoteId, opts...)
+}
+
+func (c *Client) removeAccountNote(ctx context.Context, accountId string, accountNoteId string, opts ...Option) (*Empty, error) {
+	path, err := c.InterpolatePath("/accounts/{account_id}/notes/{account_note_id}", accountId, accountNoteId)
+	if err != nil {
+		return nil, err
+	}
+	requestOptions := NewRequestOptions(opts...)
+	result := &Empty{}
+	err = c.Call(ctx, http.MethodDelete, path, nil, nil, requestOptions, result)
 	if err != nil {
 		return nil, err
 	}
