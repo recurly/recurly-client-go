@@ -153,6 +153,9 @@ type Transaction struct {
 
 	// Fraud information
 	FraudInfo TransactionFraudInfo `json:"fraud_info,omitempty"`
+
+	// Next action values are used for any required customer follow-up action. Currently, this is supported for Ebanx when using Pix Automatico.
+	NextAction TransactionNextAction `json:"next_action,omitempty"`
 }
 
 // GetResponse returns the ResponseMetadata that generated this resource
