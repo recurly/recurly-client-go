@@ -113,7 +113,7 @@ type SubscriptionCreate struct {
 	// When `eom` an invoice becomes past due the specified number of `Net Terms` days from the last day of the current month.
 	NetTermsType *string `json:"net_terms_type,omitempty"`
 
-	// If present, this subscription's transactions will use the payment gateway with this code.
+	// If present, this subscription's subsequent transactions will use the payment gateway with this code. To select a payment gateway to use when creating a Subscription, be sure to set the `account.billing_info.gateway_code` as well.
 	GatewayCode *string `json:"gateway_code,omitempty"`
 
 	// An optional type designation for the payment gateway transaction created by this request. Supports 'moto' value, which is the acronym for mail order and telephone transactions.

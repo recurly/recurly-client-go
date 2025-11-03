@@ -26,6 +26,7 @@ rm -f transaction.go
 rm -f invoice_mini.go
 rm -f address_with_name.go
 rm -f transaction_payment_gateway.go
+rm -f transaction_next_action.go
 rm -f coupon_redemption.go
 rm -f coupon.go
 rm -f plan_mini.go
