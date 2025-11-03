@@ -91,7 +91,7 @@ type BillingInfoCreate struct {
 	// Bank identifier code for UK based banks. Required for Bacs based billing infos. (Bacs only)
 	SortCode *string `json:"sort_code,omitempty"`
 
-	// The payment method type for a non-credit card based billing info. `bacs` and `becs` are the only accepted values.
+	// The payment method type for a non-credit card based billing info. `bacs`, `becs`, `pix-automatico`, `mercadopago` are the only accepted values.
 	Type *string `json:"type,omitempty"`
 
 	// The bank account type. (ACH only)
