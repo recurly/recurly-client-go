@@ -21,7 +21,7 @@ type TaxInfo struct {
 	// The combined tax rate. Not present when Avalara for Communications is enabled.
 	Rate float64 `json:"rate,omitempty"`
 
-	// Provides additional tax details for Communications taxes when Avalara for Communications is enabled or Canadian Sales Tax when there is tax applied at both the country and province levels. This will only be populated for the Invoice response when fetching a single invoice and not for the InvoiceList or LineItemList. Only populated for a single LineItem fetch when Avalara for Communications is enabled.
+	// Provides additional tax details for Communications taxes when Avalara for Communications or Vertex Tax Breakdown is enabled or Canadian Sales Tax. Tax details will only be populated for the Invoice response when fetching a single invoice and not for the InvoiceList or LineItemList. Only populated for a single LineItem fetch when Avalara for Communications is enabled.
 	TaxDetails []TaxDetail `json:"tax_details,omitempty"`
 }
 
