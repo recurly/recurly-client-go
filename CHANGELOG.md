@@ -1,5 +1,13 @@
 # Changelog
 
+## [v5.7.0](https://github.com/recurly/recurly-client-go/tree/v5.7.0) (2025-11-05)
+
+[Full Changelog](https://github.com/recurly/recurly-client-go/compare/v5.6.0...v5.7.0)
+
+
+
+
+
 ## [v5.6.0](https://github.com/recurly/recurly-client-go/tree/v5.6.0) (2025-11-03)
 
 [Full Changelog](https://github.com/recurly/recurly-client-go/compare/v5.5.0...v5.6.0)
