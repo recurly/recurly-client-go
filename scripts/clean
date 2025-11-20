@@ -62,6 +62,7 @@ rm -f subscription_add_on_percentage_tier.go
 rm -f business_entity_mini.go
 rm -f subscription_change_billing_info.go
 rm -f subscription_ramp_interval_response.go
+rm -f credit_application_policy.go
 rm -f unique_coupon_code_params.go
 rm -f unique_coupon_code.go
 rm -f custom_field_definition.go
@@ -119,6 +120,7 @@ rm -f billing_info_verify_cvv.go
 rm -f coupon_redemption_create.go
 rm -f external_account_update.go
 rm -f invoice_create.go
+rm -f credit_application_policy_create.go
 rm -f line_item_create.go
 rm -f account_note_create.go
 rm -f shipping_address_update.go

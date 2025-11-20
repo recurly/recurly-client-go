@@ -63,6 +63,10 @@ type SubscriptionUpdate struct {
 	// When `eom` an invoice becomes past due the specified number of `Net Terms` days from the last day of the current month.
 	NetTermsType *string `json:"net_terms_type,omitempty"`
 
+	// Controls whether credit invoices are automatically applied to new invoices.
+	// The `mode` field determines the application behavior.
+	CreditApplicationPolicy *CreditApplicationPolicyCreate `json:"credit_application_policy,omitempty"`
+
 	// If present, this subscription's transactions will use the payment gateway with this code.
 	GatewayCode *string `json:"gateway_code,omitempty"`
 

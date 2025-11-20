@@ -48,6 +48,10 @@ type PurchaseCreate struct {
 	// When `eom` an invoice becomes past due the specified number of `Net Terms` days from the last day of the current month.
 	NetTermsType *string `json:"net_terms_type,omitempty"`
 
+	// Controls whether credit invoices are automatically applied to new invoices.
+	// The `mode` field determines the application behavior.
+	CreditApplicationPolicyOverride *CreditApplicationPolicyCreate `json:"credit_application_policy_override,omitempty"`
+
 	// Terms and conditions to be put on the purchase invoice.
 	TermsAndConditions *string `json:"terms_and_conditions,omitempty"`
 

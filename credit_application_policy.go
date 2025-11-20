@@ -9,66 +9,53 @@ import (
 	"net/http"
 )
 
-type ReferenceOnlyCurrencyConversion struct {
+type CreditApplicationPolicy struct {
 	recurlyResponse *ResponseMetadata
 
-	// 3-letter ISO 4217 currency code.
-	Currency string `json:"currency,omitempty"`
-
-	// The subtotal converted to the currency.
-	SubtotalInCents float64 `json:"subtotal_in_cents,omitempty"`
-
-	// The tax converted to the currency.
-	TaxInCents float64 `json:"tax_in_cents,omitempty"`
-
-	// The conversion rate to the currency.
-	Rate string `json:"rate,omitempty"`
-
-	// The source of the conversion rate.
-	Source string `json:"source,omitempty"`
-
-	// The date of the conversion rate.
-	Date string `json:"date,omitempty"`
+	// Determines which credit invoices are applied to invoices:
+	// - `all`: All available credit invoices are applied (default)
+	// - `none`: No credit invoices are applied automatically
+	Mode string `json:"mode,omitempty"`
 }
 
 // GetResponse returns the ResponseMetadata that generated this resource
-func (resource *ReferenceOnlyCurrencyConversion) GetResponse() *ResponseMetadata {
+func (resource *CreditApplicationPolicy) GetResponse() *ResponseMetadata {
 	return resource.recurlyResponse
 }
 
 // setResponse sets the ResponseMetadata that generated this resource
-func (resource *ReferenceOnlyCurrencyConversion) setResponse(res *ResponseMetadata) {
+func (resource *CreditApplicationPolicy) setResponse(res *ResponseMetadata) {
 	resource.recurlyResponse = res
 }
 
 // internal struct for deserializing accounts
-type referenceOnlyCurrencyConversionList struct {
+type creditApplicationPolicyList struct {
 	ListMetadata
-	Data            []ReferenceOnlyCurrencyConversion `json:"data"`
+	Data            []CreditApplicationPolicy `json:"data"`
 	recurlyResponse *ResponseMetadata
 }
 
 // GetResponse returns the ResponseMetadata that generated this resource
-func (resource *referenceOnlyCurrencyConversionList) GetResponse() *ResponseMetadata {
+func (resource *creditApplicationPolicyList) GetResponse() *ResponseMetadata {
 	return resource.recurlyResponse
 }
 
 // setResponse sets the ResponseMetadata that generated this resource
-func (resource *referenceOnlyCurrencyConversionList) setResponse(res *ResponseMetadata) {
+func (resource *creditApplicationPolicyList) setResponse(res *ResponseMetadata) {
 	resource.recurlyResponse = res
 }
 
-// ReferenceOnlyCurrencyConversionList allows you to paginate ReferenceOnlyCurrencyConversion objects
-type ReferenceOnlyCurrencyConversionList struct {
+// CreditApplicationPolicyList allows you to paginate CreditApplicationPolicy objects
+type CreditApplicationPolicyList struct {
 	client         HTTPCaller
 	requestOptions *RequestOptions
 	nextPagePath   string
 	hasMore        bool
-	data           []ReferenceOnlyCurrencyConversion
+	data           []CreditApplicationPolicy
 }
 
-func NewReferenceOnlyCurrencyConversionList(client HTTPCaller, nextPagePath string, requestOptions *RequestOptions) *ReferenceOnlyCurrencyConversionList {
-	return &ReferenceOnlyCurrencyConversionList{
+func NewCreditApplicationPolicyList(client HTTPCaller, nextPagePath string, requestOptions *RequestOptions) *CreditApplicationPolicyList {
+	return &CreditApplicationPolicyList{
 		client:         client,
 		requestOptions: requestOptions,
 		nextPagePath:   nextPagePath,
@@ -76,31 +63,31 @@ func NewReferenceOnlyCurrencyConversionList(client HTTPCaller, nextPagePath stri
 	}
 }
 
-type ReferenceOnlyCurrencyConversionLister interface {
+type CreditApplicationPolicyLister interface {
 	Fetch() error
 	FetchWithContext(ctx context.Context) error
 	Count() (*int64, error)
 	CountWithContext(ctx context.Context) (*int64, error)
-	Data() []ReferenceOnlyCurrencyConversion
+	Data() []CreditApplicationPolicy
 	HasMore() bool
 	Next() string
 }
 
-func (list *ReferenceOnlyCurrencyConversionList) HasMore() bool {
+func (list *CreditApplicationPolicyList) HasMore() bool {
 	return list.hasMore
 }
 
-func (list *ReferenceOnlyCurrencyConversionList) Next() string {
+func (list *CreditApplicationPolicyList) Next() string {
 	return list.nextPagePath
 }
 
-func (list *ReferenceOnlyCurrencyConversionList) Data() []ReferenceOnlyCurrencyConversion {
+func (list *CreditApplicationPolicyList) Data() []CreditApplicationPolicy {
 	return list.data
 }
 
 // Fetch fetches the next page of data into the `Data` property
-func (list *ReferenceOnlyCurrencyConversionList) FetchWithContext(ctx context.Context) error {
-	resources := &referenceOnlyCurrencyConversionList{}
+func (list *CreditApplicationPolicyList) FetchWithContext(ctx context.Context) error {
+	resources := &creditApplicationPolicyList{}
 	err := list.client.Call(ctx, http.MethodGet, list.nextPagePath, nil, nil, list.requestOptions, resources)
 	if err != nil {
 		return err
@@ -113,13 +100,13 @@ func (list *ReferenceOnlyCurrencyConversionList) FetchWithContext(ctx context.Co
 }
 
 // Fetch fetches the next page of data into the `Data` property
-func (list *ReferenceOnlyCurrencyConversionList) Fetch() error {
+func (list *CreditApplicationPolicyList) Fetch() error {
 	return list.FetchWithContext(context.Background())
 }
 
 // Count returns the count of items on the server that match this pager
-func (list *ReferenceOnlyCurrencyConversionList) CountWithContext(ctx context.Context) (*int64, error) {
-	resources := &referenceOnlyCurrencyConversionList{}
+func (list *CreditApplicationPolicyList) CountWithContext(ctx context.Context) (*int64, error) {
+	resources := &creditApplicationPolicyList{}
 	err := list.client.Call(ctx, http.MethodHead, list.nextPagePath, nil, nil, list.requestOptions, resources)
 	if err != nil {
 		return nil, err
@@ -129,6 +116,6 @@ func (list *ReferenceOnlyCurrencyConversionList) CountWithContext(ctx context.Co
 }
 
 // Count returns the count of items on the server that match this pager
-func (list *ReferenceOnlyCurrencyConversionList) Count() (*int64, error) {
+func (list *CreditApplicationPolicyList) Count() (*int64, error) {
 	return list.CountWithContext(context.Background())
 }
