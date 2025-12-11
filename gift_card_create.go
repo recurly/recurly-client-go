@@ -17,6 +17,9 @@ type GiftCardCreate struct {
 	// 3-letter ISO 4217 currency code.
 	Currency *string `json:"currency,omitempty"`
 
+	// Set to `true` to bypass sending the purchase to your configured tax service. Defaults to `false`.
+	TaxServiceOptOut *bool `json:"tax_service_opt_out,omitempty"`
+
 	// The delivery details for the gift card.
 	Delivery *GiftCardDeliveryCreate `json:"delivery,omitempty"`
 

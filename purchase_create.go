@@ -64,6 +64,9 @@ type PurchaseCreate struct {
 	// VAT reverse charge notes for cross border European tax settlement.
 	VatReverseChargeNotes *string `json:"vat_reverse_charge_notes,omitempty"`
 
+	// Used by Vertex for tax calculations. Possible values are sale, rental, lease.
+	VertexTransactionType *string `json:"vertex_transaction_type,omitempty"`
+
 	// Notes to be put on the credit invoice resulting from credits in the purchase, if any.
 	CreditCustomerNotes *string `json:"credit_customer_notes,omitempty"`
 

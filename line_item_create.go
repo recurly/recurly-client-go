@@ -70,6 +70,9 @@ type LineItemCreate struct {
 	// Used by Avalara for Communications taxes. The transaction type in combination with the service type describe how the line item is taxed. Refer to [the documentation](https://help.avalara.com/AvaTax_for_Communications/Tax_Calculation/AvaTax_for_Communications_Tax_Engine/Mapping_Resources/TM_00115_AFC_Modules_Corresponding_Transaction_Types) for more available t/s types. If an `Item` is associated to the `LineItem`, then the `avalara_service_type` must be absent.
 	AvalaraServiceType *int `json:"avalara_service_type,omitempty"`
 
+	// Used by Vertex for tax calculations. Possible values are sale, rental, lease.
+	VertexTransactionType *string `json:"vertex_transaction_type,omitempty"`
+
 	// Optional field used by Avalara, Vertex, and Recurly's In-the-Box tax solution to determine taxation rules. You can pass in specific tax codes using any of these tax integrations. For Recurly's In-the-Box tax offering you can also choose to instead use simple values of `unknown`, `physical`, or `digital` tax codes.
 	TaxCode *string `json:"tax_code,omitempty"`
 
