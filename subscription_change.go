@@ -72,6 +72,9 @@ type SubscriptionChange struct {
 
 	// The ramp intervals representing the pricing schedule for the subscription.
 	RampIntervals []SubscriptionRampIntervalResponse `json:"ramp_intervals,omitempty"`
+
+	// If present, this sets the date the subscription's next billing period will start (`current_period_ends_at`). When combined with proration_settings, proration calculation should occur, only supported when timeframe is now.
+	NextBillDate *time.Time `json:"next_bill_date,omitempty"`
 }
 
 // GetResponse returns the ResponseMetadata that generated this resource

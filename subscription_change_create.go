@@ -4,7 +4,9 @@
 // need and we will usher them to the appropriate places.
 package recurly
 
-import ()
+import (
+	"time"
+)
 
 type SubscriptionChangeCreate struct {
 
@@ -93,4 +95,7 @@ type SubscriptionChangeCreate struct {
 
 	// Allows you to control how any resulting charges and credits will be calculated and prorated.
 	ProrationSettings *ProrationSettings `json:"proration_settings,omitempty"`
+
+	// If present, this sets the date the subscription's next billing period will start (`current_period_ends_at`). When combined with proration_settings, proration calculation should occur, only supported when timeframe is now.
+	NextBillDate *time.Time `json:"next_bill_date,omitempty"`
 }
