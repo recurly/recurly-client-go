@@ -1,5 +1,16 @@
 # Changelog
 
+## [v5.10.0](https://github.com/recurly/recurly-client-go/tree/v5.10.0) (2025-12-12)
+
+[Full Changelog](https://github.com/recurly/recurly-client-go/compare/v5.9.0...v5.10.0)
+
+
+**Merged Pull Requests**
+
+- Generated Latest Changes for v2021-02-25 [#254](https://github.com/recurly/recurly-client-go/pull/254) ([recurly-integrations](https://github.com/recurly-integrations))
+
+
+
 ## [v5.9.0](https://github.com/recurly/recurly-client-go/tree/v5.9.0) (2025-12-11)
 
 [Full Changelog](https://github.com/recurly/recurly-client-go/compare/v5.8.0...v5.9.0)
