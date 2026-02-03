@@ -49,7 +49,9 @@ type PurchaseCreate struct {
 	NetTermsType *string `json:"net_terms_type,omitempty"`
 
 	// Controls whether credit invoices are automatically applied to new invoices.
-	// The `mode` field determines the application behavior.
+	// The `mode` field determines the application behavior. When mode is `all`,
+	// the optional `allowed_origins` array can restrict which credit invoice origins
+	// are applied.
 	CreditApplicationPolicyOverride *CreditApplicationPolicyCreate `json:"credit_application_policy_override,omitempty"`
 
 	// Terms and conditions to be put on the purchase invoice.

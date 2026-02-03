@@ -19,6 +19,9 @@ type CouponRedemption struct {
 	// Will always be `coupon`.
 	Object string `json:"object,omitempty"`
 
+	// The UUID is useful for matching data with the CSV exports and building URLs into Recurly's UI.
+	Uuid string `json:"uuid,omitempty"`
+
 	// The Account on which the coupon was applied.
 	Account AccountMini `json:"account,omitempty"`
 

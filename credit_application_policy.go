@@ -16,6 +16,11 @@ type CreditApplicationPolicy struct {
 	// - `all`: All available credit invoices are applied (default)
 	// - `none`: No credit invoices are applied automatically
 	Mode string `json:"mode,omitempty"`
+
+	// Optional array of credit invoice origin types to allow when mode is `all`.
+	// If not specified when mode is `all`, credits from all origins are applied.
+	// Only valid when mode is `all`.
+	AllowedOrigins []string `json:"allowed_origins,omitempty"`
 }
 
 // GetResponse returns the ResponseMetadata that generated this resource

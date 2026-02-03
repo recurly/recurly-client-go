@@ -114,7 +114,9 @@ type SubscriptionCreate struct {
 	NetTermsType *string `json:"net_terms_type,omitempty"`
 
 	// Controls whether credit invoices are automatically applied to new invoices.
-	// The `mode` field determines the application behavior.
+	// The `mode` field determines the application behavior. When mode is `all`,
+	// the optional `allowed_origins` array can restrict which credit invoice origins
+	// are applied.
 	CreditApplicationPolicy *CreditApplicationPolicyCreate `json:"credit_application_policy,omitempty"`
 
 	// If present, this subscription's subsequent transactions will use the payment gateway with this code. To select a payment gateway to use when creating a Subscription, be sure to set the `account.billing_info.gateway_code` as well.
