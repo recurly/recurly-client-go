@@ -97,6 +97,12 @@ type ClientInterface interface {
 	RemoveCouponRedemption(accountId string, opts ...Option) (*CouponRedemption, error)
 	RemoveCouponRedemptionWithContext(ctx context.Context, accountId string, opts ...Option) (*CouponRedemption, error)
 
+	GetCouponRedemption(accountId string, couponRedemptionId string, opts ...Option) (*CouponRedemption, error)
+	GetCouponRedemptionWithContext(ctx context.Context, accountId string, couponRedemptionId string, opts ...Option) (*CouponRedemption, error)
+
+	RemoveCouponRedemptionById(accountId string, couponRedemptionId string, opts ...Option) (*CouponRedemption, error)
+	RemoveCouponRedemptionByIdWithContext(ctx context.Context, accountId string, couponRedemptionId string, opts ...Option) (*CouponRedemption, error)
+
 	ListAccountCreditPayments(accountId string, params *ListAccountCreditPaymentsParams, opts ...Option) (CreditPaymentLister, error)
 
 	ListAccountExternalAccount(accountId string, opts ...Option) (ExternalAccountLister, error)
@@ -430,6 +436,12 @@ type ClientInterface interface {
 	ListSubscriptionLineItems(subscriptionId string, params *ListSubscriptionLineItemsParams, opts ...Option) (LineItemLister, error)
 
 	ListSubscriptionCouponRedemptions(subscriptionId string, params *ListSubscriptionCouponRedemptionsParams, opts ...Option) (CouponRedemptionLister, error)
+
+	GetSubscriptionCouponRedemption(subscriptionId string, couponRedemptionId string, opts ...Option) (*CouponRedemption, error)
+	GetSubscriptionCouponRedemptionWithContext(ctx context.Context, subscriptionId string, couponRedemptionId string, opts ...Option) (*CouponRedemption, error)
+
+	RemoveSubscriptionCouponRedemption(subscriptionId string, couponRedemptionId string, opts ...Option) (*CouponRedemption, error)
+	RemoveSubscriptionCouponRedemptionWithContext(ctx context.Context, subscriptionId string, couponRedemptionId string, opts ...Option) (*CouponRedemption, error)
 
 	ListUsage(subscriptionId string, addOnId string, params *ListUsageParams, opts ...Option) (UsageLister, error)
 
@@ -1529,6 +1541,64 @@ func (c *Client) RemoveCouponRedemptionWithContext(ctx context.Context, accountI
 
 func (c *Client) removeCouponRedemption(ctx context.Context, accountId string, opts ...Option) (*CouponRedemption, error) {
 	path, err := c.InterpolatePath("/accounts/{account_id}/coupon_redemptions/active", accountId)
+	if err != nil {
+		return nil, err
+	}
+	requestOptions := NewRequestOptions(opts...)
+	result := &CouponRedemption{}
+	err = c.Call(ctx, http.MethodDelete, path, nil, nil, requestOptions, result)
+	if err != nil {
+		return nil, err
+	}
+	return result, err
+}
+
+// GetCouponRedemption wraps GetCouponRedemptionWithContext using the background context
+func (c *Client) GetCouponRedemption(accountId string, couponRedemptionId string, opts ...Option) (*CouponRedemption, error) {
+	ctx := context.Background()
+	return c.getCouponRedemption(ctx, accountId, couponRedemptionId, opts...)
+}
+
+// GetCouponRedemptionWithContext Show the coupon redemption
+//
+// API Documentation: https://developers.recurly.com/api/v2021-02-25#operation/get_coupon_redemption
+//
+// Returns: A coupon redemption.
+func (c *Client) GetCouponRedemptionWithContext(ctx context.Context, accountId string, couponRedemptionId string, opts ...Option) (*CouponRedemption, error) {
+	return c.getCouponRedemption(ctx, accountId, couponRedemptionId, opts...)
+}
+
+func (c *Client) getCouponRedemption(ctx context.Context, accountId string, couponRedemptionId string, opts ...Option) (*CouponRedemption, error) {
+	path, err := c.InterpolatePath("/accounts/{account_id}/coupon_redemptions/{coupon_redemption_id}", accountId, couponRedemptionId)
+	if err != nil {
+		return nil, err
+	}
+	requestOptions := NewRequestOptions(opts...)
+	result := &CouponRedemption{}
+	err = c.Call(ctx, http.MethodGet, path, nil, nil, requestOptions, result)
+	if err != nil {
+		return nil, err
+	}
+	return result, err
+}
+
+// RemoveCouponRedemptionById wraps RemoveCouponRedemptionByIdWithContext using the background context
+func (c *Client) RemoveCouponRedemptionById(accountId string, couponRedemptionId string, opts ...Option) (*CouponRedemption, error) {
+	ctx := context.Background()
+	return c.removeCouponRedemptionById(ctx, accountId, couponRedemptionId, opts...)
+}
+
+// RemoveCouponRedemptionByIdWithContext Delete the coupon redemption
+//
+// API Documentation: https://developers.recurly.com/api/v2021-02-25#operation/remove_coupon_redemption_by_id
+//
+// Returns: Coupon redemption deleted.
+func (c *Client) RemoveCouponRedemptionByIdWithContext(ctx context.Context, accountId string, couponRedemptionId string, opts ...Option) (*CouponRedemption, error) {
+	return c.removeCouponRedemptionById(ctx, accountId, couponRedemptionId, opts...)
+}
+
+func (c *Client) removeCouponRedemptionById(ctx context.Context, accountId string, couponRedemptionId string, opts ...Option) (*CouponRedemption, error) {
+	path, err := c.InterpolatePath("/accounts/{account_id}/coupon_redemptions/{coupon_redemption_id}", accountId, couponRedemptionId)
 	if err != nil {
 		return nil, err
 	}
@@ -6806,6 +6876,64 @@ func (c *Client) ListSubscriptionCouponRedemptions(subscriptionId string, params
 	requestOptions := NewRequestOptions(opts...)
 	path = BuildURL(path, params)
 	return NewCouponRedemptionList(c, path, requestOptions), nil
+}
+
+// GetSubscriptionCouponRedemption wraps GetSubscriptionCouponRedemptionWithContext using the background context
+func (c *Client) GetSubscriptionCouponRedemption(subscriptionId string, couponRedemptionId string, opts ...Option) (*CouponRedemption, error) {
+	ctx := context.Background()
+	return c.getSubscriptionCouponRedemption(ctx, subscriptionId, couponRedemptionId, opts...)
+}
+
+// GetSubscriptionCouponRedemptionWithContext Show the coupon redemption for a subscription
+//
+// API Documentation: https://developers.recurly.com/api/v2021-02-25#operation/get_subscription_coupon_redemption
+//
+// Returns: The coupon redemption on a subscription.
+func (c *Client) GetSubscriptionCouponRedemptionWithContext(ctx context.Context, subscriptionId string, couponRedemptionId string, opts ...Option) (*CouponRedemption, error) {
+	return c.getSubscriptionCouponRedemption(ctx, subscriptionId, couponRedemptionId, opts...)
+}
+
+func (c *Client) getSubscriptionCouponRedemption(ctx context.Context, subscriptionId string, couponRedemptionId string, opts ...Option) (*CouponRedemption, error) {
+	path, err := c.InterpolatePath("/subscriptions/{subscription_id}/coupon_redemptions/{coupon_redemption_id}", subscriptionId, couponRedemptionId)
+	if err != nil {
+		return nil, err
+	}
+	requestOptions := NewRequestOptions(opts...)
+	result := &CouponRedemption{}
+	err = c.Call(ctx, http.MethodGet, path, nil, nil, requestOptions, result)
+	if err != nil {
+		return nil, err
+	}
+	return result, err
+}
+
+// RemoveSubscriptionCouponRedemption wraps RemoveSubscriptionCouponRedemptionWithContext using the background context
+func (c *Client) RemoveSubscriptionCouponRedemption(subscriptionId string, couponRedemptionId string, opts ...Option) (*CouponRedemption, error) {
+	ctx := context.Background()
+	return c.removeSubscriptionCouponRedemption(ctx, subscriptionId, couponRedemptionId, opts...)
+}
+
+// RemoveSubscriptionCouponRedemptionWithContext Delete the coupon redemption from a subscription
+//
+// API Documentation: https://developers.recurly.com/api/v2021-02-25#operation/remove_subscription_coupon_redemption
+//
+// Returns: Coupon redemption deleted.
+func (c *Client) RemoveSubscriptionCouponRedemptionWithContext(ctx context.Context, subscriptionId string, couponRedemptionId string, opts ...Option) (*CouponRedemption, error) {
+	return c.removeSubscriptionCouponRedemption(ctx, subscriptionId, couponRedemptionId, opts...)
+}
+
+func (c *Client) removeSubscriptionCouponRedemption(ctx context.Context, subscriptionId string, couponRedemptionId string, opts ...Option) (*CouponRedemption, error) {
+	path, err := c.InterpolatePath("/subscriptions/{subscription_id}/coupon_redemptions/{coupon_redemption_id}", subscriptionId, couponRedemptionId)
+	if err != nil {
+		return nil, err
+	}
+	requestOptions := NewRequestOptions(opts...)
+	result := &CouponRedemption{}
+	err = c.Call(ctx, http.MethodDelete, path, nil, nil, requestOptions, result)
+	if err != nil {
+		return nil, err
+	}
+	return result, err
 }
 
 type ListUsageParams struct {

@@ -62,7 +62,9 @@ type SubscriptionPurchase struct {
 	RampIntervals *[]SubscriptionRampInterval `json:"ramp_intervals,omitempty"`
 
 	// Controls whether credit invoices are automatically applied to new invoices.
-	// The `mode` field determines the application behavior.
+	// The `mode` field determines the application behavior. When mode is `all`,
+	// the optional `allowed_origins` array can restrict which credit invoice origins
+	// are applied.
 	CreditApplicationPolicy *CreditApplicationPolicyCreate `json:"credit_application_policy,omitempty"`
 
 	// Optional field to be used only when needing to bypass the 60 second limit on creating subscriptions. Should only be used when creating subscriptions in bulk from the API.

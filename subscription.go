@@ -142,7 +142,9 @@ type Subscription struct {
 	NetTermsType string `json:"net_terms_type,omitempty"`
 
 	// Controls whether credit invoices are automatically applied to new invoices.
-	// The `mode` field determines the application behavior.
+	// The `mode` field determines the application behavior. When mode is `all`,
+	// the optional `allowed_origins` array can restrict which credit invoice origins
+	// are applied.
 	CreditApplicationPolicy CreditApplicationPolicy `json:"credit_application_policy,omitempty"`
 
 	// Terms and conditions

@@ -19,6 +19,9 @@ type InvoiceCollection struct {
 
 	// Credit invoices
 	CreditInvoices []Invoice `json:"credit_invoices,omitempty"`
+
+	// Verification transactions (used for free trial payment method validation)
+	VerificationTransactions []Transaction `json:"verification_transactions,omitempty"`
 }
 
 // GetResponse returns the ResponseMetadata that generated this resource
