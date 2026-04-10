@@ -34,8 +34,11 @@ type ClientInterface interface {
 	UpdateAccount(accountId string, body *AccountUpdate, opts ...Option) (*Account, error)
 	UpdateAccountWithContext(ctx context.Context, accountId string, body *AccountUpdate, opts ...Option) (*Account, error)
 
-	DeactivateAccount(accountId string, opts ...Option) (*Account, error)
-	DeactivateAccountWithContext(ctx context.Context, accountId string, opts ...Option) (*Account, error)
+	DeactivateAccount(accountId string, params *DeactivateAccountParams, opts ...Option) (*Account, error)
+	DeactivateAccountWithContext(ctx context.Context, accountId string, params *DeactivateAccountParams, opts ...Option) (*Account, error)
+
+	RedactAccount(accountId string, opts ...Option) (*Account, error)
+	RedactAccountWithContext(ctx context.Context, accountId string, opts ...Option) (*Account, error)
 
 	GetAccountAcquisition(accountId string, opts ...Option) (*AccountAcquisition, error)
 	GetAccountAcquisitionWithContext(ctx context.Context, accountId string, opts ...Option) (*AccountAcquisition, error)
@@ -829,10 +832,26 @@ func (c *Client) updateAccount(ctx context.Context, accountId string, body *Acco
 	return result, err
 }
 
+type DeactivateAccountParams struct {
+
+	// Redact - Permanently removes all personally identifiable information (PII) from this account after it has been deactivated, to fulfill a data subject's right to erasure under GDPR and similar privacy regulations (e.g. CCPA). Cannot be undone.
+	Redact *bool
+}
+
+func (list *DeactivateAccountParams) URLParams() []KeyValue {
+	var options []KeyValue
+
+	if list.Redact != nil {
+		options = append(options, KeyValue{Key: "redact", Value: strconv.FormatBool(*list.Redact)})
+	}
+
+	return options
+}
+
 // DeactivateAccount wraps DeactivateAccountWithContext using the background context
-func (c *Client) DeactivateAccount(accountId string, opts ...Option) (*Account, error) {
+func (c *Client) DeactivateAccount(accountId string, params *DeactivateAccountParams, opts ...Option) (*Account, error) {
 	ctx := context.Background()
-	return c.deactivateAccount(ctx, accountId, opts...)
+	return c.deactivateAccount(ctx, accountId, params, opts...)
 }
 
 // DeactivateAccountWithContext Deactivate an account
@@ -840,18 +859,47 @@ func (c *Client) DeactivateAccount(accountId string, opts ...Option) (*Account, 
 // API Documentation: https://developers.recurly.com/api/v2021-02-25#operation/deactivate_account
 //
 // Returns: An account.
-func (c *Client) DeactivateAccountWithContext(ctx context.Context, accountId string, opts ...Option) (*Account, error) {
-	return c.deactivateAccount(ctx, accountId, opts...)
+func (c *Client) DeactivateAccountWithContext(ctx context.Context, accountId string, params *DeactivateAccountParams, opts ...Option) (*Account, error) {
+	return c.deactivateAccount(ctx, accountId, params, opts...)
 }
 
-func (c *Client) deactivateAccount(ctx context.Context, accountId string, opts ...Option) (*Account, error) {
+func (c *Client) deactivateAccount(ctx context.Context, accountId string, params *DeactivateAccountParams, opts ...Option) (*Account, error) {
 	path, err := c.InterpolatePath("/accounts/{account_id}", accountId)
 	if err != nil {
 		return nil, err
 	}
 	requestOptions := NewRequestOptions(opts...)
 	result := &Account{}
-	err = c.Call(ctx, http.MethodDelete, path, nil, nil, requestOptions, result)
+	err = c.Call(ctx, http.MethodDelete, path, nil, params, requestOptions, result)
+	if err != nil {
+		return nil, err
+	}
+	return result, err
+}
+
+// RedactAccount wraps RedactAccountWithContext using the background context
+func (c *Client) RedactAccount(accountId string, opts ...Option) (*Account, error) {
+	ctx := context.Background()
+	return c.redactAccount(ctx, accountId, opts...)
+}
+
+// RedactAccountWithContext Redact an account (GDPR Right to Erasure)
+//
+// API Documentation: https://developers.recurly.com/api/v2021-02-25#operation/redact_account
+//
+// Returns: Account has been accepted for redaction and will be processed asynchronously.
+func (c *Client) RedactAccountWithContext(ctx context.Context, accountId string, opts ...Option) (*Account, error) {
+	return c.redactAccount(ctx, accountId, opts...)
+}
+
+func (c *Client) redactAccount(ctx context.Context, accountId string, opts ...Option) (*Account, error) {
+	path, err := c.InterpolatePath("/accounts/{account_id}/redact", accountId)
+	if err != nil {
+		return nil, err
+	}
+	requestOptions := NewRequestOptions(opts...)
+	result := &Account{}
+	err = c.Call(ctx, http.MethodPut, path, nil, nil, requestOptions, result)
 	if err != nil {
 		return nil, err
 	}
