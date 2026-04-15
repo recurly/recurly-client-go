@@ -37,6 +37,9 @@ type ClientInterface interface {
 	DeactivateAccount(accountId string, opts ...Option) (*Account, error)
 	DeactivateAccountWithContext(ctx context.Context, accountId string, opts ...Option) (*Account, error)
 
+	RedactAccount(accountId string, opts ...Option) (*Account, error)
+	RedactAccountWithContext(ctx context.Context, accountId string, opts ...Option) (*Account, error)
+
 	GetAccountAcquisition(accountId string, opts ...Option) (*AccountAcquisition, error)
 	GetAccountAcquisitionWithContext(ctx context.Context, accountId string, opts ...Option) (*AccountAcquisition, error)
 
@@ -183,6 +186,9 @@ type ClientInterface interface {
 
 	GenerateUniqueCouponCodes(couponId string, body *CouponBulkCreate, opts ...Option) (*UniqueCouponCodeParams, error)
 	GenerateUniqueCouponCodesWithContext(ctx context.Context, couponId string, body *CouponBulkCreate, opts ...Option) (*UniqueCouponCodeParams, error)
+
+	GenerateUniqueCouponCodesSync(couponId string, body *CouponBulkCreateSync, opts ...Option) (*UniqueCouponCodeGenerationResponse, error)
+	GenerateUniqueCouponCodesSyncWithContext(ctx context.Context, couponId string, body *CouponBulkCreateSync, opts ...Option) (*UniqueCouponCodeGenerationResponse, error)
 
 	RestoreCoupon(couponId string, body *CouponUpdate, opts ...Option) (*Coupon, error)
 	RestoreCouponWithContext(ctx context.Context, couponId string, body *CouponUpdate, opts ...Option) (*Coupon, error)
@@ -852,6 +858,35 @@ func (c *Client) deactivateAccount(ctx context.Context, accountId string, opts .
 	requestOptions := NewRequestOptions(opts...)
 	result := &Account{}
 	err = c.Call(ctx, http.MethodDelete, path, nil, nil, requestOptions, result)
+	if err != nil {
+		return nil, err
+	}
+	return result, err
+}
+
+// RedactAccount wraps RedactAccountWithContext using the background context
+func (c *Client) RedactAccount(accountId string, opts ...Option) (*Account, error) {
+	ctx := context.Background()
+	return c.redactAccount(ctx, accountId, opts...)
+}
+
+// RedactAccountWithContext Redact an account (GDPR Right to Erasure)
+//
+// API Documentation: https://developers.recurly.com/api/v2021-02-25#operation/redact_account
+//
+// Returns: Account has been accepted for redaction and will be processed asynchronously.
+func (c *Client) RedactAccountWithContext(ctx context.Context, accountId string, opts ...Option) (*Account, error) {
+	return c.redactAccount(ctx, accountId, opts...)
+}
+
+func (c *Client) redactAccount(ctx context.Context, accountId string, opts ...Option) (*Account, error) {
+	path, err := c.InterpolatePath("/accounts/{account_id}/redact", accountId)
+	if err != nil {
+		return nil, err
+	}
+	requestOptions := NewRequestOptions(opts...)
+	result := &Account{}
+	err = c.Call(ctx, http.MethodPut, path, nil, nil, requestOptions, result)
 	if err != nil {
 		return nil, err
 	}
@@ -3027,6 +3062,35 @@ func (c *Client) generateUniqueCouponCodes(ctx context.Context, couponId string,
 	}
 	requestOptions := NewRequestOptions(opts...)
 	result := &UniqueCouponCodeParams{}
+	err = c.Call(ctx, http.MethodPost, path, body, nil, requestOptions, result)
+	if err != nil {
+		return nil, err
+	}
+	return result, err
+}
+
+// GenerateUniqueCouponCodesSync wraps GenerateUniqueCouponCodesSyncWithContext using the background context
+func (c *Client) GenerateUniqueCouponCodesSync(couponId string, body *CouponBulkCreateSync, opts ...Option) (*UniqueCouponCodeGenerationResponse, error) {
+	ctx := context.Background()
+	return c.generateUniqueCouponCodesSync(ctx, couponId, body, opts...)
+}
+
+// GenerateUniqueCouponCodesSyncWithContext Generate unique coupon codes synchronously
+//
+// API Documentation: https://developers.recurly.com/api/v2021-02-25#operation/generate_unique_coupon_codes_sync
+//
+// Returns: The newly generated unique coupon codes.
+func (c *Client) GenerateUniqueCouponCodesSyncWithContext(ctx context.Context, couponId string, body *CouponBulkCreateSync, opts ...Option) (*UniqueCouponCodeGenerationResponse, error) {
+	return c.generateUniqueCouponCodesSync(ctx, couponId, body, opts...)
+}
+
+func (c *Client) generateUniqueCouponCodesSync(ctx context.Context, couponId string, body *CouponBulkCreateSync, opts ...Option) (*UniqueCouponCodeGenerationResponse, error) {
+	path, err := c.InterpolatePath("/coupons/{coupon_id}/generate_sync", couponId)
+	if err != nil {
+		return nil, err
+	}
+	requestOptions := NewRequestOptions(opts...)
+	result := &UniqueCouponCodeGenerationResponse{}
 	err = c.Call(ctx, http.MethodPost, path, body, nil, requestOptions, result)
 	if err != nil {
 		return nil, err

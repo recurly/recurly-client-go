@@ -64,6 +64,7 @@ rm -f subscription_change_billing_info.go
 rm -f subscription_ramp_interval_response.go
 rm -f credit_application_policy.go
 rm -f unique_coupon_code_params.go
+rm -f unique_coupon_code_generation_response.go
 rm -f unique_coupon_code.go
 rm -f custom_field_definition.go
 rm -f general_ledger_account.go
@@ -128,6 +129,7 @@ rm -f coupon_create.go
 rm -f coupon_pricing.go
 rm -f coupon_update.go
 rm -f coupon_bulk_create.go
+rm -f coupon_bulk_create_sync.go
 rm -f general_ledger_account_create.go
 rm -f general_ledger_account_update.go
 rm -f item_create.go
