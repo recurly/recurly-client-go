@@ -17,6 +17,12 @@ type CustomField struct {
 
 	// Any values that resemble a credit card number or security code (CVV/CVC) will be rejected.
 	Value string `json:"value,omitempty"`
+
+	// The type of record this custom field was automatically copied from. Only present when the field was copied from another record.
+	SourceRecordType string `json:"source_record_type,omitempty"`
+
+	// The UUID of the record this custom field was automatically copied from. Only present when the field was copied from another record.
+	SourceRecordId string `json:"source_record_id,omitempty"`
 }
 
 // GetResponse returns the ResponseMetadata that generated this resource

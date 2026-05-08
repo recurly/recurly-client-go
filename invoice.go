@@ -159,6 +159,9 @@ type Invoice struct {
 
 	// Unique ID to identify the business entity assigned to the invoice. Available when the `Multiple Business Entities` feature is enabled.
 	BusinessEntityId string `json:"business_entity_id,omitempty"`
+
+	// A list of custom fields that were on the account at the time of invoice creation and were marked to be displayed on invoices. Read-only; cannot be set directly on the invoice.
+	CustomFields []CustomField `json:"custom_fields,omitempty"`
 }
 
 // GetResponse returns the ResponseMetadata that generated this resource

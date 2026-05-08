@@ -33,7 +33,7 @@ type ShippingAddressCreate struct {
 	// Zip or postal code.
 	PostalCode *string `json:"postal_code,omitempty"`
 
-	// Code that represents a geographic entity (location or object). Only returned for Sling Vertex Integration
+	// Code that represents a geographic entity (location or object). Only returned when Vertex or Avalara for Communications is enabled.
 	GeoCode *string `json:"geo_code,omitempty"`
 
 	// Country, 2-letter ISO 3166-1 alpha-2 code.
