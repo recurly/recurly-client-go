@@ -11,9 +11,9 @@ jobs:
       matrix:
         go: ["1.17", "1.18", "1.19", "1.20", "1.21", "1.22", "1.23", "1.24"]
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v6.0.2
       - name: Setup go
-        uses: actions/setup-go@v3
+        uses: actions/setup-go@v6.4.0
         with:
           go-version: ${{ matrix.go }}
       - run: ./scripts/build
