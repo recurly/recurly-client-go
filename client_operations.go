@@ -333,6 +333,9 @@ type ClientInterface interface {
 	RefundInvoice(invoiceId string, body *InvoiceRefund, opts ...Option) (*Invoice, error)
 	RefundInvoiceWithContext(ctx context.Context, invoiceId string, body *InvoiceRefund, opts ...Option) (*Invoice, error)
 
+	CreateInvoiceRetry(body *RecoveryInvoiceCreate, opts ...Option) (*InvoiceCollection, error)
+	CreateInvoiceRetryWithContext(ctx context.Context, body *RecoveryInvoiceCreate, opts ...Option) (*InvoiceCollection, error)
+
 	ListLineItems(params *ListLineItemsParams, opts ...Option) (LineItemLister, error)
 
 	GetLineItem(lineItemId string, opts ...Option) (*LineItem, error)
@@ -5193,6 +5196,35 @@ func (c *Client) refundInvoice(ctx context.Context, invoiceId string, body *Invo
 	}
 	requestOptions := NewRequestOptions(opts...)
 	result := &Invoice{}
+	err = c.Call(ctx, http.MethodPost, path, body, nil, requestOptions, result)
+	if err != nil {
+		return nil, err
+	}
+	return result, err
+}
+
+// CreateInvoiceRetry wraps CreateInvoiceRetryWithContext using the background context
+func (c *Client) CreateInvoiceRetry(body *RecoveryInvoiceCreate, opts ...Option) (*InvoiceCollection, error) {
+	ctx := context.Background()
+	return c.createInvoiceRetry(ctx, body, opts...)
+}
+
+// CreateInvoiceRetryWithContext Create an invoice for revenue recovery
+//
+// API Documentation: https://developers.recurly.com/api/v2021-02-25#operation/create_invoice_retry
+//
+// Returns: Returns the new invoices.
+func (c *Client) CreateInvoiceRetryWithContext(ctx context.Context, body *RecoveryInvoiceCreate, opts ...Option) (*InvoiceCollection, error) {
+	return c.createInvoiceRetry(ctx, body, opts...)
+}
+
+func (c *Client) createInvoiceRetry(ctx context.Context, body *RecoveryInvoiceCreate, opts ...Option) (*InvoiceCollection, error) {
+	path, err := c.InterpolatePath("/invoices/recovery")
+	if err != nil {
+		return nil, err
+	}
+	requestOptions := NewRequestOptions(opts...)
+	result := &InvoiceCollection{}
 	err = c.Call(ctx, http.MethodPost, path, body, nil, requestOptions, result)
 	if err != nil {
 		return nil, err

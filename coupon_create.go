@@ -35,7 +35,7 @@ type CouponCreate struct {
 	// The percent of the price discounted by the coupon.  Required if `discount_type` is `percent`.
 	DiscountPercent *int `json:"discount_percent,omitempty"`
 
-	// Description of the unit of time the coupon is for. Used with `free_trial_amount` to determine the duration of time the coupon is for.  Required if `discount_type` is `free_trial`.
+	// Description of the unit of time the coupon is for. Used with `free_trial_amount` to determine the duration of time the coupon is for. Required if `discount_type` is `free_trial`. Use `billing_period` to grant a free trial for a number of billing cycles.
 	FreeTrialUnit *string `json:"free_trial_unit,omitempty"`
 
 	// Sets the duration of time the `free_trial_unit` is for. Required if `discount_type` is `free_trial`.
@@ -77,7 +77,7 @@ type CouponCreate struct {
 	// If `duration` is "temporal" than `temporal_amount` is an integer which is multiplied by `temporal_unit` to define the duration that the coupon will be applied to invoices for. When `temporal_unit` is "billing_period", this is the number of complete billing cycles.
 	TemporalAmount *int `json:"temporal_amount,omitempty"`
 
-	// If `duration` is "temporal" than `temporal_unit` is multiplied by `temporal_amount` to define the duration that the coupon will be applied to invoices for. Use "billing_period" to apply the coupon for a fixed number of billing cycles. Requires `redemption_resource=subscription`.
+	// If `duration` is "temporal" than `temporal_unit` is multiplied by `temporal_amount` to define the duration that the coupon will be applied to invoices for. Use "billing_period" to apply the coupon for a fixed number of billing cycles. Requires `redemption_resource=subscription`. Not compatible with `discount_type=free_trial`; use `free_trial_unit=billing_period` and `free_trial_amount` instead.
 	TemporalUnit *string `json:"temporal_unit,omitempty"`
 
 	// Whether the coupon is "single_code" or "bulk". Bulk coupons will require a `unique_code_template` and will generate unique codes through the `/generate` endpoint.
