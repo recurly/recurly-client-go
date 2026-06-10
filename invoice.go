@@ -82,6 +82,9 @@ type Invoice struct {
 	// Total discounts applied to this invoice.
 	Discount float64 `json:"discount,omitempty"`
 
+	// The coupon redemptions applied to this invoice.
+	CouponRedemptions []CouponRedemptionMini `json:"coupon_redemptions,omitempty"`
+
 	// The summation of charges and credits, before discounts and taxes.
 	Subtotal float64 `json:"subtotal,omitempty"`
 

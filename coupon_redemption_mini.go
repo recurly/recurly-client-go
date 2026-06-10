@@ -21,8 +21,10 @@ type CouponRedemptionMini struct {
 
 	Coupon CouponMini `json:"coupon,omitempty"`
 
-	// Invoice state
+	// Coupon Redemption state
 	State string `json:"state,omitempty"`
+
+	RemainingDuration CouponRedemptionRemainingDuration `json:"remaining_duration,omitempty"`
 
 	// The amount that was discounted upon the application of the coupon, formatted with the currency.
 	Discounted float64 `json:"discounted,omitempty"`

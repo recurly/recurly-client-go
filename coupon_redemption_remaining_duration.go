@@ -7,56 +7,57 @@ package recurly
 import (
 	"context"
 	"net/http"
+	"time"
 )
 
-type CouponDiscountTrial struct {
+type CouponRedemptionRemainingDuration struct {
 	recurlyResponse *ResponseMetadata
 
-	// Temporal unit of the free trial. When `billing_period`, `length` represents the number of billing cycles.
-	Unit string `json:"unit,omitempty"`
+	// The coupon's duration type. `temporal` includes an `expires_at` timestamp. `forever` and `single_use` have no additional fields.
+	Type string `json:"type,omitempty"`
 
-	// Trial length measured in the units specified by the sibling `unit` property
-	Length int `json:"length,omitempty"`
+	// Present when `type` is `temporal`. The datetime after which this redemption will no longer apply.
+	ExpiresAt *time.Time `json:"expires_at,omitempty"`
 }
 
 // GetResponse returns the ResponseMetadata that generated this resource
-func (resource *CouponDiscountTrial) GetResponse() *ResponseMetadata {
+func (resource *CouponRedemptionRemainingDuration) GetResponse() *ResponseMetadata {
 	return resource.recurlyResponse
 }
 
 // setResponse sets the ResponseMetadata that generated this resource
-func (resource *CouponDiscountTrial) setResponse(res *ResponseMetadata) {
+func (resource *CouponRedemptionRemainingDuration) setResponse(res *ResponseMetadata) {
 	resource.recurlyResponse = res
 }
 
 // internal struct for deserializing accounts
-type couponDiscountTrialList struct {
+type couponRedemptionRemainingDurationList struct {
 	ListMetadata
-	Data            []CouponDiscountTrial `json:"data"`
+	Data            []CouponRedemptionRemainingDuration `json:"data"`
 	recurlyResponse *ResponseMetadata
 }
 
 // GetResponse returns the ResponseMetadata that generated this resource
-func (resource *couponDiscountTrialList) GetResponse() *ResponseMetadata {
+func (resource *couponRedemptionRemainingDurationList) GetResponse() *ResponseMetadata {
 	return resource.recurlyResponse
 }
 
 // setResponse sets the ResponseMetadata that generated this resource
-func (resource *couponDiscountTrialList) setResponse(res *ResponseMetadata) {
+func (resource *couponRedemptionRemainingDurationList) setResponse(res *ResponseMetadata) {
 	resource.recurlyResponse = res
 }
 
-// CouponDiscountTrialList allows you to paginate CouponDiscountTrial objects
-type CouponDiscountTrialList struct {
+// CouponRedemptionRemainingDurationList allows you to paginate CouponRedemptionRemainingDuration objects
+type CouponRedemptionRemainingDurationList struct {
 	client         HTTPCaller
 	requestOptions *RequestOptions
 	nextPagePath   string
 	hasMore        bool
-	data           []CouponDiscountTrial
+	data           []CouponRedemptionRemainingDuration
 }
 
-func NewCouponDiscountTrialList(client HTTPCaller, nextPagePath string, requestOptions *RequestOptions) *CouponDiscountTrialList {
-	return &CouponDiscountTrialList{
+func NewCouponRedemptionRemainingDurationList(client HTTPCaller, nextPagePath string, requestOptions *RequestOptions) *CouponRedemptionRemainingDurationList {
+	return &CouponRedemptionRemainingDurationList{
 		client:         client,
 		requestOptions: requestOptions,
 		nextPagePath:   nextPagePath,
@@ -64,31 +65,31 @@ func NewCouponDiscountTrialList(client HTTPCaller, nextPagePath string, requestO
 	}
 }
 
-type CouponDiscountTrialLister interface {
+type CouponRedemptionRemainingDurationLister interface {
 	Fetch() error
 	FetchWithContext(ctx context.Context) error
 	Count() (*int64, error)
 	CountWithContext(ctx context.Context) (*int64, error)
-	Data() []CouponDiscountTrial
+	Data() []CouponRedemptionRemainingDuration
 	HasMore() bool
 	Next() string
 }
 
-func (list *CouponDiscountTrialList) HasMore() bool {
+func (list *CouponRedemptionRemainingDurationList) HasMore() bool {
 	return list.hasMore
 }
 
-func (list *CouponDiscountTrialList) Next() string {
+func (list *CouponRedemptionRemainingDurationList) Next() string {
 	return list.nextPagePath
 }
 
-func (list *CouponDiscountTrialList) Data() []CouponDiscountTrial {
+func (list *CouponRedemptionRemainingDurationList) Data() []CouponRedemptionRemainingDuration {
 	return list.data
 }
 
 // Fetch fetches the next page of data into the `Data` property
-func (list *CouponDiscountTrialList) FetchWithContext(ctx context.Context) error {
-	resources := &couponDiscountTrialList{}
+func (list *CouponRedemptionRemainingDurationList) FetchWithContext(ctx context.Context) error {
+	resources := &couponRedemptionRemainingDurationList{}
 	err := list.client.Call(ctx, http.MethodGet, list.nextPagePath, nil, nil, list.requestOptions, resources)
 	if err != nil {
 		return err
@@ -101,13 +102,13 @@ func (list *CouponDiscountTrialList) FetchWithContext(ctx context.Context) error
 }
 
 // Fetch fetches the next page of data into the `Data` property
-func (list *CouponDiscountTrialList) Fetch() error {
+func (list *CouponRedemptionRemainingDurationList) Fetch() error {
 	return list.FetchWithContext(context.Background())
 }
 
 // Count returns the count of items on the server that match this pager
-func (list *CouponDiscountTrialList) CountWithContext(ctx context.Context) (*int64, error) {
-	resources := &couponDiscountTrialList{}
+func (list *CouponRedemptionRemainingDurationList) CountWithContext(ctx context.Context) (*int64, error) {
+	resources := &couponRedemptionRemainingDurationList{}
 	err := list.client.Call(ctx, http.MethodHead, list.nextPagePath, nil, nil, list.requestOptions, resources)
 	if err != nil {
 		return nil, err
@@ -117,6 +118,6 @@ func (list *CouponDiscountTrialList) CountWithContext(ctx context.Context) (*int
 }
 
 // Count returns the count of items on the server that match this pager
-func (list *CouponDiscountTrialList) Count() (*int64, error) {
+func (list *CouponRedemptionRemainingDurationList) Count() (*int64, error) {
 	return list.CountWithContext(context.Background())
 }

@@ -119,8 +119,11 @@ type LineItem struct {
 	// `quantity * unit_amount`
 	Subtotal float64 `json:"subtotal,omitempty"`
 
-	// The discount applied to the line item.
+	// The sum of all discounts applied to the line item.
 	Discount float64 `json:"discount,omitempty"`
+
+	// The breakdown of discounts applied to the line item by coupon redemption.
+	Discounts []LineItemDiscount `json:"discounts,omitempty"`
 
 	// Unique code to identify the ledger account. Each code must start
 	// with a letter or number. The following special characters are
