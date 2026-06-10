@@ -1,5 +1,17 @@
 # Changelog
 
+## [v5.14.0](https://github.com/recurly/recurly-client-go/tree/v5.14.0) (2026-06-10)
+
+[Full Changelog](https://github.com/recurly/recurly-client-go/compare/v5.13.0...v5.14.0)
+
+
+**Merged Pull Requests**
+
+- Generated Latest Changes for v2021-02-25 [#264](https://github.com/recurly/recurly-client-go/pull/264) ([recurly-integrations](https://github.com/recurly-integrations))
+- ci: Remediate Node.js 20 deprecation [#263](https://github.com/recurly/recurly-client-go/pull/263) ([jparrabedoya](https://github.com/jparrabedoya))
+
+
+
 ## [v5.13.0](https://github.com/recurly/recurly-client-go/tree/v5.13.0) (2026-05-20)
 
 [Full Changelog](https://github.com/recurly/recurly-client-go/compare/v5.12.0...v5.13.0)
