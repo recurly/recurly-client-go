@@ -79,6 +79,9 @@ type Subscription struct {
 	// Null unless subscription is paused or will pause at the end of the current billing period.
 	RemainingPauseCycles int `json:"remaining_pause_cycles,omitempty"`
 
+	// The date the subscription billing resumes following a pause. Null unless the subscription is paused or scheduled to be paused.
+	ResumeAt *time.Time `json:"resume_at,omitempty"`
+
 	// 3-letter ISO 4217 currency code.
 	Currency string `json:"currency,omitempty"`
 

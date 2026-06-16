@@ -64,6 +64,9 @@ type Transaction struct {
 	// 3-letter ISO 4217 currency code.
 	Currency string `json:"currency,omitempty"`
 
+	// The description that gets sent to the gateway.
+	Description string `json:"description,omitempty"`
+
 	// Total transaction amount sent to the payment gateway.
 	Amount float64 `json:"amount,omitempty"`
 
