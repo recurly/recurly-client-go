@@ -34,8 +34,8 @@ type ClientInterface interface {
 	UpdateAccount(accountId string, body *AccountUpdate, opts ...Option) (*Account, error)
 	UpdateAccountWithContext(ctx context.Context, accountId string, body *AccountUpdate, opts ...Option) (*Account, error)
 
-	DeactivateAccount(accountId string, opts ...Option) (*Account, error)
-	DeactivateAccountWithContext(ctx context.Context, accountId string, opts ...Option) (*Account, error)
+	DeactivateAccount(accountId string, params *DeactivateAccountParams, opts ...Option) (*Account, error)
+	DeactivateAccountWithContext(ctx context.Context, accountId string, params *DeactivateAccountParams, opts ...Option) (*Account, error)
 
 	RedactAccount(accountId string, opts ...Option) (*Account, error)
 	RedactAccountWithContext(ctx context.Context, accountId string, opts ...Option) (*Account, error)
@@ -527,7 +527,7 @@ type ClientInterface interface {
 	GetExternalSubscriptionExternalPaymentPhase(externalSubscriptionId string, externalPaymentPhaseId string, opts ...Option) (*ExternalPaymentPhase, error)
 	GetExternalSubscriptionExternalPaymentPhaseWithContext(ctx context.Context, externalSubscriptionId string, externalPaymentPhaseId string, opts ...Option) (*ExternalPaymentPhase, error)
 
-	ListEntitlements(accountId string, params *ListEntitlementsParams, opts ...Option) (EntitlementsLister, error)
+	ListEntitlements(accountId string, params *ListEntitlementsParams, opts ...Option) (EntitlementLister, error)
 
 	ListAccountExternalSubscriptions(accountId string, params *ListAccountExternalSubscriptionsParams, opts ...Option) (ExternalSubscriptionLister, error)
 
@@ -838,10 +838,26 @@ func (c *Client) updateAccount(ctx context.Context, accountId string, body *Acco
 	return result, err
 }
 
+type DeactivateAccountParams struct {
+
+	// Redact - Permanently removes all personally identifiable information (PII) from this account after it has been deactivated, to fulfill a data subject's right to erasure under GDPR and similar privacy regulations (e.g. CCPA). Cannot be undone.
+	Redact *bool
+}
+
+func (list *DeactivateAccountParams) URLParams() []KeyValue {
+	var options []KeyValue
+
+	if list.Redact != nil {
+		options = append(options, KeyValue{Key: "redact", Value: strconv.FormatBool(*list.Redact)})
+	}
+
+	return options
+}
+
 // DeactivateAccount wraps DeactivateAccountWithContext using the background context
-func (c *Client) DeactivateAccount(accountId string, opts ...Option) (*Account, error) {
+func (c *Client) DeactivateAccount(accountId string, params *DeactivateAccountParams, opts ...Option) (*Account, error) {
 	ctx := context.Background()
-	return c.deactivateAccount(ctx, accountId, opts...)
+	return c.deactivateAccount(ctx, accountId, params, opts...)
 }
 
 // DeactivateAccountWithContext Deactivate an account
@@ -849,18 +865,18 @@ func (c *Client) DeactivateAccount(accountId string, opts ...Option) (*Account, 
 // API Documentation: https://developers.recurly.com/api/v2021-02-25#operation/deactivate_account
 //
 // Returns: An account.
-func (c *Client) DeactivateAccountWithContext(ctx context.Context, accountId string, opts ...Option) (*Account, error) {
-	return c.deactivateAccount(ctx, accountId, opts...)
+func (c *Client) DeactivateAccountWithContext(ctx context.Context, accountId string, params *DeactivateAccountParams, opts ...Option) (*Account, error) {
+	return c.deactivateAccount(ctx, accountId, params, opts...)
 }
 
-func (c *Client) deactivateAccount(ctx context.Context, accountId string, opts ...Option) (*Account, error) {
+func (c *Client) deactivateAccount(ctx context.Context, accountId string, params *DeactivateAccountParams, opts ...Option) (*Account, error) {
 	path, err := c.InterpolatePath("/accounts/{account_id}", accountId)
 	if err != nil {
 		return nil, err
 	}
 	requestOptions := NewRequestOptions(opts...)
 	result := &Account{}
-	err = c.Call(ctx, http.MethodDelete, path, nil, nil, requestOptions, result)
+	err = c.Call(ctx, http.MethodDelete, path, nil, params, requestOptions, result)
 	if err != nil {
 		return nil, err
 	}
@@ -8001,14 +8017,14 @@ func (list *ListEntitlementsParams) URLParams() []KeyValue {
 // API Documentation: https://developers.recurly.com/api/v2021-02-25#operation/list_entitlements
 //
 // Returns: A list of the entitlements granted to an account.
-func (c *Client) ListEntitlements(accountId string, params *ListEntitlementsParams, opts ...Option) (EntitlementsLister, error) {
+func (c *Client) ListEntitlements(accountId string, params *ListEntitlementsParams, opts ...Option) (EntitlementLister, error) {
 	path, err := c.InterpolatePath("/accounts/{account_id}/entitlements", accountId)
 	if err != nil {
 		return nil, err
 	}
 	requestOptions := NewRequestOptions(opts...)
 	path = BuildURL(path, params)
-	return NewEntitlementsList(c, path, requestOptions), nil
+	return NewEntitlementList(c, path, requestOptions), nil
 }
 
 type ListAccountExternalSubscriptionsParams struct {
