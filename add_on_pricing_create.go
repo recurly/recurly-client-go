@@ -14,7 +14,7 @@ type AddOnPricingCreate struct {
 	// Allows up to 2 decimal places. Required unless `unit_amount_decimal` is provided.
 	UnitAmount *float64 `json:"unit_amount,omitempty"`
 
-	// Allows up to 9 decimal places. Only supported when `add_on_type` = `usage`.
+	// Allows up to 9 decimal places.
 	// If `unit_amount_decimal` is provided, `unit_amount` cannot be provided.
 	UnitAmountDecimal *string `json:"unit_amount_decimal,omitempty"`
 
