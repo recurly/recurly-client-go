@@ -91,7 +91,7 @@ type BillingInfoCreate struct {
 	// Bank identifier code for UK based banks. Required for Bacs based billing infos. (Bacs only)
 	SortCode *string `json:"sort_code,omitempty"`
 
-	// The payment method type for a non-credit card based billing info. `bacs`, `becs`, `pix-automatico`, `mercadopago` are the only accepted values.
+	// The payment method type for a non-credit card based billing info. `bacs`, `becs`, `pix-automatico`, `mercadopago`, `upi-autopay` are the only accepted values.
 	Type *string `json:"type,omitempty"`
 
 	// The bank account type. (ACH only)
@@ -122,4 +122,7 @@ type BillingInfoCreate struct {
 
 	// Specifies a URL to which a consumer will be redirected upon completion of a redirect payment flow. Only redirect payment flows operating through Adyen Components will utilize this return URL.
 	ReturnUrl *string `json:"return_url,omitempty"`
+
+	// UPI Autopay authentication method. Specifies how the customer authorizes the enrollment mandate. Defaults to 'vpa' if omitted.
+	AuthenticationMethod *string `json:"authentication_method,omitempty"`
 }

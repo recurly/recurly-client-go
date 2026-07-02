@@ -13,11 +13,14 @@ import (
 type CouponRedemptionRemainingDuration struct {
 	recurlyResponse *ResponseMetadata
 
-	// The coupon's duration type. `temporal` includes an `expires_at` timestamp. `forever` and `single_use` have no additional fields.
+	// The coupon's duration type. `temporal` includes an `expires_at` timestamp. `billing_periods` includes a `redemptions_remaining` count of billing cycles. `forever` and `single_use` have no additional fields.
 	Type string `json:"type,omitempty"`
 
 	// Present when `type` is `temporal`. The datetime after which this redemption will no longer apply.
 	ExpiresAt *time.Time `json:"expires_at,omitempty"`
+
+	// The number of redemption periods remaining for which this coupon will still apply.
+	RedemptionsRemaining int `json:"redemptions_remaining,omitempty"`
 }
 
 // GetResponse returns the ResponseMetadata that generated this resource
