@@ -6,8 +6,28 @@ package recurly
 
 import (
 	"context"
+	"encoding/json"
 	"net/http"
+	"strings"
 )
+
+type tempCardType string
+
+func (t *tempCardType) UnmarshalJSON(data []byte) error {
+	var s string
+	if err := json.Unmarshal(data, &s); err == nil {
+		*t = tempCardType(s)
+		return nil
+	} else if !strings.Contains(err.Error(), "cannot unmarshal object into Go value of type string") {
+		return err
+	}
+	// recurly is stupid
+	/*
+		{"visa":"Visa","sepa":"SEPA","master":"MasterCard","bancontact":"Bancontact","cartes_bancaires":"Cartes Bancaires","discover":"Discover","american_express":"American Express","diners_club":"Diners Club","jcb":"JCB","dankort":"Dankort","maestro":"Maestro","forbrugsforeningen":"Forbrugsforeningen","laser":"Laser","apple_pay":"Apple Pay","adyen_ach":"Adyen ACH","union_pay":"Union Pay","elo":"ELO","hipercard":"Hipercard","bogus":"Test Card","token":"Token","tarjeta_naranja":"Tarjeta Naranja","unknown":"Unknown"}
+	*/
+	*t = "Unknown Object"
+	return nil
+}
 
 type PaymentMethod struct {
 	recurlyResponse *ResponseMetadata
@@ -15,7 +35,7 @@ type PaymentMethod struct {
 	Object string `json:"object,omitempty"`
 
 	// Visa, MasterCard, American Express, Discover, JCB, etc.
-	CardType string `json:"card_type,omitempty"`
+	CardType tempCardType `json:"card_type,omitempty"`
 
 	// Credit card number's first six digits.
 	FirstSix string `json:"first_six,omitempty"`
