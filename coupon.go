@@ -92,8 +92,14 @@ type Coupon struct {
 	// Description of the coupon on the invoice.
 	InvoiceDescription string `json:"invoice_description,omitempty"`
 
-	// The date and time the coupon will expire and can no longer be redeemed. Time is always 11:59:59, the end-of-day Pacific time.
+	// The date and time the coupon will expire and can no longer be redeemed. Time is always 11:59:59, the end-of-day Pacific time. Null for bulk coupons configured with a relative redeem-by interval (see redeem_by_interval_unit and redeem_by_interval_amount).
 	RedeemBy *time.Time `json:"redeem_by,omitempty"`
+
+	// For a bulk coupon with a relative redeem-by, the unit of the interval after which each generated unique code expires. Null unless the coupon uses a relative redeem-by.
+	RedeemByIntervalUnit string `json:"redeem_by_interval_unit,omitempty"`
+
+	// For a bulk coupon with a relative redeem-by, the number of redeem_by_interval_unit intervals after a code's generation that it remains redeemable. Null unless the coupon uses a relative redeem-by.
+	RedeemByIntervalAmount int `json:"redeem_by_interval_amount,omitempty"`
 
 	// Created at
 	CreatedAt *time.Time `json:"created_at,omitempty"`

@@ -63,4 +63,7 @@ type InvoiceCreate struct {
 
 	// Used by Vertex for tax calculations. Possible values are sale, rental, lease.
 	VertexTransactionType *string `json:"vertex_transaction_type,omitempty"`
+
+	// Optionally overrides the suffix component of the composed transaction descriptor. If omitted, the suffix is derived from the subscription's plan name or the invoice description, with a Trial prefix on Visa trial conversions. Subject to gateway availability and payment method support.
+	TransactionDescriptorSuffix *string `json:"transaction_descriptor_suffix,omitempty"`
 }

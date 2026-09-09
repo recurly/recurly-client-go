@@ -18,9 +18,16 @@ type PaymentMethod struct {
 	CardType string `json:"card_type,omitempty"`
 
 	// Credit card number's first six digits.
+	// For a tokenized wallet payment (`apple_pay`, `google_pay`, or
+	// `google_pay_device_pan`), this is the DPAN's (the wallet/device token's own
+	// number) first six digits, not the underlying card's (FPAN).
 	FirstSix string `json:"first_six,omitempty"`
 
-	// Credit card number's last four digits. Will refer to bank account if payment method is ACH.
+	// Credit card number's last four digits. Will refer to bank account if payment
+	// method is ACH.
+	// For a tokenized wallet payment (`apple_pay`, `google_pay`, or
+	// `google_pay_device_pan`), this is the DPAN's last four digits, not the
+	// underlying card's (FPAN).
 	LastFour string `json:"last_four,omitempty"`
 
 	// The IBAN bank account's last two digits.

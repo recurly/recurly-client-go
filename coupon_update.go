@@ -23,6 +23,12 @@ type CouponUpdate struct {
 	// Description of the coupon on the invoice.
 	InvoiceDescription *string `json:"invoice_description,omitempty"`
 
-	// The date and time the coupon will expire and can no longer be redeemed. Time is always 11:59:59, the end-of-day Pacific time.
+	// The date and time the coupon will expire and can no longer be redeemed. Time is always 11:59:59, the end-of-day Pacific time. Mutually exclusive with redeem_by_interval_unit/redeem_by_interval_amount.
 	RedeemByDate *string `json:"redeem_by_date,omitempty"`
+
+	// Unit of the relative redemption window. Must be paired with redeem_by_interval_amount. Mutually exclusive with redeem_by_date. Bulk coupons only.
+	RedeemByIntervalUnit *string `json:"redeem_by_interval_unit,omitempty"`
+
+	// Quantity of redeem_by_interval_unit. Must be paired with redeem_by_interval_unit.
+	RedeemByIntervalAmount *int `json:"redeem_by_interval_amount,omitempty"`
 }

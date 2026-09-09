@@ -42,6 +42,9 @@ type UniqueCouponCode struct {
 
 	// The date and time the coupon was expired early or reached its `max_redemptions`.
 	ExpiredAt *time.Time `json:"expired_at,omitempty"`
+
+	// Absolute expiry computed and stored at code-generation time. Set only for Window (relative redeem-by) coupons. Null for Anytime coupons and Specific Date coupons — those resolve expiry from the parent coupon's redeem_by at redemption time, not at code-generation time.
+	RedeemByDate *time.Time `json:"redeem_by_date,omitempty"`
 }
 
 // GetResponse returns the ResponseMetadata that generated this resource

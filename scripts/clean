@@ -160,6 +160,7 @@ rm -f recovery_invoice_create.go
 rm -f recovery_account_create.go
 rm -f recovery_address.go
 rm -f recovery_billing_info_create.go
+rm -f recovery_payment_method_create.go
 rm -f recovery_transaction_create.go
 rm -f recovery_line_item_create.go
 rm -f plan_create.go
