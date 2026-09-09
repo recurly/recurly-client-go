@@ -133,4 +133,7 @@ type SubscriptionCreate struct {
 
 	// Allows you to control how any resulting charges will be calculated and prorated.
 	ProrationSettings *SubscriptionCreateProrationSettings `json:"proration_settings,omitempty"`
+
+	// Optionally overrides the suffix component of the composed transaction descriptor. If omitted, the suffix is derived from the subscription's plan name or the invoice description, with a Trial prefix on Visa trial conversions. Subject to gateway availability and payment method support.
+	TransactionDescriptorSuffix *string `json:"transaction_descriptor_suffix,omitempty"`
 }

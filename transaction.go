@@ -89,6 +89,9 @@ type Transaction struct {
 
 	PaymentMethod PaymentMethod `json:"payment_method,omitempty"`
 
+	// Array of Payment Gateway References captured at transaction time, each a reference to a third-party gateway object of varying types.
+	PaymentGatewayReferences []PaymentGatewayReferences `json:"payment_gateway_references,omitempty"`
+
 	// IP address provided when the billing information was collected:
 	// - When the customer enters billing information into the Recurly.js or Hosted Payment Pages, Recurly records the IP address.
 	// - When the merchant enters billing information using the API, the merchant may provide an IP address.

@@ -26,4 +26,7 @@ type RecoveryInvoiceCreate struct {
 
 	// Line items to include on the invoice. Currency is specified at the root level and must not be included in individual line items.
 	LineItems *[]RecoveryLineItemCreate `json:"line_items,omitempty"`
+
+	// Optionally overrides the suffix component of the composed transaction descriptor. If omitted, the suffix is derived from the subscription's plan name or the invoice description, with a Trial prefix on Visa trial conversions. Subject to gateway availability and payment method support.
+	TransactionDescriptorSuffix *string `json:"transaction_descriptor_suffix,omitempty"`
 }

@@ -34,6 +34,9 @@ type RecoveryBillingInfoCreate struct {
 	// Array of Payment Gateway References, each a reference to a third-party gateway object of varying types.
 	PaymentGatewayReferences *[]PaymentGatewayReferencesCreate `json:"payment_gateway_references,omitempty"`
 
+	// Merchant-supplied fallback payment method metadata. Recurly's own gateway-token lookup is authoritative and will override any of these fields it can determine itself; these fields are only used to fill gaps when that lookup is unavailable.
+	PaymentMethod *RecoveryPaymentMethodCreate `json:"payment_method,omitempty"`
+
 	// Network transaction ID from the previous customer-in-session subscription signup or billing info storage.
 	// - 10-15 alphanumeric characters for Mastercard
 	// - 14-15 alphanumeric for Visa
@@ -41,6 +44,6 @@ type RecoveryBillingInfoCreate struct {
 	// - 16 alphanumeric characters for Cartes Bancaires, which are processed as Visa or Mastercard
 	NetworkTransactionId *string `json:"network_transaction_id,omitempty"`
 
-	// Transactions from previous collection attempts for this payment method.
+	// Transactions from previous collection attempts for this payment method. Optional, unless this billing_info is the primary payment method and the account's dunning campaign skips Recurly's own retry attempts entirely -- in that case at least one entry is required.
 	Transactions *[]RecoveryTransactionCreate `json:"transactions,omitempty"`
 }
