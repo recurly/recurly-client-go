@@ -1,5 +1,16 @@
 # Changelog
 
+## [v6.2.0](https://github.com/recurly/recurly-client-go/tree/v6.2.0) (2026-09-09)
+
+[Full Changelog](https://github.com/recurly/recurly-client-go/compare/v6.1.0...v6.2.0)
+
+
+**Merged Pull Requests**
+
+- Generated Latest Changes for v2021-02-25 [#273](https://github.com/recurly/recurly-client-go/pull/273) ([recurly-integrations](https://github.com/recurly-integrations))
+
+
+
 ## [v6.1.0](https://github.com/recurly/recurly-client-go/tree/v6.1.0) (2026-07-02)
 
 [Full Changelog](https://github.com/recurly/recurly-client-go/compare/v6.0.0...v6.1.0)
