@@ -506,8 +506,19 @@ type ClientInterface interface {
 
 	ListDunningCampaigns(params *ListDunningCampaignsParams, opts ...Option) (DunningCampaignLister, error)
 
+	CreateDunningCampaign(body *DunningCampaignCreate, opts ...Option) (*DunningCampaign, error)
+	CreateDunningCampaignWithContext(ctx context.Context, body *DunningCampaignCreate, opts ...Option) (*DunningCampaign, error)
+
 	GetDunningCampaign(dunningCampaignId string, opts ...Option) (*DunningCampaign, error)
 	GetDunningCampaignWithContext(ctx context.Context, dunningCampaignId string, opts ...Option) (*DunningCampaign, error)
+
+	UpdateDunningCampaign(dunningCampaignId string, body *DunningCampaignUpdate, opts ...Option) (*DunningCampaign, error)
+	UpdateDunningCampaignWithContext(ctx context.Context, dunningCampaignId string, body *DunningCampaignUpdate, opts ...Option) (*DunningCampaign, error)
+
+	DeactivateDunningCampaign(dunningCampaignId string, opts ...Option) (*DunningCampaign, error)
+	DeactivateDunningCampaignWithContext(ctx context.Context, dunningCampaignId string, opts ...Option) (*DunningCampaign, error)
+
+	ListDunningCampaignEmailTemplates(opts ...Option) (DunningCampaignEmailTemplateLister, error)
 
 	PutDunningCampaignBulkUpdate(dunningCampaignId string, body *DunningCampaignsBulkUpdate, opts ...Option) (*DunningCampaignsBulkUpdateResponse, error)
 	PutDunningCampaignBulkUpdateWithContext(ctx context.Context, dunningCampaignId string, body *DunningCampaignsBulkUpdate, opts ...Option) (*DunningCampaignsBulkUpdateResponse, error)
@@ -7722,6 +7733,35 @@ func (c *Client) ListDunningCampaigns(params *ListDunningCampaignsParams, opts .
 	return NewDunningCampaignList(c, path, requestOptions), nil
 }
 
+// CreateDunningCampaign wraps CreateDunningCampaignWithContext using the background context
+func (c *Client) CreateDunningCampaign(body *DunningCampaignCreate, opts ...Option) (*DunningCampaign, error) {
+	ctx := context.Background()
+	return c.createDunningCampaign(ctx, body, opts...)
+}
+
+// CreateDunningCampaignWithContext Create a new dunning campaign
+//
+// API Documentation: https://developers.recurly.com/api/v2021-02-25#operation/create_dunning_campaign
+//
+// Returns: A new dunning campaign.
+func (c *Client) CreateDunningCampaignWithContext(ctx context.Context, body *DunningCampaignCreate, opts ...Option) (*DunningCampaign, error) {
+	return c.createDunningCampaign(ctx, body, opts...)
+}
+
+func (c *Client) createDunningCampaign(ctx context.Context, body *DunningCampaignCreate, opts ...Option) (*DunningCampaign, error) {
+	path, err := c.InterpolatePath("/dunning_campaigns")
+	if err != nil {
+		return nil, err
+	}
+	requestOptions := NewRequestOptions(opts...)
+	result := &DunningCampaign{}
+	err = c.Call(ctx, http.MethodPost, path, body, nil, requestOptions, result)
+	if err != nil {
+		return nil, err
+	}
+	return result, err
+}
+
 // GetDunningCampaign wraps GetDunningCampaignWithContext using the background context
 func (c *Client) GetDunningCampaign(dunningCampaignId string, opts ...Option) (*DunningCampaign, error) {
 	ctx := context.Background()
@@ -7749,6 +7789,78 @@ func (c *Client) getDunningCampaign(ctx context.Context, dunningCampaignId strin
 		return nil, err
 	}
 	return result, err
+}
+
+// UpdateDunningCampaign wraps UpdateDunningCampaignWithContext using the background context
+func (c *Client) UpdateDunningCampaign(dunningCampaignId string, body *DunningCampaignUpdate, opts ...Option) (*DunningCampaign, error) {
+	ctx := context.Background()
+	return c.updateDunningCampaign(ctx, dunningCampaignId, body, opts...)
+}
+
+// UpdateDunningCampaignWithContext Update a dunning campaign
+//
+// API Documentation: https://developers.recurly.com/api/v2021-02-25#operation/update_dunning_campaign
+//
+// Returns: The updated dunning campaign.
+func (c *Client) UpdateDunningCampaignWithContext(ctx context.Context, dunningCampaignId string, body *DunningCampaignUpdate, opts ...Option) (*DunningCampaign, error) {
+	return c.updateDunningCampaign(ctx, dunningCampaignId, body, opts...)
+}
+
+func (c *Client) updateDunningCampaign(ctx context.Context, dunningCampaignId string, body *DunningCampaignUpdate, opts ...Option) (*DunningCampaign, error) {
+	path, err := c.InterpolatePath("/dunning_campaigns/{dunning_campaign_id}", dunningCampaignId)
+	if err != nil {
+		return nil, err
+	}
+	requestOptions := NewRequestOptions(opts...)
+	result := &DunningCampaign{}
+	err = c.Call(ctx, http.MethodPut, path, body, nil, requestOptions, result)
+	if err != nil {
+		return nil, err
+	}
+	return result, err
+}
+
+// DeactivateDunningCampaign wraps DeactivateDunningCampaignWithContext using the background context
+func (c *Client) DeactivateDunningCampaign(dunningCampaignId string, opts ...Option) (*DunningCampaign, error) {
+	ctx := context.Background()
+	return c.deactivateDunningCampaign(ctx, dunningCampaignId, opts...)
+}
+
+// DeactivateDunningCampaignWithContext Deactivate a dunning campaign
+//
+// API Documentation: https://developers.recurly.com/api/v2021-02-25#operation/deactivate_dunning_campaign
+//
+// Returns: The deactivated dunning campaign.
+func (c *Client) DeactivateDunningCampaignWithContext(ctx context.Context, dunningCampaignId string, opts ...Option) (*DunningCampaign, error) {
+	return c.deactivateDunningCampaign(ctx, dunningCampaignId, opts...)
+}
+
+func (c *Client) deactivateDunningCampaign(ctx context.Context, dunningCampaignId string, opts ...Option) (*DunningCampaign, error) {
+	path, err := c.InterpolatePath("/dunning_campaigns/{dunning_campaign_id}", dunningCampaignId)
+	if err != nil {
+		return nil, err
+	}
+	requestOptions := NewRequestOptions(opts...)
+	result := &DunningCampaign{}
+	err = c.Call(ctx, http.MethodDelete, path, nil, nil, requestOptions, result)
+	if err != nil {
+		return nil, err
+	}
+	return result, err
+}
+
+// ListDunningCampaignEmailTemplates List the custom email templates assignable to a dunning campaign interval
+//
+// API Documentation: https://developers.recurly.com/api/v2021-02-25#operation/list_dunning_campaign_email_templates
+//
+// Returns: A list of the site's assignable custom email templates.
+func (c *Client) ListDunningCampaignEmailTemplates(opts ...Option) (DunningCampaignEmailTemplateLister, error) {
+	path, err := c.InterpolatePath("/dunning_campaigns/email_templates")
+	if err != nil {
+		return nil, err
+	}
+	requestOptions := NewRequestOptions(opts...)
+	return NewDunningCampaignEmailTemplateList(c, path, requestOptions), nil
 }
 
 // PutDunningCampaignBulkUpdate wraps PutDunningCampaignBulkUpdateWithContext using the background context
