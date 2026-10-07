@@ -9,57 +9,57 @@ import (
 	"net/http"
 )
 
-type DunningInterval struct {
+type DunningCampaignEmailTemplate struct {
 	recurlyResponse *ResponseMetadata
 
-	// Number of days before sending the next email.
-	Days int `json:"days,omitempty"`
+	// The id to assign under `intervals[].email_template_id`.
+	Id string `json:"id,omitempty"`
 
-	// Email template being used.
-	EmailTemplate string `json:"email_template,omitempty"`
+	// Template name.
+	Name string `json:"name,omitempty"`
 
-	// The id of the custom email template assigned to this interval, from `GET /dunning_campaigns/email_templates`. `null` means the system default template for this interval. Accepted on write; round-tripped on read.
-	EmailTemplateId string `json:"email_template_id,omitempty"`
+	// The root template this custom template replaces, e.g. `payment_declined`, `invoice_past_due`, `post_trial_payment_declined`, `subscription_canceled_nonpayment`.
+	Type string `json:"type,omitempty"`
 }
 
 // GetResponse returns the ResponseMetadata that generated this resource
-func (resource *DunningInterval) GetResponse() *ResponseMetadata {
+func (resource *DunningCampaignEmailTemplate) GetResponse() *ResponseMetadata {
 	return resource.recurlyResponse
 }
 
 // setResponse sets the ResponseMetadata that generated this resource
-func (resource *DunningInterval) setResponse(res *ResponseMetadata) {
+func (resource *DunningCampaignEmailTemplate) setResponse(res *ResponseMetadata) {
 	resource.recurlyResponse = res
 }
 
 // internal struct for deserializing accounts
-type dunningIntervalList struct {
+type dunningCampaignEmailTemplateList struct {
 	ListMetadata
-	Data            []DunningInterval `json:"data"`
+	Data            []DunningCampaignEmailTemplate `json:"data"`
 	recurlyResponse *ResponseMetadata
 }
 
 // GetResponse returns the ResponseMetadata that generated this resource
-func (resource *dunningIntervalList) GetResponse() *ResponseMetadata {
+func (resource *dunningCampaignEmailTemplateList) GetResponse() *ResponseMetadata {
 	return resource.recurlyResponse
 }
 
 // setResponse sets the ResponseMetadata that generated this resource
-func (resource *dunningIntervalList) setResponse(res *ResponseMetadata) {
+func (resource *dunningCampaignEmailTemplateList) setResponse(res *ResponseMetadata) {
 	resource.recurlyResponse = res
 }
 
-// DunningIntervalList allows you to paginate DunningInterval objects
-type DunningIntervalList struct {
+// DunningCampaignEmailTemplateList allows you to paginate DunningCampaignEmailTemplate objects
+type DunningCampaignEmailTemplateList struct {
 	client         HTTPCaller
 	requestOptions *RequestOptions
 	nextPagePath   string
 	hasMore        bool
-	data           []DunningInterval
+	data           []DunningCampaignEmailTemplate
 }
 
-func NewDunningIntervalList(client HTTPCaller, nextPagePath string, requestOptions *RequestOptions) *DunningIntervalList {
-	return &DunningIntervalList{
+func NewDunningCampaignEmailTemplateList(client HTTPCaller, nextPagePath string, requestOptions *RequestOptions) *DunningCampaignEmailTemplateList {
+	return &DunningCampaignEmailTemplateList{
 		client:         client,
 		requestOptions: requestOptions,
 		nextPagePath:   nextPagePath,
@@ -67,31 +67,31 @@ func NewDunningIntervalList(client HTTPCaller, nextPagePath string, requestOptio
 	}
 }
 
-type DunningIntervalLister interface {
+type DunningCampaignEmailTemplateLister interface {
 	Fetch() error
 	FetchWithContext(ctx context.Context) error
 	Count() (*int64, error)
 	CountWithContext(ctx context.Context) (*int64, error)
-	Data() []DunningInterval
+	Data() []DunningCampaignEmailTemplate
 	HasMore() bool
 	Next() string
 }
 
-func (list *DunningIntervalList) HasMore() bool {
+func (list *DunningCampaignEmailTemplateList) HasMore() bool {
 	return list.hasMore
 }
 
-func (list *DunningIntervalList) Next() string {
+func (list *DunningCampaignEmailTemplateList) Next() string {
 	return list.nextPagePath
 }
 
-func (list *DunningIntervalList) Data() []DunningInterval {
+func (list *DunningCampaignEmailTemplateList) Data() []DunningCampaignEmailTemplate {
 	return list.data
 }
 
 // Fetch fetches the next page of data into the `Data` property
-func (list *DunningIntervalList) FetchWithContext(ctx context.Context) error {
-	resources := &dunningIntervalList{}
+func (list *DunningCampaignEmailTemplateList) FetchWithContext(ctx context.Context) error {
+	resources := &dunningCampaignEmailTemplateList{}
 	err := list.client.Call(ctx, http.MethodGet, list.nextPagePath, nil, nil, list.requestOptions, resources)
 	if err != nil {
 		return err
@@ -104,13 +104,13 @@ func (list *DunningIntervalList) FetchWithContext(ctx context.Context) error {
 }
 
 // Fetch fetches the next page of data into the `Data` property
-func (list *DunningIntervalList) Fetch() error {
+func (list *DunningCampaignEmailTemplateList) Fetch() error {
 	return list.FetchWithContext(context.Background())
 }
 
 // Count returns the count of items on the server that match this pager
-func (list *DunningIntervalList) CountWithContext(ctx context.Context) (*int64, error) {
-	resources := &dunningIntervalList{}
+func (list *DunningCampaignEmailTemplateList) CountWithContext(ctx context.Context) (*int64, error) {
+	resources := &dunningCampaignEmailTemplateList{}
 	err := list.client.Call(ctx, http.MethodHead, list.nextPagePath, nil, nil, list.requestOptions, resources)
 	if err != nil {
 		return nil, err
@@ -120,6 +120,6 @@ func (list *DunningIntervalList) CountWithContext(ctx context.Context) (*int64, 
 }
 
 // Count returns the count of items on the server that match this pager
-func (list *DunningIntervalList) Count() (*int64, error) {
+func (list *DunningCampaignEmailTemplateList) Count() (*int64, error) {
 	return list.CountWithContext(context.Background())
 }
