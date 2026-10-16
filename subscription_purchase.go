@@ -67,6 +67,15 @@ type SubscriptionPurchase struct {
 	// are applied.
 	CreditApplicationPolicy *CreditApplicationPolicyCreate `json:"credit_application_policy,omitempty"`
 
+	// Specify custom notes to add or override Terms and Conditions. Custom notes will stay with a subscription on all renewals.
+	TermsAndConditions *string `json:"terms_and_conditions,omitempty"`
+
+	// Specify custom notes to add or override Customer Notes. Custom notes will stay with a subscription on all renewals.
+	CustomerNotes *string `json:"customer_notes,omitempty"`
+
+	// Specify custom notes to add or override VAT reverse charge notes. Custom notes will stay with a subscription on all renewals.
+	VatReverseChargeNotes *string `json:"vat_reverse_charge_notes,omitempty"`
+
 	// Optional field to be used only when needing to bypass the 60 second limit on creating subscriptions. Should only be used when creating subscriptions in bulk from the API.
 	Bulk *bool `json:"bulk,omitempty"`
 

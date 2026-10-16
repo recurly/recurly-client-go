@@ -39,6 +39,7 @@ rm -f credit_payment.go
 rm -f external_invoice.go
 rm -f external_subscription.go
 rm -f external_product_reference_mini.go
+rm -f external_product_mini.go
 rm -f external_payment_phase.go
 rm -f external_charge.go
 rm -f invoice.go
