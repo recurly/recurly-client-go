@@ -37,6 +37,9 @@ type SubscriptionUpdate struct {
 	// Specify custom notes to add or override Customer Notes. Custom notes will stay with a subscription on all renewals.
 	CustomerNotes *string `json:"customer_notes,omitempty"`
 
+	// Specify custom notes to add or override VAT reverse charge notes. Custom notes will stay with a subscription on all renewals.
+	VatReverseChargeNotes *string `json:"vat_reverse_charge_notes,omitempty"`
+
 	// For manual invoicing, this identifies the PO number associated with the subscription.
 	PoNumber *string `json:"po_number,omitempty"`
 

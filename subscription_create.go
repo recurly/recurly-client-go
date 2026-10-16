@@ -90,6 +90,9 @@ type SubscriptionCreate struct {
 	// If there are pending credits on the account that will be invoiced during the subscription creation, these will be used as the Customer Notes on the credit invoice.
 	CreditCustomerNotes *string `json:"credit_customer_notes,omitempty"`
 
+	// This will default to the VAT reverse charge notes text specified on the Invoice Settings. Specify custom notes to add or override VAT reverse charge notes. Custom notes will stay with a subscription on all renewals.
+	VatReverseChargeNotes *string `json:"vat_reverse_charge_notes,omitempty"`
+
 	// For manual invoicing, this identifies the PO number associated with the subscription.
 	PoNumber *string `json:"po_number,omitempty"`
 

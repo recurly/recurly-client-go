@@ -25,6 +25,12 @@ type ExternalSubscription struct {
 	// External Product Reference details
 	ExternalProductReference ExternalProductReferenceMini `json:"external_product_reference,omitempty"`
 
+	// Just the important parts.
+	ExternalProduct ExternalProductMini `json:"external_product,omitempty"`
+
+	// Just the important parts.
+	Plan PlanMini `json:"plan,omitempty"`
+
 	// The phases of the external subscription payment lifecycle.
 	ExternalPaymentPhases []ExternalPaymentPhase `json:"external_payment_phases,omitempty"`
 
