@@ -11,6 +11,6 @@ type PaymentGatewayReferencesCreate struct {
 	// Reference value used when the external token was created. If a Stripe gateway or Ebanx gateway is used, this value will need to be accompanied by its reference_type.
 	Token *string `json:"token,omitempty"`
 
-	// The type of reference token. Required if token is passed in for Stripe Gateway or Ebanx UPI.
+	// The type of reference token. The value can be omitted for gateways that only support one type of token.
 	ReferenceType *string `json:"reference_type,omitempty"`
 }
