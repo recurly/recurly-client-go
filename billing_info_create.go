@@ -49,6 +49,9 @@ type BillingInfoCreate struct {
 	// An identifier for a specific payment gateway.
 	GatewayCode *string `json:"gateway_code,omitempty"`
 
+	// Identifies a backup gateway. Applies only when `gateway_code` is provided and that gateway is in failover. Providing this code overrides gateway exclusion configurations and restricts the backup to this gateway.
+	BackupGatewayCode *string `json:"backup_gateway_code,omitempty"`
+
 	// Array of Payment Gateway References, each a reference to a third-party gateway object of varying types.
 	PaymentGatewayReferences *[]PaymentGatewayReferencesCreate `json:"payment_gateway_references,omitempty"`
 
@@ -125,4 +128,7 @@ type BillingInfoCreate struct {
 
 	// UPI Autopay authentication method. Specifies how the customer authorizes the enrollment mandate. Defaults to 'vpa' if omitted.
 	AuthenticationMethod *string `json:"authentication_method,omitempty"`
+
+	// Whether to store this billing info onto its associated account. Defaults to `true`.
+	StoreBillingInfo *bool `json:"store_billing_info,omitempty"`
 }

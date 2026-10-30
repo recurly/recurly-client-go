@@ -46,6 +46,9 @@ type SubscriptionChange struct {
 	// Returns `true` if the subscription change is activated.
 	Activated bool `json:"activated,omitempty"`
 
+	// The price segment ID, e.g. `e28zov4fw0v2`.
+	PriceSegmentId string `json:"price_segment_id,omitempty"`
+
 	// Revenue schedule type
 	RevenueScheduleType string `json:"revenue_schedule_type,omitempty"`
 
