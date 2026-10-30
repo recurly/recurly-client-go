@@ -1,10 +1,24 @@
 # Changelog
 
+## [v6.6.0](https://github.com/recurly/recurly-client-go/tree/v6.6.0) (2026-10-30)
+
+[Full Changelog](https://github.com/recurly/recurly-client-go/compare/v6.5.0...v6.6.0)
+
+
+**Merged Pull Requests**
+
+- Generated Latest Changes for v2021-02-25 [#277](https://github.com/recurly/recurly-client-go/pull/277) ([recurly-integrations](https://github.com/recurly-integrations))
+
+
+
 ## [v6.5.0](https://github.com/recurly/recurly-client-go/tree/v6.5.0) (2026-10-22)
 
 [Full Changelog](https://github.com/recurly/recurly-client-go/compare/v6.4.0...v6.5.0)
 
 
+**Merged Pull Requests**
+
+- Generated Latest Changes for v2021-02-25 [#276](https://github.com/recurly/recurly-client-go/pull/276) ([recurly-integrations](https://github.com/recurly-integrations))
 
 
 
@@ -13,6 +27,9 @@
 [Full Changelog](https://github.com/recurly/recurly-client-go/compare/v6.3.0...v6.4.0)
 
 
+**Merged Pull Requests**
+
+- Generated Latest Changes for v2021-02-25 [#275](https://github.com/recurly/recurly-client-go/pull/275) ([recurly-integrations](https://github.com/recurly-integrations))
 
 
 
@@ -21,6 +38,9 @@
 [Full Changelog](https://github.com/recurly/recurly-client-go/compare/v6.2.0...v6.3.0)
 
 
+**Merged Pull Requests**
+
+- Generated Latest Changes for v2021-02-25 [#274](https://github.com/recurly/recurly-client-go/pull/274) ([recurly-integrations](https://github.com/recurly-integrations))
 
 
 
@@ -29,6 +49,9 @@
 [Full Changelog](https://github.com/recurly/recurly-client-go/compare/v6.1.0...v6.2.0)
 
 
+**Merged Pull Requests**
+
+- Generated Latest Changes for v2021-02-25 [#273](https://github.com/recurly/recurly-client-go/pull/273) ([recurly-integrations](https://github.com/recurly-integrations))
 
 
 
@@ -37,11 +60,20 @@
 [Full Changelog](https://github.com/recurly/recurly-client-go/compare/v6.0.0...v6.1.0)
 
 
+**Merged Pull Requests**
+
+- Generated Latest Changes for v2021-02-25 [#271](https://github.com/recurly/recurly-client-go/pull/271) ([recurly-integrations](https://github.com/recurly-integrations))
 
 
 
 ## [v6.0.0](https://github.com/recurly/recurly-client-go/tree/v6.0.0) (2026-06-18)
 
 
+# Major Version Release
+
+The 6.x major version of the client pairs with the `v2021-02-25` API version. While there are no breaking changes in the API, the client code does include breaking changes.
+
+## Breaking Changes in the Client
+- Adds new `params *DeactivateAccountParams` parameter to the `DeactivateAccount` function. Any existing call sites will need to be updated.
 
 
